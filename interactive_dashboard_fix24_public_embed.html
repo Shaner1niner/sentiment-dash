@@ -1,0 +1,1090 @@
+<!doctype html>
+<html><head><meta charset="utf-8"/><title>SETA Market Dashboard — Fix 24 Embed-Ready</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+body{margin:0;background:#07090b;color:#e7eef3;font-family:Arial,Helvetica,sans-serif;}
+.embedShell{max-width:1440px;margin:0 auto;}
+.modeBadge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;border:1px solid #2a3138;background:#0f1114;font-size:11px;color:#dfe8ee;margin-top:6px;}
+.member-only{}
+.public-hidden{display:none!important;}
+.summaryLead{display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 0 16px;}
+.summaryCard{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;border:1px solid #2a3138;background:#0f1114;font-size:12px;color:#dfe8ee;}
+.header{padding:16px 16px 8px 16px;border-bottom:1px solid #1d2329;}
+.h1{font-size:20px;font-weight:700;margin:0 0 4px 0;}
+.sub{font-size:12px;color:#c7d1d8;}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:10px 16px 8px 16px;border-bottom:1px solid #1d2329;}
+.control{display:flex;flex-direction:column;min-width:150px;}
+.control label{font-size:11px;color:#d4dde4;margin-bottom:4px;}
+.control select{background:#0f1114;border:1px solid #343b42;color:white;border-radius:6px;padding:8px 10px;font-size:14px;}
+.meta{display:flex;justify-content:space-between;align-items:center;padding:8px 16px 0 16px;gap:8px;}
+.assetTitle{font-size:14px;font-weight:700;}
+.helper{font-size:12px;color:#8be38b;}
+.regimeBar{display:flex;flex-wrap:wrap;gap:8px;padding:8px 16px 4px 16px;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #2a3138;background:#0f1114;font-size:12px;color:#dfe8ee;}
+.badge b{font-weight:700;}
+.badge-bull{border-color:rgba(70,220,120,0.45);box-shadow:0 0 0 1px rgba(70,220,120,0.07) inset;}
+.badge-bear{border-color:rgba(255,110,110,0.45);box-shadow:0 0 0 1px rgba(255,110,110,0.07) inset;}
+.badge-flat{border-color:rgba(214,191,94,0.45);box-shadow:0 0 0 1px rgba(214,191,94,0.07) inset;}
+.badge-neutral{border-color:#2a3138;}
+.badge-attn{border-color:rgba(92,164,255,0.45);box-shadow:0 0 0 1px rgba(92,164,255,0.08) inset;}
+#chart{height:980px;width:100%;}
+</style></head><body>
+<div class="embedShell">
+<div class="header"><div class="h1">SETA Market Dashboard — Fix 24 Embed-Ready</div>
+<div class="sub">Embed-ready replacement shell for the current Tableau dashboard. Preserves Combined Overlap as the primary state model, keeps Engagement as a secondary context layer, and supports public/member modes from one codebase.</div><div class="modeBadge" id="modeBadge">Public Mode</div></div>
+<div class="summaryLead" id="summaryLead"></div>
+<div class="controls">
+  <div class="control"><label>ASSET</label><select id="asset"></select></div>
+  <div class="control"><label>FREQUENCY</label><select id="freq"><option value="D">Daily</option><option value="W">Weekly</option></select></div>
+  <div class="control"><label>DISPLAY RANGE</label><select id="range"><option value="1M">1M</option><option value="3M" selected>3M</option><option value="6M">6M</option><option value="YTD">YTD</option><option value="1Y">1Y</option><option value="All">All</option></select></div>
+  <div class="control"><label>PRICE DISPLAY</label><select id="priceDisplay"><option value="candles">Candles</option><option value="line">Line</option></select></div>
+  <div class="control member-only"><label>SCALE MODE</label><select id="scaleMode"><option value="price_overlays" selected>Price + Price Overlays</option><option value="price_only">Price Only</option><option value="all_visible">All Visible Traces</option></select></div>
+  <div class="control member-only"><label>RIBBON</label><select id="ribbon"><option value="none">None</option><option value="price">Price</option><option value="sentiment">Sentiment</option><option value="both">Both</option></select></div>
+  <div class="control member-only"><label>SENTIMENT RIBBON</label><select id="sentRibbon"><option value="curated">Curated</option><option value="full">Full</option></select></div>
+  <div class="control member-only"><label>REGIME VISUALS</label><select id="regimeLayer"><option value="on" selected>On</option><option value="off">Off</option></select></div>
+  <div class="control"><label>ENGAGEMENT</label><select id="engagement"><option value="off">Off</option><option value="context" selected>Context</option><option value="overlay">Overlay</option></select></div>
+  <div class="control"><label>BOLLINGER</label><select id="bollinger"><option value="none">None</option><option value="price">Price</option><option value="sentiment">Sentiment</option><option value="overlap">Combined Overlap</option><option value="both">Both</option></select></div>
+  <div class="control"><label>OSCILLATOR OVERLAY</label><select id="osc"><option value="price">Price Only</option><option value="both" selected>Price + Sentiment</option></select></div>
+</div>
+<div class="meta"><div class="assetTitle" id="assetTitle">BTC · Daily</div><div class="helper" id="helperText">Fix 23: combined overlap stays primary; engagement now uses a two-tier overlay. Soft participation strips mark meaningful attention/conviction days, while stronger event markers remain reserved for elevated-regime or spike conditions.</div></div>
+<div class="regimeBar" id="regimeBar"></div>
+<div id="chart"></div>
+<script>
+/*
+  v26 Recovery Baseline
+  --------------------
+  Provenance:
+  - Recovered from the saved v25 checkpoint after reconstructing the version path
+    through v20, v21/v22, and v23.
+  - Intentional choice: preserve the last coherent UI/control structure and transform
+    behavior before deeper indicator-alignment work.
+
+  What this file is:
+  - A stable structural baseline for continued v26 recovery.
+
+  What this file is not yet:
+  - A TradingView-aligned RSI/Stochastic RSI validation build.
+  - A fully confirmed recreation of every unsaved v26 delta.
+*/
+const DASH_MODE = "public";
+const DATA_URL = new URLSearchParams(location.search).get('data') || 'fix24_chart_store.json';
+let STORE = null;
+const PUBLIC_ASSETS = ['BTC','ETH','NVDA'];
+const MEMBER_ASSETS = ['BTC','COIN','ETH','NFLX','NVDA'];
+function currentMode(){ return DASH_MODE || new URLSearchParams(location.search).get('mode') || 'public'; }
+function assetUniverse(){ return currentMode()==='member' ? MEMBER_ASSETS.slice() : PUBLIC_ASSETS.slice(); }
+function publicDefaults(){
+  return {freq:'D',range:'3M',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'on',engagement:'context',bollinger:'overlap',osc:'both'};
+}
+function memberDefaults(){
+  return {freq:'D',range:'3M',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'on',engagement:'context',bollinger:'overlap',osc:'both'};
+}
+function setSelectValue(id,val){ const el=document.getElementById(id); if(el && [...el.options].some(o=>o.value===val)) el.value=val; }
+function populateAssetOptions(){
+  const sel=document.getElementById('asset');
+  const allowed = assetUniverse().filter(a => STORE && STORE.D && STORE.D[a]);
+  sel.innerHTML = allowed.map(a=>`<option value="${a}">${a}</option>`).join('');
+  const qAsset = new URLSearchParams(location.search).get('asset');
+  const initial = (qAsset && allowed.includes(qAsset)) ? qAsset : allowed[0];
+  if(initial) sel.value = initial;
+}
+function applyModeUi(){
+  const mode=currentMode();
+  document.getElementById('modeBadge').textContent = mode==='member' ? 'Member Mode' : 'Public Mode';
+  document.querySelectorAll('.member-only').forEach(el=>{ el.style.display = mode==='member' ? '' : 'none'; });
+  document.querySelector('.h1').textContent = mode==='member' ? 'SETA Research Dashboard — Fix 24 Embed-Ready' : 'SETA Market Dashboard — Fix 24 Embed-Ready';
+  document.querySelector('.sub').textContent = mode==='member'
+    ? 'Member mode preserves the richer analytical control surface while keeping Combined Overlap primary, Engagement contextual, and timing layers optional.'
+    : 'Public mode replaces the current Tableau embed with a cleaner, website-ready shell: Combined Overlap remains primary, Engagement stays contextual, and traditional indicators remain legible.';
+}
+function applyModeDefaults(){
+  const d = currentMode()==='member' ? memberDefaults() : publicDefaults();
+  Object.entries(d).forEach(([k,v])=>setSelectValue(k,v));
+}
+async function loadStore(){
+  const res = await fetch(DATA_URL, {cache:'no-store'});
+  if(!res.ok) throw new Error(`Failed to load data from ${DATA_URL}: ${res.status}`);
+  STORE = await res.json();
+}
+const COLORS = {
+  bg:'#07090b', panel:'#0b0d10', grid:'rgba(255,255,255,0.12)', text:'#e7eef3', price:'#d8d8d8',
+  ma7:'#ffffff', ma21:'#cfe9ff', ma50:'#878787', ma100:'#65a7e8', ma200:'#9a9a9a',
+  priceBand:'rgba(125,185,255,0.95)', priceFill:'rgba(85,135,215,0.10)',
+  sentCore:'#00ff00', sentInner:'rgba(0,255,0,0.16)', sentOuter:'rgba(0,255,0,0.07)', sentFill:'rgba(0,255,0,0.05)',
+  sent7:'#00ff00', sent21:'#38ff63', sent50:'#5cff8b', sent100:'#80ffb2', sent200:'#a6ffd6',
+  regimeBull:'#47dd7b', regimeBear:'#ff7474', regimeFlat:'#d6bf5e',
+  regimeBullFill:'rgba(71,221,123,0.07)', regimeBearFill:'rgba(255,116,116,0.07)', regimeFlatFill:'rgba(214,191,94,0.06)',
+  transitionBull:'rgba(71,221,123,0.95)', transitionBear:'rgba(255,116,116,0.95)', transitionFlat:'rgba(214,191,94,0.95)',
+  overlapBand:'rgba(255,224,120,0.95)', overlapFill:'rgba(255,224,120,0.12)', rsi:'#e8e8e8', stoch:'#46b9ff', stochD:'#d99c2c',
+  histUp:'#2dfc2d', histUpSoft:'#b7d0b7', histDown:'#ff6666', histDownSoft:'#d6a7a7'
+};
+function hexToRgba(hex, alpha){
+  const h=String(hex||'').replace('#','');
+  if(h.length!==6) return `rgba(0,255,0,${alpha})`;
+  const r=parseInt(h.slice(0,2),16), g=parseInt(h.slice(2,4),16), b=parseInt(h.slice(4,6),16);
+  return `rgba(${r},${g},${b},${alpha})`;
+}
+function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
+function mixHex(hexA, hexB, t){
+  const a=String(hexA||'').replace('#',''), b=String(hexB||'').replace('#','');
+  if(a.length!==6 || b.length!==6) return hexA || hexB || '#ffffff';
+  const tt=clamp(Number(t)||0,0,1);
+  const ch=(s,i)=>parseInt(s.slice(i,i+2),16);
+  const toHex=n=>Math.round(n).toString(16).padStart(2,'0');
+  const r=ch(a,0)*(1-tt)+ch(b,0)*tt, g=ch(a,2)*(1-tt)+ch(b,2)*tt, b2=ch(a,4)*(1-tt)+ch(b,4)*tt;
+  return `#${toHex(r)}${toHex(g)}${toHex(b2)}`;
+}
+function regimeBaseColor(regime){
+  if(regime==='Bullish') return COLORS.regimeBull;
+  if(regime==='Bearish') return COLORS.regimeBear;
+  return COLORS.regimeFlat;
+}
+function regimeFillColor(regime){
+  if(regime==='Bullish') return COLORS.regimeBullFill;
+  if(regime==='Bearish') return COLORS.regimeBearFill;
+  return COLORS.regimeFlatFill;
+}
+function regimePalette(regime, period){
+  const base=regimeBaseColor(regime);
+  const lighten=({7:0.00,21:0.10,50:0.20,100:0.30,200:0.40})[period] ?? 0.18;
+  const core=mixHex(base,'#ffffff',lighten);
+  return {core, inner:hexToRgba(core,0.16), outer:hexToRgba(core,0.06)};
+}
+function sentimentPalette(period){
+  const core = ({7:COLORS.sent7,21:COLORS.sent21,50:COLORS.sent50,100:COLORS.sent100,200:COLORS.sent200})[period] || COLORS.sentCore;
+  return {core, inner:hexToRgba(core,0.15), outer:hexToRgba(core,0.06)};
+}
+function num(v){ const n=(v===null||v===undefined||v==='')?null:Number(v); return (n===null || Number.isFinite(n)) ? n : null; }
+function cloneRows(rows){ return rows.map(r=>{ const x={...r}; x.dateObj=new Date(r.date+'T00:00:00'); return x; }); }
+function detectCalendar(rows){ return (rows[0]&&rows[0].asset_calendar)||'trading_sessions'; }
+function visibleRows(rows,preset){
+  if(!rows.length) return [];
+  const end=rows[rows.length-1].dateObj;
+  let start=null;
+  if(preset==='All') return rows.slice();
+  if(preset==='YTD') start=new Date(end.getFullYear(),0,1);
+  else {
+    start=new Date(end);
+    const map={'1M':31,'3M':92,'6M':183,'1Y':366};
+    start.setDate(start.getDate()-map[preset]);
+  }
+  return rows.filter(r=>r.dateObj>=start&&r.dateObj<=end);
+}
+function fitRowsForSentiment(rows, visRows, freq){
+  if(!rows.length||!visRows.length) return rows.slice();
+  const visStart=visRows[0].dateObj, visEnd=visRows[visRows.length-1].dateObj;
+  const start=new Date(visStart);
+  if(freq==='W') start.setDate(start.getDate()-730);
+  else start.setDate(start.getDate()-260);
+  const fit=rows.filter(r=>r.dateObj>=start && r.dateObj<=visEnd);
+  return fit.length ? fit : rows.slice();
+}
+function futurePadDays(calendar,freq){ if(freq==='W') return 14; return calendar==='continuous'?3:5; }
+function nextRangeEnd(visEnd,calendar,freq){ const d=new Date(visEnd); d.setDate(d.getDate()+futurePadDays(calendar,freq)); return d; }
+function traceLine(x,y,name,color,width,dash='solid',axis='y',showlegend=true,hovertemplate=null,opacity=0.95,connectgaps=true){
+  return {type:'scatter',mode:'lines',x,y,name,xaxis:axis==='y'?'x':axis==='y2'?'x2':axis==='y3'?'x3':'x4',yaxis:axis,line:{color,width,dash,shape:'linear'},connectgaps,opacity,showlegend,hovertemplate};
+}
+function sentimentBundle(x,y,name,axis,showlegend=true,hovertemplate=null,width=1.35,palette=null,connectgaps=true){
+  const p=palette||{core:COLORS.sentCore, inner:COLORS.sentInner, outer:COLORS.sentOuter};
+  return [
+    traceLine(x,y,name+' glow 1',p.outer,width+4.0,'solid',axis,false,null,1.0,connectgaps),
+    traceLine(x,y,name+' glow 2',p.inner,width+1.8,'solid',axis,false,null,1.0,connectgaps),
+    traceLine(x,y,name,p.core,width,'solid',axis,showlegend,hovertemplate,0.92,connectgaps)
+  ];
+}
+function addFilledBand(data,x,upper,lower,lineColor,fillColor,namePrefix,axis){
+  data.push(traceLine(x,lower,namePrefix+' Lower',lineColor,1.0,'solid',axis,false,'%{x|%b %d, %Y}<br>'+namePrefix+' Lower=%{y:.2f}<extra></extra>',0.9));
+  data.push({type:'scatter',mode:'lines',x:x,y:upper,name:namePrefix+' Upper',xaxis:axis==='y'?'x':axis==='y2'?'x2':axis==='y3'?'x3':'x4',yaxis:axis,line:{color:lineColor,width:1.0,dash:'solid',shape:'linear'},connectgaps:true,showlegend:true,hovertemplate:'%{x|%b %d, %Y}<br>'+namePrefix+' Upper=%{y:.2f}<extra></extra>',fill:'tonexty',fillcolor:fillColor,opacity:0.95});
+}
+function finiteVals(arr){ return arr.map(num).filter(v=>v!==null && Number.isFinite(v)); }
+function mean(arr){ return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : null; }
+function quantile(arr,q){
+  if(!arr.length) return null;
+  const xs=arr.slice().sort((a,b)=>a-b);
+  const pos=(xs.length-1)*q, base=Math.floor(pos), rest=pos-base;
+  if(xs[base+1]!==undefined) return xs[base] + rest*(xs[base+1]-xs[base]);
+  return xs[base];
+}
+function stddev(arr){
+  if(arr.length<2) return null;
+  const m=mean(arr);
+  const v=arr.reduce((a,b)=>a+(b-m)*(b-m),0)/(arr.length-1);
+  return Number.isFinite(v) ? Math.sqrt(v) : null;
+}
+function rangeFinite(arr){
+  const xs=finiteVals(arr);
+  if(!xs.length) return null;
+  return Math.max(...xs) - Math.min(...xs);
+}
+function rollingStd(series, window=20){
+  const out=new Array(series.length).fill(null);
+  for(let i=0;i<series.length;i++){
+    const win=[];
+    const start=Math.max(0, i-window+1);
+    for(let j=start;j<=i;j++){
+      const v=num(series[j]);
+      if(v!==null) win.push(v);
+    }
+    out[i]=win.length>=window ? stddev(win) : null;
+  }
+  return out;
+}
+function robustSharedSentTransform(allRows, fitRows, visRows){
+  const rawFit=finiteVals(fitRows.map(r=>r.combined_compound_ma_21));
+  const rawVis=finiteVals(visRows.map(r=>r.combined_compound_ma_21));
+  const priceFit=finiteVals(fitRows.map(r=>num(r.close_ma_21) ?? num(r.close)));
+  const priceVis=finiteVals(visRows.map(r=>num(r.close_ma_21) ?? num(r.close)));
+  const rawAll=finiteVals(allRows.map(r=>r.combined_compound_ma_21));
+  const priceAll=finiteVals(allRows.map(r=>num(r.close_ma_21) ?? num(r.close)));
+
+  const rx=rawFit.length ? rawFit : (rawVis.length ? rawVis : rawAll);
+  const py=priceFit.length ? priceFit : (priceVis.length ? priceVis : priceAll);
+  const anchorRaw=rawVis.length ? rawVis : rx;
+  const anchorPrice=priceVis.length ? priceVis : py;
+  if(rx.length<2 || py.length<2 || anchorRaw.length<1 || anchorPrice.length<1) return null;
+
+  let a=null, b=null;
+  const x05=quantile(rx,0.05), x95=quantile(rx,0.95), y05=quantile(py,0.05), y95=quantile(py,0.95);
+  if([x05,x95,y05,y95].every(v=>v!==null && Number.isFinite(v)) && Math.abs(x95-x05) > 1e-12){
+    a=(y95-y05)/(x95-x05);
+  }
+  if(a===null || !Number.isFinite(a) || Math.abs(a) < 1e-12){
+    const sx=stddev(rx), sy=stddev(py);
+    if(sx!==null && sy!==null && Number.isFinite(sx) && Number.isFinite(sy) && sx > 1e-12){
+      a=sy/sx;
+    }
+  }
+  if(a===null || !Number.isFinite(a) || Math.abs(a) < 1e-12) return null;
+  const mRaw=mean(anchorRaw), mPrice=mean(anchorPrice);
+  if(mRaw===null || mPrice===null) return null;
+  b=mPrice - a*mRaw;
+  return {a,b};
+}
+function applyTransform(v, model){ const x=num(v); if(x===null||!model) return null; return model.a*x + model.b; }
+function rollingMean(series, window=20){
+  const out=new Array(series.length).fill(null);
+  for(let i=0;i<series.length;i++){
+    const win=[];
+    const start=Math.max(0, i-window+1);
+    for(let j=start;j<=i;j++){
+      const v=num(series[j]);
+      if(v!==null) win.push(v);
+    }
+    out[i]=win.length>=window ? mean(win) : null;
+  }
+  return out;
+}
+function computePriceBands(rows){
+  const up=new Array(rows.length).fill(null);
+  const low=new Array(rows.length).fill(null);
+  const basis=new Array(rows.length).fill(null);
+  const validClose=[], validIdx=[];
+  rows.forEach((r,i)=>{
+    const c=num(r.close);
+    if(c!==null && Number.isFinite(c)){ validClose.push(c); validIdx.push(i); }
+  });
+  const validBasis=rollingMean(validClose,20);
+  const validSd=rollingStd(validClose,20);
+  validIdx.forEach((rowIdx,k)=>{
+    const b=validBasis[k], s=validSd[k];
+    if(b===null || s===null || !Number.isFinite(b) || !Number.isFinite(s)) return;
+    basis[rowIdx]=b;
+    up[rowIdx]=b + 2*s;
+    low[rowIdx]=b - 2*s;
+  });
+  return {up, low, basis, derived:true, method:'tv_close_20_2_trading'};
+}
+function mappedSentimentBands(rows, fitRows, visRows){
+  const model=robustSharedSentTransform(rows, fitRows, visRows);
+  if(!model) return {up:rows.map(r=>null), low:rows.map(r=>null), model:null};
+  return {up: rows.map(r=>applyTransform(r.sentiment_upper_band, model)), low: rows.map(r=>applyTransform(r.sentiment_lower_band, model)), model};
+}
+function smoothFiniteSeries(values, window){
+  const out=new Array(values.length).fill(null);
+  const half=Math.max(0, Math.floor(window/2));
+  for(let i=0;i<values.length;i++){
+    let sum=0, count=0;
+    for(let j=Math.max(0,i-half); j<=Math.min(values.length-1,i+half); j++){
+      const v=num(values[j]);
+      if(v!==null){ sum+=v; count+=1; }
+    }
+    out[i]=count ? sum/count : null;
+  }
+  return out;
+}
+function rollingQuantileSeries(values, window, q, minPeriods){
+  const out=new Array(values.length).fill(null);
+  for(let i=0;i<values.length;i++){
+    const start=Math.max(0,i-window+1);
+    const vals=[];
+    for(let j=start;j<=i;j++){ const v=num(values[j]); if(v!==null && Number.isFinite(v)) vals.push(v); }
+    out[i]=vals.length>=minPeriods ? quantile(vals,q) : null;
+  }
+  return out;
+}
+function rollingRobustZ(values, window=60, minPeriods=20){
+  const out=new Array(values.length).fill(null);
+  for(let i=0;i<values.length;i++){
+    const start=Math.max(0,i-window+1);
+    const vals=[];
+    for(let j=start;j<=i;j++){ const v=num(values[j]); if(v!==null && Number.isFinite(v)) vals.push(v); }
+    if(vals.length<minPeriods){ out[i]=null; continue; }
+    const med=quantile(vals,0.5);
+    const absDevs=vals.map(v=>Math.abs(v-med));
+    const mad=quantile(absDevs,0.5);
+    const cur=num(values[i]);
+    if(cur===null || med===null || mad===null){ out[i]=null; continue; }
+    const scale=mad===0 ? (stddev(vals) || 1) : (1.4826*mad);
+    out[i]=(cur-med)/(scale || 1);
+  }
+  return out;
+}
+function chooseRegimeBasis(rows){
+  const rawDistinct=[];
+  rows.forEach(r=>{
+    const vals=[num(r.combined_compound_ma_7),num(r.combined_compound_ma_21),num(r.combined_compound_ma_50),num(r.combined_compound_ma_100),num(r.combined_compound_ma_200)].filter(v=>v!==null);
+    if(vals.length>=2) rawDistinct.push((Math.max(...vals)-Math.min(...vals)));
+  });
+  const maxSpread=rawDistinct.length ? Math.max(...rawDistinct) : 0;
+  return maxSpread>1e-6 ? 'raw' : 'scaled';
+}
+function deriveRegimeInfo(rows){
+  const basis=chooseRegimeBasis(rows);
+  const prefix=basis==='raw' ? '' : 'scaled_';
+  const ma7=rows.map(r=>num(r[prefix+'combined_compound_ma_7']));
+  const ma21=rows.map(r=>num(r[prefix+'combined_compound_ma_21']));
+  const ma50=rows.map(r=>num(r[prefix+'combined_compound_ma_50']));
+  const ma100=rows.map(r=>num(r[prefix+'combined_compound_ma_100']));
+  const ma200=rows.map(r=>num(r[prefix+'combined_compound_ma_200']));
+  const slope21=ma21.map((v,i)=> v!==null && i>0 && ma21[i-1]!==null ? v-ma21[i-1] : null);
+  const widthRaw=ma7.map((v,i)=> v!==null && ma200[i]!==null ? v-ma200[i] : null);
+  const widthAbs=widthRaw.map(v=>v===null?null:Math.abs(v));
+  const widthQ25=rollingQuantileSeries(widthAbs, 60, 0.25, 20);
+  const widthZ=rollingRobustZ(widthRaw, 60, 20);
+  const slopeZ=rollingRobustZ(slope21, 60, 20);
+  const out=[];
+  let prevRegime=null;
+  for(let i=0;i<rows.length;i++){
+    const comps=[
+      ma7[i]!==null&&ma21[i]!==null ? Math.sign(ma7[i]-ma21[i]) : 0,
+      ma21[i]!==null&&ma50[i]!==null ? Math.sign(ma21[i]-ma50[i]) : 0,
+      ma50[i]!==null&&ma100[i]!==null ? Math.sign(ma50[i]-ma100[i]) : 0,
+      ma100[i]!==null&&ma200[i]!==null ? Math.sign(ma100[i]-ma200[i]) : 0
+    ];
+    const bullStack=comps.every(v=>v===1);
+    const bearStack=comps.every(v=>v===-1);
+    const alignmentCount=comps.filter(v=>v!==0).length;
+    const stackScore=(comps.reduce((a,b)=>a+b,0)/4)*100;
+    const compression=widthAbs[i]!==null && widthQ25[i]!==null ? (widthAbs[i] <= widthQ25[i]) : false;
+    const wScore=((clamp(widthZ[i]??0,-3,3))/3)*100;
+    const sScore=((clamp(slopeZ[i]??0,-3,3))/3)*100;
+    const regimeScore=(0.55*stackScore + 0.30*wScore + 0.15*sScore) * (compression ? 0.35 : 1.0);
+    const confidence=clamp(0.50*Math.abs(stackScore) + 0.30*Math.min(100, Math.abs(widthZ[i]??0)*25) + 0.20*Math.min(100, Math.abs(slopeZ[i]??0)*25), 0, 100);
+    let regime='Flat';
+    if(bullStack && (slope21[i]??0) > 0 && !compression) regime='Bullish';
+    else if(bearStack && (slope21[i]??0) < 0 && !compression) regime='Bearish';
+    const transition=prevRegime!==null && regime!==prevRegime;
+    out.push({
+      regime, regimeScore, confidence, compression, transition,
+      transitionType: transition ? `${prevRegime} -> ${regime}` : null,
+      widthRaw: widthRaw[i], widthAbs: widthAbs[i], widthZ: widthZ[i], slope21: slope21[i], slopeZ: slopeZ[i],
+      stackScore, alignmentCount, basis
+    });
+    prevRegime=regime;
+  }
+  return out;
+}
+function regimeInfoForRows(rows){
+  const haveUpstream = rows.some(r => r.sent_ribbon_regime_raw!==undefined || r.sent_ribbon_regime_score!==undefined);
+  if(!haveUpstream) return deriveRegimeInfo(rows);
+  return rows.map((r,i)=>({
+    regime: r.sent_ribbon_regime_raw || 'Flat',
+    regimeScore: num(r.sent_ribbon_regime_score) ?? 0,
+    confidence: num(r.sent_ribbon_regime_confidence) ?? 0,
+    compression: Boolean(Number(r.sent_ribbon_compression_flag||0)),
+    transition: Boolean(Number(r.sent_ribbon_transition_flag||0)),
+    transitionType: r.sent_ribbon_transition_type || null,
+    widthRaw: num(r.sent_ribbon_width_raw),
+    widthAbs: num(r.sent_ribbon_width_abs),
+    widthZ: num(r.sent_ribbon_width_z),
+    slope21: num(r.sent_ribbon_center_slope_21),
+    slopeZ: num(r.sent_ribbon_center_slope_21_z),
+    stackScore: num(r.sent_ribbon_stack_score),
+    alignmentCount: num(r.sent_ribbon_alignment_count),
+    basis: 'upstream'
+  }));
+}
+function buildRegimeBadgesHTML(current, lastTransitionRow, lastTransitionInfo){
+  const cls = current.regime==='Bullish' ? 'badge-bull' : current.regime==='Bearish' ? 'badge-bear' : 'badge-flat';
+  const conf=(current.confidence ?? 0).toFixed(0);
+  const score=(current.regimeScore ?? 0).toFixed(0);
+  const widthState=current.compression ? 'Compressed' : ((current.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing');
+  const transitionText = lastTransitionRow ? `${lastTransitionInfo.transitionType || 'state change'} on ${lastTransitionRow.date}` : 'none in view';
+  return [
+    `<span class="badge ${cls}"><b>Sentiment Ribbon</b> ${current.regime}</span>`,
+    `<span class="badge badge-neutral"><b>Confidence</b> ${conf}</span>`,
+    `<span class="badge badge-neutral"><b>Score</b> ${score}</span>`,
+    `<span class="badge badge-neutral"><b>Width</b> ${widthState}</span>`,
+    `<span class="badge badge-neutral"><b>Last transition</b> ${transitionText}</span>`
+  ].join('');
+}
+function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width, period, regimeInfo){
+  const basePalette=sentimentPalette(period);
+  [
+    traceLine(x,y,name+' base glow 1',basePalette.outer,Math.max(1,width+3.2),'solid',axis,false,null,0.12,true),
+    traceLine(x,y,name+' base glow 2',basePalette.inner,Math.max(1,width+1.5),'solid',axis,false,null,0.18,true),
+    traceLine(x,y,name+' base',basePalette.core,Math.max(0.9,width*0.98),'solid',axis,false,hovertemplate,0.42,true)
+  ].forEach(t=>{ t.legendgroup=name; data.push(t); });
+
+  const segments=[];
+  let start=null, current=null;
+  for(let i=0;i<y.length;i++){
+    const v=num(y[i]);
+    const reg=v!==null && regimeInfo[i] ? regimeInfo[i].regime : null;
+    if(reg!==current){
+      if(current!==null && start!==null) segments.push({start,end:i-1,regime:current});
+      current=reg;
+      start=reg!==null ? i : null;
+    }
+  }
+  if(current!==null && start!==null) segments.push({start,end:y.length-1,regime:current});
+  let legendShown=false;
+  segments.forEach(seg=>{
+    const segStart=Math.max(0, seg.start - (seg.start>0 ? 1 : 0));
+    const segEnd=Math.min(y.length-1, seg.end + (seg.end<y.length-1 ? 1 : 0));
+    const sx=x.slice(segStart, segEnd+1);
+    const sy=y.slice(segStart, segEnd+1);
+    const palette=regimePalette(seg.regime, period);
+    const bundle=sentimentBundle(sx, sy, name, axis, !legendShown, hovertemplate, width, palette, true);
+    bundle.forEach((t,idx)=>{ t.legendgroup=name; if(idx<2) t.showlegend=false; else if(legendShown) t.showlegend=false; data.push(t); });
+    legendShown=true;
+  });
+  if(!segments.length){
+    sentimentBundle(x, y, name, axis, true, hovertemplate, width, regimePalette('Flat', period), true).forEach(t=>data.push(t));
+  }
+}
+function regimeSegments(rows, regimeInfo, visStart, visEnd){
+  const segs=[];
+  let current=null, startDate=null, endDate=null;
+  for(let i=0;i<rows.length;i++){
+    const d=rows[i].dateObj;
+    if(d<visStart || d>visEnd) continue;
+    const reg=regimeInfo[i] ? regimeInfo[i].regime : 'Flat';
+    if(reg!==current){
+      if(current!==null) segs.push({regime:current,start:startDate,end:endDate});
+      current=reg; startDate=d; endDate=d;
+    } else { endDate=d; }
+  }
+  if(current!==null) segs.push({regime:current,start:startDate,end:endDate});
+  return segs;
+}
+function sentimentRibbonSeries(rows, fitRows, visRows, mode){
+  const model=robustSharedSentTransform(rows, fitRows, visRows);
+  const specs = mode==='full'
+    ? [['combined_compound_ma_7','Scaled Sent MA 7',1.0,7],['combined_compound_ma_21','Scaled Sent MA 21',1.15,21],['combined_compound_ma_50','Scaled Sent MA 50',1.0,50],['combined_compound_ma_100','Scaled Sent MA 100',0.95,100],['combined_compound_ma_200','Scaled Sent MA 200',0.9,200]]
+    : [['combined_compound_ma_21','Scaled Sent MA 21',1.15,21]];
+
+  const rawCenter=rows.map(r=> model ? applyTransform(r.combined_compound_ma_21, model) : null);
+  const scaledCenter=rows.map(r=> num(r.scaled_combined_compound_ma_21));
+  const smoothRawCenter=smoothFiniteSeries(rawCenter, 9);
+  const smoothScaledCenter=smoothFiniteSeries(scaledCenter, 11);
+  let centerSeries=rows.map((r,i)=>{
+    const raw=smoothRawCenter[i]!==null ? smoothRawCenter[i] : rawCenter[i];
+    const scaled=smoothScaledCenter[i]!==null ? smoothScaledCenter[i] : scaledCenter[i];
+    if(raw===null) return scaled;
+    if(scaled===null) return raw;
+    const prevRaw=i>0 && smoothRawCenter[i-1]!==null ? smoothRawCenter[i-1] : (i>0 ? rawCenter[i-1] : null);
+    const prevScaled=i>0 && smoothScaledCenter[i-1]!==null ? smoothScaledCenter[i-1] : (i>0 ? scaledCenter[i-1] : null);
+    const rawJump=prevRaw!==null ? Math.abs(raw-prevRaw) : 0;
+    const scaledJump=prevScaled!==null ? Math.abs(scaled-prevScaled) : 0;
+    const gap=Math.abs(raw-scaled);
+    const anchorBand=Math.max(8, Math.abs(scaled)*0.015, scaledJump*4);
+    const gapPenalty=Math.min(1, gap/(anchorBand*2));
+    const jumpPenalty=Math.min(1, Math.max(0, rawJump-scaledJump)/(anchorBand*1.5));
+    const rawWeight=Math.max(0.10, Math.min(0.45, 0.45*(1-gapPenalty)*(1-jumpPenalty)));
+    return scaled*(1-rawWeight) + raw*rawWeight;
+  });
+  centerSeries=smoothFiniteSeries(centerSeries, 5).map((v,i)=> v!==null ? v : (smoothScaledCenter[i]!==null ? smoothScaledCenter[i] : scaledCenter[i]));
+
+  if(mode!=='full'){
+    return {
+      series: [{name:'Scaled Sent MA 21', width:1.15, period:21, palette:sentimentPalette(21), y:centerSeries}],
+      usedScaledFallback:false,
+      usedHybridOffsets:false,
+      model
+    };
+  }
+
+  const offsetWindowForPeriod=(period)=> period<=21 ? 15 : (period<=50 ? 21 : 31);
+  const familySeries=specs.map(([rawCol,name,w,period])=>{
+    if(period===21){
+      return {name, width:w, period, palette:sentimentPalette(period), y:centerSeries};
+    }
+    const scaledCol='scaled_'+rawCol;
+    const rawSeries=rows.map(r=> model ? applyTransform(r[rawCol], model) : null);
+    const raw21Series=centerSeries;
+    const rawOffsets=rawSeries.map((v,i)=> v!==null && raw21Series[i]!==null ? v-raw21Series[i] : null);
+    const smoothRawOffsets=smoothFiniteSeries(rawOffsets, offsetWindowForPeriod(period));
+    const scaledOffsets=rows.map(r=>{
+      const base=num(r.scaled_combined_compound_ma_21);
+      const target=num(r[scaledCol]);
+      return base!==null && target!==null ? target-base : null;
+    });
+    const structuralOffsets=smoothFiniteSeries(scaledOffsets, offsetWindowForPeriod(period));
+    const y=rows.map((r,i)=>{
+      const center=centerSeries[i];
+      const structural=structuralOffsets[i];
+      const rawOffset=smoothRawOffsets[i]!==null ? smoothRawOffsets[i] : rawOffsets[i];
+      if(center===null) return null;
+      if(structural!==null){
+        const blended=rawOffset!==null ? (0.15*rawOffset + 0.85*structural) : structural;
+        return center + blended;
+      }
+      if(rawOffset!==null) return center + rawOffset;
+      const scaled=num(r[scaledCol]);
+      return scaled!==null ? scaled : center;
+    });
+    return {name, width:w, period, palette:sentimentPalette(period), y};
+  });
+
+  return {
+    series: familySeries,
+    usedScaledFallback:false,
+    usedHybridOffsets:true,
+    model
+  };
+}
+
+function displayedOverlap(priceUp, priceLow, sentUp, sentLow){
+  const up=[], low=[];
+  for(let i=0;i<priceUp.length;i++){
+    const pu=num(priceUp[i]), pl=num(priceLow[i]), su=num(sentUp[i]), sl=num(sentLow[i]);
+    if([pu,pl,su,sl].some(v=>v===null)){ up.push(null); low.push(null); continue; }
+    const lo=Math.max(pl,sl), hi=Math.min(pu,su);
+    if(hi>=lo){ up.push(hi); low.push(lo); } else { up.push(null); low.push(null); }
+  }
+  return {up,low};
+}
+function overlapBandsForTableau(rows, derivedOverlap){
+  const up=[], low=[];
+  for(let i=0;i<rows.length;i++){
+    const r=rows[i]||{};
+    const u = num(r.boll_upper_overlap_advanced);
+    const u2 = num(r.boll_upper_overlap_band);
+    const dU = num(derivedOverlap?.up?.[i]);
+    const l = num(r.boll_lower_overlap_advanced);
+    const l2 = num(r.boll_lower_overlap_band);
+    const dL = num(derivedOverlap?.low?.[i]);
+    up.push(u!==null ? u : (u2!==null ? u2 : dU));
+    low.push(l!==null ? l : (l2!==null ? l2 : dL));
+  }
+  return {up,low};
+}
+function finiteQuantile(values, q){
+  const xs=values.filter(v=>Number.isFinite(v)).slice().sort((a,b)=>a-b);
+  if(!xs.length) return null;
+  if(xs.length===1) return xs[0];
+  const pos=(xs.length-1)*q, lo=Math.floor(pos), hi=Math.ceil(pos);
+  if(lo===hi) return xs[lo];
+  const w=pos-lo;
+  return xs[lo]*(1-w)+xs[hi]*w;
+}
+
+function overlapVolatilityState(row){
+  const txt=String(row?.boll_volatility_flag || '').trim().toLowerCase();
+  if(txt==='high') return 'High';
+  if(txt==='low' || txt==='stability' || txt==='stable') return 'Low';
+  const n=num(row?.boll_volatility_flag_num);
+  if(n!==null) return n>0 ? 'High' : 'Low';
+  return 'Low';
+}
+function overlapOutsideType(row, overlap, idx){
+  const c=num(row.close) ?? num(row.close_fill);
+  const ou=num(overlap.up[idx]), ol=num(overlap.low[idx]);
+  if(c===null || ou===null || ol===null) return null;
+  if(c>ou) return 'bearish';
+  if(c<ol) return 'bullish';
+  return null;
+}
+function currentHighVolumeState(row){
+  const hv20=num(row?.high_volume_20);
+  if(hv20!==null) return hv20>0;
+  const hv7=num(row?.high_volume_7);
+  if(hv7!==null) return hv7>0;
+  const txt=String(row?.boll_overlap_volume_confirmation_flag || '').trim().toLowerCase();
+  if(txt.includes('high')) return true;
+  if(txt.includes('normal')) return false;
+  const confirmed=num(row?.boll_overlap_break_confirmed_high_volume);
+  if(confirmed!==null) return confirmed>0;
+  const signalConfirmed=num(row?.signal_boll_overlap_break_confirmed_high_volume);
+  if(signalConfirmed!==null) return signalConfirmed>0;
+  return false;
+}
+function overlapConfirmedEventType(row, overlap, idx){
+  const type=overlapOutsideType(row, overlap, idx);
+  if(!type) return null;
+  if(overlapVolatilityState(row)!=='High') return null;
+  if(!currentHighVolumeState(row)) return null;
+  return type;
+}
+function overlapWidthAt(overlap, idx){
+  const ou=num(overlap.up[idx]), ol=num(overlap.low[idx]);
+  if(ou===null || ol===null) return null;
+  const w=ou-ol;
+  return Number.isFinite(w) ? w : null;
+}
+function overlapStructureAt(rows, overlap, idx, window=60){
+  const current=overlapWidthAt(overlap, idx);
+  if(current===null) return 'Unknown';
+  const widths=[];
+  for(let j=Math.max(0, idx-window+1); j<=idx; j++){
+    const w=overlapWidthAt(overlap, j);
+    if(w!==null) widths.push(w);
+  }
+  if(widths.length<20){
+    return overlapVolatilityState(rows[idx])==='High' ? 'Expansion' : 'Balanced';
+  }
+  const q25=finiteQuantile(widths, 0.25);
+  const q75=finiteQuantile(widths, 0.75);
+  if(q25!==null && current<=q25) return 'Compression';
+  if(q75!==null && current>=q75) return 'Expansion';
+  return 'Balanced';
+}
+function truthyFlag(row, col){
+  const n=num(row?.[col]);
+  if(n!==null) return n>0;
+  const s=String(row?.[col] ?? '').trim().toLowerCase();
+  return s==='true' || s==='yes' || s==='y';
+}
+function overlapStateAt(rows, overlap, idx){
+  const confirmed=overlapConfirmedEventType(rows[idx], overlap, idx);
+  if(confirmed==='bullish') return {label:'Confirmed Bullish Pressure', cls:'badge-bull', code:'confirmed_bullish'};
+  if(confirmed==='bearish') return {label:'Confirmed Bearish Pressure', cls:'badge-bear', code:'confirmed_bearish'};
+  const outside=overlapOutsideType(rows[idx], overlap, idx);
+  if(outside==='bullish') return {label:'Bullish Pressure', cls:'badge-bull', code:'bullish_pressure'};
+  if(outside==='bearish') return {label:'Bearish Pressure', cls:'badge-bear', code:'bearish_pressure'};
+  return {label:'Inside Expected Range', cls:'badge-neutral', code:'inside_expected_range'};
+}
+function overlapCurrentEventType(rows, overlap, idx){
+  const row=rows[idx] || {};
+  if(truthyFlag(row, 'boll_overlap_reentry_flag')){
+    const prevType = idx>0 ? overlapOutsideType(rows[idx-1], overlap, idx-1) : null;
+    if(prevType==='bullish') return 'Re-entry from Below';
+    if(prevType==='bearish') return 'Re-entry from Above';
+    return 'Re-entry';
+  }
+  if(truthyFlag(row, 'boll_overlap_rejection_bullish_flag')) return 'Bullish Rejection';
+  if(truthyFlag(row, 'boll_overlap_rejection_bearish_flag')) return 'Bearish Rejection';
+  const state=overlapStateAt(rows, overlap, idx);
+  if(state.code==='confirmed_bullish' || state.code==='confirmed_bearish') return 'Confirmed Break';
+  const structure=overlapStructureAt(rows, overlap, idx);
+  if(state.code==='inside_expected_range' && structure==='Compression') return 'Compression';
+  if(state.code==='inside_expected_range' && structure==='Expansion') return 'Expansion';
+  return 'No Fresh Event';
+}
+function computeOverlapSignalInfo(rows, overlap, visibleMask){
+  let latestIdx=-1;
+  for(let i=rows.length-1;i>=0;i--){
+    if(!visibleMask[i]) continue;
+    const c=num(rows[i].close) ?? num(rows[i].close_fill);
+    if(c!==null){ latestIdx=i; break; }
+  }
+  if(latestIdx<0){
+    return {
+      stateLabel:'Unavailable', stateCls:'badge-neutral', structure:'Unknown', structureCls:'badge-neutral',
+      currentEvent:'No Fresh Event', eventCls:'badge-neutral', condition:'Stability', volume:'Normal Volume',
+      context:'Stability · Normal Volume', contextCls:'badge-neutral', narrative:'No valid price bar is available in view.',
+      annotation:'Combined overlap model: unavailable', latestConfirmed:'No confirmed alert in view.'
+    };
+  }
+  const latestRow=rows[latestIdx];
+  const state=overlapStateAt(rows, overlap, latestIdx);
+  const structure=overlapStructureAt(rows, overlap, latestIdx);
+  const currentEvent=overlapCurrentEventType(rows, overlap, latestIdx);
+  const highVol=overlapVolatilityState(latestRow)==='High';
+  const highVolume=currentHighVolumeState(latestRow);
+  const condition=highVol ? 'High Volatility' : 'Stability';
+  const volume=highVolume ? 'High Volume' : 'Normal Volume';
+  const context=`${condition} · ${volume}`;
+  const structureCls = structure==='Compression' ? 'badge-neutral' : (structure==='Expansion' ? 'badge-bear' : 'badge-neutral');
+  const eventCls = /bullish/i.test(currentEvent) ? 'badge-bull' : (/bearish/i.test(currentEvent) ? 'badge-bear' : 'badge-neutral');
+  let latestConfirmed='No confirmed alert in view.';
+  for(let i=rows.length-1;i>=0;i--){
+    if(!visibleMask[i]) continue;
+    const t=overlapConfirmedEventType(rows[i], overlap, i);
+    if(t){ latestConfirmed=`${t==='bearish' ? 'Bearish Pressure' : 'Bullish Pressure'} • ${rows[i].date}`; break; }
+  }
+  let narrative='Combined overlap is inside its expected joint range.';
+  if(state.code==='confirmed_bullish') narrative='Price closed below the advanced overlap range with High volatility and High volume, confirming bullish pressure from the combined overlap model.';
+  else if(state.code==='confirmed_bearish') narrative='Price closed above the advanced overlap range with High volatility and High volume, confirming bearish pressure from the combined overlap model.';
+  else if(state.code==='bullish_pressure') narrative='Price is below the advanced overlap range, signaling bullish pressure from the combined overlap model.';
+  else if(state.code==='bearish_pressure') narrative='Price is above the advanced overlap range, signaling bearish pressure from the combined overlap model.';
+  else if(currentEvent==='Compression') narrative='Combined overlap is compressed relative to its recent width distribution, suggesting a tighter joint expectation range.';
+  else if(currentEvent==='Expansion') narrative='Combined overlap is expanded relative to its recent width distribution, suggesting a broader joint expectation range.';
+  else if(currentEvent==='Re-entry from Below' || currentEvent==='Re-entry from Above') narrative=`${currentEvent} suggests price has moved back into the combined overlap range.`;
+  else if(currentEvent==='Bullish Rejection' || currentEvent==='Bearish Rejection') narrative=`${currentEvent} suggests price tested the advanced overlap boundary and failed to hold outside it.`;
+  const annotation=`Combined overlap: ${state.label} | ${structure} | ${context}`;
+  return {
+    stateLabel:state.label,
+    stateCls:state.cls,
+    structure,
+    structureCls,
+    currentEvent,
+    eventCls,
+    condition,
+    volume,
+    context,
+    contextCls:(highVol || highVolume) ? 'badge-bear' : 'badge-neutral',
+    narrative,
+    annotation,
+    latestConfirmed
+  };
+}
+function attentionLevelState(row){
+  const level=num(row?.attention_level_score) ?? num(row?.attention_regime_score);
+  if(level===null) return {label:'Unknown', cls:'badge-neutral', code:'unknown'};
+  if(level>=75) return {label:'Extreme', cls:'badge-bear', code:'extreme'};
+  if(level>=60) return {label:'Elevated', cls:'badge-attn', code:'elevated'};
+  if(level>=40) return {label:'Normal', cls:'badge-neutral', code:'normal'};
+  return {label:'Quiet', cls:'badge-neutral', code:'quiet'};
+}
+function attentionConvictionState(row){
+  const c=num(row?.attention_conviction_score_signed);
+  if(c===null) return {label:'Mixed / Neutral', cls:'badge-neutral'};
+  if(c>=25) return {label:'Bullish Conviction', cls:'badge-bull'};
+  if(c<=-25) return {label:'Bearish Conviction', cls:'badge-bear'};
+  return {label:'Mixed / Neutral', cls:'badge-neutral'};
+}
+function attentionRegimeState(row){
+  const r=num(row?.attention_regime_score);
+  const s=num(row?.attention_spike_score);
+  if(r===null && s===null) return {label:'Normal Regime', cls:'badge-neutral'};
+  if((s!==null && s>=65) || (r!==null && r>=70)) return {label:'Event Burst', cls:'badge-attn'};
+  if(r!==null && r>=55) return {label:'Elevated Participation', cls:'badge-attn'};
+  return {label:'Normal Regime', cls:'badge-neutral'};
+}
+function attentionSoftOverlayRows(rows, visibleMask){
+  const out=[];
+  for(let i=0;i<rows.length;i++){
+    if(!visibleMask[i]) continue;
+    const level=num(rows[i]?.attention_level_score) ?? num(rows[i]?.attention_regime_score);
+    const conviction=Math.abs(num(rows[i]?.attention_conviction_score_signed) ?? 0);
+    if((level!==null && level>=55) || conviction>=25) out.push(i);
+  }
+  return out;
+}
+function attentionStrongOverlayRows(rows, visibleMask){
+  const out=[];
+  for(let i=0;i<rows.length;i++){
+    if(!visibleMask[i]) continue;
+    const regime=num(rows[i]?.attention_regime_score);
+    const spike=num(rows[i]?.attention_spike_score);
+    if((regime!==null && regime>=55) || (spike!==null && spike>=60)) out.push(i);
+  }
+  return out;
+}
+function engagementOverlayShapes(rows, visibleMask, freq){
+  const softIdxs=attentionSoftOverlayRows(rows, visibleMask);
+  const strongSet=new Set(attentionStrongOverlayRows(rows, visibleMask));
+  const shapes=[];
+  const widthDays=freq==='W' ? 3 : 0.48;
+  for(const i of softIdxs){
+    const row=rows[i] || {};
+    const d=row.dateObj; if(!(d instanceof Date)) continue;
+    const conviction=num(row.attention_conviction_score_signed) ?? 0;
+    const level=num(row.attention_level_score) ?? num(row.attention_regime_score) ?? 50;
+    const regime=num(row.attention_regime_score) ?? 0;
+    const strong=strongSet.has(i);
+    const softOpacity=Math.max(0.035, Math.min(0.10, 0.03 + (Math.max(level, Math.abs(conviction))/100)*0.07));
+    const fill=conviction>=25 ? `rgba(70,220,120,${softOpacity})` : (conviction<=-25 ? `rgba(255,110,110,${softOpacity})` : `rgba(92,164,255,${softOpacity})`);
+    const stroke=conviction>=25 ? 'rgba(70,220,120,0.85)' : (conviction<=-25 ? 'rgba(255,110,110,0.85)' : 'rgba(92,164,255,0.85)');
+    const x0=new Date(d); x0.setDate(x0.getDate()-widthDays);
+    const x1=new Date(d); x1.setDate(x1.getDate()+widthDays);
+    shapes.push({type:'rect',xref:'x',x0:x0,x1:x1,yref:'paper',y0:0.54,y1:0.98,line:{width:0},fillcolor:fill,layer:'below'});
+    if(strong){
+      const topOpacity=Math.max(0.18, Math.min(0.34, 0.16 + (Math.max(regime, level)/100)*0.18));
+      const topFill=conviction>=25 ? `rgba(70,220,120,${topOpacity})` : (conviction<=-25 ? `rgba(255,110,110,${topOpacity})` : `rgba(92,164,255,${topOpacity})`);
+      shapes.push({type:'rect',xref:'x',x0:x0,x1:x1,yref:'paper',y0:0.94,y1:0.985,line:{width:0},fillcolor:topFill,layer:'below'});
+      shapes.push({type:'line',xref:'x',x0:d,x1:d,yref:'paper',y0:0.54,y1:0.985,line:{color:stroke,width:1.25},layer:'below'});
+    }
+  }
+  return shapes;
+}
+function computeEngagementInfo(rows, visibleMask){
+  let latestIdx=-1;
+  for(let i=rows.length-1;i>=0;i--){ if(visibleMask[i]){ latestIdx=i; break; } }
+  if(latestIdx<0) return {levelLabel:'Unknown', levelCls:'badge-neutral', convictionLabel:'Mixed / Neutral', convictionCls:'badge-neutral', regimeLabel:'Normal Regime', regimeCls:'badge-neutral', latestSpike:'No elevated attention in view.', latestEvent:'No strong event in view.'};
+  const row=rows[latestIdx] || {};
+  const level=attentionLevelState(row);
+  const conviction=attentionConvictionState(row);
+  const regime=attentionRegimeState(row);
+  let latestSpike='No elevated attention in view.';
+  let latestEvent='No strong event in view.';
+  for(let i=rows.length-1;i>=0;i--){
+    if(!visibleMask[i]) continue;
+    const lvl=num(rows[i]?.attention_level_score) ?? num(rows[i]?.attention_regime_score);
+    const cv=Math.abs(num(rows[i]?.attention_conviction_score_signed) ?? 0);
+    const rr=num(rows[i]?.attention_regime_score);
+    const sp=num(rows[i]?.attention_spike_score);
+    if(latestSpike==='No elevated attention in view.' && ((lvl!==null && lvl>=55) || cv>=25)) latestSpike=`${attentionLevelState(rows[i]).label} • ${attentionConvictionState(rows[i]).label} • ${rows[i].date}`;
+    if((rr!==null && rr>=55) || (sp!==null && sp>=60)){ latestEvent=`${attentionRegimeState(rows[i]).label} • ${rows[i].date}`; break; }
+  }
+  return {levelLabel:level.label, levelCls:level.cls, convictionLabel:conviction.label, convictionCls:conviction.cls, regimeLabel:regime.label, regimeCls:regime.cls, latestSpike, latestEvent};
+}
+function buildEngagementBadgesHTML(info){
+  return [
+    `<span class="badge ${info.levelCls || 'badge-neutral'}"><b>Attention</b> ${info.levelLabel}</span>`,
+    `<span class="badge ${info.convictionCls || 'badge-neutral'}"><b>Conviction</b> ${info.convictionLabel}</span>`,
+    `<span class="badge ${info.regimeCls || 'badge-neutral'}"><b>Engagement</b> ${info.regimeLabel}</span>`,
+    `<span class="badge badge-neutral"><b>Latest Elevated</b> ${info.latestSpike}</span>`,
+    `<span class="badge badge-neutral"><b>Latest Event</b> ${info.latestEvent}</span>`
+  ].join('');
+}
+
+function buildOverlapBadgesHTML(info){
+  return [
+    `<span class="badge ${info.stateCls || 'badge-neutral'}"><b>Overlap State</b> ${info.stateLabel}</span>`,
+    `<span class="badge ${info.structureCls || 'badge-neutral'}"><b>Structure</b> ${info.structure}</span>`,
+    `<span class="badge ${info.eventCls || 'badge-neutral'}"><b>Event</b> ${info.currentEvent}</span>`,
+    `<span class="badge ${info.contextCls || 'badge-neutral'}"><b>Context</b> ${info.context}</span>`,
+    `<span class="badge badge-neutral"><b>Latest Confirmed</b> ${info.latestConfirmed}</span>`
+  ].join('');
+}
+function overlapTableauMarkers(rows, overlap, visibleMask){
+  const bearishX=[], bearishY=[];
+  const bullishX=[], bullishY=[];
+  const hiVals=rows.map(r=>num(r.high)).filter(v=>v!==null);
+  const loVals=rows.map(r=>num(r.low)).filter(v=>v!==null);
+  const span=(hiVals.length && loVals.length) ? Math.max(1e-9, Math.max(...hiVals)-Math.min(...loVals)) : 1;
+  const offset=span*0.014;
+  for(let i=0;i<rows.length;i++){
+    if(!visibleMask[i]) continue;
+    const type=overlapConfirmedEventType(rows[i], overlap, i);
+    if(!type) continue;
+    const d=rows[i].dateObj; if(!(d instanceof Date)) continue;
+    const hi=num(rows[i].high) ?? num(rows[i].close) ?? null;
+    const lo=num(rows[i].low) ?? num(rows[i].close) ?? null;
+    if(type==='bearish' && hi!==null){ bearishX.push(d); bearishY.push(hi+offset); }
+    else if(type==='bullish' && lo!==null){ bullishX.push(d); bullishY.push(lo-offset); }
+  }
+  const traces=[];
+  if(bearishX.length){
+    traces.push({type:'scatter',mode:'markers',x:bearishX,y:bearishY,xaxis:'x',yaxis:'y',name:'Bearish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(255,128,128,0.98)',line:{color:'rgba(255,128,128,0.98)',width:1.4}},hovertemplate:'%{x|%b %d, %Y}<br>Combined Overlap Model<br>Confirmed Bearish Pressure<br>Gate: outside advanced overlap + High volatility + High volume<extra></extra>'});
+  }
+  if(bullishX.length){
+    traces.push({type:'scatter',mode:'markers',x:bullishX,y:bullishY,xaxis:'x',yaxis:'y',name:'Bullish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(112,232,148,0.98)',line:{color:'rgba(112,232,148,0.98)',width:1.4}},hovertemplate:'%{x|%b %d, %Y}<br>Combined Overlap Model<br>Confirmed Bullish Pressure<br>Gate: outside advanced overlap + High volatility + High volume<extra></extra>'});
+  }
+  return traces;
+}
+
+function buildFigure(){
+  const term=document.getElementById('asset').value, freq=document.getElementById('freq').value, rangePreset=document.getElementById('range').value, priceDisplay=document.getElementById('priceDisplay').value, scaleMode=document.getElementById('scaleMode').value, ribbon=document.getElementById('ribbon').value, sentRibbon=document.getElementById('sentRibbon').value, regimeLayer=document.getElementById('regimeLayer').value, engagement=document.getElementById('engagement').value, bollinger=document.getElementById('bollinger').value, osc=document.getElementById('osc').value;
+  const rows=cloneRows(STORE[freq][term]||[]); if(!rows.length) return;
+  const visRows=visibleRows(rows, rangePreset); if(!visRows.length) return;
+  const calendar=detectCalendar(rows), xs=rows.map(r=>r.dateObj), visStart=visRows[0].dateObj, visEnd=visRows[visRows.length-1].dateObj, visEndPad=nextRangeEnd(visEnd,calendar,freq);
+  const visibleMask=rows.map(r=>r.dateObj>=visStart&&r.dateObj<=visEnd);
+  const fitRows=fitRowsForSentiment(rows, visRows, freq);
+  const sentRibbonInfo=sentimentRibbonSeries(rows, fitRows, visRows, sentRibbon);
+  const sentRibbonSpec=sentRibbonInfo.series;
+  const showSentRibbon=(ribbon==='sentiment'||ribbon==='both');
+  const regimeInfo=regimeInfoForRows(rows);
+  const mappedBands=mappedSentimentBands(rows, fitRows, visRows);
+  const priceBands=computePriceBands(rows);
+  const data=[];
+  document.getElementById('assetTitle').textContent=`${term} · ${freq==='D'?'Daily':'Weekly'}`;
+  const helperParts=[`${calendar==='continuous'?'Continuous calendar':'Trading-session compression'} · sentiment transform fit includes hidden warmup`];
+  if(priceBands.derived) helperParts.push('price bands derived in-view from close 20 SMA ± 2 std');
+  if(bollinger==='overlap' || bollinger==='both') helperParts.push('combined overlap is the primary state model, using the advanced overlap range as the canonical joint expectation corridor');
+  if(bollinger==='overlap' || bollinger==='both') helperParts.push('state is driven by advanced overlap geometry; structure tracks compression/expansion, and confirmed alerts still require outside overlap + High boll_volatility_flag + high volume');
+  if(sentRibbonInfo.usedHybridOffsets) helperParts.push('full ribbon uses anchored MA 21 centerline plus smoothed saved-family offsets');
+  const currentRegimeInfo=regimeInfo[rows.length-1] || {regime:'Flat', confidence:0, basis:'derived'};
+  const scaleModeLabel = scaleMode==='price_only' ? 'price only' : (scaleMode==='all_visible' ? 'all visible traces' : 'price + price overlays');
+  helperParts.push(`scale mode: ${scaleModeLabel}`);
+  helperParts.push(`regime basis: ${currentRegimeInfo.basis || 'derived'}`);
+  if(engagement!=='off') helperParts.push(engagement==='overlay' ? 'engagement overlay: soft participation strips show meaningful attention/conviction days; stronger event marks remain reserved for elevated regime/spike days' : 'engagement context: attention level, conviction, and regime badges active');
+  document.getElementById('helperText').textContent = currentMode()==='member' ? helperParts.join(' · ') : `Combined Overlap is primary. Engagement is contextual. Timing layers remain optional. ${calendar==='continuous'?'Continuous':'Trading-session'} ${freq==='D'?'daily':'weekly'} view.`;
+
+  if(priceDisplay==='candles') data.push({type:'candlestick',x:xs,open:rows.map(r=>num(r.open)),high:rows.map(r=>num(r.high)),low:rows.map(r=>num(r.low)),close:rows.map(r=>num(r.close)),name:'Price',xaxis:'x',yaxis:'y',showlegend:true,increasing:{line:{color:COLORS.price},fillcolor:COLORS.price},decreasing:{line:{color:'#9f9f9f'},fillcolor:'#9f9f9f'},hovertemplate:'%{x|%b %d, %Y}<br>Open=%{open:.2f}<br>High=%{high:.2f}<br>Low=%{low:.2f}<br>Close=%{close:.2f}<extra></extra>'});
+  else data.push(traceLine(xs,rows.map(r=>num(r.close)),'Price',COLORS.price,2.0,'solid','y',true,'%{x|%b %d, %Y}<br>Close=%{y:.2f}<extra></extra>'));
+
+  if(ribbon==='price'||ribbon==='both') [['close_ma_7','Price MA 7',COLORS.ma7],['close_ma_21','Price MA 21',COLORS.ma21],['close_ma_50','Price MA 50',COLORS.ma50],['close_ma_100','Price MA 100',COLORS.ma100],['close_ma_200','Price MA 200',COLORS.ma200]].forEach(([c,n,col])=>data.push(traceLine(xs,rows.map(r=>num(r[c])),n,col,1.45,'solid','y',true,`%{x|%b %d, %Y}<br>${n}=%{y:.2f}<extra></extra>`,0.92)));
+
+  if(showSentRibbon) sentRibbonSpec.forEach(s=>{ const hover=`%{x|%b %d, %Y}<br>${s.name}=%{y:.2f}<extra></extra>`; if(regimeLayer==='on') pushRegimeSegmentedBundle(data, xs, s.y, s.name, 'y', hover, s.width, s.period, regimeInfo); else sentimentBundle(xs, s.y, s.name, 'y', true, hover, s.width, s.palette).forEach(t=>data.push(t)); });
+
+  if(bollinger==='price'||bollinger==='both') addFilledBand(data,xs,priceBands.up,priceBands.low,COLORS.priceBand,COLORS.priceFill,priceBands.derived?'Price Band (TV 20,2 Derived)':'Price Band','y');
+  if(bollinger==='sentiment'||bollinger==='both') addFilledBand(data,xs,mappedBands.up,mappedBands.low,COLORS.sentCore,COLORS.sentFill,'Sentiment Band','y');
+  const ovRaw=displayedOverlap(priceBands.up,priceBands.low,mappedBands.up,mappedBands.low);
+  const ov=overlapBandsForTableau(rows, ovRaw);
+  const overlapInfo=computeOverlapSignalInfo(rows, ov, visibleMask);
+  const engagementInfo=computeEngagementInfo(rows, visibleMask);
+
+const mode=currentMode();
+const summaryText = `${overlapInfo.stateLabel} · ${overlapInfo.context} · ${engagement==='off' ? 'Engagement Hidden' : `${engagementInfo.levelLabel} / ${engagementInfo.regimeLabel}`}`;
+document.getElementById('summaryLead').innerHTML = mode==='member'
+  ? `<span class="summaryCard"><b>Combined Summary</b> ${summaryText}</span>`
+  : `<span class="summaryCard"><b>Combined Summary</b> ${summaryText}</span>`;
+  const overlapMarkerTraces=overlapTableauMarkers(rows, ov, visibleMask);
+  if(bollinger==='overlap') addFilledBand(data,xs,ov.up,ov.low,COLORS.overlapBand,COLORS.overlapFill,'Combined Overlap Range','y');
+  if((bollinger==='overlap' || bollinger==='both')) overlapMarkerTraces.forEach(t=>data.push(t));
+  const visRegimeRows=rows.filter((r,i)=>visibleMask[i]);
+  const visRegimeInfo=regimeInfo.filter((r,i)=>visibleMask[i]);
+  const lastRegimeRow=visRegimeRows[visRegimeRows.length-1] || rows[rows.length-1];
+  const lastRegimeInfo=visRegimeInfo[visRegimeInfo.length-1] || regimeInfo[regimeInfo.length-1] || {regime:'Flat', confidence:0, regimeScore:0, compression:false};
+  const lastTransitionIdx=[...visRegimeInfo.keys()].reverse().find(i=>visRegimeInfo[i] && visRegimeInfo[i].transition);
+  const lastTransitionRow=lastTransitionIdx!==undefined ? visRegimeRows[lastTransitionIdx] : null;
+  const lastTransitionInfo=lastTransitionIdx!==undefined ? visRegimeInfo[lastTransitionIdx] : null;
+  const badgeParts=[];
+  if(mode==='member'){
+    if(regimeLayer==='on' && showSentRibbon) badgeParts.push(buildRegimeBadgesHTML(lastRegimeInfo, lastTransitionRow, lastTransitionInfo || {}));
+    if(bollinger==='overlap' || bollinger==='both') badgeParts.push(buildOverlapBadgesHTML(overlapInfo));
+    if(engagement!=='off') badgeParts.push(buildEngagementBadgesHTML(engagementInfo));
+  } else {
+    if(bollinger==='overlap' || bollinger==='both'){
+      badgeParts.push(`<span class="badge ${overlapInfo.stateCls || 'badge-neutral'}"><b>Overlap State</b> ${overlapInfo.stateLabel}</span>`);
+      badgeParts.push(`<span class="badge ${overlapInfo.contextCls || 'badge-neutral'}"><b>Context</b> ${overlapInfo.context}</span>`);
+      badgeParts.push(`<span class="badge badge-neutral"><b>Latest Confirmed</b> ${overlapInfo.latestConfirmed}</span>`);
+    }
+    if(engagement!=='off'){
+      badgeParts.push(`<span class="badge ${engagementInfo.levelCls || 'badge-neutral'}"><b>Attention</b> ${engagementInfo.levelLabel}</span>`);
+      badgeParts.push(`<span class="badge ${engagementInfo.regimeCls || 'badge-neutral'}"><b>Engagement</b> ${engagementInfo.regimeLabel}</span>`);
+    }
+  }
+  document.getElementById('regimeBar').innerHTML = badgeParts.join('');
+
+  if(bollinger==='both'){
+    data.push({type:'scatter',mode:'lines',x:xs,y:ov.low,xaxis:'x',yaxis:'y',line:{color:'rgba(0,0,0,0)',width:0},showlegend:false,hoverinfo:'skip',connectgaps:true});
+    data.push({type:'scatter',mode:'lines',x:xs,y:ov.up,xaxis:'x',yaxis:'y',line:{color:'rgba(0,0,0,0)',width:0},showlegend:false,hoverinfo:'skip',connectgaps:true,fill:'tonexty',fillcolor:COLORS.overlapFill});
+  }
+
+  if(regimeLayer==='on' && showSentRibbon) {
+    const transX=[], transY=[], transText=[], transColor=[];
+    rows.forEach((r,i)=>{
+      const info=regimeInfo[i];
+      if(!visibleMask[i] || !info || !info.transition) return;
+      const y=num(r.close) ?? num(r.close_ma_21) ?? null;
+      if(y===null) return;
+      transX.push(r.dateObj);
+      transY.push(y);
+      transText.push(info.transitionType || info.regime);
+      transColor.push(info.regime==='Bullish' ? COLORS.transitionBull : info.regime==='Bearish' ? COLORS.transitionBear : COLORS.transitionFlat);
+    });
+    if(transX.length) data.push({type:'scatter',mode:'markers',x:transX,y:transY,xaxis:'x',yaxis:'y',marker:{size:10,color:transColor,symbol:'diamond-wide'},name:'Ribbon transitions',hovertemplate:'%{x|%b %d, %Y}<br>%{text}<extra></extra>',text:transText});
+  }
+
+  const hist=rows.map(r=>num(r.macd_histogram));
+  const histColors=hist.map((v,i)=>{if(v===null)return 'rgba(0,0,0,0)';const prev=i>0&&hist[i-1]!==null?hist[i-1]:v;const accel=v>=prev; if(v>=0) return accel?COLORS.histUp:COLORS.histUpSoft; return accel?COLORS.histDownSoft:COLORS.histDown;});
+  data.push({type:'bar',x:xs,y:hist,name:'MACD Histogram',marker:{color:histColors},xaxis:'x2',yaxis:'y2',hovertemplate:'%{x|%b %d, %Y}<br>Histogram=%{y:.2f}<extra></extra>'});
+  data.push(traceLine(xs,rows.map(r=>num(r.macd)),'MACD',COLORS.ma7,2.0,'solid','y2',true,'%{x|%b %d, %Y}<br>MACD=%{y:.2f}<extra></extra>'));
+  data.push(traceLine(xs,rows.map(r=>num(r.macd_signal)),'Signal',COLORS.ma50,1.5,'solid','y2',true,'%{x|%b %d, %Y}<br>Signal=%{y:.2f}<extra></extra>'));
+  if(osc==='both'){
+    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd)),'Scaled Sentiment MACD','y2',true,'%{x|%b %d, %Y}<br>Scaled Sentiment MACD=%{y:.2f}<extra></extra>',1.2).forEach(t=>data.push(t));
+    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd_signal)),'Scaled Sentiment Signal','y2',true,'%{x|%b %d, %Y}<br>Scaled Sentiment Signal=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
+  }
+
+  const crossX=[],crossY=[],crossText=[],crossSize=[],crossColor=[];
+  rows.forEach(r=>{const c=num(r.macd_signal_cross), y=num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Bull':'Bear'); crossSize.push(Math.min(18,10+Math.abs(num(r.macd_cross_significance)||0)*2)); crossColor.push(c===1?'rgba(40,220,90,0.85)':'rgba(255,110,110,0.85)');}});
+  if(crossX.length) data.push({type:'scatter',mode:'markers+text',x:crossX,y:crossY,text:crossText,textposition:'top center',xaxis:'x2',yaxis:'y2',marker:{size:crossSize,color:crossColor,symbol:'triangle-up'},name:'Crosses',hovertemplate:'%{x|%b %d, %Y}<br>%{text} Cross<extra></extra>'});
+
+  data.push(traceLine(xs,rows.map(r=>num(r.rsi_d)||num(r.rsi)),'RSI',COLORS.rsi,2.0,'solid','y3',true,'%{x|%b %d, %Y}<br>RSI=%{y:.2f}<extra></extra>'));
+  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_rsi_d)||num(r.sentiment_rsi)),'Sentiment RSI','y3',true,'%{x|%b %d, %Y}<br>Sentiment RSI=%{y:.2f}<extra></extra>',1.1).forEach(t=>data.push(t));
+  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi)),'Stoch RSI %K',COLORS.stoch,1.8,'solid','y4',true,'%{x|%b %d, %Y}<br>Stoch RSI %K=%{y:.2f}<extra></extra>'));
+  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi_d)),'Stoch RSI %D',COLORS.stochD,1.3,'solid','y4',true,'%{x|%b %d, %Y}<br>Stoch RSI %D=%{y:.2f}<extra></extra>'));
+  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_stochastic_rsi_d)),'Sentiment Stoch RSI','y4',true,'%{x|%b %d, %Y}<br>Sentiment Stoch RSI=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
+
+  const priceCandidates=[];
+  rows.forEach((r,i)=>{ if(!visibleMask[i]) return;
+    if(priceDisplay==='candles'){
+      ['open','high','low','close'].forEach(c=>{const v=num(r[c]); if(v!==null) priceCandidates.push(v);});
+    } else {
+      const v=num(r.close); if(v!==null) priceCandidates.push(v);
+    }
+    if((scaleMode==='price_overlays' || scaleMode==='all_visible') && (ribbon==='price'||ribbon==='both')){
+      ['close_ma_7','close_ma_21','close_ma_50','close_ma_100','close_ma_200'].forEach(c=>{const v=num(r[c]); if(v!==null) priceCandidates.push(v);});
+    }
+    if((scaleMode==='all_visible') && (ribbon==='sentiment'||ribbon==='both')){
+      sentRibbonSpec.forEach(s=>{const v=num(s.y[i]); if(v!==null) priceCandidates.push(v);});
+    }
+    if((scaleMode==='price_overlays' || scaleMode==='all_visible') && (bollinger==='price'||bollinger==='both')){
+      const up=num(priceBands.up[i]), lo=num(priceBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
+    }
+    if((scaleMode==='all_visible') && (bollinger==='sentiment'||bollinger==='both'||bollinger==='overlap')){
+      const up=num(mappedBands.up[i]), lo=num(mappedBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
+    }
+    if((scaleMode==='all_visible') && (bollinger==='overlap'||bollinger==='both')){
+      const up=num(ov.up[i]), lo=num(ov.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
+    }
+  });
+
+  let yRange=null;
+  if(priceCandidates.length){
+    const lo=Math.min(...priceCandidates), hi=Math.max(...priceCandidates);
+    const span=Math.max(hi-lo,Math.abs((hi+lo)/2)*0.02,1);
+    const padPct = scaleMode==='price_only' ? 0.04 : (scaleMode==='price_overlays' ? 0.05 : 0.08);
+    const pad=span*padPct;
+    yRange=[lo-pad,hi+pad];
+  }
+
+  const last=visRows[visRows.length-1];
+  const sentConf=(num(last.scaled_sentiment_macd)!==null&&num(last.macd)!==null)?(((num(last.scaled_sentiment_macd)>=num(last.scaled_sentiment_macd_signal))===(num(last.macd)>=num(last.macd_signal)))?'yes':'no'):'n/a';
+  const lastCrossRow=[...visRows].reverse().find(r=>Math.abs(num(r.macd_signal_cross)||0)===1);
+  const lastCrossText=lastCrossRow?`${num(lastCrossRow.macd_signal_cross)===1?'Bull':'Bear'} on ${lastCrossRow.date}`:'none in view';
+  const histDir=visRows.length>=2&&num(visRows[visRows.length-1].macd_histogram)!==null&&num(visRows[visRows.length-2].macd_histogram)!==null?(num(visRows[visRows.length-1].macd_histogram)>=num(visRows[visRows.length-2].macd_histogram)?'rising':'falling'):'flat';
+  const macdRegime=(num(last.macd)!==null&&num(last.macd_signal)!==null&&num(last.macd)>=num(last.macd_signal))?'Bullish':'Bearish';
+  const rb=(calendar==='trading_sessions' && freq==='D')?[{bounds:['sat','mon']}]:[];
+  const regimeRects=(regimeLayer==='on' && showSentRibbon) ? regimeSegments(rows, regimeInfo, visStart, visEnd).map(seg=>({type:'rect',xref:'x',x0:seg.start,x1:nextRangeEnd(seg.end,calendar,freq),yref:'paper',y0:0.54,y1:0.98,line:{width:0},fillcolor:regimeFillColor(seg.regime),layer:'below'})) : [];
+  const overlapTriggerShapes=[];
+  const engagementShapes = engagement==='overlay' ? engagementOverlayShapes(rows, visibleMask, freq) : [];
+
+  const layout={
+    paper_bgcolor:COLORS.bg, plot_bgcolor:COLORS.panel, font:{color:COLORS.text}, margin:{l:64,r:30,t:16,b:54}, barmode:'overlay',
+    legend:{orientation:'v', y:1.0, x:0.0, xanchor:'left', yanchor:'top', bgcolor:'rgba(0,0,0,0.24)', bordercolor:'#2a3138', borderwidth:1, font:{size:11}},
+    xaxis:{domain:[0,1],anchor:'y',range:[visStart,visEndPad],showgrid:true,gridcolor:COLORS.grid,rangeslider:{visible:false},showticklabels:false,rangebreaks:rb},
+    yaxis:{domain:[0.54,0.98],title:'Price',showgrid:true,gridcolor:COLORS.grid,zeroline:false,range:yRange},
+    xaxis2:{domain:[0,1],anchor:'y2',matches:'x',showgrid:true,gridcolor:COLORS.grid,showticklabels:false,rangebreaks:rb},
+    yaxis2:{domain:[0.31,0.50],title:'MACD',showgrid:true,gridcolor:COLORS.grid,zeroline:true,zerolinecolor:'rgba(255,255,255,0.3)'},
+    xaxis3:{domain:[0,1],anchor:'y3',matches:'x',showgrid:true,gridcolor:COLORS.grid,showticklabels:false,rangebreaks:rb},
+    yaxis3:{domain:[0.17,0.28],title:'RSI',showgrid:true,gridcolor:COLORS.grid,range:[0,100]},
+    xaxis4:{domain:[0,1],anchor:'y4',matches:'x',showgrid:true,gridcolor:COLORS.grid,tickformat:freq==='W'?'%b %Y':'%b %d\n%Y',rangebreaks:rb},
+    yaxis4:{domain:[0.03,0.14],title:'Stoch',showgrid:true,gridcolor:COLORS.grid,range:[0,100]},
+    shapes:[
+      ...regimeRects,
+      ...engagementShapes,
+      ...overlapTriggerShapes,
+      {type:'line',xref:'paper',x0:0,x1:1,yref:'y3',y0:70,y1:70,line:{color:'rgba(255,255,255,0.25)',width:1,dash:'dot'}},
+      {type:'line',xref:'paper',x0:0,x1:1,yref:'y3',y0:30,y1:30,line:{color:'rgba(255,255,255,0.25)',width:1,dash:'dot'}},
+      {type:'line',xref:'paper',x0:0,x1:1,yref:'y4',y0:80,y1:80,line:{color:'rgba(255,255,255,0.25)',width:1,dash:'dot'}},
+      {type:'line',xref:'paper',x0:0,x1:1,yref:'y4',y0:20,y1:20,line:{color:'rgba(255,255,255,0.25)',width:1,dash:'dot'}}
+    ],
+    annotations:[
+      {xref:'paper',yref:'paper',x:0.5,y:0.995,text:'Price',showarrow:false,font:{size:15,color:COLORS.text}},
+      {xref:'paper',yref:'paper',x:0.5,y:0.505,text:'MACD',showarrow:false,font:{size:15,color:COLORS.text}},
+      {xref:'paper',yref:'paper',x:0.5,y:0.285,text:'RSI',showarrow:false,font:{size:15,color:COLORS.text}},
+      {xref:'paper',yref:'paper',x:0.5,y:0.145,text:'Stoch RSI',showarrow:false,font:{size:15,color:COLORS.text}},
+      ...(regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.01,y:0.985,xanchor:'left',text:`Sentiment Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...((bollinger==='overlap' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y:0.955,xanchor:'left',text:overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(engagement!=='off' ? [{xref:'paper',yref:'paper',x:0.99,y:0.955,xanchor:'right',text:`Attention: ${engagementInfo.levelLabel} | ${engagementInfo.convictionLabel} | ${engagementInfo.regimeLabel}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      {xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD: ${macdRegime} | Last Cross: ${lastCrossText} | Histogram: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}
+    ],
+    hovermode:'x unified'
+  };
+  Plotly.newPlot('chart', data, layout, {responsive:true, displaylogo:false});
+}
+const CONTROL_IDS=['asset','freq','range','priceDisplay','scaleMode','ribbon','sentRibbon','regimeLayer','engagement','bollinger','osc'];
+function attachControlHandlers(){ CONTROL_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change', buildFigure); }); }
+async function initDashboard(){
+  try{
+    applyModeUi();
+    await loadStore();
+    populateAssetOptions();
+    applyModeDefaults();
+    attachControlHandlers();
+    buildFigure();
+  }catch(err){
+    console.error(err);
+    document.getElementById('helperText').textContent = `Data load error: ${err.message}`;
+    document.getElementById('regimeBar').innerHTML = '<span class="badge badge-bear"><b>Load Error</b> Unable to load dashboard data.</span>';
+  }
+}
+initDashboard();
+
+</script></div></body></html>
