@@ -2,24 +2,24 @@
 <html><head><meta charset="utf-8"/><title>SETA Market Dashboard — Fix 24 Embed-Ready</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
-body{margin:0;background:#07090b;color:#e7eef3;font-family:Arial,Helvetica,sans-serif;}
-.embedShell{max-width:1440px;margin:0 auto;}
-.modeBadge{display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:999px;border:1px solid #2a3138;background:#0f1114;font-size:11px;color:#dfe8ee;margin-top:6px;}
+body{margin:0;background:#07090b;color:#e7eef3;font-family:Arial,Helvetica,sans-serif;line-height:1.42;}
+.embedShell{max-width:1480px;margin:0 auto;padding-bottom:20px;}
+.modeBadge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid #2a3138;background:#0f1114;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#dfe8ee;margin-top:8px;}
 .member-only{}
 .public-hidden{display:none!important;}
-.summaryLead{display:flex;flex-wrap:wrap;gap:8px;padding:4px 16px 0 16px;}
-.summaryCard{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:10px;border:1px solid #2a3138;background:#0f1114;font-size:12px;color:#dfe8ee;}
-.header{padding:16px 16px 8px 16px;border-bottom:1px solid #1d2329;}
-.h1{font-size:20px;font-weight:700;margin:0 0 4px 0;}
-.sub{font-size:12px;color:#c7d1d8;}
-.controls{display:flex;flex-wrap:wrap;gap:10px;padding:10px 16px 8px 16px;border-bottom:1px solid #1d2329;}
-.control{display:flex;flex-direction:column;min-width:150px;}
-.control label{font-size:11px;color:#d4dde4;margin-bottom:4px;}
-.control select{background:#0f1114;border:1px solid #343b42;color:white;border-radius:6px;padding:8px 10px;font-size:14px;}
-.meta{display:flex;justify-content:space-between;align-items:center;padding:8px 16px 0 16px;gap:8px;}
+.summaryLead{display:flex;flex-wrap:wrap;gap:8px;padding:8px 18px 2px 18px;}
+.summaryCard{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:12px;border:1px solid #2a3138;background:linear-gradient(180deg,#101418 0%,#0c0f12 100%);font-size:12px;color:#e6edf2;box-shadow:0 8px 24px rgba(0,0,0,0.18);}
+.header{padding:18px 18px 10px 18px;border-bottom:1px solid #1d2329;}
+.h1{font-size:24px;font-weight:700;margin:0 0 4px 0;letter-spacing:-0.02em;}
+.sub{font-size:12px;color:#b9c4cb;max-width:920px;}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:12px 18px 10px 18px;border-bottom:1px solid #1d2329;}
+.control{display:flex;flex-direction:column;min-width:140px;flex:0 1 auto;}
+.control label{font-size:10.5px;color:#d4dde4;margin-bottom:5px;letter-spacing:.06em;text-transform:uppercase;}
+.control select{background:#0f1114;border:1px solid #343b42;color:white;border-radius:8px;padding:9px 11px;font-size:14px;min-height:40px;}
+.meta{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 18px 0 18px;gap:12px;}
 .assetTitle{font-size:14px;font-weight:700;}
-.helper{font-size:12px;color:#8be38b;}
-.regimeBar{display:flex;flex-wrap:wrap;gap:8px;padding:8px 16px 4px 16px;}
+.helper{font-size:11.5px;color:#9adf9a;max-width:980px;}
+.regimeBar{display:flex;flex-wrap:wrap;gap:8px;padding:10px 18px 6px 18px;}
 .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #2a3138;background:#0f1114;font-size:12px;color:#dfe8ee;}
 .badge b{font-weight:700;}
 .badge-bull{border-color:rgba(70,220,120,0.45);box-shadow:0 0 0 1px rgba(70,220,120,0.07) inset;}
@@ -27,26 +27,26 @@ body{margin:0;background:#07090b;color:#e7eef3;font-family:Arial,Helvetica,sans-
 .badge-flat{border-color:rgba(214,191,94,0.45);box-shadow:0 0 0 1px rgba(214,191,94,0.07) inset;}
 .badge-neutral{border-color:#2a3138;}
 .badge-attn{border-color:rgba(92,164,255,0.45);box-shadow:0 0 0 1px rgba(92,164,255,0.08) inset;}
-#chart{height:980px;width:100%;}
+#chart{width:100%;height:clamp(760px,88vh,1080px);}
 </style></head><body>
 <div class="embedShell">
-<div class="header"><div class="h1">SETA Market Dashboard — Fix 24 Embed-Ready</div>
-<div class="sub">Embed-ready replacement shell for the current Tableau dashboard. Preserves Combined Overlap as the primary state model, keeps Engagement as a secondary context layer, and supports public/member modes from one codebase.</div><div class="modeBadge" id="modeBadge">Public Mode</div></div>
+<div class="header"><div class="h1">SETA Research Dashboard</div>
+<div class="sub">Combined Overlap remains primary, Engagement stays contextual, and member mode keeps the fuller analytical surface without losing price readability.</div><div class="modeBadge" id="modeBadge">Member Mode</div></div>
 <div class="summaryLead" id="summaryLead"></div>
 <div class="controls">
   <div class="control"><label>ASSET</label><select id="asset"></select></div>
   <div class="control"><label>FREQUENCY</label><select id="freq"><option value="D">Daily</option><option value="W">Weekly</option></select></div>
   <div class="control"><label>DISPLAY RANGE</label><select id="range"><option value="1M">1M</option><option value="3M" selected>3M</option><option value="6M">6M</option><option value="YTD">YTD</option><option value="1Y">1Y</option><option value="All">All</option></select></div>
-  <div class="control"><label>PRICE DISPLAY</label><select id="priceDisplay"><option value="candles">Candles</option><option value="line">Line</option></select></div>
+  <div class="control"><label>CHART TYPE</label><select id="priceDisplay"><option value="candles">Candles</option><option value="line">Line</option></select></div>
   <div class="control member-only"><label>SCALE MODE</label><select id="scaleMode"><option value="price_overlays" selected>Price + Price Overlays</option><option value="price_only">Price Only</option><option value="all_visible">All Visible Traces</option></select></div>
   <div class="control member-only"><label>RIBBON</label><select id="ribbon"><option value="none">None</option><option value="price">Price</option><option value="sentiment">Sentiment</option><option value="both">Both</option></select></div>
   <div class="control member-only"><label>SENTIMENT RIBBON</label><select id="sentRibbon"><option value="curated">Curated</option><option value="full">Full</option></select></div>
   <div class="control member-only"><label>REGIME VISUALS</label><select id="regimeLayer"><option value="on" selected>On</option><option value="off">Off</option></select></div>
-  <div class="control"><label>ENGAGEMENT</label><select id="engagement"><option value="off">Off</option><option value="context" selected>Context</option><option value="overlay">Overlay</option></select></div>
-  <div class="control"><label>BOLLINGER</label><select id="bollinger"><option value="none">None</option><option value="price">Price</option><option value="sentiment">Sentiment</option><option value="overlap">Combined Overlap</option><option value="both">Both</option></select></div>
-  <div class="control"><label>OSCILLATOR OVERLAY</label><select id="osc"><option value="price">Price Only</option><option value="both" selected>Price + Sentiment</option></select></div>
+  <div class="control"><label>ATTENTION</label><select id="engagement"><option value="off">Off</option><option value="context" selected>Context</option><option value="overlay">Overlay Marks</option></select></div>
+  <div class="control"><label>BANDS</label><select id="bollinger"><option value="none">None</option><option value="price">Price</option><option value="sentiment">Sentiment</option><option value="overlap">Combined Overlap</option><option value="both">Both</option></select></div>
+  <div class="control"><label>TIMING VIEW</label><select id="osc"><option value="price">Price Only</option><option value="both" selected>Price + Sentiment</option></select></div>
 </div>
-<div class="meta"><div class="assetTitle" id="assetTitle">BTC · Daily</div><div class="helper" id="helperText">Fix 23: combined overlap stays primary; engagement now uses a two-tier overlay. Soft participation strips mark meaningful attention/conviction days, while stronger event markers remain reserved for elevated-regime or spike conditions.</div></div>
+<div class="meta"><div class="assetTitle" id="assetTitle">BTC · Daily</div><div class="helper" id="helperText">Research view · Combined Overlap primary · Engagement contextual · Timing panes optional.</div></div>
 <div class="regimeBar" id="regimeBar"></div>
 <div id="chart"></div>
 <script>
@@ -74,10 +74,10 @@ const MEMBER_ASSETS = ['BTC','COIN','ETH','NFLX','NVDA'];
 function currentMode(){ return DASH_MODE || new URLSearchParams(location.search).get('mode') || 'public'; }
 function assetUniverse(){ return currentMode()==='member' ? MEMBER_ASSETS.slice() : PUBLIC_ASSETS.slice(); }
 function publicDefaults(){
-  return {freq:'D',range:'3M',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'on',engagement:'context',bollinger:'overlap',osc:'both'};
+  return {freq:'D',range:'3M',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'off',engagement:'context',bollinger:'overlap',osc:'both'};
 }
 function memberDefaults(){
-  return {freq:'D',range:'3M',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'on',engagement:'context',bollinger:'overlap',osc:'both'};
+  return {freq:'D',range:'6M',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'on',engagement:'context',bollinger:'overlap',osc:'both'};
 }
 function setSelectValue(id,val){ const el=document.getElementById(id); if(el && [...el.options].some(o=>o.value===val)) el.value=val; }
 function populateAssetOptions(){
@@ -92,10 +92,10 @@ function applyModeUi(){
   const mode=currentMode();
   document.getElementById('modeBadge').textContent = mode==='member' ? 'Member Mode' : 'Public Mode';
   document.querySelectorAll('.member-only').forEach(el=>{ el.style.display = mode==='member' ? '' : 'none'; });
-  document.querySelector('.h1').textContent = mode==='member' ? 'SETA Research Dashboard — Fix 24 Embed-Ready' : 'SETA Market Dashboard — Fix 24 Embed-Ready';
+  document.querySelector('.h1').textContent = mode==='member' ? 'SETA Research Dashboard' : 'SETA Market Dashboard';
   document.querySelector('.sub').textContent = mode==='member'
-    ? 'Member mode preserves the richer analytical control surface while keeping Combined Overlap primary, Engagement contextual, and timing layers optional.'
-    : 'Public mode replaces the current Tableau embed with a cleaner, website-ready shell: Combined Overlap remains primary, Engagement stays contextual, and traditional indicators remain legible.';
+    ? 'Combined Overlap remains primary, Engagement stays contextual, and member mode keeps the fuller analytical surface without losing price readability.'
+    : 'Combined Overlap leads. Engagement confirms. Traditional indicators remain visible for timing.';
 }
 function applyModeDefaults(){
   const d = currentMode()==='member' ? memberDefaults() : publicDefaults();
@@ -894,15 +894,17 @@ function buildFigure(){
   document.getElementById('assetTitle').textContent=`${term} · ${freq==='D'?'Daily':'Weekly'}`;
   const helperParts=[`${calendar==='continuous'?'Continuous calendar':'Trading-session compression'} · sentiment transform fit includes hidden warmup`];
   if(priceBands.derived) helperParts.push('price bands derived in-view from close 20 SMA ± 2 std');
-  if(bollinger==='overlap' || bollinger==='both') helperParts.push('combined overlap is the primary state model, using the advanced overlap range as the canonical joint expectation corridor');
-  if(bollinger==='overlap' || bollinger==='both') helperParts.push('state is driven by advanced overlap geometry; structure tracks compression/expansion, and confirmed alerts still require outside overlap + High boll_volatility_flag + high volume');
-  if(sentRibbonInfo.usedHybridOffsets) helperParts.push('full ribbon uses anchored MA 21 centerline plus smoothed saved-family offsets');
+  if(bollinger==='overlap' || bollinger==='both') helperParts.push('combined overlap remains the canonical joint expectation corridor');
+  if(bollinger==='overlap' || bollinger==='both') helperParts.push('confirmed alerts still require outside overlap + High boll_volatility_flag + high volume');
+  if(sentRibbonInfo.usedHybridOffsets) helperParts.push('full ribbon uses anchored MA 21 centerline plus smoothed family offsets');
   const currentRegimeInfo=regimeInfo[rows.length-1] || {regime:'Flat', confidence:0, basis:'derived'};
   const scaleModeLabel = scaleMode==='price_only' ? 'price only' : (scaleMode==='all_visible' ? 'all visible traces' : 'price + price overlays');
   helperParts.push(`scale mode: ${scaleModeLabel}`);
   helperParts.push(`regime basis: ${currentRegimeInfo.basis || 'derived'}`);
-  if(engagement!=='off') helperParts.push(engagement==='overlay' ? 'engagement overlay: soft participation strips show meaningful attention/conviction days; stronger event marks remain reserved for elevated regime/spike days' : 'engagement context: attention level, conviction, and regime badges active');
-  document.getElementById('helperText').textContent = currentMode()==='member' ? helperParts.join(' · ') : `Combined Overlap is primary. Engagement is contextual. Timing layers remain optional. ${calendar==='continuous'?'Continuous':'Trading-session'} ${freq==='D'?'daily':'weekly'} view.`;
+  if(engagement!=='off') helperParts.push(engagement==='overlay' ? 'attention overlay marks soft participation days and stronger event bursts' : 'attention badges show level, conviction, and regime');
+  document.getElementById('helperText').textContent = currentMode()==='member'
+    ? helperParts.join(' · ')
+    : `${calendar==='continuous'?'Continuous':'Trading-session'} ${freq==='D'?'daily':'weekly'} view · Combined Overlap primary · Engagement contextual · Timing panes optional.`;
 
   if(priceDisplay==='candles') data.push({type:'candlestick',x:xs,open:rows.map(r=>num(r.open)),high:rows.map(r=>num(r.high)),low:rows.map(r=>num(r.low)),close:rows.map(r=>num(r.close)),name:'Price',xaxis:'x',yaxis:'y',showlegend:true,increasing:{line:{color:COLORS.price},fillcolor:COLORS.price},decreasing:{line:{color:'#9f9f9f'},fillcolor:'#9f9f9f'},hovertemplate:'%{x|%b %d, %Y}<br>Open=%{open:.2f}<br>High=%{high:.2f}<br>Low=%{low:.2f}<br>Close=%{close:.2f}<extra></extra>'});
   else data.push(traceLine(xs,rows.map(r=>num(r.close)),'Price',COLORS.price,2.0,'solid','y',true,'%{x|%b %d, %Y}<br>Close=%{y:.2f}<extra></extra>'));
@@ -935,16 +937,16 @@ document.getElementById('summaryLead').innerHTML = mode==='member'
   const lastTransitionInfo=lastTransitionIdx!==undefined ? visRegimeInfo[lastTransitionIdx] : null;
   const badgeParts=[];
   if(mode==='member'){
-    if(regimeLayer==='on' && showSentRibbon) badgeParts.push(buildRegimeBadgesHTML(lastRegimeInfo, lastTransitionRow, lastTransitionInfo || {}));
     if(bollinger==='overlap' || bollinger==='both') badgeParts.push(buildOverlapBadgesHTML(overlapInfo));
     if(engagement!=='off') badgeParts.push(buildEngagementBadgesHTML(engagementInfo));
+    if(regimeLayer==='on' && showSentRibbon) badgeParts.push(buildRegimeBadgesHTML(lastRegimeInfo, lastTransitionRow, lastTransitionInfo || {}));
   } else {
     if(bollinger==='overlap' || bollinger==='both'){
       badgeParts.push(`<span class="badge ${overlapInfo.stateCls || 'badge-neutral'}"><b>Overlap State</b> ${overlapInfo.stateLabel}</span>`);
       badgeParts.push(`<span class="badge ${overlapInfo.contextCls || 'badge-neutral'}"><b>Context</b> ${overlapInfo.context}</span>`);
+      badgeParts.push(`<span class="badge ${engagementInfo.levelCls || 'badge-neutral'}"><b>Attention</b> ${engagementInfo.levelLabel}</span>`);
       badgeParts.push(`<span class="badge badge-neutral"><b>Latest Confirmed</b> ${overlapInfo.latestConfirmed}</span>`);
-    }
-    if(engagement!=='off'){
+    } else if(engagement!=='off'){
       badgeParts.push(`<span class="badge ${engagementInfo.levelCls || 'badge-neutral'}"><b>Attention</b> ${engagementInfo.levelLabel}</span>`);
       badgeParts.push(`<span class="badge ${engagementInfo.regimeCls || 'badge-neutral'}"><b>Engagement</b> ${engagementInfo.regimeLabel}</span>`);
     }
@@ -1036,7 +1038,8 @@ document.getElementById('summaryLead').innerHTML = mode==='member'
   const engagementShapes = engagement==='overlay' ? engagementOverlayShapes(rows, visibleMask, freq) : [];
 
   const layout={
-    paper_bgcolor:COLORS.bg, plot_bgcolor:COLORS.panel, font:{color:COLORS.text}, margin:{l:64,r:30,t:16,b:54}, barmode:'overlay',
+    paper_bgcolor:COLORS.bg, plot_bgcolor:COLORS.panel, font:{color:COLORS.text}, margin:{l:64,r:30,t:18,b:54}, barmode:'overlay',
+    showlegend: mode==='member',
     legend:{orientation:'v', y:1.0, x:0.0, xanchor:'left', yanchor:'top', bgcolor:'rgba(0,0,0,0.24)', bordercolor:'#2a3138', borderwidth:1, font:{size:11}},
     xaxis:{domain:[0,1],anchor:'y',range:[visStart,visEndPad],showgrid:true,gridcolor:COLORS.grid,rangeslider:{visible:false},showticklabels:false,rangebreaks:rb},
     yaxis:{domain:[0.54,0.98],title:'Price',showgrid:true,gridcolor:COLORS.grid,zeroline:false,range:yRange},
@@ -1060,10 +1063,10 @@ document.getElementById('summaryLead').innerHTML = mode==='member'
       {xref:'paper',yref:'paper',x:0.5,y:0.505,text:'MACD',showarrow:false,font:{size:15,color:COLORS.text}},
       {xref:'paper',yref:'paper',x:0.5,y:0.285,text:'RSI',showarrow:false,font:{size:15,color:COLORS.text}},
       {xref:'paper',yref:'paper',x:0.5,y:0.145,text:'Stoch RSI',showarrow:false,font:{size:15,color:COLORS.text}},
-      ...(regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.01,y:0.985,xanchor:'left',text:`Sentiment Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      ...((bollinger==='overlap' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y:0.955,xanchor:'left',text:overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      ...(engagement!=='off' ? [{xref:'paper',yref:'paper',x:0.99,y:0.955,xanchor:'right',text:`Attention: ${engagementInfo.levelLabel} | ${engagementInfo.convictionLabel} | ${engagementInfo.regimeLabel}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      {xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD: ${macdRegime} | Last Cross: ${lastCrossText} | Histogram: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}
+      ...(mode==='member' && regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.01,y:0.985,xanchor:'left',text:`Sentiment Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...((bollinger==='overlap' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: mode==='member' ? 0.955 : 0.972,xanchor:'left',text: mode==='member' ? overlapInfo.annotation : `${overlapInfo.stateLabel} | ${overlapInfo.context}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(mode==='member' && engagement!=='off' ? [{xref:'paper',yref:'paper',x:0.99,y:0.955,xanchor:'right',text:`Attention: ${engagementInfo.levelLabel} | ${engagementInfo.convictionLabel} | ${engagementInfo.regimeLabel}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(mode==='member' ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD: ${macdRegime} | Last Cross: ${lastCrossText} | Histogram: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
     ],
     hovermode:'x unified'
   };
