@@ -1,0 +1,26 @@
+body{margin:0;background:#07090b;color:#e7eef3;font-family:Arial,Helvetica,sans-serif;line-height:1.42;}
+.embedShell{max-width:1480px;margin:0 auto;padding-bottom:20px;}
+.modeBadge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;border:1px solid #2a3138;background:#0f1114;font-size:10.5px;letter-spacing:.04em;text-transform:uppercase;color:#dfe8ee;margin-top:8px;}
+.member-only{}
+.public-hidden{display:none!important;}
+.summaryLead{display:flex;flex-wrap:wrap;gap:8px;padding:8px 18px 2px 18px;}
+.summaryCard{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:12px;border:1px solid #2a3138;background:linear-gradient(180deg,#101418 0%,#0c0f12 100%);font-size:12px;color:#e6edf2;box-shadow:0 8px 24px rgba(0,0,0,0.18);}
+.header{padding:18px 18px 10px 18px;border-bottom:1px solid #1d2329;}
+.h1{font-size:24px;font-weight:700;margin:0 0 4px 0;letter-spacing:-0.02em;}
+.sub{font-size:12px;color:#b9c4cb;max-width:920px;}
+.controls{display:flex;flex-wrap:wrap;gap:10px;padding:12px 18px 10px 18px;border-bottom:1px solid #1d2329;}
+.control{display:flex;flex-direction:column;min-width:140px;flex:0 1 auto;}
+.control label{font-size:10.5px;color:#d4dde4;margin-bottom:5px;letter-spacing:.06em;text-transform:uppercase;}
+.control select{background:#0f1114;border:1px solid #343b42;color:white;border-radius:8px;padding:9px 11px;font-size:14px;min-height:40px;}
+.meta{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 18px 0 18px;gap:12px;}
+.assetTitle{font-size:14px;font-weight:700;}
+.helper{font-size:11.5px;color:#9adf9a;max-width:980px;}
+.regimeBar{display:flex;flex-wrap:wrap;gap:8px;padding:10px 18px 6px 18px;}
+.badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #2a3138;background:#0f1114;font-size:12px;color:#dfe8ee;}
+.badge b{font-weight:700;}
+.badge-bull{border-color:rgba(70,220,120,0.45);box-shadow:0 0 0 1px rgba(70,220,120,0.07) inset;}
+.badge-bear{border-color:rgba(255,110,110,0.45);box-shadow:0 0 0 1px rgba(255,110,110,0.07) inset;}
+.badge-flat{border-color:rgba(214,191,94,0.45);box-shadow:0 0 0 1px rgba(214,191,94,0.07) inset;}
+.badge-neutral{border-color:#2a3138;}
+.badge-attn{border-color:rgba(92,164,255,0.45);box-shadow:0 0 0 1px rgba(92,164,255,0.08) inset;}
+#chart{width:100%;height:clamp(760px,88vh,1080px);}
