@@ -35,3 +35,10 @@ Use `refresh_fix26_dashboard_all.bat` for a one-click combined refresh. It:
 - Public/member behavior is now config-driven from the shared manifest.
 - Combined Overlap still prefers advanced -> precomputed band -> derived fallback.
 - Missing assets are tolerated in generated payloads and reported by the builder.
+
+
+## Fix 26A Contextual Overlap
+- Added Contextual Overlap as a price-space sentiment envelope using trailing percentile-based calibration.
+- Defaults now use Contextual Overlap in both public and member modes.
+- Canonical Overlap remains available as the raw/native comparison model.
+- Contextual scaling windows are range-aware: shorter for 1M, broader for 6M/1Y, but never full-window min/max.

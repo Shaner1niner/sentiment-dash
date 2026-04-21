@@ -40,7 +40,7 @@
         "sentRibbon": "curated",
         "regimeLayer": "off",
         "engagement": "context",
-        "bollinger": "overlap",
+        "bollinger": "contextual",
         "osc": "both"
       },
       "controls": [
@@ -54,6 +54,7 @@
       ],
       "badgeOrder": [
         "overlapState",
+        "overlapModel",
         "context",
         "attention",
         "latestConfirmed"
@@ -111,7 +112,7 @@
         "sentRibbon": "curated",
         "regimeLayer": "on",
         "engagement": "context",
-        "bollinger": "overlap",
+        "bollinger": "contextual",
         "osc": "both"
       },
       "controls": [
@@ -134,6 +135,7 @@
         "width",
         "lastTransition",
         "overlapState",
+        "overlapModel",
         "structure",
         "event",
         "context",

@@ -30,7 +30,7 @@ function assetUniverse(){
 }
 function modeDefaults(){
   const cfg = manifestModeConfig();
-  return cfg && cfg.defaults ? cfg.defaults : {freq:'D',range:'3M',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'off',engagement:'context',bollinger:'overlap',osc:'both'};
+  return cfg && cfg.defaults ? cfg.defaults : {freq:'D',range:'3M',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'off',engagement:'context',bollinger:'contextual',osc:'both'};
 }
 function activeDataUrl(){
   return new URLSearchParams(location.search).get('data') || manifestModeConfig()?.dataUrl || 'fix26_chart_store_public.json';
@@ -571,6 +571,102 @@ function overlapBandsForTableau(rows, derivedOverlap){
   }
   return {up,low,source};
 }
+function contextualCalibrationSpec(rangePreset, calendar){
+  const continuous = calendar==='continuous';
+  const map = {
+    '1M': {window: continuous ? 30 : 21, minPeriods: continuous ? 14 : 12, smooth: 3},
+    '3M': {window: continuous ? 90 : 63, minPeriods: continuous ? 28 : 20, smooth: 5},
+    '6M': {window: continuous ? 120 : 84, minPeriods: continuous ? 32 : 24, smooth: 5},
+    'YTD': {window: continuous ? 120 : 84, minPeriods: continuous ? 32 : 24, smooth: 5},
+    '1Y': {window: continuous ? 180 : 126, minPeriods: continuous ? 48 : 32, smooth: 7},
+    'All': {window: continuous ? 180 : 126, minPeriods: continuous ? 48 : 32, smooth: 7}
+  };
+  return {...(map[rangePreset] || map['3M']), qLo:0.05, qHi:0.95};
+}
+function computeContextualSentimentBands(rows, rangePreset, calendar){
+  const spec=contextualCalibrationSpec(rangePreset, calendar);
+  const centers=rows.map(r=>num(r.combined_compound_ma_7) ?? num(r.combined_compound_ma_21));
+  const sentUpRaw=rows.map(r=>num(r.sentiment_upper_band));
+  const sentLowRaw=rows.map(r=>num(r.sentiment_lower_band));
+  const closes=rows.map(r=>num(r.close) ?? num(r.close_ma_21));
+  const up=new Array(rows.length).fill(null), low=new Array(rows.length).fill(null), basis=new Array(rows.length).fill(null), source=new Array(rows.length).fill('missing');
+  const {window, minPeriods, smooth, qLo, qHi}=spec;
+  for(let i=0;i<rows.length;i++){
+    const start=Math.max(0, i-window+1);
+    const rawVals=[], priceVals=[];
+    for(let j=start;j<=i;j++){
+      const rv=num(centers[j]);
+      const pv=num(closes[j]);
+      if(rv!==null && Number.isFinite(rv)) rawVals.push(rv);
+      if(pv!==null && Number.isFinite(pv)) priceVals.push(pv);
+    }
+    const curUp=num(sentUpRaw[i]), curLow=num(sentLowRaw[i]);
+    if(curUp===null || curLow===null || rawVals.length<minPeriods || priceVals.length<minPeriods) continue;
+    const rawLo=quantile(rawVals, qLo), rawHi=quantile(rawVals, qHi), rawMid=quantile(rawVals, 0.5);
+    const priceLo=quantile(priceVals, qLo), priceHi=quantile(priceVals, qHi), priceMid=quantile(priceVals, 0.5);
+    let a=null;
+    if([rawLo, rawHi, priceLo, priceHi].every(v=>v!==null && Number.isFinite(v)) && Math.abs(rawHi-rawLo) > 1e-12){
+      a=(priceHi-priceLo)/(rawHi-rawLo);
+    }
+    if(a===null || !Number.isFinite(a) || Math.abs(a) < 1e-12){
+      const sRaw=stddev(rawVals), sPrice=stddev(priceVals);
+      if(sRaw!==null && sPrice!==null && Number.isFinite(sRaw) && Number.isFinite(sPrice) && sRaw > 1e-12){
+        a=sPrice/sRaw;
+      }
+    }
+    if(a===null || !Number.isFinite(a) || Math.abs(a) < 1e-12 || rawMid===null || priceMid===null) continue;
+    const b=priceMid - a*rawMid;
+    up[i]=a*curUp + b;
+    low[i]=a*curLow + b;
+    const center=num(centers[i]);
+    basis[i]=center===null ? null : a*center + b;
+    source[i]='contextual';
+  }
+  return {up:smoothFiniteSeries(up, smooth), low:smoothFiniteSeries(low, smooth), basis:smoothFiniteSeries(basis, smooth), source, spec};
+}
+function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
+  const up=[], low=[], source=[];
+  for(let i=0;i<priceUp.length;i++){
+    const pu=num(priceUp[i]), pl=num(priceLow[i]), su=num(sentUp[i]), sl=num(sentLow[i]);
+    if([pu,pl,su,sl].some(v=>v===null)){ up.push(null); low.push(null); source.push('missing'); continue; }
+    let upper=null, lower=null;
+    if(pu >= sl && su >= pl){
+      upper = Math.max(Math.min(pu, su), pl);
+      lower = Math.min(Math.max(pl, sl), pu);
+      source.push('contextual_intersection');
+    } else {
+      upper = Math.abs(pu - sl) < Math.abs(su - pl) ? Math.max(pu, pl) : Math.max(su, pl);
+      lower = Math.abs(pl - su) < Math.abs(sl - pu) ? Math.min(pl, pu) : Math.min(sl, pu);
+      source.push('contextual_nearest');
+    }
+    if(upper!==null && lower!==null && upper < lower){
+      const lo=Math.min(upper, lower), hi=Math.max(upper, lower);
+      lower=lo; upper=hi;
+    }
+    up.push(upper); low.push(lower);
+  }
+  return {up, low, source};
+}
+function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar, bollinger){
+  if(bollinger==='contextual' || bollinger==='both'){
+    const contextualBands = computeContextualSentimentBands(rows, rangePreset, calendar);
+    const overlap = deriveAdvancedOverlapBands(priceBands.up, priceBands.low, contextualBands.up, contextualBands.low);
+    return {
+      family:'contextual',
+      label:'Contextual Overlap',
+      overlap:{...overlap, family:'contextual'},
+      sentimentBands:contextualBands
+    };
+  }
+  const ovRaw=displayedOverlap(priceBands.up,priceBands.low,mappedBands.up,mappedBands.low);
+  const overlap=overlapBandsForTableau(rows, ovRaw);
+  return {
+    family:'canonical',
+    label:'Canonical Overlap',
+    overlap:{...overlap, family:'canonical'},
+    sentimentBands:mappedBands
+  };
+}
 function finiteQuantile(values, q){
   const xs=values.filter(v=>Number.isFinite(v)).slice().sort((a,b)=>a-b);
   if(!xs.length) return null;
@@ -658,14 +754,14 @@ function overlapStateAt(rows, overlap, idx){
 }
 function overlapCurrentEventType(rows, overlap, idx){
   const row=rows[idx] || {};
-  if(truthyFlag(row, 'boll_overlap_reentry_flag')){
+  if(overlap?.family==='canonical' && truthyFlag(row, 'boll_overlap_reentry_flag')){
     const prevType = idx>0 ? overlapOutsideType(rows[idx-1], overlap, idx-1) : null;
     if(prevType==='bullish') return 'Re-entry from Below';
     if(prevType==='bearish') return 'Re-entry from Above';
     return 'Re-entry';
   }
-  if(truthyFlag(row, 'boll_overlap_rejection_bullish_flag')) return 'Bullish Rejection';
-  if(truthyFlag(row, 'boll_overlap_rejection_bearish_flag')) return 'Bearish Rejection';
+  if(overlap?.family==='canonical' && truthyFlag(row, 'boll_overlap_rejection_bullish_flag')) return 'Bullish Rejection';
+  if(overlap?.family==='canonical' && truthyFlag(row, 'boll_overlap_rejection_bearish_flag')) return 'Bearish Rejection';
   const state=overlapStateAt(rows, overlap, idx);
   if(state.code==='confirmed_bullish' || state.code==='confirmed_bearish') return 'Confirmed Break';
   const structure=overlapStructureAt(rows, overlap, idx);
@@ -685,7 +781,7 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
       stateLabel:'Unavailable', stateCls:'badge-neutral', structure:'Unknown', structureCls:'badge-neutral',
       currentEvent:'No Fresh Event', eventCls:'badge-neutral', condition:'Stability', volume:'Normal Volume',
       context:'Stability · Normal Volume', contextCls:'badge-neutral', narrative:'No valid price bar is available in view.',
-      annotation:'Combined overlap model: unavailable', latestConfirmed:'No confirmed alert in view.'
+      annotation:'Combined overlap model: unavailable', latestConfirmed:'No confirmed alert in view.', modelLabel: overlap?.family==='contextual' ? 'Contextual Overlap' : 'Canonical Overlap'
     };
   }
   const latestRow=rows[latestIdx];
@@ -714,7 +810,8 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
   else if(currentEvent==='Expansion') narrative='Combined overlap is expanded relative to its recent width distribution, suggesting a broader joint expectation range.';
   else if(currentEvent==='Re-entry from Below' || currentEvent==='Re-entry from Above') narrative=`${currentEvent} suggests price has moved back into the combined overlap range.`;
   else if(currentEvent==='Bullish Rejection' || currentEvent==='Bearish Rejection') narrative=`${currentEvent} suggests price tested the advanced overlap boundary and failed to hold outside it.`;
-  const annotation=`Combined overlap: ${state.label} | ${structure} | ${context}`;
+  const modelLabel = overlap?.family==='contextual' ? 'Contextual Overlap' : 'Canonical Overlap';
+  const annotation=`${modelLabel}: ${state.label} | ${structure} | ${context}`;
   return {
     stateLabel:state.label,
     stateCls:state.cls,
@@ -728,7 +825,8 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
     contextCls:(highVol || highVolume) ? 'badge-bear' : 'badge-neutral',
     narrative,
     annotation,
-    latestConfirmed
+    latestConfirmed,
+    modelLabel
   };
 }
 function attentionLevelState(row){
@@ -885,8 +983,9 @@ function buildFigure(){
   document.getElementById('assetTitle').textContent=`${term} · ${freq==='D'?'Daily':'Weekly'}`;
   const helperParts=[`${calendar==='continuous'?'Continuous calendar':'Trading-session compression'} · sentiment transform fit includes hidden warmup`];
   if(priceBands.derived) helperParts.push('price bands derived in-view from close 20 SMA ± 2 std');
-  if(bollinger==='overlap' || bollinger==='both') helperParts.push('combined overlap remains the canonical joint expectation corridor');
-  if(bollinger==='overlap' || bollinger==='both') helperParts.push('confirmed alerts still require outside overlap + High boll_volatility_flag + high volume');
+  if(bollinger==='contextual' || bollinger==='both') helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
+  if(bollinger==='overlap') helperParts.push('canonical overlap remains the native joint expectation corridor');
+  if(bollinger==='contextual' || bollinger==='overlap' || bollinger==='both') helperParts.push('confirmed alerts still require outside overlap + High boll_volatility_flag + high volume');
   if(sentRibbonInfo.usedHybridOffsets) helperParts.push('full ribbon uses anchored MA 21 centerline plus smoothed family offsets');
   const currentRegimeInfo=regimeInfo[rows.length-1] || {regime:'Flat', confidence:0, basis:'derived'};
   const scaleModeLabel = scaleMode==='price_only' ? 'price only' : (scaleMode==='all_visible' ? 'all visible traces' : 'price + price overlays');
@@ -905,19 +1004,20 @@ function buildFigure(){
   if(showSentRibbon) sentRibbonSpec.forEach(s=>{ const hover=`%{x|%b %d, %Y}<br>${s.name}=%{y:.2f}<extra></extra>`; if(regimeLayer==='on') pushRegimeSegmentedBundle(data, xs, s.y, s.name, 'y', hover, s.width, s.period, regimeInfo); else sentimentBundle(xs, s.y, s.name, 'y', true, hover, s.width, s.palette).forEach(t=>data.push(t)); });
 
   if(bollinger==='price'||bollinger==='both') addFilledBand(data,xs,priceBands.up,priceBands.low,COLORS.priceBand,COLORS.priceFill,priceBands.derived?'Price Band (TV 20,2 Derived)':'Price Band','y');
-  if(bollinger==='sentiment'||bollinger==='both') addFilledBand(data,xs,mappedBands.up,mappedBands.low,COLORS.sentCore,COLORS.sentFill,'Sentiment Band','y');
-  const ovRaw=displayedOverlap(priceBands.up,priceBands.low,mappedBands.up,mappedBands.low);
-  const ov=overlapBandsForTableau(rows, ovRaw);
+  const activeOverlapModel=chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar, bollinger);
+  const activeSentBands=activeOverlapModel.sentimentBands || mappedBands;
+  if(bollinger==='sentiment'||bollinger==='both') addFilledBand(data,xs,activeSentBands.up,activeSentBands.low,COLORS.sentCore,COLORS.sentFill,activeOverlapModel.family==='contextual' ? 'Contextual Sentiment Envelope' : 'Sentiment Band','y');
+  const ov=activeOverlapModel.overlap;
   const overlapInfo=computeOverlapSignalInfo(rows, ov, visibleMask);
   const engagementInfo=computeEngagementInfo(rows, visibleMask);
 
 const mode=currentMode();
 const cfg = manifestModeConfig() || {};
 const summaryText = `${overlapInfo.stateLabel} · ${overlapInfo.context} · ${engagement==='off' ? 'Engagement Hidden' : `${engagementInfo.levelLabel} / ${engagementInfo.regimeLabel}`}`;
-document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b>Combined Summary</b> ${summaryText}</span>`;
+document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b>Combined Summary</b> ${summaryText}</span><span class="summaryCard"><b>Model</b> ${overlapInfo.modelLabel}</span>`;
   const overlapMarkerTraces=overlapTableauMarkers(rows, ov, visibleMask);
-  if(bollinger==='overlap') addFilledBand(data,xs,ov.up,ov.low,COLORS.overlapBand,COLORS.overlapFill,'Combined Overlap Range','y');
-  if((bollinger==='overlap' || bollinger==='both')) overlapMarkerTraces.forEach(t=>data.push(t));
+  if(bollinger==='overlap' || bollinger==='contextual') addFilledBand(data,xs,ov.up,ov.low,COLORS.overlapBand,COLORS.overlapFill,overlapInfo.modelLabel,'y');
+  if((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both')) overlapMarkerTraces.forEach(t=>data.push(t));
   const visRegimeRows=rows.filter((r,i)=>visibleMask[i]);
   const visRegimeInfo=regimeInfo.filter((r,i)=>visibleMask[i]);
   const lastRegimeRow=visRegimeRows[visRegimeRows.length-1] || rows[rows.length-1];
@@ -925,11 +1025,12 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
   const lastTransitionIdx=[...visRegimeInfo.keys()].reverse().find(i=>visRegimeInfo[i] && visRegimeInfo[i].transition);
   const lastTransitionRow=lastTransitionIdx!==undefined ? visRegimeRows[lastTransitionIdx] : null;
   const lastTransitionInfo=lastTransitionIdx!==undefined ? visRegimeInfo[lastTransitionIdx] : null;
-  const showOverlapContext = (bollinger==='overlap' || bollinger==='both' || cfg.alwaysShowOverlapBadges);
+  const showOverlapContext = (bollinger==='overlap' || bollinger==='contextual' || bollinger==='both' || cfg.alwaysShowOverlapBadges);
   const showEngagementContext = engagement!=='off';
   const showRibbonContext = regimeLayer==='on' || showSentRibbon;
   const badgeMap = {
     overlapState: showOverlapContext ? `<span class="badge ${overlapInfo.stateCls || 'badge-neutral'}"><b>Overlap State</b> ${overlapInfo.stateLabel}</span>` : null,
+    overlapModel: showOverlapContext ? `<span class="badge badge-neutral"><b>Model</b> ${overlapInfo.modelLabel}</span>` : null,
     structure: showOverlapContext ? `<span class="badge ${overlapInfo.structureCls || 'badge-neutral'}"><b>Structure</b> ${overlapInfo.structure}</span>` : null,
     event: showOverlapContext ? `<span class="badge ${overlapInfo.eventCls || 'badge-neutral'}"><b>Event</b> ${overlapInfo.currentEvent}</span>` : null,
     context: showOverlapContext ? `<span class="badge ${overlapInfo.contextCls || 'badge-neutral'}"><b>Context</b> ${overlapInfo.context}</span>` : null,
@@ -1004,10 +1105,10 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
     if((scaleMode==='price_overlays' || scaleMode==='all_visible') && (bollinger==='price'||bollinger==='both')){
       const up=num(priceBands.up[i]), lo=num(priceBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
     }
-    if((scaleMode==='all_visible') && (bollinger==='sentiment'||bollinger==='both'||bollinger==='overlap')){
-      const up=num(mappedBands.up[i]), lo=num(mappedBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
+    if((scaleMode==='all_visible') && (bollinger==='sentiment'||bollinger==='both'||bollinger==='overlap'||bollinger==='contextual')){
+      const up=num(activeSentBands.up[i]), lo=num(activeSentBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
     }
-    if((scaleMode==='all_visible') && (bollinger==='overlap'||bollinger==='both')){
+    if((scaleMode==='all_visible') && (bollinger==='overlap'||bollinger==='contextual'||bollinger==='both')){
       const up=num(ov.up[i]), lo=num(ov.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
     }
   });
@@ -1064,7 +1165,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
       {xref:'paper',yref:'paper',x:0.5,y:0.145,text:'Stoch RSI',showarrow:false,font:{size:15,color:COLORS.text}}
       ] : []),
       ...(cfg.showRibbonAnnotation !== false && regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.01,y:0.985,xanchor:'left',text:`Sentiment Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      ...((bollinger==='overlap' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.972 : 0.955,xanchor:'left',text: cfg.compactAnnotations ? `${overlapInfo.stateLabel} | ${overlapInfo.context}` : overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.972 : 0.955,xanchor:'left',text: cfg.compactAnnotations ? `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel} | ${overlapInfo.context}` : overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(cfg.showAttentionAnnotation && engagement!=='off' ? [{xref:'paper',yref:'paper',x:0.99,y:0.955,xanchor:'right',text:`Attention: ${engagementInfo.levelLabel} | ${engagementInfo.convictionLabel} | ${engagementInfo.regimeLabel}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD: ${macdRegime} | Last Cross: ${lastCrossText} | Histogram: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
     ],
