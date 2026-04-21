@@ -566,19 +566,27 @@ function displayedOverlap(priceUp, priceLow, sentUp, sentLow){
   return {up,low};
 }
 function overlapBandsForTableau(rows, derivedOverlap){
-  const up=[], low=[];
+  const up=[], low=[], source=[];
   for(let i=0;i<rows.length;i++){
     const r=rows[i]||{};
-    const u = num(r.boll_upper_overlap_advanced);
-    const u2 = num(r.boll_upper_overlap_band);
-    const dU = num(derivedOverlap?.up?.[i]);
-    const l = num(r.boll_lower_overlap_advanced);
-    const l2 = num(r.boll_lower_overlap_band);
-    const dL = num(derivedOverlap?.low?.[i]);
-    up.push(u!==null ? u : (u2!==null ? u2 : dU));
-    low.push(l!==null ? l : (l2!==null ? l2 : dL));
+    const advUp = num(r.boll_upper_overlap_advanced);
+    const advLow = num(r.boll_lower_overlap_advanced);
+    const bandUp = num(r.boll_upper_overlap_band);
+    const bandLow = num(r.boll_lower_overlap_band);
+    const derUp = num(derivedOverlap?.up?.[i]);
+    const derLow = num(derivedOverlap?.low?.[i]);
+
+    if(advUp!==null && advLow!==null){
+      up.push(advUp); low.push(advLow); source.push('advanced');
+    } else if(bandUp!==null && bandLow!==null){
+      up.push(bandUp); low.push(bandLow); source.push('precomputed_band');
+    } else if(derUp!==null && derLow!==null){
+      up.push(derUp); low.push(derLow); source.push('derived_fallback');
+    } else {
+      up.push(null); low.push(null); source.push('missing');
+    }
   }
-  return {up,low};
+  return {up,low,source};
 }
 function finiteQuantile(values, q){
   const xs=values.filter(v=>Number.isFinite(v)).slice().sort((a,b)=>a-b);
