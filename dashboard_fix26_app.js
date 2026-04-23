@@ -900,19 +900,16 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
     playbook[i]?.detail || 'No playbook context available.',
     playbook[i]?.stateLabel || 'Unavailable',
     playbook[i]?.structure || 'Unknown',
-    playbook[i]?.contextLabel || 'n/a',
-    formatPct(playbook[i]?.midSlopePct),
-    formatPct(playbook[i]?.midAccelPct),
-    formatPct(playbook[i]?.widthSlopePct)
+    playbook[i]?.contextLabel || 'n/a'
   ]);
 
-  const hover = `%{x|%b %d, %Y}<br>${namePrefix}: %{y:.2f}<br><b>Playbook</b> %{customdata[0]}<br><b>Family</b> %{customdata[1]}<br><b>Confidence</b> %{customdata[2]}<br><b>State</b> %{customdata[4]}<br><b>Structure</b> %{customdata[5]}<br><b>Confirmed Context</b> %{customdata[6]}<br><b>Midline Slope</b> %{customdata[7]}<br><b>Slope Acceleration</b> %{customdata[8]}<br><b>Width Change</b> %{customdata[9]}<br>%{customdata[3]}<extra></extra>`;
+  const hover = `%{x|%b %d, %Y}<br><b>${namePrefix}</b> · %{customdata[0]}<br>%{customdata[4]} · %{customdata[5]} · %{customdata[6]} · %{customdata[2]} confidence<br>%{customdata[3]}<br>Rim %{y:.2f}<extra></extra>`;
 
   data.push({
     type:'scatter', mode:'lines', x:x, y:lower, customdata:custom, name:namePrefix+' Lower',
     xaxis:axis==='y'?'x':axis==='y2'?'x2':axis==='y3'?'x3':'x4', yaxis:axis,
     line:{color:lineColor,width:1.0,dash:'solid',shape:'linear'}, connectgaps:true, showlegend:false,
-    hovertemplate:hover, opacity:0.9
+    hoverinfo:'skip', opacity:0.9
   });
   data.push({
     type:'scatter', mode:'lines', x:x, y:upper, customdata:custom, name:namePrefix+' Upper',
