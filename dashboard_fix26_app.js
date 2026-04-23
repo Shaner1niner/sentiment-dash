@@ -707,12 +707,50 @@ function currentHighVolumeState(row){
   if(signalConfirmed!==null) return signalConfirmed>0;
   return false;
 }
-function overlapConfirmedEventType(row, overlap, idx){
+function currentAssetTerm(){
+  return document.getElementById('asset')?.value || null;
+}
+function assetUniverseType(term, rows){
+  const t=String(term || '').trim().toUpperCase();
+  const cryptoSet=new Set(['BTC','ETH','SOL','DOGE','AVAX','LINK','BNB','XRP','ADA','LTC','DOT','TRX','ATOM','MATIC','SUI','PEPE','SHIB','HYPE']);
+  if(cryptoSet.has(t)) return 'crypto';
+  const calendar = rows && rows.length ? String(rows[0]?.asset_calendar || '').trim().toLowerCase() : '';
+  if(calendar==='continuous') return 'crypto';
+  return 'equity_like';
+}
+function activeOverlapVolatilityState(rows, overlap, idx, window=40){
+  if(overlap?.family!=='contextual') return overlapVolatilityState(rows[idx]);
+  const widths=[];
+  for(let j=Math.max(0, idx-window+1); j<=idx; j++){
+    const w=overlapWidthAt(overlap, j);
+    if(w!==null) widths.push(w);
+  }
+  if(widths.length < 20) return overlapVolatilityState(rows[idx]);
+  const current = overlapWidthAt(overlap, idx);
+  const m = mean(widths), s = stddev(widths);
+  if(current===null || m===null || s===null) return overlapVolatilityState(rows[idx]);
+  return current > (m + s) ? 'High' : 'Low';
+}
+function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
   const type=overlapOutsideType(row, overlap, idx);
-  if(!type) return null;
-  if(overlapVolatilityState(row)!=='High') return null;
-  if(!currentHighVolumeState(row)) return null;
-  return type;
+  if(!type) return {type:null, confirmed:false, policy:'none', universe:'unknown', legacyVol:'Low', contextualVol:'Low', highVolume:false, detail:'Inside active overlap'};
+  const highVolume=currentHighVolumeState(row);
+  const legacyVol=overlapVolatilityState(row);
+  const rowsUse = rows || [row];
+  const idxUse = rows ? idx : 0;
+  const contextualVol=activeOverlapVolatilityState(rowsUse, overlap, idxUse);
+  const universe=assetUniverseType(term || currentAssetTerm(), rowsUse);
+  if(!highVolume) return {type:null, confirmed:false, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, highVolume, detail:'Outside active overlap but high-volume confirmation is absent'};
+  if(universe==='crypto'){
+    const confirmed = legacyVol==='High';
+    return {type:confirmed ? type : null, confirmed, policy:'legacy', universe, legacyVol, contextualVol, highVolume, detail: confirmed ? 'Legacy confirmation: outside overlap + High volatility + High volume' : 'Legacy confirmation failed: volatility is not High'};
+  }
+  const confirmed = (legacyVol==='High' || contextualVol==='High');
+  const usedContextual = legacyVol!=='High' && contextualVol==='High';
+  return {type:confirmed ? type : null, confirmed, policy:'hybrid', universe, legacyVol, contextualVol, highVolume, usedContextual, detail: confirmed ? (usedContextual ? 'Hybrid confirmation: outside overlap + contextual volatility + High volume' : 'Hybrid confirmation: outside overlap + legacy volatility + High volume') : 'Hybrid confirmation failed: neither legacy nor contextual volatility is High'};
+}
+function overlapConfirmedEventType(row, overlap, idx, rows=null, term=null){
+  return overlapConfirmationMeta(row, overlap, idx, rows, term).type;
 }
 function overlapMidAt(overlap, idx){
   const ou=num(overlap.up[idx]), ol=num(overlap.low[idx]);
@@ -752,9 +790,10 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
   return {midSlopePct, midAccelPct, widthSlopePct};
 }
 function confirmedContextProfile(rows, overlap, idx){
-  const type = overlapConfirmedEventType(rows[idx], overlap, idx);
+  const meta = overlapConfirmationMeta(rows[idx], overlap, idx, rows, currentAssetTerm());
+  const type = meta.type;
   if(!type){
-    return {label:'Unconfirmed', code:'unconfirmed', detail:'No confirmed overlap alert on this bar.', midSlopePct:null, midAccelPct:null, widthSlopePct:null};
+    return {label:'Unconfirmed', code:'unconfirmed', detail: meta.detail || 'No confirmed overlap alert on this bar.', midSlopePct:null, midAccelPct:null, widthSlopePct:null};
   }
   const trend = overlapTrendContext(rows, overlap, idx);
   const slope = trend.midSlopePct;
@@ -786,7 +825,7 @@ function confirmedContextProfile(rows, overlap, idx){
   return {
     label:'Trend-Aligned',
     code:'trend_aligned',
-    detail:`Confirmed ${type} pressure is aligned with the active overlap corridor context.`,
+    detail:`Confirmed ${type} pressure is aligned with the active overlap corridor context. ${meta.policy==='hybrid' ? 'Hybrid policy active.' : 'Legacy policy active.'}`,
     ...trend
   };
 }
@@ -951,7 +990,7 @@ function truthyFlag(row, col){
   return s==='true' || s==='yes' || s==='y';
 }
 function overlapStateAt(rows, overlap, idx){
-  const confirmed=overlapConfirmedEventType(rows[idx], overlap, idx);
+  const confirmed=overlapConfirmedEventType(rows[idx], overlap, idx, rows, currentAssetTerm());
   if(confirmed==='bullish') return {label:'Confirmed Bullish Pressure', cls:'badge-bull', code:'confirmed_bullish'};
   if(confirmed==='bearish') return {label:'Confirmed Bearish Pressure', cls:'badge-bear', code:'confirmed_bearish'};
   const outside=overlapOutsideType(rows[idx], overlap, idx);
@@ -995,9 +1034,11 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
   const state=overlapStateAt(rows, overlap, latestIdx);
   const structure=overlapStructureAt(rows, overlap, latestIdx);
   const currentEvent=overlapCurrentEventType(rows, overlap, latestIdx);
-  const highVol=overlapVolatilityState(latestRow)==='High';
-  const highVolume=currentHighVolumeState(latestRow);
-  const condition=highVol ? 'High Volatility' : 'Stability';
+  const latestMeta=overlapConfirmationMeta(latestRow, overlap, latestIdx, rows, currentAssetTerm());
+  const highVol=latestMeta.legacyVol==='High';
+  const contextualHigh=latestMeta.contextualVol==='High';
+  const highVolume=latestMeta.highVolume;
+  const condition=highVol ? 'High Volatility' : (contextualHigh ? 'Contextual Volatility' : 'Stability');
   const volume=highVolume ? 'High Volume' : 'Normal Volume';
   const context=`${condition} · ${volume}`;
   const structureCls = structure==='Compression' ? 'badge-neutral' : (structure==='Expansion' ? 'badge-bear' : 'badge-neutral');
@@ -1005,15 +1046,15 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
   let latestConfirmed='No confirmed alert in view.';
   for(let i=rows.length-1;i>=0;i--){
     if(!visibleMask[i]) continue;
-    const t=overlapConfirmedEventType(rows[i], overlap, i);
+    const t=overlapConfirmedEventType(rows[i], overlap, i, rows, currentAssetTerm());
     if(t){
       latestConfirmed=`${t==='bearish' ? 'Bearish Pressure' : 'Bullish Pressure'} • ${rows[i].date}`;
       break;
     }
   }
   let narrative='Combined overlap is inside its expected joint range.';
-  if(state.code==='confirmed_bullish') narrative='Price closed below the advanced overlap range with High volatility and High volume, confirming bullish pressure from the combined overlap model.';
-  else if(state.code==='confirmed_bearish') narrative='Price closed above the advanced overlap range with High volatility and High volume, confirming bearish pressure from the combined overlap model.';
+  if(state.code==='confirmed_bullish') narrative=`Price closed below the active overlap range with ${latestMeta.policy==='hybrid' && latestMeta.legacyVol!=='High' && latestMeta.contextualVol==='High' ? 'contextual volatility' : 'High volatility'} and High volume, confirming bullish pressure from the combined overlap model.`;
+  else if(state.code==='confirmed_bearish') narrative=`Price closed above the active overlap range with ${latestMeta.policy==='hybrid' && latestMeta.legacyVol!=='High' && latestMeta.contextualVol==='High' ? 'contextual volatility' : 'High volatility'} and High volume, confirming bearish pressure from the combined overlap model.`;
   else if(state.code==='bullish_pressure') narrative='Price is below the advanced overlap range, signaling bullish pressure from the combined overlap model.';
   else if(state.code==='bearish_pressure') narrative='Price is above the advanced overlap range, signaling bearish pressure from the combined overlap model.';
   else if(currentEvent==='Compression') narrative='Combined overlap is compressed relative to its recent width distribution, suggesting a tighter joint expectation range.';
@@ -1024,7 +1065,7 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
   const latestConfirmedIdx = (()=>{
     for(let i=rows.length-1;i>=0;i--){
       if(!visibleMask[i]) continue;
-      if(overlapConfirmedEventType(rows[i], overlap, i)) return i;
+      if(overlapConfirmedEventType(rows[i], overlap, i, rows, currentAssetTerm())) return i;
     }
     return -1;
   })();
@@ -1157,29 +1198,36 @@ function buildOverlapBadgesHTML(info){
   ].join('');
 }
 function overlapTableauMarkers(rows, overlap, visibleMask){
-  const bearishX=[], bearishY=[];
-  const bullishX=[], bullishY=[];
+  const bearishX=[], bearishY=[], bearishText=[];
+  const bullishX=[], bullishY=[], bullishText=[];
   const hiVals=rows.map(r=>num(r.high)).filter(v=>v!==null);
   const loVals=rows.map(r=>num(r.low)).filter(v=>v!==null);
   const span=(hiVals.length && loVals.length) ? Math.max(1e-9, Math.max(...hiVals)-Math.min(...loVals)) : 1;
   const offset=span*0.014;
   const modelLabel = overlap?.family==='contextual' ? 'Contextual Overlap' : 'Canonical Overlap';
+  const term=currentAssetTerm();
   for(let i=0;i<rows.length;i++){
     if(!visibleMask[i]) continue;
-    const type=overlapConfirmedEventType(rows[i], overlap, i);
+    const meta=overlapConfirmationMeta(rows[i], overlap, i, rows, term);
+    const type=meta.type;
     if(!type) continue;
     const d=rows[i].dateObj; if(!(d instanceof Date)) continue;
     const hi=num(rows[i].high) ?? num(rows[i].close) ?? null;
     const lo=num(rows[i].low) ?? num(rows[i].close) ?? null;
-    if(type==='bearish' && hi!==null){ bearishX.push(d); bearishY.push(hi+offset); }
-    else if(type==='bullish' && lo!==null){ bullishX.push(d); bullishY.push(lo-offset); }
+    const policyLabel = meta.policy==='legacy' ? 'Legacy' : 'Hybrid';
+    const gateLabel = meta.policy==='legacy'
+      ? 'outside active overlap + High volatility + High volume'
+      : (meta.usedContextual ? 'outside active overlap + contextual volatility + High volume' : 'outside active overlap + High volatility + High volume');
+    const detail = `${modelLabel}<br>${type==='bearish' ? 'Confirmed Bearish Pressure' : 'Confirmed Bullish Pressure'}<br>Policy: ${policyLabel}<br>Gate: ${gateLabel}`;
+    if(type==='bearish' && hi!==null){ bearishX.push(d); bearishY.push(hi+offset); bearishText.push(detail); }
+    else if(type==='bullish' && lo!==null){ bullishX.push(d); bullishY.push(lo-offset); bullishText.push(detail); }
   }
   const traces=[];
   if(bearishX.length){
-    traces.push({type:'scatter',mode:'markers',x:bearishX,y:bearishY,xaxis:'x',yaxis:'y',name:'Bearish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(255,128,128,0.98)',line:{color:'rgba(255,128,128,0.98)',width:1.4}},hovertemplate:`%{x|%b %d, %Y}<br>${modelLabel}<br>Confirmed Bearish Pressure<br>Gate: outside active overlap + High volatility + High volume<extra></extra>`});
+    traces.push({type:'scatter',mode:'markers',x:bearishX,y:bearishY,text:bearishText,xaxis:'x',yaxis:'y',name:'Bearish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(255,128,128,0.98)',line:{color:'rgba(255,128,128,0.98)',width:1.4}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
   }
   if(bullishX.length){
-    traces.push({type:'scatter',mode:'markers',x:bullishX,y:bullishY,xaxis:'x',yaxis:'y',name:'Bullish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(112,232,148,0.98)',line:{color:'rgba(112,232,148,0.98)',width:1.4}},hovertemplate:`%{x|%b %d, %Y}<br>${modelLabel}<br>Confirmed Bullish Pressure<br>Gate: outside active overlap + High volatility + High volume<extra></extra>`});
+    traces.push({type:'scatter',mode:'markers',x:bullishX,y:bullishY,text:bullishText,xaxis:'x',yaxis:'y',name:'Bullish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(112,232,148,0.98)',line:{color:'rgba(112,232,148,0.98)',width:1.4}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
   }
   return traces;
 }
