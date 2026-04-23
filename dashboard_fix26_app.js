@@ -726,10 +726,29 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40){
     if(w!==null) widths.push(w);
   }
   if(widths.length < 20) return overlapVolatilityState(rows[idx]);
+
   const current = overlapWidthAt(overlap, idx);
-  const m = mean(widths), s = stddev(widths);
-  if(current===null || m===null || s===null) return overlapVolatilityState(rows[idx]);
-  return current > (m + s) ? 'High' : 'Low';
+  const m = mean(widths), s = stddev(widths), q75 = finiteQuantile(widths, 0.75);
+  if(current===null || m===null) return overlapVolatilityState(rows[idx]);
+
+  const universe = assetUniverseType(currentAssetTerm(), rows);
+
+  if(universe==='crypto'){
+    if(s===null || !Number.isFinite(s)) return overlapVolatilityState(rows[idx]);
+    return current > (m + s) ? 'High' : 'Low';
+  }
+
+  const z = (s!==null && Number.isFinite(s) && Math.abs(s) > 1e-9) ? ((current - m) / s) : null;
+  const recentRef = priorFiniteFrom(j=>overlapWidthAt(overlap,j), idx-1, 5);
+  const widthSlopePct = (recentRef && Math.abs(recentRef.value) > 1e-9)
+    ? ((current - recentRef.value) / Math.abs(recentRef.value))
+    : null;
+
+  const highByQuantile = q75!==null && current >= q75;
+  const highByZ = z!==null && z >= 0.50;
+  const highByExpansion = widthSlopePct!==null && widthSlopePct >= 0.10;
+
+  return (highByQuantile || highByZ || highByExpansion) ? 'High' : 'Low';
 }
 function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
   const type=overlapOutsideType(row, overlap, idx);
