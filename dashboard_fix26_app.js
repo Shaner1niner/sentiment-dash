@@ -960,6 +960,7 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 function formatPct(v){
   return (v===null || !Number.isFinite(v)) ? 'n/a' : `${(v*100).toFixed(1)}%`;
 }
+
 function formatNum(v, digits=1){
   return (v===null || !Number.isFinite(v)) ? 'n/a' : Number(v).toFixed(digits);
 }
@@ -1254,7 +1255,7 @@ function buildFigure(){
   if(priceBands.derived) helperParts.push('price bands derived in-view from close 20 SMA ± 2 std');
   if(bollinger==='contextual' || bollinger==='both') helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
   if(bollinger==='overlap') helperParts.push('canonical overlap remains the native joint expectation corridor');
-  if(bollinger==='contextual' || bollinger==='overlap' || bollinger==='both') helperParts.push('confirmed alerts still require outside overlap + High boll_volatility_flag + high volume');
+  if(bollinger==='contextual' || bollinger==='overlap' || bollinger==='both') helperParts.push('crypto confirmations use legacy High-volatility + High-volume gating; equity-like assets may also confirm on contextual-width volatility, while still requiring high volume');
   if(sentRibbonInfo.usedHybridOffsets) helperParts.push('full ribbon uses anchored MA 21 centerline plus smoothed family offsets');
   const currentRegimeInfo=regimeInfo[rows.length-1] || {regime:'Flat', confidence:0, basis:'derived'};
   const scaleModeLabel = scaleMode==='price_only' ? 'price only' : (scaleMode==='all_visible' ? 'all visible traces' : 'price + price overlays');
@@ -1346,23 +1347,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
   const hist=rows.map(r=>num(r.macd_histogram));
   const histColors=hist.map((v,i)=>{if(v===null)return 'rgba(0,0,0,0)';const prev=i>0&&hist[i-1]!==null?hist[i-1]:v;const accel=v>=prev; if(v>=0) return accel?COLORS.histUp:COLORS.histUpSoft; return accel?COLORS.histDownSoft:COLORS.histDown;});
-  data.push({type:'bar',x:xs,y:hist,name:'MACD Histogram',marker:{color:histColors},xaxis:'x2',yaxis:'y2',hovertemplate:'%{x|%b %d, %Y}<br>Histogram=%{y:.2f}<extra></extra>'});
-  data.push(traceLine(xs,rows.map(r=>num(r.macd)),'MACD',COLORS.ma7,2.0,'solid','y2',true,'%{x|%b %d, %Y}<br>MACD=%{y:.2f}<extra></extra>'));
-  data.push(traceLine(xs,rows.map(r=>num(r.macd_signal)),'Signal',COLORS.ma50,1.5,'solid','y2',true,'%{x|%b %d, %Y}<br>Signal=%{y:.2f}<extra></extra>'));
+  data.push({type:'bar',x:xs,y:hist,name:'MACD Histogram',marker:{color:histColors},xaxis:'x2',yaxis:'y2',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>Histogram=%{y:.2f}<extra></extra>'});
+  data.push(traceLine(xs,rows.map(r=>num(r.macd)),'MACD',COLORS.ma7,2.0,'solid','y2',false,'%{x|%b %d, %Y}<br>MACD=%{y:.2f}<extra></extra>'));
+  data.push(traceLine(xs,rows.map(r=>num(r.macd_signal)),'Signal',COLORS.ma50,1.5,'solid','y2',false,'%{x|%b %d, %Y}<br>Signal=%{y:.2f}<extra></extra>'));
   if(osc==='both'){
-    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd)),'Scaled Sentiment MACD','y2',true,'%{x|%b %d, %Y}<br>Scaled Sentiment MACD=%{y:.2f}<extra></extra>',1.2).forEach(t=>data.push(t));
-    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd_signal)),'Scaled Sentiment Signal','y2',true,'%{x|%b %d, %Y}<br>Scaled Sentiment Signal=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
+    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd)),'Scaled Sentiment MACD','y2',false,'%{x|%b %d, %Y}<br>Scaled Sentiment MACD=%{y:.2f}<extra></extra>',1.2).forEach(t=>data.push(t));
+    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd_signal)),'Scaled Sentiment Signal','y2',false,'%{x|%b %d, %Y}<br>Scaled Sentiment Signal=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
   }
 
   const crossX=[],crossY=[],crossText=[],crossSize=[],crossColor=[];
   rows.forEach(r=>{const c=num(r.macd_signal_cross), y=num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Bull':'Bear'); crossSize.push(Math.min(18,10+Math.abs(num(r.macd_cross_significance)||0)*2)); crossColor.push(c===1?'rgba(40,220,90,0.85)':'rgba(255,110,110,0.85)');}});
-  if(crossX.length) data.push({type:'scatter',mode:'markers+text',x:crossX,y:crossY,text:crossText,textposition:'top center',xaxis:'x2',yaxis:'y2',marker:{size:crossSize,color:crossColor,symbol:'triangle-up'},name:'Crosses',hovertemplate:'%{x|%b %d, %Y}<br>%{text} Cross<extra></extra>'});
+  if(crossX.length) data.push({type:'scatter',mode:'markers+text',x:crossX,y:crossY,text:crossText,textposition:'top center',xaxis:'x2',yaxis:'y2',marker:{size:crossSize,color:crossColor,symbol:'triangle-up'},name:'Crosses',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>%{text} Cross<extra></extra>'});
 
-  data.push(traceLine(xs,rows.map(r=>num(r.rsi_d)||num(r.rsi)),'RSI',COLORS.rsi,2.0,'solid','y3',true,'%{x|%b %d, %Y}<br>RSI=%{y:.2f}<extra></extra>'));
-  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_rsi_d)||num(r.sentiment_rsi)),'Sentiment RSI','y3',true,'%{x|%b %d, %Y}<br>Sentiment RSI=%{y:.2f}<extra></extra>',1.1).forEach(t=>data.push(t));
-  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi)),'Stoch RSI %K',COLORS.stoch,1.8,'solid','y4',true,'%{x|%b %d, %Y}<br>Stoch RSI %K=%{y:.2f}<extra></extra>'));
-  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi_d)),'Stoch RSI %D',COLORS.stochD,1.3,'solid','y4',true,'%{x|%b %d, %Y}<br>Stoch RSI %D=%{y:.2f}<extra></extra>'));
-  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_stochastic_rsi_d)),'Sentiment Stoch RSI','y4',true,'%{x|%b %d, %Y}<br>Sentiment Stoch RSI=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
+  data.push(traceLine(xs,rows.map(r=>num(r.rsi_d)||num(r.rsi)),'RSI',COLORS.rsi,2.0,'solid','y3',false,'%{x|%b %d, %Y}<br>RSI=%{y:.2f}<extra></extra>'));
+  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_rsi_d)||num(r.sentiment_rsi)),'Sentiment RSI','y3',false,'%{x|%b %d, %Y}<br>Sentiment RSI=%{y:.2f}<extra></extra>',1.1).forEach(t=>data.push(t));
+  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi)),'Stoch RSI %K',COLORS.stoch,1.8,'solid','y4',false,'%{x|%b %d, %Y}<br>Stoch RSI %K=%{y:.2f}<extra></extra>'));
+  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi_d)),'Stoch RSI %D',COLORS.stochD,1.3,'solid','y4',false,'%{x|%b %d, %Y}<br>Stoch RSI %D=%{y:.2f}<extra></extra>'));
+  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_stochastic_rsi_d)),'Sentiment Stoch RSI','y4',false,'%{x|%b %d, %Y}<br>Sentiment Stoch RSI=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
 
   const priceCandidates=[];
   rows.forEach((r,i)=>{ if(!visibleMask[i]) return;
@@ -1407,13 +1408,13 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
   const lastSentRsiVal = num(last.sentiment_rsi_d) ?? num(last.sentiment_rsi);
   const rsiBias = lastRsiVal===null ? 'n/a' : (lastRsiVal>=70 ? 'Overbought' : (lastRsiVal<=30 ? 'Oversold' : (lastRsiVal>=55 ? 'Bullish Bias' : (lastRsiVal<=45 ? 'Bearish Bias' : 'Neutral'))));
   const rsiConfirm = (lastRsiVal!==null && lastSentRsiVal!==null) ? (((lastRsiVal>=50)===(lastSentRsiVal>=50)) ? 'confirming' : 'mixed') : 'n/a';
-  const rsiPaneText = `RSI: ${formatNum(lastRsiVal)} | Sent RSI: ${formatNum(lastSentRsiVal)} | ${rsiBias} · ${rsiConfirm}`;
+  const rsiPaneText = `RSI / Sent RSI · ${formatNum(lastRsiVal)} / ${formatNum(lastSentRsiVal)} · ${rsiBias} · ${rsiConfirm}`;
   const lastStochK = num(last.stochastic_rsi);
   const lastStochD = num(last.stochastic_rsi_d);
   const lastSentStoch = num(last.sentiment_stochastic_rsi_d);
   const stochBias = lastStochK===null || lastStochD===null ? 'n/a' : (lastStochK>=80 ? 'Overbought' : (lastStochK<=20 ? 'Oversold' : (lastStochK>=lastStochD ? 'Recovery Bias' : 'Softening Bias')));
   const stochConfirm = (lastSentStoch!==null && lastStochK!==null) ? (((lastStochK>=50)===(lastSentStoch>=50)) ? 'confirming' : 'mixed') : 'n/a';
-  const stochPaneText = `Stoch: K ${formatNum(lastStochK)} / D ${formatNum(lastStochD)} | Sent ${formatNum(lastSentStoch)} | ${stochBias} · ${stochConfirm}`;
+  const stochPaneText = `%K / %D / Sent Stoch · ${formatNum(lastStochK)} / ${formatNum(lastStochD)} / ${formatNum(lastSentStoch)} · ${stochBias} · ${stochConfirm}`;
   const rb=(calendar==='trading_sessions' && freq==='D')?[{bounds:['sat','mon']}]:[];
   const regimeRects=(regimeLayer==='on' && showSentRibbon) ? regimeSegments(rows, regimeInfo, visStart, visEnd).map(seg=>({type:'rect',xref:'x',x0:seg.start,x1:nextRangeEnd(seg.end,calendar,freq),yref:'paper',y0:0.54,y1:0.98,line:{width:0},fillcolor:regimeFillColor(seg.regime),layer:'below'})) : [];
   const overlapTriggerShapes=[];
@@ -1452,7 +1453,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
       ] : []),
       ...(cfg.showRibbonAnnotation !== false && regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.99,y:0.985,xanchor:'right',text:`Sentiment Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.972 : 0.955,xanchor:'left',text: cfg.compactAnnotations ? `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel} | ${overlapInfo.context}` : overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD: ${macdRegime} | Last Cross: ${lastCrossText} | Histogram: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD / Signal / Hist | ${macdRegime} | Last Cross: ${lastCrossText} | Histogram: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.275,xanchor:'left',text:rsiPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.135,xanchor:'left',text:stochPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
     ],
