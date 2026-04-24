@@ -794,17 +794,84 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
     return {type, confirmed:true, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, upstreamSignal:true, detail:'Upstream legacy signal confirmation from multi-window Bollinger counts'};
   }
 
-  if(!highVolume) return {type:null, confirmed:false, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, detail:'Outside active overlap but high-volume confirmation is absent'};
-  if(universe==='crypto'){
-    const confirmed = legacyVol==='High';
-    return {type:confirmed ? type : null, confirmed, policy:'legacy', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, detail: confirmed ? 'Legacy confirmation: outside overlap + High volatility + High volume' : 'Legacy confirmation failed: volatility is not High'};
-  }
+  if(!highVolume) return {type:null, confirmed:false, policy:universe==='crypto' ? 'hybrid_watch' : 'hybrid', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, detail:'Outside active overlap but high-volume confirmation is absent'};
+
+  // Phase A watch-diagnostics update: keep volume as the hard confirmation gate,
+  // but let crypto confirm via either the older legacy volatility flag or the
+  // contextual-width expansion used for equity-like assets. This preserves the
+  // high-quality diamond language while avoiding the prior false-negative case
+  // where BTC was outside the active overlap with contextual expansion but the
+  // legacy volatility flag stayed Low.
   const confirmed = (legacyVol==='High' || contextualVol==='High');
   const usedContextual = legacyVol!=='High' && contextualVol==='High';
-  return {type:confirmed ? type : null, confirmed, policy:'hybrid', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, usedContextual, detail: confirmed ? (usedContextual ? 'Hybrid confirmation: outside overlap + contextual volatility + High volume' : 'Hybrid confirmation: outside overlap + legacy volatility + High volume') : 'Hybrid confirmation failed: neither legacy nor contextual volatility is High'};
+  const policy = universe==='crypto' ? (usedContextual ? 'crypto_contextual' : 'legacy') : 'hybrid';
+  return {type:confirmed ? type : null, confirmed, policy, universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, usedContextual, detail: confirmed ? (usedContextual ? 'Confirmation: outside overlap + contextual volatility + High volume' : 'Confirmation: outside overlap + High volatility + High volume') : 'Confirmation failed: neither legacy nor contextual volatility is High'};
 }
 function overlapConfirmedEventType(row, overlap, idx, rows=null, term=null){
   return overlapConfirmationMeta(row, overlap, idx, rows, term).type;
+}
+function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
+  const rowsUse = rows || [row];
+  const idxUse = rows ? idx : 0;
+  const confirmedMeta = overlapConfirmationMeta(row, overlap, idx, rows, term);
+  if(confirmedMeta.type) return {...confirmedMeta, watch:false, confirmed:true};
+
+  const universe=assetUniverseType(term || currentAssetTerm(), rowsUse);
+  const type=overlapOutsideType(row, overlap, idx);
+  if(!type) return {type:null, watch:false, confirmed:false, detail:'Inside active overlap'};
+
+  const legacyVol=overlapVolatilityState(row);
+  const contextualVol=activeOverlapVolatilityState(rowsUse, overlap, idxUse, universe);
+  const volumeState=activeHighVolumeState(row, rowsUse, idxUse);
+  const widthNow=overlapWidthAt(overlap, idx);
+  const widthPrev=idx>0 ? overlapWidthAt(overlap, idx-1) : null;
+  const widthExpanding=(widthNow!==null && widthPrev!==null && widthNow>widthPrev);
+  const c=num(row.close) ?? num(row.close_fill);
+  const rim=type==='bullish' ? num(overlap.low[idx]) : num(overlap.up[idx]);
+  const outsidePct=(c!==null && rim!==null && Math.abs(rim)>1e-9) ? Math.abs(c-rim)/Math.abs(rim) : null;
+  const materialOutside = outsidePct!==null && outsidePct>=0.003;
+
+  const reasons=[];
+  if(volumeState.high) reasons.push('volume elevated');
+  else if(volumeState.known) reasons.push('volume normal');
+  else reasons.push('volume unknown');
+  if(legacyVol==='High') reasons.push('legacy volatility high');
+  if(contextualVol==='High') reasons.push('contextual expansion high');
+  if(widthExpanding) reasons.push('overlap width expanding');
+  if(materialOutside) reasons.push('material outside break');
+
+  const watch = contextualVol==='High' || legacyVol==='High' || volumeState.high || (widthExpanding && materialOutside);
+  return {
+    type: watch ? type : null,
+    watch,
+    confirmed:false,
+    policy:universe==='crypto' ? 'crypto_watch' : 'equity_watch',
+    universe,
+    legacyVol,
+    contextualVol,
+    highVolume:volumeState.high,
+    volumeSource:volumeState.source,
+    signalSource:'active_overlap',
+    outsidePct,
+    detail: watch ? `Watch candidate: outside active overlap; ${reasons.join('; ')}` : 'Outside active overlap but watch filters did not pass'
+  };
+}
+function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
+  const info={outside:0, volume:0, volatility:0, confirmed:0, watch:0};
+  for(let i=0;i<rows.length;i++){
+    if(!visibleMask[i]) continue;
+    const outside=overlapOutsideType(rows[i], overlap, i);
+    if(outside) info.outside += 1;
+    const universe=assetUniverseType(term || currentAssetTerm(), rows);
+    const legacyVol=overlapVolatilityState(rows[i]);
+    const contextualVol=activeOverlapVolatilityState(rows, overlap, i, universe);
+    if(legacyVol==='High' || contextualVol==='High') info.volatility += 1;
+    if(activeHighVolumeState(rows[i], rows, i).high) info.volume += 1;
+    const meta=overlapConfirmationMeta(rows[i], overlap, i, rows, term);
+    if(meta.type) info.confirmed += 1;
+    else if(overlapWatchCandidateMeta(rows[i], overlap, i, rows, term).type) info.watch += 1;
+  }
+  return info;
 }
 function overlapMidAt(overlap, idx){
   const ou=num(overlap.up[idx]), ol=num(overlap.low[idx]);
@@ -1258,6 +1325,8 @@ function buildOverlapBadgesHTML(info){
 function overlapTableauMarkers(rows, overlap, visibleMask){
   const bearishX=[], bearishY=[], bearishText=[];
   const bullishX=[], bullishY=[], bullishText=[];
+  const watchBearishX=[], watchBearishY=[], watchBearishText=[];
+  const watchBullishX=[], watchBullishY=[], watchBullishText=[];
   const hiVals=rows.map(r=>num(r.high)).filter(v=>v!==null);
   const loVals=rows.map(r=>num(r.low)).filter(v=>v!==null);
   const span=(hiVals.length && loVals.length) ? Math.max(1e-9, Math.max(...hiVals)-Math.min(...loVals)) : 1;
@@ -1267,20 +1336,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask){
   for(let i=0;i<rows.length;i++){
     if(!visibleMask[i]) continue;
     const meta=overlapConfirmationMeta(rows[i], overlap, i, rows, term);
-    const type=meta.type;
-    if(!type) continue;
+    let type=meta.type;
     const d=rows[i].dateObj; if(!(d instanceof Date)) continue;
     const hi=num(rows[i].high) ?? num(rows[i].close) ?? null;
     const lo=num(rows[i].low) ?? num(rows[i].close) ?? null;
-    const policyLabel = meta.policy==='legacy' ? 'Legacy' : 'Hybrid';
-    const gateLabel = meta.upstreamSignal
-      ? 'upstream multi-window Bollinger signal'
-      : (meta.policy==='legacy'
-        ? 'outside active overlap + High volatility + High volume'
-        : (meta.usedContextual ? 'outside active overlap + contextual volatility + High volume' : 'outside active overlap + High volatility + High volume'));
-    const detail = `${modelLabel}<br>${type==='bearish' ? 'Confirmed Bearish Pressure' : 'Confirmed Bullish Pressure'}<br>Policy: ${policyLabel}<br>Gate: ${gateLabel}`;
-    if(type==='bearish' && hi!==null){ bearishX.push(d); bearishY.push(hi+offset); bearishText.push(detail); }
-    else if(type==='bullish' && lo!==null){ bullishX.push(d); bullishY.push(lo-offset); bullishText.push(detail); }
+
+    if(type){
+      const policyLabel = meta.policy==='legacy' ? 'Legacy' : (meta.policy==='crypto_contextual' ? 'Crypto Contextual' : 'Hybrid');
+      const gateLabel = meta.upstreamSignal
+        ? 'upstream multi-window Bollinger signal'
+        : (meta.usedContextual ? 'outside active overlap + contextual volatility + High volume' : 'outside active overlap + High volatility + High volume');
+      const detail = `${modelLabel}<br>${type==='bearish' ? 'Confirmed Bearish Pressure' : 'Confirmed Bullish Pressure'}<br>Policy: ${policyLabel}<br>Gate: ${gateLabel}`;
+      if(type==='bearish' && hi!==null){ bearishX.push(d); bearishY.push(hi+offset); bearishText.push(detail); }
+      else if(type==='bullish' && lo!==null){ bullishX.push(d); bullishY.push(lo-offset); bullishText.push(detail); }
+      continue;
+    }
+
+    // Candidate/watch markers are intentionally quieter than confirmed diamonds.
+    // They are member-mode only, so public mode keeps the conservative confirmed-signal language.
+    if(currentMode()!=='member') continue;
+    const watch=overlapWatchCandidateMeta(rows[i], overlap, i, rows, term);
+    type=watch.type;
+    if(!type) continue;
+    const detail = `${modelLabel}<br>${type==='bearish' ? 'Bearish Watch Candidate' : 'Bullish Watch Candidate'}<br>${watch.detail}`;
+    if(type==='bearish' && hi!==null){ watchBearishX.push(d); watchBearishY.push(hi+offset*0.55); watchBearishText.push(detail); }
+    else if(type==='bullish' && lo!==null){ watchBullishX.push(d); watchBullishY.push(lo-offset*0.55); watchBullishText.push(detail); }
   }
   const traces=[];
   if(bearishX.length){
@@ -1288,6 +1368,12 @@ function overlapTableauMarkers(rows, overlap, visibleMask){
   }
   if(bullishX.length){
     traces.push({type:'scatter',mode:'markers',x:bullishX,y:bullishY,text:bullishText,xaxis:'x',yaxis:'y',name:'Bullish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(112,232,148,0.98)',line:{color:'rgba(112,232,148,0.98)',width:1.4}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
+  }
+  if(watchBearishX.length){
+    traces.push({type:'scatter',mode:'markers',x:watchBearishX,y:watchBearishY,text:watchBearishText,xaxis:'x',yaxis:'y',name:'Bearish Watch Candidate',showlegend:false,marker:{symbol:'circle-open',size:6,color:'rgba(255,184,184,0.72)',line:{color:'rgba(255,184,184,0.72)',width:1.1}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
+  }
+  if(watchBullishX.length){
+    traces.push({type:'scatter',mode:'markers',x:watchBullishX,y:watchBullishY,text:watchBullishText,xaxis:'x',yaxis:'y',name:'Bullish Watch Candidate',showlegend:false,marker:{symbol:'circle-open',size:6,color:'rgba(157,240,181,0.72)',line:{color:'rgba(157,240,181,0.72)',width:1.1}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
   }
   return traces;
 }
@@ -1311,7 +1397,7 @@ function buildFigure(){
   if(priceBands.derived) helperParts.push('price bands derived in-view from close 20 SMA ± 2 std');
   if(bollinger==='contextual' || bollinger==='both') helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
   if(bollinger==='overlap') helperParts.push('canonical overlap remains the native joint expectation corridor');
-  if(bollinger==='contextual' || bollinger==='overlap' || bollinger==='both') helperParts.push('crypto confirmations use legacy High-volatility + High-volume gating; equity-like assets may also confirm on contextual-width volatility, while still requiring high volume');
+  if(bollinger==='contextual' || bollinger==='overlap' || bollinger==='both') helperParts.push('confirmed diamonds require High volume plus legacy or contextual volatility; member mode also shows quieter watch candidates for outside-overlap events blocked by one gate');
   if(sentRibbonInfo.usedHybridOffsets) helperParts.push('full ribbon uses anchored MA 21 centerline plus smoothed family offsets');
   const currentRegimeInfo=regimeInfo[rows.length-1] || {regime:'Flat', confidence:0, basis:'derived'};
   const scaleModeLabel = scaleMode==='price_only' ? 'price only' : (scaleMode==='all_visible' ? 'all visible traces' : 'price + price overlays');
@@ -1342,6 +1428,7 @@ const cfg = manifestModeConfig() || {};
 const summaryText = `${overlapInfo.stateLabel} · ${overlapInfo.context} · ${engagement==='off' ? 'Engagement Hidden' : `${engagementInfo.levelLabel} / ${engagementInfo.regimeLabel}`}`;
 document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b>Combined Summary</b> ${summaryText}</span><span class="summaryCard"><b>Model</b> ${overlapInfo.modelLabel}</span>`;
   const overlapMarkerTraces=overlapTableauMarkers(rows, ov, visibleMask);
+  const alertDiagnostics=computeAlertDiagnosticInfo(rows, ov, visibleMask, term);
   if(bollinger==='overlap' || bollinger==='contextual') addOverlapBandWithPlaybook(data,xs,ov.up,ov.low,rows,ov,COLORS.overlapBand,COLORS.overlapFill,overlapInfo.modelLabel,'y',visibleMask);
   if((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both')) overlapMarkerTraces.forEach(t=>data.push(t));
   const visRegimeRows=rows.filter((r,i)=>visibleMask[i]);
@@ -1361,6 +1448,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
     event: showOverlapContext ? `<span class="badge ${overlapInfo.eventCls || 'badge-neutral'}"><b>Event</b> ${overlapInfo.currentEvent}</span>` : null,
     context: showOverlapContext ? `<span class="badge ${overlapInfo.contextCls || 'badge-neutral'}"><b>Context</b> ${overlapInfo.context}</span>` : null,
     latestConfirmed: showOverlapContext ? `<span class="badge badge-neutral"><b>Latest Confirmed</b> ${overlapInfo.latestConfirmed}</span>` : null,
+    alertDiagnostics: (showOverlapContext && currentMode()==='member') ? `<span class="badge badge-neutral"><b>Alert Funnel</b> Outside ${alertDiagnostics.outside} · Vol ${alertDiagnostics.volatility} · Volume ${alertDiagnostics.volume} · Confirmed ${alertDiagnostics.confirmed} · Watch ${alertDiagnostics.watch}</span>` : null,
     attention: showEngagementContext ? `<span class="badge ${engagementInfo.levelCls || 'badge-neutral'}"><b>Attention</b> ${engagementInfo.levelLabel}</span>` : null,
     conviction: showEngagementContext ? `<span class="badge ${engagementInfo.convictionCls || 'badge-neutral'}"><b>Conviction</b> ${engagementInfo.convictionLabel}</span>` : null,
     engagement: showEngagementContext ? `<span class="badge ${engagementInfo.regimeCls || 'badge-neutral'}"><b>Engagement</b> ${engagementInfo.regimeLabel}</span>` : null,
@@ -1373,6 +1461,11 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
     lastTransition: showRibbonContext ? `<span class="badge badge-neutral"><b>Last transition</b> ${lastTransitionRow ? `${(lastTransitionInfo?.transitionType || 'state change')} on ${lastTransitionRow.date}` : 'none in view'}</span>` : null
   };
   const orderedKeys = (badgeOrder() || []).slice();
+  if(showOverlapContext && currentMode()==='member' && !orderedKeys.includes('alertDiagnostics')){
+    const idx = orderedKeys.indexOf('latestConfirmed');
+    if(idx>=0) orderedKeys.splice(idx+1, 0, 'alertDiagnostics');
+    else orderedKeys.push('alertDiagnostics');
+  }
   if(showOverlapContext && !orderedKeys.includes('confirmedContext')){
     const idx = orderedKeys.indexOf('latestConfirmed');
     if(idx>=0) orderedKeys.splice(idx+1, 0, 'confirmedContext');
