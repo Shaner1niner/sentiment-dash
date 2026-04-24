@@ -20,7 +20,6 @@ let STORE = null;
 let MODE_MANIFEST = null;
 
 function currentMode(){ return new URLSearchParams(location.search).get("mode") || DASH_MODE_DEFAULT || "public"; }
-function diagModeEnabled(){ return currentMode()==='member' && new URLSearchParams(location.search).get('diag')==='1'; }
 function manifestModeConfig(){
   if (!MODE_MANIFEST || !MODE_MANIFEST.modes) return null;
   return MODE_MANIFEST.modes[currentMode()] || MODE_MANIFEST.modes.public || null;
@@ -713,7 +712,7 @@ function currentAssetTerm(){
 }
 function assetUniverseType(term, rows){
   const t=String(term || '').trim().toUpperCase();
-  const cryptoSet=new Set(['BTC','ETH','SOL','DOGE','AVAX','LINK','BNB','XRP','ADA','LTC','DOT','TRX','ATOM','MATIC','SUI','PEPE','SHIB','HYPE','WIF','HBAR','KAS','POL','POPCAT']);
+  const cryptoSet=new Set(['BTC','ETH','SOL','DOGE','AVAX','LINK','BNB','XRP','ADA','LTC','DOT','TRX','ATOM','MATIC','SUI','PEPE','SHIB','HYPE']);
   if(cryptoSet.has(t)) return 'crypto';
   const calendar = rows && rows.length ? String(rows[0]?.asset_calendar || '').trim().toLowerCase() : '';
   if(calendar==='continuous') return 'crypto';
@@ -727,64 +726,28 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40){
     if(w!==null) widths.push(w);
   }
   if(widths.length < 20) return overlapVolatilityState(rows[idx]);
-
   const current = overlapWidthAt(overlap, idx);
-  const m = mean(widths), s = stddev(widths), q75 = finiteQuantile(widths, 0.75);
-  if(current===null || m===null) return overlapVolatilityState(rows[idx]);
-
-  const universe = assetUniverseType(currentAssetTerm(), rows);
-
-  if(universe==='crypto'){
-    if(s===null || !Number.isFinite(s)) return overlapVolatilityState(rows[idx]);
-    return current > (m + s) ? 'High' : 'Low';
-  }
-
-  const z = (s!==null && Number.isFinite(s) && Math.abs(s) > 1e-9) ? ((current - m) / s) : null;
-  const recentRef = priorFiniteFrom(j=>overlapWidthAt(overlap,j), idx-1, 5);
-  const widthSlopePct = (recentRef && Math.abs(recentRef.value) > 1e-9)
-    ? ((current - recentRef.value) / Math.abs(recentRef.value))
-    : null;
-
-  const highByQuantile = q75!==null && current >= q75;
-  const highByZ = z!==null && z >= 0.50;
-  const highByExpansion = widthSlopePct!==null && widthSlopePct >= 0.10;
-
-  return (highByQuantile || highByZ || highByExpansion) ? 'High' : 'Low';
+  const m = mean(widths), s = stddev(widths);
+  if(current===null || m===null || s===null) return overlapVolatilityState(rows[idx]);
+  return current > (m + s) ? 'High' : 'Low';
 }
 function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
   const type=overlapOutsideType(row, overlap, idx);
-  if(!type) return {type:null, confirmed:false, policy:'none', universe:'unknown', legacyVol:'Low', contextualVol:'Low', highVolume:false, usedContextual:false, blockedBy:'inside', detail:'Inside active overlap'};
+  if(!type) return {type:null, confirmed:false, policy:'none', universe:'unknown', legacyVol:'Low', contextualVol:'Low', highVolume:false, detail:'Inside active overlap'};
   const highVolume=currentHighVolumeState(row);
   const legacyVol=overlapVolatilityState(row);
   const rowsUse = rows || [row];
   const idxUse = rows ? idx : 0;
   const contextualVol=activeOverlapVolatilityState(rowsUse, overlap, idxUse);
   const universe=assetUniverseType(term || currentAssetTerm(), rowsUse);
-  if(!highVolume) return {type:null, confirmed:false, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, highVolume, usedContextual:false, blockedBy:'volume', detail:'Outside active overlap but high-volume confirmation is absent'};
+  if(!highVolume) return {type:null, confirmed:false, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, highVolume, detail:'Outside active overlap but high-volume confirmation is absent'};
   if(universe==='crypto'){
     const confirmed = legacyVol==='High';
-    return {type:confirmed ? type : null, confirmed, policy:'legacy', universe, legacyVol, contextualVol, highVolume, usedContextual:false, blockedBy:confirmed ? 'none' : 'volatility', detail: confirmed ? 'Legacy confirmation: outside overlap + High volatility + High volume' : 'Legacy confirmation failed: volatility is not High'};
+    return {type:confirmed ? type : null, confirmed, policy:'legacy', universe, legacyVol, contextualVol, highVolume, detail: confirmed ? 'Legacy confirmation: outside overlap + High volatility + High volume' : 'Legacy confirmation failed: volatility is not High'};
   }
   const confirmed = (legacyVol==='High' || contextualVol==='High');
   const usedContextual = legacyVol!=='High' && contextualVol==='High';
-  return {type:confirmed ? type : null, confirmed, policy:'hybrid', universe, legacyVol, contextualVol, highVolume, usedContextual, blockedBy:confirmed ? 'none' : 'volatility', detail: confirmed ? (usedContextual ? 'Hybrid confirmation: outside overlap + contextual volatility + High volume' : 'Hybrid confirmation: outside overlap + legacy volatility + High volume') : 'Hybrid confirmation failed: neither legacy nor contextual volatility is High'};
-}
-function buildConfirmationDiagnostics(rows, overlap, visibleMask, term){
-  const universe = assetUniverseType(term, rows);
-  let outside=0, confirmed=0, blockedVol=0, blockedVola=0, legacyHigh=0, contextualHigh=0;
-  for(let i=0;i<rows.length;i++){
-    if(!visibleMask[i]) continue;
-    const type=overlapOutsideType(rows[i], overlap, i);
-    if(!type) continue;
-    outside += 1;
-    const meta=overlapConfirmationMeta(rows[i], overlap, i, rows, term);
-    if(meta.legacyVol==='High') legacyHigh += 1;
-    if(meta.contextualVol==='High') contextualHigh += 1;
-    if(meta.confirmed) confirmed += 1;
-    else if(meta.blockedBy==='volume') blockedVol += 1;
-    else if(meta.blockedBy==='volatility') blockedVola += 1;
-  }
-  return {universe, outside, confirmed, blockedVol, blockedVola, legacyHigh, contextualHigh};
+  return {type:confirmed ? type : null, confirmed, policy:'hybrid', universe, legacyVol, contextualVol, highVolume, usedContextual, detail: confirmed ? (usedContextual ? 'Hybrid confirmation: outside overlap + contextual volatility + High volume' : 'Hybrid confirmation: outside overlap + legacy volatility + High volume') : 'Hybrid confirmation failed: neither legacy nor contextual volatility is High'};
 }
 function overlapConfirmedEventType(row, overlap, idx, rows=null, term=null){
   return overlapConfirmationMeta(row, overlap, idx, rows, term).type;
@@ -830,7 +793,7 @@ function confirmedContextProfile(rows, overlap, idx){
   const meta = overlapConfirmationMeta(rows[idx], overlap, idx, rows, currentAssetTerm());
   const type = meta.type;
   if(!type){
-    return {label:'Unconfirmed', code:'unconfirmed', detail:meta.detail || 'No confirmed overlap alert on this bar.', midSlopePct:null, midAccelPct:null, widthSlopePct:null};
+    return {label:'Unconfirmed', code:'unconfirmed', detail: meta.detail || 'No confirmed overlap alert on this bar.', midSlopePct:null, midAccelPct:null, widthSlopePct:null};
   }
   const trend = overlapTrendContext(rows, overlap, idx);
   const slope = trend.midSlopePct;
@@ -997,6 +960,10 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 function formatPct(v){
   return (v===null || !Number.isFinite(v)) ? 'n/a' : `${(v*100).toFixed(1)}%`;
 }
+
+function formatNum(v, digits=1){
+  return (v===null || !Number.isFinite(v)) ? 'n/a' : Number(v).toFixed(digits);
+}
 function overlapWidthAt(overlap, idx){
   const ou=num(overlap.up[idx]), ol=num(overlap.low[idx]);
   if(ou===null || ol===null) return null;
@@ -1012,7 +979,7 @@ function overlapStructureAt(rows, overlap, idx, window=60){
     if(w!==null) widths.push(w);
   }
   if(widths.length<20){
-    return activeOverlapVolatilityState(rows, overlap, idx)==='High' ? 'Expansion' : 'Balanced';
+    return overlapVolatilityState(rows[idx])==='High' ? 'Expansion' : 'Balanced';
   }
   const q25=finiteQuantile(widths, 0.25);
   const q75=finiteQuantile(widths, 0.75);
@@ -1251,9 +1218,11 @@ function overlapTableauMarkers(rows, overlap, visibleMask){
     const d=rows[i].dateObj; if(!(d instanceof Date)) continue;
     const hi=num(rows[i].high) ?? num(rows[i].close) ?? null;
     const lo=num(rows[i].low) ?? num(rows[i].close) ?? null;
-    const policyLine = meta.policy==='hybrid' ? `Policy: Hybrid (${meta.universe})` : `Policy: Legacy (${meta.universe})`;
-    const gateLine = meta.usedContextual ? 'Gate: outside active overlap + contextual volatility + High volume' : 'Gate: outside active overlap + High volatility + High volume';
-    const detail = `${modelLabel}<br>${type==='bearish' ? 'Confirmed Bearish Pressure' : 'Confirmed Bullish Pressure'}<br>${policyLine}<br>${gateLine}`;
+    const policyLabel = meta.policy==='legacy' ? 'Legacy' : 'Hybrid';
+    const gateLabel = meta.policy==='legacy'
+      ? 'outside active overlap + High volatility + High volume'
+      : (meta.usedContextual ? 'outside active overlap + contextual volatility + High volume' : 'outside active overlap + High volatility + High volume');
+    const detail = `${modelLabel}<br>${type==='bearish' ? 'Confirmed Bearish Pressure' : 'Confirmed Bullish Pressure'}<br>Policy: ${policyLabel}<br>Gate: ${gateLabel}`;
     if(type==='bearish' && hi!==null){ bearishX.push(d); bearishY.push(hi+offset); bearishText.push(detail); }
     else if(type==='bullish' && lo!==null){ bullishX.push(d); bullishY.push(lo-offset); bullishText.push(detail); }
   }
@@ -1286,7 +1255,7 @@ function buildFigure(){
   if(priceBands.derived) helperParts.push('price bands derived in-view from close 20 SMA ± 2 std');
   if(bollinger==='contextual' || bollinger==='both') helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
   if(bollinger==='overlap') helperParts.push('canonical overlap remains the native joint expectation corridor');
-  if(bollinger==='contextual' || bollinger==='overlap' || bollinger==='both') helperParts.push('confirmed alerts still require outside overlap + High boll_volatility_flag + high volume');
+  if(bollinger==='contextual' || bollinger==='overlap' || bollinger==='both') helperParts.push('crypto confirmations use legacy High-volatility + High-volume gating; equity-like assets may also confirm on contextual-width volatility, while still requiring high volume');
   if(sentRibbonInfo.usedHybridOffsets) helperParts.push('full ribbon uses anchored MA 21 centerline plus smoothed family offsets');
   const currentRegimeInfo=regimeInfo[rows.length-1] || {regime:'Flat', confidence:0, basis:'derived'};
   const scaleModeLabel = scaleMode==='price_only' ? 'price only' : (scaleMode==='all_visible' ? 'all visible traces' : 'price + price overlays');
@@ -1311,14 +1280,6 @@ function buildFigure(){
   const ov=activeOverlapModel.overlap;
   const overlapInfo=computeOverlapSignalInfo(rows, ov, visibleMask);
   const engagementInfo=computeEngagementInfo(rows, visibleMask);
-  if(diagModeEnabled() && (bollinger==='overlap' || bollinger==='contextual' || bollinger==='both')){
-    const diag=buildConfirmationDiagnostics(rows, ov, visibleMask, term);
-    helperParts.push(`diag: ${diag.universe} | outside=${diag.outside} confirmed=${diag.confirmed} blocked(vol)=${diag.blockedVol} blocked(vlt)=${diag.blockedVola} legacyHigh=${diag.legacyHigh} contextualHigh=${diag.contextualHigh}`);
-    if(window.console && console.info) console.info('[PhaseA diagnostics]', term, diag);
-    document.getElementById('helperText').textContent = currentMode()==='member'
-      ? helperParts.join(' · ')
-      : `${calendar==='continuous'?'Continuous':'Trading-session'} ${freq==='D'?'daily':'weekly'} view · Combined Overlap primary · Engagement contextual · Timing panes optional.`;
-  }
 
 const mode=currentMode();
 const cfg = manifestModeConfig() || {};
@@ -1386,23 +1347,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
   const hist=rows.map(r=>num(r.macd_histogram));
   const histColors=hist.map((v,i)=>{if(v===null)return 'rgba(0,0,0,0)';const prev=i>0&&hist[i-1]!==null?hist[i-1]:v;const accel=v>=prev; if(v>=0) return accel?COLORS.histUp:COLORS.histUpSoft; return accel?COLORS.histDownSoft:COLORS.histDown;});
-  data.push({type:'bar',x:xs,y:hist,name:'MACD Histogram',marker:{color:histColors},xaxis:'x2',yaxis:'y2',hovertemplate:'%{x|%b %d, %Y}<br>Histogram=%{y:.2f}<extra></extra>'});
-  data.push(traceLine(xs,rows.map(r=>num(r.macd)),'MACD',COLORS.ma7,2.0,'solid','y2',true,'%{x|%b %d, %Y}<br>MACD=%{y:.2f}<extra></extra>'));
-  data.push(traceLine(xs,rows.map(r=>num(r.macd_signal)),'Signal',COLORS.ma50,1.5,'solid','y2',true,'%{x|%b %d, %Y}<br>Signal=%{y:.2f}<extra></extra>'));
+  data.push({type:'bar',x:xs,y:hist,name:'MACD Histogram',marker:{color:histColors},xaxis:'x2',yaxis:'y2',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>Histogram=%{y:.2f}<extra></extra>'});
+  data.push(traceLine(xs,rows.map(r=>num(r.macd)),'MACD',COLORS.ma7,2.0,'solid','y2',false,'%{x|%b %d, %Y}<br>MACD=%{y:.2f}<extra></extra>'));
+  data.push(traceLine(xs,rows.map(r=>num(r.macd_signal)),'Signal',COLORS.ma50,1.5,'solid','y2',false,'%{x|%b %d, %Y}<br>Signal=%{y:.2f}<extra></extra>'));
   if(osc==='both'){
-    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd)),'Scaled Sentiment MACD','y2',true,'%{x|%b %d, %Y}<br>Scaled Sentiment MACD=%{y:.2f}<extra></extra>',1.2).forEach(t=>data.push(t));
-    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd_signal)),'Scaled Sentiment Signal','y2',true,'%{x|%b %d, %Y}<br>Scaled Sentiment Signal=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
+    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd)),'Scaled Sentiment MACD','y2',false,'%{x|%b %d, %Y}<br>Scaled Sentiment MACD=%{y:.2f}<extra></extra>',1.2).forEach(t=>data.push(t));
+    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd_signal)),'Scaled Sentiment Signal','y2',false,'%{x|%b %d, %Y}<br>Scaled Sentiment Signal=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
   }
 
   const crossX=[],crossY=[],crossText=[],crossSize=[],crossColor=[];
   rows.forEach(r=>{const c=num(r.macd_signal_cross), y=num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Bull':'Bear'); crossSize.push(Math.min(18,10+Math.abs(num(r.macd_cross_significance)||0)*2)); crossColor.push(c===1?'rgba(40,220,90,0.85)':'rgba(255,110,110,0.85)');}});
-  if(crossX.length) data.push({type:'scatter',mode:'markers+text',x:crossX,y:crossY,text:crossText,textposition:'top center',xaxis:'x2',yaxis:'y2',marker:{size:crossSize,color:crossColor,symbol:'triangle-up'},name:'Crosses',hovertemplate:'%{x|%b %d, %Y}<br>%{text} Cross<extra></extra>'});
+  if(crossX.length) data.push({type:'scatter',mode:'markers+text',x:crossX,y:crossY,text:crossText,textposition:'top center',xaxis:'x2',yaxis:'y2',marker:{size:crossSize,color:crossColor,symbol:'triangle-up'},name:'Crosses',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>%{text} Cross<extra></extra>'});
 
-  data.push(traceLine(xs,rows.map(r=>num(r.rsi_d)||num(r.rsi)),'RSI',COLORS.rsi,2.0,'solid','y3',true,'%{x|%b %d, %Y}<br>RSI=%{y:.2f}<extra></extra>'));
-  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_rsi_d)||num(r.sentiment_rsi)),'Sentiment RSI','y3',true,'%{x|%b %d, %Y}<br>Sentiment RSI=%{y:.2f}<extra></extra>',1.1).forEach(t=>data.push(t));
-  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi)),'Stoch RSI %K',COLORS.stoch,1.8,'solid','y4',true,'%{x|%b %d, %Y}<br>Stoch RSI %K=%{y:.2f}<extra></extra>'));
-  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi_d)),'Stoch RSI %D',COLORS.stochD,1.3,'solid','y4',true,'%{x|%b %d, %Y}<br>Stoch RSI %D=%{y:.2f}<extra></extra>'));
-  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_stochastic_rsi_d)),'Sentiment Stoch RSI','y4',true,'%{x|%b %d, %Y}<br>Sentiment Stoch RSI=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
+  data.push(traceLine(xs,rows.map(r=>num(r.rsi_d)||num(r.rsi)),'RSI',COLORS.rsi,2.0,'solid','y3',false,'%{x|%b %d, %Y}<br>RSI=%{y:.2f}<extra></extra>'));
+  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_rsi_d)||num(r.sentiment_rsi)),'Sentiment RSI','y3',false,'%{x|%b %d, %Y}<br>Sentiment RSI=%{y:.2f}<extra></extra>',1.1).forEach(t=>data.push(t));
+  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi)),'Stoch RSI %K',COLORS.stoch,1.8,'solid','y4',false,'%{x|%b %d, %Y}<br>Stoch RSI %K=%{y:.2f}<extra></extra>'));
+  data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi_d)),'Stoch RSI %D',COLORS.stochD,1.3,'solid','y4',false,'%{x|%b %d, %Y}<br>Stoch RSI %D=%{y:.2f}<extra></extra>'));
+  if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_stochastic_rsi_d)),'Sentiment Stoch RSI','y4',false,'%{x|%b %d, %Y}<br>Sentiment Stoch RSI=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
 
   const priceCandidates=[];
   rows.forEach((r,i)=>{ if(!visibleMask[i]) return;
@@ -1443,6 +1404,17 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
   const lastCrossText=lastCrossRow?`${num(lastCrossRow.macd_signal_cross)===1?'Bull':'Bear'} on ${lastCrossRow.date}`:'none in view';
   const histDir=visRows.length>=2&&num(visRows[visRows.length-1].macd_histogram)!==null&&num(visRows[visRows.length-2].macd_histogram)!==null?(num(visRows[visRows.length-1].macd_histogram)>=num(visRows[visRows.length-2].macd_histogram)?'rising':'falling'):'flat';
   const macdRegime=(num(last.macd)!==null&&num(last.macd_signal)!==null&&num(last.macd)>=num(last.macd_signal))?'Bullish':'Bearish';
+  const lastRsiVal = num(last.rsi_d) ?? num(last.rsi);
+  const lastSentRsiVal = num(last.sentiment_rsi_d) ?? num(last.sentiment_rsi);
+  const rsiBias = lastRsiVal===null ? 'n/a' : (lastRsiVal>=70 ? 'Overbought' : (lastRsiVal<=30 ? 'Oversold' : (lastRsiVal>=55 ? 'Bullish Bias' : (lastRsiVal<=45 ? 'Bearish Bias' : 'Neutral'))));
+  const rsiConfirm = (lastRsiVal!==null && lastSentRsiVal!==null) ? (((lastRsiVal>=50)===(lastSentRsiVal>=50)) ? 'confirming' : 'mixed') : 'n/a';
+  const rsiPaneText = `RSI / Sent RSI · ${formatNum(lastRsiVal)} / ${formatNum(lastSentRsiVal)} · ${rsiBias} · ${rsiConfirm}`;
+  const lastStochK = num(last.stochastic_rsi);
+  const lastStochD = num(last.stochastic_rsi_d);
+  const lastSentStoch = num(last.sentiment_stochastic_rsi_d);
+  const stochBias = lastStochK===null || lastStochD===null ? 'n/a' : (lastStochK>=80 ? 'Overbought' : (lastStochK<=20 ? 'Oversold' : (lastStochK>=lastStochD ? 'Recovery Bias' : 'Softening Bias')));
+  const stochConfirm = (lastSentStoch!==null && lastStochK!==null) ? (((lastStochK>=50)===(lastSentStoch>=50)) ? 'confirming' : 'mixed') : 'n/a';
+  const stochPaneText = `%K / %D / Sent Stoch · ${formatNum(lastStochK)} / ${formatNum(lastStochD)} / ${formatNum(lastSentStoch)} · ${stochBias} · ${stochConfirm}`;
   const rb=(calendar==='trading_sessions' && freq==='D')?[{bounds:['sat','mon']}]:[];
   const regimeRects=(regimeLayer==='on' && showSentRibbon) ? regimeSegments(rows, regimeInfo, visStart, visEnd).map(seg=>({type:'rect',xref:'x',x0:seg.start,x1:nextRangeEnd(seg.end,calendar,freq),yref:'paper',y0:0.54,y1:0.98,line:{width:0},fillcolor:regimeFillColor(seg.regime),layer:'below'})) : [];
   const overlapTriggerShapes=[];
@@ -1479,10 +1451,11 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
       {xref:'paper',yref:'paper',x:0.5,y:0.285,text:'RSI',showarrow:false,font:{size:15,color:COLORS.text}},
       {xref:'paper',yref:'paper',x:0.5,y:0.145,text:'Stoch RSI',showarrow:false,font:{size:15,color:COLORS.text}}
       ] : []),
-      ...(cfg.showRibbonAnnotation !== false && regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.01,y:0.985,xanchor:'left',text:`Sentiment Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(cfg.showRibbonAnnotation !== false && regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.99,y:0.985,xanchor:'right',text:`Sentiment Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.972 : 0.955,xanchor:'left',text: cfg.compactAnnotations ? `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel} | ${overlapInfo.context}` : overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      ...(cfg.showAttentionAnnotation && engagement!=='off' ? [{xref:'paper',yref:'paper',x:0.99,y:0.955,xanchor:'right',text:`Attention: ${engagementInfo.levelLabel} | ${engagementInfo.convictionLabel} | ${engagementInfo.regimeLabel}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD: ${macdRegime} | Last Cross: ${lastCrossText} | Histogram: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
+      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD / Signal / Hist | ${macdRegime} | Last Cross: ${lastCrossText} | Histogram: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.275,xanchor:'left',text:rsiPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.135,xanchor:'left',text:stochPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
     ],
     hovermode:'x unified'
   };
