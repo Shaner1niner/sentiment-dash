@@ -693,19 +693,58 @@ function overlapOutsideType(row, overlap, idx){
   if(c<ol) return 'bullish';
   return null;
 }
-function currentHighVolumeState(row){
+function explicitHighVolumeState(row){
   const hv20=num(row?.high_volume_20);
-  if(hv20!==null) return hv20>0;
+  if(hv20!==null) return {known:true, high:hv20>0, source:'high_volume_20'};
   const hv7=num(row?.high_volume_7);
-  if(hv7!==null) return hv7>0;
+  if(hv7!==null) return {known:true, high:hv7>0, source:'high_volume_7'};
   const txt=String(row?.boll_overlap_volume_confirmation_flag || '').trim().toLowerCase();
-  if(txt.includes('high')) return true;
-  if(txt.includes('normal')) return false;
+  if(txt.includes('high')) return {known:true, high:true, source:'boll_overlap_volume_confirmation_flag'};
+  if(txt.includes('normal') || txt.includes('low')) return {known:true, high:false, source:'boll_overlap_volume_confirmation_flag'};
   const confirmed=num(row?.boll_overlap_break_confirmed_high_volume);
-  if(confirmed!==null) return confirmed>0;
+  if(confirmed!==null) return {known:true, high:confirmed>0, source:'boll_overlap_break_confirmed_high_volume'};
   const signalConfirmed=num(row?.signal_boll_overlap_break_confirmed_high_volume);
-  if(signalConfirmed!==null) return signalConfirmed>0;
-  return false;
+  if(signalConfirmed!==null) return {known:true, high:signalConfirmed>0, source:'signal_boll_overlap_break_confirmed_high_volume'};
+  return {known:false, high:false, source:'missing'};
+}
+function inferredHighVolumeState(rows, idx, window=60){
+  const row=rows?.[idx] || {};
+  const cur=num(row.volume);
+  if(cur===null || !Number.isFinite(cur) || cur<=0) return {known:false, high:false, source:'volume_missing'};
+  const vals=[];
+  for(let j=Math.max(0, idx-window+1); j<=idx; j++){
+    const v=num(rows[j]?.volume);
+    if(v!==null && Number.isFinite(v) && v>0) vals.push(v);
+  }
+  if(vals.length<15) return {known:false, high:false, source:'volume_short_history'};
+  const q60=finiteQuantile(vals, 0.60);
+  const q75=finiteQuantile(vals, 0.75);
+  const high = q60!==null && cur>=q60;
+  const elevated = q75!==null && cur>=q75;
+  return {known:true, high, elevated, source:elevated?'volume_q75':'volume_q60'};
+}
+function activeHighVolumeState(row, rows=null, idx=0){
+  const explicit=explicitHighVolumeState(row);
+  if(explicit.known) return explicit;
+  if(rows && rows.length) return inferredHighVolumeState(rows, idx);
+  return explicit;
+}
+function currentHighVolumeState(row){
+  return explicitHighVolumeState(row).high;
+}
+function upstreamLegacySignalType(row){
+  const buy=num(row?.buy), sell=num(row?.sell);
+  const buySignal=num(row?.buy_signal ?? row?.Buy_Signal ?? row?.['Buy Signal']);
+  const sellSignal=num(row?.sell_signal ?? row?.Sell_Signal ?? row?.['Sell Signal']);
+  const bullish = (buy!==null && buy>0 && (sell===null || buy>=sell)) || (buySignal!==null && buySignal>0);
+  const bearish = (sell!==null && sell>0 && (buy===null || sell>buy)) || (sellSignal!==null && sellSignal>0);
+  if(bullish && !bearish) return 'bullish';
+  if(bearish && !bullish) return 'bearish';
+  if(bullish && bearish){
+    if((buy??0)>(sell??0)) return 'bullish';
+    if((sell??0)>(buy??0)) return 'bearish';
+  }
+  return null;
 }
 function currentAssetTerm(){
   return document.getElementById('asset')?.value || null;
@@ -718,7 +757,7 @@ function assetUniverseType(term, rows){
   if(calendar==='continuous') return 'crypto';
   return 'equity_like';
 }
-function activeOverlapVolatilityState(rows, overlap, idx, window=40){
+function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='equity_like'){
   if(overlap?.family!=='contextual') return overlapVolatilityState(rows[idx]);
   const widths=[];
   for(let j=Math.max(0, idx-window+1); j<=idx; j++){
@@ -727,27 +766,42 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40){
   }
   if(widths.length < 20) return overlapVolatilityState(rows[idx]);
   const current = overlapWidthAt(overlap, idx);
+  if(current===null) return overlapVolatilityState(rows[idx]);
+  const q = universe==='crypto' ? 0.80 : 0.65;
+  const threshold = finiteQuantile(widths, q);
+  if(threshold!==null && current>=threshold) return 'High';
   const m = mean(widths), s = stddev(widths);
-  if(current===null || m===null || s===null) return overlapVolatilityState(rows[idx]);
-  return current > (m + s) ? 'High' : 'Low';
+  if(m!==null && s!==null && current > (m + 0.75*s)) return 'High';
+  return 'Low';
 }
 function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
-  const type=overlapOutsideType(row, overlap, idx);
-  if(!type) return {type:null, confirmed:false, policy:'none', universe:'unknown', legacyVol:'Low', contextualVol:'Low', highVolume:false, detail:'Inside active overlap'};
-  const highVolume=currentHighVolumeState(row);
-  const legacyVol=overlapVolatilityState(row);
   const rowsUse = rows || [row];
   const idxUse = rows ? idx : 0;
-  const contextualVol=activeOverlapVolatilityState(rowsUse, overlap, idxUse);
   const universe=assetUniverseType(term || currentAssetTerm(), rowsUse);
-  if(!highVolume) return {type:null, confirmed:false, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, highVolume, detail:'Outside active overlap but high-volume confirmation is absent'};
+  const overlapType=overlapOutsideType(row, overlap, idx);
+  const upstreamType=upstreamLegacySignalType(row);
+  const type=overlapType || upstreamType;
+  const signalSource=overlapType ? 'active_overlap' : (upstreamType ? 'upstream_signal' : 'none');
+  const legacyVol=overlapVolatilityState(row);
+  const contextualVol=activeOverlapVolatilityState(rowsUse, overlap, idxUse, universe);
+  const volumeState=activeHighVolumeState(row, rowsUse, idxUse);
+  const highVolume=volumeState.high;
+  if(!type) return {type:null, confirmed:false, policy:'none', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, detail:'Inside active overlap'};
+
+  // Upstream legacy buy/sell counts are already multi-window confirmed signals. They
+  // restore the prior candlestick diamonds while the overlap model remains primary.
+  if(signalSource==='upstream_signal'){
+    return {type, confirmed:true, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, upstreamSignal:true, detail:'Upstream legacy signal confirmation from multi-window Bollinger counts'};
+  }
+
+  if(!highVolume) return {type:null, confirmed:false, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, detail:'Outside active overlap but high-volume confirmation is absent'};
   if(universe==='crypto'){
     const confirmed = legacyVol==='High';
-    return {type:confirmed ? type : null, confirmed, policy:'legacy', universe, legacyVol, contextualVol, highVolume, detail: confirmed ? 'Legacy confirmation: outside overlap + High volatility + High volume' : 'Legacy confirmation failed: volatility is not High'};
+    return {type:confirmed ? type : null, confirmed, policy:'legacy', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, detail: confirmed ? 'Legacy confirmation: outside overlap + High volatility + High volume' : 'Legacy confirmation failed: volatility is not High'};
   }
   const confirmed = (legacyVol==='High' || contextualVol==='High');
   const usedContextual = legacyVol!=='High' && contextualVol==='High';
-  return {type:confirmed ? type : null, confirmed, policy:'hybrid', universe, legacyVol, contextualVol, highVolume, usedContextual, detail: confirmed ? (usedContextual ? 'Hybrid confirmation: outside overlap + contextual volatility + High volume' : 'Hybrid confirmation: outside overlap + legacy volatility + High volume') : 'Hybrid confirmation failed: neither legacy nor contextual volatility is High'};
+  return {type:confirmed ? type : null, confirmed, policy:'hybrid', universe, legacyVol, contextualVol, highVolume, volumeSource:volumeState.source, signalSource, usedContextual, detail: confirmed ? (usedContextual ? 'Hybrid confirmation: outside overlap + contextual volatility + High volume' : 'Hybrid confirmation: outside overlap + legacy volatility + High volume') : 'Hybrid confirmation failed: neither legacy nor contextual volatility is High'};
 }
 function overlapConfirmedEventType(row, overlap, idx, rows=null, term=null){
   return overlapConfirmationMeta(row, overlap, idx, rows, term).type;
@@ -1219,9 +1273,11 @@ function overlapTableauMarkers(rows, overlap, visibleMask){
     const hi=num(rows[i].high) ?? num(rows[i].close) ?? null;
     const lo=num(rows[i].low) ?? num(rows[i].close) ?? null;
     const policyLabel = meta.policy==='legacy' ? 'Legacy' : 'Hybrid';
-    const gateLabel = meta.policy==='legacy'
-      ? 'outside active overlap + High volatility + High volume'
-      : (meta.usedContextual ? 'outside active overlap + contextual volatility + High volume' : 'outside active overlap + High volatility + High volume');
+    const gateLabel = meta.upstreamSignal
+      ? 'upstream multi-window Bollinger signal'
+      : (meta.policy==='legacy'
+        ? 'outside active overlap + High volatility + High volume'
+        : (meta.usedContextual ? 'outside active overlap + contextual volatility + High volume' : 'outside active overlap + High volatility + High volume'));
     const detail = `${modelLabel}<br>${type==='bearish' ? 'Confirmed Bearish Pressure' : 'Confirmed Bullish Pressure'}<br>Policy: ${policyLabel}<br>Gate: ${gateLabel}`;
     if(type==='bearish' && hi!==null){ bearishX.push(d); bearishY.push(hi+offset); bearishText.push(detail); }
     else if(type==='bullish' && lo!==null){ bullishX.push(d); bullishY.push(lo-offset); bullishText.push(detail); }
