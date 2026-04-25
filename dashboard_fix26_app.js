@@ -830,6 +830,8 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
   if(m!==null && s!==null && current > (m + 0.75*s)) return 'High';
   return 'Low';
 }
+
+// phaseD2_crypto_only_v1: Phase D tightening applies to crypto; equities retain Phase C hybrid confirmation.
 function sourceConfirmedOverlap(row){
   const hvConfirmed = num(row?.boll_overlap_break_confirmed_high_volume);
   if(hvConfirmed!==null && hvConfirmed>0) return true;
@@ -900,12 +902,31 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
     return {type:null, confirmed:false, policy:basePolicy, universe, legacyVol, contextualVol, highVolume, usedContextual, detail: universe==='crypto' ? 'Legacy confirmation failed: volatility is not High' : 'Hybrid confirmation failed: neither legacy nor contextual volatility is High'};
   }
 
+  if(universe!=='crypto'){
+    const policy = basePolicy;
+    const detail = `Equity/non-crypto confirmation: outside overlap + high volume + ${usedContextual ? 'contextual volatility' : 'legacy volatility'} confirmation`;
+    return {
+      type,
+      confirmed:true,
+      policy,
+      basePolicy,
+      universe,
+      legacyVol,
+      contextualVol,
+      highVolume,
+      usedContextual,
+      phaseDBypass:true,
+      phaseDPolicy:'phaseD_crypto_only_v1',
+      detail
+    };
+  }
+
   const calibration = calibratedConfirmationPass(row, {universe, legacyVol, contextualVol, highVolume, usedContextual});
   const confirmed = calibration.pass;
   const policy = calibration.policy;
   const detail = confirmed
-    ? `Phase D confirmation: outside overlap + high volume + ${calibration.reason}`
-    : `Preliminary ${basePolicy} confirmation blocked by Phase D calibration; ${calibration.reason}`;
+    ? `Crypto Phase D confirmation: outside overlap + high volume + ${calibration.reason}`
+    : `Preliminary ${basePolicy} confirmation blocked by crypto Phase D calibration; ${calibration.reason}`;
   return {type:confirmed ? type : null, confirmed, policy, basePolicy, universe, legacyVol, contextualVol, highVolume, usedContextual, calibration, quality:calibration.quality, signalStrengthAbs:calibration.strength, sourceConfirmed:calibration.sourceConfirmed, detail};
 }
 function overlapConfirmedEventType(row, overlap, idx, rows=null, term=null){
