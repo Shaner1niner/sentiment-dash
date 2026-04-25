@@ -1418,56 +1418,85 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
   const offset=span*0.014;
   const modelLabel = overlap?.family==='contextual' ? 'Contextual Overlap' : 'Canonical Overlap';
   const term=currentAssetTerm();
+
   for(let i=0;i<rows.length;i++){
     if(!visibleMask[i]) continue;
+
     const meta=overlapConfirmationMeta(rows[i], overlap, i, rows, term);
     let type=meta.type;
-    const d=rows[i].dateObj; if(!(d instanceof Date)) continue;
+    const d=rows[i].dateObj;
+    if(!(d instanceof Date)) continue;
+
     const hi=num(rows[i].high) ?? num(rows[i].close) ?? null;
     const lo=num(rows[i].low) ?? num(rows[i].close) ?? null;
 
     if(type){
-      const policyLabel = meta.policy==='legacy' ? 'Legacy' : (meta.policy==='crypto_contextual' ? 'Crypto Contextual' : 'Hybrid');
+      const policyLabel = meta.policy==='legacy'
+        ? 'Legacy'
+        : (meta.policy==='crypto_contextual' ? 'Crypto Contextual' : 'Hybrid');
+
       const gateLabel = meta.upstreamSignal
         ? 'upstream multi-window Bollinger signal'
-        : (meta.usedContextual ? 'outside active overlap + contextual volatility + High volume' : 'outside active overlap + High volatility + High volume');
+        : (meta.usedContextual
+            ? 'outside active overlap + contextual volatility + High volume'
+            : 'outside active overlap + High volatility + High volume');
+
       const detail = `${modelLabel}<br>${type==='bearish' ? 'Confirmed Bearish Pressure' : 'Confirmed Bullish Pressure'}<br>Policy: ${policyLabel}<br>Gate: ${gateLabel}`;
-      if(type==='bearish' && hi!==null){ bearishX.push(d); bearishY.push(hi+offset); bearishText.push(detail); }
-      else if(type==='bullish' && lo!==null){ bullishX.push(d); bullishY.push(lo-offset); bullishText.push(detail); }
+
+      if(type==='bearish' && hi!==null){
+        bearishX.push(d);
+        bearishY.push(hi+offset);
+        bearishText.push(detail);
+      } else if(type==='bullish' && lo!==null){
+        bullishX.push(d);
+        bullishY.push(lo-offset);
+        bullishText.push(detail);
+      }
+
       continue;
     }
 
-    // Candidate/watch markers are intentionally quieter than confirmed diamonds.
-    // Display policy:
-    //   Off: confirmed diamonds only.
-    //   Context: member-only, material watch candidates only.
-    //   Overlay Marks: member-only, all watch candidates.
-    if(currentMode()!=='member' || markerPolicy==='off') continue;
+    // Candidate/watch markers are hidden from the default chart view.
+    //   Context: confirmed diamonds only; watch candidates remain in the alert drawer.
+    //   Overlay Marks: member-only, all watch candidate circles.
+    const showWatchMarkersOnChart = currentMode()==='member' && markerPolicy==='overlay';
+    if(!showWatchMarkersOnChart) continue;
+
     const watch=overlapWatchCandidateMeta(rows[i], overlap, i, rows, term);
     type=watch.type;
     if(!type) continue;
-    if(markerPolicy!=='overlay'){
-      const material = (watch.outsidePct!==null && watch.outsidePct>=0.006);
-      const volOk = watch.legacyVol==='High' || watch.contextualVol==='High';
-      if(!(watch.highVolume && (material || volOk))) continue;
-    }
+
     const detail = `${modelLabel}<br>${type==='bearish' ? 'Bearish Watch Candidate' : 'Bullish Watch Candidate'}<br>${watch.detail}`;
-    if(type==='bearish' && hi!==null){ watchBearishX.push(d); watchBearishY.push(hi+offset*0.55); watchBearishText.push(detail); }
-    else if(type==='bullish' && lo!==null){ watchBullishX.push(d); watchBullishY.push(lo-offset*0.55); watchBullishText.push(detail); }
+
+    if(type==='bearish' && hi!==null){
+      watchBearishX.push(d);
+      watchBearishY.push(hi+offset*0.55);
+      watchBearishText.push(detail);
+    } else if(type==='bullish' && lo!==null){
+      watchBullishX.push(d);
+      watchBullishY.push(lo-offset*0.55);
+      watchBullishText.push(detail);
+    }
   }
+
   const traces=[];
+
   if(bearishX.length){
     traces.push({type:'scatter',mode:'markers',x:bearishX,y:bearishY,text:bearishText,xaxis:'x',yaxis:'y',name:'Bearish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(255,128,128,0.98)',line:{color:'rgba(255,128,128,0.98)',width:1.4}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
   }
+
   if(bullishX.length){
     traces.push({type:'scatter',mode:'markers',x:bullishX,y:bullishY,text:bullishText,xaxis:'x',yaxis:'y',name:'Bullish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(112,232,148,0.98)',line:{color:'rgba(112,232,148,0.98)',width:1.4}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
   }
+
   if(watchBearishX.length){
     traces.push({type:'scatter',mode:'markers',x:watchBearishX,y:watchBearishY,text:watchBearishText,xaxis:'x',yaxis:'y',name:'Bearish Watch Candidate',showlegend:false,marker:{symbol:'circle-open',size:6,color:'rgba(255,184,184,0.72)',line:{color:'rgba(255,184,184,0.72)',width:1.1}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
   }
+
   if(watchBullishX.length){
     traces.push({type:'scatter',mode:'markers',x:watchBullishX,y:watchBullishY,text:watchBullishText,xaxis:'x',yaxis:'y',name:'Bullish Watch Candidate',showlegend:false,marker:{symbol:'circle-open',size:6,color:'rgba(157,240,181,0.72)',line:{color:'rgba(157,240,181,0.72)',width:1.1}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
   }
+
   return traces;
 }
 
