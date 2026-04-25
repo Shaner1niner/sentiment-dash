@@ -13,6 +13,10 @@ REM   5. Builds Fix 26 screener JSON payload for the website
 REM   6. Builds separate lean public/member chart JSON payloads
 REM   7. Stages changed website repo files in git
 REM   8. Optionally commits and pushes
+REM
+REM Safety behavior:
+REM   - Stops if any required upstream step fails
+REM   - Deletes prior screener outputs before rebuilding so stale files cannot pass validation
 REM =============================================================
 
 set "PYTHON_EXE=C:\Users\shane\anaconda3\python.exe"
@@ -152,6 +156,13 @@ if not exist "%ALERT_AUDIT_CSV%" (
   echo         %ALERT_AUDIT_CSV%
   goto :fail
 )
+
+echo.
+echo Cleaning prior screener outputs...
+if exist "%SCREENER_CSV%" del "%SCREENER_CSV%"
+if exist "%INDICATOR_MATRIX_CSV%" del "%INDICATOR_MATRIX_CSV%"
+if exist "%ARCHETYPES_CSV%" del "%ARCHETYPES_CSV%"
+if exist "%SCREENER_STORE_JSON%" del "%SCREENER_STORE_JSON%"
 
 echo.
 echo ============================================================
