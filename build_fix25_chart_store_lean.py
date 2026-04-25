@@ -73,6 +73,7 @@ MAX_FIELDS = {
     "boll_overlap_break_confirmed_high_volume", "signal_boll_overlap_break_confirmed_high_volume",
     "boll_overlap_reentry_flag", "boll_overlap_rejection_bullish_flag",
     "boll_overlap_rejection_bearish_flag", "sent_ribbon_compression_flag",
+    "signal_boll_overlap_high_volatility",
     "sent_ribbon_transition_flag",
 }
 LAST_NON_NULL_FIELDS = set(CORE_FIELDS) - set(OHLC_AGG) - SUM_FIELDS - MAX_FIELDS - {"date"}
