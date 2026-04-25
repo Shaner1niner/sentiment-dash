@@ -1398,7 +1398,7 @@ function buildOverlapBadgesHTML(info){
     `<span class="badge badge-neutral"><b>Latest Confirmed</b> ${info.latestConfirmed}</span>`
   ].join('');
 }
-function overlapTableauMarkers(rows, overlap, visibleMask){
+function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context'){
   const bearishX=[], bearishY=[], bearishText=[];
   const bullishX=[], bullishY=[], bullishText=[];
   const watchBearishX=[], watchBearishY=[], watchBearishText=[];
@@ -1429,11 +1429,19 @@ function overlapTableauMarkers(rows, overlap, visibleMask){
     }
 
     // Candidate/watch markers are intentionally quieter than confirmed diamonds.
-    // They are member-mode only, so public mode keeps the conservative confirmed-signal language.
-    if(currentMode()!=='member') continue;
+    // Display policy:
+    //   Off: confirmed diamonds only.
+    //   Context: member-only, material watch candidates only.
+    //   Overlay Marks: member-only, all watch candidates.
+    if(currentMode()!=='member' || markerPolicy==='off') continue;
     const watch=overlapWatchCandidateMeta(rows[i], overlap, i, rows, term);
     type=watch.type;
     if(!type) continue;
+    if(markerPolicy!=='overlay'){
+      const material = (watch.outsidePct!==null && watch.outsidePct>=0.006);
+      const volOk = watch.legacyVol==='High' || watch.contextualVol==='High';
+      if(!(watch.highVolume && (material || volOk))) continue;
+    }
     const detail = `${modelLabel}<br>${type==='bearish' ? 'Bearish Watch Candidate' : 'Bullish Watch Candidate'}<br>${watch.detail}`;
     if(type==='bearish' && hi!==null){ watchBearishX.push(d); watchBearishY.push(hi+offset*0.55); watchBearishText.push(detail); }
     else if(type==='bullish' && lo!==null){ watchBullishX.push(d); watchBullishY.push(lo-offset*0.55); watchBullishText.push(detail); }
@@ -1479,7 +1487,7 @@ function buildFigure(){
   const scaleModeLabel = scaleMode==='price_only' ? 'price only' : (scaleMode==='all_visible' ? 'all visible traces' : 'price + price overlays');
   helperParts.push(`scale mode: ${scaleModeLabel}`);
   helperParts.push(`regime basis: ${currentRegimeInfo.basis || 'derived'}`);
-  if(engagement!=='off') helperParts.push(engagement==='overlay' ? 'attention overlay marks soft participation days and stronger event bursts' : 'attention badges show level, conviction, and regime');
+  if(engagement!=='off') helperParts.push(engagement==='overlay' ? 'attention overlay marks soft participation days, stronger event bursts, and all member watch candidates' : 'attention badges show level, conviction, regime, and material member watch candidates');
   document.getElementById('helperText').textContent = currentMode()==='member'
     ? helperParts.join(' · ')
     : `${calendar==='continuous'?'Continuous':'Trading-session'} ${freq==='D'?'daily':'weekly'} view · Combined Overlap primary · Engagement contextual · Timing panes optional.`;
@@ -1503,7 +1511,7 @@ const mode=currentMode();
 const cfg = manifestModeConfig() || {};
 const summaryText = `${overlapInfo.stateLabel} · ${overlapInfo.context} · ${engagement==='off' ? 'Engagement Hidden' : `${engagementInfo.levelLabel} / ${engagementInfo.regimeLabel}`}`;
 document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b>Combined Summary</b> ${summaryText}</span><span class="summaryCard"><b>Model</b> ${overlapInfo.modelLabel}</span>`;
-  const overlapMarkerTraces=overlapTableauMarkers(rows, ov, visibleMask);
+  const overlapMarkerTraces=overlapTableauMarkers(rows, ov, visibleMask, engagement);
   const alertDiagnostics=computeAlertDiagnosticInfo(rows, ov, visibleMask, term);
   if(bollinger==='overlap' || bollinger==='contextual') addOverlapBandWithPlaybook(data,xs,ov.up,ov.low,rows,ov,COLORS.overlapBand,COLORS.overlapFill,overlapInfo.modelLabel,'y',visibleMask);
   if((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both')) overlapMarkerTraces.forEach(t=>data.push(t));
