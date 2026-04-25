@@ -912,7 +912,7 @@ function calibratedConfirmationPass(row, baseMeta){
   const strongSignal = __setaStrongOverlapSignal(row);
   const highVolatility = __setaHighVolatilityContext(row) || !!(baseMeta && (baseMeta.legacyVol || baseMeta.contextualVol));
   const cryptoLike = __setaIsCryptoLike(row);
-  if(!outside) return { pass:false, quality:false, strength:false, sourceConfirmed, reason:'inside overlap', policy:PHASE_TAG };
+  if(!outside) return { pass:false, quality:false, strength:false, sourceConfirmed, reason:'inside overlap', policy:"phaseD4_equity_soft_volume_crypto_tight_v1" };
   if(cryptoLike){
     const cryptoEvidence = sourceConfirmed || highQuality || strongSignal;
     return {
@@ -921,7 +921,7 @@ function calibratedConfirmationPass(row, baseMeta){
       strength: strongSignal,
       sourceConfirmed,
       reason: 'Crypto Phase D confirmation: outside overlap + high volume + source/quality/strength',
-      policy: PHASE_TAG
+      policy: "phaseD4_equity_soft_volume_crypto_tight_v1
     };
   }
   const equityEvidence = highVolatility || sourceConfirmed || structureExpansion || highQuality || strongSignal;
@@ -932,7 +932,7 @@ function calibratedConfirmationPass(row, baseMeta){
     strength: strongSignal,
     sourceConfirmed,
     reason: 'Equity/non-crypto soft-volume Phase C confirmation: outside overlap + hybrid evidence; volume helpful but not always hard gate',
-    policy: PHASE_TAG
+    policy: "phaseD4_equity_soft_volume_crypto_tight_v1
   };
 }
 
@@ -2024,4 +2024,5 @@ async function initDashboard(){
   }
 }
 initDashboard();
+
 
