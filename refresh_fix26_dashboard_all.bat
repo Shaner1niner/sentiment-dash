@@ -9,9 +9,10 @@ REM   1. Reads the Fix 26 manifest to get the union of public/member assets
 REM   2. Runs export_enriched_chart_history_v2.py for that union
 REM   3. Writes the chart-history/attention/alert CSV outputs locally and to Tableau AutoSync
 REM   4. Builds SETA screener, indicator matrix, and signal archetype CSVs
-REM   5. Builds separate lean public/member JSON payloads
-REM   6. Stages changed website repo files in git
-REM   7. Optionally commits and pushes
+REM   5. Builds Fix 26 screener JSON payload for the website
+REM   6. Builds separate lean public/member chart JSON payloads
+REM   7. Stages changed website repo files in git
+REM   8. Optionally commits and pushes
 REM =============================================================
 
 set "PYTHON_EXE=C:\Users\shane\anaconda3\python.exe"
@@ -30,6 +31,9 @@ set "INPUT_CSV=%EXPORT_DIR%\%EXPORT_FILENAME%"
 REM Preferred location is versioned inside sentiment-dash; fallback supports your current local script.
 set "SCREENER_SCRIPT=%WEBSITE_REPO%\scripts\build_seta_market_screener.py"
 if not exist "%SCREENER_SCRIPT%" set "SCREENER_SCRIPT=C:\Users\shane\build_seta_market_screener.py"
+
+set "SCREENER_STORE_BUILDER=%WEBSITE_REPO%\scripts\build_fix26_screener_store.py"
+set "SCREENER_STORE_JSON=%WEBSITE_REPO%\fix26_screener_store.json"
 
 set "SCREENER_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_market_screener_365d.csv"
 set "INDICATOR_MATRIX_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_indicator_matrix_365d.csv"
@@ -76,6 +80,12 @@ if not exist "%SCREENER_SCRIPT%" (
   goto :fail
 )
 
+if not exist "%SCREENER_STORE_BUILDER%" (
+  echo [ERROR] Fix 26 screener store builder not found:
+  echo         %SCREENER_STORE_BUILDER%
+  goto :fail
+)
+
 if not exist "%MANIFEST%" (
   echo [ERROR] Fix 26 mode manifest not found:
   echo         %MANIFEST%
@@ -101,7 +111,7 @@ set "EXPORT_TERMS=BTC,ETH,SOL,NVDA,MSFT,COIN,AAPL,SPY,GLD,DOGE,AVAX,LINK,BNB,XRP
 
 echo.
 echo ============================================================
-echo [1/5] Running chart-history exporter...
+echo [1/6] Running chart-history exporter...
 echo ============================================================
 echo Export terms: %EXPORT_TERMS%
 echo Local export dir: %EXPORT_DIR%
@@ -145,7 +155,7 @@ if not exist "%ALERT_AUDIT_CSV%" (
 
 echo.
 echo ============================================================
-echo [2/5] Building SETA market screener, indicator matrix, and archetypes...
+echo [2/6] Building SETA market screener, indicator matrix, and archetypes...
 echo ============================================================
 echo Screener script: %SCREENER_SCRIPT%
 "%PYTHON_EXE%" "%SCREENER_SCRIPT%" ^
@@ -175,7 +185,25 @@ if not exist "%ARCHETYPES_CSV%" (
 
 echo.
 echo ============================================================
-echo [3/5] Building Fix 26 public/member JSON payloads...
+echo [3/6] Building Fix 26 screener JSON payload...
+echo ============================================================
+"%PYTHON_EXE%" "%SCREENER_STORE_BUILDER%" ^
+  --source-dir "%TABLEAU_AUTOSYNC_DIR%" ^
+  --output-dir "%WEBSITE_REPO%"
+if errorlevel 1 (
+  echo [ERROR] Fix 26 screener JSON payload builder failed.
+  goto :fail
+)
+
+if not exist "%SCREENER_STORE_JSON%" (
+  echo [ERROR] Expected screener JSON was not created:
+  echo         %SCREENER_STORE_JSON%
+  goto :fail
+)
+
+echo.
+echo ============================================================
+echo [4/6] Building Fix 26 public/member chart JSON payloads...
 echo ============================================================
 "%PYTHON_EXE%" "%PAYLOAD_BUILDER%" ^
   --manifest "%MANIFEST%" ^
@@ -202,7 +230,7 @@ if not exist "%MEMBER_JSON%" (
 
 echo.
 echo ============================================================
-echo [4/5] Staging website repo changes...
+echo [5/6] Staging website repo changes...
 echo ============================================================
 pushd "%WEBSITE_REPO%"
 if errorlevel 1 (
@@ -217,7 +245,9 @@ git add build_fix26_chart_store_payloads.py
 git add refresh_fix26_dashboard_all.bat
 git add fix26_chart_store_public.json
 git add fix26_chart_store_member.json
+git add fix26_screener_store.json
 if exist scripts\build_seta_market_screener.py git add scripts\build_seta_market_screener.py
+if exist scripts\build_fix26_screener_store.py git add scripts\build_fix26_screener_store.py
 if exist interactive_dashboard_fix24_public_embed.html git add interactive_dashboard_fix24_public_embed.html
 if exist interactive_dashboard_fix24_member_embed.html git add interactive_dashboard_fix24_member_embed.html
 if exist interactive_dashboard_fix24_externalized_loader.html git add interactive_dashboard_fix24_externalized_loader.html
@@ -236,7 +266,7 @@ git status --short
 if "%AUTO_COMMIT%"=="1" (
   echo.
   echo ============================================================
-  echo [5/5] Creating git commit...
+  echo [6/6] Creating git commit...
   echo ============================================================
   git commit -m "%COMMIT_MESSAGE%"
   if errorlevel 1 (
@@ -273,6 +303,8 @@ echo Indicator matrix:
 echo   %INDICATOR_MATRIX_CSV%
 echo Signal archetypes:
 echo   %ARCHETYPES_CSV%
+echo Screener JSON:
+echo   %SCREENER_STORE_JSON%
 echo Public JSON:
 echo   %PUBLIC_JSON%
 echo Member JSON:
