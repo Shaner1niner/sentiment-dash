@@ -832,13 +832,15 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 }
 
 // phaseD4_equity_soft_volume_crypto_tight_v1: crypto stays tight; equity/non-crypto restores Phase C hybrid with soft volume.
-function __setaPhaseD4CryptoTerms(){
+
+// phaseD5_public_drawer_equity_material_break_v1: crypto stays tight; equities restore Phase C with material outside breaks; alert drawer visible in public too.
+function __setaPhaseD5CryptoTerms(){
   return new Set(['BTC','ETH','SOL','DOGE','AVAX','LINK','BNB','XRP','ADA','POL','MATIC','SUI','HYPE','HBAR','HNT','KAS','LTC','SHIB','WIF','POPCAT','ATOM','AAVE','PEPE','DOT','TRX']);
 }
 function __setaIsCryptoLike(row){
   const term = String((row && (row.term || row.asset || row.symbol)) || (typeof currentAsset !== 'undefined' ? currentAsset : '') || '').toUpperCase().trim();
   const universe = String((row && (row.universe || row.asset_universe || row.primary_universe || row.primary_sector || row.asset_class)) || '').toLowerCase();
-  return universe.includes('crypto') || __setaPhaseD4CryptoTerms().has(term);
+  return universe.includes('crypto') || __setaPhaseD5CryptoTerms().has(term);
 }
 function __setaNum(row, keys){
   for(const k of keys){
@@ -864,9 +866,14 @@ function sourceConfirmedOverlap(row){
   return confirmedFlag > 0 || tier.includes('confirmed') || label.includes('confirmed');
 }
 function __setaStructureExpansion(row){
-  const state = __setaText(row, ['overlap_structure_state','structure_state','seta_market_structure_label','seta_dashboard_summary_label','boll_overlap_state']).toLowerCase();
+  const state = __setaText(row, ['overlap_structure_state','structure_state','seta_market_structure_label','seta_dashboard_summary_label','boll_overlap_state','sent_ribbon_attention_regime']).toLowerCase();
   const flag = __setaNum(row, ['structure_expansion_flag','boll_overlap_structure_expansion_flag','signal_structure_expansion']);
   return flag > 0 || state.includes('structure expansion') || state.includes('expansion');
+}
+function __setaMaterialOutsideBreak(row){
+  const text = __setaText(row, ['seta_alert_context_label','seta_dashboard_summary_label','boll_overlap_alert_label','alert_context','boll_overlap_alert_tier']).toLowerCase();
+  const flag = __setaNum(row, ['boll_overlap_material_break_flag','material_outside_break_flag','outside_material_break','boll_overlap_break_material']);
+  return flag > 0 || text.includes('material outside break') || text.includes('material break') || text.includes('outside active overlap');
 }
 function __setaHighQualityOverlap(row){
   const q = __setaNum(row, ['boll_overlap_alert_quality_score','alert_quality_score','overlap_alert_quality_score']);
@@ -900,14 +907,15 @@ function __setaOutsideOverlap(row, fallbackOutside){
   return flag > 0 || state.includes('outside') || direction.includes('bull') || direction.includes('bear');
 }
 function calibratedConfirmationPass(row, baseMeta){
-  // Phase D4 policy:
+  // Phase D5 policy:
   // Crypto Phase D confirmation: outside overlap + high volume + source/quality/strength.
-  // Equity/non-crypto soft-volume Phase C confirmation: outside overlap + hybrid evidence; volume is helpful but not always a hard gate.
+  // Equity/non-crypto Phase C restoration: outside overlap + hybrid evidence; material outside breaks can confirm with soft volume/context.
   const outside = __setaOutsideOverlap(row, baseMeta && baseMeta.outsideActiveOverlap);
   const highVolume = __setaHighVolume(row) || !!(baseMeta && (baseMeta.highVolume || baseMeta.volumeConfirmed));
   const contextualVolume = __setaContextualVolume(row) || !!(baseMeta && (baseMeta.usedContextual || baseMeta.contextualVolume));
   const sourceConfirmed = sourceConfirmedOverlap(row);
   const structureExpansion = __setaStructureExpansion(row);
+  const materialOutsideBreak = __setaMaterialOutsideBreak(row);
   const highQuality = __setaHighQualityOverlap(row);
   const strongSignal = __setaStrongOverlapSignal(row);
   const highVolatility = __setaHighVolatilityContext(row) || !!(baseMeta && (baseMeta.legacyVol || baseMeta.contextualVol));
@@ -924,14 +932,14 @@ function calibratedConfirmationPass(row, baseMeta){
       policy: PHASE_TAG
     };
   }
-  const equityEvidence = highVolatility || sourceConfirmed || structureExpansion || highQuality || strongSignal;
-  const softVolumeEvidence = highVolume || contextualVolume || sourceConfirmed || highQuality || strongSignal || structureExpansion;
+  const equityEvidence = highVolatility || sourceConfirmed || structureExpansion || materialOutsideBreak || highQuality || strongSignal;
+  const softVolumeEvidence = highVolume || contextualVolume || sourceConfirmed || highQuality || strongSignal || structureExpansion || materialOutsideBreak;
   return {
     pass: !!(equityEvidence && softVolumeEvidence),
     quality: highQuality,
     strength: strongSignal,
     sourceConfirmed,
-    reason: 'Equity/non-crypto soft-volume Phase C confirmation: outside overlap + hybrid evidence; volume helpful but not always hard gate',
+    reason: 'Equity/non-crypto Phase C restoration: outside overlap + hybrid evidence, including material outside breaks; volume helpful but not always hard gate',
     policy: PHASE_TAG
   };
 }
@@ -1715,7 +1723,8 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='context'){
   const panel=ensureAlertSidePanel();
   if(!panel) return;
-  if(currentMode()!=='member') { panel.style.display='none'; return; }
+  // Phase D5: show alert drawer in public too; public remains confirmed-only because collectVisibleAlertEvents suppresses watch candidates outside member mode.
+  panel.style.display='';
   panel.style.display='';
   const events=collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolicy);
   const confirmedCount=events.filter(e=>e.tier==='Confirmed').length;
@@ -1748,7 +1757,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
       <button class="alertPanelToggle" id="alertPanelToggle" type="button" aria-label="Toggle alert events panel">${shouldCollapse ? '+' : '−'}</button>
     </div>
     <div class="alertPanelBody">
-      <div class="panelSub">Visible-window events for ${escapeHTML(term)}. Use Attention = Context for material watch candidates or Overlay Marks for all watch candidates.</div>
+      <div class="panelSub">${currentMode()==='member' ? `Visible-window events for ${escapeHTML(term)}. Use Attention = Context for material watch candidates or Overlay Marks for all watch candidates.` : `Visible-window confirmed alerts for ${escapeHTML(term)}.`}</div>
       <div class="alertPanelControls"><span class="alertPanelPill">Confirmed ${confirmedCount}</span><span class="alertPanelPill">Watch ${watchCount}</span><span class="alertPanelPill">Policy ${escapeHTML(markerPolicy)}</span></div>
       ${cards || '<div class="alertPanelEmpty">No confirmed or watch events in the current visible window. Try a longer display range or Attention = Overlay Marks.</div>'}
     </div>`;
