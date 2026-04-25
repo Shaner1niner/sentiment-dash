@@ -1473,17 +1473,17 @@ function ensureAlertSidePanel(){
     const style=document.createElement('style');
     style.id='alertSidePanelStyle';
     style.textContent=`
-      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:start;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
+      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:stretch;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
       .chartPanelGrid.drawerCollapsed{grid-template-columns:minmax(0,1fr) 46px;}
       .chartPanelGrid>#chart{min-width:0;width:100%;}
-      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:0;height:var(--alert-panel-height,720px);min-height:360px;max-height:var(--alert-panel-height,720px);overflow:hidden;color:#dce7ee;font-family:inherit;transition:width .18s ease, opacity .18s ease, border-color .18s ease;display:flex;flex-direction:column;}
+      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:0;height:100%;min-height:360px;max-height:none;overflow:hidden;color:#dce7ee;font-family:inherit;transition:width .18s ease, opacity .18s ease, border-color .18s ease;display:flex;flex-direction:column;}
       .alertSidePanel h3{margin:0;font-size:14px;letter-spacing:.02em;color:#f1f6fa;}
       .alertSidePanel .panelSub{font-size:11px;color:#99a8b3;line-height:1.35;margin:0 0 10px 0;}
       .alertPanelHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;user-select:none;background:rgba(255,255,255,.025);flex:0 0 auto;}
       .alertPanelHeaderMain{display:flex;flex-direction:column;gap:3px;min-width:0;}
       .alertPanelHeaderSummary{font-size:11px;color:#9fb0ba;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
       .alertPanelToggle{border:1px solid #3a4651;background:rgba(255,255,255,.045);color:#dce7ee;border-radius:8px;width:24px;height:24px;line-height:20px;font-weight:800;cursor:pointer;flex:0 0 auto;}
-      .alertPanelBody{padding:10px 12px 12px 12px;overflow:auto;flex:1 1 auto;min-height:0;}
+      .alertPanelBody{padding:10px 12px 12px 12px;overflow:auto;flex:1 1 auto;}
       .alertSidePanel.collapsed{min-width:46px;max-width:46px;border-color:rgba(95,113,128,.6);}
       .alertSidePanel.collapsed .alertPanelBody{display:none;}
       .alertSidePanel.collapsed .alertPanelHeader{height:100%;padding:12px 6px;border-bottom:none;flex-direction:column;justify-content:flex-start;align-items:center;gap:10px;}
@@ -1493,8 +1493,6 @@ function ensureAlertSidePanel(){
       .alertSidePanel.collapsed .alertPanelToggle{width:26px;height:26px;line-height:20px;}
       .alertPanelControls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
       .alertPanelPill{border:1px solid #33404a;border-radius:999px;padding:4px 8px;font-size:11px;color:#c5d0d8;background:rgba(255,255,255,.035);}
-      .alertPanelFilterBtn{border:1px solid #33404a;border-radius:999px;padding:4px 8px;font-size:11px;color:#c5d0d8;background:rgba(255,255,255,.035);cursor:pointer;font-family:inherit;}
-      .alertPanelFilterBtn.active{border-color:rgba(255,224,120,.58);color:#ffe078;background:rgba(255,224,120,.08);}
       .alertEventCard{border:1px solid #25313a;border-radius:12px;padding:9px 9px;margin:8px 0;background:rgba(255,255,255,.025);}
       .alertEventCard.confirmed{border-color:rgba(255,224,120,.38);background:rgba(255,224,120,.045);}
       .alertEventCard.watch{border-color:rgba(140,170,210,.28);}
@@ -1506,7 +1504,7 @@ function ensureAlertSidePanel(){
       .miniBadge{display:inline-block;border-radius:999px;padding:2px 6px;font-size:10px;margin-right:4px;border:1px solid #35424d;background:rgba(255,255,255,.04);color:#c9d5dc;}
       .miniBull{border-color:rgba(112,232,148,.45);color:#9df0b5;}.miniBear{border-color:rgba(255,128,128,.45);color:#ffb8b8;}.miniWatch{border-color:rgba(140,170,210,.45);}.miniConfirmed{border-color:rgba(255,224,120,.55);color:#ffe078;}
       .alertPanelEmpty{font-size:12px;color:#9fb0ba;border:1px dashed #33404a;border-radius:12px;padding:12px;line-height:1.35;}
-      @media (max-width:1100px){.chartPanelGrid{display:block}.alertSidePanel{height:auto;max-height:none;margin-top:12px}}
+      @media (max-width:1100px){.chartPanelGrid{display:block}.alertSidePanel{max-height:none;margin-top:12px}}
     `;
     document.head.appendChild(style);
   }
@@ -1522,24 +1520,13 @@ function ensureAlertSidePanel(){
     panel.className='alertSidePanel';
     grid.appendChild(panel);
   }
-  if(!window.__setaAlertPanelResizeBound){
-    window.__setaAlertPanelResizeBound=true;
-    window.addEventListener('resize', ()=>window.setTimeout(syncAlertPanelHeight, 120));
-  }
   return document.getElementById('alertSidePanel');
-}
-function syncAlertPanelHeight(){
-  const chart=document.getElementById('chart');
-  const panel=document.getElementById('alertSidePanel');
-  if(!chart || !panel || panel.style.display==='none') return;
-  const h=Math.round(chart.getBoundingClientRect().height || 0);
-  if(h>=320) panel.style.setProperty('--alert-panel-height', `${h}px`);
 }
 function resizeChartAfterDrawerToggle(){
   const chart=document.getElementById('chart');
   if(window.Plotly && chart){
-    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); syncAlertPanelHeight(); }catch(e){} }, 80);
-    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); syncAlertPanelHeight(); }catch(e){} }, 220);
+    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); }catch(e){} }, 80);
+    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); }catch(e){} }, 220);
   }
 }
 function alertQualityScore(row, meta){
@@ -1609,12 +1596,8 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
   const events=collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolicy);
   const confirmedCount=events.filter(e=>e.tier==='Confirmed').length;
   const watchCount=events.filter(e=>e.tier==='Watch').length;
-  const filterKey = 'setaAlertEventsPanelFilter';
-  const savedFilter = window.localStorage ? window.localStorage.getItem(filterKey) : null;
-  const activeFilter = (savedFilter === 'all' || savedFilter === 'confirmed') ? savedFilter : 'confirmed';
-  const displayEvents = activeFilter === 'confirmed' ? events.filter(e=>e.tier==='Confirmed') : events;
-  const latest=displayEvents.slice(0,12);
-  const latestDate = events.length ? (events[0].date || '') : 'none';
+  const latest=events.slice(0,12);
+  const latestDate = latest.length ? (latest[0].date || '') : 'none';
   const collapsedKey = 'setaAlertEventsPanelCollapsed';
   const savedCollapsed = window.localStorage ? window.localStorage.getItem(collapsedKey) : null;
   const shouldCollapse = savedCollapsed === null ? true : savedCollapsed === 'true';
@@ -1641,9 +1624,9 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
       <button class="alertPanelToggle" id="alertPanelToggle" type="button" aria-label="Toggle alert events panel">${shouldCollapse ? '+' : '−'}</button>
     </div>
     <div class="alertPanelBody">
-      <div class="panelSub">Visible-window events for ${escapeHTML(term)}. Use Confirmed Only for decision-grade alerts or All Events for watch candidates.</div>
-      <div class="alertPanelControls"><button class="alertPanelFilterBtn ${activeFilter==='confirmed' ? 'active' : ''}" data-alert-filter="confirmed" type="button">Confirmed only</button><button class="alertPanelFilterBtn ${activeFilter==='all' ? 'active' : ''}" data-alert-filter="all" type="button">All events</button><span class="alertPanelPill">Confirmed ${confirmedCount}</span><span class="alertPanelPill">Watch ${watchCount}</span><span class="alertPanelPill">Policy ${escapeHTML(markerPolicy)}</span></div>
-      ${cards || `<div class="alertPanelEmpty">No ${activeFilter==='confirmed' ? 'confirmed' : 'confirmed or watch'} events in the current visible window. ${activeFilter==='confirmed' ? 'Switch to All Events to inspect watch candidates.' : 'Try a longer display range or Attention = Overlay Marks.'}</div>`}
+      <div class="panelSub">Visible-window events for ${escapeHTML(term)}. Use Attention = Context for material watch candidates or Overlay Marks for all watch candidates.</div>
+      <div class="alertPanelControls"><span class="alertPanelPill">Confirmed ${confirmedCount}</span><span class="alertPanelPill">Watch ${watchCount}</span><span class="alertPanelPill">Policy ${escapeHTML(markerPolicy)}</span></div>
+      ${cards || '<div class="alertPanelEmpty">No confirmed or watch events in the current visible window. Try a longer display range or Attention = Overlay Marks.</div>'}
     </div>`;
   panel.classList.toggle('collapsed', shouldCollapse);
   const grid=document.getElementById('chartPanelGrid');
@@ -1658,17 +1641,6 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
     if(window.localStorage) window.localStorage.setItem(collapsedKey, String(collapsed));
     resizeChartAfterDrawerToggle();
   };
-  panel.querySelectorAll('[data-alert-filter]').forEach(btn=>{
-    btn.onclick = (ev) => {
-      ev.preventDefault();
-      ev.stopPropagation();
-      const next = btn.getAttribute('data-alert-filter') || 'confirmed';
-      if(window.localStorage) window.localStorage.setItem(filterKey, next);
-      renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy);
-      resizeChartAfterDrawerToggle();
-    };
-  });
-  window.setTimeout(syncAlertPanelHeight, 60);
   if(header){
     header.onclick = (ev) => {
       ev.preventDefault();
@@ -1908,10 +1880,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
     ],
     hovermode:'x unified'
   };
-  Plotly.newPlot('chart', data, layout, {responsive:true, displaylogo:false}).then(()=>{
-    syncAlertPanelHeight();
-    window.setTimeout(syncAlertPanelHeight, 120);
-  });
+  Plotly.newPlot('chart', data, layout, {responsive:true, displaylogo:false});
 }
 const CONTROL_IDS=['asset','freq','range','priceDisplay','scaleMode','ribbon','sentRibbon','regimeLayer','engagement','bollinger','osc'];
 function attachControlHandlers(){ CONTROL_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change', buildFigure); }); }
