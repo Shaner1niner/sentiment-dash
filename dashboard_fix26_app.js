@@ -1473,9 +1473,17 @@ function ensureAlertSidePanel(){
     style.id='alertSidePanelStyle';
     style.textContent=`
       .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:stretch;margin-top:4px;}
-      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:12px;max-height:760px;overflow:auto;color:#dce7ee;font-family:inherit;}
-      .alertSidePanel h3{margin:0 0 4px 0;font-size:14px;letter-spacing:.02em;color:#f1f6fa;}
-      .alertSidePanel .panelSub{font-size:11px;color:#99a8b3;line-height:1.35;margin-bottom:10px;}
+      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:0;max-height:760px;overflow:auto;color:#dce7ee;font-family:inherit;transition:max-height .18s ease, opacity .18s ease;}
+      .alertSidePanel h3{margin:0;font-size:14px;letter-spacing:.02em;color:#f1f6fa;}
+      .alertSidePanel .panelSub{font-size:11px;color:#99a8b3;line-height:1.35;margin:0 0 10px 0;}
+      .alertPanelHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;user-select:none;background:rgba(255,255,255,.025);}
+      .alertPanelHeaderMain{display:flex;flex-direction:column;gap:3px;min-width:0;}
+      .alertPanelHeaderSummary{font-size:11px;color:#9fb0ba;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+      .alertPanelToggle{border:1px solid #3a4651;background:rgba(255,255,255,.045);color:#dce7ee;border-radius:8px;width:24px;height:24px;line-height:20px;font-weight:800;cursor:pointer;}
+      .alertPanelBody{padding:10px 12px 12px 12px;}
+      .alertSidePanel.collapsed{max-height:74px;overflow:hidden;}
+      .alertSidePanel.collapsed .alertPanelBody{display:none;}
+      .alertSidePanel.collapsed .alertPanelHeader{border-bottom:none;}
       .alertPanelControls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
       .alertPanelPill{border:1px solid #33404a;border-radius:999px;padding:4px 8px;font-size:11px;color:#c5d0d8;background:rgba(255,255,255,.035);}
       .alertEventCard{border:1px solid #25313a;border-radius:12px;padding:9px 9px;margin:8px 0;background:rgba(255,255,255,.025);}
@@ -1575,6 +1583,10 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
   const confirmedCount=events.filter(e=>e.tier==='Confirmed').length;
   const watchCount=events.filter(e=>e.tier==='Watch').length;
   const latest=events.slice(0,12);
+  const latestDate = latest.length ? (latest[0].date || '') : 'none';
+  const collapsedKey = 'setaAlertEventsPanelCollapsed';
+  const savedCollapsed = window.localStorage ? window.localStorage.getItem(collapsedKey) : null;
+  const shouldCollapse = savedCollapsed === null ? true : savedCollapsed === 'true';
   const cards=latest.map(e=>{
     const q=e.quality===null ? 'n/a' : Math.round(e.quality).toString();
     const row=e.row || {};
@@ -1593,10 +1605,29 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
       <div class="alertEventMeta">${attention ? `Attention: ${escapeHTML(attention)} · ` : ''}${ribbon ? `Ribbon: ${escapeHTML(ribbon)}` : ''}</div>
     </div>`;
   }).join('');
-  panel.innerHTML = `<h3>Alert Events</h3>
-    <div class="panelSub">Visible-window events for ${escapeHTML(term)}. Use Attention = Context for material watch candidates or Overlay Marks for all watch candidates.</div>
-    <div class="alertPanelControls"><span class="alertPanelPill">Confirmed ${confirmedCount}</span><span class="alertPanelPill">Watch ${watchCount}</span><span class="alertPanelPill">Policy ${escapeHTML(markerPolicy)}</span></div>
-    ${cards || '<div class="alertPanelEmpty">No confirmed or watch events in the current visible window. Try a longer display range or Attention = Overlay Marks.</div>'}`;
+  panel.innerHTML = `<div class="alertPanelHeader" id="alertPanelHeader" title="Click to expand/collapse alert events">
+      <div class="alertPanelHeaderMain"><h3>Alert Events</h3><div class="alertPanelHeaderSummary">Confirmed ${confirmedCount} · Watch ${watchCount} · Latest ${escapeHTML(latestDate)}</div></div>
+      <button class="alertPanelToggle" id="alertPanelToggle" type="button" aria-label="Toggle alert events panel">${shouldCollapse ? '+' : '−'}</button>
+    </div>
+    <div class="alertPanelBody">
+      <div class="panelSub">Visible-window events for ${escapeHTML(term)}. Use Attention = Context for material watch candidates or Overlay Marks for all watch candidates.</div>
+      <div class="alertPanelControls"><span class="alertPanelPill">Confirmed ${confirmedCount}</span><span class="alertPanelPill">Watch ${watchCount}</span><span class="alertPanelPill">Policy ${escapeHTML(markerPolicy)}</span></div>
+      ${cards || '<div class="alertPanelEmpty">No confirmed or watch events in the current visible window. Try a longer display range or Attention = Overlay Marks.</div>'}
+    </div>`;
+  panel.classList.toggle('collapsed', shouldCollapse);
+  const header = panel.querySelector('#alertPanelHeader');
+  const toggle = panel.querySelector('#alertPanelToggle');
+  const applyCollapsed = (collapsed) => {
+    panel.classList.toggle('collapsed', collapsed);
+    if(toggle) toggle.textContent = collapsed ? '+' : '−';
+    if(window.localStorage) window.localStorage.setItem(collapsedKey, String(collapsed));
+  };
+  if(header){
+    header.onclick = (ev) => {
+      ev.preventDefault();
+      applyCollapsed(!panel.classList.contains('collapsed'));
+    };
+  }
 }
 
 function buildFigure(){
