@@ -19,6 +19,15 @@ const MANIFEST_URL = new URLSearchParams(location.search).get("manifest") || win
 let STORE = null;
 let MODE_MANIFEST = null;
 
+window.SETA_BUILD_INFO = {
+  build: "rightdrawer_restore_001",
+  branch: "phase-e-stability-build-info",
+  dashboard: "fix26",
+  mode: window.DASH_MODE || "unknown",
+  alertPolicy: "stable-right-drawer",
+  updated: "2026-04-25"
+};
+
 function currentMode(){ return new URLSearchParams(location.search).get("mode") || DASH_MODE_DEFAULT || "public"; }
 function manifestModeConfig(){
   if (!MODE_MANIFEST || !MODE_MANIFEST.modes) return null;
