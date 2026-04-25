@@ -831,7 +831,6 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
   return 'Low';
 }
 
-// phaseD2_crypto_only_v1: Phase D tightening applies to crypto; equities retain Phase C hybrid confirmation.
 function sourceConfirmedOverlap(row){
   const hvConfirmed = num(row?.boll_overlap_break_confirmed_high_volume);
   if(hvConfirmed!==null && hvConfirmed>0) return true;
@@ -903,11 +902,27 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
   }
 
   if(universe!=='crypto'){
-    const policy = basePolicy;
-    const detail = `Equity/non-crypto confirmation: outside overlap + high volume + ${usedContextual ? 'contextual volatility' : 'legacy volatility'} confirmation`;
+    const sourceConfirmed = sourceConfirmedOverlap(row);
+    const quality = numVal(row.boll_overlap_alert_quality_score, NaN);
+    const strength = Math.abs(numVal(row.boll_overlap_signal_strength_abs, row.boll_overlap_signal_strength));
+    const structureText = String(row.boll_overlap_structure_state || row.structure_state || row.boll_overlap_state || row.seta_market_structure_label || row.seta_dashboard_summary_label || '').toLowerCase();
+    const structureExpansion = structureText.includes('expansion');
+    const highQuality = Number.isFinite(quality) && quality >= 65;
+    const strongSignal = Number.isFinite(strength) && strength >= 1.15;
+    const phaseCHybridPass = !!(legacyVol || contextualVol || sourceConfirmed || structureExpansion || highQuality || strongSignal);
+    const policy = sourceConfirmed ? 'source confirmation'
+      : structureExpansion ? 'structure expansion'
+      : highQuality ? 'quality score'
+      : strongSignal ? 'signal strength'
+      : usedContextual ? 'contextual volatility'
+      : legacyVol ? 'legacy volatility'
+      : basePolicy;
+    const detail = phaseCHybridPass
+      ? `Equity/non-crypto Phase C hybrid confirmation: outside overlap + high volume + ${policy}`
+      : `Equity/non-crypto confirmation blocked: outside overlap + high volume but no Phase C hybrid evidence`;
     return {
-      type,
-      confirmed:true,
+      type: phaseCHybridPass ? type : null,
+      confirmed: phaseCHybridPass,
       policy,
       basePolicy,
       universe,
@@ -916,7 +931,11 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
       highVolume,
       usedContextual,
       phaseDBypass:true,
-      phaseDPolicy:'phaseD_crypto_only_v1',
+      phaseDPolicy:'phaseD3_crypto_tight_equity_phaseC_v1',
+      sourceConfirmed,
+      quality,
+      signalStrengthAbs:strength,
+      structureExpansion,
       detail
     };
   }
