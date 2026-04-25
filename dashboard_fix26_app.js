@@ -830,179 +830,55 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
   if(m!==null && s!==null && current > (m + 0.75*s)) return 'High';
   return 'Low';
 }
-
-// phaseD4_equity_soft_volume_crypto_tight_v1: crypto stays tight; equity/non-crypto restores Phase C hybrid with soft volume.
-function __setaPhaseD4CryptoTerms(){
-  return new Set(['BTC','ETH','SOL','DOGE','AVAX','LINK','BNB','XRP','ADA','POL','MATIC','SUI','HYPE','HBAR','HNT','KAS','LTC','SHIB','WIF','POPCAT','ATOM','AAVE','PEPE','DOT','TRX']);
-}
-function __setaIsCryptoLike(row){
-  const term = String((row && (row.term || row.asset || row.symbol)) || (typeof currentAsset !== 'undefined' ? currentAsset : '') || '').toUpperCase().trim();
-  const universe = String((row && (row.universe || row.asset_universe || row.primary_universe || row.primary_sector || row.asset_class)) || '').toLowerCase();
-  return universe.includes('crypto') || __setaPhaseD4CryptoTerms().has(term);
-}
-function __setaNum(row, keys){
-  for(const k of keys){
-    const v = row ? row[k] : null;
-    if(v !== undefined && v !== null && v !== ''){
-      const n = Number(v);
-      if(Number.isFinite(n)) return n;
-    }
-  }
-  return 0;
-}
-function __setaText(row, keys){
-  for(const k of keys){
-    const v = row ? row[k] : null;
-    if(v !== undefined && v !== null && v !== '') return String(v);
-  }
-  return '';
-}
-function sourceConfirmedOverlap(row){
-  const tier = __setaText(row, ['boll_overlap_alert_tier','alert_tier','overlap_alert_tier']).toLowerCase();
-  const label = __setaText(row, ['seta_alert_context_label','seta_dashboard_summary_label','boll_overlap_alert_label','alert_context']).toLowerCase();
-  const confirmedFlag = __setaNum(row, ['boll_overlap_break_confirmed','boll_overlap_break_confirmed_high_volume','confirmed_overlap_alert','confirmed_alert']);
-  return confirmedFlag > 0 || tier.includes('confirmed') || label.includes('confirmed');
-}
-function __setaStructureExpansion(row){
-  const state = __setaText(row, ['overlap_structure_state','structure_state','seta_market_structure_label','seta_dashboard_summary_label','boll_overlap_state']).toLowerCase();
-  const flag = __setaNum(row, ['structure_expansion_flag','boll_overlap_structure_expansion_flag','signal_structure_expansion']);
-  return flag > 0 || state.includes('structure expansion') || state.includes('expansion');
-}
-function __setaHighQualityOverlap(row){
-  const q = __setaNum(row, ['boll_overlap_alert_quality_score','alert_quality_score','overlap_alert_quality_score']);
-  return q >= 55;
-}
-function __setaStrongOverlapSignal(row){
-  const s = Math.abs(__setaNum(row, ['boll_overlap_signal_strength_abs','boll_overlap_signal_strength','overlap_signal_strength_abs']));
-  return s >= 1.0;
-}
-function __setaHighVolume(row){
-  const txt = __setaText(row, ['seta_alert_context_label','seta_dashboard_summary_label','volume_context_label','context_stability_label']).toLowerCase();
-  const volScore = __setaNum(row, ['volume_score','boll_overlap_volume_score','relative_volume_score','attention_volume_score']);
-  const volFlag = __setaNum(row, ['boll_overlap_volume_confirmation_flag','high_volume_20','high_volume_7','volume_confirmation_flag']);
-  return volFlag > 0 || volScore >= 55 || txt.includes('high volume') || txt.includes('volume elevated') || txt.includes('elevated volume');
-}
-function __setaContextualVolume(row){
-  const txt = __setaText(row, ['seta_alert_context_label','seta_dashboard_summary_label','volume_context_label','context_stability_label']).toLowerCase();
-  const volScore = __setaNum(row, ['volume_score','boll_overlap_volume_score','relative_volume_score','attention_volume_score']);
-  return __setaHighVolume(row) || volScore >= 35 || txt.includes('volume elevated') || txt.includes('elevated volume') || txt.includes('normal volume');
-}
-function __setaHighVolatilityContext(row){
-  const txt = __setaText(row, ['boll_volatility_flag','contextual_volatility_flag','context_stability_label','seta_alert_context_label','seta_dashboard_summary_label']).toLowerCase();
-  const vnum = __setaNum(row, ['boll_volatility_flag_num','contextual_volatility_flag_num','high_volatility_flag']);
-  return vnum > 0 || txt.includes('high volatility') || txt.includes('contextual volatility') || txt.includes('legacy volatility');
-}
-function __setaOutsideOverlap(row, fallbackOutside){
-  if(typeof fallbackOutside === 'boolean') return fallbackOutside;
-  const state = __setaText(row, ['boll_overlap_alert_tier','boll_overlap_state','overlap_state','seta_dashboard_summary_label','seta_alert_context_label']).toLowerCase();
-  const direction = __setaText(row, ['boll_overlap_alert_direction','alert_direction']).toLowerCase();
-  const flag = __setaNum(row, ['outside_overlap_flag','boll_outside_overlap_flag','outside_active_overlap']);
-  return flag > 0 || state.includes('outside') || direction.includes('bull') || direction.includes('bear');
-}
-function calibratedConfirmationPass(row, baseMeta){
-  // Phase D4 policy:
-  // Crypto Phase D confirmation: outside overlap + high volume + source/quality/strength.
-  // Equity/non-crypto soft-volume Phase C confirmation: outside overlap + hybrid evidence; volume is helpful but not always a hard gate.
-  const outside = __setaOutsideOverlap(row, baseMeta && baseMeta.outsideActiveOverlap);
-  const highVolume = __setaHighVolume(row) || !!(baseMeta && (baseMeta.highVolume || baseMeta.volumeConfirmed));
-  const contextualVolume = __setaContextualVolume(row) || !!(baseMeta && (baseMeta.usedContextual || baseMeta.contextualVolume));
-  const sourceConfirmed = sourceConfirmedOverlap(row);
-  const structureExpansion = __setaStructureExpansion(row);
-  const highQuality = __setaHighQualityOverlap(row);
-  const strongSignal = __setaStrongOverlapSignal(row);
-  const highVolatility = __setaHighVolatilityContext(row) || !!(baseMeta && (baseMeta.legacyVol || baseMeta.contextualVol));
-  const cryptoLike = __setaIsCryptoLike(row);
-  if(!outside) return { pass:false, quality:false, strength:false, sourceConfirmed, reason:'inside overlap', policy:"phaseD4_equity_soft_volume_crypto_tight_v1" };
-  if(cryptoLike){
-    const cryptoEvidence = sourceConfirmed || highQuality || strongSignal;
-    return {
-      pass: !!(highVolume && cryptoEvidence),
-      quality: highQuality,
-      strength: strongSignal,
-      sourceConfirmed,
-      reason: 'Crypto Phase D confirmation: outside overlap + high volume + source/quality/strength',
-      policy: "phaseD4_equity_soft_volume_crypto_tight_v1
-    };
-  }
-  const equityEvidence = highVolatility || sourceConfirmed || structureExpansion || highQuality || strongSignal;
-  const softVolumeEvidence = highVolume || contextualVolume || sourceConfirmed || highQuality || strongSignal || structureExpansion;
-  return {
-    pass: !!(equityEvidence && softVolumeEvidence),
-    quality: highQuality,
-    strength: strongSignal,
-    sourceConfirmed,
-    reason: 'Equity/non-crypto soft-volume Phase C confirmation: outside overlap + hybrid evidence; volume helpful but not always hard gate',
-    policy: "phaseD4_equity_soft_volume_crypto_tight_v1
-  };
-}
-
 function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
-  const type=overlapOutsideType(row, overlap, idx);
-  if(!type) return {type:null, confirmed:false, policy:'none', universe:'unknown', legacyVol:'Low', contextualVol:'Low', highVolume:false, detail:'Inside active overlap'};
-  const highVolume=currentHighVolumeState(row);
-  const legacyVol=overlapVolatilityState(row);
   const rowsUse = rows || [row];
   const idxUse = rows ? idx : 0;
-  const contextualVol=activeOverlapVolatilityState(rowsUse, overlap, idxUse);
   const universe=assetUniverseType(term || currentAssetTerm(), rowsUse);
-  const basePolicy = universe==='crypto' ? 'legacy' : 'hybrid';
-  if(!highVolume) return {type:null, confirmed:false, policy:basePolicy, universe, legacyVol, contextualVol, highVolume, detail:'Outside active overlap but high-volume confirmation is absent'};
+  const outsideState=materialOutsideState(row, overlap, idx);
+  const overlapType=outsideState.type;
+  const upstreamType=upstreamLegacySignalType(row);
+  const directSourceType=sourceConfirmedAlertType(row, overlapType || upstreamType);
+  const type=overlapType || directSourceType || upstreamType;
+  const signalSource=overlapType ? 'active_overlap' : (directSourceType ? 'source_alert' : (upstreamType ? 'upstream_signal' : 'none'));
+  const legacyVol=overlapVolatilityState(row);
+  const contextualVol=activeOverlapVolatilityState(rowsUse, overlap, idxUse, universe);
+  const sourceVol=sourceVolatilityState(row);
+  const structure=overlapStructureAt(rowsUse, overlap, idxUse);
+  const structuralVol=structure==='Expansion' ? 'High' : 'Low';
+  const volumeState=activeHighVolumeState(row, rowsUse, idxUse);
+  const highVolume=volumeState.high;
+  const quality=sourceAlertQuality(row);
+  if(!type) return {type:null, confirmed:false, policy:'none', universe, legacyVol, contextualVol, sourceVol, structuralVol, highVolume, volumeSource:volumeState.source, signalSource, quality, structure, detail:'Inside active overlap'};
 
-  const preliminaryConfirmed = universe==='crypto'
-    ? legacyVol==='High'
-    : (legacyVol==='High' || contextualVol==='High');
+  // Explicit source-confirmed rows are authoritative if the chart can determine a direction.
+  // This lets the dashboard consume the richer upstream overlap-alert fields when present.
+  if(directSourceType){
+    return {type:directSourceType, confirmed:true, policy:'source_confirmed', universe, legacyVol, contextualVol, sourceVol, structuralVol, highVolume:true, volumeSource:volumeState.source, signalSource:'source_alert', quality, structure, detail:'Source alert confirmation from enriched overlap-alert fields'};
+  }
+
+  // Upstream legacy buy/sell counts are already multi-window confirmed signals. They
+  // restore the prior candlestick diamonds while the overlap model remains primary.
+  if(signalSource==='upstream_signal'){
+    return {type, confirmed:true, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, sourceVol, structuralVol, highVolume, volumeSource:volumeState.source, signalSource, upstreamSignal:true, quality, structure, detail:'Upstream legacy signal confirmation from multi-window Bollinger counts'};
+  }
+
+  if(!highVolume) return {type:null, confirmed:false, policy:universe==='crypto' ? 'hybrid_watch' : 'hybrid', universe, legacyVol, contextualVol, sourceVol, structuralVol, highVolume, volumeSource:volumeState.source, signalSource, quality, structure, detail:'Outside active overlap but high-volume confirmation is absent'};
+
+  // Fix 26 parity update: volume remains the hard confirmation gate, but volatility
+  // can now be satisfied by any of the source-aware signals we intentionally create:
+  // legacy overlap volatility, contextual width expansion, explicit source volatility,
+  // active structural expansion, or a high quality upstream overlap event.
+  const highQuality = quality!==null && quality >= (universe==='crypto' ? 65 : 55);
+  const confirmed = (legacyVol==='High' || contextualVol==='High' || sourceVol==='High' || structuralVol==='High' || highQuality);
   const usedContextual = legacyVol!=='High' && contextualVol==='High';
-
-  if(!preliminaryConfirmed){
-    return {type:null, confirmed:false, policy:basePolicy, universe, legacyVol, contextualVol, highVolume, usedContextual, detail: universe==='crypto' ? 'Legacy confirmation failed: volatility is not High' : 'Hybrid confirmation failed: neither legacy nor contextual volatility is High'};
-  }
-
-  if(universe!=='crypto'){
-    const sourceConfirmed = sourceConfirmedOverlap(row);
-    const quality = numVal(row.boll_overlap_alert_quality_score, NaN);
-    const strength = Math.abs(numVal(row.boll_overlap_signal_strength_abs, row.boll_overlap_signal_strength));
-    const structureText = String(row.boll_overlap_structure_state || row.structure_state || row.boll_overlap_state || row.seta_market_structure_label || row.seta_dashboard_summary_label || '').toLowerCase();
-    const structureExpansion = structureText.includes('expansion');
-    const highQuality = Number.isFinite(quality) && quality >= 65;
-    const strongSignal = Number.isFinite(strength) && strength >= 1.15;
-    const phaseCHybridPass = !!(legacyVol || contextualVol || sourceConfirmed || structureExpansion || highQuality || strongSignal);
-    const policy = sourceConfirmed ? 'source confirmation'
-      : structureExpansion ? 'structure expansion'
-      : highQuality ? 'quality score'
-      : strongSignal ? 'signal strength'
-      : usedContextual ? 'contextual volatility'
-      : legacyVol ? 'legacy volatility'
-      : basePolicy;
-    const detail = phaseCHybridPass
-      ? `Equity/non-crypto Phase C hybrid confirmation: outside overlap + high volume + ${policy}`
-      : `Equity/non-crypto confirmation blocked: outside overlap + high volume but no Phase C hybrid evidence`;
-    return {
-      type: phaseCHybridPass ? type : null,
-      confirmed: phaseCHybridPass,
-      policy,
-      basePolicy,
-      universe,
-      legacyVol,
-      contextualVol,
-      highVolume,
-      usedContextual,
-      phaseDBypass:true,
-      phaseDPolicy:'phaseD3_crypto_tight_equity_phaseC_v1',
-      sourceConfirmed,
-      quality,
-      signalStrengthAbs:strength,
-      structureExpansion,
-      detail
-    };
-  }
-
-  const calibration = calibratedConfirmationPass(row, {universe, legacyVol, contextualVol, highVolume, usedContextual});
-  const confirmed = calibration.pass;
-  const policy = calibration.policy;
-  const detail = confirmed
-    ? `Crypto Phase D confirmation: outside overlap + high volume + ${calibration.reason}`
-    : `Preliminary ${basePolicy} confirmation blocked by crypto Phase D calibration; ${calibration.reason}`;
-  return {type:confirmed ? type : null, confirmed, policy, basePolicy, universe, legacyVol, contextualVol, highVolume, usedContextual, calibration, quality:calibration.quality, signalStrengthAbs:calibration.strength, sourceConfirmed:calibration.sourceConfirmed, detail};
+  const usedStructural = legacyVol!=='High' && contextualVol!=='High' && sourceVol!=='High' && structuralVol==='High';
+  const usedQuality = legacyVol!=='High' && contextualVol!=='High' && sourceVol!=='High' && structuralVol!=='High' && highQuality;
+  let policy = universe==='crypto' ? (usedContextual ? 'crypto_contextual' : 'legacy') : 'hybrid';
+  if(sourceVol==='High') policy='source_volatility';
+  if(usedStructural) policy='structural_expansion';
+  if(usedQuality) policy='quality_gate';
+  const gateLabel = sourceVol==='High' ? 'source volatility' : (usedStructural ? 'structural expansion' : (usedQuality ? 'source quality' : (usedContextual ? 'contextual volatility' : 'High volatility')));
+  return {type:confirmed ? type : null, confirmed, policy, universe, legacyVol, contextualVol, sourceVol, structuralVol, highVolume, volumeSource:volumeState.source, signalSource, usedContextual, usedStructural, usedQuality, quality, structure, detail: confirmed ? `Confirmation: outside overlap + ${gateLabel} + High volume` : 'Confirmation failed: no volatility, structural expansion, or quality gate passed'};
 }
 function overlapConfirmedEventType(row, overlap, idx, rows=null, term=null){
   return overlapConfirmationMeta(row, overlap, idx, rows, term).type;
@@ -2024,5 +1900,4 @@ async function initDashboard(){
   }
 }
 initDashboard();
-
 
