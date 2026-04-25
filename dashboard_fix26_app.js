@@ -1465,6 +1465,7 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 function escapeHTML(v){
   return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
+// Phase C3: right-side alert drawer collapses horizontally and lets chart expand.
 function ensureAlertSidePanel(){
   const chart=document.getElementById('chart');
   if(!chart) return null;
@@ -1472,18 +1473,24 @@ function ensureAlertSidePanel(){
     const style=document.createElement('style');
     style.id='alertSidePanelStyle';
     style.textContent=`
-      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:stretch;margin-top:4px;}
-      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:0;max-height:760px;overflow:auto;color:#dce7ee;font-family:inherit;transition:max-height .18s ease, opacity .18s ease;}
+      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:stretch;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
+      .chartPanelGrid.drawerCollapsed{grid-template-columns:minmax(0,1fr) 46px;}
+      .chartPanelGrid>#chart{min-width:0;width:100%;}
+      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:0;height:100%;min-height:360px;max-height:none;overflow:hidden;color:#dce7ee;font-family:inherit;transition:width .18s ease, opacity .18s ease, border-color .18s ease;display:flex;flex-direction:column;}
       .alertSidePanel h3{margin:0;font-size:14px;letter-spacing:.02em;color:#f1f6fa;}
       .alertSidePanel .panelSub{font-size:11px;color:#99a8b3;line-height:1.35;margin:0 0 10px 0;}
-      .alertPanelHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;user-select:none;background:rgba(255,255,255,.025);}
+      .alertPanelHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;user-select:none;background:rgba(255,255,255,.025);flex:0 0 auto;}
       .alertPanelHeaderMain{display:flex;flex-direction:column;gap:3px;min-width:0;}
       .alertPanelHeaderSummary{font-size:11px;color:#9fb0ba;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-      .alertPanelToggle{border:1px solid #3a4651;background:rgba(255,255,255,.045);color:#dce7ee;border-radius:8px;width:24px;height:24px;line-height:20px;font-weight:800;cursor:pointer;}
-      .alertPanelBody{padding:10px 12px 12px 12px;}
-      .alertSidePanel.collapsed{max-height:74px;overflow:hidden;}
+      .alertPanelToggle{border:1px solid #3a4651;background:rgba(255,255,255,.045);color:#dce7ee;border-radius:8px;width:24px;height:24px;line-height:20px;font-weight:800;cursor:pointer;flex:0 0 auto;}
+      .alertPanelBody{padding:10px 12px 12px 12px;overflow:auto;flex:1 1 auto;}
+      .alertSidePanel.collapsed{min-width:46px;max-width:46px;border-color:rgba(95,113,128,.6);}
       .alertSidePanel.collapsed .alertPanelBody{display:none;}
-      .alertSidePanel.collapsed .alertPanelHeader{border-bottom:none;}
+      .alertSidePanel.collapsed .alertPanelHeader{height:100%;padding:12px 6px;border-bottom:none;flex-direction:column;justify-content:flex-start;align-items:center;gap:10px;}
+      .alertSidePanel.collapsed .alertPanelHeaderMain{writing-mode:vertical-rl;transform:rotate(180deg);align-items:center;gap:8px;min-width:0;}
+      .alertSidePanel.collapsed .alertPanelHeader h3{font-size:12px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;}
+      .alertSidePanel.collapsed .alertPanelHeaderSummary{display:none;}
+      .alertSidePanel.collapsed .alertPanelToggle{width:26px;height:26px;line-height:20px;}
       .alertPanelControls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
       .alertPanelPill{border:1px solid #33404a;border-radius:999px;padding:4px 8px;font-size:11px;color:#c5d0d8;background:rgba(255,255,255,.035);}
       .alertEventCard{border:1px solid #25313a;border-radius:12px;padding:9px 9px;margin:8px 0;background:rgba(255,255,255,.025);}
@@ -1514,6 +1521,13 @@ function ensureAlertSidePanel(){
     grid.appendChild(panel);
   }
   return document.getElementById('alertSidePanel');
+}
+function resizeChartAfterDrawerToggle(){
+  const chart=document.getElementById('chart');
+  if(window.Plotly && chart){
+    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); }catch(e){} }, 80);
+    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); }catch(e){} }, 220);
+  }
 }
 function alertQualityScore(row, meta){
   const candidates=[
@@ -1615,12 +1629,17 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
       ${cards || '<div class="alertPanelEmpty">No confirmed or watch events in the current visible window. Try a longer display range or Attention = Overlay Marks.</div>'}
     </div>`;
   panel.classList.toggle('collapsed', shouldCollapse);
+  const grid=document.getElementById('chartPanelGrid');
+  if(grid) grid.classList.toggle('drawerCollapsed', shouldCollapse);
   const header = panel.querySelector('#alertPanelHeader');
   const toggle = panel.querySelector('#alertPanelToggle');
   const applyCollapsed = (collapsed) => {
     panel.classList.toggle('collapsed', collapsed);
+    const grid=document.getElementById('chartPanelGrid');
+    if(grid) grid.classList.toggle('drawerCollapsed', collapsed);
     if(toggle) toggle.textContent = collapsed ? '+' : '−';
     if(window.localStorage) window.localStorage.setItem(collapsedKey, String(collapsed));
+    resizeChartAfterDrawerToggle();
   };
   if(header){
     header.onclick = (ev) => {
