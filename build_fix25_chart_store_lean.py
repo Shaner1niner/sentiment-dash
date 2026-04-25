@@ -50,6 +50,21 @@ CORE_FIELDS = [
     "sent_ribbon_transition_type", "sent_ribbon_width_raw", "sent_ribbon_width_abs",
     "sent_ribbon_width_z", "sent_ribbon_center_slope_21", "sent_ribbon_center_slope_21_z",
     "sent_ribbon_stack_score", "sent_ribbon_alignment_count",
+    # Source-aware alert parity fields used by Fix 26 dashboard markers.
+    "boll_overlap_alert_tier", "boll_overlap_alert_direction", "boll_overlap_alert_quality_score",
+    "boll_overlap_event_type", "boll_overlap_signal", "boll_overlap_signal_raw", "boll_overlap_signal_code",
+    "boll_overlap_signal_strength", "boll_overlap_signal_strength_abs",
+    "boll_overlap_break_distance", "boll_overlap_break_distance_pct_band",
+    "signal_boll_overlap_high_volatility", "signal_boll_overlap_bullish", "signal_boll_overlap_bearish",
+    "seta_alert_context_label", "seta_dashboard_summary_label",
+    # Downstream engagement / attention summaries.
+    "combined_engagement_z", "combined_engagement_efficiency_z", "combined_impact_abs_z",
+    "combined_impact_signed_z", "combined_spike_z", "combined_days_since_spike2_min",
+    "observed_source_count", "observed_source_share", "engagement_source_breadth_score",
+    "attention_level_label", "attention_conviction_label", "attention_regime_label",
+    "attention_spike_flag", "attention_breadth_label",
+    "sent_ribbon_attention_confirmed_bullish", "sent_ribbon_attention_confirmed_bearish",
+    "sent_ribbon_attention_disagreement_flag", "sent_ribbon_attention_regime",
 ]
 
 SUM_FIELDS = {"volume"}
