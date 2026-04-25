@@ -1462,6 +1462,143 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
   return traces;
 }
 
+function escapeHTML(v){
+  return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+}
+function ensureAlertSidePanel(){
+  const chart=document.getElementById('chart');
+  if(!chart) return null;
+  if(!document.getElementById('alertSidePanelStyle')){
+    const style=document.createElement('style');
+    style.id='alertSidePanelStyle';
+    style.textContent=`
+      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:stretch;margin-top:4px;}
+      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:12px;max-height:760px;overflow:auto;color:#dce7ee;font-family:inherit;}
+      .alertSidePanel h3{margin:0 0 4px 0;font-size:14px;letter-spacing:.02em;color:#f1f6fa;}
+      .alertSidePanel .panelSub{font-size:11px;color:#99a8b3;line-height:1.35;margin-bottom:10px;}
+      .alertPanelControls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+      .alertPanelPill{border:1px solid #33404a;border-radius:999px;padding:4px 8px;font-size:11px;color:#c5d0d8;background:rgba(255,255,255,.035);}
+      .alertEventCard{border:1px solid #25313a;border-radius:12px;padding:9px 9px;margin:8px 0;background:rgba(255,255,255,.025);}
+      .alertEventCard.confirmed{border-color:rgba(255,224,120,.38);background:rgba(255,224,120,.045);}
+      .alertEventCard.watch{border-color:rgba(140,170,210,.28);}
+      .alertEventTop{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:4px;}
+      .alertEventDate{font-size:11px;color:#9fb0ba;white-space:nowrap;}
+      .alertEventTitle{font-weight:700;font-size:12px;color:#eef6fa;line-height:1.25;}
+      .alertEventMeta{font-size:11px;color:#b8c5cd;line-height:1.35;margin-top:5px;}
+      .alertEventSummary{font-size:11px;color:#dce7ee;line-height:1.35;margin-top:5px;}
+      .miniBadge{display:inline-block;border-radius:999px;padding:2px 6px;font-size:10px;margin-right:4px;border:1px solid #35424d;background:rgba(255,255,255,.04);color:#c9d5dc;}
+      .miniBull{border-color:rgba(112,232,148,.45);color:#9df0b5;}.miniBear{border-color:rgba(255,128,128,.45);color:#ffb8b8;}.miniWatch{border-color:rgba(140,170,210,.45);}.miniConfirmed{border-color:rgba(255,224,120,.55);color:#ffe078;}
+      .alertPanelEmpty{font-size:12px;color:#9fb0ba;border:1px dashed #33404a;border-radius:12px;padding:12px;line-height:1.35;}
+      @media (max-width:1100px){.chartPanelGrid{display:block}.alertSidePanel{max-height:none;margin-top:12px}}
+    `;
+    document.head.appendChild(style);
+  }
+  let grid=document.getElementById('chartPanelGrid');
+  if(!grid){
+    grid=document.createElement('div');
+    grid.id='chartPanelGrid';
+    grid.className='chartPanelGrid';
+    chart.parentNode.insertBefore(grid, chart);
+    grid.appendChild(chart);
+    const panel=document.createElement('aside');
+    panel.id='alertSidePanel';
+    panel.className='alertSidePanel';
+    grid.appendChild(panel);
+  }
+  return document.getElementById('alertSidePanel');
+}
+function alertQualityScore(row, meta){
+  const candidates=[
+    num(row?.boll_overlap_alert_quality_score),
+    num(row?.seta_alert_quality_score),
+    num(row?.boll_overlap_signal_strength_abs),
+    num(row?.boll_overlap_signal_strength),
+    num(meta?.quality)
+  ].filter(v=>v!==null);
+  if(!candidates.length) return null;
+  return Math.max(...candidates.map(v=>Math.abs(v)));
+}
+function alertDirectionLabel(type){
+  if(type==='bullish') return 'Bullish';
+  if(type==='bearish') return 'Bearish';
+  return 'Mixed';
+}
+function alertDirectionClass(type){
+  if(type==='bullish') return 'miniBull';
+  if(type==='bearish') return 'miniBear';
+  return '';
+}
+function alertSummaryForRow(row, meta, tier){
+  const dashboardSummary = row?.seta_dashboard_summary_label || row?.seta_alert_context_label || row?.boll_overlap_event_type || row?.boll_overlap_signal;
+  if(dashboardSummary) return String(dashboardSummary);
+  if(tier==='Confirmed') return meta?.detail || 'Confirmed overlap alert passed source/volatility, volume, and structure gates.';
+  return meta?.detail || 'Watch candidate outside the active overlap corridor.';
+}
+function materialWatchForPanel(watch){
+  const material = (watch.outsidePct!==null && watch.outsidePct>=0.006);
+  const volOk = watch.legacyVol==='High' || watch.contextualVol==='High' || watch.sourceVol==='High' || watch.structuralVol==='High';
+  return !!(watch.highVolume && (material || volOk));
+}
+function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolicy='context'){
+  const out=[];
+  for(let i=0;i<rows.length;i++){
+    if(!visibleMask[i]) continue;
+    const row=rows[i] || {};
+    const d=row.dateObj;
+    if(!(d instanceof Date)) continue;
+    const confirmed=overlapConfirmationMeta(row, overlap, i, rows, term);
+    if(confirmed.type){
+      const quality=alertQualityScore(row, confirmed);
+      out.push({idx:i,dateObj:d,date:row.date,term,tier:'Confirmed',type:confirmed.type,quality,meta:confirmed,row});
+      continue;
+    }
+    if(currentMode()!=='member' || markerPolicy==='off') continue;
+    const watch=overlapWatchCandidateMeta(row, overlap, i, rows, term);
+    if(!watch.type) continue;
+    if(markerPolicy!=='overlay' && !materialWatchForPanel(watch)) continue;
+    const quality=alertQualityScore(row, watch);
+    out.push({idx:i,dateObj:d,date:row.date,term,tier:'Watch',type:watch.type,quality,meta:watch,row});
+  }
+  out.sort((a,b)=>{
+    const td=b.dateObj-a.dateObj;
+    if(td) return td;
+    return (b.quality ?? -1) - (a.quality ?? -1);
+  });
+  return out;
+}
+function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='context'){
+  const panel=ensureAlertSidePanel();
+  if(!panel) return;
+  if(currentMode()!=='member') { panel.style.display='none'; return; }
+  panel.style.display='';
+  const events=collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolicy);
+  const confirmedCount=events.filter(e=>e.tier==='Confirmed').length;
+  const watchCount=events.filter(e=>e.tier==='Watch').length;
+  const latest=events.slice(0,12);
+  const cards=latest.map(e=>{
+    const q=e.quality===null ? 'n/a' : Math.round(e.quality).toString();
+    const row=e.row || {};
+    const meta=e.meta || {};
+    const tierCls=e.tier==='Confirmed'?'miniConfirmed':'miniWatch';
+    const direction=alertDirectionLabel(e.type);
+    const directionCls=alertDirectionClass(e.type);
+    const attention=row.attention_regime_label || row.seta_attention_context_label || row.attention_regime_score;
+    const ribbon=row.sent_ribbon_attention_regime || row.sent_ribbon_regime_raw;
+    const close=num(row.close);
+    const sourceTier=row.boll_overlap_alert_tier || e.tier;
+    return `<div class="alertEventCard ${e.tier.toLowerCase()}">
+      <div class="alertEventTop"><div class="alertEventTitle"><span class="miniBadge ${tierCls}">${escapeHTML(e.tier)}</span><span class="miniBadge ${directionCls}">${escapeHTML(direction)}</span></div><div class="alertEventDate">${escapeHTML(e.date || '')}</div></div>
+      <div class="alertEventMeta">Quality ${escapeHTML(q)} · ${escapeHTML(sourceTier)}${close!==null ? ` · Close ${escapeHTML(close.toFixed(2))}` : ''}</div>
+      <div class="alertEventSummary">${escapeHTML(alertSummaryForRow(row, meta, e.tier))}</div>
+      <div class="alertEventMeta">${attention ? `Attention: ${escapeHTML(attention)} · ` : ''}${ribbon ? `Ribbon: ${escapeHTML(ribbon)}` : ''}</div>
+    </div>`;
+  }).join('');
+  panel.innerHTML = `<h3>Alert Events</h3>
+    <div class="panelSub">Visible-window events for ${escapeHTML(term)}. Use Attention = Context for material watch candidates or Overlay Marks for all watch candidates.</div>
+    <div class="alertPanelControls"><span class="alertPanelPill">Confirmed ${confirmedCount}</span><span class="alertPanelPill">Watch ${watchCount}</span><span class="alertPanelPill">Policy ${escapeHTML(markerPolicy)}</span></div>
+    ${cards || '<div class="alertPanelEmpty">No confirmed or watch events in the current visible window. Try a longer display range or Attention = Overlay Marks.</div>'}`;
+}
+
 function buildFigure(){
   const term=document.getElementById('asset').value, freq=document.getElementById('freq').value, rangePreset=document.getElementById('range').value, priceDisplay=document.getElementById('priceDisplay').value, scaleMode=document.getElementById('scaleMode').value, ribbon=document.getElementById('ribbon').value, sentRibbon=document.getElementById('sentRibbon').value, regimeLayer=document.getElementById('regimeLayer').value, engagement=document.getElementById('engagement').value, bollinger=document.getElementById('bollinger').value, osc=document.getElementById('osc').value;
   const rows=cloneRows(STORE[freq][term]||[]); if(!rows.length) return;
@@ -1513,6 +1650,7 @@ const summaryText = `${overlapInfo.stateLabel} · ${overlapInfo.context} · ${en
 document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b>Combined Summary</b> ${summaryText}</span><span class="summaryCard"><b>Model</b> ${overlapInfo.modelLabel}</span>`;
   const overlapMarkerTraces=overlapTableauMarkers(rows, ov, visibleMask, engagement);
   const alertDiagnostics=computeAlertDiagnosticInfo(rows, ov, visibleMask, term);
+  renderAlertSidePanel(term, rows, ov, visibleMask, engagement);
   if(bollinger==='overlap' || bollinger==='contextual') addOverlapBandWithPlaybook(data,xs,ov.up,ov.low,rows,ov,COLORS.overlapBand,COLORS.overlapFill,overlapInfo.modelLabel,'y',visibleMask);
   if((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both')) overlapMarkerTraces.forEach(t=>data.push(t));
   const visRegimeRows=rows.filter((r,i)=>visibleMask[i]);
