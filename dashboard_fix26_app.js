@@ -1717,6 +1717,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 }
 
 
+// phaseG_market_tape_allowed_terms_v1
 // phaseG_market_tape_v1: enhanced screener + archetype + indicator Market Tape UI.
 function mtTerm(row){ return String(row?.term || row?.asset || '').toUpperCase(); }
 function mtScore(row, key, digits=1){ const v=num(row?.[key]); return v===null ? 'n/a' : v.toFixed(digits); }
@@ -1725,7 +1726,7 @@ function mtDirectionClass(label){ const s=String(label || '').toLowerCase(); if(
 function mtStoreRecords(){ if(!SCREENER_STORE) return []; if(Array.isArray(SCREENER_STORE.records)) return SCREENER_STORE.records; if(Array.isArray(SCREENER_STORE.top_priority)) return SCREENER_STORE.top_priority; return []; }
 function mtByTerm(term){ const t=String(term || '').toUpperCase(); return SCREENER_STORE?.by_term?.[t] || null; }
 function mtSectionRows(section){ if(!SCREENER_STORE) return []; const sections=SCREENER_STORE.sections || {}; if(Array.isArray(sections[section])) return sections[section]; if(Array.isArray(SCREENER_STORE[section])) return SCREENER_STORE[section]; return mtStoreRecords(); }
-function mtAllowedRows(rows){ const allowed=screenerAllowedTerms ? screenerAllowedTerms() : new Set(); return (rows || []).filter(r=>!allowed.size || allowed.has(mtTerm(r))); }
+function mtAllowedRows(rows){ const allowed=(typeof screenerAllowedTerms === 'function') ? screenerAllowedTerms() : new Set(); return (rows || []).filter(r=>!allowed.size || allowed.has(mtTerm(r))); }
 function mtBestArchetype(row, detail){ return detail?.archetype || row || {}; }
 function mtReason(row, archetype){ return row?.screener_reason_summary || archetype?.archetype_summary || row?.archetype_summary || row?.reason_summary || 'No summary available.'; }
 function mtRisk(archetype, row){ return archetype?.archetype_risk_note || row?.archetype_risk_note || ''; }
