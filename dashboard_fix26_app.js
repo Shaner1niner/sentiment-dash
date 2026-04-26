@@ -1503,7 +1503,7 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 function escapeHTML(v){
   return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
-// phaseG_public_alert_drawer_v1: alert drawer is available in public and member views.
+// phaseG_public_drawer_force_v2: public drawer forced on; phaseG_public_alert_drawer_v1: alert drawer is available in public and member views.
 // Phase C3: right-side alert drawer collapses horizontally and lets chart expand.
 function ensureAlertSidePanel(){
   const chart=document.getElementById('chart');
@@ -1634,6 +1634,7 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='context'){
   const panel=ensureAlertSidePanel();
   if(!panel) return;
+  panel.style.display='';
   // Public and member views both show the alert drawer; mode-specific filtering happens upstream.
   panel.style.display='';
   const events=collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolicy);
