@@ -25,8 +25,8 @@ Design rules:
 """
 
 import argparse
+import json
 import math
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, Optional
 
@@ -36,7 +36,6 @@ import pandas as pd
 
 DEFAULT_SOURCE_DIR = Path(r"G:\My Drive\Tableau_AutoSync")
 DEFAULT_OUTPUT_FILENAME = "seta_market_screener_365d.csv"
-SCREENER_MODEL_VERSION = "phase_g_matrix_v1_2026_04_25"
 
 
 # ---------------------------------------------------------------------
@@ -463,6 +462,56 @@ def derive_sidecar_filename(output_filename: str, kind: str) -> str:
     return f"{stem}_{kind}{suffix}"
 
 
+
+
+def json_sidecar_path(csv_path: Path) -> Path:
+    """Return the same path with a .json suffix."""
+    return Path(csv_path).with_suffix(".json")
+
+
+def dataframe_to_json_records(df: pd.DataFrame) -> list[dict]:
+    """Convert a dataframe to JSON-safe row records."""
+    if df is None:
+        return []
+
+    clean = df.copy()
+
+    for col in clean.columns:
+        col_name = str(col).lower()
+        if "date" in col_name or col_name.endswith("_at") or "generated_at" in col_name:
+            try:
+                converted = pd.to_datetime(clean[col], errors="coerce")
+                if converted.notna().any():
+                    clean[col] = converted.dt.strftime("%Y-%m-%d")
+            except Exception:
+                pass
+
+    clean = clean.replace({np.nan: None})
+    return clean.to_dict(orient="records")
+
+
+def write_json_sidecar(df: pd.DataFrame, json_path: Path, *, dataset_name: str) -> Path:
+    """Write a JSON sidecar beside a CSV output.
+
+    Output shape:
+      {
+        "dataset": "<dataset name>",
+        "rows": <row count>,
+        "columns": [...],
+        "records": [...]
+      }
+    """
+    json_path = Path(json_path)
+    payload = {
+        "dataset": dataset_name,
+        "rows": int(len(df)) if df is not None else 0,
+        "columns": list(df.columns) if df is not None else [],
+        "records": dataframe_to_json_records(df),
+    }
+    json_path.parent.mkdir(parents=True, exist_ok=True)
+    json_path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    return json_path
+
 # ---------------------------------------------------------------------
 # Score helpers
 # ---------------------------------------------------------------------
@@ -741,68 +790,6 @@ def latest_event_tables(events: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFram
 
 
 # ---------------------------------------------------------------------
-# Validation / run summary
-# ---------------------------------------------------------------------
-
-def print_validation_summary(screener: pd.DataFrame, archetypes: pd.DataFrame, indicator_matrix: pd.DataFrame) -> None:
-    """Print a compact daily sanity-check summary for logs / Task Scheduler output."""
-    print("\n=== SETA Screener Validation Summary ===")
-
-    if screener.empty:
-        print("[WARN] Screener output is empty.")
-        print("=== End validation summary ===\n")
-        return
-
-    rank_col = "screener_attention_priority_rank"
-    score_col = "screener_attention_priority_score"
-    if rank_col in screener.columns:
-        top = screener.sort_values(rank_col, na_position="last").head(10)
-    elif score_col in screener.columns:
-        top = screener.sort_values(score_col, ascending=False, na_position="last").head(10)
-    else:
-        top = screener.head(10)
-
-    print("\nTop 10 attention priority:")
-    for _, row in top.iterrows():
-        term = str(row.get("term", ""))
-        score = row.get(score_col, np.nan)
-        direction = str(row.get("signal_consensus_direction_label", ""))
-        archetype = str(row.get("primary_archetype", ""))
-        bucket = str(row.get("screener_action_bucket", ""))
-        try:
-            score_txt = f"{float(score):.1f}"
-        except Exception:
-            score_txt = str(score)
-        print(f"  {term:>6} | {score_txt:>5} | {direction:<16} | {bucket:<28} | {archetype}")
-
-    if "primary_archetype" in screener.columns:
-        print("\nPrimary archetype distribution:")
-        counts = screener["primary_archetype"].fillna("Missing").astype(str).value_counts().head(20)
-        for name, count in counts.items():
-            print(f"  {name}: {count}")
-
-    if "screener_action_bucket" in screener.columns:
-        print("\nAction bucket distribution:")
-        counts = screener["screener_action_bucket"].fillna("Missing").astype(str).value_counts().head(20)
-        for name, count in counts.items():
-            print(f"  {name}: {count}")
-
-    for col in ["latest_data_date", "latest_close", "screener_attention_priority_score", "primary_archetype"]:
-        if col in screener.columns:
-            missing = int(screener[col].isna().sum())
-            print(f"\nMissing {col}: {missing}")
-
-    if not archetypes.empty and "archetype_direction" in archetypes.columns:
-        print("\nArchetype direction distribution:")
-        counts = archetypes["archetype_direction"].fillna("Missing").astype(str).value_counts().head(20)
-        for name, count in counts.items():
-            print(f"  {name}: {count}")
-
-    print(f"\nOutput dimensions: screener={len(screener)} rows x {len(screener.columns)} cols | matrix={len(indicator_matrix)} rows | archetypes={len(archetypes)} rows")
-    print(f"Model version: {SCREENER_MODEL_VERSION}")
-    print("=== End validation summary ===\n")
-
-# ---------------------------------------------------------------------
 # Main builder
 # ---------------------------------------------------------------------
 
@@ -814,7 +801,10 @@ def build_screener(source_dir: Path, output_filename: str = DEFAULT_OUTPUT_FILEN
     output_path = source_dir / output_filename
     matrix_path = source_dir / (matrix_filename or derive_sidecar_filename(output_filename, "indicator_matrix"))
     archetypes_path = source_dir / (archetypes_filename or derive_sidecar_filename(output_filename, "signal_archetypes"))
-    generated_at_utc = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    output_json_path = json_sidecar_path(output_path)
+    matrix_json_path = json_sidecar_path(matrix_path)
+    archetypes_json_path = json_sidecar_path(archetypes_path)
 
     for p in [chart_path, audit_path, events_path]:
         if not p.exists():
@@ -1284,16 +1274,6 @@ def build_screener(source_dir: Path, output_filename: str = DEFAULT_OUTPUT_FILEN
 
     indicator_matrix = build_indicator_matrix(out)
 
-    # Attach model metadata to all deliverables for future debugging / reproducibility.
-    out["screener_model_version"] = SCREENER_MODEL_VERSION
-    out["screener_generated_at_utc"] = generated_at_utc
-    if not indicator_matrix.empty:
-        indicator_matrix["screener_model_version"] = SCREENER_MODEL_VERSION
-        indicator_matrix["screener_generated_at_utc"] = generated_at_utc
-    if not archetypes.empty:
-        archetypes["screener_model_version"] = SCREENER_MODEL_VERSION
-        archetypes["screener_generated_at_utc"] = generated_at_utc
-
     # Final friendly labels and derived buckets.
     out["latest_event_recency_bucket"] = out["days_since_latest_event"].map(recency_bucket)
     out["latest_confirmed_recency_bucket"] = out["days_since_latest_confirmed"].map(recency_bucket)
@@ -1304,7 +1284,6 @@ def build_screener(source_dir: Path, output_filename: str = DEFAULT_OUTPUT_FILEN
         out[c] = pd.to_datetime(out[c], errors="coerce").dt.strftime("%Y-%m-%d")
 
     preferred_order = [
-        "screener_model_version", "screener_generated_at_utc",
         "screener_attention_priority_rank",
         "term", "asset_universe", "primary_sector",
         "screener_attention_priority_score", "screener_action_bucket", "primary_archetype", "secondary_archetype", "archetype_direction", "archetype_confidence", "archetype_summary", "archetype_risk_note", "screener_reason_summary",
@@ -1356,16 +1335,27 @@ def build_screener(source_dir: Path, output_filename: str = DEFAULT_OUTPUT_FILEN
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     out.to_csv(output_path, index=False)
-    if not indicator_matrix.empty:
-        indicator_matrix.to_csv(matrix_path, index=False)
-    if not archetypes.empty:
-        archetypes.to_csv(archetypes_path, index=False)
+    indicator_matrix.to_csv(matrix_path, index=False)
+    archetypes.to_csv(archetypes_path, index=False)
+
+    write_json_sidecar(out, output_json_path, dataset_name=Path(output_path).stem)
+    write_json_sidecar(indicator_matrix, matrix_json_path, dataset_name=Path(matrix_path).stem)
+    write_json_sidecar(archetypes, archetypes_json_path, dataset_name=Path(archetypes_path).stem)
 
     print(f"[OK] wrote {output_path}")
+    print(f"[OK] wrote {output_json_path}")
     print(f"[OK] wrote {matrix_path} ({len(indicator_matrix)} rows)")
+    print(f"[OK] wrote {matrix_json_path} ({len(indicator_matrix)} rows)")
     print(f"[OK] wrote {archetypes_path} ({len(archetypes)} rows)")
+    print(f"[OK] wrote {archetypes_json_path} ({len(archetypes)} rows)")
     print(f"[OK] screener rows={len(out)} cols={len(out.columns)}")
-    print_validation_summary(out, archetypes, indicator_matrix)
+    print("[OK] top 10 by screener_attention_priority_score:")
+    show_cols = existing_cols(out, [
+        "screener_attention_priority_rank", "term", "screener_attention_priority_score",
+        "signal_consensus_direction_score", "signal_consensus_direction_label",
+        "screener_action_bucket", "screener_reason_summary",
+    ])
+    print(out[show_cols].head(10).to_string(index=False))
 
     return output_path
 
