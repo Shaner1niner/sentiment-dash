@@ -1858,6 +1858,58 @@ function ensureScreenerPanel(){
   return panel;
 }
 
+
+// phaseG_market_tape_polish_v2: clickable top cards + cleaner Market Tape UI.
+function setDashboardAssetFromScreener(term){
+  const t = String(term || '').trim().toUpperCase();
+  if(!t) return;
+
+  const sel = document.getElementById('asset');
+  if(!sel){
+    console.warn('Asset selector not found for Market Tape click.');
+    return;
+  }
+
+  const available = [...sel.options].map(o => String(o.value).toUpperCase());
+  if(!available.includes(t)){
+    console.warn(`Market Tape term ${t} is not available in this dashboard mode.`);
+    return;
+  }
+
+  sel.value = t;
+
+  try{
+    sel.dispatchEvent(new Event('change', {bubbles:true}));
+  }catch(e){}
+
+  try{
+    if(typeof buildFigure === 'function'){
+      buildFigure();
+    }else if(typeof renderDashboard === 'function'){
+      renderDashboard();
+    }else if(typeof initDashboard === 'function'){
+      initDashboard();
+    }
+  }catch(err){
+    console.error('Market Tape asset switch failed:', err);
+  }
+
+  try{
+    renderScreenerPanel(t);
+  }catch(err){
+    console.warn('Market Tape panel refresh after click failed:', err);
+  }
+}
+
+
+(function(){
+  if(document.getElementById('phaseG_market_tape_polish_v2_style')) return;
+  const st=document.createElement('style');
+  st.id='phaseG_market_tape_polish_v2_style';
+  st.textContent='\n/* phaseG_market_tape_polish_v2 */\n.screenerPanel.marketTape{font-size:12px;line-height:1.35;}\n.marketTapeTitle h3{font-size:14px!important;letter-spacing:.01em;}\n.marketTapeSub{font-size:11.5px!important;line-height:1.35;color:#9fb4bf!important;max-width:760px;}\n.marketTapeTabs{gap:6px!important;justify-content:flex-end;}\n.marketTapeTab{font-size:10.5px!important;padding:4px 8px!important;opacity:.82;}\n.marketTapeTab.active{opacity:1;border-color:#4ade80!important;box-shadow:0 0 0 1px rgba(74,222,128,.18),0 0 10px rgba(74,222,128,.12);}\n.marketTapeCards{grid-template-columns:repeat(5,minmax(145px,1fr))!important;gap:8px!important;}\n.marketTapeCard{min-height:86px!important;padding:8px 9px!important;transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease,background .12s ease;}\n.marketTapeCard:hover{transform:translateY(-1px);border-color:#60a5fa!important;box-shadow:0 0 0 1px rgba(96,165,250,.18),0 8px 20px rgba(0,0,0,.22);background:rgba(96,165,250,.045)!important;}\n.marketTapeCard.active{border-color:#facc15!important;box-shadow:0 0 0 1px rgba(250,204,21,.20),0 0 18px rgba(250,204,21,.12);}\n.marketTapeCardTop{font-size:13px!important;}\n.marketTapeTerm{font-size:14px!important;}\n.marketTapeScore{font-size:13px!important;}\n.marketTapePill{font-size:10.5px!important;padding:2px 6px!important;}\n.marketTapeReason{font-size:11.25px!important;line-height:1.32!important;}\n.marketTapeDetail{display:grid!important;grid-template-columns:minmax(0,1.45fr) minmax(320px,.95fr)!important;gap:12px!important;align-items:start;min-height:118px;}\n.marketTapeDetailTitle{font-size:13px!important;margin-bottom:6px!important;}\n.marketTapeDetailText,.marketTapeMatched,.marketTapeMissing,.marketTapeRisk{font-size:12.25px!important;line-height:1.42!important;}\n.marketTapeFamilyGrid{grid-template-columns:repeat(3,minmax(92px,1fr))!important;gap:7px!important;}\n.marketTapeFamily{min-height:52px!important;padding:7px 8px!important;}\n.marketTapeFamilyName{font-size:10.75px!important;}\n.marketTapeFamilyScore{font-size:15px!important;}\n.marketTapeFamilyLabel{font-size:10.75px!important;}\n@media (max-width:980px){.marketTapeCards{grid-template-columns:repeat(2,minmax(0,1fr))!important}.marketTapeDetail{grid-template-columns:1fr!important}.marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}\n';
+  document.head.appendChild(st);
+})();
+
 function renderScreenerPanel(activeTerm=null){
   const panel=ensureScreenerPanel();
   if(!panel) return;
@@ -1888,7 +1940,7 @@ function renderScreenerPanel(activeTerm=null){
     const arch=r.primary_archetype || 'Monitor';
     const reason=mtReason(r, r);
     const dispersion=mtScore(r,'signal_dispersion_score',0);
-    return `<button type="button" class="marketTapeCard ${cls} ${active?'active':''}" data-screener-term="${escapeHTML(term)}"><div class="marketTapeCardTop"><span class="marketTapeTerm">#${escapeHTML(r.screener_attention_priority_rank || idx+1)} ${escapeHTML(term)}</span><span class="marketTapeScore">${escapeHTML(score)}</span></div><div><span class="marketTapePill ${cls}">${escapeHTML(dir)}</span><span class="marketTapePill">${escapeHTML(bucket)}</span><span class="marketTapePill">Conflict ${escapeHTML(dispersion)}</span></div><div class="marketTapeReason"><b>${escapeHTML(arch)}</b> · ${escapeHTML(reason)}</div></button>`;
+    return `<button type="button" class="marketTapeCard ${cls} ${active?'active':''}" data-screener-term="${escapeHTML(term)}" title="Load ${escapeHTML(term)} chart"><div class="marketTapeCardTop"><span class="marketTapeTerm">#${escapeHTML(r.screener_attention_priority_rank || idx+1)} ${escapeHTML(term)}</span><span class="marketTapeScore">${escapeHTML(score)}</span></div><div><span class="marketTapePill ${cls}">${escapeHTML(dir)}</span><span class="marketTapePill">${escapeHTML(bucket)}</span><span class="marketTapePill">Conflict ${escapeHTML(dispersion)}</span></div><div class="marketTapeReason"><b>${escapeHTML(arch)}</b> · ${escapeHTML(reason)}</div></button>`;
   }).join('');
 
   const detailDir=activeArch.archetype_direction || activeRow.signal_consensus_direction_label || activeRow.latest_event_direction || 'Mixed';
@@ -1900,10 +1952,10 @@ function renderScreenerPanel(activeTerm=null){
   const matched=activeArch.matched_conditions || activeRow.matched_conditions || '';
   const familyGrid=mtRenderFamilyGrid(currentTerm, activeRow);
 
-  panel.innerHTML=`<div class="marketTapeHeader"><div class="marketTapeTitle"><div class="marketTapeTopline"><button type="button" class="marketTapeToggle" id="marketTapeToggle" title="Collapse / expand Market Tape">−</button><h3>SETA Market Tape · Active ${escapeHTML(currentTerm || 'n/a')}</h3></div><div class="marketTapeSub">Ranked opportunities, setup archetypes, and indicator-family diagnostics. ${version ? `Model ${escapeHTML(version)}. ` : ''}${generated ? `As of ${escapeHTML(generated)}.` : ''}</div></div><div class="marketTapeTabs">${tabHtml}</div></div><div class="marketTapeCards">${cardHtml || '<div class="marketTapeEmpty">No Market Tape rows available for this mode/section.</div>'}</div><div class="marketTapeDetail"><div class="marketTapeDetailTop"><div><div class="marketTapeDetailTitle"><span class="marketTapePill ${detailCls}">${escapeHTML(detailDir)}</span>${escapeHTML(detailTitle)} · Priority ${escapeHTML(mtScore(activeRow,'screener_attention_priority_score'))}</div><div class="marketTapeDetailText">${escapeHTML(summary)}</div>${matched ? `<div class="marketTapeMissing"><b>Matched:</b> ${escapeHTML(matched)}</div>` : ''}${missing ? `<div class="marketTapeMissing"><b>Missing:</b> ${escapeHTML(missing)}</div>` : ''}${risk ? `<div class="marketTapeRisk"><b>Risk:</b> ${escapeHTML(risk)}</div>` : ''}</div><div>${familyGrid}</div></div></div>`;
+  panel.innerHTML=`<div class="marketTapeHeader"><div class="marketTapeTitle"><div class="marketTapeTopline"><button type="button" class="marketTapeToggle" id="marketTapeToggle" title="Collapse / expand Market Tape">−</button><h3>SETA Market Tape · Active ${escapeHTML(currentTerm || 'n/a')}</h3></div><div class="marketTapeSub">Click any ranked card to load its chart. Ranked opportunities, setup archetypes, and indicator-family diagnostics. ${version ? `Model ${escapeHTML(version)}. ` : ''}${generated ? `As of ${escapeHTML(generated)}.` : ''}</div></div><div class="marketTapeTabs">${tabHtml}</div></div><div class="marketTapeCards">${cardHtml || '<div class="marketTapeEmpty">No Market Tape rows available for this mode/section.</div>'}</div><div class="marketTapeDetail"><div class="marketTapeDetailTop"><div><div class="marketTapeDetailTitle"><span class="marketTapePill ${detailCls}">${escapeHTML(detailDir)}</span>${escapeHTML(detailTitle)} · Priority ${escapeHTML(mtScore(activeRow,'screener_attention_priority_score'))}</div><div class="marketTapeDetailText">${escapeHTML(summary)}</div>${matched ? `<div class="marketTapeMissing"><b>Matched:</b> ${escapeHTML(matched)}</div>` : ''}${missing ? `<div class="marketTapeMissing"><b>Missing:</b> ${escapeHTML(missing)}</div>` : ''}${risk ? `<div class="marketTapeRisk"><b>Risk:</b> ${escapeHTML(risk)}</div>` : ''}</div><div>${familyGrid}</div></div></div>`;
 
   panel.querySelectorAll('[data-screener-section]').forEach(btn=>{ btn.onclick=()=>{ SCREENER_SECTION=btn.getAttribute('data-screener-section') || 'top_priority'; renderScreenerPanel(document.getElementById('asset')?.value || null); }; });
-  panel.querySelectorAll('[data-screener-term]').forEach(card=>{ card.onclick=()=>setDashboardAssetFromScreener(card.getAttribute('data-screener-term')); });
+  panel.querySelectorAll('[data-screener-term]').forEach(card=>{ card.onclick=()=>{ if(typeof setDashboardAssetFromScreener === 'function') setDashboardAssetFromScreener(card.getAttribute('data-screener-term')); }; });
   const collapsedKey='setaMarketTapeCollapsed';
   const savedCollapsed = window.localStorage ? window.localStorage.getItem(collapsedKey) : null;
   const shouldCollapse = savedCollapsed === 'true';
