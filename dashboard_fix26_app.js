@@ -1726,6 +1726,29 @@ function mtDirectionClass(label){ const s=String(label || '').toLowerCase(); if(
 function mtStoreRecords(){ if(!SCREENER_STORE) return []; if(Array.isArray(SCREENER_STORE.records)) return SCREENER_STORE.records; if(Array.isArray(SCREENER_STORE.top_priority)) return SCREENER_STORE.top_priority; return []; }
 function mtByTerm(term){ const t=String(term || '').toUpperCase(); return SCREENER_STORE?.by_term?.[t] || null; }
 function mtSectionRows(section){ if(!SCREENER_STORE) return []; const sections=SCREENER_STORE.sections || {}; if(Array.isArray(sections[section])) return sections[section]; if(Array.isArray(SCREENER_STORE[section])) return SCREENER_STORE[section]; return mtStoreRecords(); }
+
+// phaseG_market_tape_allowed_terms_force_v1: safe fallback for Market Tape term filtering.
+function screenerAllowedTerms(){
+  try{
+    const fromAssets = (typeof assetUniverse === 'function') ? assetUniverse() : [];
+    if(Array.isArray(fromAssets) && fromAssets.length){
+      return new Set(fromAssets.map(a => String(a).toUpperCase()));
+    }
+  }catch(e){}
+  try{
+    const sel = document.getElementById('asset');
+    if(sel && sel.options && sel.options.length){
+      return new Set([...sel.options].map(o => String(o.value).toUpperCase()));
+    }
+  }catch(e){}
+  try{
+    if(window.SCREENER_STORE && window.SCREENER_STORE.by_term){
+      return new Set(Object.keys(window.SCREENER_STORE.by_term).map(a => String(a).toUpperCase()));
+    }
+  }catch(e){}
+  return new Set();
+}
+
 function mtAllowedRows(rows){ const allowed=(typeof screenerAllowedTerms === 'function') ? screenerAllowedTerms() : new Set(); return (rows || []).filter(r=>!allowed.size || allowed.has(mtTerm(r))); }
 function mtBestArchetype(row, detail){ return detail?.archetype || row || {}; }
 function mtReason(row, archetype){ return row?.screener_reason_summary || archetype?.archetype_summary || row?.archetype_summary || row?.reason_summary || 'No summary available.'; }
