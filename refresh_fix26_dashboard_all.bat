@@ -5,18 +5,17 @@ REM =============================================================
 REM Fix 26 public/member dashboard refresh script
 REM
 REM What it does:
-REM   1. Reads the Fix 26 manifest to get the union of public/member assets
-REM   2. Runs export_enriched_chart_history_v2.py for that union
-REM   3. Writes the chart-history/attention/alert CSV outputs locally and to Tableau AutoSync
-REM   4. Builds SETA screener, indicator matrix, and signal archetype CSVs
-REM   5. Builds Fix 26 screener JSON payload for the website
-REM   6. Builds separate lean public/member chart JSON payloads
-REM   7. Stages changed website repo files in git
-REM   8. Optionally commits and pushes
+REM   1. Runs export_enriched_chart_history_v2.py
+REM   2. Writes chart-history/attention/alert CSV outputs locally and to Tableau AutoSync
+REM   3. Builds SETA screener, indicator matrix, signal archetype CSVs, and JSON sidecars
+REM   4. Builds Fix 26 screener JSON payload for the website
+REM   5. Builds separate lean public/member chart JSON payloads
+REM   6. Stages changed website repo files in git
+REM   7. Optionally commits and pushes
 REM
 REM Safety behavior:
 REM   - Stops if any required upstream step fails
-REM   - Deletes prior screener outputs before rebuilding so stale files cannot pass validation
+REM   - Deletes prior screener CSV/JSON outputs before rebuilding so stale files cannot pass validation
 REM =============================================================
 
 set "PYTHON_EXE=C:\Users\shane\anaconda3\python.exe"
@@ -42,12 +41,17 @@ set "SCREENER_STORE_JSON=%WEBSITE_REPO%\fix26_screener_store.json"
 set "SCREENER_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_market_screener_365d.csv"
 set "INDICATOR_MATRIX_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_indicator_matrix_365d.csv"
 set "ARCHETYPES_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_signal_archetypes_365d.csv"
+
+set "SCREENER_JSON=%TABLEAU_AUTOSYNC_DIR%\seta_market_screener_365d.json"
+set "INDICATOR_MATRIX_JSON=%TABLEAU_AUTOSYNC_DIR%\seta_indicator_matrix_365d.json"
+set "ARCHETYPES_JSON=%TABLEAU_AUTOSYNC_DIR%\seta_signal_archetypes_365d.json"
+
 set "ALERT_EVENTS_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_alert_events_365d.csv"
 set "ALERT_AUDIT_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_alert_audit_365d.csv"
 
 REM Optional behavior switches
-set "AUTO_COMMIT=1"
-set "AUTO_PUSH=1"
+set "AUTO_COMMIT=0"
+set "AUTO_PUSH=0"
 set "COMMIT_MESSAGE=Fix 26 dashboard payload and SETA screener refresh"
 
 if "%TWT_SNT_DB_URL%"=="" (
@@ -162,11 +166,14 @@ echo Cleaning prior screener outputs...
 if exist "%SCREENER_CSV%" del "%SCREENER_CSV%"
 if exist "%INDICATOR_MATRIX_CSV%" del "%INDICATOR_MATRIX_CSV%"
 if exist "%ARCHETYPES_CSV%" del "%ARCHETYPES_CSV%"
+if exist "%SCREENER_JSON%" del "%SCREENER_JSON%"
+if exist "%INDICATOR_MATRIX_JSON%" del "%INDICATOR_MATRIX_JSON%"
+if exist "%ARCHETYPES_JSON%" del "%ARCHETYPES_JSON%"
 if exist "%SCREENER_STORE_JSON%" del "%SCREENER_STORE_JSON%"
 
 echo.
 echo ============================================================
-echo [2/6] Building SETA market screener, indicator matrix, and archetypes...
+echo [2/6] Building SETA screener CSVs and JSON sidecars...
 echo ============================================================
 echo Screener script: %SCREENER_SCRIPT%
 "%PYTHON_EXE%" "%SCREENER_SCRIPT%" ^
@@ -194,6 +201,27 @@ if not exist "%ARCHETYPES_CSV%" (
   goto :fail
 )
 
+if not exist "%SCREENER_JSON%" (
+  echo [ERROR] Expected screener JSON sidecar was not created:
+  echo         %SCREENER_JSON%
+  echo Make sure scripts\build_seta_market_screener.py contains write_json_sidecar.
+  goto :fail
+)
+
+if not exist "%INDICATOR_MATRIX_JSON%" (
+  echo [ERROR] Expected indicator matrix JSON sidecar was not created:
+  echo         %INDICATOR_MATRIX_JSON%
+  echo Make sure scripts\build_seta_market_screener.py contains write_json_sidecar.
+  goto :fail
+)
+
+if not exist "%ARCHETYPES_JSON%" (
+  echo [ERROR] Expected signal archetypes JSON sidecar was not created:
+  echo         %ARCHETYPES_JSON%
+  echo Make sure scripts\build_seta_market_screener.py contains write_json_sidecar.
+  goto :fail
+)
+
 echo.
 echo ============================================================
 echo [3/6] Building Fix 26 screener JSON payload...
@@ -207,7 +235,7 @@ if errorlevel 1 (
 )
 
 if not exist "%SCREENER_STORE_JSON%" (
-  echo [ERROR] Expected screener JSON was not created:
+  echo [ERROR] Expected website screener JSON was not created:
   echo         %SCREENER_STORE_JSON%
   goto :fail
 )
@@ -308,13 +336,19 @@ echo Alert events:
 echo   %ALERT_EVENTS_CSV%
 echo Alert audit:
 echo   %ALERT_AUDIT_CSV%
-echo Screener:
+echo Screener CSV:
 echo   %SCREENER_CSV%
-echo Indicator matrix:
-echo   %INDICATOR_MATRIX_CSV%
-echo Signal archetypes:
-echo   %ARCHETYPES_CSV%
 echo Screener JSON:
+echo   %SCREENER_JSON%
+echo Indicator matrix CSV:
+echo   %INDICATOR_MATRIX_CSV%
+echo Indicator matrix JSON:
+echo   %INDICATOR_MATRIX_JSON%
+echo Signal archetypes CSV:
+echo   %ARCHETYPES_CSV%
+echo Signal archetypes JSON:
+echo   %ARCHETYPES_JSON%
+echo Website screener JSON:
 echo   %SCREENER_STORE_JSON%
 echo Public JSON:
 echo   %PUBLIC_JSON%
