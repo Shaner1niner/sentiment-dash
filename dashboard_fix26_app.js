@@ -18,6 +18,10 @@ const DASH_MODE_DEFAULT = window.DASH_MODE_DEFAULT || "public";
 const MANIFEST_URL = new URLSearchParams(location.search).get("manifest") || window.DASH_MANIFEST_URL || "dashboard_fix26_mode_manifest.json";
 let STORE = null;
 let MODE_MANIFEST = null;
+// phaseG_market_tape_loader_foundation_v1
+let SCREENER_STORE = null;
+let SCREENER_SECTION = "top_priority";
+const SCREENER_STORE_URL = new URLSearchParams(location.search).get("screener") || window.SETA_SCREENER_STORE_URL || "fix26_screener_store.json";
 
 window.SETA_BUILD_INFO = {
   build: "rightdrawer_restore_001",
@@ -84,6 +88,24 @@ function applyModeUi(){
   applyControlLabels();
   applyControlVisibility();
 }
+
+async function loadScreenerStore(){
+  try{
+    const res = await fetch(SCREENER_STORE_URL, {cache:"no-store"});
+    if(!res.ok){
+      console.warn(`Screener store not available from ${SCREENER_STORE_URL}: ${res.status}`);
+      SCREENER_STORE = null;
+      return;
+    }
+    SCREENER_STORE = await res.json();
+    window.SCREENER_STORE = SCREENER_STORE;
+  }catch(err){
+    console.warn("Screener store load failed:", err);
+    SCREENER_STORE = null;
+    window.SCREENER_STORE = null;
+  }
+}
+
 function applyModeDefaults(){
   const d = modeDefaults();
   Object.entries(d).forEach(([k,v])=>setSelectValue(k,v));
@@ -1835,6 +1857,7 @@ function buildFigure(){
   const priceBands=computePriceBands(rows);
   const data=[];
   document.getElementById('assetTitle').textContent=`${term} · ${freq==='D'?'Daily':'Weekly'}`;
+  renderScreenerPanel(term);
   const helperParts=[`${calendar==='continuous'?'Continuous calendar':'Trading-session compression'} · sentiment transform fit includes hidden warmup`];
   if(priceBands.derived) helperParts.push('price bands derived in-view from close 20 SMA ± 2 std');
   if(bollinger==='contextual' || bollinger==='both') helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
@@ -2060,7 +2083,7 @@ async function initDashboard(){
     await loadManifest();
     applyModeUi();
     applyModeDefaults();
-    await loadStore();
+    await Promise.all([loadStore(), loadScreenerStore()]);
     populateAssetOptions();
     attachControlHandlers();
     buildFigure();
