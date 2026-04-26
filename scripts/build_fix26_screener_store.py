@@ -1,302 +1,409 @@
+#!/usr/bin/env python
+"""
+Build Fix 26 enhanced screener store JSON.
+
+Reads:
+  seta_market_screener_365d.json or .csv
+  seta_signal_archetypes_365d.json or .csv
+  seta_indicator_matrix_365d.json or .csv
+
+Writes:
+  fix26_screener_store.json
+
+The output is one website-friendly payload with:
+  sections[]
+  records[]
+  by_term[TERM].screener
+  by_term[TERM].archetype
+  by_term[TERM].indicator_families
+  by_term[TERM].indicators
+"""
+
 from __future__ import annotations
 
-"""
-Build lightweight Fix26 screener JSON payload for the website dashboard.
-
-Input:
-  - seta_market_screener_365d.csv, usually from G:\My Drive\Tableau_AutoSync
-
-Output:
-  - fix26_screener_store.json, usually into the sentiment-dash repo root
-
-Design:
-  - Keep website payload small and dashboard-friendly.
-  - Preserve the full CSVs for Tableau / detailed analysis.
-  - Include enough fields for a Top Priority / Bullish / Bearish / Fresh Confirmed panel.
-"""
-
 import argparse
+import csv
 import json
+import math
+from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
-
-import numpy as np
-import pandas as pd
-
-DEFAULT_SOURCE_DIR = Path(r"G:\My Drive\Tableau_AutoSync")
-DEFAULT_OUTPUT_DIR = Path(r"C:\Users\shane\sentiment-dash")
-DEFAULT_INPUT_FILENAME = "seta_market_screener_365d.csv"
-DEFAULT_OUTPUT_FILENAME = "fix26_screener_store.json"
-PAYLOAD_VERSION = "fix26_screener_store_v1_2026_04_25"
+from typing import Any, Dict, Iterable, List, Optional
 
 
-def n(v: Any, default: float = np.nan) -> float:
-    try:
-        if v is None or pd.isna(v):
-            return default
-        x = float(v)
-        return x if np.isfinite(x) else default
-    except Exception:
-        return default
+SCREENER_BASE = "seta_market_screener_365d"
+ARCHETYPE_BASE = "seta_signal_archetypes_365d"
+INDICATOR_BASE = "seta_indicator_matrix_365d"
 
 
-def s(v: Any, default: str = "") -> str:
-    if v is None:
-        return default
-    try:
-        if pd.isna(v):
-            return default
-    except Exception:
-        pass
-    return str(v)
-
-
-def clean_json_value(v: Any) -> Any:
-    """Convert pandas/numpy values into JSON-safe native values."""
-    if v is None:
+def clean_value(value: Any) -> Any:
+    if value is None:
         return None
-    if isinstance(v, (np.integer,)):
-        return int(v)
-    if isinstance(v, (np.floating,)):
-        if np.isnan(v) or np.isinf(v):
+    if isinstance(value, float):
+        return value if math.isfinite(value) else None
+    if isinstance(value, (int, bool)):
+        return value
+    if isinstance(value, str):
+        s = value.strip()
+        if s == "" or s.lower() in {"nan", "none", "null", "nat"}:
             return None
-        return float(v)
-    if isinstance(v, float):
-        if np.isnan(v) or np.isinf(v):
-            return None
-        return v
-    if isinstance(v, (pd.Timestamp,)):
-        if pd.isna(v):
-            return None
-        return v.strftime("%Y-%m-%d")
+        try:
+            if any(ch in s for ch in [".", "e", "E"]):
+                f = float(s)
+                return f if math.isfinite(f) else None
+            return int(s)
+        except Exception:
+            return s
+    if isinstance(value, list):
+        return [clean_value(v) for v in value]
+    if isinstance(value, dict):
+        return {str(k): clean_value(v) for k, v in value.items()}
+    return value
+
+
+def clean_record(record: Dict[str, Any]) -> Dict[str, Any]:
+    return {str(k): clean_value(v) for k, v in record.items()}
+
+
+def read_json_records(path: Path) -> List[Dict[str, Any]]:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(data, list):
+        return [clean_record(r) for r in data if isinstance(r, dict)]
+    if isinstance(data, dict):
+        records = data.get("records")
+        if isinstance(records, list):
+            return [clean_record(r) for r in records if isinstance(r, dict)]
+        if all(isinstance(v, dict) for v in data.values()):
+            return [clean_record(v) for v in data.values()]
+    raise ValueError(f"Could not find records in JSON file: {path}")
+
+
+def read_csv_records(path: Path) -> List[Dict[str, Any]]:
+    with path.open("r", encoding="utf-8-sig", newline="") as f:
+        return [clean_record(r) for r in csv.DictReader(f)]
+
+
+def read_records(source_dir: Path, base_name: str) -> List[Dict[str, Any]]:
+    json_path = source_dir / f"{base_name}.json"
+    csv_path = source_dir / f"{base_name}.csv"
+    if json_path.exists():
+        return read_json_records(json_path)
+    if csv_path.exists():
+        return read_csv_records(csv_path)
+    raise FileNotFoundError(f"Missing {base_name}.json or {base_name}.csv in {source_dir}")
+
+
+def term_of(row: Dict[str, Any]) -> str:
+    return str(row.get("term") or row.get("asset") or "").strip().upper()
+
+
+def num(row: Dict[str, Any], key: str, default: Optional[float] = None) -> Optional[float]:
+    value = row.get(key)
+    if value is None:
+        return default
     try:
-        if pd.isna(v):
-            return None
+        f = float(value)
+        return f if math.isfinite(f) else default
     except Exception:
-        pass
-    return v
+        return default
 
 
-def clean_record(rec: dict[str, Any]) -> dict[str, Any]:
-    return {k: clean_json_value(v) for k, v in rec.items()}
+def text(row: Dict[str, Any], key: str, default: str = "") -> str:
+    value = row.get(key)
+    return default if value is None else str(value)
 
 
-def existing_cols(df: pd.DataFrame, cols: list[str]) -> list[str]:
-    return [c for c in cols if c in df.columns]
-
-
-CARD_FIELDS = [
-    "screener_attention_priority_rank",
-    "term",
-    "asset_universe",
-    "primary_sector",
-    "latest_data_date",
-    "latest_close",
-    "screener_attention_priority_score",
-    "screener_action_bucket",
-    "primary_archetype",
-    "secondary_archetype",
-    "archetype_direction",
-    "archetype_confidence",
-    "archetype_summary",
-    "archetype_risk_note",
-    "screener_reason_summary",
-    "signal_consensus_direction_score",
-    "signal_consensus_direction_label",
-    "signal_dispersion_score",
-    "signal_consensus_confidence_score",
-    "days_since_latest_event",
-    "latest_event_tier",
-    "latest_event_direction",
-    "latest_event_quality_score",
-    "latest_event_dashboard_summary_label",
-    "days_since_latest_confirmed",
-    "latest_confirmed_event_date",
-    "latest_confirmed_event_direction",
-    "latest_confirmed_quality_score",
-    "latest_confirmed_dashboard_summary_label",
-    "bollinger_direction_score",
-    "attention_adjusted_bollinger_score",
-    "macd_family_direction_score",
-    "macd_family_label",
-    "sent_price_macd_joint_slope_label",
-    "rsi_family_state_score",
-    "rsi_family_label",
-    "sent_ribbon_direction_score",
-    "sent_ribbon_label",
-    "attention_participation_score",
-    "attention_confirmation_score",
-    "recent_watch_count_7d",
-    "recent_confirmed_count_7d",
-    "screener_model_version",
-    "screener_generated_at_utc",
-]
-
-
-def select_records(df: pd.DataFrame, fields: list[str], limit: int) -> list[dict[str, Any]]:
-    cols = existing_cols(df, fields)
-    if not cols:
-        return []
-    return [clean_record(r) for r in df[cols].head(limit).to_dict(orient="records")]
-
-
-def sort_priority(df: pd.DataFrame) -> pd.DataFrame:
-    x = df.copy()
-    if "screener_attention_priority_rank" in x.columns:
-        x["_rank_sort"] = pd.to_numeric(x["screener_attention_priority_rank"], errors="coerce")
-        x["_score_sort"] = pd.to_numeric(x.get("screener_attention_priority_score", np.nan), errors="coerce")
-        return x.sort_values(["_rank_sort", "_score_sort", "term"], ascending=[True, False, True], na_position="last")
-    x["_score_sort"] = pd.to_numeric(x.get("screener_attention_priority_score", np.nan), errors="coerce")
-    return x.sort_values(["_score_sort", "term"], ascending=[False, True], na_position="last")
-
-
-def build_bucket(df: pd.DataFrame, bucket: str, limit: int = 25) -> list[dict[str, Any]]:
-    if "screener_action_bucket" not in df.columns:
-        return []
-    sub = df[df["screener_action_bucket"].astype(str).str.lower().eq(bucket.lower())].copy()
-    sub = sort_priority(sub)
-    return select_records(sub, CARD_FIELDS, limit)
-
-
-def build_archetype_bucket(df: pd.DataFrame, archetype_contains: str, limit: int = 25) -> list[dict[str, Any]]:
-    if "primary_archetype" not in df.columns:
-        return []
-    pat = archetype_contains.lower()
-    mask = df["primary_archetype"].astype(str).str.lower().str.contains(pat, na=False)
-    if "secondary_archetype" in df.columns:
-        mask = mask | df["secondary_archetype"].astype(str).str.lower().str.contains(pat, na=False)
-    sub = sort_priority(df[mask].copy())
-    return select_records(sub, CARD_FIELDS, limit)
-
-
-def build_store(source_dir: Path, output_dir: Path, input_filename: str, output_filename: str, limit: int = 25) -> Path:
-    source_dir = Path(source_dir)
-    output_dir = Path(output_dir)
-    input_path = source_dir / input_filename
-    output_path = output_dir / output_filename
-
-    if not input_path.exists():
-        raise FileNotFoundError(f"Missing screener CSV: {input_path}")
-
-    df = pd.read_csv(input_path, low_memory=False)
-    if "term" not in df.columns:
-        raise ValueError("Screener CSV must include a 'term' column.")
-
-    df["term"] = df["term"].astype(str).str.strip().str.upper()
-
-    priority = sort_priority(df)
-
-    bullish = df.copy()
-    if "signal_consensus_direction_score" in bullish.columns:
-        bullish["_dir_score"] = pd.to_numeric(bullish["signal_consensus_direction_score"], errors="coerce")
-        bullish = bullish[bullish["_dir_score"] >= 57.5].sort_values(["_dir_score", "screener_attention_priority_score", "term"], ascending=[False, False, True], na_position="last")
-    else:
-        bullish = bullish.iloc[0:0]
-
-    bearish = df.copy()
-    if "signal_consensus_direction_score" in bearish.columns:
-        bearish["_dir_score"] = pd.to_numeric(bearish["signal_consensus_direction_score"], errors="coerce")
-        bearish = bearish[bearish["_dir_score"] <= 42.5].sort_values(["_dir_score", "screener_attention_priority_score", "term"], ascending=[True, False, True], na_position="last")
-    else:
-        bearish = bearish.iloc[0:0]
-
-    fresh_confirmed = df.copy()
-    if "days_since_latest_confirmed" in fresh_confirmed.columns:
-        fresh_confirmed["_days_conf"] = pd.to_numeric(fresh_confirmed["days_since_latest_confirmed"], errors="coerce")
-        fresh_confirmed = fresh_confirmed[fresh_confirmed["_days_conf"] <= 7]
-        fresh_confirmed = sort_priority(fresh_confirmed)
-    else:
-        fresh_confirmed = fresh_confirmed.iloc[0:0]
-
-    by_term_fields = existing_cols(df, CARD_FIELDS)
-    by_term = {
-        s(row.get("term")): clean_record(row)
-        for row in df[by_term_fields].to_dict(orient="records")
-        if s(row.get("term"))
-    }
-
-    model_version = ""
-    if "screener_model_version" in df.columns and not df["screener_model_version"].dropna().empty:
-        model_version = s(df["screener_model_version"].dropna().iloc[0])
-
-    generated_at = ""
-    if "screener_generated_at_utc" in df.columns and not df["screener_generated_at_utc"].dropna().empty:
-        generated_at = s(df["screener_generated_at_utc"].dropna().iloc[0])
-
-    action_distribution = {}
-    if "screener_action_bucket" in df.columns:
-        action_distribution = {s(k): int(v) for k, v in df["screener_action_bucket"].fillna("Missing").value_counts().to_dict().items()}
-
-    archetype_distribution = {}
-    if "primary_archetype" in df.columns:
-        archetype_distribution = {s(k): int(v) for k, v in df["primary_archetype"].fillna("Missing").value_counts().to_dict().items()}
-
-    payload = {
-        "payload_version": PAYLOAD_VERSION,
-        "model_version": model_version,
-        "screener_generated_at_utc": generated_at,
-        "json_generated_at_utc": datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z"),
-        "source_csv": str(input_path),
-        "record_count": int(len(df)),
-        "sections": {
-            "top_priority": select_records(priority, CARD_FIELDS, limit),
-            "top_bullish": select_records(bullish, CARD_FIELDS, limit),
-            "top_bearish": select_records(bearish, CARD_FIELDS, limit),
-            "fresh_confirmed": select_records(fresh_confirmed, CARD_FIELDS, limit),
-            "fresh_confirmed_bullish": select_records(fresh_confirmed[fresh_confirmed.get("latest_confirmed_event_direction", "").astype(str).str.lower().str.contains("bull", na=False)] if "latest_confirmed_event_direction" in fresh_confirmed.columns else fresh_confirmed.iloc[0:0], CARD_FIELDS, limit),
-            "fresh_confirmed_bearish": select_records(fresh_confirmed[fresh_confirmed.get("latest_confirmed_event_direction", "").astype(str).str.lower().str.contains("bear", na=False)] if "latest_confirmed_event_direction" in fresh_confirmed.columns else fresh_confirmed.iloc[0:0], CARD_FIELDS, limit),
-            "high_attention_conflict": build_bucket(df, "Conflicted / High Dispersion", limit),
-            "high_quality_watch": build_bucket(df, "High-Quality Watch", limit),
-            "consensus_bullish": build_bucket(df, "Consensus Bullish", limit),
-            "consensus_bearish": build_bucket(df, "Consensus Bearish", limit),
-            "watch_cluster_building": build_archetype_bucket(df, "Watch Cluster", limit),
-            "sentiment_repair": build_archetype_bucket(df, "Sentiment Repair", limit),
-            "narrative_deterioration": build_archetype_bucket(df, "Narrative Deterioration", limit),
-            "quiet_neutral": build_archetype_bucket(df, "Quiet Neutral", limit),
-        },
-        "by_term": by_term,
-        "distributions": {
-            "action_bucket": action_distribution,
-            "primary_archetype": archetype_distribution,
-        },
-        "field_notes": {
-            "screener_attention_priority_score": "0-100 review priority; high means inspect first, not necessarily bullish.",
-            "signal_consensus_direction_score": "0 bearish, 50 neutral, 100 bullish.",
-            "screener_reason_summary": "Human-readable explanation assembled from the strongest current reason flags.",
-            "primary_archetype": "Highest-priority matched interpretive setup archetype.",
-        },
-    }
-
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
-
-    print(f"[OK] wrote {output_path}")
-    print(f"[OK] records={len(df)} sections={len(payload['sections'])} by_term={len(by_term)}")
-    print("[OK] top priority:")
-    for rec in payload["sections"]["top_priority"][:10]:
-        print(f"  {rec.get('screener_attention_priority_rank', '')!s:>3} {rec.get('term', ''):<6} {n(rec.get('screener_attention_priority_score'), 0):5.1f} {rec.get('signal_consensus_direction_label', ''):<15} {rec.get('primary_archetype', '')}")
-
-    return output_path
-
-
-def main() -> None:
-    parser = argparse.ArgumentParser(description="Build lightweight Fix26 screener JSON store for website dashboard.")
-    parser.add_argument("--source-dir", default=str(DEFAULT_SOURCE_DIR), help="Directory containing seta_market_screener_365d.csv.")
-    parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR), help="Directory to write fix26_screener_store.json.")
-    parser.add_argument("--input-filename", default=DEFAULT_INPUT_FILENAME, help="Input screener CSV filename.")
-    parser.add_argument("--output-filename", default=DEFAULT_OUTPUT_FILENAME, help="Output JSON filename.")
-    parser.add_argument("--limit", type=int, default=25, help="Number of records per section.")
-    args = parser.parse_args()
-
-    build_store(
-        source_dir=Path(args.source_dir),
-        output_dir=Path(args.output_dir),
-        input_filename=args.input_filename,
-        output_filename=args.output_filename,
-        limit=args.limit,
+def sort_by_priority(records: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    return sorted(
+        records,
+        key=lambda r: (
+            -(num(r, "screener_attention_priority_score", -9999) or -9999),
+            int(num(r, "screener_attention_priority_rank", 999999) or 999999),
+            term_of(r),
+        ),
     )
 
 
+def top_n(records: Iterable[Dict[str, Any]], n: int) -> List[Dict[str, Any]]:
+    return sort_by_priority(records)[:n]
+
+
+def direction(row: Dict[str, Any]) -> str:
+    return (
+        text(row, "archetype_direction")
+        or text(row, "signal_consensus_direction_label")
+        or text(row, "latest_event_direction")
+        or "Mixed"
+    )
+
+
+def primary_archetype(row: Dict[str, Any]) -> str:
+    return text(row, "primary_archetype") or "Monitor"
+
+
+def action_bucket(row: Dict[str, Any]) -> str:
+    return text(row, "screener_action_bucket") or primary_archetype(row)
+
+
+def is_bullish(row: Dict[str, Any]) -> bool:
+    d = direction(row).lower()
+    return "bull" in d and "bear" not in d
+
+
+def is_bearish(row: Dict[str, Any]) -> bool:
+    return "bear" in direction(row).lower()
+
+
+def has_fresh_confirmed(row: Dict[str, Any]) -> bool:
+    if action_bucket(row).lower() == "fresh confirmed event":
+        return True
+    days = num(row, "days_since_latest_confirmed")
+    return days is not None and days <= 7
+
+
+def has_watch_cluster(row: Dict[str, Any]) -> bool:
+    hay = " ".join([primary_archetype(row), text(row, "secondary_archetype")]).lower()
+    if "watch cluster" in hay:
+        return True
+    recent_watch = num(row, "recent_watch_count_7d", 0) or 0
+    recent_confirmed = num(row, "recent_confirmed_count_7d", 0) or 0
+    return recent_watch >= 3 and recent_confirmed == 0
+
+
+def has_narrative_divergence(row: Dict[str, Any]) -> bool:
+    hay = " ".join(
+        [
+            primary_archetype(row),
+            text(row, "secondary_archetype"),
+            text(row, "macd_family_label"),
+            text(row, "sent_price_macd_joint_slope_label"),
+            text(row, "screener_reason_summary"),
+        ]
+    ).lower()
+    return any(
+        phrase in hay
+        for phrase in [
+            "narrative deterioration",
+            "narrative weakening",
+            "sentiment deteriorating",
+            "negative divergence",
+        ]
+    )
+
+
+def has_sentiment_repair(row: Dict[str, Any]) -> bool:
+    hay = " ".join(
+        [
+            primary_archetype(row),
+            text(row, "secondary_archetype"),
+            text(row, "macd_family_label"),
+            text(row, "sent_price_macd_joint_slope_label"),
+        ]
+    ).lower()
+    return "sentiment repair" in hay or "positive divergence" in hay
+
+
+def high_conflict(row: Dict[str, Any]) -> bool:
+    dispersion = num(row, "signal_dispersion_score", 0) or 0
+    return dispersion >= 20 or bool(num(row, "reason_high_dispersion", 0))
+
+
+def quiet_or_monitor(row: Dict[str, Any]) -> bool:
+    hay = " ".join(
+        [
+            primary_archetype(row),
+            text(row, "secondary_archetype"),
+            action_bucket(row),
+            text(row, "screener_reason_summary"),
+        ]
+    ).lower()
+    return "quiet" in hay or "monitor" in hay
+
+
+def build_sections(screener_records: List[Dict[str, Any]], n: int) -> Dict[str, List[Dict[str, Any]]]:
+    return {
+        "top_priority": top_n(screener_records, n),
+        "fresh_confirmed": top_n((r for r in screener_records if has_fresh_confirmed(r)), n),
+        "watch_clusters": top_n((r for r in screener_records if has_watch_cluster(r)), n),
+        "narrative_divergence": top_n((r for r in screener_records if has_narrative_divergence(r)), n),
+        "sentiment_repair": top_n((r for r in screener_records if has_sentiment_repair(r)), n),
+        "bullish_setups": top_n((r for r in screener_records if is_bullish(r)), n),
+        "bearish_setups": top_n((r for r in screener_records if is_bearish(r)), n),
+        "high_conflict": top_n((r for r in screener_records if high_conflict(r)), n),
+        "quiet_monitor": top_n((r for r in screener_records if quiet_or_monitor(r)), n),
+    }
+
+
+def summarize_indicator_families(indicators: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    by_family: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    for row in indicators:
+        by_family[text(row, "indicator_family", "Other")].append(row)
+
+    priority_names = {
+        "Summary": ["signal_consensus_direction_score", "signal_consensus_confidence_score", "signal_dispersion_score"],
+        "Bollinger / Overlap": ["attention_adjusted_bollinger_score", "bollinger_direction_score", "bollinger_confidence_score", "bollinger_watch_cluster_score"],
+        "MACD": ["macd_family_direction_score", "price_macd_direction_score", "sentiment_macd_direction_score", "sent_price_macd_joint_slope_score", "sent_price_macd_crossover_score"],
+        "RSI": ["rsi_family_state_score", "price_rsi_state_score", "sentiment_rsi_state_score", "sent_price_rsi_relationship_score", "stoch_rsi_timing_score"],
+        "Sentiment Ribbon": ["sent_ribbon_direction_score", "sent_ribbon_structure_score", "sent_ribbon_transition_risk_score"],
+        "MA Trend": ["ma_trend_direction_score"],
+        "Attention": ["attention_participation_score", "attention_confirmation_score"],
+    }
+
+    out: List[Dict[str, Any]] = []
+    for fam, rows in by_family.items():
+        preferred = priority_names.get(fam, [])
+        primary = None
+        for name in preferred:
+            primary = next((r for r in rows if text(r, "indicator_name") == name), None)
+            if primary:
+                break
+        if primary is None:
+            primary = sorted(
+                rows,
+                key=lambda r: (
+                    abs(num(r, "contribution_to_consensus", 0) or 0),
+                    abs((num(r, "score_0_100", 50) or 50) - 50),
+                ),
+                reverse=True,
+            )[0]
+
+        top_rows = sorted(
+            rows,
+            key=lambda r: (
+                abs(num(r, "contribution_to_consensus", 0) or 0),
+                abs(num(r, "contribution_to_attention_priority", 0) or 0),
+                abs((num(r, "score_0_100", 50) or 50) - 50),
+            ),
+            reverse=True,
+        )[:5]
+
+        out.append(
+            {
+                "indicator_family": fam,
+                "primary_indicator": text(primary, "indicator_name"),
+                "score_0_100": num(primary, "score_0_100"),
+                "direction_label": text(primary, "direction_label", "n/a"),
+                "strength_label": text(primary, "strength_label", "n/a"),
+                "confidence_label": text(primary, "confidence_label", "n/a"),
+                "interpretation": text(primary, "interpretation"),
+                "top_indicators": top_rows,
+            }
+        )
+
+    family_order = {"Summary": 0, "Bollinger / Overlap": 1, "MACD": 2, "RSI": 3, "Sentiment Ribbon": 4, "MA Trend": 5, "Attention": 6}
+    return sorted(out, key=lambda r: (family_order.get(text(r, "indicator_family"), 99), text(r, "indicator_family")))
+
+
+def compact_screener_record(row: Dict[str, Any]) -> Dict[str, Any]:
+    keep = [
+        "screener_attention_priority_rank", "term", "asset_universe", "primary_sector",
+        "screener_attention_priority_score", "screener_action_bucket", "primary_archetype",
+        "secondary_archetype", "archetype_direction", "archetype_confidence", "archetype_summary",
+        "archetype_risk_note", "screener_reason_summary", "signal_consensus_direction_score",
+        "signal_consensus_direction_label", "signal_dispersion_score", "signal_consensus_confidence_score",
+        "latest_data_date", "latest_close", "latest_event_tier", "latest_event_direction",
+        "latest_event_quality_score", "latest_event_dashboard_summary_label", "latest_confirmed_event_date",
+        "latest_confirmed_event_direction", "latest_confirmed_quality_score",
+        "latest_confirmed_dashboard_summary_label", "days_since_latest_event", "days_since_latest_confirmed",
+        "bollinger_direction_score", "bollinger_confidence_score", "bollinger_watch_cluster_score",
+        "attention_adjusted_bollinger_score", "price_macd_direction_score", "sentiment_macd_direction_score",
+        "sent_price_macd_crossover_score", "sent_price_macd_joint_slope_score",
+        "sent_price_macd_joint_slope_label", "macd_family_direction_score", "macd_family_label",
+        "rsi_family_state_score", "rsi_family_label", "sent_ribbon_direction_score",
+        "sent_ribbon_structure_score", "sent_ribbon_label", "ma_trend_direction_score",
+        "attention_participation_score", "attention_confirmation_score", "recent_watch_count_7d",
+        "recent_confirmed_count_7d", "reason_fresh_confirmed_event", "reason_high_attention",
+        "reason_bollinger_extreme", "reason_macd_improving", "reason_sentiment_momentum",
+        "reason_low_dispersion", "reason_high_dispersion", "reason_stale_event",
+        "reason_conflicted_signals", "matched_conditions", "missing_confirmations", "all_matched_archetypes",
+    ]
+    return {k: row.get(k) for k in keep if k in row}
+
+
+def build_store(source_dir: Path, max_section_rows: int) -> Dict[str, Any]:
+    screener_records = sort_by_priority(read_records(source_dir, SCREENER_BASE))
+    archetype_records = read_records(source_dir, ARCHETYPE_BASE)
+    indicator_records = read_records(source_dir, INDICATOR_BASE)
+
+    archetype_by_term = {term_of(r): r for r in archetype_records if term_of(r)}
+    indicators_by_term: Dict[str, List[Dict[str, Any]]] = defaultdict(list)
+    for row in indicator_records:
+        t = term_of(row)
+        if t:
+            indicators_by_term[t].append(row)
+
+    by_term: Dict[str, Dict[str, Any]] = {}
+    for row in screener_records:
+        t = term_of(row)
+        if not t:
+            continue
+        indicators = indicators_by_term.get(t, [])
+        by_term[t] = {
+            "screener": row,
+            "archetype": archetype_by_term.get(t),
+            "indicator_families": summarize_indicator_families(indicators) if indicators else [],
+            "indicators": indicators,
+        }
+
+    sections_full = build_sections(screener_records, max_section_rows)
+    sections_compact = {key: [compact_screener_record(r) for r in rows] for key, rows in sections_full.items()}
+    latest_dates = sorted({str(r.get("latest_data_date")) for r in screener_records if r.get("latest_data_date")})
+
+    return {
+        "dataset": "fix26_screener_store",
+        "model_version": "phase_g_market_tape_v1",
+        "generated_at_utc": datetime.now(timezone.utc).isoformat(),
+        "source_dir": str(source_dir),
+        "source_files": {
+            "screener": f"{SCREENER_BASE}.json/.csv",
+            "archetypes": f"{ARCHETYPE_BASE}.json/.csv",
+            "indicators": f"{INDICATOR_BASE}.json/.csv",
+        },
+        "row_counts": {
+            "screener": len(screener_records),
+            "archetypes": len(archetype_records),
+            "indicators": len(indicator_records),
+            "terms": len(by_term),
+        },
+        "latest_data_date": latest_dates[-1] if latest_dates else None,
+        "sections": sections_compact,
+        "top_priority": sections_compact["top_priority"],
+        "top_bullish": sections_compact["bullish_setups"],
+        "top_bearish": sections_compact["bearish_setups"],
+        "fresh_confirmed": sections_compact["fresh_confirmed"],
+        "watch_cluster_building": sections_compact["watch_clusters"],
+        "records": [compact_screener_record(r) for r in screener_records],
+        "by_term": by_term,
+    }
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--source-dir", required=True)
+    parser.add_argument("--output-dir", required=True)
+    parser.add_argument("--output-filename", default="fix26_screener_store.json")
+    parser.add_argument("--max-section-rows", type=int, default=12)
+    parser.add_argument("--pretty", action="store_true")
+    args = parser.parse_args()
+
+    source_dir = Path(args.source_dir)
+    output_dir = Path(args.output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    store = build_store(source_dir, max_section_rows=args.max_section_rows)
+    out_path = output_dir / args.output_filename
+    out_path.write_text(
+        json.dumps(store, ensure_ascii=False, indent=2 if args.pretty else None, separators=None if args.pretty else (",", ":")),
+        encoding="utf-8",
+    )
+
+    print(f"[OK] wrote {out_path}")
+    print(f"[OK] records={store['row_counts']['screener']} terms={store['row_counts']['terms']} archetypes={store['row_counts']['archetypes']} indicators={store['row_counts']['indicators']}")
+    print("[OK] top priority:")
+    for row in store["sections"].get("top_priority", [])[:10]:
+        print(f"      {str(row.get('term') or ''):<8} {float(row.get('screener_attention_priority_score') or 0):>6.1f}  {str(row.get('screener_action_bucket') or row.get('primary_archetype') or '')}")
+    return 0
+
+
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
