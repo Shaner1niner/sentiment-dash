@@ -1503,6 +1503,7 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 function escapeHTML(v){
   return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 }
+// phaseG_public_alert_drawer_v1: alert drawer is available in public and member views.
 // Phase C3: right-side alert drawer collapses horizontally and lets chart expand.
 function ensureAlertSidePanel(){
   const chart=document.getElementById('chart');
@@ -1533,6 +1534,10 @@ function ensureAlertSidePanel(){
       .alertPanelPill{border:1px solid #33404a;border-radius:999px;padding:4px 8px;font-size:11px;color:#c5d0d8;background:rgba(255,255,255,.035);}
       .alertEventCard{border:1px solid #25313a;border-radius:12px;padding:9px 9px;margin:8px 0;background:rgba(255,255,255,.025);}
       .alertEventCard.confirmed{border-color:rgba(255,224,120,.38);background:rgba(255,224,120,.045);}
+      .alertEventCard.confirmed.bullish{border-color:rgba(112,232,148,.62);background:linear-gradient(135deg,rgba(112,232,148,.105),rgba(255,255,255,.025));box-shadow:0 0 0 1px rgba(112,232,148,.10) inset,0 0 18px rgba(112,232,148,.10);}
+      .alertEventCard.confirmed.bearish{border-color:rgba(255,128,128,.62);background:linear-gradient(135deg,rgba(255,128,128,.105),rgba(255,255,255,.025));box-shadow:0 0 0 1px rgba(255,128,128,.10) inset,0 0 18px rgba(255,128,128,.10);}
+      .alertEventCard.watch.bullish{border-color:rgba(112,232,148,.30);}
+      .alertEventCard.watch.bearish{border-color:rgba(255,128,128,.30);}
       .alertEventCard.watch{border-color:rgba(140,170,210,.28);}
       .alertEventTop{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;margin-bottom:4px;}
       .alertEventDate{font-size:11px;color:#9fb0ba;white-space:nowrap;}
@@ -1612,7 +1617,7 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
       out.push({idx:i,dateObj:d,date:row.date,term,tier:'Confirmed',type:confirmed.type,quality,meta:confirmed,row});
       continue;
     }
-    if(currentMode()!=='member' || markerPolicy==='off') continue;
+    if(markerPolicy==='off') continue;
     const watch=overlapWatchCandidateMeta(row, overlap, i, rows, term);
     if(!watch.type) continue;
     if(markerPolicy!=='overlay' && !materialWatchForPanel(watch)) continue;
@@ -1629,7 +1634,7 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='context'){
   const panel=ensureAlertSidePanel();
   if(!panel) return;
-  if(currentMode()!=='member') { panel.style.display='none'; return; }
+  // Public and member views both show the alert drawer; mode-specific filtering happens upstream.
   panel.style.display='';
   const events=collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolicy);
   const confirmedCount=events.filter(e=>e.tier==='Confirmed').length;
@@ -1646,11 +1651,12 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
     const tierCls=e.tier==='Confirmed'?'miniConfirmed':'miniWatch';
     const direction=alertDirectionLabel(e.type);
     const directionCls=alertDirectionClass(e.type);
+    const directionCardCls=e.type==='bullish' ? 'bullish' : (e.type==='bearish' ? 'bearish' : 'mixed');
     const attention=row.attention_regime_label || row.seta_attention_context_label || row.attention_regime_score;
     const ribbon=row.sent_ribbon_attention_regime || row.sent_ribbon_regime_raw;
     const close=num(row.close);
     const sourceTier=row.boll_overlap_alert_tier || e.tier;
-    return `<div class="alertEventCard ${e.tier.toLowerCase()}">
+    return `<div class="alertEventCard ${e.tier.toLowerCase()} ${directionCardCls}">
       <div class="alertEventTop"><div class="alertEventTitle"><span class="miniBadge ${tierCls}">${escapeHTML(e.tier)}</span><span class="miniBadge ${directionCls}">${escapeHTML(direction)}</span></div><div class="alertEventDate">${escapeHTML(e.date || '')}</div></div>
       <div class="alertEventMeta">Quality ${escapeHTML(q)} · ${escapeHTML(sourceTier)}${close!==null ? ` · Close ${escapeHTML(close.toFixed(2))}` : ''}</div>
       <div class="alertEventSummary">${escapeHTML(alertSummaryForRow(row, meta, e.tier))}</div>
