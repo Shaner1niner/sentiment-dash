@@ -285,6 +285,8 @@ git add refresh_fix26_dashboard_all.bat
 git add fix26_chart_store_public.json
 git add fix26_chart_store_member.json
 git add fix26_screener_store.json
+if exist scripts\build_fix26_screener_store.py git add scripts\build_fix26_screener_store.py
+REM phase_g_market_tape_v1
 if exist scripts\build_seta_market_screener.py git add scripts\build_seta_market_screener.py
 if exist scripts\build_fix26_screener_store.py git add scripts\build_fix26_screener_store.py
 if exist interactive_dashboard_fix24_public_embed.html git add interactive_dashboard_fix24_public_embed.html

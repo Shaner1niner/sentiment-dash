@@ -1694,6 +1694,132 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
   }
 }
 
+
+// phaseG_market_tape_v1: enhanced screener + archetype + indicator Market Tape UI.
+function mtTerm(row){ return String(row?.term || row?.asset || '').toUpperCase(); }
+function mtScore(row, key, digits=1){ const v=num(row?.[key]); return v===null ? 'n/a' : v.toFixed(digits); }
+function mtScoreNum(row, key, fallback=0){ const v=num(row?.[key]); return v===null ? fallback : v; }
+function mtDirectionClass(label){ const s=String(label || '').toLowerCase(); if(s.includes('bull')) return 'bullish'; if(s.includes('bear')) return 'bearish'; if(s.includes('risk') || s.includes('conflict')) return 'risk'; return 'mixed'; }
+function mtStoreRecords(){ if(!SCREENER_STORE) return []; if(Array.isArray(SCREENER_STORE.records)) return SCREENER_STORE.records; if(Array.isArray(SCREENER_STORE.top_priority)) return SCREENER_STORE.top_priority; return []; }
+function mtByTerm(term){ const t=String(term || '').toUpperCase(); return SCREENER_STORE?.by_term?.[t] || null; }
+function mtSectionRows(section){ if(!SCREENER_STORE) return []; const sections=SCREENER_STORE.sections || {}; if(Array.isArray(sections[section])) return sections[section]; if(Array.isArray(SCREENER_STORE[section])) return SCREENER_STORE[section]; return mtStoreRecords(); }
+function mtAllowedRows(rows){ const allowed=screenerAllowedTerms ? screenerAllowedTerms() : new Set(); return (rows || []).filter(r=>!allowed.size || allowed.has(mtTerm(r))); }
+function mtBestArchetype(row, detail){ return detail?.archetype || row || {}; }
+function mtReason(row, archetype){ return row?.screener_reason_summary || archetype?.archetype_summary || row?.archetype_summary || row?.reason_summary || 'No summary available.'; }
+function mtRisk(archetype, row){ return archetype?.archetype_risk_note || row?.archetype_risk_note || ''; }
+function mtMissing(archetype, row){ return archetype?.missing_confirmations || row?.missing_confirmations || ''; }
+function mtFamilyScoreClass(score, label){ const s=Number(score); const dir=mtDirectionClass(label); if(dir==='bullish') return 'bullish'; if(dir==='bearish') return 'bearish'; if(Number.isFinite(s) && s>=65) return 'bullish'; if(Number.isFinite(s) && s<=35) return 'bearish'; return 'mixed'; }
+function mtEnsureStyle(){
+  if(document.getElementById('phaseGMarketTapeStyle')) return;
+  const style=document.createElement('style');
+  style.id='phaseGMarketTapeStyle';
+  style.textContent=`
+    .screenerPanel.marketTape{margin:10px 0 12px 0;border:1px solid #202a33;border-radius:16px;background:linear-gradient(135deg,rgba(11,13,16,.92),rgba(11,13,16,.68));box-shadow:0 10px 28px rgba(0,0,0,.22);padding:10px 12px;color:#dce7ee;}
+    .marketTapeHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:9px;}
+    .marketTapeTitle h3{font-size:13px;line-height:1.2;margin:0;color:#f2f7fa;letter-spacing:.02em;}
+    .marketTapeSub{font-size:11px;color:#99a8b3;line-height:1.35;margin-top:3px;}
+    .marketTapeTabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+    .marketTapeTab{border:1px solid #33404a;border-radius:999px;background:rgba(255,255,255,.035);color:#cbd8df;font-size:11px;padding:5px 8px;cursor:pointer;}
+    .marketTapeTab.active{border-color:rgba(112,232,148,.55);color:#9df0b5;background:rgba(112,232,148,.07);}
+    .marketTapeCards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:10px;}
+    .marketTapeCard{border:1px solid #26323b;border-radius:13px;padding:8px 9px;background:rgba(255,255,255,.025);cursor:pointer;min-height:92px;transition:border-color .15s ease, background .15s ease, transform .15s ease, box-shadow .15s ease;text-align:left;color:inherit;font-family:inherit;}
+    .marketTapeCard:hover{border-color:#51606c;background:rgba(255,255,255,.045);transform:translateY(-1px);}
+    .marketTapeCard.active{border-color:rgba(112,232,148,.62);box-shadow:0 0 0 1px rgba(112,232,148,.12) inset;}
+    .marketTapeCard.bullish{border-color:rgba(112,232,148,.34);}
+    .marketTapeCard.bearish{border-color:rgba(255,128,128,.34);}
+    .marketTapeCard.risk{border-color:rgba(255,224,120,.38);}
+    .marketTapeCardTop{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:5px;}
+    .marketTapeTerm{font-size:13px;font-weight:850;color:#f2f7fa;letter-spacing:.02em;}
+    .marketTapeScore{font-size:12px;font-weight:850;color:#ffe078;}
+    .marketTapePill{display:inline-block;border:1px solid #35424d;border-radius:999px;padding:2px 6px;font-size:10px;margin:0 4px 4px 0;color:#c9d5dc;background:rgba(255,255,255,.04);}
+    .marketTapePill.bullish{border-color:rgba(112,232,148,.45);color:#9df0b5;}
+    .marketTapePill.bearish{border-color:rgba(255,128,128,.45);color:#ffb8b8;}
+    .marketTapePill.risk{border-color:rgba(255,224,120,.45);color:#ffe078;}
+    .marketTapeReason{font-size:11px;color:#c9d5dc;line-height:1.32;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+    .marketTapeDetail{border:1px solid #26323b;border-radius:13px;padding:9px;background:rgba(255,255,255,.025);}
+    .marketTapeDetailTop{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:10px;align-items:start;}
+    .marketTapeDetailTitle{font-size:12px;font-weight:850;color:#f2f7fa;margin-bottom:4px;}
+    .marketTapeDetailText{font-size:11px;color:#c9d5dc;line-height:1.38;}
+    .marketTapeRisk{margin-top:5px;color:#ffe2a0;}
+    .marketTapeMissing{margin-top:3px;color:#9fb0ba;}
+    .marketTapeFamilyGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
+    .marketTapeFamily{border:1px solid #33404a;border-radius:11px;background:rgba(255,255,255,.028);padding:6px 7px;min-height:54px;cursor:default;}
+    .marketTapeFamily.bullish{border-color:rgba(112,232,148,.34);}
+    .marketTapeFamily.bearish{border-color:rgba(255,128,128,.34);}
+    .marketTapeFamilyName{font-size:10px;color:#9fb0ba;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .marketTapeFamilyScore{font-size:14px;font-weight:850;color:#f2f7fa;margin-top:2px;}
+    .marketTapeFamilyLabel{font-size:10px;color:#c9d5dc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+    .marketTapeEmpty{border:1px dashed #33404a;border-radius:12px;padding:10px;font-size:12px;color:#9fb0ba;}
+    @media (max-width:1250px){.marketTapeCards{grid-template-columns:repeat(3,minmax(0,1fr));}.marketTapeDetailTop{grid-template-columns:1fr;}.marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+    @media (max-width:800px){.marketTapeHeader{display:block}.marketTapeTabs{justify-content:flex-start;margin-top:8px}.marketTapeCards{grid-template-columns:1fr}.marketTapeFamilyGrid{grid-template-columns:1fr;}}
+  `;
+  document.head.appendChild(style);
+}
+function mtSectionTabs(){ return [['top_priority','Top Priority'],['fresh_confirmed','Fresh Confirmed'],['watch_clusters','Watch Clusters'],['narrative_divergence','Narrative Divergence'],['sentiment_repair','Sentiment Repair'],['bullish_setups','Bullish Setups'],['bearish_setups','Bearish Setups'],['high_conflict','High Conflict'],['quiet_monitor','Quiet / Monitor']]; }
+function mtIndicatorFamiliesForTerm(term){ const detail=mtByTerm(term); if(Array.isArray(detail?.indicator_families)) return detail.indicator_families; return []; }
+function mtFallbackFamilies(row){ return [['Bollinger / Overlap','attention_adjusted_bollinger_score',row?.latest_event_direction || row?.latest_confirmed_event_direction || 'Neutral'],['MACD','macd_family_direction_score',row?.macd_family_label || row?.sent_price_macd_joint_slope_label || 'n/a'],['RSI','rsi_family_state_score',row?.rsi_family_label || 'n/a'],['Sentiment Ribbon','sent_ribbon_direction_score',row?.sent_ribbon_label || 'n/a'],['MA Trend','ma_trend_direction_score','Trend'],['Attention','attention_participation_score','Participation']].map(([fam,key,label])=>({indicator_family:fam,score_0_100:mtScoreNum(row,key,null),direction_label:label,strength_label:'',interpretation:''})); }
+function mtRenderFamilyGrid(term, row){
+  let families=mtIndicatorFamiliesForTerm(term);
+  if(!families.length) families=mtFallbackFamilies(row);
+  const keep=new Set(['Summary','Bollinger / Overlap','MACD','RSI','Sentiment Ribbon','MA Trend','Attention']);
+  families=families.filter(f=>keep.has(f.indicator_family)).slice(0,7);
+  return `<div class="marketTapeFamilyGrid">${families.map(f=>{
+    const score=num(f.score_0_100);
+    const scoreTxt=score===null ? 'n/a' : score.toFixed(0);
+    const label=f.direction_label || f.strength_label || '';
+    const cls=mtFamilyScoreClass(score, label);
+    const title=[f.primary_indicator, f.interpretation].filter(Boolean).join(' — ');
+    return `<div class="marketTapeFamily ${cls}" title="${escapeHTML(title)}"><div class="marketTapeFamilyName">${escapeHTML(f.indicator_family || 'Family')}</div><div class="marketTapeFamilyScore">${escapeHTML(scoreTxt)}</div><div class="marketTapeFamilyLabel">${escapeHTML(label)}</div></div>`;
+  }).join('')}</div>`;
+}
+function renderScreenerPanel(activeTerm=null){
+  const panel=ensureScreenerPanel();
+  if(!panel) return;
+  if(!SCREENER_STORE){ panel.innerHTML=''; panel.style.display='none'; return; }
+  mtEnsureStyle();
+  panel.style.display='';
+  panel.className='screenerPanel marketTape';
+
+  const tabs=mtSectionTabs();
+  if(!tabs.some(([key])=>key===SCREENER_SECTION)) SCREENER_SECTION='top_priority';
+
+  const rows=mtAllowedRows(mtSectionRows(SCREENER_SECTION)).slice(0,5);
+  const currentTerm=String(activeTerm || document.getElementById('asset')?.value || mtTerm(rows[0]) || '').toUpperCase();
+  const activeRow=(mtByTerm(currentTerm)?.screener) || rows.find(r=>mtTerm(r)===currentTerm) || rows[0] || {};
+  const activeDetail=mtByTerm(currentTerm);
+  const activeArch=mtBestArchetype(activeRow, activeDetail);
+  const version=SCREENER_STORE.model_version || '';
+  const generated=SCREENER_STORE.latest_data_date || SCREENER_STORE.generated_at_utc || '';
+
+  const tabHtml=tabs.map(([key,label])=>`<button type="button" class="marketTapeTab ${key===SCREENER_SECTION?'active':''}" data-screener-section="${escapeHTML(key)}">${escapeHTML(label)}</button>`).join('');
+  const cardHtml=rows.map((r,idx)=>{
+    const term=mtTerm(r);
+    const dir=r.archetype_direction || r.signal_consensus_direction_label || r.latest_event_direction || 'Mixed';
+    const cls=mtDirectionClass(dir);
+    const active=term===currentTerm;
+    const score=mtScore(r,'screener_attention_priority_score');
+    const bucket=r.screener_action_bucket || r.primary_archetype || 'Monitor';
+    const arch=r.primary_archetype || 'Monitor';
+    const reason=mtReason(r, r);
+    const dispersion=mtScore(r,'signal_dispersion_score',0);
+    return `<button type="button" class="marketTapeCard ${cls} ${active?'active':''}" data-screener-term="${escapeHTML(term)}"><div class="marketTapeCardTop"><span class="marketTapeTerm">#${escapeHTML(r.screener_attention_priority_rank || idx+1)} ${escapeHTML(term)}</span><span class="marketTapeScore">${escapeHTML(score)}</span></div><div><span class="marketTapePill ${cls}">${escapeHTML(dir)}</span><span class="marketTapePill">${escapeHTML(bucket)}</span><span class="marketTapePill">Disp ${escapeHTML(dispersion)}</span></div><div class="marketTapeReason"><b>${escapeHTML(arch)}</b> · ${escapeHTML(reason)}</div></button>`;
+  }).join('');
+
+  const detailDir=activeArch.archetype_direction || activeRow.signal_consensus_direction_label || activeRow.latest_event_direction || 'Mixed';
+  const detailCls=mtDirectionClass(detailDir);
+  const detailTitle=`${currentTerm} · ${activeArch.primary_archetype || activeRow.primary_archetype || 'Monitor'}`;
+  const summary=activeArch.archetype_summary || activeRow.archetype_summary || mtReason(activeRow, activeArch);
+  const risk=mtRisk(activeArch, activeRow);
+  const missing=mtMissing(activeArch, activeRow);
+  const matched=activeArch.matched_conditions || activeRow.matched_conditions || '';
+  const familyGrid=mtRenderFamilyGrid(currentTerm, activeRow);
+
+  panel.innerHTML=`<div class="marketTapeHeader"><div class="marketTapeTitle"><h3>SETA Market Tape</h3><div class="marketTapeSub">Ranked opportunities, setup archetypes, and indicator-family diagnostics. ${version ? `Model ${escapeHTML(version)}. ` : ''}${generated ? `As of ${escapeHTML(generated)}.` : ''}</div></div><div class="marketTapeTabs">${tabHtml}</div></div><div class="marketTapeCards">${cardHtml || '<div class="marketTapeEmpty">No Market Tape rows available for this mode/section.</div>'}</div><div class="marketTapeDetail"><div class="marketTapeDetailTop"><div><div class="marketTapeDetailTitle"><span class="marketTapePill ${detailCls}">${escapeHTML(detailDir)}</span>${escapeHTML(detailTitle)} · Priority ${escapeHTML(mtScore(activeRow,'screener_attention_priority_score'))}</div><div class="marketTapeDetailText">${escapeHTML(summary)}</div>${matched ? `<div class="marketTapeMissing"><b>Matched:</b> ${escapeHTML(matched)}</div>` : ''}${missing ? `<div class="marketTapeMissing"><b>Missing:</b> ${escapeHTML(missing)}</div>` : ''}${risk ? `<div class="marketTapeRisk"><b>Risk:</b> ${escapeHTML(risk)}</div>` : ''}</div><div>${familyGrid}</div></div></div>`;
+
+  panel.querySelectorAll('[data-screener-section]').forEach(btn=>{ btn.onclick=()=>{ SCREENER_SECTION=btn.getAttribute('data-screener-section') || 'top_priority'; renderScreenerPanel(document.getElementById('asset')?.value || null); }; });
+  panel.querySelectorAll('[data-screener-term]').forEach(card=>{ card.onclick=()=>setDashboardAssetFromScreener(card.getAttribute('data-screener-term')); });
+}
+
 function buildFigure(){
   const term=document.getElementById('asset').value, freq=document.getElementById('freq').value, rangePreset=document.getElementById('range').value, priceDisplay=document.getElementById('priceDisplay').value, scaleMode=document.getElementById('scaleMode').value, ribbon=document.getElementById('ribbon').value, sentRibbon=document.getElementById('sentRibbon').value, regimeLayer=document.getElementById('regimeLayer').value, engagement=document.getElementById('engagement').value, bollinger=document.getElementById('bollinger').value, osc=document.getElementById('osc').value;
   const rows=cloneRows(STORE[freq][term]||[]); if(!rows.length) return;
