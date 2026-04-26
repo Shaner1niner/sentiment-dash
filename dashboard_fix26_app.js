@@ -1794,6 +1794,29 @@ function mtRenderFamilyGrid(term, row){
     return `<div class="marketTapeFamily ${cls}" title="${escapeHTML(title)}"><div class="marketTapeFamilyName">${escapeHTML(f.indicator_family || 'Family')}</div><div class="marketTapeFamilyScore">${escapeHTML(scoreTxt)}</div><div class="marketTapeFamilyLabel">${escapeHTML(label)}</div></div>`;
   }).join('')}</div>`;
 }
+
+// phaseG_market_tape_ensure_panel_v1: create the Market Tape host panel if the earlier screener helper is absent.
+function ensureScreenerPanel(){
+  let panel = document.getElementById('screenerPanel');
+  if(panel) return panel;
+
+  const anchor =
+    document.getElementById('assetTitle') ||
+    document.getElementById('regimeBar') ||
+    document.getElementById('summaryLead') ||
+    document.getElementById('chart');
+
+  if(!anchor || !anchor.parentNode) return null;
+
+  panel = document.createElement('section');
+  panel.id = 'screenerPanel';
+  panel.className = 'screenerPanel marketTape';
+
+  // Preferred placement: immediately after the asset title, before the chart grid/drawer.
+  anchor.parentNode.insertBefore(panel, anchor.nextSibling);
+  return panel;
+}
+
 function renderScreenerPanel(activeTerm=null){
   const panel=ensureScreenerPanel();
   if(!panel) return;
