@@ -1761,14 +1761,19 @@ function mtEnsureStyle(){
   style.id='phaseGMarketTapeStyle';
   style.textContent=`
     .screenerPanel.marketTape{margin:10px 0 12px 0;border:1px solid #202a33;border-radius:16px;background:linear-gradient(135deg,rgba(11,13,16,.92),rgba(11,13,16,.68));box-shadow:0 10px 28px rgba(0,0,0,.22);padding:10px 12px;color:#dce7ee;}
-    .marketTapeHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:9px;}
+    .marketTapeHeader{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px;}
+    .marketTapeTopline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+    .marketTapeToggle{border:1px solid #33404a;border-radius:8px;background:rgba(255,255,255,.04);color:#dce7ee;font-size:11px;font-weight:800;width:24px;height:24px;line-height:18px;cursor:pointer;}
+    .screenerPanel.marketTape.collapsed .marketTapeCards,.screenerPanel.marketTape.collapsed .marketTapeDetail{display:none;}
+    .screenerPanel.marketTape.collapsed{padding:8px 10px;margin-bottom:8px;}
+    .screenerPanel.marketTape.collapsed .marketTapeHeader{margin-bottom:0;}
     .marketTapeTitle h3{font-size:13px;line-height:1.2;margin:0;color:#f2f7fa;letter-spacing:.02em;}
     .marketTapeSub{font-size:11px;color:#99a8b3;line-height:1.35;margin-top:3px;}
     .marketTapeTabs{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
     .marketTapeTab{border:1px solid #33404a;border-radius:999px;background:rgba(255,255,255,.035);color:#cbd8df;font-size:11px;padding:5px 8px;cursor:pointer;}
     .marketTapeTab.active{border-color:rgba(112,232,148,.55);color:#9df0b5;background:rgba(112,232,148,.07);}
-    .marketTapeCards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-bottom:10px;}
-    .marketTapeCard{border:1px solid #26323b;border-radius:13px;padding:8px 9px;background:rgba(255,255,255,.025);cursor:pointer;min-height:92px;transition:border-color .15s ease, background .15s ease, transform .15s ease, box-shadow .15s ease;text-align:left;color:inherit;font-family:inherit;}
+    .marketTapeCards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-bottom:8px;}
+    .marketTapeCard{border:1px solid #26323b;border-radius:13px;padding:7px 8px;background:rgba(255,255,255,.025);cursor:pointer;min-height:78px;transition:border-color .15s ease, background .15s ease, transform .15s ease, box-shadow .15s ease;text-align:left;color:inherit;font-family:inherit;}
     .marketTapeCard:hover{border-color:#51606c;background:rgba(255,255,255,.045);transform:translateY(-1px);}
     .marketTapeCard.active{border-color:rgba(112,232,148,.62);box-shadow:0 0 0 1px rgba(112,232,148,.12) inset;}
     .marketTapeCard.bullish{border-color:rgba(112,232,148,.34);}
@@ -1781,19 +1786,19 @@ function mtEnsureStyle(){
     .marketTapePill.bullish{border-color:rgba(112,232,148,.45);color:#9df0b5;}
     .marketTapePill.bearish{border-color:rgba(255,128,128,.45);color:#ffb8b8;}
     .marketTapePill.risk{border-color:rgba(255,224,120,.45);color:#ffe078;}
-    .marketTapeReason{font-size:11px;color:#c9d5dc;line-height:1.32;margin-top:3px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-    .marketTapeDetail{border:1px solid #26323b;border-radius:13px;padding:9px;background:rgba(255,255,255,.025);}
+    .marketTapeReason{font-size:10.5px;color:#c9d5dc;line-height:1.28;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+    .marketTapeDetail{border:1px solid #26323b;border-radius:13px;padding:8px 9px;background:rgba(255,255,255,.025);}
     .marketTapeDetailTop{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:10px;align-items:start;}
     .marketTapeDetailTitle{font-size:12px;font-weight:850;color:#f2f7fa;margin-bottom:4px;}
     .marketTapeDetailText{font-size:11px;color:#c9d5dc;line-height:1.38;}
     .marketTapeRisk{margin-top:5px;color:#ffe2a0;}
     .marketTapeMissing{margin-top:3px;color:#9fb0ba;}
     .marketTapeFamilyGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
-    .marketTapeFamily{border:1px solid #33404a;border-radius:11px;background:rgba(255,255,255,.028);padding:6px 7px;min-height:54px;cursor:default;}
+    .marketTapeFamily{border:1px solid #33404a;border-radius:11px;background:rgba(255,255,255,.028);padding:5px 7px;min-height:48px;cursor:default;}
     .marketTapeFamily.bullish{border-color:rgba(112,232,148,.34);}
     .marketTapeFamily.bearish{border-color:rgba(255,128,128,.34);}
     .marketTapeFamilyName{font-size:10px;color:#9fb0ba;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-    .marketTapeFamilyScore{font-size:14px;font-weight:850;color:#f2f7fa;margin-top:2px;}
+    .marketTapeFamilyScore{font-size:13px;font-weight:850;color:#f2f7fa;margin-top:1px;}
     .marketTapeFamilyLabel{font-size:10px;color:#c9d5dc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
     .marketTapeEmpty{border:1px dashed #33404a;border-radius:12px;padding:10px;font-size:12px;color:#9fb0ba;}
     @media (max-width:1250px){.marketTapeCards{grid-template-columns:repeat(3,minmax(0,1fr));}.marketTapeDetailTop{grid-template-columns:1fr;}.marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr));}}
@@ -1837,7 +1842,19 @@ function ensureScreenerPanel(){
   panel.className = 'screenerPanel marketTape';
 
   // Preferred placement: immediately after the asset title, before the chart grid/drawer.
-  anchor.parentNode.insertBefore(panel, anchor.nextSibling);
+  // phaseG_market_tape_polish_v1: place Market Tape as a full-width selection layer above chart context.
+  const preferredAfter =
+    document.querySelector('.controls') ||
+    document.querySelector('.controlGrid') ||
+    document.getElementById('summaryLead') ||
+    document.getElementById('assetTitle') ||
+    anchor;
+
+  if(preferredAfter && preferredAfter.parentNode){
+    preferredAfter.parentNode.insertBefore(panel, preferredAfter.nextSibling);
+  } else {
+    anchor.parentNode.insertBefore(panel, anchor.nextSibling);
+  }
   return panel;
 }
 
@@ -1871,7 +1888,7 @@ function renderScreenerPanel(activeTerm=null){
     const arch=r.primary_archetype || 'Monitor';
     const reason=mtReason(r, r);
     const dispersion=mtScore(r,'signal_dispersion_score',0);
-    return `<button type="button" class="marketTapeCard ${cls} ${active?'active':''}" data-screener-term="${escapeHTML(term)}"><div class="marketTapeCardTop"><span class="marketTapeTerm">#${escapeHTML(r.screener_attention_priority_rank || idx+1)} ${escapeHTML(term)}</span><span class="marketTapeScore">${escapeHTML(score)}</span></div><div><span class="marketTapePill ${cls}">${escapeHTML(dir)}</span><span class="marketTapePill">${escapeHTML(bucket)}</span><span class="marketTapePill">Disp ${escapeHTML(dispersion)}</span></div><div class="marketTapeReason"><b>${escapeHTML(arch)}</b> · ${escapeHTML(reason)}</div></button>`;
+    return `<button type="button" class="marketTapeCard ${cls} ${active?'active':''}" data-screener-term="${escapeHTML(term)}"><div class="marketTapeCardTop"><span class="marketTapeTerm">#${escapeHTML(r.screener_attention_priority_rank || idx+1)} ${escapeHTML(term)}</span><span class="marketTapeScore">${escapeHTML(score)}</span></div><div><span class="marketTapePill ${cls}">${escapeHTML(dir)}</span><span class="marketTapePill">${escapeHTML(bucket)}</span><span class="marketTapePill">Conflict ${escapeHTML(dispersion)}</span></div><div class="marketTapeReason"><b>${escapeHTML(arch)}</b> · ${escapeHTML(reason)}</div></button>`;
   }).join('');
 
   const detailDir=activeArch.archetype_direction || activeRow.signal_consensus_direction_label || activeRow.latest_event_direction || 'Mixed';
@@ -1883,10 +1900,27 @@ function renderScreenerPanel(activeTerm=null){
   const matched=activeArch.matched_conditions || activeRow.matched_conditions || '';
   const familyGrid=mtRenderFamilyGrid(currentTerm, activeRow);
 
-  panel.innerHTML=`<div class="marketTapeHeader"><div class="marketTapeTitle"><h3>SETA Market Tape</h3><div class="marketTapeSub">Ranked opportunities, setup archetypes, and indicator-family diagnostics. ${version ? `Model ${escapeHTML(version)}. ` : ''}${generated ? `As of ${escapeHTML(generated)}.` : ''}</div></div><div class="marketTapeTabs">${tabHtml}</div></div><div class="marketTapeCards">${cardHtml || '<div class="marketTapeEmpty">No Market Tape rows available for this mode/section.</div>'}</div><div class="marketTapeDetail"><div class="marketTapeDetailTop"><div><div class="marketTapeDetailTitle"><span class="marketTapePill ${detailCls}">${escapeHTML(detailDir)}</span>${escapeHTML(detailTitle)} · Priority ${escapeHTML(mtScore(activeRow,'screener_attention_priority_score'))}</div><div class="marketTapeDetailText">${escapeHTML(summary)}</div>${matched ? `<div class="marketTapeMissing"><b>Matched:</b> ${escapeHTML(matched)}</div>` : ''}${missing ? `<div class="marketTapeMissing"><b>Missing:</b> ${escapeHTML(missing)}</div>` : ''}${risk ? `<div class="marketTapeRisk"><b>Risk:</b> ${escapeHTML(risk)}</div>` : ''}</div><div>${familyGrid}</div></div></div>`;
+  panel.innerHTML=`<div class="marketTapeHeader"><div class="marketTapeTitle"><div class="marketTapeTopline"><button type="button" class="marketTapeToggle" id="marketTapeToggle" title="Collapse / expand Market Tape">−</button><h3>SETA Market Tape · Active ${escapeHTML(currentTerm || 'n/a')}</h3></div><div class="marketTapeSub">Ranked opportunities, setup archetypes, and indicator-family diagnostics. ${version ? `Model ${escapeHTML(version)}. ` : ''}${generated ? `As of ${escapeHTML(generated)}.` : ''}</div></div><div class="marketTapeTabs">${tabHtml}</div></div><div class="marketTapeCards">${cardHtml || '<div class="marketTapeEmpty">No Market Tape rows available for this mode/section.</div>'}</div><div class="marketTapeDetail"><div class="marketTapeDetailTop"><div><div class="marketTapeDetailTitle"><span class="marketTapePill ${detailCls}">${escapeHTML(detailDir)}</span>${escapeHTML(detailTitle)} · Priority ${escapeHTML(mtScore(activeRow,'screener_attention_priority_score'))}</div><div class="marketTapeDetailText">${escapeHTML(summary)}</div>${matched ? `<div class="marketTapeMissing"><b>Matched:</b> ${escapeHTML(matched)}</div>` : ''}${missing ? `<div class="marketTapeMissing"><b>Missing:</b> ${escapeHTML(missing)}</div>` : ''}${risk ? `<div class="marketTapeRisk"><b>Risk:</b> ${escapeHTML(risk)}</div>` : ''}</div><div>${familyGrid}</div></div></div>`;
 
   panel.querySelectorAll('[data-screener-section]').forEach(btn=>{ btn.onclick=()=>{ SCREENER_SECTION=btn.getAttribute('data-screener-section') || 'top_priority'; renderScreenerPanel(document.getElementById('asset')?.value || null); }; });
   panel.querySelectorAll('[data-screener-term]').forEach(card=>{ card.onclick=()=>setDashboardAssetFromScreener(card.getAttribute('data-screener-term')); });
+  const collapsedKey='setaMarketTapeCollapsed';
+  const savedCollapsed = window.localStorage ? window.localStorage.getItem(collapsedKey) : null;
+  const shouldCollapse = savedCollapsed === 'true';
+  const toggle = panel.querySelector('#marketTapeToggle');
+  const applyMarketTapeCollapsed = (collapsed) => {
+    panel.classList.toggle('collapsed', collapsed);
+    if(toggle) toggle.textContent = collapsed ? '+' : '−';
+    if(window.localStorage) window.localStorage.setItem(collapsedKey, String(collapsed));
+  };
+  applyMarketTapeCollapsed(shouldCollapse);
+  if(toggle){
+    toggle.onclick = (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      applyMarketTapeCollapsed(!panel.classList.contains('collapsed'));
+    };
+  }
 }
 
 function buildFigure(){
