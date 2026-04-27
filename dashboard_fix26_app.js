@@ -2290,6 +2290,139 @@ async function initDashboard(){
 }
 initDashboard();
 
+
+// BEGIN phaseG_market_tape_metric_deck_v6
+(function phaseG_market_tape_metric_deck_v6(){
+  if(window.__phaseG_market_tape_metric_deck_v6) return;
+  window.__phaseG_market_tape_metric_deck_v6 = true;
+
+  const css = `
+/* phaseG_market_tape_metric_deck_v6_style */
+.marketTapeDetail{grid-template-columns:minmax(360px,1.05fr) minmax(520px,1.45fr)!important;gap:10px!important;}
+.marketTapeFamilyGrid{display:grid!important;grid-template-columns:1.1fr repeat(3,minmax(92px,1fr))!important;grid-template-rows:repeat(2,minmax(58px,auto))!important;gap:7px!important;align-content:start!important;min-height:126px!important;}
+.marketTapeFamily{min-height:58px!important;padding:8px 9px!important;border-radius:11px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;overflow:hidden!important;}
+.marketTapeFamily:first-child{grid-column:1!important;grid-row:1 / span 2!important;min-height:123px!important;border-color:rgba(250,204,21,.55)!important;background:linear-gradient(180deg,rgba(250,204,21,.09),rgba(255,255,255,.035))!important;box-shadow:0 0 0 1px rgba(250,204,21,.09)!important;}
+.marketTapeFamily:first-child .marketTapeFamilyName{font-size:11px!important;}
+.marketTapeFamily:first-child .marketTapeFamilyScore{font-size:22px!important;color:#facc15!important;}
+.marketTapeFamily:first-child .marketTapeFamilyLabel{font-size:11px!important;white-space:normal!important;}
+.marketTapeFamilyName{font-size:10.4px!important;line-height:1.08!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;color:#afc0c8!important;}
+.marketTapeFamilyScore{font-size:17px!important;line-height:1!important;font-weight:900!important;margin:3px 0 2px!important;}
+.marketTapeFamilyLabel{font-size:10.4px!important;line-height:1.08!important;white-space:normal!important;overflow:hidden!important;display:-webkit-box!important;-webkit-line-clamp:2!important;-webkit-box-orient:vertical!important;}
+@media (max-width:1220px){.marketTapeDetail{grid-template-columns:1fr!important}.marketTapeFamilyGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-template-rows:auto!important}.marketTapeFamily:first-child{grid-column:span 1!important;grid-row:auto!important;min-height:58px!important}}
+@media (max-width:760px){.marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+`;
+
+  function installStyle(){
+    let style = document.getElementById('phaseG_market_tape_metric_deck_v6_style');
+    if(!style){
+      style = document.createElement('style');
+      style.id = 'phaseG_market_tape_metric_deck_v6_style';
+      document.head.appendChild(style);
+    }
+    style.textContent = css;
+  }
+
+  function norm(v){ return String(v == null ? '' : v).trim(); }
+  function asScore(v){
+    if(v == null || v === '') return '';
+    const n = Number(v);
+    if(Number.isFinite(n)) return String(Math.round(n));
+    return String(v);
+  }
+  function escapeMini(s){
+    return String(s == null ? '' : s).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  }
+  function activeTerm(){
+    const sel = document.getElementById('asset');
+    if(sel && sel.value) return String(sel.value).toUpperCase();
+    const h = document.querySelector('.marketTapeTitle h3');
+    const m = h && h.textContent.match(/Active\s+([A-Z0-9.\-]+)/i);
+    return m ? m[1].toUpperCase() : '';
+  }
+  function activeRecord(){
+    const t = activeTerm();
+    const store = window.SCREENER_STORE || {};
+    const byTerm = store.by_term || {};
+    return byTerm[t] || byTerm[t.toUpperCase()] || byTerm[t.toLowerCase()] || null;
+  }
+  function collectObjects(obj, out=[], depth=0){
+    if(!obj || depth > 5) return out;
+    if(Array.isArray(obj)){
+      obj.forEach(x => collectObjects(x, out, depth + 1));
+    }else if(typeof obj === 'object'){
+      out.push(obj);
+      Object.keys(obj).forEach(k => collectObjects(obj[k], out, depth + 1));
+    }
+    return out;
+  }
+  function firstValue(obj, keys){
+    if(!obj) return '';
+    for(const k of keys){
+      if(obj[k] !== undefined && obj[k] !== null && String(obj[k]).trim() !== '') return obj[k];
+    }
+    return '';
+  }
+  function deepFirst(obj, keys){
+    const objects = collectObjects(obj, [], 0);
+    for(const o of objects){
+      const v = firstValue(o, keys);
+      if(v !== '') return v;
+    }
+    return '';
+  }
+  function findFamilyMetric(rec, def){
+    const objs = collectObjects(rec, [], 0);
+    let best = null;
+    for(const o of objs){
+      const hay = [o.family, o.family_name, o.indicator_family, o.name, o.label, o.metric, o.key, o.title].map(norm).join(' ').toLowerCase();
+      if(def.tokens.some(tok => hay.includes(tok))){ best = o; break; }
+    }
+    const score = best ? firstValue(best, ['score','family_score','direction_score','state_score','value','metric_score']) : '';
+    const label = best ? firstValue(best, ['state_label','family_label','direction_label','label','classification','bias','regime']) : '';
+    return {
+      name: def.name,
+      score: asScore(score || deepFirst(rec, def.scoreKeys)),
+      label: norm(label || deepFirst(rec, def.labelKeys) || def.fallbackLabel)
+    };
+  }
+  function metricHtml(m){
+    if(!m.score && !m.label) return '';
+    return `<div class="marketTapeFamily marketTapeFamilyV6" data-mt-v6="${escapeMini(m.name)}"><div class="marketTapeFamilyName">${escapeMini(m.name)}</div><div class="marketTapeFamilyScore">${escapeMini(m.score || 'n/a')}</div><div class="marketTapeFamilyLabel">${escapeMini(m.label || '')}</div></div>`;
+  }
+  function ensureMetricDeck(){
+    installStyle();
+    const grid = document.querySelector('.marketTapeDetail .marketTapeFamilyGrid');
+    if(!grid) return;
+    const rec = activeRecord();
+    if(!rec) return;
+
+    const existingText = Array.from(grid.querySelectorAll('.marketTapeFamilyName')).map(el => el.textContent.trim().toLowerCase()).join(' | ');
+    const defs = [
+      {name:'Bollinger', tokens:['bollinger','overlap'], scoreKeys:['attention_adjusted_bollinger_score','bollinger_direction_score','bollinger_score','overlap_score'], labelKeys:['bollinger_direction_label','overlap_state','overlap_state_label','bollinger_label'], fallbackLabel:'Overlap'},
+      {name:'Ribbon', tokens:['ribbon'], scoreKeys:['sent_ribbon_direction_score','sent_ribbon_score','sentiment_ribbon_score'], labelKeys:['sent_ribbon_label','sentiment_ribbon_label','ribbon_label'], fallbackLabel:'Sentiment'},
+      {name:'Trend', tokens:['trend','ma trend','moving average','ma family'], scoreKeys:['ma_family_direction_score','ma_trend_score','trend_score','ma_score'], labelKeys:['ma_family_label','ma_trend_label','trend_label'], fallbackLabel:'MA Trend'},
+    ];
+    defs.forEach(def => {
+      const key = def.name.toLowerCase();
+      if(existingText.includes(key)) return;
+      const m = findFamilyMetric(rec, def);
+      const html = metricHtml(m);
+      if(html) grid.insertAdjacentHTML('beforeend', html);
+    });
+  }
+
+  const observer = new MutationObserver(() => ensureMetricDeck());
+  function start(){
+    installStyle();
+    ensureMetricDeck();
+    if(document.body) observer.observe(document.body, {childList:true, subtree:true});
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+// END phaseG_market_tape_metric_deck_v6
+
+
 // BEGIN phaseG_market_tape_layout_v5
 (function phaseG_market_tape_layout_v5() {
   if (typeof document === "undefined") return;
