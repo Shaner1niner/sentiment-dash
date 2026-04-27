@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-04-27T22:57:33.250217+00:00",
+  "package_name": "seta_agent_reference_pack",
+  "purpose": "Machine-readable reference bundle for an AI agent that explains SETA Market Screener data while crafting social media replies on Bluesky, X, Reddit, or similar platforms.",
+  "agent_files": [
+    "agent_reference/seta_agent_reference.json",
+    "agent_reference/seta_metric_dictionary.json",
+    "agent_reference/seta_archetype_dictionary.json",
+    "agent_reference/seta_indicator_family_dictionary.json",
+    "agent_reference/seta_reply_guidance.md",
+    "agent_reference/seta_reply_examples.jsonl"
+  ],
+  "human_source_files": [
+    "docs/SETA_Screener_Output_Glossary.xlsx",
+    "docs/SETA_Screener_All_Column_Descriptions.csv",
+    "docs/SETA_Score_Glossary.csv",
+    "docs/SETA_Archetype_Glossary.csv",
+    "docs/SETA_Indicator_Family_Glossary.csv"
+  ],
+  "recommended_repo_location": "agent_reference/",
+  "install_note": "Commit the agent_reference folder to sentiment-dash or the reply-agent repository. Keep docs/ for human review and audit."
+}

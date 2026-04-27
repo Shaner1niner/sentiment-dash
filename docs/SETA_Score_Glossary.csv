@@ -1,0 +1,13 @@
+term,definition,where_used,caution
+0-100 direction score,"A neutral-centered directional score where 50 is neutral/mixed, >50 bullish/positive, <50 bearish/negative.","Used for Bollinger, MACD, RSI, ribbon, MA trend and consensus families.",Do not treat higher as always better without checking direction context.
+Signed score,"A centered score where 0 is neutral, positive is bullish, negative is bearish.",Used when calculating consensus from family deviations from neutral.,Range may be approximate depending on available inputs.
+Attention priority score,"A triage score for review urgency, not directional bullishness.",Used to rank assets in the screener.,Always pair with signal_consensus_direction_label.
+Confidence score,A score for reliability/clarity of a signal family or archetype.,Used to separate clean from noisy setups.,High confidence does not guarantee outcome.
+Dispersion score,A disagreement measure across signal families.,Low dispersion means families agree; high dispersion means conflict.,"High priority plus high dispersion may still be worth review, but needs caution."
+Recency decay,A multiplier that fades event-driven pressure back toward neutral over time.,Used in Bollinger and crossover scores.,A stale event can remain visible but should not dominate.
+Watch cluster score,Incremental pressure from repeated recent watch candidates.,Used in Bollinger/overlap interpretation.,"Watch clusters are developmental, not confirmed."
+Z-score,A standardized relationship measure used only for SETA relationship scoring.,Used for sentiment-price spread normalization in MACD/RSI relationship logic.,Not intended to replace public comparable raw price indicators.
+Spread,Difference between sentiment and price versions of an indicator after appropriate scaling/normalization.,Used to capture sentiment leading/lagging price.,Interpret with slope and crossover for best context.
+Slope,Change in an indicator or spread over time.,Used to capture improvement/deterioration and joint slope labels.,Can be noisy on short windows.
+Crossover score,Neutral-centered event score for a fresh bullish/bearish crossover.,Used for sentiment MACD signal crossing price MACD signal.,Event impact fades toward 50.
+Archetype,Rule-based setup classification derived from combinations of indicator states.,Used for readable summaries and risk notes.,"Archetypes are descriptive diagnostics, not trade instructions."

@@ -1,0 +1,8 @@
+indicator_family,definition,key_columns,interpretation_notes
+Bollinger / Overlap,Tracks price relative to active price-sentiment overlap bands and alert/event states.,"bollinger_direction_score, bollinger_confidence_score, watch/confirmed counts",50 neutral; confirmed/watch events move score away from 50; fades with recency.
+MACD,Sentiment-enhanced MACD model combining classical price MACD and sentiment MACD relationship logic.,"price_macd_direction_score, sentiment_macd_direction_score, sent_price_macd_* fields",Raw price MACD stays public-comparable; relationship scores are SETA-specific.
+RSI / Stoch RSI,"State/timing model using price RSI, sentiment RSI, their relationship and stochastic timing.","price_rsi_state_score, sentiment_rsi_state_score, sent_price_rsi_relationship_score, stoch_rsi_timing_score",Separates direction/repair/exhaustion rather than one simplistic RSI score.
+Sentiment Ribbon,"Sentiment moving-average stack, slope and structure model.","sent_ribbon_direction_score, sent_ribbon_structure_score, sent_ribbon_label","Splits direction from structure so a ribbon can be bearish but clean, or bullish but unstable."
+MA Trend,Trend structure from price and sentiment moving average ladders.,ma_trend_direction_score,Above 50 bullish stacking; below 50 bearish/mixed stacking.
+Attention,Participation and attention confirmation layer.,"attention_participation_score, attention_confirmation_score",Confirms or discounts directional setups without replacing pure signal scores.
+Summary / Consensus,"Combines families into direction, confidence, dispersion, archetypes and priority.","signal_consensus_direction_score, signal_dispersion_score, screener_attention_priority_score","Priority is review urgency, not bullishness."

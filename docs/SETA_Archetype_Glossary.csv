@@ -1,0 +1,14 @@
+archetype,direction,definition,recommended_use,caution
+Fresh Bullish Reversal,Bullish,Fresh confirmed bullish overlap event with supportive or improving technical/attention evidence.,Review as a potential bullish reversal or mean-reversion setup.,Needs price follow-through and should be checked against trend context.
+Fresh Bearish Fade,Bearish,Fresh confirmed bearish overlap event with supportive momentum/attention evidence.,Review as potential bearish pressure or fade setup.,Can be countertrend if broader trend remains strong.
+Sentiment Repair Ahead of Price,Bullish / Early,"Sentiment momentum improves before price fully confirms, often via MACD/RSI relationship repair.",Useful as early-warning repair signal.,Needs price confirmation; early signals can fail.
+Narrative Deterioration Despite Price Strength,Bearish / Divergent,Price remains constructive while sentiment momentum or relationship measures weaken.,Useful for spotting weakening participation/narrative beneath price strength.,May persist during strong price trends.
+Clean Bullish Consensus,Bullish,Multiple signal families agree bullish with low dispersion.,High quality bullish consensus state.,Can still be extended; check RSI/exhaustion.
+Clean Bearish Consensus,Bearish,Multiple signal families agree bearish with low dispersion.,High quality bearish consensus state.,Can be late if oversold or event is stale.
+High-Attention Conflict,Mixed,Attention is elevated while signal families disagree or dispersion is high.,Review because the market is active but direction is unresolved.,High noise; avoid over-reading a single family.
+Watch Cluster Building,Mixed / Developing,Multiple watch candidates are appearing without full confirmation.,Track as developing pressure.,Watch is not confirmed; look for volume/volatility confirmation.
+Overextended / Exhaustion Risk,Risk,Momentum or RSI is strong but potentially stretched/crowded.,Use to flag risk of exhaustion or reversal.,Not necessarily bearish by itself; strong trends can stay extended.
+Stale Confirmed Event,Stale / Mixed,A confirmed event exists but is no longer fresh.,Keep in history but discount current priority.,Recency decay should reduce influence.
+Compression Coil,Neutral / Pending,"Overlap/ribbon or volatility structure is compressed, suggesting potential energy build-up.",Track for breakout/expansion.,Direction not established by compression alone.
+Quiet Neutral,Neutral,"Few recent events, low priority, neutral/mixed signals.",Usually safe to ignore until something changes.,May miss slow-building setups with low attention.
+Monitor,Mixed,Moderate priority or incomplete evidence; worth monitoring but not urgent.,Use as a watchlist middle state.,Review missing_confirmations before acting.

@@ -1,0 +1,109 @@
+{
+  "schema_version": "1.0.0",
+  "archetypes": {
+    "fresh_bullish_reversal": {
+      "plain_name": "Fresh Bullish Reversal",
+      "direction": "Bullish",
+      "definition": "Fresh confirmed bullish overlap event with supportive or improving technical/attention evidence.",
+      "recommended_use": "Review as a potential bullish reversal or mean-reversion setup.",
+      "caution": "Needs price follow-through and should be checked against trend context.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "fresh_bearish_fade": {
+      "plain_name": "Fresh Bearish Fade",
+      "direction": "Bearish",
+      "definition": "Fresh confirmed bearish overlap event with supportive momentum/attention evidence.",
+      "recommended_use": "Review as potential bearish pressure or fade setup.",
+      "caution": "Can be countertrend if broader trend remains strong.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "sentiment_repair_ahead_of_price": {
+      "plain_name": "Sentiment Repair Ahead of Price",
+      "direction": "Bullish / Early",
+      "definition": "Sentiment momentum improves before price fully confirms, often via MACD/RSI relationship repair.",
+      "recommended_use": "Useful as early-warning repair signal.",
+      "caution": "Needs price confirmation; early signals can fail.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "narrative_deterioration_despite_price_strength": {
+      "plain_name": "Narrative Deterioration Despite Price Strength",
+      "direction": "Bearish / Divergent",
+      "definition": "Price remains constructive while sentiment momentum or relationship measures weaken.",
+      "recommended_use": "Useful for spotting weakening participation/narrative beneath price strength.",
+      "caution": "May persist during strong price trends.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "clean_bullish_consensus": {
+      "plain_name": "Clean Bullish Consensus",
+      "direction": "Bullish",
+      "definition": "Multiple signal families agree bullish with low dispersion.",
+      "recommended_use": "High quality bullish consensus state.",
+      "caution": "Can still be extended; check RSI/exhaustion.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "clean_bearish_consensus": {
+      "plain_name": "Clean Bearish Consensus",
+      "direction": "Bearish",
+      "definition": "Multiple signal families agree bearish with low dispersion.",
+      "recommended_use": "High quality bearish consensus state.",
+      "caution": "Can be late if oversold or event is stale.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "high_attention_conflict": {
+      "plain_name": "High-Attention Conflict",
+      "direction": "Mixed",
+      "definition": "Attention is elevated while signal families disagree or dispersion is high.",
+      "recommended_use": "Review because the market is active but direction is unresolved.",
+      "caution": "High noise; avoid over-reading a single family.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "watch_cluster_building": {
+      "plain_name": "Watch Cluster Building",
+      "direction": "Mixed / Developing",
+      "definition": "Multiple watch candidates are appearing without full confirmation.",
+      "recommended_use": "Track as developing pressure.",
+      "caution": "Watch is not confirmed; look for volume/volatility confirmation.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "overextended__exhaustion_risk": {
+      "plain_name": "Overextended / Exhaustion Risk",
+      "direction": "Risk",
+      "definition": "Momentum or RSI is strong but potentially stretched/crowded.",
+      "recommended_use": "Use to flag risk of exhaustion or reversal.",
+      "caution": "Not necessarily bearish by itself; strong trends can stay extended.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "stale_confirmed_event": {
+      "plain_name": "Stale Confirmed Event",
+      "direction": "Stale / Mixed",
+      "definition": "A confirmed event exists but is no longer fresh.",
+      "recommended_use": "Keep in history but discount current priority.",
+      "caution": "Recency decay should reduce influence.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "compression_coil": {
+      "plain_name": "Compression Coil",
+      "direction": "Neutral / Pending",
+      "definition": "Overlap/ribbon or volatility structure is compressed, suggesting potential energy build-up.",
+      "recommended_use": "Track for breakout/expansion.",
+      "caution": "Direction not established by compression alone.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "quiet_neutral": {
+      "plain_name": "Quiet Neutral",
+      "direction": "Neutral",
+      "definition": "Few recent events, low priority, neutral/mixed signals.",
+      "recommended_use": "Usually safe to ignore until something changes.",
+      "caution": "May miss slow-building setups with low attention.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    },
+    "monitor": {
+      "plain_name": "Monitor",
+      "direction": "Mixed",
+      "definition": "Moderate priority or incomplete evidence; worth monitoring but not urgent.",
+      "recommended_use": "Use as a watchlist middle state.",
+      "caution": "Review missing_confirmations before acting.",
+      "reply_guidance": "Use the archetype to frame why the asset is being discussed. Pair it with at least one score family and a caveat when signals are mixed."
+    }
+  }
+}

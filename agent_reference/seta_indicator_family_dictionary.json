@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0.0",
+  "indicator_families": {
+    "bollinger__overlap": {
+      "plain_name": "Bollinger / Overlap",
+      "definition": "Tracks price relative to active price-sentiment overlap bands and alert/event states.",
+      "key_columns": [
+        "bollinger_direction_score",
+        "bollinger_confidence_score",
+        "watch/confirmed counts"
+      ],
+      "interpretation_notes": "50 neutral; confirmed/watch events move score away from 50; fades with recency.",
+      "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant."
+    },
+    "macd": {
+      "plain_name": "MACD",
+      "definition": "Sentiment-enhanced MACD model combining classical price MACD and sentiment MACD relationship logic.",
+      "key_columns": [
+        "price_macd_direction_score",
+        "sentiment_macd_direction_score",
+        "sent_price_macd_* fields"
+      ],
+      "interpretation_notes": "Raw price MACD stays public-comparable; relationship scores are SETA-specific.",
+      "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant."
+    },
+    "rsi__stoch_rsi": {
+      "plain_name": "RSI / Stoch RSI",
+      "definition": "State/timing model using price RSI, sentiment RSI, their relationship and stochastic timing.",
+      "key_columns": [
+        "price_rsi_state_score",
+        "sentiment_rsi_state_score",
+        "sent_price_rsi_relationship_score",
+        "stoch_rsi_timing_score"
+      ],
+      "interpretation_notes": "Separates direction/repair/exhaustion rather than one simplistic RSI score.",
+      "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant."
+    },
+    "sentiment_ribbon": {
+      "plain_name": "Sentiment Ribbon",
+      "definition": "Sentiment moving-average stack, slope and structure model.",
+      "key_columns": [
+        "sent_ribbon_direction_score",
+        "sent_ribbon_structure_score",
+        "sent_ribbon_label"
+      ],
+      "interpretation_notes": "Splits direction from structure so a ribbon can be bearish but clean, or bullish but unstable.",
+      "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant."
+    },
+    "ma_trend": {
+      "plain_name": "MA Trend",
+      "definition": "Trend structure from price and sentiment moving average ladders.",
+      "key_columns": [
+        "ma_trend_direction_score"
+      ],
+      "interpretation_notes": "Above 50 bullish stacking; below 50 bearish/mixed stacking.",
+      "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant."
+    },
+    "attention": {
+      "plain_name": "Attention",
+      "definition": "Participation and attention confirmation layer.",
+      "key_columns": [
+        "attention_participation_score",
+        "attention_confirmation_score"
+      ],
+      "interpretation_notes": "Confirms or discounts directional setups without replacing pure signal scores.",
+      "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant."
+    },
+    "summary__consensus": {
+      "plain_name": "Summary / Consensus",
+      "definition": "Combines families into direction, confidence, dispersion, archetypes and priority.",
+      "key_columns": [
+        "signal_consensus_direction_score",
+        "signal_dispersion_score",
+        "screener_attention_priority_score"
+      ],
+      "interpretation_notes": "Priority is review urgency, not bullishness.",
+      "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant."
+    }
+  }
+}
