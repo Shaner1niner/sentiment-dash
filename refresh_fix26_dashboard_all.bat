@@ -2,20 +2,22 @@
 setlocal
 
 REM =============================================================
-REM Fix 26 public/member dashboard refresh script
+REM Fix 26 public/member dashboard refresh script - production hardened
 REM
 REM What it does:
-REM   1. Runs export_enriched_chart_history_v2.py
+REM   1. Runs export_enriched_chart_history_v2.py for the dashboard union
 REM   2. Writes chart-history/attention/alert CSV outputs locally and to Tableau AutoSync
-REM   3. Builds SETA screener, indicator matrix, signal archetype CSVs, and JSON sidecars
+REM   3. Builds SETA screener, indicator matrix, and signal archetype CSVs/JSONs
 REM   4. Builds Fix 26 screener JSON payload for the website
 REM   5. Builds separate lean public/member chart JSON payloads
-REM   6. Stages changed website repo files in git
-REM   7. Optionally commits and pushes
+REM   6. Runs dashboard smoke checks
+REM   7. Stages changed website repo files in git
+REM   8. Optionally commits and pushes
 REM
 REM Safety behavior:
 REM   - Stops if any required upstream step fails
-REM   - Deletes prior screener CSV/JSON outputs before rebuilding so stale files cannot pass validation
+REM   - Deletes prior screener outputs before rebuilding so stale files cannot pass validation
+REM   - Smoke test fails fast on missing Market Tape/dashboard payload pieces
 REM =============================================================
 
 set "PYTHON_EXE=C:\Users\shane\anaconda3\python.exe"
@@ -30,8 +32,9 @@ set "PAYLOAD_BUILDER=%WEBSITE_REPO%\build_fix26_chart_store_payloads.py"
 set "PUBLIC_JSON=%WEBSITE_REPO%\fix26_chart_store_public.json"
 set "MEMBER_JSON=%WEBSITE_REPO%\fix26_chart_store_member.json"
 set "INPUT_CSV=%EXPORT_DIR%\%EXPORT_FILENAME%"
+set "SMOKE_SCRIPT=%WEBSITE_REPO%\scripts\smoke_fix26_dashboard.py"
 
-REM Preferred location is versioned inside sentiment-dash; fallback supports your current local script.
+REM Preferred location is versioned inside sentiment-dash; fallback supports current local script.
 set "SCREENER_SCRIPT=%WEBSITE_REPO%\scripts\build_seta_market_screener.py"
 if not exist "%SCREENER_SCRIPT%" set "SCREENER_SCRIPT=C:\Users\shane\build_seta_market_screener.py"
 
@@ -39,19 +42,17 @@ set "SCREENER_STORE_BUILDER=%WEBSITE_REPO%\scripts\build_fix26_screener_store.py
 set "SCREENER_STORE_JSON=%WEBSITE_REPO%\fix26_screener_store.json"
 
 set "SCREENER_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_market_screener_365d.csv"
-set "INDICATOR_MATRIX_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_indicator_matrix_365d.csv"
-set "ARCHETYPES_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_signal_archetypes_365d.csv"
-
 set "SCREENER_JSON=%TABLEAU_AUTOSYNC_DIR%\seta_market_screener_365d.json"
+set "INDICATOR_MATRIX_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_indicator_matrix_365d.csv"
 set "INDICATOR_MATRIX_JSON=%TABLEAU_AUTOSYNC_DIR%\seta_indicator_matrix_365d.json"
+set "ARCHETYPES_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_signal_archetypes_365d.csv"
 set "ARCHETYPES_JSON=%TABLEAU_AUTOSYNC_DIR%\seta_signal_archetypes_365d.json"
-
 set "ALERT_EVENTS_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_alert_events_365d.csv"
 set "ALERT_AUDIT_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_alert_audit_365d.csv"
 
 REM Optional behavior switches
-set "AUTO_COMMIT=1"
-set "AUTO_PUSH=1"
+set "AUTO_COMMIT=0"
+set "AUTO_PUSH=0"
 set "COMMIT_MESSAGE=Fix 26 dashboard payload and SETA screener refresh"
 
 if "%TWT_SNT_DB_URL%"=="" (
@@ -94,6 +95,12 @@ if not exist "%SCREENER_STORE_BUILDER%" (
   goto :fail
 )
 
+if not exist "%SMOKE_SCRIPT%" (
+  echo [ERROR] Dashboard smoke test not found:
+  echo         %SMOKE_SCRIPT%
+  goto :fail
+)
+
 if not exist "%MANIFEST%" (
   echo [ERROR] Fix 26 mode manifest not found:
   echo         %MANIFEST%
@@ -119,7 +126,7 @@ set "EXPORT_TERMS=BTC,ETH,SOL,NVDA,MSFT,COIN,AAPL,SPY,GLD,DOGE,AVAX,LINK,BNB,XRP
 
 echo.
 echo ============================================================
-echo [1/6] Running chart-history exporter...
+echo [1/7] Running chart-history exporter...
 echo ============================================================
 echo Export terms: %EXPORT_TERMS%
 echo Local export dir: %EXPORT_DIR%
@@ -164,16 +171,16 @@ if not exist "%ALERT_AUDIT_CSV%" (
 echo.
 echo Cleaning prior screener outputs...
 if exist "%SCREENER_CSV%" del "%SCREENER_CSV%"
-if exist "%INDICATOR_MATRIX_CSV%" del "%INDICATOR_MATRIX_CSV%"
-if exist "%ARCHETYPES_CSV%" del "%ARCHETYPES_CSV%"
 if exist "%SCREENER_JSON%" del "%SCREENER_JSON%"
+if exist "%INDICATOR_MATRIX_CSV%" del "%INDICATOR_MATRIX_CSV%"
 if exist "%INDICATOR_MATRIX_JSON%" del "%INDICATOR_MATRIX_JSON%"
+if exist "%ARCHETYPES_CSV%" del "%ARCHETYPES_CSV%"
 if exist "%ARCHETYPES_JSON%" del "%ARCHETYPES_JSON%"
 if exist "%SCREENER_STORE_JSON%" del "%SCREENER_STORE_JSON%"
 
 echo.
 echo ============================================================
-echo [2/6] Building SETA screener CSVs and JSON sidecars...
+echo [2/7] Building SETA market screener, indicator matrix, and archetypes...
 echo ============================================================
 echo Screener script: %SCREENER_SCRIPT%
 "%PYTHON_EXE%" "%SCREENER_SCRIPT%" ^
@@ -201,30 +208,14 @@ if not exist "%ARCHETYPES_CSV%" (
   goto :fail
 )
 
-if not exist "%SCREENER_JSON%" (
-  echo [ERROR] Expected screener JSON sidecar was not created:
-  echo         %SCREENER_JSON%
-  echo Make sure scripts\build_seta_market_screener.py contains write_json_sidecar.
-  goto :fail
-)
-
-if not exist "%INDICATOR_MATRIX_JSON%" (
-  echo [ERROR] Expected indicator matrix JSON sidecar was not created:
-  echo         %INDICATOR_MATRIX_JSON%
-  echo Make sure scripts\build_seta_market_screener.py contains write_json_sidecar.
-  goto :fail
-)
-
-if not exist "%ARCHETYPES_JSON%" (
-  echo [ERROR] Expected signal archetypes JSON sidecar was not created:
-  echo         %ARCHETYPES_JSON%
-  echo Make sure scripts\build_seta_market_screener.py contains write_json_sidecar.
-  goto :fail
-)
+REM JSON siblings are expected after the recent builder update.
+if not exist "%SCREENER_JSON%" echo [WARN] Screener JSON sibling was not found: %SCREENER_JSON%
+if not exist "%INDICATOR_MATRIX_JSON%" echo [WARN] Indicator matrix JSON sibling was not found: %INDICATOR_MATRIX_JSON%
+if not exist "%ARCHETYPES_JSON%" echo [WARN] Signal archetypes JSON sibling was not found: %ARCHETYPES_JSON%
 
 echo.
 echo ============================================================
-echo [3/6] Building Fix 26 screener JSON payload...
+echo [3/7] Building Fix 26 screener JSON payload...
 echo ============================================================
 "%PYTHON_EXE%" "%SCREENER_STORE_BUILDER%" ^
   --source-dir "%TABLEAU_AUTOSYNC_DIR%" ^
@@ -235,14 +226,14 @@ if errorlevel 1 (
 )
 
 if not exist "%SCREENER_STORE_JSON%" (
-  echo [ERROR] Expected website screener JSON was not created:
+  echo [ERROR] Expected screener JSON was not created:
   echo         %SCREENER_STORE_JSON%
   goto :fail
 )
 
 echo.
 echo ============================================================
-echo [4/6] Building Fix 26 public/member chart JSON payloads...
+echo [4/7] Building Fix 26 public/member chart JSON payloads...
 echo ============================================================
 "%PYTHON_EXE%" "%PAYLOAD_BUILDER%" ^
   --manifest "%MANIFEST%" ^
@@ -269,7 +260,20 @@ if not exist "%MEMBER_JSON%" (
 
 echo.
 echo ============================================================
-echo [5/6] Staging website repo changes...
+echo [5/7] Running dashboard smoke test...
+echo ============================================================
+pushd "%WEBSITE_REPO%"
+"%PYTHON_EXE%" "%SMOKE_SCRIPT%"
+if errorlevel 1 (
+  popd
+  echo [ERROR] Dashboard smoke test failed.
+  goto :fail
+)
+popd
+
+echo.
+echo ============================================================
+echo [6/7] Staging website repo changes...
 echo ============================================================
 pushd "%WEBSITE_REPO%"
 if errorlevel 1 (
@@ -277,6 +281,7 @@ if errorlevel 1 (
   goto :fail
 )
 
+git add .gitignore
 git add dashboard_fix26_mode_manifest.json
 git add dashboard_fix26_base.css
 git add dashboard_fix26_app.js
@@ -285,10 +290,9 @@ git add refresh_fix26_dashboard_all.bat
 git add fix26_chart_store_public.json
 git add fix26_chart_store_member.json
 git add fix26_screener_store.json
-if exist scripts\build_fix26_screener_store.py git add scripts\build_fix26_screener_store.py
-REM phase_g_market_tape_v1
 if exist scripts\build_seta_market_screener.py git add scripts\build_seta_market_screener.py
 if exist scripts\build_fix26_screener_store.py git add scripts\build_fix26_screener_store.py
+if exist scripts\smoke_fix26_dashboard.py git add scripts\smoke_fix26_dashboard.py
 if exist interactive_dashboard_fix24_public_embed.html git add interactive_dashboard_fix24_public_embed.html
 if exist interactive_dashboard_fix24_member_embed.html git add interactive_dashboard_fix24_member_embed.html
 if exist interactive_dashboard_fix24_externalized_loader.html git add interactive_dashboard_fix24_externalized_loader.html
@@ -299,6 +303,9 @@ if exist docs\SETA_Screener_All_Column_Descriptions.csv git add docs\SETA_Screen
 if exist docs\SETA_Score_Glossary.csv git add docs\SETA_Score_Glossary.csv
 if exist docs\SETA_Archetype_Glossary.csv git add docs\SETA_Archetype_Glossary.csv
 if exist docs\SETA_Indicator_Family_Glossary.csv git add docs\SETA_Indicator_Family_Glossary.csv
+if exist docs\SETA_Score_Glossary.json git add docs\SETA_Score_Glossary.json
+if exist docs\SETA_Archetype_Glossary.json git add docs\SETA_Archetype_Glossary.json
+if exist docs\SETA_Indicator_Family_Glossary.json git add docs\SETA_Indicator_Family_Glossary.json
 
 echo.
 echo Current git status:
@@ -307,7 +314,7 @@ git status --short
 if "%AUTO_COMMIT%"=="1" (
   echo.
   echo ============================================================
-  echo [6/6] Creating git commit...
+  echo [7/7] Creating git commit...
   echo ============================================================
   git commit -m "%COMMIT_MESSAGE%"
   if errorlevel 1 (

@@ -1,0 +1,27 @@
+
+# BEGIN SETA/Fix26 local hardening ignores
+.tmp.driveupload/
+_local_scratch/
+superseded/
+screener_descriptions/
+*.log
+db_insertion.log
+run_commands_snt_dash.txt
+git cmds.txt
+s.includes(dashboard_fix26_app))
+patch_*.py
+bump_*_cache*.py
+force_bump_*_html.py
+phase_f_*.py
+*.backup_*.js
+*.backup_*.html
+*.market_tape_*_backup
+*.phaseG_*_backup
+*.phaseF_*_backup
+*.phaseD_*_backup
+*.bat.phaseG_*_backup
+~$*.docx
+~$*.xlsx
+Road_Map.docx
+fix26e1_equity_volatility_softening_notes.txt
+# END SETA/Fix26 local hardening ignores
