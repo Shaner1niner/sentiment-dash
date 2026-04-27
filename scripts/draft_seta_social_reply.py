@@ -1,337 +1,238 @@
-#!/usr/bin/env python
-"""Draft-only SETA social reply generator.
-
-This script does not post to any platform. It reads an incoming social comment,
-finds a likely ticker/asset, loads the current SETA screener JSON and agent
-reference files, and emits a structured draft reply object for human review.
-"""
 from __future__ import annotations
 
 import argparse
 import json
 import re
-import sys
-from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Tuple
+from typing import Any, Dict, Iterable, Optional
 
-DEFAULT_REPO = Path(r"C:\Users\shane\sentiment-dash")
-SUPPORTED_PLATFORMS = {"x", "twitter", "bsky", "bluesky", "reddit", "generic"}
-HOSTILE_WORDS = {
-    "scam", "idiot", "moron", "fraud", "shit", "bullshit", "stupid", "dumb",
-    "loser", "clown", "trash", "pump", "shill", "grift", "rug"
-}
-ADVICE_BAIT = [
-    "should i buy", "should i sell", "buy now", "sell now", "price target",
-    "guaranteed", "will it go up", "will it pump", "100x", "financial advice",
-    "is this advice", "tell me what to buy", "entry", "stop loss"
-]
-QUESTION_HINTS = {"why", "what", "how", "is", "are", "does", "do", "can", "should", "?"}
+ROOT = Path(__file__).resolve().parents[1]
+SCREENER = ROOT / "fix26_screener_store.json"
+AGENT_REF = ROOT / "agent_reference" / "seta_agent_reference.json"
+GUIDANCE = ROOT / "agent_reference" / "seta_reply_guidance.md"
+EXAMPLES = ROOT / "agent_reference" / "seta_reply_examples.jsonl"
 
 
-def load_json(path: Path, default: Any = None) -> Any:
-    if not path.exists():
-        if default is not None:
-            return default
-        raise FileNotFoundError(f"Missing required file: {path}")
-    return json.loads(path.read_text(encoding="utf-8"))
+def load_json(path: Path, default: Any):
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return default
 
 
-def load_text(path: Path, default: str = "") -> str:
-    return path.read_text(encoding="utf-8") if path.exists() else default
+def load_text(path: Path) -> str:
+    try:
+        return path.read_text(encoding="utf-8")
+    except Exception:
+        return ""
 
 
-def load_jsonl(path: Path) -> List[Dict[str, Any]]:
-    if not path.exists():
-        return []
-    out: List[Dict[str, Any]] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
-        line = line.strip()
-        if not line:
-            continue
-        try:
-            out.append(json.loads(line))
-        except json.JSONDecodeError:
-            continue
+def flatten(obj: Any, prefix: str = "") -> Dict[str, Any]:
+    out: Dict[str, Any] = {}
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            key = f"{prefix}.{k}" if prefix else str(k)
+            if isinstance(v, dict):
+                out.update(flatten(v, key))
+            else:
+                out[key] = v
     return out
 
 
-def norm_term(value: str) -> str:
-    return re.sub(r"[^A-Za-z0-9._-]", "", value.upper().strip().lstrip("$"))
+def clean(v: Any) -> Optional[Any]:
+    if v is None:
+        return None
+    s = str(v).strip()
+    if not s or s.lower() in {"nan", "none", "null", "n/a", "na", "unknown"}:
+        return None
+    return v
 
 
-def by_term_from_store(store: Dict[str, Any]) -> Dict[str, Any]:
-    by_term = store.get("by_term") or store.get("terms") or {}
-    if isinstance(by_term, list):
-        mapped = {}
-        for row in by_term:
-            if isinstance(row, dict) and row.get("term"):
-                mapped[norm_term(str(row["term"]))] = row
-        return mapped
-    if isinstance(by_term, dict):
-        return {norm_term(k): v for k, v in by_term.items() if isinstance(v, dict)}
-    return {}
-
-
-def extract_known_terms(comment: str, known_terms: Iterable[str]) -> List[str]:
-    known = sorted({norm_term(t) for t in known_terms if t}, key=len, reverse=True)
-    found: List[str] = []
-    text = comment.upper()
-    tokens = set(norm_term(t) for t in re.findall(r"\$?[A-Za-z][A-Za-z0-9._-]{1,9}", comment))
-    for term in known:
-        if not term:
-            continue
-        if term in tokens or f"${term}" in text:
-            found.append(term)
-    return found
-
-
-def row_value(row: Dict[str, Any], keys: Iterable[str], default: Any = None) -> Any:
-    for key in keys:
-        val = row.get(key)
-        if val is None:
-            continue
-        sval = str(val).strip()
-        if sval and sval.lower() not in {"nan", "none", "null", "n/a"}:
-            return val
-    return default
-
-
-def score_value(row: Dict[str, Any], keys: Iterable[str]) -> Optional[float]:
-    val = row_value(row, keys)
-    if val is None:
+def as_float(v: Any) -> Optional[float]:
+    v = clean(v)
+    if v is None:
         return None
     try:
-        return float(val)
-    except (TypeError, ValueError):
+        return round(float(v), 1)
+    except Exception:
         return None
 
 
-def classify_score(score: Optional[float]) -> str:
+def label_from_score(score: Optional[float], bullish="Bullish", bearish="Bearish") -> str:
     if score is None:
         return "unknown"
-    if score >= 80:
-        return "very strong"
-    if score >= 66:
-        return "strong"
-    if score >= 55:
-        return "constructive"
-    if score >= 45:
-        return "mixed / neutral"
-    if score >= 35:
-        return "soft"
-    return "weak"
+    if score >= 70:
+        return f"Strong {bullish}"
+    if score >= 57.5:
+        return bullish
+    if score <= 30:
+        return f"Strong {bearish}"
+    if score <= 42.5:
+        return bearish
+    return "Neutral"
 
 
-def clean_label(value: Any, fallback: str = "unknown") -> str:
-    if value is None:
-        return fallback
-    s = str(value).strip()
-    if not s or s.lower() in {"nan", "none", "null", "n/a"}:
-        return fallback
-    return s
+def pick(flat: Dict[str, Any], exact: Iterable[str] = (), contains_all: Iterable[str] = (), contains_any: Iterable[str] = ()) -> Any:
+    # exact suffix match first so nested keys work, e.g. indicator.summary_score
+    exact_l = [x.lower() for x in exact]
+    for k, v in flat.items():
+        kl = k.lower().split(".")[-1]
+        if kl in exact_l and clean(v) is not None:
+            return v
+    all_l = [x.lower() for x in contains_all]
+    any_l = [x.lower() for x in contains_any]
+    for k, v in flat.items():
+        kl = k.lower()
+        if all(x in kl for x in all_l) and (not any_l or any(x in kl for x in any_l)) and clean(v) is not None:
+            return v
+    return None
 
 
-def platform_label(platform: str) -> str:
-    p = platform.lower().strip()
-    if p == "twitter":
-        return "x"
-    if p == "bluesky":
-        return "bsky"
-    return p if p in SUPPORTED_PLATFORMS else "generic"
+def pick_score(flat: Dict[str, Any], family: str) -> Optional[float]:
+    fam = family.lower()
+    candidates = {
+        "summary": ["summary_score", "seta_score", "overall_strength_score", "signal_consensus_score"],
+        "macd": ["macd_family_score", "macd_attention_adjusted_score", "macd_signal_strength_score"],
+        "rsi": ["rsi_family_score", "rsi_attention_adjusted_score", "rsi_combined_strength_score", "rsi_strength_score"],
+        "attention": ["attention_score", "attention_regime_score", "attention_level_score"],
+        "bollinger": ["attention_adjusted_bollinger_score", "bollinger_attention_adjusted_score", "bollinger_strength_score"],
+        "ribbon": ["sent_ribbon_score", "sent_ribbon_direction_score", "sentiment_ribbon_score"],
+        "trend": ["ma_trend_score", "ma_combined_strength_trend_score", "ma_attention_adjusted_score", "ma_strength_enhanced_score"],
+    }.get(fam, [])
+    val = pick(flat, exact=candidates)
+    if val is None:
+        val = pick(flat, contains_all=[fam], contains_any=["score", "strength"])
+    return as_float(val)
 
 
-def is_hostile(comment: str) -> bool:
-    low = comment.lower()
-    return any(w in low for w in HOSTILE_WORDS)
+def pick_label(flat: Dict[str, Any], family: str, score: Optional[float]) -> str:
+    fam = family.lower()
+    val = pick(flat, exact=[f"{fam}_label", f"{fam}_family_label", f"{fam}_state", f"{fam}_direction"], contains_all=[fam], contains_any=["label", "state", "direction", "bucket"])
+    if clean(val) is not None:
+        return str(val).strip()
+    return label_from_score(score)
+
+
+def detect_term(comment: str, terms: Iterable[str]) -> Optional[str]:
+    text = comment.upper()
+    for term in sorted([str(t).upper() for t in terms], key=len, reverse=True):
+        if re.search(rf"(?<![A-Z0-9])\$?{re.escape(term)}(?![A-Z0-9])", text):
+            return term
+    return None
 
 
 def is_advice_bait(comment: str) -> bool:
-    low = comment.lower()
-    return any(p in low for p in ADVICE_BAIT)
+    s = comment.lower()
+    return any(x in s for x in ["financial advice", "buy signal", "should i buy", "should i sell", "guaranteed", "price target"])
 
 
-def looks_like_question(comment: str) -> bool:
-    low = comment.lower()
-    return "?" in comment or any(re.search(rf"\b{re.escape(w)}\b", low) for w in QUESTION_HINTS if w != "?")
+def is_hostile(comment: str) -> bool:
+    s = comment.lower()
+    return any(x in s for x in ["scam", "idiot", "trash", "fraud", "clown", "pump and dump"])
 
 
 def build_context(term: str, row: Dict[str, Any]) -> Dict[str, Any]:
-    summary = score_value(row, ["summary_score", "overall_strength_score", "screener_strength_score", "score"])
-    priority = score_value(row, ["screener_attention_priority_score", "screener_priority_score", "attention_priority_score"])
-    macd = row_value(row, ["macd_family_label", "sent_price_macd_joint_slope_label", "macd_label"])
-    rsi = row_value(row, ["rsi_family_label", "rsi_label"])
-    attention = row_value(row, ["attention_label", "attention_regime_label", "attention_state_label"])
-    bollinger = row_value(row, ["bollinger_family_label", "bollinger_label", "overlap_label"])
-    ribbon = row_value(row, ["sent_ribbon_label", "ribbon_label"])
-    trend = row_value(row, ["ma_trend_label", "trend_label", "ma_family_label"])
-    archetype = row_value(row, ["primary_archetype", "archetype_summary", "screener_action_bucket"])
-    direction = row_value(row, ["archetype_direction", "signal_consensus_direction_label", "latest_event_direction"])
-    risk = row_value(row, ["archetype_risk_note", "risk_note", "missing_confirmation_note"])
+    flat = flatten(row)
+    summary = pick_score(flat, "summary")
+    priority = as_float(pick(flat, exact=["screener_priority_score", "priority_score", "attention_priority_score"], contains_all=["priority"], contains_any=["score"]))
+    archetype = pick(flat, exact=["primary_archetype", "archetype", "archetype_summary", "screener_action_bucket"], contains_any=["archetype", "action_bucket"])
+    direction = pick(flat, exact=["archetype_direction", "direction", "latest_event_direction"], contains_any=["direction"])
+
+    fams = {}
+    for fam in ["macd", "rsi", "attention", "bollinger", "ribbon", "trend"]:
+        score = pick_score(flat, fam)
+        label = pick_label(flat, fam, score)
+        if score is None:
+            fams[fam] = label if label != "unknown" else "unknown"
+        else:
+            fams[fam] = f"{score:g} {label}"
+
+    risk_note = pick(flat, exact=["risk_note", "archetype_risk_note", "setup_risk_note"], contains_any=["risk_note", "risk"])
     return {
         "term": term,
         "summary_score": summary,
-        "summary_bucket": classify_score(summary),
+        "summary_bucket": label_from_score(summary),
         "priority_score": priority,
-        "primary_archetype": clean_label(archetype),
-        "direction": clean_label(direction),
-        "families": {
-            "macd": clean_label(macd),
-            "rsi": clean_label(rsi),
-            "attention": clean_label(attention),
-            "bollinger": clean_label(bollinger),
-            "ribbon": clean_label(ribbon),
-            "trend": clean_label(trend),
-        },
-        "risk_note": clean_label(risk, "No special risk note available."),
+        "primary_archetype": str(archetype).strip() if clean(archetype) is not None else "unknown",
+        "direction": str(direction).strip() if clean(direction) is not None else "unknown",
+        "families": fams,
+        "risk_note": str(risk_note).strip() if clean(risk_note) is not None else "No special risk note available.",
     }
 
 
-def pick_drivers(ctx: Dict[str, Any], max_items: int = 4) -> List[str]:
-    fam = ctx.get("families", {})
-    order = ["macd", "ribbon", "bollinger", "attention", "rsi", "trend"]
-    items: List[str] = []
-    for key in order:
-        val = clean_label(fam.get(key), "unknown")
+def drivers(context: Dict[str, Any]) -> str:
+    fams = context.get("families", {})
+    good = []
+    for name in ["macd", "rsi", "attention", "bollinger", "ribbon", "trend"]:
+        val = str(fams.get(name, "unknown"))
         if val != "unknown":
-            label = key.capitalize()
-            items.append(f"{label}: {val}")
-        if len(items) >= max_items:
-            break
-    return items
+            good.append(f"{name.title()} {val}")
+    return "; ".join(good[:4]) if good else "mixed signal families"
 
 
-def draft_reply(platform: str, comment: str, ctx: Dict[str, Any], advice_bait: bool, hostile: bool) -> str:
-    term = ctx["term"]
-    score = ctx.get("summary_score")
-    bucket = ctx.get("summary_bucket", "unknown")
-    archetype = ctx.get("primary_archetype", "unknown")
-    drivers = pick_drivers(ctx)
-    score_part = f"Summary is {score:.0f} ({bucket})" if isinstance(score, (int, float)) else f"Summary reads {bucket}"
-
-    if hostile:
-        return (
-            f"I would keep this framed as signal context, not a prediction. For ${term}, SETA currently reads: "
-            f"{score_part}. The useful part is the driver stack, not arguing certainty: "
-            f"{'; '.join(drivers) if drivers else 'mixed / limited signal detail available'}."
-        )
-
-    if advice_bait:
-        return (
-            f"I would not treat SETA as buy/sell advice. For ${term}, the model is flagging context: "
-            f"{score_part}, with {archetype}. Key drivers: "
-            f"{'; '.join(drivers) if drivers else 'not enough family detail available'}. "
-            "Useful as a watchlist/risk-context input, not a guarantee or a substitute for your own plan."
-        )
-
-    if "why" in comment.lower() or "rank" in comment.lower():
-        return (
-            f"${term} is showing up because SETA has a constructive driver stack rather than a single isolated signal. "
-            f"{score_part}; archetype/context: {archetype}. "
-            f"The main contributors I would point to are {', '.join(drivers) if drivers else 'mixed signal families'}. "
-            "That means it is worth watching, not that the outcome is guaranteed."
-        )
-
-    if "bear" in comment.lower() or "bull" in comment.lower():
-        return (
-            f"For ${term}, I would describe the SETA read as {bucket}, not absolute. "
-            f"The current context is {archetype}, with drivers like "
-            f"{', '.join(drivers) if drivers else 'limited family detail available'}. "
-            "The model is trying to summarize alignment across sentiment, attention, and technical families."
-        )
-
-    return (
-        f"SETA is flagging ${term} as {bucket}: {score_part}. "
-        f"Context: {archetype}. Main drivers: "
-        f"{'; '.join(drivers) if drivers else 'mixed / limited signal detail available'}. "
-        "I would frame that as signal context for a watchlist, not a certain directional call."
-    )
-
-
-def evaluate(platform: str, comment: str, repo: Path, explicit_term: Optional[str] = None) -> Dict[str, Any]:
-    repo = repo.resolve()
-    store = load_json(repo / "fix26_screener_store.json")
-    by_term = by_term_from_store(store)
-    agent_ref = load_json(repo / "agent_reference" / "seta_agent_reference.json", default={})
-    guidance = load_text(repo / "agent_reference" / "seta_reply_guidance.md")
-    examples = load_jsonl(repo / "agent_reference" / "seta_reply_examples.jsonl")
-
-    platform = platform_label(platform)
-    hostile = is_hostile(comment)
+def draft_reply(platform: str, comment: str) -> Dict[str, Any]:
+    store = load_json(SCREENER, {})
+    by_term = store.get("by_term", {}) if isinstance(store, dict) else {}
+    term = detect_term(comment, by_term.keys())
     advice = is_advice_bait(comment)
-    question = looks_like_question(comment)
-
-    detected_terms = [norm_term(explicit_term)] if explicit_term else extract_known_terms(comment, by_term.keys())
-    detected_terms = [t for t in detected_terms if t in by_term]
-    term = detected_terms[0] if detected_terms else None
+    hostile = is_hostile(comment)
+    question = "?" in comment or any(x in comment.lower() for x in ["why", "what", "how", "is this"])
+    ref = load_json(AGENT_REF, {})
+    guidance = load_text(GUIDANCE)
+    example_count = 0
+    if EXAMPLES.exists():
+        example_count = sum(1 for line in EXAMPLES.read_text(encoding="utf-8").splitlines() if line.strip())
 
     if not term:
-        return {
-            "should_reply": False,
-            "detected_term": None,
-            "reply_type": "no_supported_asset_detected",
-            "risk_level": "medium",
-            "draft_reply": "",
-            "reasoning_summary": "No known SETA term was detected in the comment.",
-            "requires_human_review": True,
-            "platform": platform,
-        }
+        if advice:
+            return {
+                "should_reply": true,
+                "detected_term": None,
+                "reply_type": "financial_advice_boundary",
+                "risk_level": "high",
+                "draft_reply": "I would not frame SETA as a buy/sell signal or financial advice. It is a signal-context layer: useful for explaining what the model is seeing, but not a guarantee or substitute for risk management.",
+                "reasoning_summary": "No asset detected, but financial-advice bait was detected.",
+                "requires_human_review": True,
+                "platform": platform,
+            }
+        return {"should_reply": False, "detected_term": None, "reply_type": "no_supported_asset_detected", "risk_level": "medium", "draft_reply": "", "reasoning_summary": "No known SETA term was detected in the comment.", "requires_human_review": True, "platform": platform}
 
-    row = by_term[term]
-    ctx = build_context(term, row)
-    risk_level = "high" if advice or hostile else ("medium" if not question else "low")
-    should_reply = bool(term) and (question or advice or "rank" in comment.lower() or platform in {"bsky", "reddit", "x"})
+    context = build_context(term, by_term.get(term, {}))
 
-    out = {
-        "should_reply": should_reply,
+    if hostile:
+        return {"should_reply": False, "detected_term": term, "reply_type": "hostile_or_bait_context", "risk_level": "high", "draft_reply": "", "reasoning_summary": "Detected hostile/bait language; draft mode recommends no reply.", "requires_human_review": True, "platform": platform, "context": context}
+
+    if advice:
+        reply = f"I would not treat ${term} as a buy/sell call. SETA is showing context: Summary {context['summary_score'] if context['summary_score'] is not None else '--'} ({context['summary_bucket']}), with drivers like {drivers(context)}. Useful for framing risk/reward, not financial advice."
+        typ = "financial_advice_boundary"
+        risk = "high"
+    else:
+        reply = f"${term} is showing up because SETA is seeing a driver stack rather than one isolated signal. Summary {context['summary_score'] if context['summary_score'] is not None else '--'} ({context['summary_bucket']}); main drivers: {drivers(context)}. Worth watching, not a guaranteed outcome."
+        typ = "educational_signal_context"
+        risk = "low" if question else "medium"
+
+    return {
+        "should_reply": True,
         "detected_term": term,
-        "reply_type": "financial_advice_boundary" if advice else ("hostile_or_bait_context" if hostile else "educational_signal_context"),
-        "risk_level": risk_level,
-        "draft_reply": draft_reply(platform, comment, ctx, advice, hostile) if should_reply else "",
-        "reasoning_summary": (
-            f"Detected {term}; built reply from SETA screener family drivers. "
-            f"advice_bait={advice}; hostile={hostile}; question={question}."
-        ),
+        "reply_type": typ,
+        "risk_level": risk,
+        "draft_reply": reply,
+        "reasoning_summary": f"Detected {term}; built reply from flattened SETA screener payload. advice_bait={advice}; hostile={hostile}; question={question}.",
         "requires_human_review": True,
         "platform": platform,
-        "context": ctx,
-        "reference_loaded": bool(agent_ref),
-        "guidance_loaded": bool(guidance.strip()),
-        "example_count": len(examples),
+        "context": context,
+        "reference_loaded": bool(ref),
+        "guidance_loaded": bool(guidance),
+        "example_count": example_count,
     }
-    return out
 
 
-def main(argv: Optional[List[str]] = None) -> int:
-    parser = argparse.ArgumentParser(description="Draft-only SETA social reply generator")
-    parser.add_argument("--repo", default=str(DEFAULT_REPO), help="sentiment-dash repo path")
-    parser.add_argument("--platform", default="generic", help="x, bsky, reddit, or generic")
-    parser.add_argument("--comment", help="incoming social comment text")
-    parser.add_argument("--term", help="explicit asset/ticker override")
-    parser.add_argument("--input-json", help="JSON file with platform/comment/term")
-    parser.add_argument("--output-json", help="optional output path")
-    args = parser.parse_args(argv)
-
-    platform = args.platform
-    comment = args.comment
-    term = args.term
-    if args.input_json:
-        payload = load_json(Path(args.input_json))
-        platform = payload.get("platform", platform)
-        comment = payload.get("comment", payload.get("text", comment))
-        term = payload.get("term", term)
-    if not comment:
-        raise SystemExit("[ERROR] Provide --comment or --input-json")
-
-    result = evaluate(platform=platform, comment=comment, repo=Path(args.repo), explicit_term=term)
-    rendered = json.dumps(result, indent=2, ensure_ascii=False)
-    if args.output_json:
-        Path(args.output_json).write_text(rendered + "\n", encoding="utf-8")
-        print(f"[OK] wrote {args.output_json}")
-    else:
-        print(rendered)
-    return 0
-
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--platform", default="x", choices=["x", "bsky", "reddit"])
+    ap.add_argument("--comment", required=True)
+    args = ap.parse_args()
+    print(json.dumps(draft_reply(args.platform, args.comment), indent=2))
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
