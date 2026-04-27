@@ -1916,7 +1916,7 @@ function setDashboardAssetFromScreener(term){
   if(old) old.remove();
   const st=document.createElement('style');
   st.id='phaseG_market_tape_layout_v3_style';
-  st.textContent='\n/* phaseG_market_tape_layout_v3 */\n.screenerPanel.marketTape{\n  --mt-bg: rgba(8,13,18,.78);\n  --mt-panel: rgba(255,255,255,.026);\n  --mt-panel-2: rgba(255,255,255,.038);\n  --mt-border: #263641;\n  --mt-border-soft: #1d2a33;\n  --mt-text: #e5f1f7;\n  --mt-muted: #91a5b0;\n  --mt-green: #4ade80;\n  --mt-yellow: #facc15;\n  --mt-blue: #60a5fa;\n  --mt-red: #fb7185;\n  padding:10px 12px!important;\n  margin:10px 0 16px!important;\n  border-radius:14px!important;\n  background:linear-gradient(180deg, rgba(10,16,22,.92), rgba(7,12,17,.82))!important;\n  border:1px solid var(--mt-border)!important;\n  box-shadow:0 10px 30px rgba(0,0,0,.20)!important;\n  font-size:12px!important;\n  line-height:1.32!important;\n}\n.marketTapeHeader{\n  display:grid!important;\n  grid-template-columns:minmax(360px,1fr) auto!important;\n  gap:10px!important;\n  align-items:start!important;\n  margin-bottom:8px!important;\n}\n.marketTapeTitle h3{\n  font-size:14px!important;\n  line-height:1.15!important;\n  margin:0!important;\n  letter-spacing:.01em!important;\n}\n.marketTapeSub{\n  font-size:11px!important;\n  line-height:1.3!important;\n  color:var(--mt-muted)!important;\n  max-width:780px!important;\n  margin-top:3px!important;\n}\n.marketTapeToggle{\n  width:22px!important;\n  height:22px!important;\n  font-size:12px!important;\n  border-radius:7px!important;\n}\n.marketTapeTabs{\n  display:flex!important;\n  flex-wrap:wrap!important;\n  justify-content:flex-end!important;\n  gap:5px!important;\n  max-width:620px!important;\n}\n.marketTapeTab{\n  font-size:10px!important;\n  line-height:1!important;\n  padding:4px 7px!important;\n  border-radius:999px!important;\n  opacity:.78!important;\n  border-color:#2b3943!important;\n  background:rgba(255,255,255,.025)!important;\n}\n.marketTapeTab.active{\n  opacity:1!important;\n  color:#d9ffe8!important;\n  border-color:var(--mt-green)!important;\n  background:rgba(74,222,128,.08)!important;\n  box-shadow:0 0 0 1px rgba(74,222,128,.14),0 0 12px rgba(74,222,128,.10)!important;\n}\n.marketTapeCards{\n  display:grid!important;\n  grid-template-columns:repeat(6,minmax(0,1fr))!important;\n  gap:7px!important;\n  margin:7px 0 8px!important;\n}\n.marketTapeCard{\n  min-height:74px!important;\n  padding:7px 8px!important;\n  border-radius:12px!important;\n  border:1px solid var(--mt-border)!important;\n  background:var(--mt-panel)!important;\n  cursor:pointer!important;\n  transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease,background .12s ease!important;\n  overflow:hidden!important;\n}\n.marketTapeCard:hover{\n  transform:translateY(-1px)!important;\n  border-color:var(--mt-blue)!important;\n  background:rgba(96,165,250,.055)!important;\n  box-shadow:0 0 0 1px rgba(96,165,250,.17),0 8px 20px rgba(0,0,0,.18)!important;\n}\n.marketTapeCard.active{\n  border-color:var(--mt-yellow)!important;\n  background:rgba(250,204,21,.06)!important;\n  box-shadow:0 0 0 1px rgba(250,204,21,.20),0 0 18px rgba(250,204,21,.10)!important;\n}\n.marketTapeCardTop{\n  display:flex!important;\n  justify-content:space-between!important;\n  align-items:center!important;\n  gap:6px!important;\n  font-size:12.5px!important;\n  line-height:1.1!important;\n  margin-bottom:5px!important;\n}\n.marketTapeTerm{\n  font-size:13px!important;\n  font-weight:900!important;\n}\n.marketTapeScore{\n  font-size:12.5px!important;\n  font-weight:900!important;\n  color:var(--mt-yellow)!important;\n}\n.marketTapePill{\n  font-size:9.5px!important;\n  line-height:1!important;\n  padding:2px 5px!important;\n  border-radius:999px!important;\n}\n.marketTapeReason{\n  font-size:10.5px!important;\n  line-height:1.26!important;\n  margin-top:4px!important;\n  display:-webkit-box!important;\n  -webkit-line-clamp:2!important;\n  -webkit-box-orient:vertical!important;\n  overflow:hidden!important;\n}\n.marketTapeDetail{\n  display:grid!important;\n  grid-template-columns:minmax(0,1.1fr) minmax(390px,.9fr)!important;\n  gap:10px!important;\n  align-items:stretch!important;\n  min-height:0!important;\n  padding:8px!important;\n  border-radius:13px!important;\n  border:1px solid var(--mt-border)!important;\n  background:rgba(255,255,255,.018)!important;\n}\n.marketTapeDetail > div:first-child{\n  min-width:0!important;\n  padding:2px 2px 0!important;\n}\n.marketTapeDetailTitle{\n  display:flex!important;\n  align-items:center!important;\n  flex-wrap:wrap!important;\n  gap:5px!important;\n  font-size:12.5px!important;\n  line-height:1.2!important;\n  margin-bottom:5px!important;\n}\n.marketTapeDetailText{\n  font-size:11.5px!important;\n  line-height:1.38!important;\n  color:#d8e7ee!important;\n  max-width:100%!important;\n  margin-bottom:4px!important;\n}\n.marketTapeMatched,.marketTapeMissing,.marketTapeRisk{\n  font-size:11.5px!important;\n  line-height:1.35!important;\n  margin-top:3px!important;\n}\n.marketTapeRisk{\n  color:#ffd95a!important;\n}\n.marketTapeFamilyGrid{\n  display:grid!important;\n  grid-template-columns:repeat(4,minmax(0,1fr))!important;\n  gap:6px!important;\n  align-content:start!important;\n}\n.marketTapeFamily{\n  min-height:48px!important;\n  padding:6px 7px!important;\n  border-radius:10px!important;\n  background:var(--mt-panel-2)!important;\n  border:1px solid #31414d!important;\n}\n.marketTapeFamilyName{\n  font-size:9.75px!important;\n  line-height:1.05!important;\n  color:#aebec6!important;\n  white-space:nowrap!important;\n  overflow:hidden!important;\n  text-overflow:ellipsis!important;\n}\n.marketTapeFamilyScore{\n  font-size:14px!important;\n  line-height:1.05!important;\n  margin:2px 0 1px!important;\n  font-weight:900!important;\n}\n.marketTapeFamilyLabel{\n  font-size:9.75px!important;\n  line-height:1.05!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child{\n  grid-column:span 2!important;\n  background:linear-gradient(180deg,rgba(250,204,21,.08),rgba(255,255,255,.03))!important;\n  border-color:rgba(250,204,21,.35)!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyScore{\n  font-size:18px!important;\n  color:var(--mt-yellow)!important;\n}\n.screenerPanel.marketTape.collapsed .marketTapeCards,\n.screenerPanel.marketTape.collapsed .marketTapeDetail{\n  display:none!important;\n}\n.screenerPanel.marketTape.collapsed{\n  padding:8px 10px!important;\n  margin-bottom:8px!important;\n}\n@media (max-width:1220px){\n  .marketTapeCards{grid-template-columns:repeat(3,minmax(0,1fr))!important;}\n  .marketTapeDetail{grid-template-columns:1fr!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important;}\n}\n@media (max-width:760px){\n  .marketTapeHeader{grid-template-columns:1fr!important;}\n  .marketTapeTabs{justify-content:flex-start!important;max-width:none!important;}\n  .marketTapeCards{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n}\n';
+  st.textContent='\n/* phaseG_market_tape_layout_v3 */\n.screenerPanel.marketTape{\n  --mt-bg: rgba(8,13,18,.78);\n  --mt-panel: rgba(255,255,255,.026);\n  --mt-panel-2: rgba(255,255,255,.038);\n  --mt-border: #263641;\n  --mt-border-soft: #1d2a33;\n  --mt-text: #e5f1f7;\n  --mt-muted: #91a5b0;\n  --mt-green: #4ade80;\n  --mt-yellow: #facc15;\n  --mt-blue: #60a5fa;\n  --mt-red: #fb7185;\n  padding:10px 12px!important;\n  margin:10px 0 16px!important;\n  border-radius:14px!important;\n  background:linear-gradient(180deg, rgba(10,16,22,.92), rgba(7,12,17,.82))!important;\n  border:1px solid var(--mt-border)!important;\n  box-shadow:0 10px 30px rgba(0,0,0,.20)!important;\n  font-size:12px!important;\n  line-height:1.32!important;\n}\n.marketTapeHeader{\n  display:grid!important;\n  grid-template-columns:minmax(360px,1fr) auto!important;\n  gap:10px!important;\n  align-items:start!important;\n  margin-bottom:8px!important;\n}\n.marketTapeTitle h3{\n  font-size:14px!important;\n  line-height:1.15!important;\n  margin:0!important;\n  letter-spacing:.01em!important;\n}\n.marketTapeSub{\n  font-size:11px!important;\n  line-height:1.3!important;\n  color:var(--mt-muted)!important;\n  max-width:780px!important;\n  margin-top:3px!important;\n}\n.marketTapeToggle{\n  width:22px!important;\n  height:22px!important;\n  font-size:12px!important;\n  border-radius:7px!important;\n}\n.marketTapeTabs{\n  display:flex!important;\n  flex-wrap:wrap!important;\n  justify-content:flex-end!important;\n  gap:5px!important;\n  max-width:620px!important;\n}\n.marketTapeTab{\n  font-size:10px!important;\n  line-height:1!important;\n  padding:4px 7px!important;\n  border-radius:999px!important;\n  opacity:.78!important;\n  border-color:#2b3943!important;\n  background:rgba(255,255,255,.025)!important;\n}\n.marketTapeTab.active{\n  opacity:1!important;\n  color:#d9ffe8!important;\n  border-color:var(--mt-green)!important;\n  background:rgba(74,222,128,.08)!important;\n  box-shadow:0 0 0 1px rgba(74,222,128,.14),0 0 12px rgba(74,222,128,.10)!important;\n}\n.marketTapeCards{\n  display:grid!important;\n  grid-template-columns:repeat(6,minmax(0,1fr))!important;\n  gap:7px!important;\n  margin:7px 0 8px!important;\n}\n.marketTapeCard{\n  min-height:74px!important;\n  padding:7px 8px!important;\n  border-radius:12px!important;\n  border:1px solid var(--mt-border)!important;\n  background:var(--mt-panel)!important;\n  cursor:pointer!important;\n  transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease,background .12s ease!important;\n  overflow:hidden!important;\n}\n.marketTapeCard:hover{\n  transform:translateY(-1px)!important;\n  border-color:var(--mt-blue)!important;\n  background:rgba(96,165,250,.055)!important;\n  box-shadow:0 0 0 1px rgba(96,165,250,.17),0 8px 20px rgba(0,0,0,.18)!important;\n}\n.marketTapeCard.active{\n  border-color:var(--mt-yellow)!important;\n  background:rgba(250,204,21,.06)!important;\n  box-shadow:0 0 0 1px rgba(250,204,21,.20),0 0 18px rgba(250,204,21,.10)!important;\n}\n.marketTapeCardTop{\n  display:flex!important;\n  justify-content:space-between!important;\n  align-items:center!important;\n  gap:6px!important;\n  font-size:12.5px!important;\n  line-height:1.1!important;\n  margin-bottom:5px!important;\n}\n.marketTapeTerm{\n  font-size:13px!important;\n  font-weight:900!important;\n}\n.marketTapeScore{\n  font-size:12.5px!important;\n  font-weight:900!important;\n  color:var(--mt-yellow)!important;\n}\n.marketTapePill{\n  font-size:9.5px!important;\n  line-height:1!important;\n  padding:2px 5px!important;\n  border-radius:999px!important;\n}\n.marketTapeReason{\n  font-size:10.5px!important;\n  line-height:1.26!important;\n  margin-top:4px!important;\n  display:-webkit-box!important;\n  -webkit-line-clamp:2!important;\n  -webkit-box-orient:vertical!important;\n  overflow:hidden!important;\n}\n.marketTapeDetail{\n  display:grid!important;\n  grid-template-columns:minmax(0,1.1fr) minmax(390px,.9fr)!important;\n  gap:10px!important;\n  align-items:stretch!important;\n  min-height:0!important;\n  padding:8px!important;\n  border-radius:13px!important;\n  border:1px solid var(--mt-border)!important;\n  background:rgba(255,255,255,.018)!important;\n}\n.marketTapeDetail > div:first-child{\n  min-width:0!important;\n  padding:2px 2px 0!important;\n}\n.marketTapeDetailTitle{\n  display:flex!important;\n  align-items:center!important;\n  flex-wrap:wrap!important;\n  gap:5px!important;\n  font-size:12.5px!important;\n  line-height:1.2!important;\n  margin-bottom:5px!important;\n}\n.marketTapeDetailText{\n  font-size:11.5px!important;\n  line-height:1.38!important;\n  color:#d8e7ee!important;\n  max-width:100%!important;\n  margin-bottom:4px!important;\n}\n.marketTapeMatched,.marketTapeMissing,.marketTapeRisk{\n  font-size:11.5px!important;\n  line-height:1.35!important;\n  margin-top:3px!important;\n}\n.marketTapeRisk{\n  color:#ffd95a!important;\n}\n.marketTapeFamilyGrid{\n  display:grid!important;\n  grid-template-columns:repeat(5,minmax(0,1fr))!important;\n  gap:6px!important;\n  align-content:start!important;\n}\n.marketTapeFamily{\n  min-height:48px!important;\n  padding:6px 7px!important;\n  border-radius:10px!important;\n  background:var(--mt-panel-2)!important;\n  border:1px solid #31414d!important;\n}\n.marketTapeFamilyName{\n  font-size:9.75px!important;\n  line-height:1.05!important;\n  color:#aebec6!important;\n  white-space:nowrap!important;\n  overflow:hidden!important;\n  text-overflow:ellipsis!important;\n}\n.marketTapeFamilyScore{\n  font-size:14px!important;\n  line-height:1.05!important;\n  margin:2px 0 1px!important;\n  font-weight:900!important;\n}\n.marketTapeFamilyLabel{\n  font-size:9.75px!important;\n  line-height:1.05!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child{\n  grid-column:span 2!important;\n  background:linear-gradient(180deg,rgba(250,204,21,.08),rgba(255,255,255,.03))!important;\n  border-color:rgba(250,204,21,.35)!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyScore{\n  font-size:18px!important;\n  color:var(--mt-yellow)!important;\n}\n.screenerPanel.marketTape.collapsed .marketTapeCards,\n.screenerPanel.marketTape.collapsed .marketTapeDetail{\n  display:none!important;\n}\n.screenerPanel.marketTape.collapsed{\n  padding:8px 10px!important;\n  margin-bottom:8px!important;\n}\n@media (max-width:1220px){\n  .marketTapeCards{grid-template-columns:repeat(3,minmax(0,1fr))!important;}\n  .marketTapeDetail{grid-template-columns:1fr!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(5,minmax(0,1fr))!important;}\n}\n@media (max-width:760px){\n  .marketTapeHeader{grid-template-columns:1fr!important;}\n  .marketTapeTabs{justify-content:flex-start!important;max-width:none!important;}\n  .marketTapeCards{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n}\n';
   document.head.appendChild(st);
 })();
 
@@ -1926,7 +1926,7 @@ function setDashboardAssetFromScreener(term){
   if(old) old.remove();
   const st=document.createElement('style');
   st.id='phaseG_market_tape_layout_v4_style';
-  st.textContent='\n/* phaseG_market_tape_layout_v4 */\n.screenerPanel.marketTape{\n  --mt-bg: rgba(8,13,18,.80);\n  --mt-panel: rgba(255,255,255,.028);\n  --mt-panel-2: rgba(255,255,255,.042);\n  --mt-border: #263641;\n  --mt-border-soft: #1c2a33;\n  --mt-text: #e5f1f7;\n  --mt-muted: #94a8b3;\n  --mt-green: #4ade80;\n  --mt-yellow: #facc15;\n  --mt-blue: #60a5fa;\n  --mt-red: #fb7185;\n  --mt-pill-h: 30px;\n  padding:10px 12px!important;\n  margin:10px 0 16px!important;\n  border-radius:14px!important;\n  background:linear-gradient(180deg, rgba(10,16,22,.94), rgba(7,12,17,.86))!important;\n  border:1px solid var(--mt-border)!important;\n  box-shadow:0 10px 30px rgba(0,0,0,.20)!important;\n  font-size:12px!important;\n  line-height:1.32!important;\n}\n.marketTapeHeader{\n  display:grid!important;\n  grid-template-columns:minmax(360px,1fr) auto!important;\n  gap:10px!important;\n  align-items:start!important;\n  margin-bottom:8px!important;\n}\n.marketTapeTitle h3{\n  font-size:14px!important;\n  line-height:1.15!important;\n  margin:0!important;\n  letter-spacing:.01em!important;\n}\n.marketTapeSub{\n  font-size:10.75px!important;\n  line-height:1.28!important;\n  color:var(--mt-muted)!important;\n  max-width:820px!important;\n  margin-top:3px!important;\n}\n.marketTapeToggle{\n  width:22px!important;\n  height:22px!important;\n  font-size:12px!important;\n  border-radius:7px!important;\n}\n.marketTapeTabs{\n  display:flex!important;\n  flex-wrap:wrap!important;\n  justify-content:flex-end!important;\n  gap:5px!important;\n  max-width:620px!important;\n}\n.marketTapeTab{\n  font-size:9.75px!important;\n  line-height:1!important;\n  padding:4px 7px!important;\n  border-radius:999px!important;\n  opacity:.76!important;\n  border-color:#2a3842!important;\n  background:rgba(255,255,255,.025)!important;\n}\n.marketTapeTab.active{\n  opacity:1!important;\n  color:#d9ffe8!important;\n  border-color:var(--mt-green)!important;\n  background:rgba(74,222,128,.08)!important;\n  box-shadow:0 0 0 1px rgba(74,222,128,.14),0 0 12px rgba(74,222,128,.10)!important;\n}\n\n/* Six-card discovery tape */\n.marketTapeCards{\n  display:grid!important;\n  grid-template-columns:repeat(6,minmax(0,1fr))!important;\n  gap:7px!important;\n  margin:7px 0 8px!important;\n}\n.marketTapeCard{\n  min-height:72px!important;\n  padding:7px 8px!important;\n  border-radius:12px!important;\n  border:1px solid var(--mt-border)!important;\n  background:var(--mt-panel)!important;\n  cursor:pointer!important;\n  overflow:hidden!important;\n  transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease,background .12s ease!important;\n}\n.marketTapeCard:hover{\n  transform:translateY(-1px)!important;\n  border-color:var(--mt-blue)!important;\n  background:rgba(96,165,250,.055)!important;\n  box-shadow:0 0 0 1px rgba(96,165,250,.17),0 8px 20px rgba(0,0,0,.18)!important;\n}\n.marketTapeCard.active{\n  border-color:var(--mt-yellow)!important;\n  background:rgba(250,204,21,.055)!important;\n  box-shadow:0 0 0 1px rgba(250,204,21,.20),0 0 18px rgba(250,204,21,.10)!important;\n}\n.marketTapeCardTop{\n  display:flex!important;\n  justify-content:space-between!important;\n  align-items:center!important;\n  gap:6px!important;\n  font-size:12.25px!important;\n  line-height:1.1!important;\n  margin-bottom:5px!important;\n}\n.marketTapeTerm{\n  font-size:13px!important;\n  font-weight:900!important;\n}\n.marketTapeScore{\n  font-size:12.5px!important;\n  font-weight:900!important;\n  color:var(--mt-yellow)!important;\n}\n.marketTapePill{\n  font-size:9.5px!important;\n  line-height:1!important;\n  padding:2px 5px!important;\n  border-radius:999px!important;\n}\n.marketTapeReason{\n  font-size:10.4px!important;\n  line-height:1.25!important;\n  margin-top:4px!important;\n  display:-webkit-box!important;\n  -webkit-line-clamp:2!important;\n  -webkit-box-orient:vertical!important;\n  overflow:hidden!important;\n}\n\n/* Selected setup composition: no unused right-side void. */\n.marketTapeDetail{\n  display:grid!important;\n  grid-template-columns:minmax(300px,5fr) minmax(420px,7fr)!important;\n  gap:10px!important;\n  align-items:stretch!important;\n  min-height:0!important;\n  padding:8px!important;\n  border-radius:13px!important;\n  border:1px solid var(--mt-border)!important;\n  background:rgba(255,255,255,.018)!important;\n}\n.marketTapeDetail > div:first-child{\n  min-width:0!important;\n  padding:8px 9px!important;\n  border:1px solid rgba(255,255,255,.055)!important;\n  border-radius:12px!important;\n  background:rgba(255,255,255,.022)!important;\n}\n.marketTapeDetailTitle{\n  display:flex!important;\n  align-items:center!important;\n  flex-wrap:wrap!important;\n  gap:5px!important;\n  font-size:12.5px!important;\n  line-height:1.18!important;\n  margin-bottom:6px!important;\n}\n.marketTapeDetailText{\n  font-size:11.5px!important;\n  line-height:1.38!important;\n  color:#d8e7ee!important;\n  max-width:100%!important;\n  margin-bottom:5px!important;\n}\n.marketTapeMatched,.marketTapeMissing,.marketTapeRisk{\n  font-size:11.5px!important;\n  line-height:1.36!important;\n  margin-top:3px!important;\n}\n.marketTapeRisk{color:#ffd95a!important;}\n\n/* Metric deck: restore pill-box feel with better balance. */\n.marketTapeFamilyGrid{\n  display:grid!important;\n  grid-template-columns:repeat(4,minmax(0,1fr))!important;\n  grid-auto-rows:minmax(50px,auto)!important;\n  gap:6px!important;\n  align-content:stretch!important;\n  height:100%!important;\n}\n.marketTapeFamily{\n  min-height:50px!important;\n  padding:7px 8px!important;\n  border-radius:11px!important;\n  background:var(--mt-panel-2)!important;\n  border:1px solid #31414d!important;\n  display:flex!important;\n  flex-direction:column!important;\n  justify-content:center!important;\n}\n.marketTapeFamilyName{\n  font-size:9.8px!important;\n  line-height:1.05!important;\n  color:#aebec6!important;\n  white-space:nowrap!important;\n  overflow:hidden!important;\n  text-overflow:ellipsis!important;\n}\n.marketTapeFamilyScore{\n  font-size:14px!important;\n  line-height:1.05!important;\n  margin:2px 0 1px!important;\n  font-weight:900!important;\n}\n.marketTapeFamilyLabel{\n  font-size:9.8px!important;\n  line-height:1.05!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child{\n  grid-column:span 2!important;\n  grid-row:span 2!important;\n  justify-content:center!important;\n  background:linear-gradient(180deg,rgba(250,204,21,.09),rgba(255,255,255,.035))!important;\n  border-color:rgba(250,204,21,.38)!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyName{\n  font-size:10.5px!important;\n  color:#d9e7ef!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyScore{\n  font-size:22px!important;\n  line-height:1!important;\n  color:var(--mt-yellow)!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyLabel{\n  font-size:11px!important;\n}\n\n/* Balanced diagnostic/state ribbon. */\n.marketTapeStateRibbon{\n  display:grid!important;\n  grid-template-columns:repeat(6,minmax(0,1fr))!important;\n  gap:6px!important;\n  margin-top:8px!important;\n}\n.marketTapeStatePill{\n  min-height:var(--mt-pill-h)!important;\n  border:1px solid #2d3b45!important;\n  border-radius:10px!important;\n  background:rgba(255,255,255,.028)!important;\n  padding:5px 7px!important;\n  display:flex!important;\n  align-items:center!important;\n  gap:6px!important;\n  min-width:0!important;\n}\n.marketTapeStateLabel{\n  font-size:9.6px!important;\n  color:#92a6b0!important;\n  white-space:nowrap!important;\n}\n.marketTapeStateValue{\n  font-size:10.4px!important;\n  color:#e5f1f7!important;\n  font-weight:800!important;\n  overflow:hidden!important;\n  text-overflow:ellipsis!important;\n  white-space:nowrap!important;\n}\n.marketTapeStatePill.bullish{border-color:rgba(74,222,128,.42)!important;background:rgba(74,222,128,.045)!important;}\n.marketTapeStatePill.bearish{border-color:rgba(251,113,133,.42)!important;background:rgba(251,113,133,.045)!important;}\n.marketTapeStatePill.neutral{border-color:#2d3b45!important;background:rgba(255,255,255,.026)!important;}\n\n.screenerPanel.marketTape.collapsed .marketTapeCards,\n.screenerPanel.marketTape.collapsed .marketTapeDetail,\n.screenerPanel.marketTape.collapsed .marketTapeStateRibbon{\n  display:none!important;\n}\n.screenerPanel.marketTape.collapsed{\n  padding:8px 10px!important;\n  margin-bottom:8px!important;\n}\n\n@media (max-width:1220px){\n  .marketTapeCards{grid-template-columns:repeat(3,minmax(0,1fr))!important;}\n  .marketTapeDetail{grid-template-columns:1fr!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important;}\n  .marketTapeStateRibbon{grid-template-columns:repeat(3,minmax(0,1fr))!important;}\n}\n@media (max-width:760px){\n  .marketTapeHeader{grid-template-columns:1fr!important;}\n  .marketTapeTabs{justify-content:flex-start!important;max-width:none!important;}\n  .marketTapeCards{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n  .marketTapeDetail .marketTapeFamily:first-child{grid-column:span 2!important;grid-row:span 1!important;}\n  .marketTapeStateRibbon{grid-template-columns:1fr!important;}\n}\n';
+  st.textContent='\n/* phaseG_market_tape_layout_v4 */\n.screenerPanel.marketTape{\n  --mt-bg: rgba(8,13,18,.80);\n  --mt-panel: rgba(255,255,255,.028);\n  --mt-panel-2: rgba(255,255,255,.042);\n  --mt-border: #263641;\n  --mt-border-soft: #1c2a33;\n  --mt-text: #e5f1f7;\n  --mt-muted: #94a8b3;\n  --mt-green: #4ade80;\n  --mt-yellow: #facc15;\n  --mt-blue: #60a5fa;\n  --mt-red: #fb7185;\n  --mt-pill-h: 30px;\n  padding:10px 12px!important;\n  margin:10px 0 16px!important;\n  border-radius:14px!important;\n  background:linear-gradient(180deg, rgba(10,16,22,.94), rgba(7,12,17,.86))!important;\n  border:1px solid var(--mt-border)!important;\n  box-shadow:0 10px 30px rgba(0,0,0,.20)!important;\n  font-size:12px!important;\n  line-height:1.32!important;\n}\n.marketTapeHeader{\n  display:grid!important;\n  grid-template-columns:minmax(360px,1fr) auto!important;\n  gap:10px!important;\n  align-items:start!important;\n  margin-bottom:8px!important;\n}\n.marketTapeTitle h3{\n  font-size:14px!important;\n  line-height:1.15!important;\n  margin:0!important;\n  letter-spacing:.01em!important;\n}\n.marketTapeSub{\n  font-size:10.75px!important;\n  line-height:1.28!important;\n  color:var(--mt-muted)!important;\n  max-width:820px!important;\n  margin-top:3px!important;\n}\n.marketTapeToggle{\n  width:22px!important;\n  height:22px!important;\n  font-size:12px!important;\n  border-radius:7px!important;\n}\n.marketTapeTabs{\n  display:flex!important;\n  flex-wrap:wrap!important;\n  justify-content:flex-end!important;\n  gap:5px!important;\n  max-width:620px!important;\n}\n.marketTapeTab{\n  font-size:9.75px!important;\n  line-height:1!important;\n  padding:4px 7px!important;\n  border-radius:999px!important;\n  opacity:.76!important;\n  border-color:#2a3842!important;\n  background:rgba(255,255,255,.025)!important;\n}\n.marketTapeTab.active{\n  opacity:1!important;\n  color:#d9ffe8!important;\n  border-color:var(--mt-green)!important;\n  background:rgba(74,222,128,.08)!important;\n  box-shadow:0 0 0 1px rgba(74,222,128,.14),0 0 12px rgba(74,222,128,.10)!important;\n}\n\n/* Six-card discovery tape */\n.marketTapeCards{\n  display:grid!important;\n  grid-template-columns:repeat(6,minmax(0,1fr))!important;\n  gap:7px!important;\n  margin:7px 0 8px!important;\n}\n.marketTapeCard{\n  min-height:72px!important;\n  padding:7px 8px!important;\n  border-radius:12px!important;\n  border:1px solid var(--mt-border)!important;\n  background:var(--mt-panel)!important;\n  cursor:pointer!important;\n  overflow:hidden!important;\n  transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease,background .12s ease!important;\n}\n.marketTapeCard:hover{\n  transform:translateY(-1px)!important;\n  border-color:var(--mt-blue)!important;\n  background:rgba(96,165,250,.055)!important;\n  box-shadow:0 0 0 1px rgba(96,165,250,.17),0 8px 20px rgba(0,0,0,.18)!important;\n}\n.marketTapeCard.active{\n  border-color:var(--mt-yellow)!important;\n  background:rgba(250,204,21,.055)!important;\n  box-shadow:0 0 0 1px rgba(250,204,21,.20),0 0 18px rgba(250,204,21,.10)!important;\n}\n.marketTapeCardTop{\n  display:flex!important;\n  justify-content:space-between!important;\n  align-items:center!important;\n  gap:6px!important;\n  font-size:12.25px!important;\n  line-height:1.1!important;\n  margin-bottom:5px!important;\n}\n.marketTapeTerm{\n  font-size:13px!important;\n  font-weight:900!important;\n}\n.marketTapeScore{\n  font-size:12.5px!important;\n  font-weight:900!important;\n  color:var(--mt-yellow)!important;\n}\n.marketTapePill{\n  font-size:9.5px!important;\n  line-height:1!important;\n  padding:2px 5px!important;\n  border-radius:999px!important;\n}\n.marketTapeReason{\n  font-size:10.4px!important;\n  line-height:1.25!important;\n  margin-top:4px!important;\n  display:-webkit-box!important;\n  -webkit-line-clamp:2!important;\n  -webkit-box-orient:vertical!important;\n  overflow:hidden!important;\n}\n\n/* Selected setup composition: no unused right-side void. */\n.marketTapeDetail{\n  display:grid!important;\n  grid-template-columns:minmax(300px,5fr) minmax(420px,7fr)!important;\n  gap:10px!important;\n  align-items:stretch!important;\n  min-height:0!important;\n  padding:8px!important;\n  border-radius:13px!important;\n  border:1px solid var(--mt-border)!important;\n  background:rgba(255,255,255,.018)!important;\n}\n.marketTapeDetail > div:first-child{\n  min-width:0!important;\n  padding:8px 9px!important;\n  border:1px solid rgba(255,255,255,.055)!important;\n  border-radius:12px!important;\n  background:rgba(255,255,255,.022)!important;\n}\n.marketTapeDetailTitle{\n  display:flex!important;\n  align-items:center!important;\n  flex-wrap:wrap!important;\n  gap:5px!important;\n  font-size:12.5px!important;\n  line-height:1.18!important;\n  margin-bottom:6px!important;\n}\n.marketTapeDetailText{\n  font-size:11.5px!important;\n  line-height:1.38!important;\n  color:#d8e7ee!important;\n  max-width:100%!important;\n  margin-bottom:5px!important;\n}\n.marketTapeMatched,.marketTapeMissing,.marketTapeRisk{\n  font-size:11.5px!important;\n  line-height:1.36!important;\n  margin-top:3px!important;\n}\n.marketTapeRisk{color:#ffd95a!important;}\n\n/* Metric deck: restore pill-box feel with better balance. */\n.marketTapeFamilyGrid{\n  display:grid!important;\n  grid-template-columns:repeat(5,minmax(0,1fr))!important;\n  grid-auto-rows:minmax(50px,auto)!important;\n  gap:6px!important;\n  align-content:stretch!important;\n  height:100%!important;\n}\n.marketTapeFamily{\n  min-height:50px!important;\n  padding:7px 8px!important;\n  border-radius:11px!important;\n  background:var(--mt-panel-2)!important;\n  border:1px solid #31414d!important;\n  display:flex!important;\n  flex-direction:column!important;\n  justify-content:center!important;\n}\n.marketTapeFamilyName{\n  font-size:9.8px!important;\n  line-height:1.05!important;\n  color:#aebec6!important;\n  white-space:nowrap!important;\n  overflow:hidden!important;\n  text-overflow:ellipsis!important;\n}\n.marketTapeFamilyScore{\n  font-size:14px!important;\n  line-height:1.05!important;\n  margin:2px 0 1px!important;\n  font-weight:900!important;\n}\n.marketTapeFamilyLabel{\n  font-size:9.8px!important;\n  line-height:1.05!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child{\n  grid-column:span 2!important;\n  grid-row:span 2!important;\n  justify-content:center!important;\n  background:linear-gradient(180deg,rgba(250,204,21,.09),rgba(255,255,255,.035))!important;\n  border-color:rgba(250,204,21,.38)!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyName{\n  font-size:10.5px!important;\n  color:#d9e7ef!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyScore{\n  font-size:22px!important;\n  line-height:1!important;\n  color:var(--mt-yellow)!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyLabel{\n  font-size:11px!important;\n}\n\n/* Balanced diagnostic/state ribbon. */\n.marketTapeStateRibbon{\n  display:grid!important;\n  grid-template-columns:repeat(6,minmax(0,1fr))!important;\n  gap:6px!important;\n  margin-top:8px!important;\n}\n.marketTapeStatePill{\n  min-height:var(--mt-pill-h)!important;\n  border:1px solid #2d3b45!important;\n  border-radius:10px!important;\n  background:rgba(255,255,255,.028)!important;\n  padding:5px 7px!important;\n  display:flex!important;\n  align-items:center!important;\n  gap:6px!important;\n  min-width:0!important;\n}\n.marketTapeStateLabel{\n  font-size:9.6px!important;\n  color:#92a6b0!important;\n  white-space:nowrap!important;\n}\n.marketTapeStateValue{\n  font-size:10.4px!important;\n  color:#e5f1f7!important;\n  font-weight:800!important;\n  overflow:hidden!important;\n  text-overflow:ellipsis!important;\n  white-space:nowrap!important;\n}\n.marketTapeStatePill.bullish{border-color:rgba(74,222,128,.42)!important;background:rgba(74,222,128,.045)!important;}\n.marketTapeStatePill.bearish{border-color:rgba(251,113,133,.42)!important;background:rgba(251,113,133,.045)!important;}\n.marketTapeStatePill.neutral{border-color:#2d3b45!important;background:rgba(255,255,255,.026)!important;}\n\n.screenerPanel.marketTape.collapsed .marketTapeCards,\n.screenerPanel.marketTape.collapsed .marketTapeDetail,\n.screenerPanel.marketTape.collapsed .marketTapeStateRibbon{\n  display:none!important;\n}\n.screenerPanel.marketTape.collapsed{\n  padding:8px 10px!important;\n  margin-bottom:8px!important;\n}\n\n@media (max-width:1220px){\n  .marketTapeCards{grid-template-columns:repeat(3,minmax(0,1fr))!important;}\n  .marketTapeDetail{grid-template-columns:1fr!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(5,minmax(0,1fr))!important;}\n  .marketTapeStateRibbon{grid-template-columns:repeat(3,minmax(0,1fr))!important;}\n}\n@media (max-width:760px){\n  .marketTapeHeader{grid-template-columns:1fr!important;}\n  .marketTapeTabs{justify-content:flex-start!important;max-width:none!important;}\n  .marketTapeCards{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n  .marketTapeDetail .marketTapeFamily:first-child{grid-column:span 2!important;grid-row:span 1!important;}\n  .marketTapeStateRibbon{grid-template-columns:1fr!important;}\n}\n';
   document.head.appendChild(st);
 })();
 
@@ -2290,3 +2290,173 @@ async function initDashboard(){
 }
 initDashboard();
 
+// BEGIN phaseG_market_tape_layout_v5
+(function phaseG_market_tape_layout_v5() {
+  if (typeof document === "undefined") return;
+  if (window.__phaseG_market_tape_layout_v5) return;
+  window.__phaseG_market_tape_layout_v5 = true;
+
+  const css = `
+/* phaseG_market_tape_layout_v5_style */
+:root {
+  --mt-v5-card-min-h: 116px;
+  --mt-v5-score-min-h: 78px;
+}
+
+/* Restore the hero/top row to a true top five. */
+.market-tape-top-row,
+.marketTapeTopRow,
+.market-tape-leaders,
+.marketTapeLeaders,
+.market-tape-movers-top,
+.marketTapeMoversTop,
+.market-tape-grid-top,
+.marketTapeGridTop,
+[data-market-tape-top-row="true"],
+[data-market-tape-section="top-row"],
+[data-market-tape-section="leaders"] {
+  display: grid !important;
+  grid-template-columns: repeat(5,minmax(0,1fr)) !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+}
+
+/* Let cards breathe without letting one name/price line blow out the row. */
+.market-tape-top-row > *,
+.marketTapeTopRow > *,
+.market-tape-leaders > *,
+.marketTapeLeaders > *,
+.market-tape-movers-top > *,
+.marketTapeMoversTop > *,
+.market-tape-grid-top > *,
+.marketTapeGridTop > *,
+[data-market-tape-top-row="true"] > *,
+[data-market-tape-section="top-row"] > *,
+[data-market-tape-section="leaders"] > * {
+  min-width: 0 !important;
+  min-height: var(--mt-v5-card-min-h) !important;
+}
+
+.market-tape-top-row .ticker,
+.market-tape-top-row .symbol,
+.marketTapeTopRow .ticker,
+.marketTapeTopRow .symbol,
+.market-tape-leaders .ticker,
+.market-tape-leaders .symbol,
+.marketTapeLeaders .ticker,
+.marketTapeLeaders .symbol {
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+}
+
+/* Bring back a fuller score-box set and keep labels readable. */
+.market-tape-score-grid,
+.marketTapeScoreGrid,
+.market-tape-score-row,
+.marketTapeScoreRow,
+.market-tape-score-boxes,
+.marketTapeScoreBoxes,
+[data-market-tape-section="scores"],
+[data-market-tape-score-grid="true"] {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit,minmax(148px,1fr)) !important;
+  gap: 10px !important;
+  align-items: stretch !important;
+}
+
+.market-tape-score-grid > *,
+.marketTapeScoreGrid > *,
+.market-tape-score-row > *,
+.marketTapeScoreRow > *,
+.market-tape-score-boxes > *,
+.marketTapeScoreBoxes > *,
+[data-market-tape-section="scores"] > *,
+[data-market-tape-score-grid="true"] > * {
+  min-width: 0 !important;
+  min-height: var(--mt-v5-score-min-h) !important;
+  padding: 10px 12px !important;
+}
+
+.market-tape-score-grid .label,
+.marketTapeScoreGrid .label,
+.market-tape-score-row .label,
+.marketTapeScoreRow .label,
+.market-tape-score-boxes .label,
+.marketTapeScoreBoxes .label,
+[data-market-tape-section="scores"] .label {
+  display: block !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  line-height: 1.15 !important;
+}
+
+/* Rebalance selected-detail layout to reduce awkward empty space. */
+.market-tape-selected-detail,
+.marketTapeSelectedDetail,
+.market-tape-detail-panel,
+.marketTapeDetailPanel,
+[data-market-tape-section="selected-detail"],
+[data-market-tape-section="detail"] {
+  display: grid !important;
+  grid-template-columns: minmax(260px,0.95fr) minmax(320px,1.35fr) !important;
+  gap: 14px !important;
+  align-items: stretch !important;
+}
+
+.market-tape-selected-detail > *,
+.marketTapeSelectedDetail > *,
+.market-tape-detail-panel > *,
+.marketTapeDetailPanel > *,
+[data-market-tape-section="selected-detail"] > *,
+[data-market-tape-section="detail"] > * {
+  min-width: 0 !important;
+}
+
+@media (max-width: 1200px) {
+  .market-tape-top-row,
+  .marketTapeTopRow,
+  .market-tape-leaders,
+  .marketTapeLeaders,
+  .market-tape-movers-top,
+  .marketTapeMoversTop,
+  .market-tape-grid-top,
+  .marketTapeGridTop,
+  [data-market-tape-top-row="true"],
+  [data-market-tape-section="top-row"],
+  [data-market-tape-section="leaders"] {
+    grid-template-columns: repeat(3,minmax(0,1fr)) !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .market-tape-top-row,
+  .marketTapeTopRow,
+  .market-tape-leaders,
+  .marketTapeLeaders,
+  .market-tape-movers-top,
+  .marketTapeMoversTop,
+  .market-tape-grid-top,
+  .marketTapeGridTop,
+  [data-market-tape-top-row="true"],
+  [data-market-tape-section="top-row"],
+  [data-market-tape-section="leaders"],
+  .market-tape-selected-detail,
+  .marketTapeSelectedDetail,
+  .market-tape-detail-panel,
+  .marketTapeDetailPanel,
+  [data-market-tape-section="selected-detail"],
+  [data-market-tape-section="detail"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+`;
+
+  const style = document.createElement("style");
+  style.id = "phaseG_market_tape_layout_v5_style";
+  style.textContent = css;
+  document.head.appendChild(style);
+})();
+// END phaseG_market_tape_layout_v5
+// phaseG_market_tape_cache_013
+window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
