@@ -2796,3 +2796,232 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 })();
 // END phaseG_market_tape_metric_deck_v7
 
+
+
+
+// BEGIN phaseG_market_tape_metric_deck_v8
+(function phaseG_market_tape_metric_deck_v8(){
+  if (window.__phaseG_market_tape_metric_deck_v8) return;
+  window.__phaseG_market_tape_metric_deck_v8 = true;
+
+  const css = `
+/* phaseG_market_tape_metric_deck_v8_style */
+/* Market Tape metric deck: Summary left, six metric cards in a stable 3x2 grid. */
+.screenerPanel.marketTape .marketTapeFamilyGrid,
+.marketTape .marketTapeFamilyGrid{
+  display:grid!important;
+  grid-template-columns:124px repeat(3,74px)!important;
+  grid-template-rows:58px 58px!important;
+  grid-auto-flow:row!important;
+  grid-auto-columns:74px!important;
+  gap:7px!important;
+  align-items:stretch!important;
+  justify-content:start!important;
+  align-content:start!important;
+  width:max-content!important;
+  max-width:100%!important;
+  min-height:123px!important;
+  overflow:visible!important;
+}
+
+.screenerPanel.marketTape .marketTapeFamily,
+.marketTape .marketTapeFamily{
+  min-width:0!important;
+  width:74px!important;
+  min-height:58px!important;
+  height:58px!important;
+  padding:7px 8px!important;
+  border-radius:10px!important;
+  box-sizing:border-box!important;
+  display:flex!important;
+  flex-direction:column!important;
+  justify-content:center!important;
+  overflow:hidden!important;
+}
+
+.screenerPanel.marketTape .marketTapeFamily:first-child,
+.marketTape .marketTapeFamily:first-child{
+  grid-column:1!important;
+  grid-row:1 / span 2!important;
+  width:124px!important;
+  min-width:124px!important;
+  height:123px!important;
+  min-height:123px!important;
+  padding:10px 11px!important;
+  justify-content:center!important;
+  border-color:rgba(250,204,21,.55)!important;
+  background:linear-gradient(180deg,rgba(250,204,21,.10),rgba(255,255,255,.035))!important;
+  box-shadow:0 0 0 1px rgba(250,204,21,.10)!important;
+}
+
+/* Explicit placement prevents a 7th card from wrapping into a skinny orphan column. */
+.screenerPanel.marketTape .marketTapeFamily:nth-child(2),
+.marketTape .marketTapeFamily:nth-child(2){ grid-column:2!important; grid-row:1!important; }
+.screenerPanel.marketTape .marketTapeFamily:nth-child(3),
+.marketTape .marketTapeFamily:nth-child(3){ grid-column:3!important; grid-row:1!important; }
+.screenerPanel.marketTape .marketTapeFamily:nth-child(4),
+.marketTape .marketTapeFamily:nth-child(4){ grid-column:4!important; grid-row:1!important; }
+.screenerPanel.marketTape .marketTapeFamily:nth-child(5),
+.marketTape .marketTapeFamily:nth-child(5){ grid-column:2!important; grid-row:2!important; }
+.screenerPanel.marketTape .marketTapeFamily:nth-child(6),
+.marketTape .marketTapeFamily:nth-child(6){ grid-column:3!important; grid-row:2!important; }
+.screenerPanel.marketTape .marketTapeFamily:nth-child(7),
+.marketTape .marketTapeFamily:nth-child(7){ grid-column:4!important; grid-row:2!important; }
+
+.screenerPanel.marketTape .marketTapeFamilyName,
+.marketTape .marketTapeFamilyName{
+  font-size:10px!important;
+  line-height:1.05!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  color:#b8c8d0!important;
+}
+
+.screenerPanel.marketTape .marketTapeFamilyScore,
+.marketTape .marketTapeFamilyScore{
+  font-size:17px!important;
+  line-height:1!important;
+  margin:3px 0 2px!important;
+  font-weight:900!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:clip!important;
+}
+
+.screenerPanel.marketTape .marketTapeFamilyLabel,
+.marketTape .marketTapeFamilyLabel{
+  font-size:10px!important;
+  line-height:1.08!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+
+.screenerPanel.marketTape .marketTapeFamily:first-child .marketTapeFamilyScore,
+.marketTape .marketTapeFamily:first-child .marketTapeFamilyScore{
+  font-size:24px!important;
+  line-height:1!important;
+  color:#facc15!important;
+}
+
+.screenerPanel.marketTape .marketTapeFamily:first-child .marketTapeFamilyName,
+.marketTape .marketTapeFamily:first-child .marketTapeFamilyName{
+  font-size:11px!important;
+}
+
+.screenerPanel.marketTape .marketTapeFamily:first-child .marketTapeFamilyLabel,
+.marketTape .marketTapeFamily:first-child .marketTapeFamilyLabel{
+  font-size:11px!important;
+  white-space:normal!important;
+  overflow:visible!important;
+}
+
+.screenerPanel.marketTape .marketTapeDetail,
+.marketTape .marketTapeDetail{
+  grid-template-columns:minmax(300px,1fr) minmax(360px,auto)!important;
+  align-items:stretch!important;
+}
+
+@media (max-width:1220px){
+  .screenerPanel.marketTape .marketTapeDetail,
+  .marketTape .marketTapeDetail{
+    grid-template-columns:1fr!important;
+  }
+}
+
+@media (max-width:760px){
+  .screenerPanel.marketTape .marketTapeFamilyGrid,
+  .marketTape .marketTapeFamilyGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-template-rows:auto!important;
+    width:100%!important;
+  }
+  .screenerPanel.marketTape .marketTapeFamily,
+  .marketTape .marketTapeFamily{
+    width:auto!important;
+  }
+  .screenerPanel.marketTape .marketTapeFamily:first-child,
+  .marketTape .marketTapeFamily:first-child{
+    grid-column:1 / span 2!important;
+    grid-row:auto!important;
+    width:auto!important;
+    height:auto!important;
+    min-height:70px!important;
+  }
+  .screenerPanel.marketTape .marketTapeFamily:nth-child(n+2),
+  .marketTape .marketTapeFamily:nth-child(n+2){
+    grid-column:auto!important;
+    grid-row:auto!important;
+  }
+}
+`;
+
+  function injectMetricDeckStyle(){
+    [
+      "phaseG_market_tape_metric_deck_v6_style",
+      "phaseG_market_tape_metric_deck_v7_style",
+      "phaseG_market_tape_metric_deck_v8_style"
+    ].forEach(id => {
+      const old = document.getElementById(id);
+      if (old) old.remove();
+    });
+    const style = document.createElement("style");
+    style.id = "phaseG_market_tape_metric_deck_v8_style";
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+
+  function normalizeMetricText(){
+    const cards = Array.from(document.querySelectorAll(".marketTapeFamily"));
+    for (const card of cards){
+      const nameEl = card.querySelector(".marketTapeFamilyName");
+      const scoreEl = card.querySelector(".marketTapeFamilyScore");
+      const labelEl = card.querySelector(".marketTapeFamilyLabel");
+      const name = (nameEl?.textContent || "").trim().toLowerCase();
+
+      if (name === "trend" && scoreEl){
+        const s = (scoreEl.textContent || "").trim().toLowerCase();
+        if (!s || s === "n/a" || s === "na" || s === "nan" || s === "null"){
+          scoreEl.textContent = "--";
+        }
+      }
+      if (labelEl) labelEl.title = labelEl.textContent.trim();
+    }
+  }
+
+  function applyMarketTapeMetricDeckV8(){
+    injectMetricDeckStyle();
+    normalizeMetricText();
+  }
+
+  const oldRender = window.renderScreenerPanel;
+  if (typeof oldRender === "function" && !oldRender.__metricDeckV8Wrapped){
+    const wrapped = function(){
+      const out = oldRender.apply(this, arguments);
+      setTimeout(applyMarketTapeMetricDeckV8, 0);
+      setTimeout(applyMarketTapeMetricDeckV8, 80);
+      setTimeout(applyMarketTapeMetricDeckV8, 250);
+      return out;
+    };
+    wrapped.__metricDeckV8Wrapped = true;
+    window.renderScreenerPanel = wrapped;
+  }
+
+  const obs = new MutationObserver(() => {
+    if (document.querySelector(".marketTapeFamilyGrid")) applyMarketTapeMetricDeckV8();
+  });
+
+  function startObserver(){
+    if (document.body){
+      obs.observe(document.body, {childList:true, subtree:true});
+      applyMarketTapeMetricDeckV8();
+    } else {
+      setTimeout(startObserver, 50);
+    }
+  }
+
+  startObserver();
+})();
+// END phaseG_market_tape_metric_deck_v8
+
