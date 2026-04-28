@@ -95,47 +95,172 @@ def asset_heading(asset: Dict[str, Any]) -> str:
     return clean_text(asset.get("heading")) or f"{asset_term(asset)}: SETA context"
 
 
-def lead_section(asset: Dict[str, Any]) -> List[str]:
+
+def first_sentence(text: str) -> str:
+    text = clean_text(text)
+    if not text:
+        return ""
+    m = re.search(r"(.+?[.!?])\\s", text)
+    if m:
+        return m.group(1).strip()
+    return text
+
+
+def de_dupe_sentences(primary: str, secondary: str) -> str:
+    p = clean_text(primary).lower()
+    s = clean_text(secondary)
+    if not s:
+        return ""
+    if s.lower() == p:
+        return ""
+    first = first_sentence(s)
+    if first and first.lower() in p:
+        rest = s[len(first):].strip()
+        return rest
+    return s
+
+
+def asset_archetype(asset: Dict[str, Any]) -> str:
+    return clean_text(asset.get("copy_archetype")).lower() or "seta_context"
+
+
+def varied_connector(index: int) -> str:
+    connectors = [
+        "A useful contrast is",
+        "The second read is",
+        "Another pressure point is",
+        "The broader tape also includes",
+        "A final comparison case is",
+        "The next supporting read is",
+    ]
+    return connectors[index % len(connectors)]
+
+
+def asset_public_take(asset: Dict[str, Any], index: int = 0, lead: bool = False) -> str:
     term = asset_term(asset)
+    arch = asset_archetype(asset)
+    one = clean_text(asset.get("one_liner"))
+    note = clean_text(asset.get("public_note"))
+    base = de_dupe_sentences(one, note) or note or one
+
+    if lead:
+        if arch in {"participation_diffusion", "broadening_participation"}:
+            return (
+                f"{term} is the lead read because participation is widening enough to matter, while confirmation still has to be earned. "
+                f"{base}"
+            ).strip()
+        if arch == "contested_structure":
+            return (
+                f"{term} leads the packet because the setup captures the current SETA tension: activity is present, but structure is not cleanly confirmed. "
+                f"{base}"
+            ).strip()
+        if arch == "repair_watch":
+            return (
+                f"{term} leads as a repair case, not as an all-clear. "
+                f"{base}"
+            ).strip()
+        if arch == "narrative_churn":
+            return (
+                f"{term} leads because attention is present while the story is still rotating. "
+                f"{base}"
+            ).strip()
+        return base or f"{term} is the lead read because it best captures today's relationship between participation, narrative, and confirmation."
+
+    connector = varied_connector(index)
+    if arch in {"participation_diffusion", "broadening_participation"}:
+        return (
+            f"{connector} {term}, where participation is broadening. "
+            f"The question is whether breadth becomes durable enough to support confirmation."
+        )
+    if arch == "contested_structure":
+        return (
+            f"{connector} {term}. It is active, but SETA reads the structure as contested, which makes it a decision-zone case rather than a clean confirmation."
+        )
+    if arch == "repair_watch":
+        return (
+            f"{connector} {term}, which reads more like repair than confirmation. "
+            f"The important layer is whether sponsorship is rebuilding underneath the move."
+        )
+    if arch == "validation_risk":
+        return (
+            f"{connector} {term}. Surface activity remains visible, while the validation layer still needs work."
+        )
+    if arch == "narrative_churn":
+        return (
+            f"{connector} {term}, where attention is present but the story is still rotating. "
+            f"That makes narrative coherence the main thing to watch."
+        )
+
+    if one:
+        return f"{connector} {term}. {one}"
+    return f"{connector} {term}, which remains part of the current SETA context stack."
+
+
+def clean_watch_line(watch: str) -> str:
+    watch = clean_text(watch)
+    if watch.lower().startswith("watch condition:"):
+        watch = watch.split(":", 1)[1].strip()
+    if watch.lower().startswith("watch whether"):
+        return watch
+    if watch:
+        return "Watch whether " + watch[0].lower() + watch[1:]
+    return ""
+
+
+def closing_synthesis(outline: Dict[str, Any]) -> str:
+    mix = outline.get("market_mix", {}) if isinstance(outline.get("market_mix"), dict) else {}
+    crypto_count = int(mix.get("crypto", 0) or 0)
+    equity_count = int(mix.get("equities", 0) or 0)
+
+    if crypto_count and equity_count:
+        return (
+            "Across both crypto and equities, the lesson is the same but the timing is different: attention can appear quickly, while confirmation has to be earned. "
+            "SETA is watching where those layers come together and where they remain separated."
+        )
+    if crypto_count:
+        return (
+            "For crypto, the key is whether attention keeps broadening or collapses back into a crowded story. "
+            "That is why SETA separates participation from validation."
+        )
+    if equity_count:
+        return (
+            "For equities, the key is whether leadership is coherent enough to earn confirmation. "
+            "That is why SETA treats structure and sponsorship as more important than speed."
+        )
+    return (
+        "The useful read is where attention, narrative, and structure are either confirming one another or separating. "
+        "That separation is where SETA does its work."
+    )
+
+def lead_section(asset: Dict[str, Any]) -> List[str]:
     lines: List[str] = []
     lines.append(f"## {asset_heading(asset)}")
     lines.append("")
 
-    one = clean_text(asset.get("one_liner"))
-    note = clean_text(asset.get("public_note"))
-    watch = clean_text(asset.get("watch_condition"))
-    read = clean_text(asset.get("seta_read"))
+    lead_take = sentence_trim(asset_public_take(asset, lead=True), 900)
+    if lead_take:
+        lines.append(lead_take)
+        lines.append("")
+
     narrative = clean_text(asset.get("narrative"))
-
-    if one:
-        lines.append(one)
-        lines.append("")
-
-    if note:
-        lines.append(note)
-        lines.append("")
-    else:
-        lines.append(
-            f"{term} is the lead read in today’s SETA packet because it best captures the current tension between participation, narrative, and confirmation."
-        )
-        lines.append("")
+    watch = clean_watch_line(asset.get("watch_condition"))
+    read = clean_text(asset.get("seta_read"))
 
     if narrative:
         lines.append(
-            f"The narrative layer matters here because SETA does not treat attention as validation by itself. {narrative}"
+            f"The narrative layer matters because SETA does not treat attention as validation by itself. {narrative}"
         )
         lines.append("")
 
     if watch:
-        lines.append(f"The watch condition is straightforward: {watch}")
+        lines.append(f"**Watch condition:** {watch}")
         lines.append("")
 
     if read:
-        lines.append(f"SETA read: {read}.")
+        lines.append(f"**SETA read:** {read}")
         lines.append("")
 
     return lines
-
 
 def supporting_section(assets: List[Dict[str, Any]]) -> List[str]:
     lines: List[str] = []
@@ -145,31 +270,33 @@ def supporting_section(assets: List[Dict[str, Any]]) -> List[str]:
     lines.append("## Supporting reads")
     lines.append("")
     lines.append(
-        "The supporting names matter less as isolated calls and more as contrast cases. They show whether today’s SETA tape is being driven by broad participation, contested structure, repair, or narrative churn."
+        "The supporting names are not separate calls. They are contrast cases that show how today's tape is distributing pressure across participation, structure, repair, and narrative coherence."
     )
     lines.append("")
 
-    for asset in assets:
-        term = asset_term(asset)
+    for idx, asset in enumerate(assets):
         heading = asset_heading(asset)
-        one = clean_text(asset.get("one_liner"))
-        watch = clean_text(asset.get("watch_condition"))
+        watch = clean_watch_line(asset.get("watch_condition"))
         read = clean_text(asset.get("seta_read"))
+        narrative = clean_text(asset.get("narrative"))
+        take = sentence_trim(asset_public_take(asset, index=idx), 620)
 
         lines.append(f"### {heading}")
         lines.append("")
-        if one:
-            lines.append(one)
-            lines.append("")
+        lines.append(take)
+        lines.append("")
+
         if watch:
-            lines.append(f"Watch condition: {watch}")
+            lines.append(f"**Watch:** {watch}")
             lines.append("")
         if read:
-            lines.append(f"SETA read: {read}.")
+            lines.append(f"**SETA read:** {read}")
+            lines.append("")
+        if narrative and idx < 2:
+            lines.append(f"**Narrative:** {narrative}")
             lines.append("")
 
     return lines
-
 
 def market_context_section(outline: Dict[str, Any]) -> List[str]:
     lines: List[str] = []
@@ -207,12 +334,11 @@ def close_section() -> List[str]:
         "",
         "The useful read is not that any one asset has to move a specific way. The useful read is where attention, narrative, and structure are either confirming one another or separating.",
         "",
-        "That separation is where SETA does its work. Attention without validation can still matter, validation without diffusion can still be fragile, and the rare cases where both are present deserve more focus.",
+        "Attention without validation can still matter. Validation without diffusion can still be fragile. The rare cases where both are present deserve more focus.",
         "",
         "This is interpretation context, not a prediction or trade signal.",
         "",
     ]
-
 
 def editorial_notes(outline: Dict[str, Any]) -> List[str]:
     lines: List[str] = []
@@ -262,13 +388,19 @@ def build_draft(outline: Dict[str, Any], snippets: Dict[str, Any], style: Dict[s
     lines.extend(market_context_section(outline))
     lines.extend(lead_section(lead))
     lines.extend(supporting_section(supporting))
+
+    lines.append("## Synthesis")
+    lines.append("")
+    lines.append(closing_synthesis(outline))
+    lines.append("")
+
     lines.extend(close_section())
     lines.extend(editorial_notes(outline))
 
     md = "\n".join(lines).strip() + "\n"
 
     draft = {
-        "schema_version": "seta_blog_draft_v1",
+        "schema_version": "seta_blog_draft_v2",
         "date": date,
         "created_at_utc": created_at,
         "draft_only": True,
@@ -291,7 +423,6 @@ def build_draft(outline: Dict[str, Any], snippets: Dict[str, Any], style: Dict[s
         ],
     }
     return draft
-
 
 def build_blog_draft(outline_path: Path, snippets_path: Path, style_path: Path, out_dir: Path) -> Dict[str, Any]:
     outline = load_json(outline_path)
