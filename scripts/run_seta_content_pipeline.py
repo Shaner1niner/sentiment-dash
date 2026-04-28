@@ -75,6 +75,13 @@ STEPS = [
         "fallback_glob": REPO_ROOT / "reply_agent" / "social_calendar",
         "fallback_pattern": "seta_social_calendar_*.json",
     },
+    {
+        "name": "public_website_content",
+        "script": REPO_ROOT / "scripts" / "publish_seta_public_website_content.py",
+        "expected_latest": REPO_ROOT / "public_content" / "seta_website_snippets_latest.json",
+        "fallback_glob": REPO_ROOT / "public_content",
+        "fallback_pattern": "seta_website_snippets_*.json",
+    },
 ]
 
 
@@ -394,6 +401,7 @@ def collect_final_outputs() -> Dict[str, str]:
         "blog_outline": REPO_ROOT / "reply_agent" / "blog_outlines" / "seta_blog_outline_latest.json",
         "blog_draft": REPO_ROOT / "reply_agent" / "blog_drafts" / "seta_blog_draft_latest.json",
         "social_calendar": REPO_ROOT / "reply_agent" / "social_calendar" / "seta_social_calendar_latest.json",
+        "public_website_content": REPO_ROOT / "public_content" / "seta_website_snippets_latest.json",
     }
     return {k: str(v) for k, v in paths.items() if v.exists()}
 
