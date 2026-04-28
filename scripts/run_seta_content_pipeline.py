@@ -161,8 +161,14 @@ def validate_safety(path: Optional[Path]) -> Tuple[bool, List[str], Dict[str, An
 
     ok = True
 
-    # Most artifacts have top-level safety flags.
-    if payload.get("draft_only") is not True:
+    # Most internal artifacts are draft-only. Public website artifacts are
+    # allowed to be public_safe=true with draft_only=false, as long as they
+    # still preserve posting_performed=false.
+    is_public_safe = payload.get("public_safe") is True
+
+    if is_public_safe:
+        messages.append("Top-level public_safe=true.")
+    elif payload.get("draft_only") is not True:
         ok = False
         messages.append("Top-level draft_only is not true.")
     else:
