@@ -64,3 +64,10 @@ reply_agent/social_calendar/
 
 # SETA content pipeline runtime outputs
 reply_agent/pipeline_runs/
+
+# SETA public website content runtime/archive outputs
+public_content/_smoke/
+public_content/seta_website_snippets_20*.json
+public_content/seta_website_snippets_20*.md
+!public_content/seta_website_snippets_latest.json
+!public_content/seta_website_snippets_latest.md
