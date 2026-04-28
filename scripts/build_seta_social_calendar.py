@@ -110,56 +110,157 @@ def by_term(snippets_payload: Dict[str, Any]) -> Dict[str, Dict[str, Any]]:
     return {clean_text(s.get("term")).upper(): s for s in snippets if isinstance(s, dict) and clean_text(s.get("term"))}
 
 
-def make_x_post(snippet: Dict[str, Any], variant: str = "asset") -> str:
+
+def compact_seta_read(read: Any) -> str:
+    text = clean_text(read)
+    if not text:
+        return ""
+    parts = [p.strip() for p in text.split("|") if p.strip()]
+    if len(parts) <= 3:
+        return " | ".join(parts)
+    return " | ".join(parts[:3])
+
+
+def short_archetype_phrase(snippet: Dict[str, Any]) -> str:
+    arch = clean_text(snippet.get("copy_archetype")).replace("_", " ").strip()
+    if not arch:
+        return "context watch"
+    mapping = {
+        "participation diffusion": "participation broadening",
+        "broadening participation": "participation broadening",
+        "contested structure": "contested structure",
+        "repair watch": "repair watch",
+        "narrative churn": "narrative churn",
+        "validation risk": "validation risk",
+        "decision pressure": "decision pressure",
+    }
+    return mapping.get(arch, arch)
+
+
+def x_hook(snippet: Dict[str, Any]) -> str:
     term = term_tag(snippet.get("term"))
-    headline = clean_text(snippet.get("headline"))
-    one = clean_text(snippet.get("one_liner"))
-    watch = clean_text(snippet.get("watch_condition"))
+    phrase = short_archetype_phrase(snippet)
     theme = clean_text(snippet.get("narrative_theme"))
+    read = compact_seta_read(snippet.get("seta_read_line"))
 
-    if variant == "watch":
-        text = f"{term} SETA watch: {watch or one} Context, not a trade signal."
-    elif variant == "theme" and theme:
-        text = f"{term} has attention, but the live theme is still {theme}. SETA is watching whether the story becomes coherent or stays as churn."
+    if "participation" in phrase:
+        base = f"{term}: participation is broadening. The question is whether breadth earns confirmation."
+    elif phrase == "contested structure":
+        base = f"{term}: active tape, contested structure. Not clean confirmation yet."
+    elif phrase == "repair watch":
+        base = f"{term}: repair watch. The key is whether sponsorship rebuilds beneath the move."
+    elif phrase == "narrative churn":
+        if theme:
+            base = f"{term}: attention is active, but the story is still rotating around {theme}."
+        else:
+            base = f"{term}: attention is active, but the story is not anchored yet."
     else:
-        text = f"{headline}. {one} Context, not a signal."
+        base = f"{term}: SETA read is {phrase}."
 
+    if read:
+        base += f" SETA: {read}."
+    base += " Context, not a signal."
+    return safe_post(base, "x")
+
+
+def x_watch(snippet: Dict[str, Any]) -> str:
+    term = term_tag(snippet.get("term"))
+    watch = clean_text(snippet.get("watch_condition"))
+    if watch.lower().startswith("watch whether"):
+        watch = watch[len("watch "):]
+    text = f"{term} watch: {watch or clean_text(snippet.get('one_liner'))}. SETA is tracking confirmation, not making a price call."
     return safe_post(text, "x")
 
 
-def make_bsky_post(snippet: Dict[str, Any], variant: str = "asset") -> str:
+def bsky_note(snippet: Dict[str, Any]) -> str:
     term = term_tag(snippet.get("term"))
     one = clean_text(snippet.get("one_liner"))
     public_note = clean_text(snippet.get("public_note"))
     watch = clean_text(snippet.get("watch_condition"))
 
-    if variant == "watch":
-        text = f"{term} watch condition: {watch}\n\nSETA uses this as interpretation context, not a prediction."
-    else:
-        text = f"{term}: {one}\n\n{public_note}\n\nContext, not a trade signal."
+    lines = [f"{term}: {one}"]
+    if public_note and public_note.lower() not in one.lower():
+        lines.append("")
+        lines.append(public_note)
+    if watch:
+        lines.append("")
+        lines.append(f"Watching: {watch}")
+    lines.append("")
+    lines.append("Context, not a trade signal.")
+    return safe_post(chr(10).join(lines), "bsky")
 
+
+def bsky_watch(snippet: Dict[str, Any]) -> str:
+    term = term_tag(snippet.get("term"))
+    watch = clean_text(snippet.get("watch_condition"))
+    read = compact_seta_read(snippet.get("seta_read_line"))
+    text = f"{term} watch condition:" + chr(10) + watch
+    if read:
+        text += chr(10) + chr(10) + f"SETA read: {read}"
+    text += chr(10) + chr(10) + "Interpretation context only."
     return safe_post(text, "bsky")
 
 
-def make_reddit_comment(snippet: Dict[str, Any]) -> str:
+def reddit_seed(snippet: Dict[str, Any]) -> str:
     term = term_tag(snippet.get("term"))
     public_note = clean_text(snippet.get("public_note") or snippet.get("short_explanation"))
     watch = clean_text(snippet.get("watch_condition"))
-    read = clean_text(snippet.get("seta_read_line"))
+    read = compact_seta_read(snippet.get("seta_read_line"))
     narrative = clean_text(snippet.get("narrative_note"))
 
     parts = [
-        f"My SETA read on {term}: {public_note}",
+        f"My SETA read on {term}:",
+        "",
+        public_note,
     ]
-    if narrative:
-        parts.append(f"Narrative layer: {narrative}")
-    if watch:
-        parts.append(f"Watch condition: {watch}")
-    if read:
-        parts.append(f"SETA read: {read}")
-    parts.append("This is context for interpreting participation and structure, not financial advice or a buy/sell call.")
-    return safe_post("\n\n".join(parts), "reddit")
 
+    if narrative:
+        parts.extend(["", f"Narrative layer: {narrative}"])
+    if watch:
+        parts.extend(["", f"Watch condition: {watch}"])
+    if read:
+        parts.extend(["", f"SETA read: {read}"])
+
+    parts.extend([
+        "",
+        "I would treat this as context for participation, narrative, and structure -- not as financial advice or a buy/sell call.",
+    ])
+
+    return safe_post(chr(10).join(parts), "reddit")
+
+
+def row_priority(row: Dict[str, Any]) -> int:
+    ctype = clean_text(row.get("content_type"))
+    platform = clean_text(row.get("platform"))
+    if ctype == "blog_thread_opener":
+        return 0
+    if ctype == "blog_theme_note":
+        return 1
+    if platform == "x":
+        return 2
+    if platform == "bsky":
+        return 3
+    if platform == "reddit":
+        return 4
+    return 9
+
+def make_x_post(snippet: Dict[str, Any], variant: str = "asset") -> str:
+    if variant == "watch":
+        return x_watch(snippet)
+    if variant == "theme":
+        theme = clean_text(snippet.get("narrative_theme"))
+        term = term_tag(snippet.get("term"))
+        if theme:
+            return safe_post(f"{term}: attention is active, but the live theme is still {theme}. SETA is watching whether it becomes coherent or stays as churn. Context, not a signal.", "x")
+    return x_hook(snippet)
+
+def make_bsky_post(snippet: Dict[str, Any], variant: str = "asset") -> str:
+    if variant == "watch":
+        return bsky_watch(snippet)
+    return bsky_note(snippet)
+
+def make_reddit_comment(snippet: Dict[str, Any]) -> str:
+    return reddit_seed(snippet)
 
 def blog_thread_posts(blog_draft: Dict[str, Any], outline: Dict[str, Any]) -> List[Dict[str, Any]]:
     title = clean_text(blog_draft.get("title"))
@@ -168,33 +269,42 @@ def blog_thread_posts(blog_draft: Dict[str, Any], outline: Dict[str, Any]) -> Li
     core_angle = clean_text(outline.get("core_angle"))
 
     posts: List[Dict[str, Any]] = []
+
     if title and thesis:
+        text = (
+            f"SETA field note: {title}. "
+            f"The point is not prediction; it is where participation, narrative, and structure are confirming or separating."
+        )
         posts.append({
             "platform": "x",
             "content_type": "blog_thread_opener",
             "term": lead,
-            "draft_text": safe_post(f"SETA field note: {title}. {thesis}", "x"),
+            "draft_text": safe_post(text, "x"),
             "status": "pending",
             "requires_human_review": True,
         })
+
     if core_angle:
+        text = (
+            f"Today's SETA angle:" + chr(10) + f"{core_angle}" + chr(10) + chr(10) +
+            "We are watching behavior beneath price: participation, narrative, and confirmation."
+        )
         posts.append({
             "platform": "bsky",
             "content_type": "blog_theme_note",
             "term": lead,
-            "draft_text": safe_post(f"Today’s SETA angle: {core_angle}\n\nThe point is not prediction. The point is where participation, narrative, and structure separate.", "bsky"),
+            "draft_text": safe_post(text, "bsky"),
             "status": "pending",
             "requires_human_review": True,
         })
-    return posts
 
+    return posts
 
 def build_rows(snippets_payload: Dict[str, Any], blog_draft: Dict[str, Any], outline: Dict[str, Any], max_assets: int = 6) -> List[Dict[str, Any]]:
     snippets = snippets_payload.get("snippets", [])
     if not isinstance(snippets, list):
         snippets = []
 
-    # Prioritize by decision-pressure rank when present.
     def rank_key(s: Dict[str, Any]) -> tuple:
         try:
             rank = float(s.get("decision_pressure_rank"))
@@ -207,7 +317,6 @@ def build_rows(snippets_payload: Dict[str, Any], blog_draft: Dict[str, Any], out
     rows: List[Dict[str, Any]] = []
     date = clean_text(snippets_payload.get("date") or blog_draft.get("date") or outline.get("date")) or datetime.now(UTC).strftime("%Y-%m-%d")
 
-    # Blog/theme posts first.
     for idx, row in enumerate(blog_thread_posts(blog_draft, outline), start=1):
         row.update({
             "id": f"{date}_theme_{idx}",
@@ -216,6 +325,7 @@ def build_rows(snippets_payload: Dict[str, Any], blog_draft: Dict[str, Any], out
             "draft_only": True,
             "posting_performed": False,
             "risk_level": "low",
+            "char_count": len(row.get("draft_text", "")),
         })
         rows.append(row)
 
@@ -228,10 +338,11 @@ def build_rows(snippets_payload: Dict[str, Any], blog_draft: Dict[str, Any], out
             ("x", "asset_context", make_x_post(s, "asset")),
             ("x", "watch_condition", make_x_post(s, "watch")),
             ("bsky", "asset_context", make_bsky_post(s, "asset")),
+            ("bsky", "watch_condition", make_bsky_post(s, "watch")),
             ("reddit", "discussion_reply_seed", make_reddit_comment(s)),
         ]
 
-        if clean_text(s.get("narrative_theme")):
+        if clean_text(s.get("narrative_theme")) and clean_text(s.get("copy_archetype")) == "narrative_churn":
             candidates.append(("x", "narrative_theme", make_x_post(s, "theme")))
 
         for platform, ctype, text in candidates:
@@ -253,8 +364,7 @@ def build_rows(snippets_payload: Dict[str, Any], blog_draft: Dict[str, Any], out
                 "posting_performed": False,
             })
 
-    return rows
-
+    return sorted(rows, key=row_priority)
 
 def write_csv(path: Path, rows: List[Dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -273,7 +383,7 @@ def write_csv(path: Path, rows: List[Dict[str, Any]]) -> None:
 
 def markdown_calendar(payload: Dict[str, Any]) -> str:
     lines: List[str] = []
-    lines.append(f"# SETA Social Content Calendar — {payload.get('date')}")
+    lines.append(f"# SETA Social Content Calendar -- {payload.get('date')}")
     lines.append("")
     lines.append("Draft-only social post candidates. Nothing here is posted automatically.")
     lines.append("")
@@ -288,20 +398,26 @@ def markdown_calendar(payload: Dict[str, Any]) -> str:
         items = by_platform.get(platform, [])
         if not items:
             continue
-        lines.append(f"## {platform.upper()}")
+
+        label = {"x": "X", "bsky": "Bluesky", "reddit": "Reddit"}.get(platform, platform.upper())
+        lines.append(f"## {label}")
         lines.append("")
+
         for row in items:
-            lines.append(f"### {row.get('content_type')} — {row.get('term') or 'theme'}")
+            term = row.get("term") or "theme"
+            ctype = clean_text(row.get("content_type")).replace("_", " ")
+            lines.append(f"### {ctype} -- {term}")
             lines.append("")
+            lines.append("```text")
             lines.append(row.get("draft_text", ""))
+            lines.append("```")
             lines.append("")
-            lines.append(f"Status: {row.get('status')} | Review: {row.get('requires_human_review')} | Risk: {row.get('risk_level')}")
+            lines.append(f"Status: {row.get('status')} | Review: {row.get('requires_human_review')} | Risk: {row.get('risk_level')} | Chars: {row.get('char_count')}")
             lines.append("")
             lines.append("---")
             lines.append("")
 
-    return "\n".join(lines)
-
+    return chr(10).join(lines)
 
 def build_social_calendar(
     blog_draft_path: Path,
