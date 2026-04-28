@@ -1,0 +1,854 @@
+{
+  "metadata": {
+    "total_columns": 641,
+    "version": "v5_DIRECTIONAL_RIBBON_ENGAGEMENT_SUMMARY",
+    "description": "SETA enriched column descriptions grouped by section and subsection for AI reference"
+  },
+  "sections": [
+    {
+      "section": "Core Keys",
+      "subsections": [
+        {
+          "subsection": "Identifiers",
+          "columns": [
+            {"column": "date", "theme": "Meta", "explanation": "Observation date (daily). In enrichment outputs this is the trading day index used to align sentiment + price features."},
+            {"column": "term", "theme": "Meta", "explanation": "Asset identifier/ticker (uppercased), e.g., AAPL, BTC."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Sentiment Core",
+      "subsections": [
+        {
+          "subsection": "Sentiment Moving Averages",
+          "columns": [
+            {"column": "combined_compound_ma_7", "theme": "Sentiment MA", "explanation": "Exponentially weighted moving average (EWMA, span=7) of the blended daily sentiment score (combined_compound). Smoother sentiment trend for horizon 7d."},
+            {"column": "combined_compound_ma_21", "theme": "Sentiment MA", "explanation": "Exponentially weighted moving average (EWMA, span=21) of the blended daily sentiment score (combined_compound). Smoother sentiment trend for horizon 21d."},
+            {"column": "combined_compound_ma_50", "theme": "Sentiment MA", "explanation": "Exponentially weighted moving average (EWMA, span=50) of the blended daily sentiment score (combined_compound). Smoother sentiment trend for horizon 50d."},
+            {"column": "combined_compound_ma_100", "theme": "Sentiment MA", "explanation": "Exponentially weighted moving average (EWMA, span=100) of the blended daily sentiment score (combined_compound). Smoother sentiment trend for horizon 100d."},
+            {"column": "combined_compound_ma_200", "theme": "Sentiment MA", "explanation": "Exponentially weighted moving average (EWMA, span=200) of the blended daily sentiment score (combined_compound). Smoother sentiment trend for horizon 200d."}
+          ]
+        },
+        {
+          "subsection": "Blended Daily Sentiment",
+          "columns": [
+            {"column": "combined_compound", "theme": "Sentiment (Blended)", "explanation": "Daily blended sentiment score after weighting sources (Twitter/X, Reddit, News, Bluesky). Computed as weighted mean of per-source daily sentiment; range roughly [-1, 1]."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Market Data",
+      "subsections": [
+        {
+          "subsection": "Raw Price / Volume",
+          "columns": [
+            {"column": "open", "theme": "Raw Price Data", "explanation": "Open price for the day (from yahoo_price_tbl)."},
+            {"column": "high", "theme": "Raw Price Data", "explanation": "High price for the day (from yahoo_price_tbl)."},
+            {"column": "low", "theme": "Raw Price Data", "explanation": "Low price for the day (from yahoo_price_tbl)."},
+            {"column": "close", "theme": "Raw Price Data", "explanation": "Close price for the day (from yahoo_price_tbl). Primary input for price RSI/MACD."},
+            {"column": "adj_close", "theme": "Raw Price Data", "explanation": "Adjusted close (corporate actions such as splits/dividends applied)."},
+            {"column": "volume", "theme": "Raw Price Data", "explanation": "Trading volume for the day."},
+            {"column": "close_fill", "theme": "Raw Price Data", "explanation": "Close price forward/back-filled for display-only Bollinger calculations."}
+          ]
+        },
+        {
+          "subsection": "Price Moving Averages",
+          "columns": [
+            {"column": "close_ma_7", "theme": "Price MA", "explanation": "7-day moving average of close price (from yahoo_price_tbl). Used for trend/mean-reversion context."},
+            {"column": "close_ma_21", "theme": "Price MA", "explanation": "21-day moving average of close price (from yahoo_price_tbl). Used for trend/mean-reversion context."},
+            {"column": "close_ma_50", "theme": "Price MA", "explanation": "50-day moving average of close price (from yahoo_price_tbl). Used for trend/mean-reversion context."},
+            {"column": "close_ma_100", "theme": "Price MA", "explanation": "100-day moving average of close price (from yahoo_price_tbl). Used for trend/mean-reversion context."},
+            {"column": "close_ma_200", "theme": "Price MA", "explanation": "200-day moving average of close price (from yahoo_price_tbl). Used for trend/mean-reversion context."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Technical Indicators",
+      "subsections": [
+        {
+          "subsection": "Price Technicals",
+          "columns": [
+            {"column": "rsi", "theme": "Price Indicators", "explanation": "Price RSI (Wilder smoothing, default 14) computed on close. 0-100; >70 often treated as overbought, <30 oversold."},
+            {"column": "stochastic_rsi_raw", "theme": "Derived Feature", "explanation": "Derived feature added in the newer enrichment/scoring layer: stochastic_rsi_raw."},
+            {"column": "stochastic_rsi", "theme": "Price Indicators", "explanation": "TradingView-style Stochastic RSI percent K for price RSI. This is the 3-period smoothed version of raw Stochastic RSI, scaled 0 to 100."},
+            {"column": "stochastic_rsi_d", "theme": "Derived Feature", "explanation": "Derived feature added in the newer enrichment/scoring layer: stochastic_rsi_d."},
+            {"column": "mfi", "theme": "Price Indicators", "explanation": "Money Flow Index computed from typical price x volume over a rolling window (default 14), then rescaled from 0-100 to -100 to 100. Values near 0 are roughly neutral."},
+            {"column": "sfi", "theme": "Sentiment/Flow", "explanation": "Sentiment Flow Index: an MFI-style oscillator using sentiment (combined_compound_ma_7) x volume over a rolling window (default 14), then rescaled to -100 to 100."},
+            {"column": "macd", "theme": "Price Indicators", "explanation": "Price MACD line (12-EMA minus 26-EMA of close)."},
+            {"column": "macd_signal", "theme": "Price Indicators", "explanation": "MACD signal line (9-EMA of MACD)."},
+            {"column": "macd_histogram", "theme": "Price Indicators", "explanation": "MACD histogram = MACD - MACD_Signal (momentum of momentum)."},
+            {"column": "7_day_ma_volume", "theme": "Price Indicators", "explanation": "7-day moving average of daily volume."},
+            {"column": "20_day_ma_volume", "theme": "Price Indicators", "explanation": "20-day moving average of daily volume."},
+            {"column": "macd_price_divergence", "theme": "Price Indicators", "explanation": "Technical analysis indicator based on price action (e.g., RSI, MACD). Helps identify trend strength and reversal opportunities."},
+            {"column": "consecutive_count_macd_price_divergence", "theme": "Price Indicators", "explanation": "Technical analysis indicator based on price action (e.g., RSI, MACD). Helps identify trend strength and reversal opportunities."},
+            {"column": "macd_sentiment_divergence", "theme": "Price Indicators", "explanation": "Technical analysis indicator based on price action (e.g., RSI, MACD). Helps identify trend strength and reversal opportunities."},
+            {"column": "consecutive_count_macd_sentiment_divergence", "theme": "Price Indicators", "explanation": "Technical analysis indicator based on price action (e.g., RSI, MACD). Helps identify trend strength and reversal opportunities."}
+          ]
+        },
+        {
+          "subsection": "Sentiment Technicals",
+          "columns": [
+            {"column": "sentiment_rsi", "theme": "Sentiment Indicators", "explanation": "RSI (Wilder smoothing, default 14) computed on sentiment series (combined_compound_ma_7)."},
+            {"column": "sentiment_stochastic_rsi_raw", "theme": "Derived Feature", "explanation": "Derived feature added in the newer enrichment/scoring layer: sentiment_stochastic_rsi_raw."},
+            {"column": "sentiment_stochastic_rsi", "theme": "Sentiment Indicators", "explanation": "TradingView-style Stochastic RSI percent K for Sentiment_RSI. This is the 3-period smoothed version of raw sentiment Stochastic RSI, scaled 0 to 100."},
+            {"column": "sentiment_stochastic_rsi_d", "theme": "Derived Feature", "explanation": "Derived feature added in the newer enrichment/scoring layer: sentiment_stochastic_rsi_d."},
+            {"column": "sentiment_macd", "theme": "Sentiment Indicators", "explanation": "Sentiment MACD line (12-EMA minus 26-EMA) computed on sentiment (combined_compound)."},
+            {"column": "sentiment_macd_signal", "theme": "Sentiment Indicators", "explanation": "Signal line (9-EMA) of Sentiment_MACD."},
+            {"column": "smoothed_sentiment_stochastic_rsi", "theme": "Sentiment Indicators", "explanation": "Legacy short-EMA smoothing of Sentiment_Stochastic_RSI used by earlier downstream logic. Kept for continuity even though the newer K and D stochastic columns are more explicit."},
+            {"column": "sentiment_macd_histogram", "theme": "Sentiment Indicators", "explanation": "Sentiment MACD histogram computed after scaling sentiment MACD/signal into the price MACD/signal range: scaled_Sentiment_MACD - scaled_Sentiment_MACD_Signal."},
+            {"column": "sentiment_macd_signal_direction", "theme": "Sentiment Indicators", "explanation": "Day-over-day direction of scaled sentiment MACD signal: +1 up, -1 down, 0 unchanged."}
+          ]
+        },
+        {
+          "subsection": "Composite / Combined Scores",
+          "columns": [
+            {"column": "combined_macd_signal", "theme": "Composite Indicators", "explanation": "Average of price MACD_Signal and scaled sentiment MACD signal."},
+            {"column": "combined_macd_histogram", "theme": "Composite Indicators", "explanation": "Average of price MACD histogram and sentiment MACD histogram."},
+            {"column": "combined_normalized_score_7", "theme": "Composite Indicators", "explanation": "Composite 0-100 score combining normalized sentiment and normalized price for MA 7: 0.7 x normalized_sentiment_7 + 0.3 x normalized_price_7."},
+            {"column": "combined_normalized_score_21", "theme": "Composite Indicators", "explanation": "Composite 0-100 score combining normalized sentiment and normalized price for MA 21: 0.7 x normalized_sentiment_21 + 0.3 x normalized_price_21."},
+            {"column": "combined_normalized_score_50", "theme": "Composite Indicators", "explanation": "Composite 0-100 score combining normalized sentiment and normalized price for MA 50: 0.7 x normalized_sentiment_50 + 0.3 x normalized_price_50."},
+            {"column": "combined_normalized_score_100", "theme": "Composite Indicators", "explanation": "Composite 0-100 score combining normalized sentiment and normalized price for MA 100: 0.7 x normalized_sentiment_100 + 0.3 x normalized_price_100."},
+            {"column": "combined_normalized_score_200", "theme": "Composite Indicators", "explanation": "Composite 0-100 score combining normalized sentiment and normalized price for MA 200: 0.7 x normalized_sentiment_200 + 0.3 x normalized_price_200."}
+          ]
+        },
+        {
+          "subsection": "Normalization",
+          "columns": [
+            {"column": "normalized_sentiment_7", "theme": "Normalization", "explanation": "Min-max normalization of combined_compound_ma_7 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."},
+            {"column": "normalized_price_7", "theme": "Normalization", "explanation": "Min-max normalization of close_ma_7 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."},
+            {"column": "normalized_sentiment_21", "theme": "Normalization", "explanation": "Min-max normalization of combined_compound_ma_21 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."},
+            {"column": "normalized_price_21", "theme": "Normalization", "explanation": "Min-max normalization of close_ma_21 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."},
+            {"column": "normalized_sentiment_50", "theme": "Normalization", "explanation": "Min-max normalization of combined_compound_ma_50 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."},
+            {"column": "normalized_price_50", "theme": "Normalization", "explanation": "Min-max normalization of close_ma_50 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."},
+            {"column": "normalized_sentiment_100", "theme": "Normalization", "explanation": "Min-max normalization of combined_compound_ma_100 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."},
+            {"column": "normalized_price_100", "theme": "Normalization", "explanation": "Min-max normalization of close_ma_100 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."},
+            {"column": "normalized_sentiment_200", "theme": "Normalization", "explanation": "Min-max normalization of combined_compound_ma_200 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."},
+            {"column": "normalized_price_200", "theme": "Normalization", "explanation": "Min-max normalization of close_ma_200 to a 0-100 scale within the term/window. If the series is flat, defaults to 50."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Time-Series Helpers",
+      "subsections": [
+        {
+          "subsection": "Lagged / Previous-Value Features",
+          "columns": [
+            {"column": "prev_combined_compound_ma_7", "theme": "Lagged Features", "explanation": "Previous day's value of combined_compound_ma_7."},
+            {"column": "prev_combined_compound_ma_21", "theme": "Lagged Features", "explanation": "Previous day's value of combined_compound_ma_21."},
+            {"column": "prev_combined_compound_ma_50", "theme": "Lagged Features", "explanation": "Previous day's value of combined_compound_ma_50."},
+            {"column": "prev_combined_compound_ma_100", "theme": "Lagged Features", "explanation": "Previous day's value of combined_compound_ma_100."},
+            {"column": "prev_combined_compound_ma_200", "theme": "Lagged Features", "explanation": "Previous day's value of combined_compound_ma_200."},
+            {"column": "prev_combined_compound", "theme": "Lagged Features", "explanation": "Previous day's value of combined_compound."},
+            {"column": "prev_close_ma_7", "theme": "Lagged Features", "explanation": "Previous day's value of close_ma_7."},
+            {"column": "prev_close_ma_21", "theme": "Lagged Features", "explanation": "Previous day's value of close_ma_21."},
+            {"column": "prev_close_ma_50", "theme": "Lagged Features", "explanation": "Previous day's value of close_ma_50."},
+            {"column": "prev_close_ma_100", "theme": "Lagged Features", "explanation": "Previous day's value of close_ma_100."},
+            {"column": "prev_close_ma_200", "theme": "Lagged Features", "explanation": "Previous day's value of close_ma_200."},
+            {"column": "prev_scaled_combined_compound", "theme": "Lagged Features", "explanation": "Previous day's value of scaled_combined_compound."},
+            {"column": "prev_scaled_combined_compound_ma_7", "theme": "Lagged Features", "explanation": "Previous day's value of scaled_combined_compound_ma_7."},
+            {"column": "prev_scaled_combined_compound_ma_21", "theme": "Lagged Features", "explanation": "Previous day's value of scaled_combined_compound_ma_21."},
+            {"column": "prev_scaled_combined_compound_ma_50", "theme": "Lagged Features", "explanation": "Previous day's value of scaled_combined_compound_ma_50."},
+            {"column": "prev_scaled_combined_compound_ma_100", "theme": "Lagged Features", "explanation": "Previous day's value of scaled_combined_compound_ma_100."},
+            {"column": "prev_scaled_combined_compound_ma_200", "theme": "Lagged Features", "explanation": "Previous day's value of scaled_combined_compound_ma_200."},
+            {"column": "prev_close_up_down", "theme": "Lagged Features", "explanation": "Previous day's value of close_up_down."}
+          ]
+        },
+        {
+          "subsection": "Trend / Direction / % Change",
+          "columns": [
+            {"column": "combined_compound_ma_7_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if combined_compound_ma_7 increased vs prior day (prev_combined_compound_ma_7); else 0."},
+            {"column": "combined_compound_ma_7_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of combined_compound_ma_7 (x 100)."},
+            {"column": "combined_compound_ma_7_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for combined_compound_ma_7: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "combined_compound_ma_21_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if combined_compound_ma_21 increased vs prior day (prev_combined_compound_ma_21); else 0."},
+            {"column": "combined_compound_ma_21_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of combined_compound_ma_21 (x 100)."},
+            {"column": "combined_compound_ma_21_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for combined_compound_ma_21: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "combined_compound_ma_50_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if combined_compound_ma_50 increased vs prior day (prev_combined_compound_ma_50); else 0."},
+            {"column": "combined_compound_ma_50_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of combined_compound_ma_50 (x 100)."},
+            {"column": "combined_compound_ma_50_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for combined_compound_ma_50: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "combined_compound_ma_100_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if combined_compound_ma_100 increased vs prior day (prev_combined_compound_ma_100); else 0."},
+            {"column": "combined_compound_ma_100_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of combined_compound_ma_100 (x 100)."},
+            {"column": "combined_compound_ma_100_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for combined_compound_ma_100: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "combined_compound_ma_200_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if combined_compound_ma_200 increased vs prior day (prev_combined_compound_ma_200); else 0."},
+            {"column": "combined_compound_ma_200_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of combined_compound_ma_200 (x 100)."},
+            {"column": "combined_compound_ma_200_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for combined_compound_ma_200: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "combined_compound_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if combined_compound increased vs prior day (prev_combined_compound); else 0."},
+            {"column": "combined_compound_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of combined_compound (x 100)."},
+            {"column": "combined_compound_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for combined_compound: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "close_ma_7_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if close_ma_7 increased vs prior day (prev_close_ma_7); else 0."},
+            {"column": "close_ma_7_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of close_ma_7 (x 100)."},
+            {"column": "close_ma_7_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for close_ma_7: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "close_ma_21_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if close_ma_21 increased vs prior day (prev_close_ma_21); else 0."},
+            {"column": "close_ma_21_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of close_ma_21 (x 100)."},
+            {"column": "close_ma_21_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for close_ma_21: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "close_ma_50_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if close_ma_50 increased vs prior day (prev_close_ma_50); else 0."},
+            {"column": "close_ma_50_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of close_ma_50 (x 100)."},
+            {"column": "close_ma_50_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for close_ma_50: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "close_ma_100_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if close_ma_100 increased vs prior day (prev_close_ma_100); else 0."},
+            {"column": "close_ma_100_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of close_ma_100 (x 100)."},
+            {"column": "close_ma_100_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for close_ma_100: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "close_ma_200_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if close_ma_200 increased vs prior day (prev_close_ma_200); else 0."},
+            {"column": "close_ma_200_pct_change", "theme": "Trend Features", "explanation": "Day-over-day percent change of close_ma_200 (x 100)."},
+            {"column": "close_ma_200_direction_change_flag", "theme": "Trend Features", "explanation": "Direction-change flag for close_ma_200: +1 when the trend flips from down to up, -1 when it flips from up to down, otherwise 0."},
+            {"column": "3_day_avg_combined_compound_ma_7_trend", "theme": "Trend Features", "explanation": "Binary trend indicator: 1 if 3_day_avg_combined_compound_ma_7 increased vs prior day (prev_3_day_avg_combined_compound_ma_7); else 0."}
+          ]
+        },
+        {
+          "subsection": "Forward Labels / Targets",
+          "columns": [
+            {"column": "fwd_1d_price", "theme": "Forward Returns", "explanation": "Forward close price 1 trading days ahead for the same term (shifted -1)."},
+            {"column": "fwd_1d_return", "theme": "Forward Returns", "explanation": "Forward return over the next 1 trading days: fwd_1d_price/close - 1."},
+            {"column": "label_1d_up", "theme": "Forward Returns", "explanation": "Binary label: True when fwd_1d_return > 0; NaN when forward return is NaN (near series end)."},
+            {"column": "fwd_3d_price", "theme": "Forward Returns", "explanation": "Forward close price 3 trading days ahead for the same term (shifted -3)."},
+            {"column": "fwd_3d_return", "theme": "Forward Returns", "explanation": "Forward return over the next 3 trading days: fwd_3d_price/close - 1."},
+            {"column": "label_3d_up", "theme": "Forward Returns", "explanation": "Binary label: True when fwd_3d_return > 0; NaN when forward return is NaN (near series end)."},
+            {"column": "fwd_5d_price", "theme": "Forward Returns", "explanation": "Forward close price 5 trading days ahead for the same term (shifted -5)."},
+            {"column": "fwd_5d_return", "theme": "Forward Returns", "explanation": "Forward return over the next 5 trading days: fwd_5d_price/close - 1."},
+            {"column": "label_5d_up", "theme": "Forward Returns", "explanation": "Binary label: True when fwd_5d_return > 0; NaN when forward return is NaN (near series end)."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Scoring & Readiness",
+      "subsections": [
+        {
+          "subsection": "Readiness Flags",
+          "columns": [
+            {"column": "indicator_history_days", "theme": "Validation", "explanation": "Running count of non-null close observations available for the term. Useful as a quick proxy for how much price history exists to support slower indicators."},
+            {"column": "valid_ma_7_flag", "theme": "Validation", "explanation": "Flag equal to 1 when close_ma_7 is available for that row, else 0. Indicates whether the 7-day price moving average is ready for use."},
+            {"column": "valid_ma_21_flag", "theme": "Validation", "explanation": "Flag equal to 1 when close_ma_21 is available for that row, else 0. Indicates whether the 21-day price moving average is ready for use."},
+            {"column": "valid_ma_50_flag", "theme": "Validation", "explanation": "Flag equal to 1 when close_ma_50 is available for that row, else 0. Indicates whether the 50-day price moving average is ready for use."},
+            {"column": "valid_ma_100_flag", "theme": "Validation", "explanation": "Flag equal to 1 when close_ma_100 is available for that row, else 0. Indicates whether the 100-day price moving average is ready for use."},
+            {"column": "valid_ma_200_flag", "theme": "Validation", "explanation": "Flag equal to 1 when close_ma_200 is available for that row, else 0. Indicates whether the 200-day price moving average is ready for use."},
+            {"column": "valid_slow_score_flag", "theme": "Validation", "explanation": "Flag equal to 1 when the 50-day, 100-day, and 200-day price moving averages are all available. Use this to filter out rows where slow-horizon scores are not fully ready."}
+          ]
+        },
+        {
+          "subsection": "MA Scores",
+          "columns": [
+            {"column": "ma_200_sentiment_above_price_flag", "theme": "Trend Strength", "explanation": "Binary alignment flag for the 200-day horizon. Equals 1 when scaled_combined_compound_ma_200 is above close_ma_200, meaning sentiment sits above the matching price trend line."},
+            {"column": "ma_200_distance_component", "theme": "Score Component", "explanation": "Signed gap component for the 200-day horizon used inside enhanced MA strength scoring. Positive values mean the scaled sentiment MA is above the matching price MA; negative values mean it is below."},
+            {"column": "ma_100_sentiment_above_price_flag", "theme": "Trend Strength", "explanation": "Binary alignment flag for the 100-day horizon. Equals 1 when scaled_combined_compound_ma_100 is above close_ma_100, meaning sentiment sits above the matching price trend line."},
+            {"column": "ma_100_distance_component", "theme": "Score Component", "explanation": "Signed gap component for the 100-day horizon used inside enhanced MA strength scoring. Positive values mean the scaled sentiment MA is above the matching price MA; negative values mean it is below."},
+            {"column": "ma_50_sentiment_above_price_flag", "theme": "Trend Strength", "explanation": "Binary alignment flag for the 50-day horizon. Equals 1 when scaled_combined_compound_ma_50 is above close_ma_50, meaning sentiment sits above the matching price trend line."},
+            {"column": "ma_50_distance_component", "theme": "Score Component", "explanation": "Signed gap component for the 50-day horizon used inside enhanced MA strength scoring. Positive values mean the scaled sentiment MA is above the matching price MA; negative values mean it is below."},
+            {"column": "ma_21_sentiment_above_price_flag", "theme": "Trend Strength", "explanation": "Binary alignment flag for the 21-day horizon. Equals 1 when scaled_combined_compound_ma_21 is above close_ma_21, meaning sentiment sits above the matching price trend line."},
+            {"column": "ma_21_distance_component", "theme": "Score Component", "explanation": "Signed gap component for the 21-day horizon used inside enhanced MA strength scoring. Positive values mean the scaled sentiment MA is above the matching price MA; negative values mean it is below."},
+            {"column": "ma_7_sentiment_above_price_flag", "theme": "Trend Strength", "explanation": "Binary alignment flag for the 7-day horizon. Equals 1 when scaled_combined_compound_ma_7 is above close_ma_7, meaning sentiment sits above the matching price trend line."},
+            {"column": "ma_7_distance_component", "theme": "Score Component", "explanation": "Signed gap component for the 7-day horizon used inside enhanced MA strength scoring. Positive values mean the scaled sentiment MA is above the matching price MA; negative values mean it is below."},
+            {"column": "ma_strength_breadth_count", "theme": "Composite Score", "explanation": "Count of MA horizons where the scaled sentiment moving average is above the matching price moving average. Maximum is 5 across 7, 21, 50, 100, and 200 days."},
+            {"column": "ma_strength_score_raw", "theme": "Composite Score", "explanation": "Breadth-only moving-average alignment score. Converts the count of horizons where scaled sentiment MA is above the matching price MA into a score Internal raw version before final clipping or display normalization."},
+            {"column": "ma_strength_score_signed", "theme": "Composite Score", "explanation": "Breadth-only moving-average alignment score. Converts the count of horizons where scaled sentiment MA is above the matching price MA into a -100 to 100 display score. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "ma_strength_score", "theme": "Composite Score", "explanation": "Breadth-only moving-average alignment score. Converts the count of horizons where scaled sentiment MA is above the matching price MA into a 0 to 100 display score."},
+            {"column": "ma_strength_distance_score_raw", "theme": "Composite Score", "explanation": "Distance-based moving-average alignment score. Measures how far sentiment and price moving averages are separated across horizons, not just whether sentiment is above or below price Internal raw version before final clipping or display normalization."},
+            {"column": "ma_strength_distance_score_signed", "theme": "Composite Score", "explanation": "Distance-based moving-average alignment score. Measures how far sentiment and price moving averages are separated across horizons, not just whether sentiment is above or below price. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "ma_strength_distance_score", "theme": "Composite Score", "explanation": "Distance-based moving-average alignment score. Measures how far sentiment and price moving averages are separated across horizons, not just whether sentiment is above or below price."},
+            {"column": "ma_strength_enhanced_score_signed", "theme": "Composite Score", "explanation": "Enhanced moving-average strength score that blends breadth and distance. Designed to reward both broad alignment and meaningful separation between sentiment and price trends. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "ma_strength_enhanced_score", "theme": "Composite Score", "explanation": "Enhanced moving-average strength score that blends breadth and distance. Designed to reward both broad alignment and meaningful separation between sentiment and price trends."},
+            {"column": "ma_trend_score_raw", "theme": "Composite Score", "explanation": "Weighted moving-average trend score built from whether sentiment moving averages are rising across horizons. Shorter horizons carry more weight than slower horizons Internal raw version before final clipping or display normalization."},
+            {"column": "ma_trend_score", "theme": "Composite Score", "explanation": "Weighted moving-average trend score built from whether sentiment moving averages are rising across horizons. Shorter horizons carry more weight than slower horizons."},
+            {"column": "ma_trend_score_signed", "theme": "Composite Score", "explanation": "Weighted moving-average trend score built from whether sentiment moving averages are rising across horizons. Shorter horizons carry more weight than slower horizons. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "ma_combined_strength_trend_score", "theme": "Composite Score", "explanation": "Combined moving-average score that blends MA strength and MA trend into one top-line regime score. Higher values indicate sentiment structure is both well aligned and improving."},
+            {"column": "ma_combined_strength_trend_score_signed", "theme": "Composite Score", "explanation": "Combined moving-average score that blends MA strength and MA trend into one top-line regime score. Higher values indicate sentiment structure is both well aligned and improving. Signed version normalized so negative values are bearish and positive values are bullish."}
+          ]
+        },
+        {
+          "subsection": "Bollinger Scores",
+          "columns": [
+            {"column": "bollinger_buy_component", "theme": "Score Component", "explanation": "Bullish Bollinger contribution used inside the Bollinger strength score. Derived from the buy signal count and scaled to a small positive component."},
+            {"column": "bollinger_sell_component", "theme": "Score Component", "explanation": "Bearish Bollinger contribution used inside the Bollinger strength score. Derived from the sell signal count and represented as a negative component."},
+            {"column": "bollinger_strength_score_raw", "theme": "Composite Score", "explanation": "Bollinger score derived from buy and sell signal counts. Higher values favor bullish Bollinger conditions, lower values favor bearish ones Internal raw version before final clipping or display normalization."},
+            {"column": "bollinger_strength_score", "theme": "Composite Score", "explanation": "Display-friendly Bollinger score derived from buy and sell signal counts. Higher values favor bullish Bollinger conditions, lower values favor bearish ones."},
+            {"column": "bollinger_strength_score_signed", "theme": "Composite Score", "explanation": "Display-friendly Bollinger score derived from buy and sell signal counts. Higher values favor bullish Bollinger conditions, lower values favor bearish ones. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "boll_overlap_signal_strength", "theme": "Composite Score", "explanation": "Signed overlap-alert strength score. Combines normalized overlap divergence and breakout distance, then applies the sign from boll_overlap_signal_code."},
+            {"column": "boll_overlap_signal_strength_abs", "theme": "Composite Score", "explanation": "Absolute overlap-alert strength score, ignoring bullish/bearish direction."}
+          ]
+        },
+        {
+          "subsection": "MACD Scores",
+          "columns": [
+            {"column": "macd_component_above", "theme": "Score Component", "explanation": "Binary MACD component equal to 1 when the scaled sentiment MACD signal is above the price MACD signal, else 0."},
+            {"column": "macd_component_signal_direction", "theme": "Score Component", "explanation": "MACD direction component derived from the sign of Sentiment_MACD_Signal_Direction. Positive values favor rising sentiment MACD signal, negative values favor falling signal."},
+            {"column": "macd_component_price_trend", "theme": "Score Component", "explanation": "Price-trend contribution used inside the MACD score. Derived from the sign of close_ma_7_pct_change as a short-horizon price trend proxy."},
+            {"column": "macd_component_divergence", "theme": "Score Component", "explanation": "MACD divergence contribution. Positive for bullish MACD sentiment divergence, negative for bearish MACD sentiment divergence."},
+            {"column": "macd_signal_strength_score_raw", "theme": "Composite Score", "explanation": "Composite MACD score that combines whether sentiment MACD signal is above price MACD signal, the direction of the sentiment signal, short-term price trend, and MACD sentiment divergence Internal raw version before final clipping or display normalization."},
+            {"column": "macd_signal_strength_score", "theme": "Composite Score", "explanation": "Composite MACD score that combines whether sentiment MACD signal is above price MACD signal, the direction of the sentiment signal, short-term price trend, and MACD sentiment divergence."},
+            {"column": "macd_signal_strength_score_signed", "theme": "Composite Score", "explanation": "Composite MACD score that combines whether sentiment MACD signal is above price MACD signal, the direction of the sentiment signal, short-term price trend, and MACD sentiment divergence. Signed version normalized so negative values are bearish and positive values are bullish."}
+          ]
+        },
+        {
+          "subsection": "RSI Scores",
+          "columns": [
+            {"column": "rsi_component_compare", "theme": "Score Component", "explanation": "RSI comparison component. Positive when Sentiment_RSI is above price RSI, negative when it is below."},
+            {"column": "rsi_component_zone", "theme": "Score Component", "explanation": "RSI zone component. Rewards constructive combinations of price RSI and sentiment RSI in strong zones and penalizes weak zones."},
+            {"column": "rsi_component_both_extreme", "theme": "Score Component", "explanation": "RSI extreme-state component. Captures whether both price RSI and Sentiment_RSI are simultaneously in extreme overbought or oversold territory."},
+            {"column": "rsi_component_level", "theme": "Score Component", "explanation": "RSI level component based on whether price RSI is above its bullish threshold or below its bearish threshold."},
+            {"column": "rsi_component_divergence", "theme": "Score Component", "explanation": "RSI divergence contribution weighted by consecutive divergence count. Positive values indicate persistent bullish RSI sentiment divergence, negative values indicate persistent bearish divergence."},
+            {"column": "rsi_strength_score_raw", "theme": "Composite Score", "explanation": "Composite RSI score built from RSI versus Sentiment_RSI comparison, zone conditions, extreme readings, RSI level, and RSI sentiment divergence persistence Internal raw version before final clipping or display normalization."},
+            {"column": "rsi_strength_score", "theme": "Composite Score", "explanation": "Composite RSI score built from RSI versus Sentiment_RSI comparison, zone conditions, extreme readings, RSI level, and RSI sentiment divergence persistence."},
+            {"column": "rsi_strength_score_signed", "theme": "Composite Score", "explanation": "Composite RSI score built from RSI versus Sentiment_RSI comparison, zone conditions, extreme readings, RSI level, and RSI sentiment divergence persistence. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "stochastic_rsi_component_compare", "theme": "Score Component", "explanation": "Stochastic RSI comparison component. Positive when sentiment percent K is above price percent K, negative when it is below."},
+            {"column": "stochastic_rsi_component_level", "theme": "Score Component", "explanation": "Stochastic RSI level component based on whether price percent K is in a bullish high zone or bearish low zone."},
+            {"column": "stochastic_rsi_component_extreme", "theme": "Score Component", "explanation": "Stochastic RSI extreme component that uses Stoch_RSI_Both_Extreme_Counter to weight extreme synchronized states between price and sentiment."},
+            {"column": "stochastic_rsi_component_cross", "theme": "Score Component", "explanation": "Stochastic RSI crossover component based on whether price percent K is above or below price percent D."},
+            {"column": "stochastic_rsi_strength_score_raw", "theme": "Composite Score", "explanation": "Composite Stochastic RSI percent K score built from sentiment-versus-price comparison, percent K level, and extreme-counter context Internal raw version before final clipping or display normalization."},
+            {"column": "stochastic_rsi_strength_score", "theme": "Composite Score", "explanation": "Composite Stochastic RSI percent K score built from sentiment-versus-price comparison, percent K level, and extreme-counter context."},
+            {"column": "stochastic_rsi_strength_score_signed", "theme": "Composite Score", "explanation": "Composite Stochastic RSI percent K score built from sentiment-versus-price comparison, percent K level, and extreme-counter context. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "stochastic_rsi_cross_score_signed", "theme": "Composite Score", "explanation": "Stochastic RSI crossover score based on whether percent K is above or below percent D. Positive values favor bullish K-over-D structure. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "stochastic_rsi_cross_score", "theme": "Composite Score", "explanation": "Stochastic RSI crossover score based on whether percent K is above or below percent D. Positive values favor bullish K-over-D structure."},
+            {"column": "stochastic_rsi_d_strength_score_signed", "theme": "Composite Score", "explanation": "Stochastic RSI percent D strength score. Combines K-versus-D crossover direction with whether percent D itself is above or below its neutral midpoint. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "stochastic_rsi_d_strength_score", "theme": "Composite Score", "explanation": "Stochastic RSI percent D strength score. Combines K-versus-D crossover direction with whether percent D itself is above or below its neutral midpoint."},
+            {"column": "rsi_combined_strength_score_raw", "theme": "Composite Score", "explanation": "Blended oscillator score that combines RSI strength and Stochastic RSI strength into a single score Internal raw version before final clipping or display normalization."},
+            {"column": "rsi_combined_strength_score", "theme": "Composite Score", "explanation": "Blended oscillator score that combines RSI strength and Stochastic RSI strength into a single 0 to 100 display score."},
+            {"column": "rsi_combined_strength_score_signed", "theme": "Composite Score", "explanation": "Blended oscillator score that combines RSI strength and Stochastic RSI strength into a single -100 to 100 display score. Signed version normalized so negative values are bearish and positive values are bullish."}
+          ]
+        },
+        {
+          "subsection": "Consensus Scores",
+          "columns": [
+            {"column": "signal_consensus_score_signed", "theme": "Composite Score", "explanation": "Cross-family consensus score. Averages the signed outputs from major subsystems such as MA, Bollinger, MACD, and RSI to summarize overall agreement. Signed version normalized so negative values are bearish and positive values are bullish."},
+            {"column": "signal_consensus_score", "theme": "Composite Score", "explanation": "Cross-family consensus score. Averages the signed outputs from major subsystems such as MA, Bollinger, MACD, and RSI to summarize overall agreement."},
+            {"column": "signal_dispersion_score", "theme": "Composite Score", "explanation": "Cross-family disagreement score. Higher values mean the major subsystem scores disagree more with each other, implying a noisier or less unified setup."}
+          ]
+        },
+        {
+          "subsection": "Score Dynamics",
+          "columns": [
+            {"column": "ma_strength_enhanced_score_ema_3", "theme": "Score Dynamics", "explanation": "3-day exponential moving average of ma_strength_enhanced_score. Smooths day-to-day noise while staying responsive to recent changes."},
+            {"column": "ma_strength_enhanced_score_ema_7", "theme": "Score Dynamics", "explanation": "7-day exponential moving average of ma_strength_enhanced_score. A slower smoothing view used to monitor short-term trend persistence in the score."},
+            {"column": "ma_strength_enhanced_score_delta_1d", "theme": "Score Dynamics", "explanation": "One-day change in ma_strength_enhanced_score. Positive values mean the score improved versus the prior row; negative values mean it weakened."},
+            {"column": "ma_strength_enhanced_score_delta_3d", "theme": "Score Dynamics", "explanation": "Three-day change in ma_strength_enhanced_score. Useful for tracking short-run acceleration or deterioration rather than only one-day moves."},
+            {"column": "ma_strength_enhanced_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where ma_strength_enhanced_score increased day over day. Resets to 0 when the score stops rising."},
+            {"column": "ma_strength_enhanced_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where ma_strength_enhanced_score decreased day over day. Resets to 0 when the score stops falling."},
+            {"column": "ma_combined_strength_trend_score_ema_3", "theme": "Score Dynamics", "explanation": "3-day exponential moving average of ma_combined_strength_trend_score. Smooths day-to-day noise while staying responsive to recent changes."},
+            {"column": "ma_combined_strength_trend_score_ema_7", "theme": "Score Dynamics", "explanation": "7-day exponential moving average of ma_combined_strength_trend_score. A slower smoothing view used to monitor short-term trend persistence in the score."},
+            {"column": "ma_combined_strength_trend_score_delta_1d", "theme": "Score Dynamics", "explanation": "One-day change in ma_combined_strength_trend_score. Positive values mean the score improved versus the prior row; negative values mean it weakened."},
+            {"column": "ma_combined_strength_trend_score_delta_3d", "theme": "Score Dynamics", "explanation": "Three-day change in ma_combined_strength_trend_score. Useful for tracking short-run acceleration or deterioration rather than only one-day moves."},
+            {"column": "ma_combined_strength_trend_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where ma_combined_strength_trend_score increased day over day. Resets to 0 when the score stops rising."},
+            {"column": "ma_combined_strength_trend_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where ma_combined_strength_trend_score decreased day over day. Resets to 0 when the score stops falling."},
+            {"column": "bollinger_strength_score_ema_3", "theme": "Score Dynamics", "explanation": "3-day exponential moving average of bollinger_strength_score. Smooths day-to-day noise while staying responsive to recent changes."},
+            {"column": "bollinger_strength_score_ema_7", "theme": "Score Dynamics", "explanation": "7-day exponential moving average of bollinger_strength_score. A slower smoothing view used to monitor short-term trend persistence in the score."},
+            {"column": "bollinger_strength_score_delta_1d", "theme": "Score Dynamics", "explanation": "One-day change in bollinger_strength_score. Positive values mean the score improved versus the prior row; negative values mean it weakened."},
+            {"column": "bollinger_strength_score_delta_3d", "theme": "Score Dynamics", "explanation": "Three-day change in bollinger_strength_score. Useful for tracking short-run acceleration or deterioration rather than only one-day moves."},
+            {"column": "bollinger_strength_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where bollinger_strength_score increased day over day. Resets to 0 when the score stops rising."},
+            {"column": "bollinger_strength_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where bollinger_strength_score decreased day over day. Resets to 0 when the score stops falling."},
+            {"column": "macd_signal_strength_score_ema_3", "theme": "Score Dynamics", "explanation": "3-day exponential moving average of macd_signal_strength_score. Smooths day-to-day noise while staying responsive to recent changes."},
+            {"column": "macd_signal_strength_score_ema_7", "theme": "Score Dynamics", "explanation": "7-day exponential moving average of macd_signal_strength_score. A slower smoothing view used to monitor short-term trend persistence in the score."},
+            {"column": "macd_signal_strength_score_delta_1d", "theme": "Score Dynamics", "explanation": "One-day change in macd_signal_strength_score. Positive values mean the score improved versus the prior row; negative values mean it weakened."},
+            {"column": "macd_signal_strength_score_delta_3d", "theme": "Score Dynamics", "explanation": "Three-day change in macd_signal_strength_score. Useful for tracking short-run acceleration or deterioration rather than only one-day moves."},
+            {"column": "macd_signal_strength_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where macd_signal_strength_score increased day over day. Resets to 0 when the score stops rising."},
+            {"column": "macd_signal_strength_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where macd_signal_strength_score decreased day over day. Resets to 0 when the score stops falling."},
+            {"column": "rsi_combined_strength_score_ema_3", "theme": "Score Dynamics", "explanation": "3-day exponential moving average of rsi_combined_strength_score. Smooths day-to-day noise while staying responsive to recent changes."},
+            {"column": "rsi_combined_strength_score_ema_7", "theme": "Score Dynamics", "explanation": "7-day exponential moving average of rsi_combined_strength_score. A slower smoothing view used to monitor short-term trend persistence in the score."},
+            {"column": "rsi_combined_strength_score_delta_1d", "theme": "Score Dynamics", "explanation": "One-day change in rsi_combined_strength_score. Positive values mean the score improved versus the prior row; negative values mean it weakened."},
+            {"column": "rsi_combined_strength_score_delta_3d", "theme": "Score Dynamics", "explanation": "Three-day change in rsi_combined_strength_score. Useful for tracking short-run acceleration or deterioration rather than only one-day moves."},
+            {"column": "rsi_combined_strength_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where rsi_combined_strength_score increased day over day. Resets to 0 when the score stops rising."},
+            {"column": "rsi_combined_strength_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where rsi_combined_strength_score decreased day over day. Resets to 0 when the score stops falling."},
+            {"column": "signal_consensus_score_ema_3", "theme": "Score Dynamics", "explanation": "3-day exponential moving average of signal_consensus_score. Smooths day-to-day noise while staying responsive to recent changes."},
+            {"column": "signal_consensus_score_ema_7", "theme": "Score Dynamics", "explanation": "7-day exponential moving average of signal_consensus_score. A slower smoothing view used to monitor short-term trend persistence in the score."},
+            {"column": "signal_consensus_score_delta_1d", "theme": "Score Dynamics", "explanation": "One-day change in signal_consensus_score. Positive values mean the score improved versus the prior row; negative values mean it weakened."},
+            {"column": "signal_consensus_score_delta_3d", "theme": "Score Dynamics", "explanation": "Three-day change in signal_consensus_score. Useful for tracking short-run acceleration or deterioration rather than only one-day moves."},
+            {"column": "signal_consensus_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where signal_consensus_score increased day over day. Resets to 0 when the score stops rising."},
+            {"column": "signal_consensus_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive rows where signal_consensus_score decreased day over day. Resets to 0 when the score stops falling."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Attention & Engagement",
+      "subsections": [
+        {
+          "subsection": "X / Twitter - Core Activity",
+          "columns": [
+            {"column": "x_post_count", "theme": "Attention Module", "explanation": "Number of X/Twitter posts for this (date, term) after URL dedupe, spam/keyword filtering, and per-author daily cap."},
+            {"column": "x_unique_authors", "theme": "Attention Module", "explanation": "Number of unique X/Twitter authors for this (date, term). Author key is platform_user_id (fallback: handle)."},
+            {"column": "x_engagement_sum", "theme": "Attention Module", "explanation": "Sum of X/Twitter raw engagement across posts for this (date, term): likes + retweets + quotes (missing treated as 0). Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "x_reach_sum", "theme": "Attention Module", "explanation": "Sum of per-post reach proxy across X/Twitter posts for this (date, term): log1p(follower_count) joined from author_tbl on platform_user_id (missing -> 0). Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "x_impact_abs_sum", "theme": "Attention Module", "explanation": "Sum of per-post absolute impact scores for X/Twitter on this (date, term). Per post: post_impact_score = platform_weight_x * [ w_eng*log1p(engagement_raw) + w_reach*log1p(follower_count) + w_sent*abs(vader_compound) ], where engagement_raw = likes+retweets+quotes. Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "x_impact_signed_sum", "theme": "Attention Module", "explanation": "Sum of signed impact for X/Twitter on this (date, term): sign(vader_compound) * post_impact_score summed across posts. Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "x_author_concentration", "theme": "Attention Module", "explanation": "Share of X/Twitter impact dominated by the single most impactful author on this (date, term): max(author impact_abs_sum) / total impact_abs_sum. 0 when no impact."}
+          ]
+        },
+        {
+          "subsection": "Reddit - Core Activity",
+          "columns": [
+            {"column": "reddit_post_count", "theme": "Attention Module", "explanation": "Number of Reddit posts for this (date, term) after URL dedupe, spam/keyword filtering, and per-author daily cap."},
+            {"column": "reddit_unique_authors", "theme": "Attention Module", "explanation": "Number of unique Reddit authors for this (date, term). Author key is platform_user_id (fallback: author_username)."},
+            {"column": "reddit_engagement_sum", "theme": "Attention Module", "explanation": "Sum of Reddit raw engagement across posts for this (date, term): upvotes + comments (missing treated as 0). Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "reddit_reach_sum", "theme": "Attention Module", "explanation": "Sum of per-post reach proxy across Reddit posts for this (date, term): log1p(follower_count) joined from author_tbl on platform_user_id (missing -> 0). Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "reddit_impact_abs_sum", "theme": "Attention Module", "explanation": "Sum of per-post absolute impact scores for Reddit on this (date, term). Per post: post_impact_score = platform_weight_reddit * [ w_eng*log1p(upvotes+comments) + w_reach*log1p(follower_count) + w_sent*abs(vader_compound) ]. Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "reddit_impact_signed_sum", "theme": "Attention Module", "explanation": "Sum of signed impact for Reddit on this (date, term): sign(vader_compound) * post_impact_score summed across posts. Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "reddit_author_concentration", "theme": "Attention Module", "explanation": "Share of Reddit impact dominated by the single most impactful author on this (date, term): max(author impact_abs_sum) / total impact_abs_sum. 0 when no impact."}
+          ]
+        },
+        {
+          "subsection": "Bluesky - Core Activity",
+          "columns": [
+            {"column": "bsky_post_count", "theme": "Attention Module", "explanation": "Number of Bluesky posts for this (date, term) after URI dedupe, spam/keyword filtering, and per-author daily cap."},
+            {"column": "bsky_unique_authors", "theme": "Attention Module", "explanation": "Number of unique Bluesky authors for this (date, term). Author key is author_did (fallback: handle)."},
+            {"column": "bsky_engagement_sum", "theme": "Attention Module", "explanation": "Sum of Bluesky raw engagement across posts for this (date, term): upvotes + repost_count + comments + quote_count (missing treated as 0). Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "bsky_reach_sum", "theme": "Attention Module", "explanation": "Sum of per-post reach proxy across Bluesky posts for this (date, term): log1p(follower_count) joined from author_tbl on author_did when available (missing -> 0). Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "bsky_impact_abs_sum", "theme": "Attention Module", "explanation": "Sum of per-post absolute impact scores for Bluesky on this (date, term). Per post: post_impact_score = platform_weight_bsky * [ w_eng*log1p(engagement_raw) + w_reach*log1p(follower_count) + w_sent*abs(roberta_compound) ], where engagement_raw = upvotes+repost_count+comments+quote_count. Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "bsky_impact_signed_sum", "theme": "Attention Module", "explanation": "Sum of signed impact for Bluesky on this (date, term): sign(roberta_compound) * post_impact_score summed across posts. Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "bsky_author_concentration", "theme": "Attention Module", "explanation": "Share of Bluesky impact dominated by the single most impactful author on this (date, term): max(author impact_abs_sum) / total impact_abs_sum. 0 when no impact."}
+          ]
+        },
+        {
+          "subsection": "News - Core Activity",
+          "columns": [
+            {"column": "news_article_count", "theme": "Attention Module", "explanation": "Number of news articles for this (date, term) after URL dedupe and spam/keyword filtering. Date uses published_date if available (fallback: date)."},
+            {"column": "news_relevance_sum", "theme": "Attention Module", "explanation": "Sum of relevance_score across articles for this (date, term). Missing relevance treated as 0."},
+            {"column": "news_relevance_avg", "theme": "Attention Module", "explanation": "Average relevance_score across articles for this (date, term). Missing relevance treated as 0."},
+            {"column": "news_sentiment_avg", "theme": "Attention Module", "explanation": "Average overall_sentiment_score across articles for this (date, term). Positive means net-positive news tone; negative net-negative."},
+            {"column": "news_unique_sources_count", "theme": "Attention Module", "explanation": "Number of distinct news publishers/sources contributing qualifying articles for this (date, term). Higher values mean broader cross-publisher coverage rather than repeated mentions from one outlet."},
+            {"column": "news_post_count", "theme": "Attention Module", "explanation": "Alias of news_article_count (article count at (date, term))."},
+            {"column": "news_unique_authors", "theme": "Attention Module", "explanation": "Always 0 in current schema (news articles don't have stable author ids in the attention module)."},
+            {"column": "news_engagement_sum", "theme": "Attention Module", "explanation": "Alias of news_proxy_engagement_raw (currently equal to news_proxy_impact; a non-count engagement proxy)."},
+            {"column": "news_reach_sum", "theme": "Attention Module", "explanation": "Always 0 in current schema (no reach/followers concept for news sources in the attention module)."},
+            {"column": "news_impact_abs_sum", "theme": "Attention Module", "explanation": "Alias of news_proxy_impact (attention magnitude proxy)."},
+            {"column": "news_impact_signed_sum", "theme": "Attention Module", "explanation": "Alias of news_proxy_impact_signed (signed attention proxy)."},
+            {"column": "news_author_concentration", "theme": "Attention Module", "explanation": "Always 0 in current schema (news has no stable author_key in the attention module)."}
+          ]
+        },
+        {
+          "subsection": "News Proxy / Standardized Impact",
+          "columns": [
+            {"column": "news_proxy_impact", "theme": "Attention Module", "explanation": "News attention proxy for this (date, term): log1p(news_article_count) * (1 + news_relevance_avg). Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "news_proxy_engagement_raw", "theme": "Attention Module", "explanation": "Raw engagement proxy for News before capping, log transforms, or z-scoring. Used because direct social engagement metrics are unavailable or not directly comparable; this field feeds the downstream standardized engagement features."},
+            {"column": "news_proxy_impact_signed", "theme": "Attention Module", "explanation": "Signed news impact proxy for this (date, term): sign(news_sentiment_avg) * news_proxy_impact. Note: in the Attention module these daily aggregates are optionally converted into a day-bucket exponentially-decayed running sum per term: out[t] = x[t] + decay(dt)*out[t-1], with decay(dt)=0.5**(dt_hours/half_life_hours). Default half-life is 36h."},
+            {"column": "news_proxy_impact_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of news_proxy_impact)."},
+            {"column": "news_proxy_impact_signed_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of news_proxy_impact_signed)."},
+            {"column": "news_proxy_engagement_z", "theme": "Attention Module", "explanation": "News attention-module feature derived from the daily activity/engagement aggregates for this asset."}
+          ]
+        },
+        {
+          "subsection": "X / Twitter - Standardized / Z-Score Features",
+          "columns": [
+            {"column": "x_impact_abs_sum_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of x_impact_abs_sum)."},
+            {"column": "x_impact_signed_sum_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of x_impact_signed_sum)."},
+            {"column": "x_engagement_sum_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of x_engagement_sum)."},
+            {"column": "x_engagement_per_post_log1p_z", "theme": "Attention Module", "explanation": "Rolling z-score of log1p-transformed X/Twitter engagement per post/article. Positive values indicate stronger-than-normal engagement efficiency versus the asset's own recent history."},
+            {"column": "x_engagement_sum_cap_p99_log1p_z", "theme": "Attention Module", "explanation": "Rolling z-score of the capped-and-log-transformed X/Twitter engagement sum. Positive values mean total engagement is high relative to the asset's own recent baseline."}
+          ]
+        },
+        {
+          "subsection": "Reddit - Standardized / Z-Score Features",
+          "columns": [
+            {"column": "reddit_impact_abs_sum_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of reddit_impact_abs_sum)."},
+            {"column": "reddit_impact_signed_sum_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of reddit_impact_signed_sum)."},
+            {"column": "reddit_engagement_sum_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of reddit_engagement_sum)."},
+            {"column": "reddit_engagement_per_post_log1p_z", "theme": "Attention Module", "explanation": "Rolling z-score of log1p-transformed Reddit engagement per post/article. Positive values indicate stronger-than-normal engagement efficiency versus the asset's own recent history."},
+            {"column": "reddit_engagement_sum_cap_p99_log1p_z", "theme": "Attention Module", "explanation": "Rolling z-score of the capped-and-log-transformed Reddit engagement sum. Positive values mean total engagement is high relative to the asset's own recent baseline."}
+          ]
+        },
+        {
+          "subsection": "Bluesky - Standardized / Z-Score Features",
+          "columns": [
+            {"column": "bsky_impact_abs_sum_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of bsky_impact_abs_sum)."},
+            {"column": "bsky_impact_signed_sum_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of bsky_impact_signed_sum)."},
+            {"column": "bsky_engagement_sum_z", "theme": "Attention Module", "explanation": "Rolling z-score per term over a 90-day window (cfg.z_window_days). Computed on 0-filled values with population std (ddof=0); if std==0 or insufficient history, z=0. (z-score of bsky_engagement_sum)."},
+            {"column": "bsky_engagement_per_post_log1p_z", "theme": "Attention Module", "explanation": "Rolling z-score of log1p-transformed Bluesky engagement per post/article. Positive values indicate stronger-than-normal engagement efficiency versus the asset's own recent history."},
+            {"column": "bsky_engagement_sum_cap_p99_log1p_z", "theme": "Attention Module", "explanation": "Rolling z-score of the capped-and-log-transformed Bluesky engagement sum. Positive values mean total engagement is high relative to the asset's own recent baseline."}
+          ]
+        },
+        {
+          "subsection": "Cross-Source Attention Composite",
+          "columns": [
+            {"column": "attention_abs_z", "theme": "Attention Module", "explanation": "Composite attention score (absolute) per (date, term): weighted sum of per-source absolute impact z-scores: wX*x_impact_abs_sum_z + wR*reddit_impact_abs_sum_z + wB*bsky_impact_abs_sum_z + wN*news_proxy_impact_z (defaults: wX=0.40, wR=0.30, wB=0.15, wN=0.15)."},
+            {"column": "attention_signed_z", "theme": "Attention Module", "explanation": "Composite attention score (signed) per (date, term): weighted sum of per-source signed impact z-scores: wX*x_impact_signed_sum_z + wR*reddit_impact_signed_sum_z + wB*bsky_impact_signed_sum_z + wN*news_proxy_impact_signed_z (defaults: wX=0.40, wR=0.30, wB=0.15, wN=0.15). Sign reflects net sentiment polarity."},
+            {"column": "attention_abs_z_ma7", "theme": "Attention Module", "explanation": "7-day moving average of attention_abs_z (per term) for smoothing; min_periods=1."},
+            {"column": "attention_signed_z_ma7", "theme": "Attention Module", "explanation": "7-day moving average of attention_signed_z (per term) for smoothing; min_periods=1."}
+          ]
+        },
+        {
+          "subsection": "Coverage / Observation Flags",
+          "columns": [
+            {"column": "observed_flag_x", "theme": "Attention Module", "explanation": "Observation-availability flag for X/Twitter. Equals 1 when that source contributed qualifying data to the attention module for this (date, term), otherwise 0."},
+            {"column": "observed_flag_reddit", "theme": "Attention Module", "explanation": "Observation-availability flag for Reddit. Equals 1 when that source contributed qualifying data to the attention module for this (date, term), otherwise 0."},
+            {"column": "observed_flag_bsky", "theme": "Attention Module", "explanation": "Observation-availability flag for Bluesky. Equals 1 when that source contributed qualifying data to the attention module for this (date, term), otherwise 0."},
+            {"column": "observed_flag_news", "theme": "Attention Module", "explanation": "Observation-availability flag for News. Equals 1 when that source contributed qualifying data to the attention module for this (date, term), otherwise 0."}
+          ]
+        },
+        {
+          "subsection": "X / Twitter - Efficiency / Scaled Engagement",
+          "columns": [
+            {"column": "x_engagement_per_post", "theme": "Attention Module", "explanation": "Average raw engagement per qualifying X/Twitter post/article for this (date, term): engagement_sum divided by post/article count. Useful for separating many low-impact mentions from fewer high-response mentions."},
+            {"column": "x_engagement_per_post_log1p", "theme": "Attention Module", "explanation": "log1p-transformed X/Twitter engagement per post/article. Compresses heavy-tailed engagement values so outliers do not dominate comparisons."},
+            {"column": "x_engagement_sum_log1p", "theme": "Attention Module", "explanation": "log1p-transformed total X/Twitter engagement for this (date, term). Keeps the metric monotonic while reducing the influence of very large viral days."},
+            {"column": "x_engagement_sum_cap_p99", "theme": "Attention Module", "explanation": "Total X/Twitter engagement after clipping extreme values at the approximate 99th percentile. This stabilizes downstream scaling by preventing one-off spikes from dominating the range."},
+            {"column": "x_engagement_sum_cap_p99_log1p", "theme": "Attention Module", "explanation": "log1p-transformed version of the percentile-capped X/Twitter engagement sum. Used as a more robust attention-intensity feature than raw engagement_sum."},
+            {"column": "x_author_enriched_available", "theme": "Attention Module", "explanation": "Indicator that author-level enrichment data (for example follower/reach metadata) was available for at least part of the X/Twitter observations contributing to this row."},
+            {"column": "x_author_enriched_frac", "theme": "Attention Module", "explanation": "Fraction of qualifying X/Twitter posts/articles with usable author-level enrichment attached. Higher values imply reach- and author-based derived metrics are better grounded."},
+            {"column": "x_engagement_per_author", "theme": "Attention Module", "explanation": "Average X/Twitter engagement per unique author/source contributor on this date for this asset: engagement_sum divided by unique_authors (or source-level contributor count). Helps distinguish broad participation from concentration in a few accounts."},
+            {"column": "x_engagement_per_reach_proxy", "theme": "Attention Module", "explanation": "Engagement efficiency relative to reach proxy for X/Twitter: engagement_sum normalized by reach_sum (or equivalent reach proxy). Higher values indicate stronger response per unit of estimated audience."}
+          ]
+        },
+        {
+          "subsection": "Reddit - Efficiency / Scaled Engagement",
+          "columns": [
+            {"column": "reddit_engagement_per_post", "theme": "Attention Module", "explanation": "Average raw engagement per qualifying Reddit post/article for this (date, term): engagement_sum divided by post/article count. Useful for separating many low-impact mentions from fewer high-response mentions."},
+            {"column": "reddit_engagement_per_post_log1p", "theme": "Attention Module", "explanation": "log1p-transformed Reddit engagement per post/article. Compresses heavy-tailed engagement values so outliers do not dominate comparisons."},
+            {"column": "reddit_engagement_sum_log1p", "theme": "Attention Module", "explanation": "log1p-transformed total Reddit engagement for this (date, term). Keeps the metric monotonic while reducing the influence of very large viral days."},
+            {"column": "reddit_engagement_sum_cap_p99", "theme": "Attention Module", "explanation": "Total Reddit engagement after clipping extreme values at the approximate 99th percentile. This stabilizes downstream scaling by preventing one-off spikes from dominating the range."},
+            {"column": "reddit_engagement_sum_cap_p99_log1p", "theme": "Attention Module", "explanation": "log1p-transformed version of the percentile-capped Reddit engagement sum. Used as a more robust attention-intensity feature than raw engagement_sum."},
+            {"column": "reddit_author_enriched_available", "theme": "Attention Module", "explanation": "Indicator that author-level enrichment data (for example follower/reach metadata) was available for at least part of the Reddit observations contributing to this row."},
+            {"column": "reddit_author_enriched_frac", "theme": "Attention Module", "explanation": "Fraction of qualifying Reddit posts/articles with usable author-level enrichment attached. Higher values imply reach- and author-based derived metrics are better grounded."},
+            {"column": "reddit_engagement_per_author", "theme": "Attention Module", "explanation": "Average Reddit engagement per unique author/source contributor on this date for this asset: engagement_sum divided by unique_authors (or source-level contributor count). Helps distinguish broad participation from concentration in a few accounts."},
+            {"column": "reddit_engagement_per_reach_proxy", "theme": "Attention Module", "explanation": "Engagement efficiency relative to reach proxy for Reddit: engagement_sum normalized by reach_sum (or equivalent reach proxy). Higher values indicate stronger response per unit of estimated audience."}
+          ]
+        },
+        {
+          "subsection": "Bluesky - Efficiency / Scaled Engagement",
+          "columns": [
+            {"column": "bsky_engagement_per_post", "theme": "Attention Module", "explanation": "Average raw engagement per qualifying Bluesky post/article for this (date, term): engagement_sum divided by post/article count. Useful for separating many low-impact mentions from fewer high-response mentions."},
+            {"column": "bsky_engagement_per_post_log1p", "theme": "Attention Module", "explanation": "log1p-transformed Bluesky engagement per post/article. Compresses heavy-tailed engagement values so outliers do not dominate comparisons."},
+            {"column": "bsky_engagement_sum_log1p", "theme": "Attention Module", "explanation": "log1p-transformed total Bluesky engagement for this (date, term). Keeps the metric monotonic while reducing the influence of very large viral days."},
+            {"column": "bsky_engagement_sum_cap_p99", "theme": "Attention Module", "explanation": "Total Bluesky engagement after clipping extreme values at the approximate 99th percentile. This stabilizes downstream scaling by preventing one-off spikes from dominating the range."},
+            {"column": "bsky_engagement_sum_cap_p99_log1p", "theme": "Attention Module", "explanation": "log1p-transformed version of the percentile-capped Bluesky engagement sum. Used as a more robust attention-intensity feature than raw engagement_sum."},
+            {"column": "bsky_author_enriched_available", "theme": "Attention Module", "explanation": "Indicator that author-level enrichment data (for example follower/reach metadata) was available for at least part of the Bluesky observations contributing to this row."},
+            {"column": "bsky_author_enriched_frac", "theme": "Attention Module", "explanation": "Fraction of qualifying Bluesky posts/articles with usable author-level enrichment attached. Higher values imply reach- and author-based derived metrics are better grounded."},
+            {"column": "bsky_engagement_per_author", "theme": "Attention Module", "explanation": "Average Bluesky engagement per unique author/source contributor on this date for this asset: engagement_sum divided by unique_authors (or source-level contributor count). Helps distinguish broad participation from concentration in a few accounts."},
+            {"column": "bsky_engagement_per_reach_proxy", "theme": "Attention Module", "explanation": "Engagement efficiency relative to reach proxy for Bluesky: engagement_sum normalized by reach_sum (or equivalent reach proxy). Higher values indicate stronger response per unit of estimated audience."}
+          ]
+        },
+        {
+          "subsection": "News - Efficiency / Scaled Engagement",
+          "columns": [
+            {"column": "news_engagement_per_post", "theme": "Attention Module", "explanation": "Average raw engagement per qualifying News post/article for this (date, term): engagement_sum divided by post/article count. Useful for separating many low-impact mentions from fewer high-response mentions."},
+            {"column": "news_engagement_per_post_log1p", "theme": "Attention Module", "explanation": "log1p-transformed News engagement per post/article. Compresses heavy-tailed engagement values so outliers do not dominate comparisons."},
+            {"column": "news_engagement_sum_log1p", "theme": "Attention Module", "explanation": "log1p-transformed total News engagement for this (date, term). Keeps the metric monotonic while reducing the influence of very large viral days."},
+            {"column": "news_engagement_sum_cap_p99", "theme": "Attention Module", "explanation": "Total News engagement after clipping extreme values at the approximate 99th percentile. This stabilizes downstream scaling by preventing one-off spikes from dominating the range."},
+            {"column": "news_engagement_sum_cap_p99_log1p", "theme": "Attention Module", "explanation": "log1p-transformed version of the percentile-capped News engagement sum. Used as a more robust attention-intensity feature than raw engagement_sum."},
+            {"column": "news_engagement_per_post_log1p_z", "theme": "Attention Module", "explanation": "Rolling z-score of log1p-transformed News engagement per post/article. Positive values indicate stronger-than-normal engagement efficiency versus the asset's own recent history."},
+            {"column": "news_engagement_sum_cap_p99_log1p_z", "theme": "Attention Module", "explanation": "Rolling z-score of the capped-and-log-transformed News engagement sum. Positive values mean total engagement is high relative to the asset's own recent baseline."},
+            {"column": "news_author_enriched_available", "theme": "Attention Module", "explanation": "Indicator that author-level enrichment data (for example follower/reach metadata) was available for at least part of the News observations contributing to this row."},
+            {"column": "news_author_enriched_frac", "theme": "Attention Module", "explanation": "Fraction of qualifying News posts/articles with usable author-level enrichment attached. Higher values imply reach- and author-based derived metrics are better grounded."},
+            {"column": "news_engagement_per_author", "theme": "Attention Module", "explanation": "Average News engagement per unique author/source contributor on this date for this asset: engagement_sum divided by unique_authors (or source-level contributor count). Helps distinguish broad participation from concentration in a few accounts."},
+            {"column": "news_engagement_per_reach_proxy", "theme": "Attention Module", "explanation": "Engagement efficiency relative to reach proxy for News: engagement_sum normalized by reach_sum (or equivalent reach proxy). Higher values indicate stronger response per unit of estimated audience."}
+          ]
+        },
+        {
+          "subsection": "X / Twitter - Spike Detection",
+          "columns": [
+            {"column": "x_spike_z2", "theme": "Attention Module", "explanation": "Spike flag for X/Twitter attention: 1 when the standardized engagement/attention signal reaches roughly +2 standard deviations or more, else 0. Intended to isolate unusually strong attention bursts."},
+            {"column": "x_spike_z3", "theme": "Attention Module", "explanation": "Spike flag for X/Twitter attention: 1 when the standardized engagement/attention signal reaches roughly +3 standard deviations or more, else 0. Intended to isolate unusually strong attention bursts."},
+            {"column": "x_z_rolling_max_3", "theme": "Attention Module", "explanation": "Rolling maximum of the primary standardized X/Twitter attention z-score over the last 3 rows/days for this asset. Captures recent peak attention intensity even if the current day has already cooled."},
+            {"column": "x_z_rolling_max_7", "theme": "Attention Module", "explanation": "Rolling maximum of the primary standardized X/Twitter attention z-score over the last 7 rows/days for this asset. Captures recent peak attention intensity even if the current day has already cooled."},
+            {"column": "x_days_since_spike2", "theme": "Attention Module", "explanation": "Elapsed rows/days since the most recent +2 standard deviation X/Twitter attention spike. Lower values indicate very recent abnormal attention."}
+          ]
+        },
+        {
+          "subsection": "Reddit - Spike Detection",
+          "columns": [
+            {"column": "reddit_spike_z2", "theme": "Attention Module", "explanation": "Spike flag for Reddit attention: 1 when the standardized engagement/attention signal reaches roughly +2 standard deviations or more, else 0. Intended to isolate unusually strong attention bursts."},
+            {"column": "reddit_spike_z3", "theme": "Attention Module", "explanation": "Spike flag for Reddit attention: 1 when the standardized engagement/attention signal reaches roughly +3 standard deviations or more, else 0. Intended to isolate unusually strong attention bursts."},
+            {"column": "reddit_z_rolling_max_3", "theme": "Attention Module", "explanation": "Rolling maximum of the primary standardized Reddit attention z-score over the last 3 rows/days for this asset. Captures recent peak attention intensity even if the current day has already cooled."},
+            {"column": "reddit_z_rolling_max_7", "theme": "Attention Module", "explanation": "Rolling maximum of the primary standardized Reddit attention z-score over the last 7 rows/days for this asset. Captures recent peak attention intensity even if the current day has already cooled."},
+            {"column": "reddit_days_since_spike2", "theme": "Attention Module", "explanation": "Elapsed rows/days since the most recent +2 standard deviation Reddit attention spike. Lower values indicate very recent abnormal attention."}
+          ]
+        },
+        {
+          "subsection": "Bluesky - Spike Detection",
+          "columns": [
+            {"column": "bsky_spike_z2", "theme": "Attention Module", "explanation": "Spike flag for Bluesky attention: 1 when the standardized engagement/attention signal reaches roughly +2 standard deviations or more, else 0. Intended to isolate unusually strong attention bursts."},
+            {"column": "bsky_spike_z3", "theme": "Attention Module", "explanation": "Spike flag for Bluesky attention: 1 when the standardized engagement/attention signal reaches roughly +3 standard deviations or more, else 0. Intended to isolate unusually strong attention bursts."},
+            {"column": "bsky_z_rolling_max_3", "theme": "Attention Module", "explanation": "Rolling maximum of the primary standardized Bluesky attention z-score over the last 3 rows/days for this asset. Captures recent peak attention intensity even if the current day has already cooled."},
+            {"column": "bsky_z_rolling_max_7", "theme": "Attention Module", "explanation": "Rolling maximum of the primary standardized Bluesky attention z-score over the last 7 rows/days for this asset. Captures recent peak attention intensity even if the current day has already cooled."},
+            {"column": "bsky_days_since_spike2", "theme": "Attention Module", "explanation": "Elapsed rows/days since the most recent +2 standard deviation Bluesky attention spike. Lower values indicate very recent abnormal attention."}
+          ]
+        },
+        {
+          "subsection": "News - Spike Detection",
+          "columns": [
+            {"column": "news_spike_z2", "theme": "Attention Module", "explanation": "Spike flag for News attention: 1 when the standardized engagement/attention signal reaches roughly +2 standard deviations or more, else 0. Intended to isolate unusually strong attention bursts."},
+            {"column": "news_spike_z3", "theme": "Attention Module", "explanation": "Spike flag for News attention: 1 when the standardized engagement/attention signal reaches roughly +3 standard deviations or more, else 0. Intended to isolate unusually strong attention bursts."},
+            {"column": "news_z_rolling_max_3", "theme": "Attention Module", "explanation": "Rolling maximum of the primary standardized News attention z-score over the last 3 rows/days for this asset. Captures recent peak attention intensity even if the current day has already cooled."},
+            {"column": "news_z_rolling_max_7", "theme": "Attention Module", "explanation": "Rolling maximum of the primary standardized News attention z-score over the last 7 rows/days for this asset. Captures recent peak attention intensity even if the current day has already cooled."},
+            {"column": "news_days_since_spike2", "theme": "Attention Module", "explanation": "Elapsed rows/days since the most recent +2 standard deviation News attention spike. Lower values indicate very recent abnormal attention."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Attention Scoring",
+      "subsections": [
+        {
+          "subsection": "Base Attention Scores",
+          "columns": [
+            {"column": "attention_conviction_score", "theme": "Attention Score", "explanation": "0 to 100 display version of the signed attention-conviction score. Higher values indicate more directionally bullish attention; lower values indicate more directionally bearish attention."},
+            {"column": "attention_conviction_score_signed", "theme": "Attention Score", "explanation": "-100 to 100 signed attention-conviction score. Positive values mean attention is leaning bullish, negative values mean attention is leaning bearish, and values near 0 mean attention is mixed or directionally weak."},
+            {"column": "attention_level_score", "theme": "Attention Score", "explanation": "0 to 100 attention-intensity score. Measures how much total attention the asset is receiving across available sources, regardless of bullish or bearish direction. Higher values mean more overall participation, activity, or discussion."},
+            {"column": "attention_regime_score", "theme": "Attention Score", "explanation": "Composite 0 to 100 attention-regime score that blends attention level, directional conviction, spikes, and source breadth. Higher values indicate stronger, broader, and more meaningful attention conditions."},
+            {"column": "attention_source_breadth_score", "theme": "Attention Score", "explanation": "0 to 100 breadth score for attention coverage across sources. Higher values mean attention is showing up across more source families rather than being concentrated in just one source."},
+            {"column": "attention_spike_score", "theme": "Attention Score", "explanation": "0 to 100 spike/urgency score. Designed to capture unusual bursts in attention, such as sudden surges in posting, engagement, or impact. Higher values indicate a more event-driven or urgent attention regime."}
+          ]
+        },
+        {
+          "subsection": "Attention Score Dynamics",
+          "columns": [
+            {"column": "attention_conviction_score_signed_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the signed attention conviction score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "attention_conviction_score_signed_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the signed attention conviction score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "attention_conviction_score_signed_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the signed attention conviction score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "attention_conviction_score_signed_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the signed attention conviction score. Provides a slower, more stable view of the score trend."},
+            {"column": "attention_conviction_score_signed_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the signed attention conviction score has been falling. Resets when the score stops decreasing."},
+            {"column": "attention_conviction_score_signed_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the signed attention conviction score has been rising. Resets when the score stops increasing."},
+            {"column": "attention_level_score_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the attention level score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "attention_level_score_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the attention level score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "attention_level_score_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the attention level score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "attention_level_score_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the attention level score. Provides a slower, more stable view of the score trend."},
+            {"column": "attention_level_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention level score has been falling. Resets when the score stops decreasing."},
+            {"column": "attention_level_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention level score has been rising. Resets when the score stops increasing."},
+            {"column": "attention_regime_score_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the attention regime score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "attention_regime_score_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the attention regime score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "attention_regime_score_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the attention regime score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "attention_regime_score_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the attention regime score. Provides a slower, more stable view of the score trend."},
+            {"column": "attention_regime_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention regime score has been falling. Resets when the score stops decreasing."},
+            {"column": "attention_regime_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention regime score has been rising. Resets when the score stops increasing."},
+            {"column": "attention_spike_score_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the attention spike score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "attention_spike_score_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the attention spike score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "attention_spike_score_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the attention spike score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "attention_spike_score_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the attention spike score. Provides a slower, more stable view of the score trend."},
+            {"column": "attention_spike_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention spike score has been falling. Resets when the score stops decreasing."},
+            {"column": "attention_spike_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention spike score has been rising. Resets when the score stops increasing."}
+          ]
+        },
+        {
+          "subsection": "Attention-Aligned Consensus",
+          "columns": [
+            {"column": "attention_aligned_consensus_confidence", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 confidence score for the final attention-aligned consensus. Higher values mean both technical agreement and attention support are stronger and more broadly confirmed."},
+            {"column": "attention_aligned_consensus_score", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 display version of the attention-aligned consensus score. Designed as a top-level summary of whether technical agreement and attention conditions are pointing in the same direction."},
+            {"column": "attention_aligned_consensus_score_signed", "theme": "Attention-Adjusted Score", "explanation": "-100 to 100 signed top-level score that combines technical consensus with the attention overlay. Positive values indicate a bullish consensus that is also supported by attention; negative values indicate a bearish consensus supported by attention."}
+          ]
+        },
+        {
+          "subsection": "Attention Score Dynamics (Aligned)",
+          "columns": [
+            {"column": "attention_aligned_consensus_score_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the attention-aligned final consensus score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "attention_aligned_consensus_score_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the attention-aligned final consensus score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "attention_aligned_consensus_score_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the attention-aligned final consensus score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "attention_aligned_consensus_score_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the attention-aligned final consensus score. Provides a slower, more stable view of the score trend."},
+            {"column": "attention_aligned_consensus_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-aligned final consensus score has been falling. Resets when the score stops decreasing."},
+            {"column": "attention_aligned_consensus_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-aligned final consensus score has been rising. Resets when the score stops increasing."}
+          ]
+        },
+        {
+          "subsection": "Family Base and Multipliers",
+          "columns": [
+            {"column": "bollinger_attention_multiplier", "theme": "Attention Multiplier", "explanation": "Attention multiplier applied to the Bollinger family score. Values above 1.0 boost the technical signal when attention is supportive; values below 1.0 dampen it when attention is weak, conflicting, or unconvincing."},
+            {"column": "bollinger_family_base_score_signed", "theme": "Attention-Adjusted Score", "explanation": "Base signed score for the Bollinger family before any attention adjustment is applied. This preserves the original technical signal on a -100 to 100 scale so attention can be layered on top rather than mixed directly into the core indicator logic."},
+            {"column": "consensus_attention_multiplier", "theme": "Attention Multiplier", "explanation": "Attention multiplier applied to the cross-family technical consensus score. Values above 1.0 boost the technical signal when attention is supportive; values below 1.0 dampen it when attention is weak, conflicting, or unconvincing."},
+            {"column": "consensus_family_base_score_signed", "theme": "Attention-Adjusted Score", "explanation": "Base signed score for the cross-family technical consensus before any attention adjustment is applied. This preserves the original technical signal on a -100 to 100 scale so attention can be layered on top rather than mixed directly into the core indicator logic."},
+            {"column": "ma_attention_multiplier", "theme": "Attention Multiplier", "explanation": "Attention multiplier applied to the moving-average family score. Values above 1.0 boost the technical signal when attention is supportive; values below 1.0 dampen it when attention is weak, conflicting, or unconvincing."},
+            {"column": "ma_family_base_score_signed", "theme": "Attention-Adjusted Score", "explanation": "Base signed score for the moving-average family before any attention adjustment is applied. This preserves the original technical signal on a -100 to 100 scale so attention can be layered on top rather than mixed directly into the core indicator logic."},
+            {"column": "macd_attention_multiplier", "theme": "Attention Multiplier", "explanation": "Attention multiplier applied to the MACD family score. Values above 1.0 boost the technical signal when attention is supportive; values below 1.0 dampen it when attention is weak, conflicting, or unconvincing."},
+            {"column": "macd_family_base_score_signed", "theme": "Attention-Adjusted Score", "explanation": "Base signed score for the MACD family before any attention adjustment is applied. This preserves the original technical signal on a -100 to 100 scale so attention can be layered on top rather than mixed directly into the core indicator logic."},
+            {"column": "rsi_attention_multiplier", "theme": "Attention Multiplier", "explanation": "Attention multiplier applied to the RSI and Stochastic RSI family score. Values above 1.0 boost the technical signal when attention is supportive; values below 1.0 dampen it when attention is weak, conflicting, or unconvincing."},
+            {"column": "rsi_family_base_score_signed", "theme": "Attention-Adjusted Score", "explanation": "Base signed score for the RSI and Stochastic RSI family before any attention adjustment is applied. This preserves the original technical signal on a -100 to 100 scale so attention can be layered on top rather than mixed directly into the core indicator logic."}
+          ]
+        },
+        {
+          "subsection": "Attention-Adjusted Family Scores - Bollinger",
+          "columns": [
+            {"column": "bollinger_attention_adjusted_confidence", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 confidence score for the Bollinger family after attention overlay. Higher values mean the technical signal is receiving stronger confirmation from attention level, breadth, conviction, or spike behavior."},
+            {"column": "bollinger_attention_adjusted_score", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 display version of the attention-adjusted Bollinger family score. Higher values indicate a more bullish, better-confirmed setup after accounting for attention conditions."},
+            {"column": "bollinger_attention_adjusted_score_signed", "theme": "Attention-Adjusted Score", "explanation": "-100 to 100 attention-adjusted signed score for the Bollinger family. Keeps the direction of the underlying technical score but scales it up or down based on whether attention confirms or weakens the setup."},
+            {"column": "bollinger_attention_adjusted_score_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the attention-adjusted Bollinger score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "bollinger_attention_adjusted_score_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the attention-adjusted Bollinger score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "bollinger_attention_adjusted_score_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the attention-adjusted Bollinger score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "bollinger_attention_adjusted_score_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the attention-adjusted Bollinger score. Provides a slower, more stable view of the score trend."},
+            {"column": "bollinger_attention_adjusted_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted Bollinger score has been falling. Resets when the score stops decreasing."},
+            {"column": "bollinger_attention_adjusted_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted Bollinger score has been rising. Resets when the score stops increasing."}
+          ]
+        },
+        {
+          "subsection": "Attention-Adjusted Family Scores - MA",
+          "columns": [
+            {"column": "ma_attention_adjusted_confidence", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 confidence score for the moving-average family after attention overlay. Higher values mean the technical signal is receiving stronger confirmation from attention level, breadth, conviction, or spike behavior."},
+            {"column": "ma_attention_adjusted_score", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 display version of the attention-adjusted moving-average family score. Higher values indicate a more bullish, better-confirmed setup after accounting for attention conditions."},
+            {"column": "ma_attention_adjusted_score_signed", "theme": "Attention-Adjusted Score", "explanation": "-100 to 100 attention-adjusted signed score for the moving-average family. Keeps the direction of the underlying technical score but scales it up or down based on whether attention confirms or weakens the setup."},
+            {"column": "ma_attention_adjusted_score_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the attention-adjusted moving-average score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "ma_attention_adjusted_score_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the attention-adjusted moving-average score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "ma_attention_adjusted_score_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the attention-adjusted moving-average score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "ma_attention_adjusted_score_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the attention-adjusted moving-average score. Provides a slower, more stable view of the score trend."},
+            {"column": "ma_attention_adjusted_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted moving-average score has been falling. Resets when the score stops decreasing."},
+            {"column": "ma_attention_adjusted_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted moving-average score has been rising. Resets when the score stops increasing."}
+          ]
+        },
+        {
+          "subsection": "Attention-Adjusted Family Scores - MACD",
+          "columns": [
+            {"column": "macd_attention_adjusted_confidence", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 confidence score for the MACD family after attention overlay. Higher values mean the technical signal is receiving stronger confirmation from attention level, breadth, conviction, or spike behavior."},
+            {"column": "macd_attention_adjusted_score", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 display version of the attention-adjusted MACD family score. Higher values indicate a more bullish, better-confirmed setup after accounting for attention conditions."},
+            {"column": "macd_attention_adjusted_score_signed", "theme": "Attention-Adjusted Score", "explanation": "-100 to 100 attention-adjusted signed score for the MACD family. Keeps the direction of the underlying technical score but scales it up or down based on whether attention confirms or weakens the setup."},
+            {"column": "macd_attention_adjusted_score_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the attention-adjusted MACD score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "macd_attention_adjusted_score_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the attention-adjusted MACD score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "macd_attention_adjusted_score_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the attention-adjusted MACD score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "macd_attention_adjusted_score_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the attention-adjusted MACD score. Provides a slower, more stable view of the score trend."},
+            {"column": "macd_attention_adjusted_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted MACD score has been falling. Resets when the score stops decreasing."},
+            {"column": "macd_attention_adjusted_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted MACD score has been rising. Resets when the score stops increasing."}
+          ]
+        },
+        {
+          "subsection": "Attention-Adjusted Family Scores - RSI",
+          "columns": [
+            {"column": "rsi_attention_adjusted_confidence", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 confidence score for the RSI and Stochastic RSI family after attention overlay. Higher values mean the technical signal is receiving stronger confirmation from attention level, breadth, conviction, or spike behavior."},
+            {"column": "rsi_attention_adjusted_score", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 display version of the attention-adjusted RSI and Stochastic RSI family score. Higher values indicate a more bullish, better-confirmed setup after accounting for attention conditions."},
+            {"column": "rsi_attention_adjusted_score_signed", "theme": "Attention-Adjusted Score", "explanation": "-100 to 100 attention-adjusted signed score for the RSI and Stochastic RSI family. Keeps the direction of the underlying technical score but scales it up or down based on whether attention confirms or weakens the setup."},
+            {"column": "rsi_attention_adjusted_score_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the attention-adjusted RSI/Stochastic RSI score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "rsi_attention_adjusted_score_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the attention-adjusted RSI/Stochastic RSI score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "rsi_attention_adjusted_score_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the attention-adjusted RSI/Stochastic RSI score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "rsi_attention_adjusted_score_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the attention-adjusted RSI/Stochastic RSI score. Provides a slower, more stable view of the score trend."},
+            {"column": "rsi_attention_adjusted_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted RSI/Stochastic RSI score has been falling. Resets when the score stops decreasing."},
+            {"column": "rsi_attention_adjusted_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted RSI/Stochastic RSI score has been rising. Resets when the score stops increasing."}
+          ]
+        },
+        {
+          "subsection": "Attention-Adjusted Family Scores - Signal Consensus",
+          "columns": [
+            {"column": "signal_consensus_attention_adjusted_confidence", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 confidence score for the cross-family technical consensus after attention overlay. Higher values mean the technical signal is receiving stronger confirmation from attention level, breadth, conviction, or spike behavior."},
+            {"column": "signal_consensus_attention_adjusted_score", "theme": "Attention-Adjusted Score", "explanation": "0 to 100 display version of the attention-adjusted cross-family technical consensus score. Higher values indicate a more bullish, better-confirmed setup after accounting for attention conditions."},
+            {"column": "signal_consensus_attention_adjusted_score_signed", "theme": "Attention-Adjusted Score", "explanation": "-100 to 100 attention-adjusted signed score for the cross-family technical consensus. Keeps the direction of the underlying technical score but scales it up or down based on whether attention confirms or weakens the setup."},
+            {"column": "signal_consensus_attention_adjusted_score_delta_1d", "theme": "Score Dynamics", "explanation": "1-day change in the attention-adjusted technical consensus score. Positive values mean the score improved versus the prior day; negative values mean it weakened."},
+            {"column": "signal_consensus_attention_adjusted_score_delta_3d", "theme": "Score Dynamics", "explanation": "3-day change in the attention-adjusted technical consensus score. Useful for spotting multi-day acceleration or deterioration."},
+            {"column": "signal_consensus_attention_adjusted_score_ema_3", "theme": "Score Dynamics", "explanation": "3-period exponential moving average of the attention-adjusted technical consensus score. Smooths short-term noise while staying responsive to recent changes."},
+            {"column": "signal_consensus_attention_adjusted_score_ema_7", "theme": "Score Dynamics", "explanation": "7-period exponential moving average of the attention-adjusted technical consensus score. Provides a slower, more stable view of the score trend."},
+            {"column": "signal_consensus_attention_adjusted_score_streak_down", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted technical consensus score has been falling. Resets when the score stops decreasing."},
+            {"column": "signal_consensus_attention_adjusted_score_streak_up", "theme": "Score Dynamics", "explanation": "Count of consecutive periods in which the attention-adjusted technical consensus score has been rising. Resets when the score stops increasing."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Sentiment Ribbon",
+      "subsections": [
+        {
+          "subsection": "Directional Ribbon Regime",
+          "columns": [
+            {"column": "sent_ribbon_d_7_21", "theme": "Sentiment Ribbon Regime", "explanation": "Directional adjacent spread using scaled sentiment MAs: scaled_combined_compound_ma_7 minus scaled_combined_compound_ma_21. Positive values mean the faster sentiment line is above the slower line."},
+            {"column": "sent_ribbon_d_21_50", "theme": "Sentiment Ribbon Regime", "explanation": "Directional adjacent spread using scaled sentiment MAs: scaled_combined_compound_ma_21 minus scaled_combined_compound_ma_50. Positive values support bullish medium-horizon stack order."},
+            {"column": "sent_ribbon_d_50_100", "theme": "Sentiment Ribbon Regime", "explanation": "Directional adjacent spread using scaled sentiment MAs: scaled_combined_compound_ma_50 minus scaled_combined_compound_ma_100. Positive values support bullish slow-stack order."},
+            {"column": "sent_ribbon_d_100_200", "theme": "Sentiment Ribbon Regime", "explanation": "Directional adjacent spread using scaled sentiment MAs: scaled_combined_compound_ma_100 minus scaled_combined_compound_ma_200. Positive values support long-horizon bullish sentiment alignment."},
+            {"column": "sent_ribbon_centerline_raw", "theme": "Sentiment Ribbon Regime", "explanation": "Directional sentiment ribbon centerline, calculated as the mean of scaled sentiment MAs 7, 21, 50, 100, and 200. Used as the central trend anchor."},
+            {"column": "sent_ribbon_center_slope_21", "theme": "Sentiment Ribbon Regime", "explanation": "21-period change in sent_ribbon_centerline_raw, calculated by term. Positive values indicate the sentiment ribbon centerline is rising over the 21-day horizon."},
+            {"column": "sent_ribbon_center_slope_21_pct", "theme": "Sentiment Ribbon Regime", "explanation": "Percent change in sent_ribbon_centerline_raw over 21 periods, calculated by term. Useful for comparing centerline acceleration across assets."},
+            {"column": "sent_ribbon_width_raw", "theme": "Sentiment Ribbon Regime", "explanation": "Full sentiment ribbon width in scaled price-comparable space: max(scaled sentiment MAs) minus min(scaled sentiment MAs). Measures ribbon spread without assigning direction."},
+            {"column": "sent_ribbon_width_abs", "theme": "Sentiment Ribbon Regime", "explanation": "Absolute sentiment ribbon width. Used to identify compression/expansion conditions independent of bullish or bearish direction."},
+            {"column": "sent_ribbon_width_q25_abs", "theme": "Sentiment Ribbon Regime", "explanation": "Rolling 25th percentile of absolute sentiment ribbon width by term. Used as the asset-relative compression threshold."},
+            {"column": "sent_ribbon_width_z", "theme": "Sentiment Ribbon Regime", "explanation": "Rolling z-score of sent_ribbon_width_abs by term. Positive values indicate expanded ribbon width; negative values indicate compressed/narrow ribbon width."},
+            {"column": "sent_ribbon_center_slope_21_z", "theme": "Sentiment Ribbon Regime", "explanation": "Rolling z-score of the 21-period centerline slope by term. Positive values support rising sentiment momentum; negative values support falling sentiment momentum."},
+            {"column": "sent_ribbon_alignment_count", "theme": "Sentiment Ribbon Regime", "explanation": "Count of bullish adjacent MA orderings across scaled sentiment pairs (7>21, 21>50, 50>100, 100>200). Range is 0 fully bearish to 4 fully bullish."},
+            {"column": "sent_ribbon_fast_slow_spread", "theme": "Sentiment Ribbon Regime", "explanation": "Directional fast-slow sentiment ribbon spread: scaled_combined_compound_ma_7 minus scaled_combined_compound_ma_200. Positive values mean fast sentiment is above long-term sentiment; negative values mean the reverse."},
+            {"column": "sent_ribbon_fast_slow_spread_z", "theme": "Sentiment Ribbon Regime", "explanation": "Rolling z-score of sent_ribbon_fast_slow_spread, calculated by term. Standardizes fast-vs-slow sentiment separation relative to the asset's own recent history."},
+            {"column": "sent_ribbon_stack_count", "theme": "Sentiment Ribbon Regime", "explanation": "Alias/summary count of bullish adjacent sentiment MA orderings across 7>21, 21>50, 50>100, and 100>200. Range is 0 to 4."}
+          ]
+        },
+        {
+          "subsection": "Directional Ribbon Signals",
+          "columns": [
+            {"column": "sent_ribbon_bull_stack_flag", "theme": "Signals", "explanation": "1 when the scaled sentiment MA family is fully bullishly ordered (7>21>50>100>200); otherwise 0."},
+            {"column": "sent_ribbon_bear_stack_flag", "theme": "Signals", "explanation": "1 when the scaled sentiment MA family is fully bearishly ordered (7<21<50<100<200); otherwise 0."},
+            {"column": "sent_ribbon_compression_flag", "theme": "Signals", "explanation": "1 when absolute ribbon width is at or below the rolling asset-relative compression threshold; otherwise 0."},
+            {"column": "sent_ribbon_flat_flag", "theme": "Signals", "explanation": "1 when the directional sentiment ribbon centerline slope is statistically flat/neutral; otherwise 0."},
+            {"column": "sent_ribbon_regime_raw", "theme": "Signals", "explanation": "Directional sentiment ribbon regime label. Expected values include Bullish Expansion, Bearish Expansion, Bullish Repair, Bearish Rollover, Compression / Transition, Flat / Transition, and Mixed."},
+            {"column": "sent_ribbon_transition_flag", "theme": "Signals", "explanation": "1 when sent_ribbon_regime_raw changes versus the prior row for the same term; otherwise 0."},
+            {"column": "sent_ribbon_transition_type", "theme": "Signals", "explanation": "Text description of the sentiment ribbon regime transition, e.g. Mixed -> Bullish Expansion."},
+            {"column": "sent_ribbon_expansion_flag", "theme": "Signals", "explanation": "1 when sentiment ribbon width is elevated relative to its rolling history, indicating expansion rather than compression."},
+            {"column": "signal_sent_ribbon_bullish", "theme": "Signals", "explanation": "Boolean signal that is TRUE when sent_ribbon_regime_raw is Bullish Expansion."},
+            {"column": "signal_sent_ribbon_bearish", "theme": "Signals", "explanation": "Boolean signal that is TRUE when sent_ribbon_regime_raw is Bearish Expansion."},
+            {"column": "signal_sent_ribbon_flat", "theme": "Signals", "explanation": "Boolean signal that is TRUE when the ribbon is flat or in a flat/transition state."},
+            {"column": "signal_sent_ribbon_transition", "theme": "Signals", "explanation": "Boolean signal that is TRUE when sent_ribbon_transition_flag indicates a regime change on the current row."},
+            {"column": "signal_sent_ribbon_repair", "theme": "Signals", "explanation": "Boolean signal for Bullish Repair: fast sentiment remains below slow sentiment but centerline slope and stack movement are improving."},
+            {"column": "signal_sent_ribbon_rollover", "theme": "Signals", "explanation": "Boolean signal for Bearish Rollover: fast sentiment remains above slow sentiment but centerline slope and stack movement are deteriorating."}
+          ]
+        },
+        {
+          "subsection": "Composite Scores",
+          "columns": [
+            {"column": "sent_ribbon_stack_score_raw", "theme": "Composite Score", "explanation": "Normalized 0-1 sentiment ribbon stack score from adjacent ordering count. 0 means fully bearish stack, 1 means fully bullish stack."},
+            {"column": "sent_ribbon_stack_score", "theme": "Composite Score", "explanation": "0-100 sentiment ribbon stack score. 0 indicates fully bearish ordering, 100 indicates fully bullish ordering, and 50 is mixed/neutral."},
+            {"column": "sent_ribbon_stack_score_signed", "theme": "Composite Score", "explanation": "Signed sentiment-ribbon stack score on a -100 to +100 scale. Positive values indicate bullish ordering; negative values indicate bearish ordering; near zero is mixed."},
+            {"column": "sent_ribbon_width_score_signed", "theme": "Composite Score", "explanation": "Signed -100 to +100 score derived from sent_ribbon_width_z. Positive values indicate expansion; negative values indicate compression."},
+            {"column": "sent_ribbon_center_slope_score_signed", "theme": "Composite Score", "explanation": "Signed -100 to +100 score derived from sent_ribbon_center_slope_21_z. Positive values indicate rising centerline momentum; negative values indicate falling momentum."},
+            {"column": "sent_ribbon_regime_score", "theme": "Composite Score", "explanation": "0-100 directional sentiment ribbon score combining stack order, centerline slope, and fast-slow spread. Higher values are more bullish; lower values are more bearish."},
+            {"column": "sent_ribbon_regime_confidence", "theme": "Composite Score", "explanation": "0-100 confidence score for the sentiment ribbon regime based on absolute stack strength, centerline slope z-score, fast-slow spread z-score, and width z-score."},
+            {"column": "sent_ribbon_fast_slow_score_signed", "theme": "Composite Score", "explanation": "Signed -100 to +100 score derived from sent_ribbon_fast_slow_spread_z. Positive values support bullish fast-over-slow sentiment structure; negative values support bearish structure."}
+          ]
+        },
+        {
+          "subsection": "Ribbon + Attention Interaction",
+          "columns": [
+            {"column": "sent_ribbon_attention_confirmed_bullish", "theme": "Sentiment Ribbon + Attention Interaction", "explanation": "Boolean flag for bullish sentiment-ribbon structure confirmed by bullish/elevated attention. Useful for identifying structural bullish alignment with current participation."},
+            {"column": "sent_ribbon_attention_confirmed_bearish", "theme": "Sentiment Ribbon + Attention Interaction", "explanation": "Boolean flag for bearish sentiment-ribbon structure confirmed by bearish/elevated attention. Useful for identifying structural bearish alignment with current participation."},
+            {"column": "sent_ribbon_attention_disagreement_flag", "theme": "Sentiment Ribbon + Attention Interaction", "explanation": "Boolean flag when sentiment-ribbon direction and attention conviction disagree, e.g. bullish ribbon with bearish attention or bearish ribbon with bullish attention."},
+            {"column": "sent_ribbon_attention_regime", "theme": "Sentiment Ribbon + Attention Interaction", "explanation": "Combined label describing whether attention confirms, contradicts, or is neutral relative to the directional sentiment ribbon regime."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Attention and Engagement",
+      "subsections": [
+        {
+          "subsection": "Combined Engagement Summary",
+          "columns": [
+            {"column": "combined_engagement_z", "theme": "Attention / Engagement Summary", "explanation": "Cross-platform combined engagement z-score, averaging available platform engagement intensity fields after Engagement V2 augmentation. Higher values indicate unusually elevated aggregate engagement for the asset/date."},
+            {"column": "combined_engagement_efficiency_z", "theme": "Attention / Engagement Summary", "explanation": "Cross-platform engagement efficiency z-score, averaging available per-post/per-article engagement efficiency fields. Helps distinguish broad activity from unusually efficient/high-quality engagement."},
+            {"column": "combined_impact_abs_z", "theme": "Attention / Engagement Summary", "explanation": "Cross-platform absolute impact z-score, averaging available absolute impact fields across X, Reddit, Bluesky, and news/proxy sources. Measures attention magnitude regardless of bullish/bearish direction."},
+            {"column": "combined_impact_signed_z", "theme": "Attention / Engagement Summary", "explanation": "Cross-platform signed impact z-score, averaging available signed impact fields. Positive values indicate bullish/constructive attention pressure; negative values indicate bearish/negative attention pressure."},
+            {"column": "combined_spike_z", "theme": "Attention / Engagement Summary", "explanation": "Cross-platform spike intensity score using the strongest available platform spike z-score fields. Captures whether the asset is experiencing an unusual attention burst."},
+            {"column": "combined_days_since_spike2_min", "theme": "Attention / Engagement Summary", "explanation": "Minimum days since a 2-sigma attention/engagement spike across observed platforms. Lower values indicate a more recent multi-source attention event."},
+            {"column": "observed_source_count", "theme": "Attention / Engagement Summary", "explanation": "Count of platforms/sources observed for the asset/date after Engagement V2 augmentation. Based on observed flags for X, Reddit, Bluesky, and news when available."},
+            {"column": "observed_source_share", "theme": "Attention / Engagement Summary", "explanation": "Share of supported sources observed for the asset/date. Usually observed_source_count divided by the available source count; useful as a data-coverage confidence indicator."},
+            {"column": "engagement_source_breadth_score", "theme": "Attention / Engagement Summary", "explanation": "0-100 breadth score describing how many engagement sources are contributing usable observations. Higher values mean attention is broader across platforms, not isolated to one channel."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Attention Labels",
+      "subsections": [
+        {
+          "subsection": "Attention Labels",
+          "columns": [
+            {"column": "attention_level_label", "theme": "Attention Labels", "explanation": "Human-readable bucket for attention_level_score, such as Quiet, Normal, Elevated, or Extreme. Intended for dashboards, filters, and prompt-ready summaries."},
+            {"column": "attention_conviction_label", "theme": "Attention Labels", "explanation": "Human-readable direction bucket for attention_conviction_score_signed: Bearish, Neutral, or Bullish."},
+            {"column": "attention_regime_label", "theme": "Attention Labels", "explanation": "Combined attention regime label using attention level, signed conviction, spike state, and breadth. Examples include Quiet Bullish, Crowded Bearish, High Noise, or Normal."},
+            {"column": "attention_spike_flag", "theme": "Attention Labels", "explanation": "Boolean-style flag indicating whether attention_spike_score is elevated enough to qualify as a current attention spike."},
+            {"column": "attention_breadth_label", "theme": "Attention Labels", "explanation": "Human-readable source breadth bucket such as Narrow, Moderate, or Broad, derived from attention_source_breadth_score or engagement_source_breadth_score."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Signals and Alerts",
+      "subsections": [
+        {
+          "subsection": "Overlap Alert Summary",
+          "columns": [
+            {"column": "boll_overlap_alert_tier", "theme": "Overlap Alert Summary", "explanation": "Dashboard-friendly tier for the overlap-band alert family. Values summarize whether the row is None, Watch, Confirmed, Confirmed High Volume, Reentry, or Rejection."},
+            {"column": "boll_overlap_alert_direction", "theme": "Overlap Alert Summary", "explanation": "Dashboard-friendly direction for the overlap-band event: Bullish, Bearish, or Inside/None, derived from overlap break direction, overlap signal, and reentry/rejection context."},
+            {"column": "boll_overlap_alert_quality_score", "theme": "Overlap Alert Summary", "explanation": "0-100 quality score for overlap alerts, combining volatility confirmation, volume confirmation, break distance, and overlap signal strength where available."}
+          ]
+        }
+      ]
+    },
+    {
+      "section": "Dashboard and Narrative Summaries",
+      "subsections": [
+        {
+          "subsection": "Prompt-Ready Summary Fields",
+          "columns": [
+            {"column": "seta_market_structure_label", "theme": "Prompt / Dashboard Summary", "explanation": "Human-readable market-structure label derived from the directional sentiment ribbon and overlap alert context. Designed for Tableau tooltips and narrative generation."},
+            {"column": "seta_attention_context_label", "theme": "Prompt / Dashboard Summary", "explanation": "Human-readable attention-context label derived from attention level, conviction, spike, and breadth labels."},
+            {"column": "seta_alert_context_label", "theme": "Prompt / Dashboard Summary", "explanation": "Human-readable overlap-alert context label derived from overlap alert tier, direction, and quality."},
+            {"column": "seta_dashboard_summary_label", "theme": "Prompt / Dashboard Summary", "explanation": "Compact prompt-ready dashboard summary combining market structure, attention context, and alert context into one descriptive field."}
+          ]
+        }
+      ]
+    }
+  ]
+}

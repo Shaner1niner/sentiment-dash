@@ -1,0 +1,74 @@
+[
+  {
+    "term": "0-100 direction score",
+    "definition": "A neutral-centered directional score where 50 is neutral/mixed, >50 bullish/positive, <50 bearish/negative.",
+    "where_used": "Used for Bollinger, MACD, RSI, ribbon, MA trend and consensus families.",
+    "caution": "Do not treat higher as always better without checking direction context."
+  },
+  {
+    "term": "Signed score",
+    "definition": "A centered score where 0 is neutral, positive is bullish, negative is bearish.",
+    "where_used": "Used when calculating consensus from family deviations from neutral.",
+    "caution": "Range may be approximate depending on available inputs."
+  },
+  {
+    "term": "Attention priority score",
+    "definition": "A triage score for review urgency, not directional bullishness.",
+    "where_used": "Used to rank assets in the screener.",
+    "caution": "Always pair with signal_consensus_direction_label."
+  },
+  {
+    "term": "Confidence score",
+    "definition": "A score for reliability/clarity of a signal family or archetype.",
+    "where_used": "Used to separate clean from noisy setups.",
+    "caution": "High confidence does not guarantee outcome."
+  },
+  {
+    "term": "Dispersion score",
+    "definition": "A disagreement measure across signal families.",
+    "where_used": "Low dispersion means families agree; high dispersion means conflict.",
+    "caution": "High priority plus high dispersion may still be worth review, but needs caution."
+  },
+  {
+    "term": "Recency decay",
+    "definition": "A multiplier that fades event-driven pressure back toward neutral over time.",
+    "where_used": "Used in Bollinger and crossover scores.",
+    "caution": "A stale event can remain visible but should not dominate."
+  },
+  {
+    "term": "Watch cluster score",
+    "definition": "Incremental pressure from repeated recent watch candidates.",
+    "where_used": "Used in Bollinger/overlap interpretation.",
+    "caution": "Watch clusters are developmental, not confirmed."
+  },
+  {
+    "term": "Z-score",
+    "definition": "A standardized relationship measure used only for SETA relationship scoring.",
+    "where_used": "Used for sentiment-price spread normalization in MACD/RSI relationship logic.",
+    "caution": "Not intended to replace public comparable raw price indicators."
+  },
+  {
+    "term": "Spread",
+    "definition": "Difference between sentiment and price versions of an indicator after appropriate scaling/normalization.",
+    "where_used": "Used to capture sentiment leading/lagging price.",
+    "caution": "Interpret with slope and crossover for best context."
+  },
+  {
+    "term": "Slope",
+    "definition": "Change in an indicator or spread over time.",
+    "where_used": "Used to capture improvement/deterioration and joint slope labels.",
+    "caution": "Can be noisy on short windows."
+  },
+  {
+    "term": "Crossover score",
+    "definition": "Neutral-centered event score for a fresh bullish/bearish crossover.",
+    "where_used": "Used for sentiment MACD signal crossing price MACD signal.",
+    "caution": "Event impact fades toward 50."
+  },
+  {
+    "term": "Archetype",
+    "definition": "Rule-based setup classification derived from combinations of indicator states.",
+    "where_used": "Used for readable summaries and risk notes.",
+    "caution": "Archetypes are descriptive diagnostics, not trade instructions."
+  }
+]

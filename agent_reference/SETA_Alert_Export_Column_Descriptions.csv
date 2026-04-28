@@ -1,0 +1,53 @@
+file,column,group,description
+seta_alert_events_<history_days>d.csv,date,Identity,Event date.
+seta_alert_events_<history_days>d.csv,term,Identity,Asset or ticker symbol.
+seta_alert_events_<history_days>d.csv,asset_universe,Identity,Asset universe or class when available.
+seta_alert_events_<history_days>d.csv,primary_sector,Identity,Primary sector mapping when available.
+seta_alert_events_<history_days>d.csv,alert_tier,Alert Classification,Normalized event tier: Watch, Confirmed, Confirmed High Volume, Reentry, Rejection, or None.
+seta_alert_events_<history_days>d.csv,alert_direction,Alert Classification,Normalized alert direction: Bullish, Bearish, or Inside.
+seta_alert_events_<history_days>d.csv,alert_quality_score,Alert Classification,Composite overlap alert quality score from signal strength, break distance, volatility, and volume.
+seta_alert_events_<history_days>d.csv,overlap_state,Overlap Context,Active overlap state label when available.
+seta_alert_events_<history_days>d.csv,overlap_event_type,Overlap Context,Source event type from the overlap-alert family when available.
+seta_alert_events_<history_days>d.csv,close,Market Data,Close price for the event date.
+seta_alert_events_<history_days>d.csv,volume,Market Data,Volume for the event date.
+seta_alert_events_<history_days>d.csv,high_volume_20,Volume Context,Lowercase 20-day high-volume flag when available.
+seta_alert_events_<history_days>d.csv,High_Volume_20,Volume Context,Legacy 20-day high-volume flag when available.
+seta_alert_events_<history_days>d.csv,boll_volatility_flag,Overlap Context,Legacy/source overlap volatility flag.
+seta_alert_events_<history_days>d.csv,boll_volatility_flag_num,Overlap Context,Numeric overlap volatility flag.
+seta_alert_events_<history_days>d.csv,boll_overlap_signal_strength_abs,Overlap Context,Absolute overlap signal strength.
+seta_alert_events_<history_days>d.csv,boll_overlap_break_distance_pct_band,Overlap Context,Breakout distance as a share of the active band width.
+seta_alert_events_<history_days>d.csv,sent_ribbon_regime_raw,Sentiment Ribbon,Directional sentiment ribbon regime.
+seta_alert_events_<history_days>d.csv,sent_ribbon_regime_score,Sentiment Ribbon,Directional sentiment ribbon score.
+seta_alert_events_<history_days>d.csv,sent_ribbon_regime_confidence,Sentiment Ribbon,Directional sentiment ribbon confidence.
+seta_alert_events_<history_days>d.csv,attention_level_score,Attention,Attention intensity score.
+seta_alert_events_<history_days>d.csv,attention_conviction_score_signed,Attention,Signed attention conviction score.
+seta_alert_events_<history_days>d.csv,attention_regime_label,Attention,Readable attention regime label.
+seta_alert_events_<history_days>d.csv,combined_engagement_z,Engagement,Combined cross-platform engagement z-score summary.
+seta_alert_events_<history_days>d.csv,combined_spike_z,Engagement,Combined cross-platform spike score summary.
+seta_alert_events_<history_days>d.csv,seta_dashboard_summary_label,Summary,Prompt/dashboard-ready summary label.
+seta_alert_audit_<history_days>d.csv,term,Identity,Asset or ticker symbol.
+seta_alert_audit_<history_days>d.csv,asset_universe,Identity,Asset universe or class when available.
+seta_alert_audit_<history_days>d.csv,primary_sector,Identity,Primary sector mapping when available.
+seta_alert_audit_<history_days>d.csv,date_min,Window,First date included in the audit window.
+seta_alert_audit_<history_days>d.csv,date_max,Window,Last date included in the audit window.
+seta_alert_audit_<history_days>d.csv,rows,Window,Number of daily rows reviewed for the asset.
+seta_alert_audit_<history_days>d.csv,outside_count,Alert Counts,Count of outside-overlap rows or equivalent watch/confirmed rows.
+seta_alert_audit_<history_days>d.csv,watch_count,Alert Counts,Count of watch-tier event rows.
+seta_alert_audit_<history_days>d.csv,confirmed_count,Alert Counts,Count of confirmed or confirmed-high-volume event rows.
+seta_alert_audit_<history_days>d.csv,confirmed_high_volume_count,Alert Counts,Count of confirmed high-volume event rows.
+seta_alert_audit_<history_days>d.csv,reentry_count,Alert Counts,Count of reentry event rows.
+seta_alert_audit_<history_days>d.csv,rejection_count,Alert Counts,Count of rejection event rows.
+seta_alert_audit_<history_days>d.csv,confirmed_rate,Alert Counts,confirmed_count divided by outside_count.
+seta_alert_audit_<history_days>d.csv,bullish_confirmed_count,Alert Direction,Count of confirmed bullish event rows.
+seta_alert_audit_<history_days>d.csv,bearish_confirmed_count,Alert Direction,Count of confirmed bearish event rows.
+seta_alert_audit_<history_days>d.csv,avg_alert_quality_score,Alert Quality,Average quality score over outside/watch/confirmed rows.
+seta_alert_audit_<history_days>d.csv,max_alert_quality_score,Alert Quality,Maximum alert quality score in the window.
+seta_alert_audit_<history_days>d.csv,avg_attention_level_score,Attention,Average attention level score in the window.
+seta_alert_audit_<history_days>d.csv,avg_combined_engagement_z,Engagement,Average combined engagement z-score in the window.
+seta_alert_audit_<history_days>d.csv,latest_alert_date,Latest Event,Most recent alert/watch/reentry/rejection date.
+seta_alert_audit_<history_days>d.csv,latest_alert_tier,Latest Event,Most recent alert tier.
+seta_alert_audit_<history_days>d.csv,latest_alert_direction,Latest Event,Most recent alert direction.
+seta_alert_audit_<history_days>d.csv,latest_confirmed_date,Latest Confirmed,Most recent confirmed event date.
+seta_alert_audit_<history_days>d.csv,latest_confirmed_tier,Latest Confirmed,Most recent confirmed event tier.
+seta_alert_audit_<history_days>d.csv,latest_confirmed_direction,Latest Confirmed,Most recent confirmed event direction.
+seta_alert_audit_<history_days>d.csv,latest_dashboard_summary_label,Summary,Latest dashboard/prompt-ready summary label for the asset.
