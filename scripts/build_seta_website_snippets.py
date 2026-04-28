@@ -428,11 +428,117 @@ def social_blurb_for(row: Dict[str, Any]) -> str:
 
     return sentence_trim(one + " Context, not a signal.", 280)
 
+
+def watch_condition_for(row: Dict[str, Any]) -> str:
+    arch = copy_archetype(row)
+    frame = universe_frame(row)
+    theme = compress_narrative_theme(row.get("narrative_top_keywords"))
+
+    if arch == "narrative_churn":
+        if theme:
+            return f"Watch whether {theme} becomes a coherent thesis or stays as rotating attention."
+        return "Watch whether attention resolves into a coherent thesis or fades back into churn."
+    if arch in {"participation_diffusion", "broadening_participation"}:
+        return f"Watch whether broadening participation translates into {frame['confirmation']}."
+    if arch == "contested_structure":
+        return "Watch whether structure catches up to participation, or participation fades first."
+    if arch == "repair_watch":
+        return "Watch whether sponsorship rebuilds enough to confirm the repair."
+    if arch == "validation_risk":
+        return "Watch whether validation improves before surface activity loses sponsorship."
+    if arch == "decision_pressure":
+        return "Watch whether decision pressure resolves into confirmation or rejection."
+    return f"Watch whether {frame['confirmation']} improves."
+
+
+def seta_read_line(row: Dict[str, Any]) -> str:
+    bits: List[str] = []
+
+    arch = copy_archetype(row).replace("_", " ")
+    if arch:
+        bits.append(arch)
+
+    rank = row.get("decision_pressure_rank")
+    if rank not in (None, "", "nan"):
+        bits.append(f"rank {rank}")
+
+    skew = clean_text(row.get("resolution_skew"))
+    if skew and skew.lower() != "unknown":
+        bits.append(f"{skew} skew")
+
+    structural = clean_text(row.get("structural_state"))
+    if structural:
+        bits.append(structural)
+
+    return " | ".join(bits)
+
+
+def public_note_for(row: Dict[str, Any]) -> str:
+    term = clean_text(row.get("term")).upper()
+    arch = copy_archetype(row)
+    frame = universe_frame(row)
+    theme = compress_narrative_theme(row.get("narrative_top_keywords"))
+    structural = clean_text(row.get("structural_state"))
+
+    if arch == "narrative_churn":
+        if theme:
+            return (
+                f"{term} has active attention, but the story is still rotating around {theme}. "
+                f"In {frame['market']}, that means the setup needs narrative coherence before it becomes a cleaner read."
+            )
+        return (
+            f"{term} has attention, but the story is not anchored to one clean thesis yet. "
+            f"The important question is whether participation broadens or drifts back into noise."
+        )
+
+    if arch in {"participation_diffusion", "broadening_participation"}:
+        return (
+            f"{term} is showing broader participation. "
+            f"That is constructive for the {frame['market']}, while the next test is whether the breadth can hold and earn confirmation."
+        )
+
+    if arch == "contested_structure":
+        extra = f" {structural} is the key tension." if structural else ""
+        return (
+            f"{term} is active, and SETA reads the structure as contested rather than cleanly confirmed. "
+            f"This is a decision zone, not an all-clear setup.{extra}"
+        )
+
+    if arch == "repair_watch":
+        return (
+            f"{term} looks more like repair than confirmation. "
+            f"The useful read is whether sponsorship is rebuilding underneath the surface."
+        )
+
+    if arch == "validation_risk":
+        return (
+            f"{term} still carries validation risk. "
+            f"Surface activity may be visible, while the underlying structure has not fully earned confirmation."
+        )
+
+    if arch == "decision_pressure":
+        return (
+            f"{term} is sitting in a decision-pressure zone. "
+            f"The signal is less about prediction and more about whether confirmation or rejection arrives next."
+        )
+
+    return editorial_one_liner(row)
+
+
+def markdown_meta_line(row: Dict[str, Any]) -> str:
+    read = seta_read_line(row)
+    if read:
+        return f"**SETA read:** {read}"
+    return "**SETA read:** context watch"
+
 def build_snippet(row: Dict[str, Any], packet_date: str, created_at: str) -> Dict[str, Any]:
     term = clean_text(row.get("term")).upper()
     narrative_note = narrative_note_for(row)
     regime_note = regime_note_for(row)
     expanded = editorial_expanded_explanation(row)
+    public_note = public_note_for(row)
+    watch = watch_condition_for(row)
+    read_line = seta_read_line(row)
 
     snippet = {
         "term": term,
@@ -441,8 +547,11 @@ def build_snippet(row: Dict[str, Any], packet_date: str, created_at: str) -> Dic
         "narrative_theme": compress_narrative_theme(row.get("narrative_top_keywords")),
         "headline": sentence_trim(headline_for(row), 90),
         "one_liner": sentence_trim(editorial_one_liner(row), 180),
+        "public_note": sentence_trim(public_note, 420),
         "short_explanation": short_explanation_for(row),
         "expanded_explanation": expanded,
+        "watch_condition": watch,
+        "seta_read_line": read_line,
         "regime_note": regime_note,
         "narrative_note": narrative_note,
         "social_blurb": social_blurb_for(row),
@@ -496,22 +605,47 @@ def write_markdown(path: Path, payload: Dict[str, Any]) -> None:
     lines.append("")
     lines.append("Draft-only product copy for website/dashboard review.")
     lines.append("")
-    for s in payload.get("snippets", []):
-        lines.append(f"## {s.get('headline')}")
+    lines.append("> SETA explains behavior beneath price. These notes are interpretation context, not predictions or trade signals.")
+    lines.append("")
+
+    snippets = payload.get("snippets", [])
+    if snippets:
+        lines.append("## Daily field notes")
         lines.append("")
-        lines.append(s.get("short_explanation", ""))
+
+    for s in snippets:
+        lines.append(f"### {s.get('headline')}")
         lines.append("")
-        if s.get("regime_note"):
-            lines.append(f"**Regime:** {s.get('regime_note')}")
+        lines.append(s.get("one_liner") or s.get("short_explanation", ""))
+        lines.append("")
+
+        public_note = s.get("public_note") or s.get("short_explanation", "")
+        if public_note:
+            lines.append(public_note)
             lines.append("")
-        if s.get("narrative_note"):
-            lines.append(f"**Narrative:** {s.get('narrative_note')}")
+
+        watch = s.get("watch_condition", "")
+        if watch:
+            lines.append(f"**Watch condition:** {watch}")
             lines.append("")
+
+        read = s.get("seta_read_line", "")
+        if read:
+            lines.append(f"**SETA read:** {read}")
+            lines.append("")
+
+        narrative = s.get("narrative_note", "")
+        if narrative:
+            lines.append(f"**Narrative:** {narrative}")
+            lines.append("")
+
         lines.append(f"**Risk note:** {s.get('risk_note')}")
         lines.append("")
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("\n".join(lines), encoding="utf-8")
+        lines.append("---")
+        lines.append("")
 
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(chr(10).join(lines), encoding="utf-8")
 
 def build_website_snippets(
     input_path: Path,
