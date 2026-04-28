@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-SETA social reply draft mode v4 / context layers v1.
+SETA social reply draft mode v5 / reply wording v2.
 
 Draft-only social reply helper. It loads:
   1. fix26_screener_store.json
@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import re
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
@@ -92,20 +93,27 @@ def norm_text(value: Any) -> str:
     return s
 
 
+
 def as_float(value: Any) -> Optional[float]:
     if value is None:
         return None
     if isinstance(value, (int, float)):
-        return float(value)
+        try:
+            n = float(value)
+            return n if math.isfinite(n) else None
+        except Exception:
+            return None
     s = str(value).strip().replace(",", "")
+    if not s or s.lower() in {"nan", "none", "null", "n/a", "na"}:
+        return None
     m = re.search(r"-?\d+(?:\.\d+)?", s)
     if not m:
         return None
     try:
-        return float(m.group(0))
+        n = float(m.group(0))
+        return n if math.isfinite(n) else None
     except Exception:
         return None
-
 
 def fmt_num(value: Any, digits: int = 1) -> str:
     n = as_float(value)
@@ -149,15 +157,40 @@ def find_first(row: Dict[str, Any], include: List[str], prefer_text: bool = Fals
     return best
 
 
+
 def classify_score(score: Optional[float], family: str = "") -> str:
     if score is None:
         return ""
     if family == "attention":
-        if score >= 70:
-            return "elevated"
+        if score >= 75:
+            return "elevated attention"
         if score >= 45:
-            return "active"
-        return "normal"
+            return "active attention"
+        return "normal attention"
+    if family == "bollinger":
+        if score >= 75:
+            return "strong structure"
+        if score >= 60:
+            return "constructive structure"
+        if score >= 45:
+            return "mixed structure"
+        return "weak structure"
+    if family == "trend":
+        if score >= 75:
+            return "strong trend support"
+        if score >= 60:
+            return "constructive trend support"
+        if score >= 45:
+            return "mixed trend support"
+        return "weak trend support"
+    if family == "ribbon":
+        if score >= 75:
+            return "bullish ribbon structure"
+        if score >= 60:
+            return "constructive ribbon structure"
+        if score >= 45:
+            return "mixed ribbon structure"
+        return "weak ribbon structure"
     if score >= 75:
         return "strong"
     if score >= 60:
@@ -197,6 +230,11 @@ def extract_family(row: Dict[str, Any], family: str) -> Dict[str, Any]:
 
     n = as_float(score)
     label_clean = clean_label(label)
+
+    # Numeric-only labels like "80.2" or "62.5" are useful for machines but awkward in replies.
+    # Convert them into human buckets by family.
+    if label_clean and as_float(label_clean) is not None and re.fullmatch(r"-?\d+(?:\.\d+)?", label_clean):
+        label_clean = classify_score(n, family)
     if not label_clean:
         label_clean = classify_score(n, family)
 
@@ -205,7 +243,6 @@ def extract_family(row: Dict[str, Any], family: str) -> Dict[str, Any]:
         "score_display": fmt_num(n) if n is not None else "",
         "label": label_clean or "unknown",
     }
-
 
 def find_term(comment: str, by_term: Dict[str, Any]) -> Optional[str]:
     text = comment.upper()
@@ -253,14 +290,27 @@ def clean_keyword(keyword: Any) -> str:
     return s
 
 
+
 def pick_keywords(rows: List[Dict[str, Any]], limit: int) -> List[str]:
-    out: List[str] = []
-    seen = set()
+    cleaned_candidates: List[str] = []
     for row in rows or []:
         kw = clean_keyword(row.get("keyword") if isinstance(row, dict) else row)
-        if not kw or kw in seen:
+        if kw:
+            cleaned_candidates.append(kw)
+    candidate_set = set(cleaned_candidates)
+
+    out: List[str] = []
+    seen = set()
+    for kw in cleaned_candidates:
+        if kw in seen:
             continue
-        # Avoid keeping both "basis" and "cost basis" if possible: prefer more specific phrase.
+        # Prefer the more readable/specific phrase when both appear.
+        if kw == "basis" and "cost basis" in candidate_set:
+            continue
+        if kw == "cost" and "cost basis" in candidate_set:
+            continue
+        if kw == "boost" and any("boost" in c and c != "boost" for c in candidate_set):
+            continue
         if any(kw in existing and kw != existing for existing in out):
             continue
         out.append(kw)
@@ -268,7 +318,6 @@ def pick_keywords(rows: List[Dict[str, Any]], limit: int) -> List[str]:
         if len(out) >= limit:
             break
     return out
-
 
 def extract_narrative_context(raw: Dict[str, Any], platform: str) -> Dict[str, Any]:
     if not raw:
@@ -294,6 +343,7 @@ def extract_narrative_context(raw: Dict[str, Any], platform: str) -> Dict[str, A
     }
 
 
+
 def extract_daily_context(raw: Dict[str, Any]) -> Dict[str, Any]:
     if not raw:
         return {}
@@ -302,9 +352,17 @@ def extract_daily_context(raw: Dict[str, Any]) -> Dict[str, Any]:
         "structural_state", "resolution_skew", "analyst_take", "recent_sentiment",
         "sentiment_delta", "recent_breadth", "breadth_delta", "recent_engagement", "engagement_delta",
     ]
-    out = {k: raw.get(k) for k in keep if raw.get(k) is not None}
+    out: Dict[str, Any] = {}
+    for k in keep:
+        v = raw.get(k)
+        if isinstance(v, float) and not math.isfinite(v):
+            continue
+        if v is None:
+            continue
+        if isinstance(v, str) and not norm_text(v):
+            continue
+        out[k] = v
     return out
-
 
 def build_context(term: str, row: Dict[str, Any], daily_raw: Dict[str, Any], narrative_raw: Dict[str, Any], platform: str) -> Dict[str, Any]:
     family_context = {fam: extract_family(row, fam) for fam in FAMILIES}
@@ -338,6 +396,7 @@ def build_context(term: str, row: Dict[str, Any], daily_raw: Dict[str, Any], nar
     }
 
 
+
 def family_phrase(name: str, detail: Dict[str, Any], include_score: bool = False) -> str:
     label = detail.get("label") or "unknown"
     score = detail.get("score_display") or ""
@@ -345,10 +404,11 @@ def family_phrase(name: str, detail: Dict[str, Any], include_score: bool = False
     if label == "unknown" and not score:
         return ""
     label = label.replace("RSI ", "").replace("Macd ", "").strip()
+    if label.lower() in {"normal", "active", "elevated"} and name == "attention":
+        label = f"{label.lower()} attention"
     if include_score and score:
         return f"{display} {score} ({label})"
     return f"{display} {label}"
-
 
 def select_drivers(context: Dict[str, Any], platform: str) -> List[str]:
     details = context.get("family_detail", {})
@@ -402,26 +462,34 @@ def classify_intent(comment: str, advice_bait: bool, hostile: bool) -> str:
     return "generic_asset_question"
 
 
+
 def daily_phrase(context: Dict[str, Any], max_words: int = 30) -> str:
     d = context.get("daily") or {}
     if not d:
         return ""
-    pieces = []
     state = clean_label(d.get("asset_state"))
     structural = clean_label(d.get("structural_state"))
     skew = clean_label(d.get("resolution_skew"))
-    rank = d.get("decision_pressure_rank")
+    rank = as_float(d.get("decision_pressure_rank"))
+    pressure = as_float(d.get("decision_pressure"))
+
+    pieces: List[str] = []
     if state:
-        pieces.append(f"daily state is {state}")
+        pieces.append(f"daily backdrop is {state}")
     if structural:
-        pieces.append(structural)
-    if rank:
-        pieces.append(f"decision-pressure rank {rank}")
-    if skew:
+        pieces.append(f"structure is {structural.lower()}")
+    if skew and skew.lower() != "unknown":
         pieces.append(f"{skew.lower()} skew")
+    if rank is not None:
+        if rank <= 3:
+            pieces.append(f"high decision pressure (rank #{int(rank)})")
+        elif rank <= 7:
+            pieces.append(f"mid-tier decision pressure (rank #{int(rank)})")
+        elif pressure is not None and pressure > 0:
+            pieces.append("lower decision pressure")
     if not pieces and d.get("analyst_take"):
         return clean_label(d.get("analyst_take"))
-    return "; ".join(pieces)
+    return ", with ".join([pieces[0], "; ".join(pieces[1:])]) if len(pieces) > 1 else (pieces[0] if pieces else "")
 
 
 def narrative_phrase(context: Dict[str, Any], platform: str) -> str:
@@ -435,10 +503,12 @@ def narrative_phrase(context: Dict[str, Any], platform: str) -> str:
     topic_list = keywords or lifts
     if not topic_list:
         return ""
-    themes = join_items(topic_list[:3 if platform.lower() in {"x", "bsky"} else 4])
-    if regime.lower().startswith("churn") or bucket in {"very noisy", "low coherence"}:
-        return f"narrative is {bucket}; recent themes include {themes}"
-    return f"narrative themes include {themes}"
+    topic_limit = 3 if platform.lower() in {"x", "bsky"} else 4
+    themes = join_items(topic_list[:topic_limit])
+    noisy = regime.lower().startswith("churn") or bucket in {"very noisy", "low coherence"}
+    if noisy:
+        return f"narrative layer is {bucket or 'noisy'}, with discussion clustered around {themes}"
+    return f"narrative themes are clustered around {themes}"
 
 
 def draft_reply(platform: str, comment: str, context: Dict[str, Any], reply_type: str, intent: str) -> str:
@@ -458,7 +528,7 @@ def draft_reply(platform: str, comment: str, context: Dict[str, Any], reply_type
             base += f" and a {archetype.lower()} setup"
         base += f". Main drivers: {driver_text}."
         if daily and not is_short:
-            base += f" Daily context: {daily}."
+            base += f" The daily backdrop is also useful: {daily}."
         base += " Useful for framing risk/reward, not financial advice."
         return base
 
@@ -468,11 +538,11 @@ def draft_reply(platform: str, comment: str, context: Dict[str, Any], reply_type
     if intent == "attention_or_narrative_question" and narrative:
         if is_short:
             return f"${term} has a live narrative layer worth separating from the signal stack: {narrative}. SETA drivers are {driver_text}; useful context, not a guaranteed call."
-        return f"For ${term}, I would separate signal strength from narrative cleanliness. SETA drivers are {driver_text}. The narrative layer says {narrative}. That means discussion is active, but not necessarily clean confirmation."
+        return f"For ${term}, I would separate signal strength from narrative cleanliness. SETA drivers are {driver_text}. The {narrative}. That means discussion is active, but not necessarily clean confirmation."
 
     if intent == "market_regime_question" and daily:
         if is_short:
-            return f"${term} sits in a broader SETA daily read where {daily}. Signal drivers: {driver_text}. I would frame it as context/decision pressure, not a guaranteed call."
+            return f"${term} sits in a broader SETA read where {daily}. Signal drivers: {driver_text}. I would frame it as context/decision pressure, not a guaranteed call."
         return f"I would frame ${term} through the daily context first: {daily}. The asset-level SETA drivers are {driver_text}. That combination is useful for watchlist context, not a prediction."
 
     if platform.lower() == "reddit":
@@ -495,7 +565,6 @@ def draft_reply(platform: str, comment: str, context: Dict[str, Any], reply_type
         base += f". Daily read: {daily}"
     base += ". Worth watching, not a guaranteed outcome."
     return base
-
 
 def build_result(platform: str, comment: str) -> Dict[str, Any]:
     store = load_json(STORE_PATH, {})
@@ -560,7 +629,7 @@ def build_result(platform: str, comment: str) -> Dict[str, Any]:
         "risk_level": risk,
         "draft_reply": reply,
         "reasoning_summary": (
-            f"Detected {term}; built reply with screener/daily/narrative context layers v1. "
+            f"Detected {term}; built reply with screener/daily/narrative context layers and wording v2. "
             f"advice_bait={advice_bait}; hostile={hostile}; question={question}; "
             f"daily={bool(context.get('daily'))}; narrative={bool(context.get('narrative'))}."
         ),
@@ -574,13 +643,25 @@ def build_result(platform: str, comment: str) -> Dict[str, Any]:
     }
 
 
+def sanitize_jsonable(value: Any) -> Any:
+    if isinstance(value, dict):
+        return {str(k): sanitize_jsonable(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [sanitize_jsonable(v) for v in value]
+    if isinstance(value, tuple):
+        return [sanitize_jsonable(v) for v in value]
+    if isinstance(value, float):
+        return value if math.isfinite(value) else None
+    return value
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description="Draft SETA social replies. Draft-only; never posts.")
     ap.add_argument("--platform", default="x", choices=["x", "bsky", "reddit"], help="Target platform style")
     ap.add_argument("--comment", required=True, help="Incoming social comment text")
     args = ap.parse_args()
     result = build_result(args.platform, args.comment)
-    print(json.dumps(result, indent=2, ensure_ascii=False))
+    print(json.dumps(sanitize_jsonable(result), indent=2, ensure_ascii=False, allow_nan=False))
 
 
 if __name__ == "__main__":
