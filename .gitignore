@@ -37,3 +37,6 @@ reply_agent/narrative_context/
 *.hardening_backup_*
 dashboard_fix26_app.js.phase*
 refresh_fix26_dashboard_all.bat.*backup*
+
+# SETA approved replies runtime outputs
+reply_agent/approved_replies/
