@@ -25,3 +25,15 @@ phase_f_*.py
 Road_Map.docx
 fix26e1_equity_volatility_softening_notes.txt
 # END SETA/Fix26 local hardening ignores
+# SETA reply-agent runtime outputs
+reply_agent/draft_queue/
+reply_agent/review_queue/
+reply_agent/daily_context/
+reply_agent/narrative_context/
+
+# Local patch/backups
+*.backup_*.py
+*.backup_*
+*.hardening_backup_*
+dashboard_fix26_app.js.phase*
+refresh_fix26_dashboard_all.bat.*backup*
