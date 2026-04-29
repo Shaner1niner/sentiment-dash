@@ -14,7 +14,7 @@
     style.textContent = `
       .seta-alert-v2-panel{--alert-v2-border:rgba(159,183,255,.22);}
       .seta-alert-v2-actions{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px;}
-      .seta-alert-v2-actions a{border:1px solid var(--alert-v2-border);background:rgba(159,183,255,.09);color:#eef2ff;border-radius:999px;padding:5px 9px;text-decoration:none;font-size:11px;font-weight:800;cursor:pointer;}
+      .seta-alert-v2-actions a{border:1px solid var(--alert-v2-border);background:rgba(159,183,255,.09);color:#eef2ff;border-radius:999px;padding:5px 9px;text-decoration:none;font-size:11px;font-weight:800;cursor:pointer;pointer-events:auto;position:relative;z-index:5;}
       .seta-alert-v2-actions a:hover{background:rgba(159,183,255,.16);border-color:rgba(159,183,255,.42);}
       .seta-alert-v2-panel.seta-alert-v2-collapsed .seta-alert-v2-actions,
       body.seta-alert-v2-drawer-collapsed .seta-alert-v2-actions{display:none!important;}
@@ -63,6 +63,20 @@
     }
   }
 
+  function formatAttentionScores(root){
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    let node;
+    while((node = walker.nextNode())){
+      const value = node.nodeValue || "";
+      const next = value.replace(/(Attention:\s*)(-?\d+\.\d{3,})/g, function(_match, label, numberText){
+        const parsed = Number(numberText);
+        if(!Number.isFinite(parsed)) return label + numberText;
+        return label + parsed.toFixed(2);
+      });
+      if(next !== value) node.nodeValue = next;
+    }
+  }
+
   function ensureActions(panel, collapsed){
     let actions = panel.querySelector(".seta-alert-v2-actions");
 
@@ -78,8 +92,9 @@
     }
 
     const asset = getAsset();
+    const href = contextUrl(asset);
     actions.style.display = "";
-    actions.innerHTML = '<a href="' + contextUrl(asset) + '" target="_blank" rel="noopener">Open ' + asset + ' market context</a>';
+    actions.innerHTML = '<a class="seta-alert-v2-context-link" href="' + href + '" target="_blank" rel="noopener" data-href="' + href + '">Open ' + asset + ' market context</a>';
   }
 
   function polishPanel(){
@@ -105,6 +120,7 @@
     replaceText(panel, "Quality n/a · Confirmed · Close", "Confirmed event · Close");
     replaceText(panel, "Quality n/a ·", "");
     replaceText(panel, "Quality n/a", "");
+    formatAttentionScores(panel);
 
     Array.from(panel.querySelectorAll("button,a")).forEach(function(el){
       const t = (el.textContent || "").trim().toLowerCase();
@@ -115,6 +131,22 @@
 
     ensureActions(panel, collapsed);
   }
+
+  document.addEventListener("click", function(evt){
+    const link = evt.target && evt.target.closest ? evt.target.closest(".seta-alert-v2-context-link") : null;
+    if(!link) return;
+
+    const href = link.getAttribute("data-href") || link.href;
+    if(!href) return;
+
+    evt.preventDefault();
+    evt.stopPropagation();
+
+    const opened = window.open(href, "_blank", "noopener");
+    if(!opened){
+      window.location.href = href;
+    }
+  }, true);
 
   document.addEventListener("DOMContentLoaded", polishPanel);
   window.addEventListener("load", polishPanel);
