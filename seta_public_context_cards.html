@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="SETA public market context cards explain attention, narrative, participation, and structure beneath price. Educational context only; not predictions or trade signals." />
   <title>SETA Market Context Cards</title>
   <style>
     :root {
-      --seta-bg: #0b1020;
+      --seta-bg: #070b17;
       --seta-panel: #121936;
-      --seta-panel-2: #172044;
       --seta-text: #eef2ff;
       --seta-muted: #aab3d6;
       --seta-border: rgba(255,255,255,0.12);
@@ -20,9 +20,8 @@
       --seta-shadow: 0 18px 50px rgba(0,0,0,0.24);
       color-scheme: dark;
     }
-
     * { box-sizing: border-box; }
-
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -32,228 +31,52 @@
         var(--seta-bg);
       color: var(--seta-text);
     }
-
-    .seta-wrap {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      padding: 40px 0 56px;
-    }
-
-    .seta-hero {
-      display: grid;
-      gap: 14px;
-      margin-bottom: 24px;
-    }
-
-    .seta-eyebrow {
-      color: var(--seta-accent);
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2rem, 4vw, 4rem);
-      line-height: 1.02;
-      letter-spacing: -0.05em;
-      max-width: 860px;
-    }
-
-    .seta-subtitle {
-      color: var(--seta-muted);
-      font-size: clamp(1rem, 1.8vw, 1.2rem);
-      line-height: 1.6;
-      max-width: 820px;
-      margin: 0;
-    }
-
-    .seta-controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px;
-      border: 1px solid var(--seta-border);
-      background: rgba(18, 25, 54, 0.68);
-      border-radius: 20px;
-      margin: 26px 0 22px;
-      backdrop-filter: blur(12px);
-    }
-
-    .seta-control-left,
-    .seta-control-right {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    input, select, button {
-      border: 1px solid var(--seta-border);
-      background: rgba(255,255,255,0.06);
-      color: var(--seta-text);
-      border-radius: 999px;
-      padding: 10px 14px;
-      font: inherit;
-      outline: none;
-    }
-
-    input {
-      min-width: min(340px, 78vw);
-    }
-
-    button {
-      cursor: pointer;
-      font-weight: 700;
-    }
-
-    button:hover,
-    input:focus,
-    select:focus {
-      border-color: rgba(159,183,255,0.72);
-      background: rgba(255,255,255,0.10);
-    }
-
-    .seta-meta {
-      color: var(--seta-muted);
-      font-size: 0.92rem;
-      line-height: 1.45;
-      margin: 0 0 18px;
-    }
-
-    .seta-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    @media (max-width: 980px) {
-      .seta-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 680px) {
-      .seta-grid { grid-template-columns: 1fr; }
-      .seta-wrap { width: min(100% - 20px, 1180px); padding-top: 26px; }
-      .seta-controls { border-radius: 16px; }
-    }
-
-    .seta-card {
-      border: 1px solid var(--seta-border);
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025)),
-        var(--seta-panel);
-      border-radius: 24px;
-      box-shadow: var(--seta-shadow);
-      overflow: hidden;
-      min-height: 100%;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .seta-card-header {
-      padding: 18px 18px 10px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .seta-chip-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .seta-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid var(--seta-border);
-      background: var(--seta-chip);
-      color: var(--seta-muted);
-      border-radius: 999px;
-      padding: 6px 10px;
-      font-size: 0.76rem;
-      font-weight: 700;
-      letter-spacing: 0.01em;
-    }
-
-    .seta-term {
-      color: var(--seta-text);
-      background: rgba(159,183,255,0.13);
-      border-color: rgba(159,183,255,0.24);
-    }
-
-    .seta-universe {
-      color: var(--seta-good);
-      background: rgba(158,230,195,0.10);
-      border-color: rgba(158,230,195,0.22);
-    }
-
-    .seta-card h2 {
-      margin: 0;
-      font-size: 1.16rem;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-    }
-
-    .seta-card-body {
-      display: grid;
-      gap: 14px;
-      padding: 8px 18px 18px;
-      flex: 1;
-    }
-
-    .seta-note {
-      color: var(--seta-muted);
-      line-height: 1.58;
-      margin: 0;
-      font-size: 0.96rem;
-    }
-
-    .seta-field {
-      border-top: 1px solid var(--seta-border);
-      padding-top: 12px;
-      display: grid;
-      gap: 5px;
-    }
-
-    .seta-label {
-      color: var(--seta-accent);
-      font-size: 0.74rem;
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      font-weight: 800;
-    }
-
-    .seta-value {
-      color: var(--seta-text);
-      font-size: 0.94rem;
-      line-height: 1.5;
-    }
-
-    .seta-risk .seta-label { color: var(--seta-risk); }
+    .seta-wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 56px; }
+    .seta-hero { display: grid; gap: 14px; margin-bottom: 24px; }
+    .seta-eyebrow { color: var(--seta-accent); font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
+    h1 { margin: 0; font-size: clamp(2.15rem, 4.6vw, 4.4rem); line-height: 1.02; letter-spacing: -.055em; max-width: 900px; }
+    .seta-subtitle { color: var(--seta-muted); font-size: clamp(1rem, 1.8vw, 1.2rem); line-height: 1.6; max-width: 850px; margin: 0; }
+    .seta-explainer { margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 1040px; }
+    .seta-explainer-card { border: 1px solid var(--seta-border); background: rgba(18, 25, 54, .55); border-radius: 18px; padding: 14px; color: var(--seta-muted); line-height: 1.48; font-size: .93rem; }
+    .seta-explainer-card strong { color: var(--seta-text); display: block; margin-bottom: 4px; }
+    .seta-status { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+    .seta-status-pill { border: 1px solid var(--seta-border); background: rgba(255,255,255,.06); color: var(--seta-muted); border-radius: 999px; padding: 8px 11px; font-size: .82rem; font-weight: 700; }
+    .seta-status-pill.good { color: var(--seta-good); border-color: rgba(158,230,195,.25); background: rgba(158,230,195,.08); }
+    .seta-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding: 14px; border: 1px solid var(--seta-border); background: rgba(18,25,54,.72); border-radius: 20px; margin: 26px 0 22px; backdrop-filter: blur(12px); position: sticky; top: 10px; z-index: 5; }
+    .seta-control-left, .seta-control-right { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    input, select, button { border: 1px solid var(--seta-border); background: rgba(255,255,255,.06); color: var(--seta-text); border-radius: 999px; padding: 10px 14px; font: inherit; outline: none; }
+    input { min-width: min(340px, 78vw); }
+    button { cursor: pointer; font-weight: 800; }
+    button:hover, input:focus, select:focus { border-color: rgba(159,183,255,.72); background: rgba(255,255,255,.10); }
+    .seta-meta { color: var(--seta-muted); font-size: .92rem; line-height: 1.45; margin: 0 0 18px; }
+    .seta-featured-wrap { margin: 18px 0 22px; display: none; }
+    .seta-section-title { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin: 0 0 12px; }
+    .seta-section-title h2 { margin: 0; font-size: 1.1rem; letter-spacing: -.02em; }
+    .seta-section-title span { color: var(--seta-muted); font-size: .9rem; }
+    .seta-featured-grid, .seta-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+    @media (max-width: 980px) { .seta-grid, .seta-featured-grid, .seta-explainer { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    @media (max-width: 680px) { .seta-grid, .seta-featured-grid, .seta-explainer { grid-template-columns: 1fr; } .seta-wrap { width: min(100% - 20px, 1180px); padding-top: 26px; } .seta-controls { position: static; border-radius: 16px; } }
+    .seta-card { border: 1px solid var(--seta-border); background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025)), var(--seta-panel); border-radius: 24px; box-shadow: var(--seta-shadow); overflow: hidden; min-height: 100%; display: flex; flex-direction: column; scroll-margin-top: 110px; }
+    .seta-card.featured { background: radial-gradient(circle at 20% 0%, rgba(159,183,255,.15), transparent 40%), linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03)), var(--seta-panel); border-color: rgba(159,183,255,.24); }
+    .seta-card-header { padding: 18px 18px 10px; display: grid; gap: 10px; }
+    .seta-chip-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .seta-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--seta-border); background: var(--seta-chip); color: var(--seta-muted); border-radius: 999px; padding: 6px 10px; font-size: .76rem; font-weight: 800; letter-spacing: .01em; text-decoration: none; }
+    .seta-term { color: var(--seta-text); background: rgba(159,183,255,.13); border-color: rgba(159,183,255,.24); }
+    .seta-universe { color: var(--seta-good); background: rgba(158,230,195,.10); border-color: rgba(158,230,195,.22); }
+    .seta-card h3 { margin: 0; font-size: 1.16rem; line-height: 1.2; letter-spacing: -.02em; }
+    .seta-card-body { display: grid; gap: 14px; padding: 8px 18px 18px; flex: 1; }
+    .seta-note { color: var(--seta-muted); line-height: 1.58; margin: 0; font-size: .96rem; }
+    details { border-top: 1px solid var(--seta-border); padding-top: 12px; }
+    summary { cursor: pointer; color: var(--seta-accent); font-size: .76rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 900; }
+    .seta-details-grid { display: grid; gap: 12px; margin-top: 12px; }
+    .seta-field { border-top: 1px solid var(--seta-border); padding-top: 12px; display: grid; gap: 5px; }
+    .seta-field:first-child { border-top: 0; padding-top: 0; }
+    .seta-label { color: var(--seta-accent); font-size: .74rem; text-transform: uppercase; letter-spacing: .12em; font-weight: 900; }
+    .seta-value { color: var(--seta-text); font-size: .94rem; line-height: 1.5; }
+    .seta-risk-badge { color: var(--seta-risk); border-color: rgba(255,177,177,.24); background: rgba(255,177,177,.07); }
     .seta-watch .seta-label { color: var(--seta-watch); }
-
-    .seta-empty,
-    .seta-error {
-      border: 1px solid var(--seta-border);
-      background: rgba(255,255,255,0.05);
-      color: var(--seta-muted);
-      border-radius: 20px;
-      padding: 18px;
-      line-height: 1.6;
-    }
-
-    .seta-footer-note {
-      color: var(--seta-muted);
-      margin-top: 24px;
-      line-height: 1.55;
-      font-size: 0.92rem;
-    }
-
+    .seta-empty, .seta-error { border: 1px solid var(--seta-border); background: rgba(255,255,255,.05); color: var(--seta-muted); border-radius: 20px; padding: 18px; line-height: 1.6; }
+    .seta-footer-note { color: var(--seta-muted); margin-top: 24px; line-height: 1.55; font-size: .92rem; border: 1px solid var(--seta-border); background: rgba(18,25,54,.55); border-radius: 18px; padding: 16px; }
     .seta-footer-note strong { color: var(--seta-text); }
   </style>
 </head>
@@ -262,222 +85,106 @@
     <section class="seta-hero">
       <div class="seta-eyebrow">SETA Market Context</div>
       <h1>Behavior beneath price, translated into plain language.</h1>
-      <p class="seta-subtitle">
-        These cards summarize public-safe SETA context by asset. They are educational explanations,
-        not predictions, recommendations, or trade signals.
-      </p>
+      <p class="seta-subtitle">These public-safe cards summarize how SETA reads attention, participation, narrative, and structure by asset. They are educational explanations, not predictions, recommendations, or trade signals.</p>
+      <div class="seta-explainer" aria-label="How to read these cards">
+        <div class="seta-explainer-card"><strong>Attention is not validation.</strong>SETA separates who is talking from whether structure has confirmed the behavior.</div>
+        <div class="seta-explainer-card"><strong>Crypto and equities differ.</strong>Crypto is faster and more reflexive; equities usually require more confirmation.</div>
+        <div class="seta-explainer-card"><strong>Context, not calls.</strong>These cards explain conditions. They are not buy/sell recommendations.</div>
+      </div>
+      <div id="setaStatus" class="seta-status"></div>
     </section>
-
     <section class="seta-controls" aria-label="SETA card controls">
       <div class="seta-control-left">
         <input id="setaSearch" type="search" placeholder="Search asset, theme, or phrase…" />
-        <select id="setaUniverse">
-          <option value="">All universes</option>
-        </select>
+        <select id="setaUniverse"><option value="">All universes</option></select>
       </div>
       <div class="seta-control-right">
-        <select id="setaSort">
-          <option value="term">Sort: Ticker</option>
-          <option value="theme">Sort: Narrative theme</option>
-          <option value="archetype">Sort: Archetype</option>
-        </select>
+        <select id="setaSort"><option value="term">Sort: Ticker</option><option value="theme">Sort: Narrative theme</option><option value="archetype">Sort: Archetype</option></select>
         <button id="setaReset" type="button">Reset</button>
       </div>
     </section>
-
     <p id="setaMeta" class="seta-meta">Loading SETA context…</p>
+    <section id="setaFeaturedWrap" class="seta-featured-wrap" aria-label="Featured SETA context">
+      <div class="seta-section-title"><h2>Featured context</h2><span>First few public-safe cards from the current packet</span></div>
+      <div id="setaFeatured" class="seta-featured-grid"></div>
+    </section>
+    <section class="seta-section-title" aria-label="All SETA context cards"><h2>All context cards</h2><span id="setaCountLabel"></span></section>
     <section id="setaCards" class="seta-grid" aria-live="polite"></section>
-
-    <p class="seta-footer-note">
-      <strong>Risk note:</strong> SETA explains behavior beneath price. This page is interpretation context only
-      and should not be treated as financial advice, a forecast, or a buy/sell signal.
-    </p>
+    <p class="seta-footer-note"><strong>Risk note:</strong> SETA explains behavior beneath price. This page is interpretation context only and should not be treated as financial advice, a forecast, or a buy/sell signal. Public website snippets are marked <strong>public_safe=true</strong> and <strong>posting_performed=false</strong>.</p>
   </main>
-
   <script>
     const DATA_URL = window.SETA_PUBLIC_SNIPPETS_URL || "public_content/seta_website_snippets_latest.json";
-
-    const state = {
-      payload: null,
-      snippets: [],
-      filtered: [],
-      search: "",
-      universe: "",
-      sort: "term"
-    };
-
+    const state = { payload: null, snippets: [], filtered: [], search: "", universe: "", sort: "term" };
     const els = {
-      search: document.getElementById("setaSearch"),
-      universe: document.getElementById("setaUniverse"),
-      sort: document.getElementById("setaSort"),
-      reset: document.getElementById("setaReset"),
-      meta: document.getElementById("setaMeta"),
-      cards: document.getElementById("setaCards")
+      search: document.getElementById("setaSearch"), universe: document.getElementById("setaUniverse"),
+      sort: document.getElementById("setaSort"), reset: document.getElementById("setaReset"),
+      meta: document.getElementById("setaMeta"), cards: document.getElementById("setaCards"),
+      featuredWrap: document.getElementById("setaFeaturedWrap"), featured: document.getElementById("setaFeatured"),
+      status: document.getElementById("setaStatus"), countLabel: document.getElementById("setaCountLabel")
     };
-
-    function escapeHtml(value) {
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function clean(value) {
-      const text = String(value ?? "").trim();
-      if (!text || ["nan", "none", "null", "-"].includes(text.toLowerCase())) return "";
-      return text;
-    }
-
-    function snippetSearchText(s) {
-      return [
-        s.term, s.universe, s.copy_archetype, s.narrative_theme, s.headline,
-        s.one_liner, s.public_note, s.short_explanation, s.expanded_explanation,
-        s.watch_condition, s.seta_read_line, s.regime_note, s.narrative_note,
-        s.social_blurb, s.risk_note
-      ].map(clean).join(" ").toLowerCase();
-    }
-
-    function hydrateUniverseFilter(snippets) {
-      const universes = [...new Set(snippets.map(s => clean(s.universe)).filter(Boolean))].sort();
-      for (const u of universes) {
-        const opt = document.createElement("option");
-        opt.value = u;
-        opt.textContent = u.charAt(0).toUpperCase() + u.slice(1);
-        els.universe.appendChild(opt);
-      }
-    }
-
+    function escapeHtml(value) { return String(value ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
+    function clean(value) { const text = String(value ?? "").trim(); if (!text || ["nan","none","null","-"].includes(text.toLowerCase())) return ""; return text; }
+    function slug(value) { return clean(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
+    function snippetSearchText(s) { return [s.term,s.universe,s.copy_archetype,s.narrative_theme,s.headline,s.one_liner,s.public_note,s.short_explanation,s.expanded_explanation,s.watch_condition,s.seta_read_line,s.regime_note,s.narrative_note,s.social_blurb,s.risk_note].map(clean).join(" ").toLowerCase(); }
+    function hydrateUniverseFilter(snippets) { for (const u of [...new Set(snippets.map(s => clean(s.universe)).filter(Boolean))].sort()) { const opt = document.createElement("option"); opt.value = u; opt.textContent = u.charAt(0).toUpperCase() + u.slice(1); els.universe.appendChild(opt); } }
+    function renderStatus() { const date = clean(state.payload?.date); const published = clean(state.payload?.published_at_utc); els.status.innerHTML = [`<span class="seta-status-pill good">public_safe=true</span>`,`<span class="seta-status-pill good">posting_performed=false</span>`, date ? `<span class="seta-status-pill">date ${escapeHtml(date)}</span>` : "", published ? `<span class="seta-status-pill">published ${escapeHtml(published)}</span>` : ""].filter(Boolean).join(""); }
     function applyFilters() {
       const q = state.search.toLowerCase();
-      state.filtered = state.snippets.filter(s => {
-        if (state.universe && clean(s.universe) !== state.universe) return false;
-        if (q && !snippetSearchText(s).includes(q)) return false;
-        return true;
-      });
-
-      state.filtered.sort((a, b) => {
-        if (state.sort === "theme") {
-          return clean(a.narrative_theme).localeCompare(clean(b.narrative_theme)) ||
-            clean(a.term).localeCompare(clean(b.term));
-        }
-        if (state.sort === "archetype") {
-          return clean(a.copy_archetype).localeCompare(clean(b.copy_archetype)) ||
-            clean(a.term).localeCompare(clean(b.term));
-        }
+      state.filtered = state.snippets.filter(s => (!state.universe || clean(s.universe) === state.universe) && (!q || snippetSearchText(s).includes(q)));
+      state.filtered.sort((a,b) => {
+        if (state.sort === "theme") return clean(a.narrative_theme).localeCompare(clean(b.narrative_theme)) || clean(a.term).localeCompare(clean(b.term));
+        if (state.sort === "archetype") return clean(a.copy_archetype).localeCompare(clean(b.copy_archetype)) || clean(a.term).localeCompare(clean(b.term));
         return clean(a.term).localeCompare(clean(b.term));
       });
-
       render();
     }
-
-    function cardField(label, value, cls = "") {
-      const v = clean(value);
-      if (!v) return "";
-      return `
-        <div class="seta-field ${cls}">
-          <div class="seta-label">${escapeHtml(label)}</div>
-          <div class="seta-value">${escapeHtml(v)}</div>
-        </div>
-      `;
+    function detailField(label, value, cls = "") { const v = clean(value); if (!v) return ""; return `<div class="seta-field ${cls}"><div class="seta-label">${escapeHtml(label)}</div><div class="seta-value">${escapeHtml(v)}</div></div>`; }
+    function renderCard(s, options = {}) {
+      const featured = !!options.featured, headline = clean(s.headline) || `${clean(s.term)}: SETA context`, note = clean(s.public_note) || clean(s.one_liner) || clean(s.short_explanation), universe = clean(s.universe), archetype = clean(s.copy_archetype), theme = clean(s.narrative_theme), id = `seta-${slug(s.term)}`;
+      return `<article id="${escapeHtml(id)}" class="seta-card ${featured ? "featured" : ""}">
+        <div class="seta-card-header"><div class="seta-chip-row">
+          <a class="seta-chip seta-term" href="#${escapeHtml(id)}">${escapeHtml(clean(s.term))}</a>
+          ${universe ? `<span class="seta-chip seta-universe">${escapeHtml(universe)}</span>` : ""}
+          ${archetype ? `<span class="seta-chip">${escapeHtml(archetype.replaceAll("_"," "))}</span>` : ""}
+          <span class="seta-chip seta-risk-badge">context only</span>
+        </div><h3>${escapeHtml(headline)}</h3></div>
+        <div class="seta-card-body">${note ? `<p class="seta-note">${escapeHtml(note)}</p>` : ""}
+          ${detailField("Watch condition", s.watch_condition, "seta-watch")}
+          ${detailField("SETA read", s.seta_read_line)}
+          <details ${featured ? "open" : ""}><summary>More context</summary><div class="seta-details-grid">
+            ${detailField("Narrative theme", theme)}
+            ${detailField("Regime note", s.regime_note)}
+            ${detailField("Narrative note", s.narrative_note)}
+            ${detailField("Expanded explanation", s.expanded_explanation)}
+            ${detailField("Risk note", s.risk_note || "Interpretation context only; not a prediction or trade signal.")}
+          </div></details>
+        </div></article>`;
     }
-
-    function renderCard(s) {
-      const headline = clean(s.headline) || `${clean(s.term)}: SETA context`;
-      const note = clean(s.public_note) || clean(s.one_liner) || clean(s.short_explanation);
-      const universe = clean(s.universe);
-      const archetype = clean(s.copy_archetype);
-      const theme = clean(s.narrative_theme);
-
-      return `
-        <article class="seta-card">
-          <div class="seta-card-header">
-            <div class="seta-chip-row">
-              <span class="seta-chip seta-term">${escapeHtml(clean(s.term))}</span>
-              ${universe ? `<span class="seta-chip seta-universe">${escapeHtml(universe)}</span>` : ""}
-              ${archetype ? `<span class="seta-chip">${escapeHtml(archetype.replaceAll("_", " "))}</span>` : ""}
-            </div>
-            <h2>${escapeHtml(headline)}</h2>
-          </div>
-          <div class="seta-card-body">
-            ${note ? `<p class="seta-note">${escapeHtml(note)}</p>` : ""}
-            ${cardField("Narrative theme", theme)}
-            ${cardField("Watch condition", s.watch_condition, "seta-watch")}
-            ${cardField("SETA read", s.seta_read_line)}
-            ${cardField("Regime note", s.regime_note)}
-            ${cardField("Narrative note", s.narrative_note)}
-            ${cardField("Risk note", s.risk_note || "Interpretation context only; not a prediction or trade signal.", "seta-risk")}
-          </div>
-        </article>
-      `;
-    }
-
+    function renderFeatured() { const featured = state.snippets.slice(0, 3); els.featuredWrap.style.display = featured.length ? "block" : "none"; els.featured.innerHTML = featured.map(s => renderCard(s, { featured: true })).join(""); }
     function render() {
-      if (!state.filtered.length) {
-        els.cards.innerHTML = `<div class="seta-empty">No SETA context cards match the current filters.</div>`;
-      } else {
-        els.cards.innerHTML = state.filtered.map(renderCard).join("");
-      }
-
-      const date = clean(state.payload?.date);
-      const published = clean(state.payload?.published_at_utc);
-      els.meta.textContent = `${state.filtered.length} of ${state.snippets.length} public-safe snippets` +
-        (date ? ` · date ${date}` : "") +
-        (published ? ` · published ${published}` : "");
+      renderStatus(); renderFeatured();
+      els.cards.innerHTML = state.filtered.length ? state.filtered.map(s => renderCard(s)).join("") : `<div class="seta-empty">No SETA context cards match the current filters.</div>`;
+      const date = clean(state.payload?.date), published = clean(state.payload?.published_at_utc);
+      els.meta.textContent = `${state.filtered.length} of ${state.snippets.length} public-safe snippets` + (date ? ` · date ${date}` : "") + (published ? ` · published ${published}` : "");
+      els.countLabel.textContent = `${state.filtered.length} shown`;
     }
-
     async function load() {
       try {
         const res = await fetch(DATA_URL, { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const payload = await res.json();
-
-        if (payload.public_safe !== true || payload.posting_performed !== false) {
-          throw new Error("Public safety flags missing or invalid.");
-        }
-
-        const snippets = Array.isArray(payload.snippets) ? payload.snippets : [];
-        state.payload = payload;
-        state.snippets = snippets.filter(s => clean(s.term));
-        hydrateUniverseFilter(state.snippets);
-        applyFilters();
+        if (payload.public_safe !== true || payload.posting_performed !== false) throw new Error("Public safety flags missing or invalid.");
+        state.payload = payload; state.snippets = (Array.isArray(payload.snippets) ? payload.snippets : []).filter(s => clean(s.term));
+        hydrateUniverseFilter(state.snippets); applyFilters();
       } catch (err) {
         els.meta.textContent = "Unable to load SETA public context.";
-        els.cards.innerHTML = `
-          <div class="seta-error">
-            Could not load <code>${escapeHtml(DATA_URL)}</code>.<br />
-            ${escapeHtml(err.message || err)}
-          </div>
-        `;
+        els.cards.innerHTML = `<div class="seta-error">Could not load <code>${escapeHtml(DATA_URL)}</code>.<br />${escapeHtml(err.message || err)}</div>`;
       }
     }
-
-    els.search.addEventListener("input", event => {
-      state.search = event.target.value || "";
-      applyFilters();
-    });
-
-    els.universe.addEventListener("change", event => {
-      state.universe = event.target.value || "";
-      applyFilters();
-    });
-
-    els.sort.addEventListener("change", event => {
-      state.sort = event.target.value || "term";
-      applyFilters();
-    });
-
-    els.reset.addEventListener("click", () => {
-      state.search = "";
-      state.universe = "";
-      state.sort = "term";
-      els.search.value = "";
-      els.universe.value = "";
-      els.sort.value = "term";
-      applyFilters();
-    });
-
+    els.search.addEventListener("input", e => { state.search = e.target.value || ""; applyFilters(); });
+    els.universe.addEventListener("change", e => { state.universe = e.target.value || ""; applyFilters(); });
+    els.sort.addEventListener("change", e => { state.sort = e.target.value || "term"; applyFilters(); });
+    els.reset.addEventListener("click", () => { state.search = ""; state.universe = ""; state.sort = "term"; els.search.value = ""; els.universe.value = ""; els.sort.value = "term"; applyFilters(); });
     load();
   </script>
 </body>
