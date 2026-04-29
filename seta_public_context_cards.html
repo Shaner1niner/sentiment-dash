@@ -42,6 +42,9 @@
     .seta-status { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
     .seta-status-pill { border: 1px solid var(--seta-border); background: rgba(255,255,255,.06); color: var(--seta-muted); border-radius: 999px; padding: 8px 11px; font-size: .82rem; font-weight: 700; }
     .seta-status-pill.good { color: var(--seta-good); border-color: rgba(158,230,195,.25); background: rgba(158,230,195,.08); }
+    .seta-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 6px; }
+    .seta-action-link { display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(159,183,255,.34); background: rgba(159,183,255,.12); color: var(--seta-text); border-radius: 999px; padding: 9px 13px; text-decoration: none; font-weight: 850; font-size: .86rem; }
+    .seta-action-link:hover, .seta-action-link:focus { background: rgba(159,183,255,.20); border-color: rgba(159,183,255,.62); }
     .seta-controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; padding: 14px; border: 1px solid var(--seta-border); background: rgba(18,25,54,.72); border-radius: 20px; margin: 26px 0 22px; backdrop-filter: blur(12px); position: sticky; top: 10px; z-index: 5; }
     .seta-control-left, .seta-control-right { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
     input, select, button { border: 1px solid var(--seta-border); background: rgba(255,255,255,.06); color: var(--seta-text); border-radius: 999px; padding: 10px 14px; font: inherit; outline: none; }
@@ -49,6 +52,7 @@
     button { cursor: pointer; font-weight: 800; }
     button:hover, input:focus, select:focus { border-color: rgba(159,183,255,.72); background: rgba(255,255,255,.10); }
     .seta-meta { color: var(--seta-muted); font-size: .92rem; line-height: 1.45; margin: 0 0 18px; }
+    .seta-active-filter { color: var(--seta-good); }
     .seta-featured-wrap { margin: 18px 0 22px; display: none; }
     .seta-section-title { display: flex; align-items: end; justify-content: space-between; gap: 12px; margin: 0 0 12px; }
     .seta-section-title h2 { margin: 0; font-size: 1.1rem; letter-spacing: -.02em; }
@@ -58,6 +62,7 @@
     @media (max-width: 680px) { .seta-grid, .seta-featured-grid, .seta-explainer { grid-template-columns: 1fr; } .seta-wrap { width: min(100% - 20px, 1180px); padding-top: 26px; } .seta-controls { position: static; border-radius: 16px; } }
     .seta-card { border: 1px solid var(--seta-border); background: linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.025)), var(--seta-panel); border-radius: 24px; box-shadow: var(--seta-shadow); overflow: hidden; min-height: 100%; display: flex; flex-direction: column; scroll-margin-top: 110px; }
     .seta-card.featured { background: radial-gradient(circle at 20% 0%, rgba(159,183,255,.15), transparent 40%), linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.03)), var(--seta-panel); border-color: rgba(159,183,255,.24); }
+    .seta-card.is-focused { border-color: rgba(158,230,195,.58); box-shadow: 0 0 0 1px rgba(158,230,195,.22), var(--seta-shadow); }
     .seta-card-header { padding: 18px 18px 10px; display: grid; gap: 10px; }
     .seta-chip-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
     .seta-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--seta-border); background: var(--seta-chip); color: var(--seta-muted); border-radius: 999px; padding: 6px 10px; font-size: .76rem; font-weight: 800; letter-spacing: .01em; text-decoration: none; }
@@ -78,6 +83,12 @@
     .seta-empty, .seta-error { border: 1px solid var(--seta-border); background: rgba(255,255,255,.05); color: var(--seta-muted); border-radius: 20px; padding: 18px; line-height: 1.6; }
     .seta-footer-note { color: var(--seta-muted); margin-top: 24px; line-height: 1.55; font-size: .92rem; border: 1px solid var(--seta-border); background: rgba(18,25,54,.55); border-radius: 18px; padding: 16px; }
     .seta-footer-note strong { color: var(--seta-text); }
+    body.compact .seta-wrap { width: min(1100px, calc(100% - 20px)); padding: 22px 0 34px; }
+    body.compact .seta-hero { margin-bottom: 16px; }
+    body.compact h1 { font-size: clamp(1.8rem, 4vw, 3.35rem); }
+    body.compact .seta-explainer { display: none; }
+    body.compact .seta-controls { position: static; margin: 18px 0 16px; }
+    body.compact .seta-featured-wrap { display: none !important; }
   </style>
 </head>
 <body>
@@ -92,6 +103,7 @@
         <div class="seta-explainer-card"><strong>Context, not calls.</strong>These cards explain conditions. They are not buy/sell recommendations.</div>
       </div>
       <div id="setaStatus" class="seta-status"></div>
+      <div id="setaActions" class="seta-actions"></div>
     </section>
     <section class="seta-controls" aria-label="SETA card controls">
       <div class="seta-control-left">
@@ -113,21 +125,41 @@
     <p class="seta-footer-note"><strong>Risk note:</strong> SETA explains behavior beneath price. This page is interpretation context only and should not be treated as financial advice, a forecast, or a buy/sell signal. Public website snippets are marked <strong>public_safe=true</strong> and <strong>posting_performed=false</strong>.</p>
   </main>
   <script>
-    const DATA_URL = window.SETA_PUBLIC_SNIPPETS_URL || "public_content/seta_website_snippets_latest.json";
-    const state = { payload: null, snippets: [], filtered: [], search: "", universe: "", sort: "term" };
+    const PARAMS = new URLSearchParams(window.location.search);
+    const DATA_URL = PARAMS.get("data") || window.SETA_PUBLIC_SNIPPETS_URL || "public_content/seta_website_snippets_latest.json";
+    const DASHBOARD_URL = PARAMS.get("dashboard") || window.SETA_DASHBOARD_URL || "";
+    const INITIAL_ASSET = cleanParam(PARAMS.get("asset") || PARAMS.get("term") || PARAMS.get("ticker"));
+    const INITIAL_UNIVERSE = cleanParam(PARAMS.get("universe"));
+    const INITIAL_SORT = cleanParam(PARAMS.get("sort")) || "term";
+    const COMPACT_MODE = ["1","true","yes","compact"].includes(String(PARAMS.get("compact") || PARAMS.get("embed") || "").toLowerCase());
+    if (COMPACT_MODE) document.body.classList.add("compact");
+    const state = { payload: null, snippets: [], filtered: [], search: INITIAL_ASSET, universe: INITIAL_UNIVERSE, sort: INITIAL_SORT, focusedTerm: INITIAL_ASSET };
     const els = {
       search: document.getElementById("setaSearch"), universe: document.getElementById("setaUniverse"),
       sort: document.getElementById("setaSort"), reset: document.getElementById("setaReset"),
       meta: document.getElementById("setaMeta"), cards: document.getElementById("setaCards"),
       featuredWrap: document.getElementById("setaFeaturedWrap"), featured: document.getElementById("setaFeatured"),
-      status: document.getElementById("setaStatus"), countLabel: document.getElementById("setaCountLabel")
+      status: document.getElementById("setaStatus"), countLabel: document.getElementById("setaCountLabel"), actions: document.getElementById("setaActions")
     };
+    function cleanParam(value) { const text = String(value ?? "").trim(); return text ? text : ""; }
     function escapeHtml(value) { return String(value ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
     function clean(value) { const text = String(value ?? "").trim(); if (!text || ["nan","none","null","-"].includes(text.toLowerCase())) return ""; return text; }
     function slug(value) { return clean(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
     function snippetSearchText(s) { return [s.term,s.universe,s.copy_archetype,s.narrative_theme,s.headline,s.one_liner,s.public_note,s.short_explanation,s.expanded_explanation,s.watch_condition,s.seta_read_line,s.regime_note,s.narrative_note,s.social_blurb,s.risk_note].map(clean).join(" ").toLowerCase(); }
-    function hydrateUniverseFilter(snippets) { for (const u of [...new Set(snippets.map(s => clean(s.universe)).filter(Boolean))].sort()) { const opt = document.createElement("option"); opt.value = u; opt.textContent = u.charAt(0).toUpperCase() + u.slice(1); els.universe.appendChild(opt); } }
+    function hydrateUniverseFilter(snippets) {
+      els.universe.innerHTML = `<option value="">All universes</option>`;
+      for (const u of [...new Set(snippets.map(s => clean(s.universe)).filter(Boolean))].sort()) {
+        const opt = document.createElement("option"); opt.value = u; opt.textContent = u.charAt(0).toUpperCase() + u.slice(1); els.universe.appendChild(opt);
+      }
+      if (state.universe && [...els.universe.options].some(o => o.value === state.universe)) els.universe.value = state.universe;
+    }
     function renderStatus() { const date = clean(state.payload?.date); const published = clean(state.payload?.published_at_utc); els.status.innerHTML = [`<span class="seta-status-pill good">public_safe=true</span>`,`<span class="seta-status-pill good">posting_performed=false</span>`, date ? `<span class="seta-status-pill">date ${escapeHtml(date)}</span>` : "", published ? `<span class="seta-status-pill">published ${escapeHtml(published)}</span>` : ""].filter(Boolean).join(""); }
+    function renderActions() {
+      const links = [];
+      if (DASHBOARD_URL) links.push(`<a class="seta-action-link" href="${escapeHtml(DASHBOARD_URL)}" target="_top" rel="noopener">Open the SETA Dashboard</a>`);
+      if (state.focusedTerm && state.filtered.length === 1) links.push(`<a class="seta-action-link" href="${escapeHtml(location.pathname)}">View all context cards</a>`);
+      els.actions.innerHTML = links.join("");
+    }
     function applyFilters() {
       const q = state.search.toLowerCase();
       state.filtered = state.snippets.filter(s => (!state.universe || clean(s.universe) === state.universe) && (!q || snippetSearchText(s).includes(q)));
@@ -139,11 +171,18 @@
       render();
     }
     function detailField(label, value, cls = "") { const v = clean(value); if (!v) return ""; return `<div class="seta-field ${cls}"><div class="seta-label">${escapeHtml(label)}</div><div class="seta-value">${escapeHtml(v)}</div></div>`; }
+    function termLink(term) {
+      const params = new URLSearchParams();
+      params.set("asset", clean(term));
+      if (COMPACT_MODE) params.set("compact", "1");
+      if (DASHBOARD_URL) params.set("dashboard", DASHBOARD_URL);
+      return `${location.pathname}?${params.toString()}#seta-${slug(term)}`;
+    }
     function renderCard(s, options = {}) {
-      const featured = !!options.featured, headline = clean(s.headline) || `${clean(s.term)}: SETA context`, note = clean(s.public_note) || clean(s.one_liner) || clean(s.short_explanation), universe = clean(s.universe), archetype = clean(s.copy_archetype), theme = clean(s.narrative_theme), id = `seta-${slug(s.term)}`;
-      return `<article id="${escapeHtml(id)}" class="seta-card ${featured ? "featured" : ""}">
+      const featured = !!options.featured, term = clean(s.term), headline = clean(s.headline) || `${term}: SETA context`, note = clean(s.public_note) || clean(s.one_liner) || clean(s.short_explanation), universe = clean(s.universe), archetype = clean(s.copy_archetype), theme = clean(s.narrative_theme), id = `seta-${slug(term)}`, focused = state.focusedTerm && term.toLowerCase() === state.focusedTerm.toLowerCase();
+      return `<article id="${escapeHtml(id)}" class="seta-card ${featured ? "featured" : ""} ${focused ? "is-focused" : ""}">
         <div class="seta-card-header"><div class="seta-chip-row">
-          <a class="seta-chip seta-term" href="#${escapeHtml(id)}">${escapeHtml(clean(s.term))}</a>
+          <a class="seta-chip seta-term" href="${escapeHtml(termLink(term))}">${escapeHtml(term)}</a>
           ${universe ? `<span class="seta-chip seta-universe">${escapeHtml(universe)}</span>` : ""}
           ${archetype ? `<span class="seta-chip">${escapeHtml(archetype.replaceAll("_"," "))}</span>` : ""}
           <span class="seta-chip seta-risk-badge">context only</span>
@@ -151,7 +190,7 @@
         <div class="seta-card-body">${note ? `<p class="seta-note">${escapeHtml(note)}</p>` : ""}
           ${detailField("Watch condition", s.watch_condition, "seta-watch")}
           ${detailField("SETA read", s.seta_read_line)}
-          <details ${featured ? "open" : ""}><summary>More context</summary><div class="seta-details-grid">
+          <details ${featured || focused ? "open" : ""}><summary>More context</summary><div class="seta-details-grid">
             ${detailField("Narrative theme", theme)}
             ${detailField("Regime note", s.regime_note)}
             ${detailField("Narrative note", s.narrative_note)}
@@ -160,12 +199,17 @@
           </div></details>
         </div></article>`;
     }
-    function renderFeatured() { const featured = state.snippets.slice(0, 3); els.featuredWrap.style.display = featured.length ? "block" : "none"; els.featured.innerHTML = featured.map(s => renderCard(s, { featured: true })).join(""); }
+    function renderFeatured() {
+      const featured = state.focusedTerm ? [] : state.snippets.slice(0, 3);
+      els.featuredWrap.style.display = featured.length ? "block" : "none";
+      els.featured.innerHTML = featured.map(s => renderCard(s, { featured: true })).join("");
+    }
     function render() {
-      renderStatus(); renderFeatured();
+      renderStatus(); renderActions(); renderFeatured();
       els.cards.innerHTML = state.filtered.length ? state.filtered.map(s => renderCard(s)).join("") : `<div class="seta-empty">No SETA context cards match the current filters.</div>`;
       const date = clean(state.payload?.date), published = clean(state.payload?.published_at_utc);
-      els.meta.textContent = `${state.filtered.length} of ${state.snippets.length} public-safe snippets` + (date ? ` · date ${date}` : "") + (published ? ` · published ${published}` : "");
+      const filterNote = state.focusedTerm ? ` · <span class="seta-active-filter">focused on ${escapeHtml(state.focusedTerm)}</span>` : (state.universe ? ` · <span class="seta-active-filter">${escapeHtml(state.universe)}</span>` : "");
+      els.meta.innerHTML = `${state.filtered.length} of ${state.snippets.length} public-safe snippets` + (date ? ` · date ${escapeHtml(date)}` : "") + (published ? ` · published ${escapeHtml(published)}` : "") + filterNote;
       els.countLabel.textContent = `${state.filtered.length} shown`;
     }
     async function load() {
@@ -175,16 +219,20 @@
         const payload = await res.json();
         if (payload.public_safe !== true || payload.posting_performed !== false) throw new Error("Public safety flags missing or invalid.");
         state.payload = payload; state.snippets = (Array.isArray(payload.snippets) ? payload.snippets : []).filter(s => clean(s.term));
-        hydrateUniverseFilter(state.snippets); applyFilters();
+        hydrateUniverseFilter(state.snippets);
+        els.search.value = state.search;
+        els.universe.value = state.universe;
+        if ([...els.sort.options].some(o => o.value === state.sort)) els.sort.value = state.sort;
+        applyFilters();
       } catch (err) {
         els.meta.textContent = "Unable to load SETA public context.";
         els.cards.innerHTML = `<div class="seta-error">Could not load <code>${escapeHtml(DATA_URL)}</code>.<br />${escapeHtml(err.message || err)}</div>`;
       }
     }
-    els.search.addEventListener("input", e => { state.search = e.target.value || ""; applyFilters(); });
+    els.search.addEventListener("input", e => { state.search = e.target.value || ""; state.focusedTerm = ""; applyFilters(); });
     els.universe.addEventListener("change", e => { state.universe = e.target.value || ""; applyFilters(); });
     els.sort.addEventListener("change", e => { state.sort = e.target.value || "term"; applyFilters(); });
-    els.reset.addEventListener("click", () => { state.search = ""; state.universe = ""; state.sort = "term"; els.search.value = ""; els.universe.value = ""; els.sort.value = "term"; applyFilters(); });
+    els.reset.addEventListener("click", () => { state.search = ""; state.universe = ""; state.sort = "term"; state.focusedTerm = ""; els.search.value = ""; els.universe.value = ""; els.sort.value = "term"; applyFilters(); });
     load();
   </script>
 </body>
