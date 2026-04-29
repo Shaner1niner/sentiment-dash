@@ -26,7 +26,24 @@ def main() -> int:
         fail(f"missing public snippets JSON: {DATA}")
     ok("found public snippets JSON")
     html = HTML.read_text(encoding="utf-8")
-    for token in ["Behavior beneath price", "Attention is not validation", "setaFeatured", "setaStatus", "public_safe=true", "posting_performed=false", "More context", "context only", "scroll-margin-top", "window.SETA_PUBLIC_SNIPPETS_URL"]:
+    for token in [
+        "Behavior beneath price",
+        "Attention is not validation",
+        "setaFeatured",
+        "setaStatus",
+        "setaActions",
+        "public_safe=true",
+        "posting_performed=false",
+        "More context",
+        "context only",
+        "scroll-margin-top",
+        "window.SETA_PUBLIC_SNIPPETS_URL",
+        "URLSearchParams",
+        "INITIAL_ASSET",
+        "INITIAL_UNIVERSE",
+        "COMPACT_MODE",
+        "Open the SETA Dashboard",
+    ]:
         if token not in html:
             fail(f"HTML missing v2 token: {token}")
     ok("HTML contains expected v2 card hooks")
