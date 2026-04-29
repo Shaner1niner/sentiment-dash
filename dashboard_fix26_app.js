@@ -2157,17 +2157,32 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
   const hist=rows.map(r=>num(r.macd_histogram));
   const histColors=hist.map((v,i)=>{if(v===null)return 'rgba(0,0,0,0)';const prev=i>0&&hist[i-1]!==null?hist[i-1]:v;const accel=v>=prev; if(v>=0) return accel?COLORS.histUp:COLORS.histUpSoft; return accel?COLORS.histDownSoft:COLORS.histDown;});
-  data.push({type:'bar',x:xs,y:hist,name:'MACD Histogram',marker:{color:histColors},xaxis:'x2',yaxis:'y2',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>Histogram=%{y:.2f}<extra></extra>'});
+  data.push({type:'bar',x:xs,y:hist,name:'Price MACD Histogram',marker:{color:histColors},xaxis:'x2',yaxis:'y2',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>Price MACD Histogram=%{y:.2f}<extra></extra>'});
+
+  // SETA MACD visual polish v3:
+  // Keep price MACD as the primary structure, then add sentiment momentum as a subtle overlay.
+  // The volatile scaled sentiment MACD fast line remains available in hover/customdata but is not drawn by default.
+  const sentHist=rows.map(r=>num(r.sentiment_macd_histogram ?? r.scaled_sentiment_macd_histogram ?? r.sentiment_macd_signal_difference ?? r.sentiment_macd_signal_diff));
+  const sentHistHasData=sentHist.some(v=>v!==null&&Number.isFinite(v));
+  if(sentHistHasData){
+    const sentHistColors=sentHist.map(v=>v==null?'rgba(180,180,180,0)':v>=0?'rgba(75,230,180,0.20)':'rgba(255,185,120,0.18)');
+    data.push({type:'bar',x:xs,y:sentHist,name:'Sentiment MACD Histogram Overlay',marker:{color:sentHistColors,line:{width:0}},opacity:0.72,xaxis:'x2',yaxis:'y2',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>Sentiment MACD Histogram=%{y:.2f}<extra></extra>'});
+  }
   data.push(traceLine(xs,rows.map(r=>num(r.macd)),'MACD',COLORS.ma7,2.0,'solid','y2',false,'%{x|%b %d, %Y}<br>MACD=%{y:.2f}<extra></extra>'));
   data.push(traceLine(xs,rows.map(r=>num(r.macd_signal)),'Signal',COLORS.ma50,1.5,'solid','y2',false,'%{x|%b %d, %Y}<br>Signal=%{y:.2f}<extra></extra>'));
   if(osc==='both'){
-    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd)),'Scaled Sentiment MACD','y2',false,'%{x|%b %d, %Y}<br>Scaled Sentiment MACD=%{y:.2f}<extra></extra>',1.2).forEach(t=>data.push(t));
-    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd_signal)),'Scaled Sentiment Signal','y2',false,'%{x|%b %d, %Y}<br>Scaled Sentiment Signal=%{y:.2f}<extra></extra>',1.0).forEach(t=>data.push(t));
+    // Hidden by default: scaled_sentiment_macd is the noisier/fast sentiment MACD line.
+    // Cross markers and hover/customdata still preserve the field for context.
+    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd_signal)),'Sentiment MACD Signal','y2',false,'%{x|%b %d, %Y}<br>Sentiment MACD Signal=%{y:.2f}<br>Hidden fast line=%{customdata:.2f}<extra></extra>',1.15).forEach(t=>{
+      t.customdata=rows.map(r=>num(r.scaled_sentiment_macd));
+      t.line={...(t.line||{}),width:1.35,dash:'dot',color:'rgba(121,255,198,0.72)'};
+      data.push(t);
+    });
   }
 
   const crossX=[],crossY=[],crossText=[],crossSize=[],crossColor=[];
-  rows.forEach(r=>{const c=num(r.macd_signal_cross), y=num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Bull':'Bear'); crossSize.push(Math.min(18,10+Math.abs(num(r.macd_cross_significance)||0)*2)); crossColor.push(c===1?'rgba(40,220,90,0.85)':'rgba(255,110,110,0.85)');}});
-  if(crossX.length) data.push({type:'scatter',mode:'markers+text',x:crossX,y:crossY,text:crossText,textposition:'top center',xaxis:'x2',yaxis:'y2',marker:{size:crossSize,color:crossColor,symbol:'triangle-up'},name:'Crosses',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>%{text} Cross<extra></extra>'});
+  rows.forEach(r=>{const c=num(r.macd_signal_cross), y=num(r.scaled_sentiment_macd_signal) ?? num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Sentiment bull':'Sentiment bear'); crossSize.push(Math.min(15,8+Math.abs(num(r.macd_cross_significance)||0)*1.6)); crossColor.push(c===1?'rgba(83,235,175,0.92)':'rgba(255,174,118,0.90)');}});
+  if(crossX.length) data.push({type:'scatter',mode:'markers+text',x:crossX,y:crossY,text:crossText,textposition:'top center',xaxis:'x2',yaxis:'y2',marker:{size:crossSize,color:crossColor,symbol:'triangle-up'},name:'Sentiment crosses',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>%{text} cross<extra></extra>'});
 
   data.push(traceLine(xs,rows.map(r=>num(r.rsi_d)||num(r.rsi)),'RSI',COLORS.rsi,2.0,'solid','y3',false,'%{x|%b %d, %Y}<br>RSI=%{y:.2f}<extra></extra>'));
   if(osc==='both') sentimentBundle(xs,rows.map(r=>num(r.sentiment_rsi_d)||num(r.sentiment_rsi)),'Sentiment RSI','y3',false,'%{x|%b %d, %Y}<br>Sentiment RSI=%{y:.2f}<extra></extra>',1.1).forEach(t=>data.push(t));
@@ -2263,7 +2278,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
       ] : []),
       ...(cfg.showRibbonAnnotation !== false && regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.99,y:0.985,xanchor:'right',text:`Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.972 : 0.955,xanchor:'left',text: cfg.compactAnnotations ? `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel} | ${overlapInfo.context}` : overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD / Signal / Hist | ${macdRegime} | Last Cross: ${lastCrossText} | Histogram: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD / Signal / Hist | ${macdRegime} | Last Sentiment Cross: ${lastCrossText} | Price Hist: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.275,xanchor:'left',text:rsiPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.135,xanchor:'left',text:stochPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
     ],
