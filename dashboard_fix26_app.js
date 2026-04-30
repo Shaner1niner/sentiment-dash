@@ -1192,6 +1192,23 @@ function formatPct(v){
 function formatNum(v, digits=1){
   return (v===null || !Number.isFinite(v)) ? 'n/a' : Number(v).toFixed(digits);
 }
+
+function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
+  const price=num(priceVal), sent=num(sentVal);
+  if(price===null || sent===null) return {gap:null, tier:'n/a', direction:'n/a', label:'Gap n/a'};
+  const gap=sent-price;
+  const abs=Math.abs(gap);
+  const tier = abs>=25 ? 'Extreme' : (abs>=15 ? 'Material' : (abs>=8 ? 'Notable' : 'Aligned'));
+  let direction='Aligned';
+  if(tier!=='Aligned'){
+    if(gap>0) direction=(kind==='stoch' && price<=30) ? 'Sent Repair' : 'Sent Lead';
+    else direction=(kind==='stoch' && price>=70) ? 'Sent Deterioration' : 'Price Lead';
+  }
+  const signed=(gap>=0?'+':'')+gap.toFixed(1);
+  const label = direction==='Aligned' ? `Aligned ${signed}` : `${direction} ${signed} · ${tier}`;
+  return {gap, tier, direction, label};
+}
+
 function overlapWidthAt(overlap, idx){
   const ou=num(overlap.up[idx]), ol=num(overlap.low[idx]);
   if(ou===null || ol===null) return null;
@@ -2343,14 +2360,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
   const lastRsiVal = num(last.rsi_d) ?? num(last.rsi);
   const lastSentRsiVal = num(last.sentiment_rsi_d) ?? num(last.sentiment_rsi);
   const rsiBias = lastRsiVal===null ? 'n/a' : (lastRsiVal>=70 ? 'Overbought' : (lastRsiVal<=30 ? 'Oversold' : (lastRsiVal>=55 ? 'Bullish Bias' : (lastRsiVal<=45 ? 'Bearish Bias' : 'Neutral'))));
-  const rsiConfirm = (lastRsiVal!==null && lastSentRsiVal!==null) ? (((lastRsiVal>=50)===(lastSentRsiVal>=50)) ? 'confirming' : 'mixed') : 'n/a';
-  const rsiPaneText = `RSI / Sent RSI · ${formatNum(lastRsiVal)} / ${formatNum(lastSentRsiVal)} · ${rsiBias} · ${rsiConfirm}`;
+  const rsiGap=oscillatorGapInfo(lastRsiVal, lastSentRsiVal, 'rsi');
+  const rsiPaneText = `RSI / Sent RSI · ${formatNum(lastRsiVal)} / ${formatNum(lastSentRsiVal)} · ${rsiBias} · ${rsiGap.label}`;
   const lastStochK = num(last.stochastic_rsi);
   const lastStochD = num(last.stochastic_rsi_d);
   const lastSentStoch = num(last.sentiment_stochastic_rsi_d);
   const stochBias = lastStochK===null || lastStochD===null ? 'n/a' : (lastStochK>=80 ? 'Overbought' : (lastStochK<=20 ? 'Oversold' : (lastStochK>=lastStochD ? 'Recovery Bias' : 'Softening Bias')));
-  const stochConfirm = (lastSentStoch!==null && lastStochK!==null) ? (((lastStochK>=50)===(lastSentStoch>=50)) ? 'confirming' : 'mixed') : 'n/a';
-  const stochPaneText = `%K / %D / Sent Stoch · ${formatNum(lastStochK)} / ${formatNum(lastStochD)} / ${formatNum(lastSentStoch)} · ${stochBias} · ${stochConfirm}`;
+  const stochGap=oscillatorGapInfo(lastStochK, lastSentStoch, 'stoch');
+  const stochPaneText = `%K / %D / Sent Stoch · ${formatNum(lastStochK)} / ${formatNum(lastStochD)} / ${formatNum(lastSentStoch)} · ${stochBias} · ${stochGap.label}`;
   const rb=(calendar==='trading_sessions' && freq==='D')?[{bounds:['sat','mon']}]:[];
   const regimeRects=(regimeLayer==='on' && showSentRibbon) ? regimeSegments(rows, regimeInfo, visStart, visEnd).map(seg=>({type:'rect',xref:'x',x0:seg.start,x1:nextRangeEnd(seg.end,calendar,freq),yref:'paper',y0:0.54,y1:0.98,line:{width:0},fillcolor:regimeFillColor(seg.regime),layer:'below'})) : [];
   const overlapTriggerShapes=[];
