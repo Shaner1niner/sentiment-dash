@@ -2234,7 +2234,7 @@ function renderScreenerPanel(activeTerm=null){
   const matched=activeArch.matched_conditions || activeRow.matched_conditions || '';
   const familyGrid=mtRenderFamilyGrid(currentTerm, activeRow);
 
-  panel.innerHTML=`<div class="marketTapeHeader"><div class="marketTapeTitle"><div class="marketTapeTopline"><button type="button" class="marketTapeToggle" id="marketTapeToggle" title="Collapse / expand Market Tape">−</button><h3>SETA Market Tape · Active ${escapeHTML(currentTerm || 'n/a')}</h3></div><div class="marketTapeSub">Click a ranked card to load its chart. Selected setup, balanced signal deck, and full diagnostics ribbon. ${version ? `Model ${escapeHTML(version)}. ` : ''}${generated ? `As of ${escapeHTML(generated)}.` : ''}</div></div><div class="marketTapeTabs">${tabHtml}</div></div><div class="marketTapeCards">${cardHtml || '<div class="marketTapeEmpty">No Market Tape rows available for this mode/section.</div>'}</div><div class="marketTapeDetail"><div class="marketTapeDetailTop"><div><div class="marketTapeDetailTitle"><span class="marketTapePill ${detailCls}">${escapeHTML(detailDir)}</span>${escapeHTML(detailTitle)} · Priority ${escapeHTML(mtScore(activeRow,'screener_attention_priority_score'))}</div><div class="marketTapeDetailText">${escapeHTML(summary)}</div>${matched ? `<div class="marketTapeMissing"><b>Matched:</b> ${escapeHTML(matched)}</div>` : ''}${missing ? `<div class="marketTapeMissing"><b>Missing:</b> ${escapeHTML(missing)}</div>` : ''}${risk ? `<div class="marketTapeRisk"><b>Risk:</b> ${escapeHTML(risk)}</div>` : ''}</div><div>${familyGrid}</div></div></div>`;
+  panel.innerHTML=`<div class="marketTapeHeader"><div class="marketTapeTitle"><div class="marketTapeTopline"><button type="button" class="marketTapeToggle" id="marketTapeToggle" title="Collapse / expand Market Tape">−</button><h3>SETA Market Tape · Active ${escapeHTML(currentTerm || 'n/a')}</h3></div><div class="marketTapeSub">Click a ranked card to load its chart. Selected setup, balanced signal deck, and full diagnostics ribbon. ${version ? `Model ${escapeHTML(version)}. ` : ''}${generated ? `As of ${escapeHTML(generated)}.` : ''}</div></div><div class="marketTapeTabs">${tabHtml}</div></div><div class="marketTapeCards">${cardHtml || '<div class="marketTapeEmpty">No Market Tape rows available for this mode/section.</div>'}</div><div class="marketTapeDetail"><div class="marketTapeDetailTop"><div><div class="marketTapeDetailTitle"><span class="marketTapePill ${detailCls}">${escapeHTML(detailDir)}</span>${escapeHTML(detailTitle)} · Priority ${escapeHTML(mtScore(activeRow,'screener_attention_priority_score'))}</div><div class="marketTapeDetailText">${escapeHTML(summary)}</div>${matched ? `<div class="marketTapeMissing"><b>Setup evidence:</b> ${escapeHTML(matched)}</div>` : ''}${missing ? `<div class="marketTapeMissing"><b>Watch item:</b> ${escapeHTML(missing)}</div>` : ''}${risk ? `<div class="marketTapeRisk"><b>Risk:</b> ${escapeHTML(risk)}</div>` : ''}</div><div>${familyGrid}</div></div></div>`;
 
   panel.querySelectorAll('[data-screener-section]').forEach(btn=>{ btn.onclick=()=>{ SCREENER_SECTION=btn.getAttribute('data-screener-section') || 'top_priority'; renderScreenerPanel(document.getElementById('asset')?.value || null); }; });
   panel.querySelectorAll('[data-screener-term]').forEach(card=>{ card.onclick=()=>{ if(typeof setDashboardAssetFromScreener === 'function') setDashboardAssetFromScreener(card.getAttribute('data-screener-term')); }; });
@@ -4098,3 +4098,100 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
   start();
 })();
 // END phase_market_tape_explanation_layout_v21
+
+// BEGIN phase_market_tape_copy_v22
+(function phase_market_tape_copy_v22(){
+  if (window.__phase_market_tape_copy_v22) return;
+  window.__phase_market_tape_copy_v22 = true;
+
+  function isLikelySelectedMarketTapeCard(el){
+    if (!el || !el.textContent) return false;
+    const txt = el.textContent;
+    return txt.includes("Setup evidence:") && txt.includes("Risk:") && txt.includes("Priority");
+  }
+
+  function textLooksLikeRedundantLead(txt){
+    const t = String(txt || "").trim();
+    if (!t || t.length > 170) return false;
+    return (
+      /shows sentiment repair before price momentum has fully confirmed/i.test(t) ||
+      /shows fresh bullish pressure with follow-through still being tested/i.test(t) ||
+      /has clustered watch activity before full confirmation/i.test(t) ||
+      /shows bearish pressure while confirmation is still being tested/i.test(t) ||
+      /shows narrative deterioration while price strength is still being tested/i.test(t) ||
+      /compression or transition-risk profile/i.test(t)
+    );
+  }
+
+  function leafTextElements(root){
+    return Array.from(root.querySelectorAll("div,span,p,li"))
+      .filter(el => {
+        const txt = String(el.textContent || "").trim();
+        if (!txt) return false;
+        const childText = Array.from(el.children || []).some(ch => String(ch.textContent || "").trim());
+        return !childText || el.children.length <= 1;
+      });
+  }
+
+  function polishCard(card){
+    if (!isLikelySelectedMarketTapeCard(card)) return;
+
+    // Rename labels if a render path still produced the old copy.
+    card.querySelectorAll("div,span,p,b,strong").forEach(el => {
+      if (!el || !el.childNodes || el.childNodes.length !== 1) return;
+      const txt = el.textContent || "";
+      if (txt.trim() === "Matched:") el.textContent = "Setup evidence:";
+      if (txt.trim() === "Missing:") el.textContent = "Watch item:";
+    });
+
+    // Hide the redundant lead sentence directly below the title, but only on
+    // cards that already have Setup evidence / Watch item / Risk structure.
+    const leaves = leafTextElements(card);
+    for (const el of leaves){
+      if (el.dataset && el.dataset.setaLeadHidden === "1") continue;
+      const txt = String(el.textContent || "").trim();
+      if (!textLooksLikeRedundantLead(txt)) continue;
+      const hasNearbyEvidence = String(card.textContent || "").includes("Setup evidence:");
+      if (!hasNearbyEvidence) continue;
+      el.dataset.setaLeadHidden = "1";
+      el.style.display = "none";
+      el.setAttribute("aria-hidden", "true");
+    }
+  }
+
+  function applyMarketTapeCopyPolish(){
+    const roots = Array.from(document.querySelectorAll("div,section,article"))
+      .filter(isLikelySelectedMarketTapeCard);
+    // Prefer the smallest matching containers so we do not over-edit the whole dashboard.
+    roots.sort((a,b) => (a.textContent || "").length - (b.textContent || "").length);
+    roots.slice(0, 8).forEach(polishCard);
+  }
+
+  function installStyle(){
+    if (document.getElementById("phase_market_tape_copy_v22_style")) return;
+    const style = document.createElement("style");
+    style.id = "phase_market_tape_copy_v22_style";
+    style.textContent = `
+      .marketTapeContextV21,
+      .marketTapeContextV22{
+        line-height: 1.42;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function schedule(){
+    installStyle();
+    window.requestAnimationFrame(applyMarketTapeCopyPolish);
+    window.setTimeout(applyMarketTapeCopyPolish, 250);
+    window.setTimeout(applyMarketTapeCopyPolish, 900);
+  }
+
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", schedule);
+  else schedule();
+
+  const observer = new MutationObserver(() => schedule());
+  observer.observe(document.documentElement, {childList:true, subtree:true});
+})();
+// END phase_market_tape_copy_v22
+
