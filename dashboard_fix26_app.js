@@ -1161,15 +1161,7 @@ function overlapPlaybookProfile(rows, overlap, idx){
 function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineColor, fillColor, namePrefix, axis, visibleMask){
   const playbook = rows.map((r,i)=>overlapPlaybookProfile(rows, overlap, i));
   const custom = rows.map((r,i)=>{
-    const score=firstFiniteFromRow(r,[
-      'seta_dashboard_summary_score',
-      'seta_summary_score',
-      'summary_score_0_100',
-      'summary_score',
-      'dashboard_score',
-      'screener_summary_score',
-      'screener_attention_priority_score'
-    ]);
+    const score=setaScoreFromRow(r);
     const attention=firstFiniteFromRow(r,[
       'attention_level_score',
       'attention_regime_score',
@@ -1200,7 +1192,7 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
       playbook[i]?.stateLabel || 'Unavailable',
       playbook[i]?.structure || 'Unknown',
       playbook[i]?.contextLabel || 'n/a',
-      score===null ? 'n/a' : Math.round(score).toString(),
+      setaScoreAttentionLine(score, attention),
       attention===null ? 'n/a' : attention.toFixed(1),
       ribbon,
       rsiGap.label,
@@ -1209,7 +1201,7 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
   });
 
   // Compact envelope hover: keep contextual signal + SETA state, but avoid long narrative text.
-  const hover = `%{x|%b %d, %Y}<br><b>${namePrefix}</b> · %{customdata[0]}<br>%{customdata[4]} · %{customdata[5]} · %{customdata[2]} confidence<br><b>SETA</b> Score %{customdata[7]} · Attn %{customdata[8]}<br>Ribbon %{customdata[9]} · RSI %{customdata[10]}<br>Stoch %{customdata[11]}<extra></extra>`;
+  const hover = `%{x|%b %d, %Y}<br><b>${namePrefix}</b> · %{customdata[0]}<br>%{customdata[4]} · %{customdata[5]} · %{customdata[2]} confidence<br><b>SETA</b> %{customdata[7]}<br>Ribbon %{customdata[9]} · RSI %{customdata[10]}<br>Stoch %{customdata[11]}<extra></extra>`;
 
   data.push({
     type:'scatter', mode:'lines', x:x, y:lower, customdata:custom, name:namePrefix+' Lower',
@@ -1262,17 +1254,24 @@ function firstTextFromRow(row, keys){
   }
   return null;
 }
+function setaScoreFromRow(row){
+  return firstFiniteFromRow(row,[
+    'seta_dashboard_summary_score',
+    'seta_summary_score',
+    'summary_score_0_100',
+    'summary_score',
+    'dashboard_score',
+    'screener_summary_score'
+  ]);
+}
+function setaScoreAttentionLine(score, attention){
+  const scorePart = score===null ? null : `Score ${Math.round(score)}`;
+  const attnPart = attention===null ? null : `Attn ${attention.toFixed(1)}`;
+  return [scorePart, attnPart].filter(Boolean).join(' · ') || 'Context unavailable';
+}
 function priceHoverContextCustomData(rows, regimeInfo, overlap){
   return rows.map((row,i)=>{
-    const score=firstFiniteFromRow(row,[
-      'seta_dashboard_summary_score',
-      'seta_summary_score',
-      'summary_score_0_100',
-      'summary_score',
-      'dashboard_score',
-      'screener_summary_score',
-      'screener_attention_priority_score'
-    ]);
+    const score=setaScoreFromRow(row);
     const attention=firstFiniteFromRow(row,[
       'attention_level_score',
       'attention_regime_score',
@@ -1300,7 +1299,7 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
       'stoch'
     );
     return [
-      score===null ? 'n/a' : Math.round(score).toString(),
+      setaScoreAttentionLine(score, attention),
       attention===null ? 'n/a' : attention.toFixed(1),
       ribbon,
       overlapText,
@@ -1313,7 +1312,7 @@ function priceHoverTemplate(kind='candles'){
   const priceBlock = kind==='candles'
     ? 'O=%{open:.2f} H=%{high:.2f} L=%{low:.2f} C=%{close:.2f}'
     : 'Close=%{y:.2f}';
-  return `%{x|%b %d, %Y}<br><b>Price</b> · ${priceBlock}<br><b>SETA</b> Score %{customdata[0]} · Attn %{customdata[1]}<br>Ribbon %{customdata[2]} · Overlap %{customdata[3]}<br>RSI %{customdata[4]}<br>Stoch %{customdata[5]}<extra></extra>`;
+  return `%{x|%b %d, %Y}<br><b>Price</b> · ${priceBlock}<br><b>SETA</b> %{customdata[0]}<br>Ribbon %{customdata[2]} · Overlap %{customdata[3]}<br>RSI %{customdata[4]}<br>Stoch %{customdata[5]}<extra></extra>`;
 }
 function hoverDateLabel(row){
   const d = row?.dateObj instanceof Date ? row.dateObj : new Date(String(row?.date || '') + 'T00:00:00');
@@ -1327,7 +1326,7 @@ function priceHoverText(rows, regimeInfo, overlap, kind='candles'){
     const priceBlock = kind==='candles'
       ? `O/H/L/C ${formatNum(num(row.open),2)} / ${formatNum(num(row.high),2)} / ${formatNum(num(row.low),2)} / ${formatNum(num(row.close),2)}`
       : `Close ${formatNum(num(row.close),2)}`;
-    return `${hoverDateLabel(row)}<br><b>Price</b> · ${priceBlock}<br><b>SETA</b> Score ${c[0]} · Attn ${c[1]}<br>Ribbon ${c[2]} · Overlap ${c[3]}<br>RSI ${c[4]}<br>Stoch ${c[5]}`;
+    return `${hoverDateLabel(row)}<br><b>Price</b> · ${priceBlock}<br><b>SETA</b> ${c[0]}<br>Ribbon ${c[2]} · Overlap ${c[3]}<br>RSI ${c[4]}<br>Stoch ${c[5]}`;
   });
 }
 
@@ -2040,7 +2039,8 @@ function mtRenderFamilyGrid(term, row){
     const label=f.direction_label || f.strength_label || '';
     const cls=mtFamilyScoreClass(score, label);
     const title=[f.primary_indicator, f.interpretation].filter(Boolean).join(' — ');
-    return `<div class="marketTapeFamily ${cls}" title="${escapeHTML(title)}"><div class="marketTapeFamilyName">${escapeHTML(f.indicator_family || 'Family')}</div><div class="marketTapeFamilyScore">${escapeHTML(scoreTxt)}</div><div class="marketTapeFamilyLabel">${escapeHTML(label)}</div></div>`;
+    const familyName = (f.indicator_family === 'Summary') ? 'SETA Score' : (f.indicator_family || 'Family');
+    return `<div class="marketTapeFamily ${cls}" title="${escapeHTML(title)}"><div class="marketTapeFamilyName">${escapeHTML(familyName)}</div><div class="marketTapeFamilyScore">${escapeHTML(scoreTxt)}</div><div class="marketTapeFamilyLabel">${escapeHTML(label)}</div></div>`;
   }).join('')}</div>`;
 }
 
@@ -2886,7 +2886,7 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
   const css = `
 /* phaseG_market_tape_metric_deck_v7_style */
-/* Normalize Market Tape metric deck: Summary + strict 3x2 mini grid. */
+/* Normalize Market Tape metric deck: SETA Score + strict 3x2 mini grid. */
 .screenerPanel.marketTape .marketTapeFamilyGrid{
   display:grid!important;
   grid-template-columns:124px repeat(3,minmax(74px,1fr))!important;
@@ -3029,6 +3029,10 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
       // Trend currently has a direction label but no numeric field in the store.
       // Display "--" instead of "n/a" so the tile does not look broken.
+      if (name === "summary" && nameEl){
+        nameEl.textContent = "SETA Score";
+      }
+
       if (name === "trend" && scoreEl){
         const s = (scoreEl.textContent || "").trim().toLowerCase();
         if (!s || s === "n/a" || s === "na" || s === "nan" || s === "null"){
@@ -3089,7 +3093,7 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
   const css = `
 /* phaseG_market_tape_metric_deck_v8_style */
-/* Market Tape metric deck: Summary left, six metric cards in a stable 3x2 grid. */
+/* Market Tape metric deck: SETA Score left, six metric cards in a stable 3x2 grid. */
 .screenerPanel.marketTape .marketTapeFamilyGrid,
 .marketTape .marketTapeFamilyGrid{
   display:grid!important;
@@ -3262,6 +3266,10 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
       const scoreEl = card.querySelector(".marketTapeFamilyScore");
       const labelEl = card.querySelector(".marketTapeFamilyLabel");
       const name = (nameEl?.textContent || "").trim().toLowerCase();
+
+      if (name === "summary" && nameEl){
+        nameEl.textContent = "SETA Score";
+      }
 
       if (name === "trend" && scoreEl){
         const s = (scoreEl.textContent || "").trim().toLowerCase();
