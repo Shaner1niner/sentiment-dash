@@ -49,6 +49,18 @@ CORE_FIELDS = [
     "sent_ribbon_stack_score", "sent_ribbon_alignment_count",
 ]
 
+
+# BEGIN SETA dashboard summary score fields v1
+SETA_DASHBOARD_SCORE_FIELDS = [
+    "seta_dashboard_summary_score",
+    "seta_dashboard_summary_label",
+    "seta_dashboard_score_source",
+]
+for _seta_score_field in SETA_DASHBOARD_SCORE_FIELDS:
+    if _seta_score_field not in CORE_FIELDS:
+        CORE_FIELDS.append(_seta_score_field)
+# END SETA dashboard summary score fields v1
+
 SUM_FIELDS = {"volume"}
 MAX_FIELDS = {
     "high_volume_7", "high_volume_20", "boll_volatility_flag_num",
@@ -140,6 +152,8 @@ def load_csv(path: Path) -> pd.DataFrame:
                 df[target] = df[cand]
                 break
 
+    df = derive_seta_dashboard_summary_fields(df)
+
     keep = [c for c in CORE_FIELDS if c in df.columns]
     missing = [c for c in CORE_FIELDS if c not in df.columns and c != "date"]
     for col in missing:
@@ -147,6 +161,227 @@ def load_csv(path: Path) -> pd.DataFrame:
         keep.append(col)
     return df[["term"] + [c for c in CORE_FIELDS if c in df.columns]].copy()
 
+
+
+# BEGIN SETA dashboard summary score v1
+
+def _first_existing_col(df: pd.DataFrame, candidates: list[str]) -> str | None:
+    for col in candidates:
+        if col in df.columns:
+            return col
+    return None
+
+
+def _numeric_series(df: pd.DataFrame, col: str) -> pd.Series:
+    return pd.to_numeric(df[col], errors="coerce")
+
+
+def _clip_0_100(series: pd.Series) -> pd.Series:
+    return pd.to_numeric(series, errors="coerce").clip(lower=0, upper=100)
+
+
+def _normalise_score_component(df: pd.DataFrame, col: str) -> pd.Series:
+    """Return a 0-100 score component from either 0-100 or signed-ish fields."""
+    s = _numeric_series(df, col)
+    finite = s.dropna()
+    if finite.empty:
+        return s
+
+    # Many SETA/ribbon scores are signed (-100..100). If negative values are
+    # present, center them to 50. Otherwise preserve 0-100 scale.
+    if finite.min() < 0:
+        return (50 + (s / 2)).clip(lower=0, upper=100)
+    return s.clip(lower=0, upper=100)
+
+
+def _row_weighted_average(components: list[tuple[float, pd.Series]], index: pd.Index) -> pd.Series:
+    weighted = pd.Series(0.0, index=index, dtype="float64")
+    weights = pd.Series(0.0, index=index, dtype="float64")
+    for weight, series in components:
+        s = pd.to_numeric(series, errors="coerce")
+        mask = s.notna()
+        weighted.loc[mask] += s.loc[mask] * weight
+        weights.loc[mask] += weight
+    out = weighted / weights.replace({0: pd.NA})
+    return pd.to_numeric(out, errors="coerce").clip(lower=0, upper=100)
+
+
+def _rolling_z_component(df: pd.DataFrame, col: str, term_col: str = "term") -> pd.Series:
+    """Convert a signed momentum-like series into a 0-100 component per term."""
+    raw = _numeric_series(df, col)
+    out = pd.Series(float("nan"), index=df.index, dtype="float64")
+    if raw.notna().sum() < 3:
+        return out
+
+    for _, idx in df.groupby(term_col, sort=False).groups.items():
+        s = raw.loc[idx]
+        expanding_mean = s.expanding(min_periods=10).mean()
+        expanding_std = s.expanding(min_periods=10).std().replace(0, pd.NA)
+        z = ((s - expanding_mean) / expanding_std).clip(lower=-3, upper=3)
+        out.loc[idx] = (50 + z * 12).clip(lower=0, upper=100)
+    return out
+
+
+def _direction_signal(df: pd.DataFrame) -> pd.Series:
+    """Small signed helper used only for assigning a Bullish/Bearish/Neutral label."""
+    signal = pd.Series(0.0, index=df.index, dtype="float64")
+    weight = pd.Series(0.0, index=df.index, dtype="float64")
+
+    if "sent_ribbon_regime_raw" in df.columns:
+        txt = df["sent_ribbon_regime_raw"].astype(str).str.lower()
+        bull = txt.str.contains("bull", na=False)
+        bear = txt.str.contains("bear", na=False)
+        signal.loc[bull] += 1.0
+        signal.loc[bear] -= 1.0
+        weight.loc[bull | bear] += 1.0
+
+    if "sent_ribbon_regime_score" in df.columns:
+        s = _numeric_series(df, "sent_ribbon_regime_score").clip(lower=-100, upper=100) / 100
+        mask = s.notna()
+        signal.loc[mask] += s.loc[mask]
+        weight.loc[mask] += 1.0
+
+    if "sentiment_rsi_d" in df.columns and "rsi_d" in df.columns:
+        gap = (_numeric_series(df, "sentiment_rsi_d") - _numeric_series(df, "rsi_d")).clip(lower=-50, upper=50) / 50
+        mask = gap.notna()
+        signal.loc[mask] += gap.loc[mask] * 0.75
+        weight.loc[mask] += 0.75
+
+    if "sentiment_stochastic_rsi_d" in df.columns and "stochastic_rsi_d" in df.columns:
+        gap = (_numeric_series(df, "sentiment_stochastic_rsi_d") - _numeric_series(df, "stochastic_rsi_d")).clip(lower=-75, upper=75) / 75
+        mask = gap.notna()
+        signal.loc[mask] += gap.loc[mask] * 0.50
+        weight.loc[mask] += 0.50
+
+    if "macd_histogram" in df.columns:
+        macd = _numeric_series(df, "macd_histogram")
+        signed = macd.apply(lambda v: 1.0 if pd.notna(v) and v > 0 else (-1.0 if pd.notna(v) and v < 0 else pd.NA))
+        mask = signed.notna()
+        signal.loc[mask] += signed.loc[mask] * 0.35
+        weight.loc[mask] += 0.35
+
+    out = signal / weight.replace({0: pd.NA})
+    return pd.to_numeric(out, errors="coerce").fillna(0).clip(lower=-1, upper=1)
+
+
+def _label_from_score_and_direction(score: float | None, direction: float) -> str | None:
+    if score is None or pd.isna(score):
+        return None
+    s = float(score)
+    d = float(direction or 0)
+
+    if s >= 75 and d >= 0.15:
+        return "Strong Bullish"
+    if s >= 55 and d >= -0.05:
+        return "Bullish"
+    if s <= 25 and d <= -0.15:
+        return "Strong Bearish"
+    if s <= 45 and d <= 0.05:
+        return "Bearish"
+    return "Neutral"
+
+
+def derive_seta_dashboard_summary_fields(df: pd.DataFrame) -> pd.DataFrame:
+    """Populate per-date SETA score fields for the chart-store payload.
+
+    This function is conservative. It prefers an upstream score if the export
+    already has one. Otherwise it derives a per-row score from available
+    same-date components. It never copies the latest Market Tape score backward
+    through history.
+    """
+    out = df.copy()
+
+    score_aliases = [
+        "seta_dashboard_summary_score",
+        "seta_dashboard_score",
+        "dashboard_summary_score",
+        "dashboard_score",
+        "summary_score",
+        "seta_score",
+        "seta_composite_score",
+        "screener_attention_priority_score",
+        "signal_consensus_confidence_score",
+    ]
+    label_aliases = [
+        "seta_dashboard_summary_label",
+        "seta_dashboard_label",
+        "dashboard_summary_label",
+        "summary_label",
+        "seta_score_label",
+        "seta_label",
+        "signal_consensus_direction_label",
+        "latest_event_direction",
+        "sent_ribbon_regime_raw",
+    ]
+
+    source_score_col = _first_existing_col(out, [c for c in score_aliases if c != "seta_dashboard_summary_score"])
+    if "seta_dashboard_summary_score" in out.columns:
+        source_score_col = "seta_dashboard_summary_score"
+
+    if source_score_col:
+        out["seta_dashboard_summary_score"] = _clip_0_100(_numeric_series(out, source_score_col))
+        out["seta_dashboard_score_source"] = f"source_column:{source_score_col}"
+    else:
+        components: list[tuple[float, pd.Series]] = []
+
+        attention_cols = [c for c in [
+            "attention_level_score",
+            "attention_regime_score",
+            "attention_spike_score",
+            "attention_source_breadth_score",
+        ] if c in out.columns]
+        if attention_cols:
+            attention_component = pd.concat([_normalise_score_component(out, c) for c in attention_cols], axis=1).mean(axis=1)
+            components.append((0.20, attention_component))
+
+        if "sent_ribbon_regime_score" in out.columns:
+            components.append((0.30, _normalise_score_component(out, "sent_ribbon_regime_score")))
+
+        rsi_cols = [c for c in ["rsi_d", "sentiment_rsi_d", "rsi", "sentiment_rsi"] if c in out.columns]
+        if rsi_cols:
+            rsi_component = pd.concat([_normalise_score_component(out, c) for c in rsi_cols], axis=1).mean(axis=1)
+            components.append((0.20, rsi_component))
+
+        stoch_cols = [c for c in ["stochastic_rsi_d", "sentiment_stochastic_rsi_d", "stochastic_rsi"] if c in out.columns]
+        if stoch_cols:
+            stoch_component = pd.concat([_normalise_score_component(out, c) for c in stoch_cols], axis=1).mean(axis=1)
+            components.append((0.15, stoch_component))
+
+        macd_components = []
+        if "macd_histogram" in out.columns:
+            macd_components.append(_rolling_z_component(out, "macd_histogram"))
+        if "scaled_sentiment_macd" in out.columns and "scaled_sentiment_macd_signal" in out.columns:
+            tmp_col = "__seta_sent_macd_gap"
+            out[tmp_col] = _numeric_series(out, "scaled_sentiment_macd") - _numeric_series(out, "scaled_sentiment_macd_signal")
+            macd_components.append(_rolling_z_component(out, tmp_col))
+            out = out.drop(columns=[tmp_col])
+        if macd_components:
+            components.append((0.15, pd.concat(macd_components, axis=1).mean(axis=1)))
+
+        if components:
+            out["seta_dashboard_summary_score"] = _row_weighted_average(components, out.index)
+            out["seta_dashboard_score_source"] = "derived_fix26_v1"
+        else:
+            out["seta_dashboard_summary_score"] = pd.NA
+            out["seta_dashboard_score_source"] = pd.NA
+
+    label_col = _first_existing_col(out, [c for c in label_aliases if c != "seta_dashboard_summary_label"])
+    if "seta_dashboard_summary_label" in out.columns:
+        existing_label = out["seta_dashboard_summary_label"]
+    elif label_col:
+        existing_label = out[label_col]
+    else:
+        existing_label = pd.Series(pd.NA, index=out.index)
+
+    direction = _direction_signal(out)
+    derived_label = [
+        _label_from_score_and_direction(score, dirn)
+        for score, dirn in zip(out["seta_dashboard_summary_score"], direction)
+    ]
+    out["seta_dashboard_summary_label"] = existing_label.where(existing_label.notna() & (existing_label.astype(str).str.strip() != ""), derived_label)
+
+    return out
+# END SETA dashboard summary score v1
 
 def infer_calendar(term_df: pd.DataFrame) -> str:
     weekdays = set(term_df["date"].dt.dayofweek.dropna().astype(int).tolist())
