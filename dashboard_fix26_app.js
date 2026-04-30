@@ -3316,10 +3316,12 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 })();
 // END phaseG_market_tape_metric_deck_v8
 
-// BEGIN phase_seta_score_historical_hover_v1
-(function phase_seta_score_historical_hover_v1(){
-  if (window.__phase_seta_score_historical_hover_v1) return;
-  window.__phase_seta_score_historical_hover_v1 = true;
+// BEGIN phase_daily_seta_tooltip_layer_v1
+(function phase_daily_seta_tooltip_layer_v1(){
+  if (window.__phase_daily_seta_tooltip_layer_v1) return;
+  window.__phase_daily_seta_tooltip_layer_v1 = true;
+
+  const TRACE_NAME = 'Daily SETA Tooltip';
 
   function toNumber(value){
     if (value === null || value === undefined || value === '') return null;
@@ -3327,10 +3329,25 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
     return Number.isFinite(n) ? n : null;
   }
 
-  function formatScore(value){
+  function fmt(value, digits=2){
+    const n = toNumber(value);
+    if (n === null) return 'n/a';
+    return n.toFixed(digits);
+  }
+
+  function fmtScore(value){
     const n = toNumber(value);
     if (n === null) return null;
     return Math.abs(n - Math.round(n)) < 0.05 ? String(Math.round(n)) : n.toFixed(1);
+  }
+
+  function esc(value){
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
   }
 
   function normDate(value){
@@ -3341,10 +3358,7 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
     }
     const d = value instanceof Date ? value : new Date(value);
     if (!Number.isFinite(d.getTime())) return null;
-    const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${y}-${m}-${day}`;
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
   }
 
   function activeRows(){
@@ -3357,133 +3371,174 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
     return store[freq][asset];
   }
 
-  function scoreLineForRow(row){
-    if (!row) return '';
-    const score = formatScore(row.seta_dashboard_summary_score);
+  function rowYValues(row){
+    const high = toNumber(row.high);
+    const low = toNumber(row.low);
+    const close = toNumber(row.close);
+    const open = toNumber(row.open);
+    const mid = (high !== null && low !== null) ? (high + low) / 2 : (close ?? open ?? null);
+    const out = [];
+    if (high !== null) out.push(high);
+    if (mid !== null) out.push(mid);
+    if (low !== null) out.push(low);
+    if (!out.length && close !== null) out.push(close);
+    return out;
+  }
+
+  function scoreLine(row){
+    const score = fmtScore(row?.seta_dashboard_summary_score);
+    const label = String(row?.seta_dashboard_summary_label || '').trim();
     if (score === null) return '';
-    const label = String(row.seta_dashboard_summary_label || '').trim();
-    return label ? `SETA Score ${score} · ${label}` : `SETA Score ${score}`;
+    return label ? `SETA Score ${score} · ${esc(label)}` : `SETA Score ${score}`;
   }
 
-  function buildScoreMap(){
-    const map = new Map();
-    activeRows().forEach(row => {
-      const d = normDate(row.date);
-      const line = scoreLineForRow(row);
-      if (d && line) map.set(d, line);
-    });
-    return map;
+  function ribbonLine(row){
+    const transition = String(row?.sent_ribbon_transition_type || '').trim();
+    const regime = String(row?.sent_ribbon_regime_raw || '').trim();
+    if (transition) return `Ribbon ${esc(transition)}`;
+    if (regime) return `Ribbon ${esc(regime)}`;
+    return '';
   }
 
-  function isPrimaryPriceTrace(trace){
-    if (!trace || !Array.isArray(trace.x)) return false;
-    const yaxis = trace.yaxis || 'y';
-    const xaxis = trace.xaxis || 'x';
-    if (yaxis !== 'y' || xaxis !== 'x') return false;
+  function gapLabel(prefix, sent, price, leadThreshold=8, materialThreshold=20, extremeThreshold=35){
+    const s = toNumber(sent);
+    const p = toNumber(price);
+    if (s === null || p === null) return '';
+    const gap = s - p;
+    const abs = Math.abs(gap);
+    let state = 'Aligned';
+    if (gap >= leadThreshold) state = 'Sent Lead';
+    else if (gap <= -leadThreshold) state = 'Sent Deterioration';
+    let sev = '';
+    if (abs >= extremeThreshold) sev = ' · Extreme';
+    else if (abs >= materialThreshold) sev = ' · Material';
+    return `${prefix} ${state} ${gap >= 0 ? '+' : ''}${gap.toFixed(1)}${sev}`;
+  }
+
+  function dailyHoverText(row){
+    const lines = [];
+    lines.push(`Price · O/H/L/C: ${fmt(row.open)} / ${fmt(row.high)} / ${fmt(row.low)} / ${fmt(row.close)}`);
+
+    const score = scoreLine(row);
+    const attn = fmtScore(row.attention_level_score);
+    if (score && attn !== null) lines.push(`${score} · Attn ${attn}`);
+    else if (score) lines.push(score);
+    else if (attn !== null) lines.push(`Attn ${attn}`);
+
+    const ribbon = ribbonLine(row);
+    if (ribbon) lines.push(ribbon);
+
+    const rsi = gapLabel('RSI', row.sentiment_rsi_d ?? row.sentiment_rsi, row.rsi_d ?? row.rsi, 8, 18, 30);
+    if (rsi) lines.push(rsi);
+
+    const stoch = gapLabel('Stoch', row.sentiment_stochastic_rsi_d, row.stochastic_rsi_d ?? row.stochastic_rsi, 12, 25, 45);
+    if (stoch) lines.push(stoch);
+
+    return lines.filter(Boolean).join('<br>');
+  }
+
+  function isVisualBandTrace(trace){
+    if (!trace || trace.yaxis && trace.yaxis !== 'y') return false;
     const name = String(trace.name || '').toLowerCase();
-    if (name.includes('glow')) return false;
-    return true;
+    const isBandName = /(band|envelope|overlap|contextual)/i.test(name);
+    if (!isBandName) return false;
+    if (trace.fill === 'tonexty') return true;
+    if (trace.type === 'scatter' && String(trace.mode || '').includes('lines')) return true;
+    return false;
   }
 
-  function appendTextHover(trace, scoreLines){
-    if (!Array.isArray(trace.text)) return false;
-    trace.text = trace.text.map((txt, i) => {
-      const line = scoreLines[i] || '';
-      if (!line) return txt;
-      const base = String(txt || '');
-      if (base.includes(line)) return base;
-      if (/SETA Score\s+n\/a/i.test(base)) return base.replace(/SETA Score\s+n\/a/i, line);
-      if (/SETA Score\s+\d/i.test(base)) return base;
-      return base ? `${base}<br>${line}` : line;
-    });
-    return true;
-  }
-
-  function ensureCustomdataScoreLine(trace, scoreLines){
-    const existing = Array.isArray(trace.customdata) ? trace.customdata : null;
-    let idx = 0;
-    if (existing && existing.length){
-      const firstArray = existing.find(v => Array.isArray(v));
-      if (Array.isArray(firstArray)){
-        idx = firstArray.length;
-        trace.customdata = scoreLines.map((line, i) => {
-          const base = Array.isArray(existing[i]) ? existing[i].slice() : [];
-          while (base.length < idx) base.push('');
-          base.push(line || '');
-          return base;
-        });
-      } else {
-        idx = 1;
-        trace.customdata = scoreLines.map((line, i) => [existing[i] ?? '', line || '']);
-      }
-    } else {
-      idx = 0;
-      trace.customdata = scoreLines.map(line => [line || '']);
-    }
-    return idx;
-  }
-
-  function insertScoreIntoTemplate(trace, customdataIdx){
-    const ref = `%{customdata[${customdataIdx}]}`;
-    let ht = typeof trace.hovertemplate === 'string' ? trace.hovertemplate : '';
-
-    if (ht && ht.includes(ref)) return;
-
-    if (ht){
-      if (/SETA Score\s+n\/a/i.test(ht)){
-        trace.hovertemplate = ht.replace(/SETA Score\s+n\/a/i, ref);
-        return;
-      }
-      if (/SETA Score\s+%\{customdata\[/i.test(ht)) return;
-      if (/(<br>)(?=(?:Attn|Attention)\b)/i.test(ht)){
-        trace.hovertemplate = ht.replace(/(<br>)(?=(?:Attn|Attention)\b)/i, `<br>${ref}<br>`);
-        return;
-      }
-      if (ht.includes('<extra')){
-        trace.hovertemplate = ht.replace(/<extra/i, `<br>${ref}<extra`);
-        return;
-      }
-      trace.hovertemplate = `${ht}<br>${ref}`;
-      return;
-    }
-
-    if (trace.type === 'candlestick'){
-      trace.hovertemplate = `%{x|%b %d, %Y}<br><b>Price</b><br>open: %{open}<br>high: %{high}<br>low: %{low}<br>close: %{close}<br>${ref}<extra></extra>`;
-    }
-  }
-
-  function applyHistoricalSetaScoreHover(data){
-    const scoreMap = buildScoreMap();
-    if (!scoreMap.size || !Array.isArray(data)) return data;
-
+  function silenceVisualBandHovers(data){
+    if (!Array.isArray(data)) return;
     data.forEach(trace => {
-      if (!isPrimaryPriceTrace(trace)) return;
-      if (trace.__setaScoreHoverApplied) return;
-      const scoreLines = trace.x.map(x => scoreMap.get(normDate(x)) || '');
-      if (!scoreLines.some(Boolean)) return;
-
-      appendTextHover(trace, scoreLines);
-      const customdataIdx = ensureCustomdataScoreLine(trace, scoreLines);
-      insertScoreIntoTemplate(trace, customdataIdx);
-
-      try {
-        Object.defineProperty(trace, '__setaScoreHoverApplied', {value:true, enumerable:false});
-      } catch (_err) {
-        trace.__setaScoreHoverApplied = true;
-      }
+      if (!isVisualBandTrace(trace)) return;
+      trace.hoverinfo = 'skip';
+      trace.hovertemplate = null;
+      if (trace.fill === 'tonexty') trace.hoveron = 'points';
     });
-    return data;
+  }
+
+  function dailyHoverTrace(){
+    const rows = activeRows();
+    if (!rows.length) return null;
+
+    const x = [];
+    const y = [];
+    const text = [];
+    rows.forEach(row => {
+      const d = row?.date;
+      const hover = dailyHoverText(row);
+      if (!d || !hover) return;
+      rowYValues(row).forEach(yVal => {
+        x.push(d);
+        y.push(yVal);
+        text.push(hover);
+      });
+    });
+
+    if (!x.length) return null;
+    return {
+      type:'scatter',
+      mode:'markers',
+      x,
+      y,
+      text,
+      name:TRACE_NAME,
+      xaxis:'x',
+      yaxis:'y',
+      showlegend:false,
+      hoverinfo:'text',
+      hovertemplate:'<b>%{x|%b %d, %Y}</b><br>%{text}<extra></extra>',
+      marker:{
+        size:24,
+        color:'rgba(255,255,255,0.01)',
+        line:{width:0,color:'rgba(255,255,255,0)'}
+      },
+      opacity:0.01,
+      cliponaxis:false,
+      __dailySetaTooltipLayer:true
+    };
+  }
+
+  function priceTraceIndex(data){
+    if (!Array.isArray(data)) return -1;
+    let idx = data.findIndex(t => t && t.type === 'candlestick' && (t.yaxis || 'y') === 'y');
+    if (idx >= 0) return idx;
+    idx = data.findIndex(t => t && String(t.name || '').toLowerCase() === 'price' && (t.yaxis || 'y') === 'y');
+    if (idx >= 0) return idx;
+    return data.findIndex(t => t && (t.yaxis || 'y') === 'y');
+  }
+
+  function installDailyHoverLayer(data, layout){
+    if (!Array.isArray(data)) return;
+    for (let i=data.length-1; i>=0; i--){
+      if (data[i]?.__dailySetaTooltipLayer || data[i]?.name === TRACE_NAME) data.splice(i,1);
+    }
+
+    silenceVisualBandHovers(data);
+
+    const trace = dailyHoverTrace();
+    if (!trace) return;
+    const idx = priceTraceIndex(data);
+    if (idx >= 0) data.splice(idx + 1, 0, trace);
+    else data.push(trace);
+
+    if (layout && typeof layout === 'object'){
+      layout.hovermode = 'closest';
+      layout.hoverdistance = Math.max(40, Number(layout.hoverdistance || 0));
+      layout.spikedistance = -1;
+    }
   }
 
   function wrapPlotlyMethod(methodName){
     if (!window.Plotly || typeof window.Plotly[methodName] !== 'function') return false;
     const original = window.Plotly[methodName];
-    if (original.__setaScoreHoverWrapped) return true;
+    if (original.__dailySetaTooltipWrapped) return true;
     const wrapped = function(gd, data, layout, config){
-      try { applyHistoricalSetaScoreHover(data); } catch (err) { console.warn('SETA score hover patch skipped:', err); }
+      try { installDailyHoverLayer(data, layout); }
+      catch (err) { console.warn('Daily SETA tooltip layer skipped:', err); }
       return original.apply(this, arguments);
     };
-    wrapped.__setaScoreHoverWrapped = true;
+    wrapped.__dailySetaTooltipWrapped = true;
     window.Plotly[methodName] = wrapped;
     return true;
   }
@@ -3496,4 +3551,4 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
   install();
 })();
-// END phase_seta_score_historical_hover_v1
+// END phase_daily_seta_tooltip_layer_v1
