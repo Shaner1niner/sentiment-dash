@@ -3316,3 +3316,184 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 })();
 // END phaseG_market_tape_metric_deck_v8
 
+// BEGIN phase_seta_score_historical_hover_v1
+(function phase_seta_score_historical_hover_v1(){
+  if (window.__phase_seta_score_historical_hover_v1) return;
+  window.__phase_seta_score_historical_hover_v1 = true;
+
+  function toNumber(value){
+    if (value === null || value === undefined || value === '') return null;
+    const n = Number(value);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function formatScore(value){
+    const n = toNumber(value);
+    if (n === null) return null;
+    return Math.abs(n - Math.round(n)) < 0.05 ? String(Math.round(n)) : n.toFixed(1);
+  }
+
+  function normDate(value){
+    if (value === null || value === undefined) return null;
+    if (typeof value === 'string'){
+      const m = value.match(/\d{4}-\d{2}-\d{2}/);
+      if (m) return m[0];
+    }
+    const d = value instanceof Date ? value : new Date(value);
+    if (!Number.isFinite(d.getTime())) return null;
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  }
+
+  function activeRows(){
+    let store = null;
+    try { store = STORE; } catch (_err) { store = window.STORE || null; }
+    if (!store) return [];
+    const asset = document.getElementById('asset')?.value;
+    const freq = document.getElementById('freq')?.value || 'D';
+    if (!asset || !store[freq] || !Array.isArray(store[freq][asset])) return [];
+    return store[freq][asset];
+  }
+
+  function scoreLineForRow(row){
+    if (!row) return '';
+    const score = formatScore(row.seta_dashboard_summary_score);
+    if (score === null) return '';
+    const label = String(row.seta_dashboard_summary_label || '').trim();
+    return label ? `SETA Score ${score} · ${label}` : `SETA Score ${score}`;
+  }
+
+  function buildScoreMap(){
+    const map = new Map();
+    activeRows().forEach(row => {
+      const d = normDate(row.date);
+      const line = scoreLineForRow(row);
+      if (d && line) map.set(d, line);
+    });
+    return map;
+  }
+
+  function isPrimaryPriceTrace(trace){
+    if (!trace || !Array.isArray(trace.x)) return false;
+    const yaxis = trace.yaxis || 'y';
+    const xaxis = trace.xaxis || 'x';
+    if (yaxis !== 'y' || xaxis !== 'x') return false;
+    const name = String(trace.name || '').toLowerCase();
+    if (name.includes('glow')) return false;
+    return true;
+  }
+
+  function appendTextHover(trace, scoreLines){
+    if (!Array.isArray(trace.text)) return false;
+    trace.text = trace.text.map((txt, i) => {
+      const line = scoreLines[i] || '';
+      if (!line) return txt;
+      const base = String(txt || '');
+      if (base.includes(line)) return base;
+      if (/SETA Score\s+n\/a/i.test(base)) return base.replace(/SETA Score\s+n\/a/i, line);
+      if (/SETA Score\s+\d/i.test(base)) return base;
+      return base ? `${base}<br>${line}` : line;
+    });
+    return true;
+  }
+
+  function ensureCustomdataScoreLine(trace, scoreLines){
+    const existing = Array.isArray(trace.customdata) ? trace.customdata : null;
+    let idx = 0;
+    if (existing && existing.length){
+      const firstArray = existing.find(v => Array.isArray(v));
+      if (Array.isArray(firstArray)){
+        idx = firstArray.length;
+        trace.customdata = scoreLines.map((line, i) => {
+          const base = Array.isArray(existing[i]) ? existing[i].slice() : [];
+          while (base.length < idx) base.push('');
+          base.push(line || '');
+          return base;
+        });
+      } else {
+        idx = 1;
+        trace.customdata = scoreLines.map((line, i) => [existing[i] ?? '', line || '']);
+      }
+    } else {
+      idx = 0;
+      trace.customdata = scoreLines.map(line => [line || '']);
+    }
+    return idx;
+  }
+
+  function insertScoreIntoTemplate(trace, customdataIdx){
+    const ref = `%{customdata[${customdataIdx}]}`;
+    let ht = typeof trace.hovertemplate === 'string' ? trace.hovertemplate : '';
+
+    if (ht && ht.includes(ref)) return;
+
+    if (ht){
+      if (/SETA Score\s+n\/a/i.test(ht)){
+        trace.hovertemplate = ht.replace(/SETA Score\s+n\/a/i, ref);
+        return;
+      }
+      if (/SETA Score\s+%\{customdata\[/i.test(ht)) return;
+      if (/(<br>)(?=(?:Attn|Attention)\b)/i.test(ht)){
+        trace.hovertemplate = ht.replace(/(<br>)(?=(?:Attn|Attention)\b)/i, `<br>${ref}<br>`);
+        return;
+      }
+      if (ht.includes('<extra')){
+        trace.hovertemplate = ht.replace(/<extra/i, `<br>${ref}<extra`);
+        return;
+      }
+      trace.hovertemplate = `${ht}<br>${ref}`;
+      return;
+    }
+
+    if (trace.type === 'candlestick'){
+      trace.hovertemplate = `%{x|%b %d, %Y}<br><b>Price</b><br>open: %{open}<br>high: %{high}<br>low: %{low}<br>close: %{close}<br>${ref}<extra></extra>`;
+    }
+  }
+
+  function applyHistoricalSetaScoreHover(data){
+    const scoreMap = buildScoreMap();
+    if (!scoreMap.size || !Array.isArray(data)) return data;
+
+    data.forEach(trace => {
+      if (!isPrimaryPriceTrace(trace)) return;
+      if (trace.__setaScoreHoverApplied) return;
+      const scoreLines = trace.x.map(x => scoreMap.get(normDate(x)) || '');
+      if (!scoreLines.some(Boolean)) return;
+
+      appendTextHover(trace, scoreLines);
+      const customdataIdx = ensureCustomdataScoreLine(trace, scoreLines);
+      insertScoreIntoTemplate(trace, customdataIdx);
+
+      try {
+        Object.defineProperty(trace, '__setaScoreHoverApplied', {value:true, enumerable:false});
+      } catch (_err) {
+        trace.__setaScoreHoverApplied = true;
+      }
+    });
+    return data;
+  }
+
+  function wrapPlotlyMethod(methodName){
+    if (!window.Plotly || typeof window.Plotly[methodName] !== 'function') return false;
+    const original = window.Plotly[methodName];
+    if (original.__setaScoreHoverWrapped) return true;
+    const wrapped = function(gd, data, layout, config){
+      try { applyHistoricalSetaScoreHover(data); } catch (err) { console.warn('SETA score hover patch skipped:', err); }
+      return original.apply(this, arguments);
+    };
+    wrapped.__setaScoreHoverWrapped = true;
+    window.Plotly[methodName] = wrapped;
+    return true;
+  }
+
+  function install(){
+    const ok1 = wrapPlotlyMethod('newPlot');
+    const ok2 = wrapPlotlyMethod('react');
+    if (!ok1 && !ok2) setTimeout(install, 50);
+  }
+
+  install();
+})();
+// END phase_seta_score_historical_hover_v1
