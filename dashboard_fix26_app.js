@@ -3804,3 +3804,253 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
   start();
 })();
 // END phase_market_tape_explanation_v2
+
+// BEGIN phase_seta_glossary_help_v1
+(function phase_seta_glossary_help_v1(){
+  if (window.__phase_seta_glossary_help_v1) return;
+  window.__phase_seta_glossary_help_v1 = true;
+
+  const definitions = [
+    {term:"SETA Score", aliases:["Summary Score"], definition:"Composite SETA read for the selected asset/date. It blends sentiment structure, attention, ribbon, and timing context into a 0-100 dashboard score."},
+    {term:"Sentiment Repair", aliases:["Sent Repair"], definition:"Sentiment momentum is improving before price momentum has fully confirmed."},
+    {term:"Sentiment Deterioration", aliases:["Sent Deterioration"], definition:"Sentiment momentum is weakening before price momentum has fully confirmed."},
+    {term:"High-Quality Watch", aliases:["High Quality Watch"], definition:"A strong candidate setup is forming, but one or more confirmation gates are still incomplete."},
+    {term:"Fresh Confirmed Event", aliases:["Fresh Confirmed"], definition:"A newly confirmed setup where the overlap, volume/context, and direction gates recently aligned."},
+    {term:"Ribbon Expansion", aliases:["Bullish Expansion","Bearish Expansion"], definition:"The sentiment ribbon is widening or strengthening, suggesting clearer participation structure."},
+    {term:"Compression / Transition", aliases:["Compression","Transition"], definition:"The sentiment ribbon is compressed or changing state, so direction may be less settled."},
+    {term:"Attention Quiet", aliases:["Quiet Attention"], definition:"Engagement context is muted. The setup may need more validation from participation."},
+    {term:"Attention Normal", aliases:["Normal Attention"], definition:"Engagement context is in a normal range."},
+    {term:"Attention Elevated", aliases:["Elevated Attention"], definition:"Engagement context is stronger than usual and may help validate the setup."},
+    {term:"Overlap State", aliases:["Overlap"], definition:"Where price sits relative to the combined price/sentiment expectation envelope."},
+    {term:"Inside Expected Range", aliases:["Inside Range"], definition:"Price remains inside the current shared expectation corridor."},
+    {term:"Bullish Pressure", aliases:[], definition:"Price/sentiment context is pressing toward bullish confirmation."},
+    {term:"Bearish Pressure", aliases:[], definition:"Price/sentiment context is pressing toward bearish confirmation."},
+    {term:"Context Stability", aliases:["Stability"], definition:"How stable the current overlap/ribbon context appears."},
+    {term:"Model Contextual Overlap", aliases:["Contextual Overlap"], definition:"Uses the contextual overlap model as the primary envelope."},
+    {term:"RSI Sent Lead", aliases:["RSI Aligned","RSI gap"], definition:"Compares sentiment RSI against price RSI to flag lead/lag behavior."},
+    {term:"Stoch Sent Repair", aliases:["Stoch Sent Deterioration","Stoch gap"], definition:"Compares sentiment stochastic RSI against price stochastic timing to flag early repair or deterioration."},
+    {term:"Alert Events", aliases:["SETA Event Timeline"], definition:"Visible-window confirmed/watch events. Use them as context, not standalone trade calls."},
+    {term:"Watch", aliases:["Watch candidate"], definition:"A candidate setup is visible, but one or more confirmation gates are still incomplete."},
+    {term:"Confirmed", aliases:["Confirmed event"], definition:"Required gates aligned for the setup context shown."},
+    {term:"High Conflict", aliases:["Conflict"], definition:"Signals disagree across families, so confidence is lower."},
+    {term:"Quiet / Monitor", aliases:["Quiet"], definition:"No strong actionable setup is visible; continue monitoring context."}
+  ];
+
+  window.SETA_GLOSSARY_HELP = definitions;
+
+  const css = `
+    .setaHelpTerm{
+      cursor:help!important;
+      text-decoration:underline dotted rgba(126,231,135,.42);
+      text-underline-offset:3px;
+    }
+    .setaGlossaryBtn{
+      display:inline-flex;
+      align-items:center;
+      gap:4px;
+      margin-left:8px;
+      padding:2px 8px;
+      border:1px solid rgba(126,231,135,.42);
+      border-radius:999px;
+      background:rgba(126,231,135,.06);
+      color:#c9fbd1;
+      font-size:11px;
+      font-weight:700;
+      line-height:1.35;
+      cursor:pointer;
+      vertical-align:middle;
+    }
+    .setaGlossaryBtn:hover{background:rgba(126,231,135,.12);}
+    .setaGlossaryPanel{
+      display:none;
+      margin:8px 0 10px;
+      padding:10px 12px;
+      border:1px solid rgba(126,231,135,.22);
+      border-radius:12px;
+      background:rgba(7,10,13,.92);
+      box-shadow:0 10px 28px rgba(0,0,0,.28);
+      color:#dfeaf0;
+      font-size:12px;
+      line-height:1.35;
+    }
+    .setaGlossaryPanel.open{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:8px 14px;
+    }
+    .setaGlossaryItem b{color:#c9fbd1;}
+    .setaGlossaryItem span{color:#aebcc4;}
+  `;
+
+  function injectStyle(){
+    if (document.getElementById("phase_seta_glossary_help_v1_style")) return;
+    const style = document.createElement("style");
+    style.id = "phase_seta_glossary_help_v1_style";
+    style.textContent = css;
+    document.head.appendChild(style);
+  }
+
+  function norm(s){ return String(s || "").toLowerCase().replace(/\s+/g, " ").trim(); }
+
+  const sortedDefs = definitions.slice().sort((a,b) => b.term.length - a.term.length);
+
+  function matchesForText(text){
+    const t = norm(text);
+    if (!t || t.length > 420) return [];
+    const hits = [];
+    for (const item of sortedDefs){
+      const tokens = [item.term].concat(item.aliases || []);
+      if (tokens.some(tok => t.includes(norm(tok)))){
+        hits.push(item);
+      }
+      if (hits.length >= 3) break;
+    }
+    return hits;
+  }
+
+  function applyHelpToElement(el){
+    if (!el || el.nodeType !== 1) return;
+    if (el.closest && el.closest(".plotly, .modebar, .setaGlossaryPanel")) return;
+    const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+    const hits = matchesForText(text);
+    if (!hits.length) return;
+    const tip = hits.map(h => `${h.term}: ${h.definition}`).join("\n");
+    if (el.getAttribute("title") !== tip) el.setAttribute("title", tip);
+    el.setAttribute("aria-label", tip);
+    el.classList.add("setaHelpTerm");
+    el.dataset.setaHelp = "1";
+  }
+
+  function applyHelpTerms(){
+    injectStyle();
+    const selector = [
+      ".badge",
+      ".modeBadge",
+      ".marketTapeCard",
+      ".marketTapeFamily",
+      ".marketTapeDetailTitle",
+      ".marketTapeDetailText",
+      ".marketTapeMatched",
+      ".marketTapeMissing",
+      ".marketTapeRisk",
+      ".alertEventPill",
+      ".alertPanePill",
+      ".alertEventBadge",
+      ".alertEventSummary",
+      ".alertEventMeta",
+      "[class*='Pill']",
+      "[class*='Badge']",
+      "[class*='Tag']"
+    ].join(",");
+    document.querySelectorAll(selector).forEach(applyHelpToElement);
+  }
+
+  function glossaryItems(){
+    const priority = [
+      "SETA Score",
+      "Sentiment Repair",
+      "High-Quality Watch",
+      "Fresh Confirmed Event",
+      "Ribbon Expansion",
+      "Compression / Transition",
+      "Attention Quiet",
+      "Overlap State",
+      "High Conflict"
+    ];
+    return priority.map(term => definitions.find(d => d.term === term)).filter(Boolean);
+  }
+
+  function findMarketTapeContainer(){
+    return document.querySelector(".marketTape, .screenerPanel") ||
+      Array.from(document.querySelectorAll("div")).find(el => {
+        const txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+        return txt.includes("SETA Market Tape") && txt.length < 900;
+      });
+  }
+
+  function findMarketTapeTitle(root){
+    if (!root) return null;
+    return Array.from(root.querySelectorAll("h2,h3,h4,div,span")).find(el => {
+      const txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+      return txt.startsWith("SETA Market Tape") && txt.length < 120;
+    });
+  }
+
+  function installGlossaryGuide(){
+    injectStyle();
+    const root = findMarketTapeContainer();
+    if (!root || root.dataset.setaGlossaryGuideInstalled === "1") return;
+
+    const panel = document.createElement("div");
+    panel.className = "setaGlossaryPanel";
+    panel.setAttribute("role", "region");
+    panel.setAttribute("aria-label", "SETA glossary guide");
+    panel.innerHTML = glossaryItems().map(item =>
+      `<div class="setaGlossaryItem"><b>${escapeHtml(item.term)}</b><br><span>${escapeHtml(item.definition)}</span></div>`
+    ).join("");
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "setaGlossaryBtn";
+    btn.textContent = "Guide ?";
+    btn.title = "Open a compact glossary for SETA dashboard terms.";
+    btn.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      ev.stopPropagation();
+      panel.classList.toggle("open");
+    });
+
+    const title = findMarketTapeTitle(root);
+    if (title){
+      title.appendChild(btn);
+      if (title.parentNode) title.parentNode.insertBefore(panel, title.nextSibling);
+      else root.insertBefore(panel, root.firstChild);
+    } else {
+      root.insertBefore(panel, root.firstChild);
+      root.insertBefore(btn, panel);
+    }
+
+    root.dataset.setaGlossaryGuideInstalled = "1";
+  }
+
+  function escapeHtml(value){
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  function run(){
+    applyHelpTerms();
+    installGlossaryGuide();
+  }
+
+  let pending = false;
+  function scheduleRun(){
+    if (pending) return;
+    pending = true;
+    window.setTimeout(() => {
+      pending = false;
+      run();
+    }, 80);
+  }
+
+  if (document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", run);
+  } else {
+    run();
+  }
+
+  const observer = new MutationObserver(scheduleRun);
+  function startObserver(){
+    if (!document.body) return window.setTimeout(startObserver, 50);
+    observer.observe(document.body, {childList:true, subtree:true});
+    run();
+    window.setTimeout(run, 250);
+    window.setTimeout(run, 1000);
+  }
+  startObserver();
+})();
+// END phase_seta_glossary_help_v1
