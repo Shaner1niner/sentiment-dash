@@ -1668,22 +1668,87 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
   const savedCollapsed = window.localStorage ? window.localStorage.getItem(collapsedKey) : null;
   const shouldCollapse = savedCollapsed === null ? true : savedCollapsed === 'true';
   const cards=latest.map(e=>{
-    const q=e.quality===null ? 'n/a' : Math.round(e.quality).toString();
     const row=e.row || {};
     const meta=e.meta || {};
     const tierCls=e.tier==='Confirmed'?'miniConfirmed':'miniWatch';
     const direction=alertDirectionLabel(e.type);
     const directionCls=alertDirectionClass(e.type);
     const directionCardCls=e.type==='bullish' ? 'bullish' : (e.type==='bearish' ? 'bearish' : 'mixed');
-    const attention=row.attention_regime_label || row.seta_attention_context_label || row.attention_regime_score;
-    const ribbon=row.sent_ribbon_attention_regime || row.sent_ribbon_regime_raw;
+
     const close=num(row.close);
-    const sourceTier=row.boll_overlap_alert_tier || e.tier;
+    const closeText=close!==null
+      ? `Close ${close.toLocaleString(undefined, {maximumFractionDigits:2})}`
+      : '';
+
+    const scoreThen=[
+      num(row.seta_dashboard_summary_score),
+      num(row.seta_summary_score),
+      num(row.summary_score_0_100),
+      num(row.summary_score),
+      num(row.dashboard_score),
+      num(row.screener_summary_score),
+      num(row.screener_attention_priority_score)
+    ].find(v=>v!==null);
+
+    const scoreText=Number.isFinite(scoreThen)
+      ? `SETA Then ${Math.round(scoreThen)}`
+      : '';
+
+    const attentionVal=
+      num(row.attention_regime_score) ??
+      num(row.attention_level_score) ??
+      num(row.attention_spike_score);
+
+    const attentionText=attentionVal!==null
+      ? `Attention ${attentionVal.toFixed(1)}`
+      : '';
+
+    const ribbon=
+      row.sent_ribbon_label ||
+      row.sent_ribbon_attention_regime ||
+      row.sent_ribbon_regime_raw ||
+      '';
+
+    const contextLine=[scoreText, closeText, attentionText].filter(Boolean).join(' &middot; ');
+
+    let why=alertSummaryForRow(row, meta, e.tier);
+    why=String(why || '')
+      .replace(/^Confirmation:\s*/i, '')
+      .replace(/^Watch candidate:\s*/i, '')
+      .replace(/Source alert confirmation from enriched overlap-alert fields/i, 'Confirmed overlap alert from enriched context fields')
+      .replace(/Upstream legacy signal confirmation from multi-window Bollinger counts/i, 'Multi-window Bollinger confirmation')
+      .replace(/;\s*/g, ' + ')
+      .trim();
+
+    if(!why) why='Model context event detected.';
+
+    let read='';
+    if(e.tier==='Confirmed' && e.type==='bullish'){
+      read='Bullish pressure was confirmed, with ribbon context providing the broader structure.';
+    }else if(e.tier==='Confirmed' && e.type==='bearish'){
+      read='Bearish pressure was confirmed, with ribbon context providing the broader structure.';
+    }else if(e.tier==='Watch' && e.type==='bullish'){
+      read='Bullish setup was visible, but confirmation was not complete.';
+    }else if(e.tier==='Watch' && e.type==='bearish'){
+      read='Bearish setup was visible, but confirmation was not complete.';
+    }else{
+      read='Context event detected; use the chart panes for structure and timing context.';
+    }
+
+    if(ribbon && /bear/i.test(ribbon) && e.type==='bullish'){
+      read += ' Ribbon context remained bearish, so the event was mixed.';
+    }else if(ribbon && /bull/i.test(ribbon) && e.type==='bearish'){
+      read += ' Ribbon context remained bullish, so the event was mixed.';
+    }else if(ribbon && /mixed|flat|transition/i.test(ribbon)){
+      read += ' Ribbon context remained transitional.';
+    }
+
     return `<div class="alertEventCard ${e.tier.toLowerCase()} ${directionCardCls}">
       <div class="alertEventTop"><div class="alertEventTitle"><span class="miniBadge ${tierCls}">${escapeHTML(e.tier)}</span><span class="miniBadge ${directionCls}">${escapeHTML(direction)}</span></div><div class="alertEventDate">${escapeHTML(e.date || '')}</div></div>
-      <div class="alertEventMeta">Quality ${escapeHTML(q)} · ${escapeHTML(sourceTier)}${close!==null ? ` · Close ${escapeHTML(close.toFixed(2))}` : ''}</div>
-      <div class="alertEventSummary">${escapeHTML(alertSummaryForRow(row, meta, e.tier))}</div>
-      <div class="alertEventMeta">${attention ? `Attention: ${escapeHTML(attention)} · ` : ''}${ribbon ? `Ribbon: ${escapeHTML(ribbon)}` : ''}</div>
+      ${contextLine ? `<div class="alertEventMeta">${contextLine}</div>` : ''}
+      ${ribbon ? `<div class="alertEventMeta">Ribbon: ${escapeHTML(ribbon)}</div>` : ''}
+      <div class="alertEventSummary"><b>Why it fired:</b> ${escapeHTML(why)}</div>
+      <div class="alertEventMeta"><b>Read:</b> ${escapeHTML(read)}</div>
     </div>`;
   }).join('');
   panel.innerHTML = `<div class="alertPanelHeader" id="alertPanelHeader" title="Click to expand/collapse alert events">
