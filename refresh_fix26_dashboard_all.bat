@@ -51,8 +51,8 @@ set "ALERT_EVENTS_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_alert_events_365d.csv"
 set "ALERT_AUDIT_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_alert_audit_365d.csv"
 
 REM Optional behavior switches
-set "AUTO_COMMIT=1"
-set "AUTO_PUSH=1"
+set "AUTO_COMMIT=0"
+set "AUTO_PUSH=0"
 set "COMMIT_MESSAGE=Fix 26 dashboard payload and SETA screener refresh"
 
 if "%TWT_SNT_DB_URL%"=="" (
@@ -370,11 +370,11 @@ echo   cd %WEBSITE_REPO%
 echo   git commit -m "%COMMIT_MESSAGE%"
 echo   git push origin main
 echo.
-pause
+if not "%NO_PAUSE%"=="1" pause
 exit /b 0
 
 :fail
 echo.
 echo Script stopped due to an error.
-pause
+if not "%NO_PAUSE%"=="1" pause
 exit /b 1
