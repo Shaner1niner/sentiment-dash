@@ -1662,7 +1662,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
   const events=collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolicy);
   const confirmedCount=events.filter(e=>e.tier==='Confirmed').length;
   const watchCount=events.filter(e=>e.tier==='Watch').length;
-  const latest=events.slice(0,12);
+  const latest=events.slice(0,5);
   const latestDate = latest.length ? (latest[0].date || '') : 'none';
   const collapsedKey = 'setaAlertEventsPanelCollapsed';
   const savedCollapsed = window.localStorage ? window.localStorage.getItem(collapsedKey) : null;
@@ -1747,7 +1747,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
       <div class="alertEventTop"><div class="alertEventTitle"><span class="miniBadge ${tierCls}">${escapeHTML(e.tier)}</span><span class="miniBadge ${directionCls}">${escapeHTML(direction)}</span></div><div class="alertEventDate">${escapeHTML(e.date || '')}</div></div>
       ${contextLine ? `<div class="alertEventMeta">${contextLine}</div>` : ''}
       ${ribbon ? `<div class="alertEventMeta">Ribbon: ${escapeHTML(ribbon)}</div>` : ''}
-      <div class="alertEventSummary"><b>Why it fired:</b> ${escapeHTML(why)}</div>
+      <div class="alertEventSummary"><b>Trigger:</b> ${escapeHTML(why)}</div>
       <div class="alertEventMeta"><b>Read:</b> ${escapeHTML(read)}</div>
     </div>`;
   }).join('');
