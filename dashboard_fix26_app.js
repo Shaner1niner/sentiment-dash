@@ -1208,7 +1208,8 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
     ];
   });
 
-  const hover = `%{x|%b %d, %Y}<br><b>${namePrefix}</b> · %{customdata[0]}<br>%{customdata[4]} · %{customdata[5]} · %{customdata[6]} · %{customdata[2]} confidence<br>%{customdata[3]}<br>Rim %{y:.2f}<br><br><b>SETA</b> Score %{customdata[7]} · Attn %{customdata[8]}<br>Ribbon %{customdata[9]}<br>RSI %{customdata[10]} · Stoch %{customdata[11]}<extra></extra>`;
+  // Compact envelope hover: keep contextual signal + SETA state, but avoid long narrative text.
+  const hover = `%{x|%b %d, %Y}<br><b>${namePrefix}</b> · %{customdata[0]}<br>%{customdata[4]} · %{customdata[5]} · %{customdata[2]} confidence<br><b>SETA</b> Score %{customdata[7]} · Attn %{customdata[8]}<br>Ribbon %{customdata[9]} · RSI %{customdata[10]}<br>Stoch %{customdata[11]}<extra></extra>`;
 
   data.push({
     type:'scatter', mode:'lines', x:x, y:lower, customdata:custom, name:namePrefix+' Lower',
@@ -1220,7 +1221,7 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
     type:'scatter', mode:'lines', x:x, y:upper, customdata:custom, name:namePrefix+' Upper',
     xaxis:axis==='y'?'x':axis==='y2'?'x2':axis==='y3'?'x3':'x4', yaxis:axis,
     line:{color:lineColor,width:1.0,dash:'solid',shape:'linear'}, connectgaps:true, showlegend:true,
-    hovertemplate:hover, fill:'tonexty', fillcolor:fillColor, opacity:0.95
+    hovertemplate:hover, hoveron:'fills', fill:'tonexty', fillcolor:fillColor, opacity:0.95
   });
 }
 function formatPct(v){
@@ -1312,7 +1313,22 @@ function priceHoverTemplate(kind='candles'){
   const priceBlock = kind==='candles'
     ? 'O=%{open:.2f} H=%{high:.2f} L=%{low:.2f} C=%{close:.2f}'
     : 'Close=%{y:.2f}';
-  return `%{x|%b %d, %Y}<br><b>Price</b> · ${priceBlock}<br><b>SETA</b> Score %{customdata[0]} · Attn %{customdata[1]}<br>Ribbon %{customdata[2]}<br>Overlap %{customdata[3]}<br>RSI %{customdata[4]} · Stoch %{customdata[5]}<extra></extra>`;
+  return `%{x|%b %d, %Y}<br><b>Price</b> · ${priceBlock}<br><b>SETA</b> Score %{customdata[0]} · Attn %{customdata[1]}<br>Ribbon %{customdata[2]} · Overlap %{customdata[3]}<br>RSI %{customdata[4]}<br>Stoch %{customdata[5]}<extra></extra>`;
+}
+function hoverDateLabel(row){
+  const d = row?.dateObj instanceof Date ? row.dateObj : new Date(String(row?.date || '') + 'T00:00:00');
+  if(Number.isNaN(d.getTime())) return String(row?.date || '');
+  return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+}
+function priceHoverText(rows, regimeInfo, overlap, kind='candles'){
+  const ctx = priceHoverContextCustomData(rows, regimeInfo, overlap);
+  return rows.map((row,i)=>{
+    const c = ctx[i] || ['n/a','n/a','n/a','n/a','n/a','n/a'];
+    const priceBlock = kind==='candles'
+      ? `O/H/L/C ${formatNum(num(row.open),2)} / ${formatNum(num(row.high),2)} / ${formatNum(num(row.low),2)} / ${formatNum(num(row.close),2)}`
+      : `Close ${formatNum(num(row.close),2)}`;
+    return `${hoverDateLabel(row)}<br><b>Price</b> · ${priceBlock}<br><b>SETA</b> Score ${c[0]} · Attn ${c[1]}<br>Ribbon ${c[2]} · Overlap ${c[3]}<br>RSI ${c[4]}<br>Stoch ${c[5]}`;
+  });
 }
 
 function overlapWidthAt(overlap, idx){
@@ -2287,7 +2303,15 @@ function buildFigure(){
   const priceHoverCustomData=priceHoverContextCustomData(rows, regimeInfo, ov);
   if(data[0]){
     data[0].customdata=priceHoverCustomData;
-    data[0].hovertemplate=priceHoverTemplate(priceDisplay==='candles' ? 'candles' : 'line');
+    if(priceDisplay==='candles'){
+      // Candlestick traces can fall back to their native OHLC hover in some Plotly builds.
+      // hovertext + hoverinfo keeps candle/wick hover consistent with the compact SETA context block.
+      data[0].hovertext=priceHoverText(rows, regimeInfo, ov, 'candles');
+      data[0].hoverinfo='text';
+      data[0].hovertemplate=null;
+    } else {
+      data[0].hovertemplate=priceHoverTemplate('line');
+    }
   }
   const overlapInfo=computeOverlapSignalInfo(rows, ov, visibleMask);
   const engagementInfo=computeEngagementInfo(rows, visibleMask);
@@ -2299,7 +2323,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
   const overlapMarkerTraces=overlapTableauMarkers(rows, ov, visibleMask, engagement);
   const alertDiagnostics=computeAlertDiagnosticInfo(rows, ov, visibleMask, term);
   renderAlertSidePanel(term, rows, ov, visibleMask, engagement);
-  if(bollinger==='overlap' || bollinger==='contextual') addOverlapBandWithPlaybook(data,xs,ov.up,ov.low,rows,ov,COLORS.overlapBand,COLORS.overlapFill,overlapInfo.modelLabel,'y',visibleMask);
+  if(bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') addOverlapBandWithPlaybook(data,xs,ov.up,ov.low,rows,ov,COLORS.overlapBand,COLORS.overlapFill,overlapInfo.modelLabel,'y',visibleMask);
   if((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both')) overlapMarkerTraces.forEach(t=>data.push(t));
   const visRegimeRows=rows.filter((r,i)=>visibleMask[i]);
   const visRegimeInfo=regimeInfo.filter((r,i)=>visibleMask[i]);
@@ -2343,11 +2367,6 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
   }
   const badgeParts=orderedKeys.map(key=>badgeMap[key]).filter(Boolean);
   document.getElementById('regimeBar').innerHTML = badgeParts.join('');
-
-  if(bollinger==='both'){
-    data.push({type:'scatter',mode:'lines',x:xs,y:ov.low,xaxis:'x',yaxis:'y',line:{color:'rgba(0,0,0,0)',width:0},showlegend:false,hoverinfo:'skip',connectgaps:true});
-    data.push({type:'scatter',mode:'lines',x:xs,y:ov.up,xaxis:'x',yaxis:'y',line:{color:'rgba(0,0,0,0)',width:0},showlegend:false,hoverinfo:'skip',connectgaps:true,fill:'tonexty',fillcolor:COLORS.overlapFill});
-  }
 
   if(regimeLayer==='on' && showSentRibbon) {
     const transX=[], transY=[], transText=[], transColor=[];
