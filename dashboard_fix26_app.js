@@ -4098,3 +4098,121 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
   start();
 })();
 // END phase_market_tape_explanation_layout_v21
+
+// BEGIN phase_market_tape_card_layout_polish_v1
+(function phase_market_tape_card_layout_polish_v1(){
+  if (window.__phase_market_tape_card_layout_polish_v1) return;
+  window.__phase_market_tape_card_layout_polish_v1 = true;
+
+  function injectMarketTapeCardLayoutPolish(){
+    if (document.getElementById("phase_market_tape_card_layout_polish_v1_style")) return;
+    const style = document.createElement("style");
+    style.id = "phase_market_tape_card_layout_polish_v1_style";
+    style.textContent = `
+      /* Market Tape card layout polish v1: visual alignment only. */
+      .marketTapeCards{
+        align-items:stretch;
+        gap:10px;
+      }
+      .marketTapeCards > *{
+        min-width:0;
+        box-sizing:border-box;
+      }
+      .marketTapeCards .marketTapeCard,
+      .marketTapeCards [class*="marketTapeCard"]{
+        min-width:0;
+        overflow:hidden;
+      }
+      .marketTapeCards .marketTapeCardTop,
+      .marketTapeCards .marketTapeCardHeader,
+      .marketTapeCards .marketTapeRankRow,
+      .marketTapeCards [class*="Top"],
+      .marketTapeCards [class*="Header"]{
+        min-width:0;
+      }
+      .marketTapeCards .marketTapeCardScore,
+      .marketTapeCards .marketTapeScore,
+      .marketTapeCards .priorityScore,
+      .marketTapeCards [class*="Score"]{
+        flex:0 0 auto;
+        margin-left:auto;
+        text-align:right;
+        min-width:38px;
+        white-space:nowrap;
+      }
+      .marketTapeCards .marketTapePill,
+      .marketTapeCards .marketTapeTag,
+      .marketTapeCards .marketTapeBadge,
+      .marketTapeCards .pill,
+      .marketTapeCards .badge,
+      .marketTapeCards [class*="Pill"],
+      .marketTapeCards [class*="Tag"],
+      .marketTapeCards [class*="Badge"]{
+        display:inline-flex;
+        align-items:center;
+        max-width:128px;
+        min-height:16px;
+        line-height:1.12;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        vertical-align:middle;
+        box-sizing:border-box;
+      }
+      .marketTapeCards .marketTapePillRow,
+      .marketTapeCards .marketTapeTags,
+      .marketTapeCards .marketTapeCardPills,
+      .marketTapeCards .marketTapeCardMeta,
+      .marketTapeCards [class*="PillRow"],
+      .marketTapeCards [class*="Tags"],
+      .marketTapeCards [class*="Meta"]{
+        display:flex;
+        flex-wrap:wrap;
+        align-items:center;
+        gap:3px 4px;
+        min-height:18px;
+        max-height:38px;
+        overflow:hidden;
+      }
+      .marketTapeCards .marketTapeCardTitle,
+      .marketTapeCards [class*="Title"]{
+        min-width:0;
+        overflow:hidden;
+        display:-webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient:vertical;
+      }
+      .marketTapeCards .marketTapeReason,
+      .marketTapeCards .marketTapeCardReason,
+      .marketTapeCards .marketTapeCardText,
+      .marketTapeCards [class*="Reason"],
+      .marketTapeCards [class*="Summary"]{
+        min-width:0;
+        overflow:hidden;
+        display:-webkit-box;
+        -webkit-line-clamp:2;
+        -webkit-box-orient:vertical;
+      }
+      @media (max-width: 900px){
+        .marketTapeCards .marketTapePill,
+        .marketTapeCards .marketTapeTag,
+        .marketTapeCards .marketTapeBadge,
+        .marketTapeCards .pill,
+        .marketTapeCards .badge,
+        .marketTapeCards [class*="Pill"],
+        .marketTapeCards [class*="Tag"],
+        .marketTapeCards [class*="Badge"]{
+          max-width:108px;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", injectMarketTapeCardLayoutPolish, {once:true});
+  } else {
+    injectMarketTapeCardLayoutPolish();
+  }
+})();
+// END phase_market_tape_card_layout_polish_v1
