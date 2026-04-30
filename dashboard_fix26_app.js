@@ -1527,6 +1527,19 @@ function escapeHTML(v){
 }
 // phaseG_public_drawer_force_v2: public drawer forced on; phaseG_public_alert_drawer_v1: alert drawer is available in public and member views.
 // Phase C3: right-side alert drawer collapses horizontally and lets chart expand.
+
+function syncAlertSidePanelHeight(){
+  const chart=document.getElementById('chart');
+  const panel=document.getElementById('alertSidePanel');
+  if(!chart || !panel) return;
+  if(panel.classList.contains('collapsed')){
+    panel.style.height='';
+    return;
+  }
+  const chartHeight=Math.round(chart.getBoundingClientRect().height || chart.offsetHeight || 0);
+  if(chartHeight>0) panel.style.height=`${Math.max(chartHeight,360)}px`;
+}
+
 function ensureAlertSidePanel(){
   const chart=document.getElementById('chart');
   if(!chart) return null;
@@ -1534,10 +1547,10 @@ function ensureAlertSidePanel(){
     const style=document.createElement('style');
     style.id='alertSidePanelStyle';
     style.textContent=`
-      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:stretch;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
+      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:start;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
       .chartPanelGrid.drawerCollapsed{grid-template-columns:minmax(0,1fr) 46px;}
       .chartPanelGrid>#chart{min-width:0;width:100%;}
-      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:0;height:100%;min-height:360px;max-height:none;overflow:hidden;color:#dce7ee;font-family:inherit;transition:width .18s ease, opacity .18s ease, border-color .18s ease;display:flex;flex-direction:column;}
+      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:0;height:auto;min-height:360px;max-height:none;overflow:hidden;color:#dce7ee;font-family:inherit;transition:width .18s ease, opacity .18s ease, border-color .18s ease, height .18s ease;display:flex;flex-direction:column;}
       .alertSidePanel h3{margin:0;font-size:14px;letter-spacing:.02em;color:#f1f6fa;}
       .alertSidePanel .panelSub{font-size:11px;color:#99a8b3;line-height:1.35;margin:0 0 10px 0;}
       .alertPanelHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;user-select:none;background:rgba(255,255,255,.025);flex:0 0 auto;}
@@ -1590,8 +1603,10 @@ function ensureAlertSidePanel(){
 function resizeChartAfterDrawerToggle(){
   const chart=document.getElementById('chart');
   if(window.Plotly && chart){
-    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); }catch(e){} }, 80);
-    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); }catch(e){} }, 220);
+    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); syncAlertSidePanelHeight(); }catch(e){} }, 80);
+    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); syncAlertSidePanelHeight(); }catch(e){} }, 220);
+  }else{
+    window.setTimeout(()=>syncAlertSidePanelHeight(), 80);
   }
 }
 function alertQualityScore(row, meta){
@@ -1761,6 +1776,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
       ${cards || '<div class="alertPanelEmpty">No confirmed or watch events in the current visible window. Try a longer display range or Attention = Overlay Marks.</div>'}
     </div>`;
   panel.classList.toggle('collapsed', shouldCollapse);
+  window.requestAnimationFrame(()=>syncAlertSidePanelHeight());
   const grid=document.getElementById('chartPanelGrid');
   if(grid) grid.classList.toggle('drawerCollapsed', shouldCollapse);
   const header = panel.querySelector('#alertPanelHeader');
@@ -1771,6 +1787,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
     if(grid) grid.classList.toggle('drawerCollapsed', collapsed);
     if(toggle) toggle.textContent = collapsed ? '+' : '−';
     if(window.localStorage) window.localStorage.setItem(collapsedKey, String(collapsed));
+    window.requestAnimationFrame(()=>syncAlertSidePanelHeight());
     resizeChartAfterDrawerToggle();
   };
   if(header){
@@ -2314,7 +2331,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
   const layout={
     paper_bgcolor:COLORS.bg, plot_bgcolor:COLORS.panel, font:{color:COLORS.text}, margin:{l:64,r:30,t:18,b:54}, barmode:'overlay',
     showlegend: showLegend(),
-    legend:{orientation:'v', y:1.0, x:0.0, xanchor:'left', yanchor:'top', bgcolor:'rgba(0,0,0,0.24)', bordercolor:'#2a3138', borderwidth:1, font:{size:11}},
+    legend:{orientation:'v', y:0.945, x:0.0, xanchor:'left', yanchor:'top', bgcolor:'rgba(0,0,0,0.24)', bordercolor:'#2a3138', borderwidth:1, font:{size:11}},
     xaxis:{domain:[0,1],anchor:'y',range:[visStart,visEndPad],showgrid:true,gridcolor:COLORS.grid,rangeslider:{visible:false},showticklabels:false,rangebreaks:rb},
     yaxis:{domain: lowerPanesVisible ? [0.54,0.98] : [0.08,0.98],title:'Price',showgrid:true,gridcolor:COLORS.grid,zeroline:false,range:yRange},
     ...(lowerPanesVisible ? {
@@ -2342,14 +2359,16 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
       {xref:'paper',yref:'paper',x:0.5,y:0.145,text:'Stoch RSI',showarrow:false,font:{size:15,color:COLORS.text}}
       ] : []),
       ...(cfg.showRibbonAnnotation !== false && regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.99,y:0.985,xanchor:'right',text:`Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      ...((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.972 : 0.955,xanchor:'left',text: cfg.compactAnnotations ? `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel} | ${overlapInfo.context}` : overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.988 : 0.972,xanchor:'left',text: cfg.compactAnnotations ? `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel} | ${overlapInfo.context}` : overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD / Signal / Hist | ${macdRegime} | Last Sentiment Cross: ${lastCrossText} | Price Hist: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.275,xanchor:'left',text:rsiPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.135,xanchor:'left',text:stochPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
     ],
     hovermode:'x unified'
   };
-  Plotly.newPlot('chart', data, layout, {responsive:true, displaylogo:false});
+  Plotly.newPlot('chart', data, layout, {responsive:true, displaylogo:false}).then(()=>{
+    window.requestAnimationFrame(()=>syncAlertSidePanelHeight());
+  });
 }
 const CONTROL_IDS=['asset','freq','range','priceDisplay','scaleMode','ribbon','sentRibbon','regimeLayer','engagement','bollinger','osc'];
 function attachControlHandlers(){ CONTROL_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change', buildFigure); }); }
