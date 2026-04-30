@@ -1527,7 +1527,6 @@ function escapeHTML(v){
 }
 // phaseG_public_drawer_force_v2: public drawer forced on; phaseG_public_alert_drawer_v1: alert drawer is available in public and member views.
 // Phase C3: right-side alert drawer collapses horizontally and lets chart expand.
-
 function syncAlertSidePanelHeight(){
   const chart=document.getElementById('chart');
   const panel=document.getElementById('alertSidePanel');
@@ -1679,6 +1678,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
   const watchCount=events.filter(e=>e.tier==='Watch').length;
   const latest=events.slice(0,5);
   const latestDate = latest.length ? (latest[0].date || '') : 'none';
+  const showingText = events.length ? `Showing ${latest.length} of ${events.length}` : 'No visible events';
   const collapsedKey = 'setaAlertEventsPanelCollapsed';
   const savedCollapsed = window.localStorage ? window.localStorage.getItem(collapsedKey) : null;
   const shouldCollapse = savedCollapsed === null ? true : savedCollapsed === 'true';
@@ -1767,12 +1767,12 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
     </div>`;
   }).join('');
   panel.innerHTML = `<div class="alertPanelHeader" id="alertPanelHeader" title="Click to expand/collapse alert events">
-      <div class="alertPanelHeaderMain"><h3>Alert Events</h3><div class="alertPanelHeaderSummary">Confirmed ${confirmedCount} · Watch ${watchCount} · Latest ${escapeHTML(latestDate)}</div></div>
+      <div class="alertPanelHeaderMain"><h3>Alert Events</h3><div class="alertPanelHeaderSummary">Confirmed ${confirmedCount} · Watch ${watchCount} · ${escapeHTML(showingText)} · Latest ${escapeHTML(latestDate)}</div></div>
       <button class="alertPanelToggle" id="alertPanelToggle" type="button" aria-label="Toggle alert events panel">${shouldCollapse ? '+' : '−'}</button>
     </div>
     <div class="alertPanelBody">
       <div class="panelSub">Visible-window events for ${escapeHTML(term)}. Use Attention = Context for material watch candidates or Overlay Marks for all watch candidates.</div>
-      <div class="alertPanelControls"><span class="alertPanelPill">Confirmed ${confirmedCount}</span><span class="alertPanelPill">Watch ${watchCount}</span><span class="alertPanelPill">Policy ${escapeHTML(markerPolicy)}</span></div>
+      <div class="alertPanelControls"><span class="alertPanelPill">Confirmed ${confirmedCount}</span><span class="alertPanelPill">Watch ${watchCount}</span><span class="alertPanelPill">${escapeHTML(showingText)}</span><span class="alertPanelPill">Policy ${escapeHTML(markerPolicy)}</span></div>
       ${cards || '<div class="alertPanelEmpty">No confirmed or watch events in the current visible window. Try a longer display range or Attention = Overlay Marks.</div>'}
     </div>`;
   panel.classList.toggle('collapsed', shouldCollapse);
@@ -1787,7 +1787,6 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
     if(grid) grid.classList.toggle('drawerCollapsed', collapsed);
     if(toggle) toggle.textContent = collapsed ? '+' : '−';
     if(window.localStorage) window.localStorage.setItem(collapsedKey, String(collapsed));
-    window.requestAnimationFrame(()=>syncAlertSidePanelHeight());
     resizeChartAfterDrawerToggle();
   };
   if(header){
@@ -2253,47 +2252,42 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
   data.push(traceLine(xs,rows.map(r=>num(r.macd)),'MACD',COLORS.ma7,2.0,'solid','y2',false,'%{x|%b %d, %Y}<br>MACD=%{y:.2f}<extra></extra>'));
   data.push(traceLine(xs,rows.map(r=>num(r.macd_signal)),'Signal',COLORS.ma50,1.5,'solid','y2',false,'%{x|%b %d, %Y}<br>Signal=%{y:.2f}<extra></extra>'));
   if(osc==='both'){
-  // Match the visual language used by Sent RSI / Sent Stoch:
-  // green sentiment line with a subtle narrow glow.
-  const sentMacdBundle = sentimentBundle(
-    xs,
-    rows.map(r=>num(r.scaled_sentiment_macd_signal)),
-    'Sentiment MACD Signal',
-    'y2',
-    false,
-    '%{x|%b %d, %Y}<br>Sentiment MACD Signal=%{y:.2f}<br>Hidden fast line=%{customdata:.2f}<extra></extra>',
-    1.15
-  );
+    // Match Sent RSI / Sent Stoch visual language: solid green sentiment line with a subtle narrow glow.
+    // The volatile scaled sentiment MACD fast line remains available in hover/customdata but is not drawn by default.
+    const sentMacdBundle = sentimentBundle(
+      xs,
+      rows.map(r=>num(r.scaled_sentiment_macd_signal)),
+      'Sentiment MACD Signal',
+      'y2',
+      false,
+      '%{x|%b %d, %Y}<br>Sentiment MACD Signal=%{y:.2f}<br>Hidden fast line=%{customdata:.2f}<extra></extra>',
+      1.15
+    );
 
-  // Outer glow
-  sentMacdBundle[0].line = {
-    ...(sentMacdBundle[0].line || {}),
-    width: 3.8,
-    dash: 'solid',
-    color: 'rgba(0,255,0,0.10)'
-  };
+    sentMacdBundle[0].line = {
+      ...(sentMacdBundle[0].line || {}),
+      width: 3.8,
+      dash: 'solid',
+      color: 'rgba(0,255,0,0.10)'
+    };
+    sentMacdBundle[1].line = {
+      ...(sentMacdBundle[1].line || {}),
+      width: 2.2,
+      dash: 'solid',
+      color: 'rgba(0,255,0,0.22)'
+    };
+    sentMacdBundle[2].line = {
+      ...(sentMacdBundle[2].line || {}),
+      width: 1.25,
+      dash: 'solid',
+      color: COLORS.sentCore
+    };
 
-  // Inner glow
-  sentMacdBundle[1].line = {
-    ...(sentMacdBundle[1].line || {}),
-    width: 2.2,
-    dash: 'solid',
-    color: 'rgba(0,255,0,0.22)'
-  };
-
-  // Core line
-  sentMacdBundle[2].line = {
-    ...(sentMacdBundle[2].line || {}),
-    width: 1.25,
-    dash: 'solid',
-    color: COLORS.sentCore
-  };
-
-  sentMacdBundle.forEach(t=>{
-    t.customdata = rows.map(r=>num(r.scaled_sentiment_macd));
-    data.push(t);
-  });
-}
+    sentMacdBundle.forEach(t=>{
+      t.customdata=rows.map(r=>num(r.scaled_sentiment_macd));
+      data.push(t);
+    });
+  }
 
   const crossX=[],crossY=[],crossText=[],crossSize=[],crossColor=[];
   rows.forEach(r=>{const c=num(r.macd_signal_cross), y=num(r.scaled_sentiment_macd_signal) ?? num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Sentiment bull':'Sentiment bear'); crossSize.push(Math.min(15,8+Math.abs(num(r.macd_cross_significance)||0)*1.6)); crossColor.push(c===1?'rgba(83,235,175,0.92)':'rgba(255,174,118,0.90)');}});
@@ -2340,9 +2334,11 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
   const last=visRows[visRows.length-1];
   const sentConf=(num(last.scaled_sentiment_macd)!==null&&num(last.macd)!==null)?(((num(last.scaled_sentiment_macd)>=num(last.scaled_sentiment_macd_signal))===(num(last.macd)>=num(last.macd_signal)))?'yes':'no'):'n/a';
+  const sentConfLabel=sentConf==='yes' ? 'Confirmed' : (sentConf==='no' ? 'Mixed' : 'n/a');
   const lastCrossRow=[...visRows].reverse().find(r=>Math.abs(num(r.macd_signal_cross)||0)===1);
-  const lastCrossText=lastCrossRow?`${num(lastCrossRow.macd_signal_cross)===1?'Bull':'Bear'} on ${lastCrossRow.date}`:'none in view';
+  const lastCrossText=lastCrossRow?`${num(lastCrossRow.macd_signal_cross)===1?'Bull':'Bear'} ${lastCrossRow.date}`:'none';
   const histDir=visRows.length>=2&&num(visRows[visRows.length-1].macd_histogram)!==null&&num(visRows[visRows.length-2].macd_histogram)!==null?(num(visRows[visRows.length-1].macd_histogram)>=num(visRows[visRows.length-2].macd_histogram)?'rising':'falling'):'flat';
+  const histDirLabel=histDir.charAt(0).toUpperCase()+histDir.slice(1);
   const macdRegime=(num(last.macd)!==null&&num(last.macd_signal)!==null&&num(last.macd)>=num(last.macd_signal))?'Bullish':'Bearish';
   const lastRsiVal = num(last.rsi_d) ?? num(last.rsi);
   const lastSentRsiVal = num(last.sentiment_rsi_d) ?? num(last.sentiment_rsi);
@@ -2393,7 +2389,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
       ] : []),
       ...(cfg.showRibbonAnnotation !== false && regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.99,y:0.985,xanchor:'right',text:`Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.988 : 0.972,xanchor:'left',text: cfg.compactAnnotations ? `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel} | ${overlapInfo.context}` : overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
-      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD / Signal / Hist | ${macdRegime} | Last Sentiment Cross: ${lastCrossText} | Price Hist: ${histDir} | Sentiment confirmation: ${sentConf}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD ${macdRegime} · Sent Cross ${lastCrossText} · Hist ${histDirLabel} · Sent ${sentConfLabel}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.275,xanchor:'left',text:rsiPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.135,xanchor:'left',text:stochPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
     ],
