@@ -4216,3 +4216,143 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
   }
 })();
 // END phase_market_tape_card_layout_polish_v1
+
+// BEGIN phase_market_tape_card_soft_alignment_v1
+(function phase_market_tape_card_soft_alignment_v1(){
+  if (window.__phase_market_tape_card_soft_alignment_v1) return;
+  window.__phase_market_tape_card_soft_alignment_v1 = true;
+
+  function installSoftCardAlignment(){
+    if (document.getElementById("phase_market_tape_card_soft_alignment_v1_style")) return;
+    const style = document.createElement("style");
+    style.id = "phase_market_tape_card_soft_alignment_v1_style";
+    style.textContent = `
+      /* Market Tape ranked card soft alignment v1
+         Goal: preserve readability while making cards share the same visual rhythm.
+         This intentionally avoids the hard/small skeleton that compressed titles and reasons. */
+
+      .marketTapeCards{
+        align-items:stretch !important;
+      }
+
+      .marketTapeCard{
+        position:relative !important;
+        display:flex !important;
+        flex-direction:column !important;
+        justify-content:flex-start !important;
+        gap:5px !important;
+        min-height:104px !important;
+        height:auto !important;
+        max-height:none !important;
+        overflow:hidden !important;
+      }
+
+      .marketTapeCard *,
+      .marketTapeDetail *{
+        min-width:0;
+      }
+
+      /* Row 1: rank/asset left, score right. */
+      .marketTapeCardTop,
+      .marketTapeCardHeader,
+      .marketTapeRankRow,
+      .marketTapeCard .marketTapeTopRow{
+        display:flex !important;
+        align-items:flex-start !important;
+        justify-content:space-between !important;
+        gap:8px !important;
+        min-height:20px !important;
+        line-height:1.1 !important;
+      }
+
+      .marketTapeCardScore,
+      .marketTapeScore,
+      .marketTapePriority,
+      .marketTapeCard .score,
+      .marketTapeCard [class*="Score"]{
+        margin-left:auto !important;
+        flex:0 0 auto !important;
+        text-align:right !important;
+        white-space:nowrap !important;
+      }
+
+      /* Row 2: badge/pill area. Keep a predictable home for unused space here. */
+      .marketTapeCardPills,
+      .marketTapePills,
+      .marketTapeCardMeta,
+      .marketTapeMeta,
+      .marketTapeCard .pillRow,
+      .marketTapeCard .metaRow{
+        display:flex !important;
+        flex-wrap:wrap !important;
+        align-content:flex-start !important;
+        align-items:center !important;
+        gap:3px 4px !important;
+        min-height:24px !important;
+        max-height:36px !important;
+        overflow:hidden !important;
+      }
+
+      .marketTapeCard .marketTapePill,
+      .marketTapeCard .alertEventPill,
+      .marketTapeCard .badge,
+      .marketTapeCard [class*="Pill"],
+      .marketTapeCard [class*="pill"]{
+        max-width:132px !important;
+        white-space:nowrap !important;
+        overflow:hidden !important;
+        text-overflow:ellipsis !important;
+        flex:0 1 auto !important;
+      }
+
+      /* Story block: keep readable, do not force a tiny tile. */
+      .marketTapeCardTitle,
+      .marketTapeSetupTitle,
+      .marketTapeCardName,
+      .marketTapeCard .setupTitle{
+        margin-top:1px !important;
+        line-height:1.25 !important;
+        max-height:2.55em !important;
+        overflow:hidden !important;
+      }
+
+      .marketTapeCardReason,
+      .marketTapeReason,
+      .marketTapeCardSub,
+      .marketTapeCardText,
+      .marketTapeCard .reason,
+      .marketTapeCard .summary{
+        line-height:1.25 !important;
+        max-height:2.65em !important;
+        overflow:hidden !important;
+      }
+
+      /* Do not let selected-card styling inherit compact ranked-card behavior. */
+      .marketTapeDetail,
+      .marketTapeDetailTop{
+        max-height:none !important;
+      }
+
+      @media (max-width: 900px){
+        .marketTapeCard{
+          min-height:112px !important;
+        }
+        .marketTapeCard .marketTapePill,
+        .marketTapeCard .alertEventPill,
+        .marketTapeCard .badge,
+        .marketTapeCard [class*="Pill"],
+        .marketTapeCard [class*="pill"]{
+          max-width:118px !important;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", installSoftCardAlignment, { once:true });
+  } else {
+    installSoftCardAlignment();
+  }
+})();
+// END phase_market_tape_card_soft_alignment_v1
