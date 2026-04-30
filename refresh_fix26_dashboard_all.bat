@@ -1,5 +1,9 @@
 @echo off
 setlocal
+chcp 65001 >nul
+set "PYTHONUTF8=1"
+set "PYTHONIOENCODING=utf-8"
+
 
 REM =============================================================
 REM Fix 26 public/member dashboard refresh script - production hardened
