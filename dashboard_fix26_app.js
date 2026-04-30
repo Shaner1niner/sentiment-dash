@@ -1160,17 +1160,55 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineColor, fillColor, namePrefix, axis, visibleMask){
   const playbook = rows.map((r,i)=>overlapPlaybookProfile(rows, overlap, i));
-  const custom = rows.map((r,i)=>[
-    playbook[i]?.tag || 'Inside Expected Range',
-    playbook[i]?.family || 'Baseline',
-    playbook[i]?.confidence || 'Low',
-    playbook[i]?.detail || 'No playbook context available.',
-    playbook[i]?.stateLabel || 'Unavailable',
-    playbook[i]?.structure || 'Unknown',
-    playbook[i]?.contextLabel || 'n/a'
-  ]);
+  const custom = rows.map((r,i)=>{
+    const score=firstFiniteFromRow(r,[
+      'seta_dashboard_summary_score',
+      'seta_summary_score',
+      'summary_score_0_100',
+      'summary_score',
+      'dashboard_score',
+      'screener_summary_score',
+      'screener_attention_priority_score'
+    ]);
+    const attention=firstFiniteFromRow(r,[
+      'attention_level_score',
+      'attention_regime_score',
+      'attention_spike_score',
+      'attention_participation_score'
+    ]);
+    const ribbon=firstTextFromRow(r,[
+      'sent_ribbon_label',
+      'sentiment_ribbon_label',
+      'sent_ribbon_regime_raw',
+      'ribbon_label'
+    ]) || 'n/a';
+    const rsiGap=oscillatorGapInfo(
+      num(r.rsi_d) ?? num(r.rsi),
+      num(r.sentiment_rsi_d) ?? num(r.sentiment_rsi),
+      'rsi'
+    );
+    const stochGap=oscillatorGapInfo(
+      num(r.stochastic_rsi),
+      num(r.sentiment_stochastic_rsi_d) ?? num(r.sentiment_stochastic_rsi),
+      'stoch'
+    );
+    return [
+      playbook[i]?.tag || 'Inside Expected Range',
+      playbook[i]?.family || 'Baseline',
+      playbook[i]?.confidence || 'Low',
+      playbook[i]?.detail || 'No playbook context available.',
+      playbook[i]?.stateLabel || 'Unavailable',
+      playbook[i]?.structure || 'Unknown',
+      playbook[i]?.contextLabel || 'n/a',
+      score===null ? 'n/a' : Math.round(score).toString(),
+      attention===null ? 'n/a' : attention.toFixed(1),
+      ribbon,
+      rsiGap.label,
+      stochGap.label
+    ];
+  });
 
-  const hover = `%{x|%b %d, %Y}<br><b>${namePrefix}</b> · %{customdata[0]}<br>%{customdata[4]} · %{customdata[5]} · %{customdata[6]} · %{customdata[2]} confidence<br>%{customdata[3]}<br>Rim %{y:.2f}<extra></extra>`;
+  const hover = `%{x|%b %d, %Y}<br><b>${namePrefix}</b> · %{customdata[0]}<br>%{customdata[4]} · %{customdata[5]} · %{customdata[6]} · %{customdata[2]} confidence<br>%{customdata[3]}<br>Rim %{y:.2f}<br><br><b>SETA</b> Score %{customdata[7]} · Attn %{customdata[8]}<br>Ribbon %{customdata[9]}<br>RSI %{customdata[10]} · Stoch %{customdata[11]}<extra></extra>`;
 
   data.push({
     type:'scatter', mode:'lines', x:x, y:lower, customdata:custom, name:namePrefix+' Lower',
@@ -1272,9 +1310,9 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 }
 function priceHoverTemplate(kind='candles'){
   const priceBlock = kind==='candles'
-    ? 'Open=%{open:.2f}<br>High=%{high:.2f}<br>Low=%{low:.2f}<br>Close=%{close:.2f}'
+    ? 'O=%{open:.2f} H=%{high:.2f} L=%{low:.2f} C=%{close:.2f}'
     : 'Close=%{y:.2f}';
-  return `%{x|%b %d, %Y}<br><b>Price</b><br>${priceBlock}<br><br><b>SETA Context</b><br>Summary Score=%{customdata[0]}<br>Attention=%{customdata[1]}<br>Ribbon=%{customdata[2]}<br>Overlap=%{customdata[3]}<br>RSI Gap=%{customdata[4]}<br>Stoch Gap=%{customdata[5]}<extra></extra>`;
+  return `%{x|%b %d, %Y}<br><b>Price</b> · ${priceBlock}<br><b>SETA</b> Score %{customdata[0]} · Attn %{customdata[1]}<br>Ribbon %{customdata[2]}<br>Overlap %{customdata[3]}<br>RSI %{customdata[4]} · Stoch %{customdata[5]}<extra></extra>`;
 }
 
 function overlapWidthAt(overlap, idx){
@@ -2483,7 +2521,15 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.275,xanchor:'left',text:rsiPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.135,xanchor:'left',text:stochPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
     ],
-    hovermode:'x unified'
+    hovermode:'closest',
+    spikedistance:-1,
+    hoverdistance:18,
+    hoverlabel:{
+      bgcolor:'rgba(5,7,10,0.96)',
+      bordercolor:'rgba(159,183,255,0.20)',
+      font:{color:COLORS.text,size:12},
+      align:'left'
+    }
   };
   Plotly.newPlot('chart', data, layout, {responsive:true, displaylogo:false}).then(()=>{
     window.requestAnimationFrame(()=>syncAlertSidePanelHeight());
