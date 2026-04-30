@@ -1209,6 +1209,74 @@ function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
   return {gap, tier, direction, label};
 }
 
+function firstFiniteFromRow(row, keys){
+  for(const key of keys){
+    const v=num(row?.[key]);
+    if(v!==null && Number.isFinite(v)) return v;
+  }
+  return null;
+}
+function firstTextFromRow(row, keys){
+  for(const key of keys){
+    const v=row?.[key];
+    if(v!==null && v!==undefined && String(v).trim()!=='') return String(v).trim();
+  }
+  return null;
+}
+function priceHoverContextCustomData(rows, regimeInfo, overlap){
+  return rows.map((row,i)=>{
+    const score=firstFiniteFromRow(row,[
+      'seta_dashboard_summary_score',
+      'seta_summary_score',
+      'summary_score_0_100',
+      'summary_score',
+      'dashboard_score',
+      'screener_summary_score',
+      'screener_attention_priority_score'
+    ]);
+    const attention=firstFiniteFromRow(row,[
+      'attention_level_score',
+      'attention_regime_score',
+      'attention_spike_score',
+      'attention_participation_score'
+    ]);
+    const ribbon=firstTextFromRow(row,[
+      'sent_ribbon_label',
+      'sentiment_ribbon_label',
+      'sent_ribbon_regime_raw',
+      'ribbon_label'
+    ]) || regimeInfo?.[i]?.regime || 'n/a';
+    const overlapProfile=overlap ? overlapPlaybookProfile(rows, overlap, i) : null;
+    const overlapText=overlapProfile
+      ? `${overlapProfile.tag || 'Inside Expected Range'} · ${overlapProfile.structure || 'Unknown'}`
+      : 'n/a';
+    const rsiGap=oscillatorGapInfo(
+      num(row.rsi_d) ?? num(row.rsi),
+      num(row.sentiment_rsi_d) ?? num(row.sentiment_rsi),
+      'rsi'
+    );
+    const stochGap=oscillatorGapInfo(
+      num(row.stochastic_rsi),
+      num(row.sentiment_stochastic_rsi_d) ?? num(row.sentiment_stochastic_rsi),
+      'stoch'
+    );
+    return [
+      score===null ? 'n/a' : Math.round(score).toString(),
+      attention===null ? 'n/a' : attention.toFixed(1),
+      ribbon,
+      overlapText,
+      rsiGap.label,
+      stochGap.label
+    ];
+  });
+}
+function priceHoverTemplate(kind='candles'){
+  const priceBlock = kind==='candles'
+    ? 'Open=%{open:.2f}<br>High=%{high:.2f}<br>Low=%{low:.2f}<br>Close=%{close:.2f}'
+    : 'Close=%{y:.2f}';
+  return `%{x|%b %d, %Y}<br><b>Price</b><br>${priceBlock}<br><br><b>SETA Context</b><br>Summary Score=%{customdata[0]}<br>Attention=%{customdata[1]}<br>Ribbon=%{customdata[2]}<br>Overlap=%{customdata[3]}<br>RSI Gap=%{customdata[4]}<br>Stoch Gap=%{customdata[5]}<extra></extra>`;
+}
+
 function overlapWidthAt(overlap, idx){
   const ou=num(overlap.up[idx]), ol=num(overlap.low[idx]);
   if(ou===null || ol===null) return null;
@@ -2178,6 +2246,11 @@ function buildFigure(){
   const activeSentBands=activeOverlapModel.sentimentBands || mappedBands;
   if(bollinger==='sentiment'||bollinger==='both') addFilledBand(data,xs,activeSentBands.up,activeSentBands.low,COLORS.sentCore,COLORS.sentFill,activeOverlapModel.family==='contextual' ? 'Contextual Sentiment Envelope' : 'Sentiment Band','y');
   const ov=activeOverlapModel.overlap;
+  const priceHoverCustomData=priceHoverContextCustomData(rows, regimeInfo, ov);
+  if(data[0]){
+    data[0].customdata=priceHoverCustomData;
+    data[0].hovertemplate=priceHoverTemplate(priceDisplay==='candles' ? 'candles' : 'line');
+  }
   const overlapInfo=computeOverlapSignalInfo(rows, ov, visibleMask);
   const engagementInfo=computeEngagementInfo(rows, visibleMask);
 
