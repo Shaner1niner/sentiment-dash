@@ -3553,258 +3553,6 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 })();
 // END phase_daily_seta_tooltip_layer_v1
 
-// BEGIN phase_market_tape_explanation_v2
-(function phase_market_tape_explanation_v2(){
-  if (window.__phase_market_tape_explanation_v2) return;
-  window.__phase_market_tape_explanation_v2 = true;
-
-  function cleanText(value){
-    return String(value ?? '').replace(/\s+/g, ' ').trim();
-  }
-
-  function firstText(obj, keys){
-    for (const key of keys){
-      const value = obj && obj[key];
-      const text = cleanText(value);
-      if (text && text.toLowerCase() !== 'nan' && text.toLowerCase() !== 'null' && text.toLowerCase() !== 'none') return text;
-    }
-    return '';
-  }
-
-  function numberText(value, decimals=0){
-    const n = Number(value);
-    if (!Number.isFinite(n)) return '';
-    return n.toFixed(decimals);
-  }
-
-  function directionOf(row){
-    const raw = firstText(row, ['archetype_direction','signal_consensus_direction_label','latest_event_direction','latest_confirmed_event_direction']);
-    const low = raw.toLowerCase();
-    if (low.includes('bull') && !low.includes('bear')) return 'bullish';
-    if (low.includes('bear')) return 'bearish';
-    return 'mixed';
-  }
-
-  function selectedTerm(){
-    const active = document.querySelector('.marketTapeCard.active .marketTapeTerm');
-    if (active){
-      const t = cleanText(active.textContent).split(/\s+/).pop();
-      if (t) return t.toUpperCase();
-    }
-    const select = document.getElementById('asset');
-    if (select && select.value) return String(select.value).trim().toUpperCase();
-    const title = document.querySelector('.marketTapeTitle h3');
-    const m = cleanText(title?.textContent).match(/Active\s+([A-Z0-9.\-]+)/i);
-    return m ? m[1].toUpperCase() : '';
-  }
-
-  function storePack(term){
-    const store = window.SCREENER_STORE;
-    if (!store || !term) return null;
-    if (store.by_term && store.by_term[term]) return store.by_term[term];
-    const row = Array.isArray(store.records) ? store.records.find(r => cleanText(r.term || r.asset).toUpperCase() === term) : null;
-    return row ? {screener: row, archetype: null, indicator_families: [], indicators: []} : null;
-  }
-
-  function familyMap(pack){
-    const out = {};
-    const fams = Array.isArray(pack?.indicator_families) ? pack.indicator_families : [];
-    fams.forEach(f => {
-      const name = cleanText(f.indicator_family).toLowerCase();
-      if (name) out[name] = f;
-    });
-    return out;
-  }
-
-  function familyByIncludes(map, needles){
-    for (const [name, fam] of Object.entries(map)){
-      if (needles.some(n => name.includes(n))) return fam;
-    }
-    return null;
-  }
-
-  function indicatorByIncludes(pack, needles){
-    const rows = Array.isArray(pack?.indicators) ? pack.indicators : [];
-    return rows.find(r => {
-      const hay = `${cleanText(r.indicator_name)} ${cleanText(r.indicator_family)} ${cleanText(r.direction_label)} ${cleanText(r.strength_label)} ${cleanText(r.interpretation)}`.toLowerCase();
-      return needles.every(n => hay.includes(n));
-    }) || null;
-  }
-
-  function labelFromFamily(fam){
-    if (!fam) return '';
-    const dir = firstText(fam, ['direction_label','strength_label','confidence_label']);
-    const score = numberText(fam.score_0_100, 0);
-    return score && dir ? `${dir} ${score}` : (dir || score);
-  }
-
-  function setupRead(term, row){
-    const arch = firstText(row, ['primary_archetype','secondary_archetype','screener_action_bucket']);
-    const direction = directionOf(row);
-    const low = `${arch} ${firstText(row, ['screener_reason_summary','archetype_summary'])}`.toLowerCase();
-    if (low.includes('sentiment repair')) return `${term} shows sentiment repair before price momentum has fully confirmed.`;
-    if (low.includes('deterioration') || low.includes('negative divergence')) return `${term} shows sentiment deterioration leading price risk.`;
-    if (low.includes('fresh') && direction === 'bullish') return `${term} shows fresh bullish pressure with follow-through still being tested.`;
-    if (low.includes('fresh') && direction === 'bearish') return `${term} shows fresh bearish pressure with follow-through still being tested.`;
-    if (low.includes('watch cluster')) return `${term} has clustered watch activity before full confirmation.`;
-    if (low.includes('high-attention conflict') || low.includes('conflict')) return `${term} has active participation, but the signal deck remains conflicted.`;
-    if (direction === 'bullish') return `${term} shows bullish pressure with confirmation context still developing.`;
-    if (direction === 'bearish') return `${term} shows bearish pressure with confirmation context still developing.`;
-    return `${term} shows a mixed SETA setup where confirmation quality matters more than direction alone.`;
-  }
-
-  function oscillatorRead(row, pack, map){
-    const rsiFam = familyByIncludes(map, ['rsi']);
-    const rsiRel = indicatorByIncludes(pack, ['rsi']) || null;
-    const stoch = indicatorByIncludes(pack, ['stoch']) || null;
-    const rsiLabel = firstText(row, ['rsi_family_label']) || labelFromFamily(rsiFam) || firstText(rsiRel, ['direction_label','strength_label']);
-    const stochLabel = firstText(stoch, ['direction_label','strength_label','interpretation']);
-    const bits = [];
-    if (rsiLabel) bits.push(`RSI context is ${rsiLabel}`);
-    if (stochLabel) bits.push(`Stoch context is ${stochLabel}`);
-    return bits.join('; ');
-  }
-
-  function macdRead(row, pack, map){
-    const fam = familyByIncludes(map, ['macd']);
-    const label = firstText(row, ['macd_family_label','sent_price_macd_joint_slope_label']) || labelFromFamily(fam);
-    const reason = firstText(row, ['reason_macd_improving']);
-    if (label) return `MACD context is ${label}`;
-    if (reason && reason !== '0') return 'MACD context is improving';
-    return '';
-  }
-
-  function ribbonRead(row, pack, map){
-    const fam = familyByIncludes(map, ['sentiment ribbon','ribbon']);
-    const label = firstText(row, ['sent_ribbon_label','latest_event_dashboard_summary_label','latest_confirmed_dashboard_summary_label']) || labelFromFamily(fam);
-    return label ? `ribbon context is ${label}` : '';
-  }
-
-  function attentionRead(row, pack, map){
-    const fam = familyByIncludes(map, ['attention']);
-    const score = numberText(row.attention_participation_score ?? row.attention_level_score ?? fam?.score_0_100, 0);
-    const label = firstText(fam, ['direction_label','strength_label']);
-    if (score && label) return `attention ${score} (${label})`;
-    if (score) return `attention ${score}`;
-    return '';
-  }
-
-  function marketTapeNarrative(term, pack){
-    const row = pack?.screener || pack?.archetype || {};
-    const map = familyMap(pack);
-    const direction = directionOf(row);
-    const summary = setupRead(term, row);
-    const matchedBase = firstText(row, ['matched_conditions']);
-    const missingBase = firstText(row, ['missing_confirmations']);
-    const riskBase = firstText(row, ['archetype_risk_note']);
-
-    const setupBits = [macdRead(row, pack, map), oscillatorRead(row, pack, map), ribbonRead(row, pack, map), attentionRead(row, pack, map)].filter(Boolean);
-    let matched = setupBits.length ? setupBits.join('; ') + '.' : matchedBase;
-    if (matchedBase && setupBits.length && !matched.toLowerCase().includes(matchedBase.toLowerCase().slice(0, 24))){
-      matched = `${matchedBase}; ${setupBits.join('; ')}.`;
-    }
-
-    let missing = missingBase;
-    if (!missing){
-      if (direction === 'bullish') missing = 'price confirmation and follow-through still need to validate the sentiment setup.';
-      else if (direction === 'bearish') missing = 'price breakdown confirmation still needs to validate the sentiment setup.';
-      else missing = 'directional confirmation is still mixed, so watch for a cleaner alignment signal.';
-    }
-
-    let risk = riskBase;
-    if (!risk){
-      if (direction === 'bullish') risk = 'Early repair pressure can fade unless price momentum follows.';
-      else if (direction === 'bearish') risk = 'Early deterioration can fade unless price timing confirms.';
-      else risk = 'Mixed signal decks are useful watch candidates, but less reliable until confirmation improves.';
-    }
-
-    return {summary, matched, missing, risk};
-  }
-
-  function getDetailBody(){
-    const detail = document.querySelector('.screenerPanel.marketTape .marketTapeDetail');
-    return detail ? detail.querySelector('.marketTapeDetailTop > div:first-child') || detail.querySelector('div') : null;
-  }
-
-  function findLine(body, label){
-    const target = String(label || '').toLowerCase();
-    return Array.from(body.children).find(el => cleanText(el.querySelector('b')?.textContent).toLowerCase().replace(':','') === target) || null;
-  }
-
-  function setLine(body, label, className, text){
-    if (!text) return;
-    let line = findLine(body, label);
-    if (!line){
-      line = document.createElement('div');
-      line.className = className;
-      const risk = findLine(body, 'Risk');
-      if (label === 'Risk' || !risk) body.appendChild(line);
-      else body.insertBefore(line, risk);
-    }
-    line.className = className;
-    line.innerHTML = `<b>${label}:</b> ${escapeHTML(text)}`;
-  }
-
-  function applyExplanationV2(){
-    const panel = document.querySelector('.screenerPanel.marketTape');
-    if (!panel || panel.classList.contains('collapsed')) return;
-    const term = selectedTerm();
-    const pack = storePack(term);
-    if (!pack) return;
-    const body = getDetailBody();
-    if (!body) return;
-
-    const narrative = marketTapeNarrative(term, pack);
-    const summaryEl = body.querySelector('.marketTapeDetailText');
-    if (summaryEl && narrative.summary) summaryEl.textContent = narrative.summary;
-    setLine(body, 'Matched', 'marketTapeMissing marketTapeMatchedV2', narrative.matched);
-    setLine(body, 'Missing', 'marketTapeMissing', narrative.missing);
-    setLine(body, 'Risk', 'marketTapeRisk', narrative.risk);
-    panel.dataset.explanationV2 = '1';
-  }
-
-  const style = document.createElement('style');
-  style.id = 'phase_market_tape_explanation_v2_style';
-  style.textContent = `
-/* phase_market_tape_explanation_v2 */
-.marketTapeMatchedV2{color:#cfe8da!important;}
-.screenerPanel.marketTape[data-explanation-v2="1"] .marketTapeDetailText{color:#d8e6ed!important;}
-`;
-  document.head.appendChild(style);
-
-  const oldRender = window.renderScreenerPanel;
-  if (typeof oldRender === 'function' && !oldRender.__marketTapeExplanationV2Wrapped){
-    const wrapped = function(){
-      const out = oldRender.apply(this, arguments);
-      setTimeout(applyExplanationV2, 0);
-      setTimeout(applyExplanationV2, 80);
-      setTimeout(applyExplanationV2, 220);
-      return out;
-    };
-    wrapped.__marketTapeExplanationV2Wrapped = true;
-    window.renderScreenerPanel = wrapped;
-  }
-
-  document.addEventListener('click', function(ev){
-    if (ev.target && ev.target.closest && ev.target.closest('.marketTapeCard,.marketTapeTab')){
-      setTimeout(applyExplanationV2, 60);
-      setTimeout(applyExplanationV2, 180);
-    }
-  }, true);
-
-  const obs = new MutationObserver(() => {
-    if (document.querySelector('.screenerPanel.marketTape .marketTapeDetail')) setTimeout(applyExplanationV2, 0);
-  });
-
-  function start(){
-    if (!document.body){ setTimeout(start, 50); return; }
-    obs.observe(document.body, {childList:true, subtree:true});
-    applyExplanationV2();
-  }
-  start();
-})();
-// END phase_market_tape_explanation_v2
-
 // BEGIN phase_seta_glossary_help_v1
 (function phase_seta_glossary_help_v1(){
   if (window.__phase_seta_glossary_help_v1) return;
@@ -4054,3 +3802,299 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
   startObserver();
 })();
 // END phase_seta_glossary_help_v1
+
+// BEGIN phase_market_tape_explanation_layout_v21
+(function phase_market_tape_explanation_layout_v21(){
+  if (window.__phase_market_tape_explanation_layout_v21) return;
+  window.__phase_market_tape_explanation_layout_v21 = true;
+
+  function cleanText(value){
+    return String(value ?? '').replace(/\s+/g, ' ').trim();
+  }
+
+  function safeHTML(value){
+    if (typeof escapeHTML === 'function') return escapeHTML(value);
+    return String(value ?? '').replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));
+  }
+
+  function firstText(obj, keys){
+    for (const key of keys){
+      const value = obj && obj[key];
+      const text = cleanText(value);
+      if (text && text.toLowerCase() !== 'nan' && text.toLowerCase() !== 'null' && text.toLowerCase() !== 'none') return text;
+    }
+    return '';
+  }
+
+  function numberText(value, decimals=0){
+    const n = Number(value);
+    if (!Number.isFinite(n)) return '';
+    return n.toFixed(decimals);
+  }
+
+  function directionOf(row){
+    const raw = firstText(row, ['archetype_direction','signal_consensus_direction_label','latest_event_direction','latest_confirmed_event_direction']);
+    const low = raw.toLowerCase();
+    if (low.includes('bull') && !low.includes('bear')) return 'bullish';
+    if (low.includes('bear')) return 'bearish';
+    return 'mixed';
+  }
+
+  function selectedTerm(){
+    const active = document.querySelector('.marketTapeCard.active .marketTapeTerm');
+    if (active){
+      const t = cleanText(active.textContent).split(/\s+/).pop();
+      if (t) return t.toUpperCase();
+    }
+    const select = document.getElementById('asset');
+    if (select && select.value) return String(select.value).trim().toUpperCase();
+    const title = document.querySelector('.marketTapeTitle h3');
+    const m = cleanText(title?.textContent).match(/Active\s+([A-Z0-9.\-]+)/i);
+    return m ? m[1].toUpperCase() : '';
+  }
+
+  function storePack(term){
+    const store = window.SCREENER_STORE;
+    if (!store || !term) return null;
+    if (store.by_term && store.by_term[term]) return store.by_term[term];
+    const row = Array.isArray(store.records) ? store.records.find(r => cleanText(r.term || r.asset).toUpperCase() === term) : null;
+    return row ? {screener: row, archetype: null, indicator_families: [], indicators: []} : null;
+  }
+
+  function familyMap(pack){
+    const out = {};
+    const fams = Array.isArray(pack?.indicator_families) ? pack.indicator_families : [];
+    fams.forEach(f => {
+      const name = cleanText(f.indicator_family).toLowerCase();
+      if (name) out[name] = f;
+    });
+    return out;
+  }
+
+  function familyByIncludes(map, needles){
+    for (const [name, fam] of Object.entries(map)){
+      if (needles.some(n => name.includes(n))) return fam;
+    }
+    return null;
+  }
+
+  function indicatorByIncludes(pack, needles){
+    const rows = Array.isArray(pack?.indicators) ? pack.indicators : [];
+    return rows.find(r => {
+      const hay = `${cleanText(r.indicator_name)} ${cleanText(r.indicator_family)} ${cleanText(r.direction_label)} ${cleanText(r.strength_label)} ${cleanText(r.interpretation)}`.toLowerCase();
+      return needles.every(n => hay.includes(n));
+    }) || null;
+  }
+
+  function labelFromFamily(fam){
+    if (!fam) return '';
+    const dir = firstText(fam, ['direction_label','strength_label','confidence_label']);
+    const score = numberText(fam.score_0_100, 0);
+    return score && dir ? `${dir} ${score}` : (dir || score);
+  }
+
+  function setupRead(term, row){
+    const arch = firstText(row, ['primary_archetype','secondary_archetype','screener_action_bucket']);
+    const direction = directionOf(row);
+    const low = `${arch} ${firstText(row, ['screener_reason_summary','archetype_summary'])}`.toLowerCase();
+    if (low.includes('sentiment repair')) return `${term} shows sentiment repair before price momentum has fully confirmed.`;
+    if (low.includes('deterioration') || low.includes('negative divergence')) return `${term} shows sentiment deterioration leading price risk.`;
+    if (low.includes('fresh') && direction === 'bullish') return `${term} shows fresh bullish pressure with follow-through still being tested.`;
+    if (low.includes('fresh') && direction === 'bearish') return `${term} shows fresh bearish pressure with follow-through still being tested.`;
+    if (low.includes('watch cluster')) return `${term} has clustered watch activity before full confirmation.`;
+    if (low.includes('high-attention conflict') || low.includes('conflict')) return `${term} has active participation, but the signal deck remains conflicted.`;
+    if (direction === 'bullish') return `${term} shows bullish pressure with confirmation context still developing.`;
+    if (direction === 'bearish') return `${term} shows bearish pressure with confirmation context still developing.`;
+    return `${term} shows a mixed SETA setup where confirmation quality matters more than direction alone.`;
+  }
+
+  function macdContext(row, pack, map){
+    const fam = familyByIncludes(map, ['macd']);
+    const label = firstText(row, ['macd_family_label','sent_price_macd_joint_slope_label']) || labelFromFamily(fam);
+    const reason = firstText(row, ['reason_macd_improving']);
+    if (label) return label;
+    if (reason && reason !== '0') return 'Improving';
+    return '';
+  }
+
+  function rsiContext(row, pack, map){
+    const rsiFam = familyByIncludes(map, ['rsi']);
+    const rsiRel = indicatorByIncludes(pack, ['rsi']) || null;
+    return firstText(row, ['rsi_family_label']) || labelFromFamily(rsiFam) || firstText(rsiRel, ['direction_label','strength_label']);
+  }
+
+  function stochContext(row, pack){
+    const stoch = indicatorByIncludes(pack, ['stoch']) || null;
+    return firstText(stoch, ['direction_label','strength_label','interpretation']);
+  }
+
+  function ribbonContext(row, pack, map){
+    const fam = familyByIncludes(map, ['sentiment ribbon','ribbon']);
+    return firstText(row, ['sent_ribbon_label','latest_event_dashboard_summary_label','latest_confirmed_dashboard_summary_label']) || labelFromFamily(fam);
+  }
+
+  function attentionContext(row, pack, map){
+    const fam = familyByIncludes(map, ['attention']);
+    const score = numberText(row.attention_participation_score ?? row.attention_level_score ?? fam?.score_0_100, 0);
+    const label = firstText(fam, ['direction_label','strength_label']);
+    if (score && label) return `${score} · ${label}`;
+    if (score) return score;
+    return '';
+  }
+
+  function compactMatched(row, direction){
+    const matchedBase = firstText(row, ['matched_conditions']);
+    const low = `${firstText(row, ['primary_archetype','secondary_archetype','screener_action_bucket'])} ${matchedBase} ${firstText(row, ['screener_reason_summary','archetype_summary'])}`.toLowerCase();
+    if (low.includes('sentiment repair')) return 'Sentiment repair is active while price confirmation is still developing.';
+    if (low.includes('deterioration') || low.includes('negative divergence')) return 'Sentiment deterioration is leading while price confirmation is still developing.';
+    if (low.includes('fresh') && direction === 'bullish') return 'Fresh bullish pressure is active; follow-through remains the confirmation test.';
+    if (low.includes('fresh') && direction === 'bearish') return 'Fresh bearish pressure is active; follow-through remains the confirmation test.';
+    if (low.includes('watch cluster')) return 'Clustered watch activity is active before full confirmation.';
+    if (low.includes('conflict')) return 'Participation is active, but the signal deck remains conflicted.';
+    return matchedBase || 'The setup has enough supporting context to remain on the active tape.';
+  }
+
+  function marketTapeNarrative(term, pack){
+    const row = pack?.screener || pack?.archetype || {};
+    const map = familyMap(pack);
+    const direction = directionOf(row);
+    const context = [];
+    const macd = macdContext(row, pack, map);
+    const rsi = rsiContext(row, pack, map);
+    const stoch = stochContext(row, pack);
+    const ribbon = ribbonContext(row, pack, map);
+    const attention = attentionContext(row, pack, map);
+    if (macd) context.push(['MACD', macd]);
+    if (rsi) context.push(['RSI', rsi]);
+    if (stoch) context.push(['Stoch', stoch]);
+    if (ribbon) context.push(['Ribbon', ribbon]);
+    if (attention) context.push(['Attention', attention]);
+
+    let missing = firstText(row, ['missing_confirmations']);
+    if (!missing){
+      if (direction === 'bullish') missing = 'price confirmation and follow-through still need to validate the sentiment setup.';
+      else if (direction === 'bearish') missing = 'price breakdown confirmation still needs to validate the sentiment setup.';
+      else missing = 'directional confirmation is still mixed, so watch for cleaner alignment.';
+    }
+
+    let risk = firstText(row, ['archetype_risk_note']);
+    if (!risk){
+      if (direction === 'bullish') risk = 'Early repair pressure can fade unless price momentum follows.';
+      else if (direction === 'bearish') risk = 'Early deterioration can fade unless price timing confirms.';
+      else risk = 'Mixed signal decks are useful watch candidates, but less reliable until confirmation improves.';
+    }
+
+    return {
+      summary: setupRead(term, row),
+      matched: compactMatched(row, direction),
+      context,
+      missing,
+      risk
+    };
+  }
+
+  function getDetailBody(){
+    const detail = document.querySelector('.screenerPanel.marketTape .marketTapeDetail');
+    return detail ? detail.querySelector('.marketTapeDetailTop > div:first-child') || detail.querySelector('div') : null;
+  }
+
+  function findLine(body, label){
+    const target = String(label || '').toLowerCase();
+    return Array.from(body.children).find(el => cleanText(el.querySelector('b')?.textContent).toLowerCase().replace(':','') === target) || null;
+  }
+
+  function setLine(body, label, className, text){
+    if (!text) return;
+    let line = findLine(body, label);
+    if (!line){
+      line = document.createElement('div');
+      const risk = findLine(body, 'Risk');
+      if (label === 'Risk' || !risk) body.appendChild(line);
+      else body.insertBefore(line, risk);
+    }
+    line.className = className;
+    line.innerHTML = `<b>${safeHTML(label)}:</b> ${safeHTML(text)}`;
+  }
+
+  function setContextBlock(body, items){
+    Array.from(body.querySelectorAll('.marketTapeContextV21')).forEach(el => el.remove());
+    if (!items || !items.length) return;
+    const block = document.createElement('div');
+    block.className = 'marketTapeContextV21';
+    const chips = items.map(([label, value]) => `<span><b>${safeHTML(label)}</b> ${safeHTML(value)}</span>`).join('');
+    block.innerHTML = `<b>Context:</b><div class="marketTapeContextGridV21">${chips}</div>`;
+    const missing = findLine(body, 'Missing');
+    if (missing) body.insertBefore(block, missing);
+    else body.appendChild(block);
+  }
+
+  function applyExplanationLayoutV21(){
+    const panel = document.querySelector('.screenerPanel.marketTape');
+    if (!panel || panel.classList.contains('collapsed')) return;
+    const term = selectedTerm();
+    const pack = storePack(term);
+    if (!pack) return;
+    const body = getDetailBody();
+    if (!body) return;
+
+    const narrative = marketTapeNarrative(term, pack);
+    const summaryEl = body.querySelector('.marketTapeDetailText');
+    if (summaryEl && narrative.summary) summaryEl.textContent = narrative.summary;
+    setLine(body, 'Matched', 'marketTapeMissing marketTapeMatchedV21', narrative.matched);
+    setContextBlock(body, narrative.context);
+    setLine(body, 'Missing', 'marketTapeMissing', narrative.missing);
+    setLine(body, 'Risk', 'marketTapeRisk', narrative.risk);
+    panel.dataset.explanationLayoutV21 = '1';
+  }
+
+  function installStyle(){
+    if (document.getElementById('phase_market_tape_explanation_layout_v21_style')) return;
+    const style = document.createElement('style');
+    style.id = 'phase_market_tape_explanation_layout_v21_style';
+    style.textContent = `
+/* phase_market_tape_explanation_layout_v21 */
+.marketTapeMatchedV21{color:#cfe8da!important;}
+.marketTapeContextV21{margin-top:4px;color:#bcd0dc!important;line-height:1.35;}
+.marketTapeContextV21>b{color:#9dd6ff;}
+.marketTapeContextGridV21{display:flex;flex-wrap:wrap;gap:3px 10px;margin-top:2px;}
+.marketTapeContextGridV21 span{white-space:normal;}
+.marketTapeContextGridV21 span b{color:#e7eef3;}
+.screenerPanel.marketTape[data-explanation-layout-v21="1"] .marketTapeDetailText{color:#d8e6ed!important;}
+`;
+    document.head.appendChild(style);
+  }
+
+  installStyle();
+
+  const oldRender = window.renderScreenerPanel;
+  if (typeof oldRender === 'function' && !oldRender.__marketTapeExplanationLayoutV21Wrapped){
+    const wrapped = function(){
+      const out = oldRender.apply(this, arguments);
+      setTimeout(applyExplanationLayoutV21, 0);
+      setTimeout(applyExplanationLayoutV21, 80);
+      setTimeout(applyExplanationLayoutV21, 220);
+      return out;
+    };
+    wrapped.__marketTapeExplanationLayoutV21Wrapped = true;
+    window.renderScreenerPanel = wrapped;
+  }
+
+  document.addEventListener('click', function(ev){
+    if (ev.target && ev.target.closest && ev.target.closest('.marketTapeCard,.marketTapeTab')){
+      setTimeout(applyExplanationLayoutV21, 60);
+      setTimeout(applyExplanationLayoutV21, 180);
+    }
+  }, true);
+
+  const obs = new MutationObserver(() => {
+    if (document.querySelector('.screenerPanel.marketTape .marketTapeDetail')) setTimeout(applyExplanationLayoutV21, 0);
+  });
+
+  function start(){
+    if (!document.body){ setTimeout(start, 50); return; }
+    obs.observe(document.body, {childList:true, subtree:true});
+    applyExplanationLayoutV21();
+  }
+  start();
+})();
+// END phase_market_tape_explanation_layout_v21
