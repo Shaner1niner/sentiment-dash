@@ -3,7 +3,7 @@
   Presentation-only. Does not change alert logic, marker policy, payloads, or chart calculations.
 */
 (function(){
-  const CONTEXT_BASE_URL = "https://shaner1niner.github.io/sentiment-dash/seta_public_context_cards.html";
+  const CONTEXT_BASE_URL = "https://www.data-and-finance.com/market-context";
   const STYLE_ID = "seta-alert-events-v2-style";
 
   function addStyle(){
@@ -29,11 +29,7 @@
   }
 
   function contextUrl(asset){
-    const params = new URLSearchParams();
-    params.set("asset", asset);
-    params.set("compact", "1");
-    try { params.set("dashboard", location.href); } catch(_err) {}
-    return CONTEXT_BASE_URL + "?" + params.toString();
+    return CONTEXT_BASE_URL;
   }
 
   function findPanel(){
@@ -79,7 +75,7 @@
 
     const asset = getAsset();
     actions.style.display = "";
-    actions.innerHTML = '<a href="' + contextUrl(asset) + '" target="_blank" rel="noopener">Open ' + asset + ' market context</a>';
+    actions.innerHTML = '<a href="' + contextUrl(asset) + '" target="_blank" rel="noopener">Open ' + asset + ' Market Context &rarr;</a>';
   }
 
   function polishPanel(){
