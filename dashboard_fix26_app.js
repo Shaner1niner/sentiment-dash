@@ -2253,14 +2253,47 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
   data.push(traceLine(xs,rows.map(r=>num(r.macd)),'MACD',COLORS.ma7,2.0,'solid','y2',false,'%{x|%b %d, %Y}<br>MACD=%{y:.2f}<extra></extra>'));
   data.push(traceLine(xs,rows.map(r=>num(r.macd_signal)),'Signal',COLORS.ma50,1.5,'solid','y2',false,'%{x|%b %d, %Y}<br>Signal=%{y:.2f}<extra></extra>'));
   if(osc==='both'){
-    // Hidden by default: scaled_sentiment_macd is the noisier/fast sentiment MACD line.
-    // Cross markers and hover/customdata still preserve the field for context.
-    sentimentBundle(xs,rows.map(r=>num(r.scaled_sentiment_macd_signal)),'Sentiment MACD Signal','y2',false,'%{x|%b %d, %Y}<br>Sentiment MACD Signal=%{y:.2f}<br>Hidden fast line=%{customdata:.2f}<extra></extra>',1.15).forEach(t=>{
-      t.customdata=rows.map(r=>num(r.scaled_sentiment_macd));
-      t.line={...(t.line||{}),width:1.35,dash:'dot',color:'rgba(121,255,198,0.72)'};
-      data.push(t);
-    });
-  }
+  // Match the visual language used by Sent RSI / Sent Stoch:
+  // green sentiment line with a subtle narrow glow.
+  const sentMacdBundle = sentimentBundle(
+    xs,
+    rows.map(r=>num(r.scaled_sentiment_macd_signal)),
+    'Sentiment MACD Signal',
+    'y2',
+    false,
+    '%{x|%b %d, %Y}<br>Sentiment MACD Signal=%{y:.2f}<br>Hidden fast line=%{customdata:.2f}<extra></extra>',
+    1.15
+  );
+
+  // Outer glow
+  sentMacdBundle[0].line = {
+    ...(sentMacdBundle[0].line || {}),
+    width: 3.8,
+    dash: 'solid',
+    color: 'rgba(0,255,0,0.10)'
+  };
+
+  // Inner glow
+  sentMacdBundle[1].line = {
+    ...(sentMacdBundle[1].line || {}),
+    width: 2.2,
+    dash: 'solid',
+    color: 'rgba(0,255,0,0.22)'
+  };
+
+  // Core line
+  sentMacdBundle[2].line = {
+    ...(sentMacdBundle[2].line || {}),
+    width: 1.25,
+    dash: 'solid',
+    color: COLORS.sentCore
+  };
+
+  sentMacdBundle.forEach(t=>{
+    t.customdata = rows.map(r=>num(r.scaled_sentiment_macd));
+    data.push(t);
+  });
+}
 
   const crossX=[],crossY=[],crossText=[],crossSize=[],crossColor=[];
   rows.forEach(r=>{const c=num(r.macd_signal_cross), y=num(r.scaled_sentiment_macd_signal) ?? num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Sentiment bull':'Sentiment bear'); crossSize.push(Math.min(15,8+Math.abs(num(r.macd_cross_significance)||0)*1.6)); crossColor.push(c===1?'rgba(83,235,175,0.92)':'rgba(255,174,118,0.90)');}});
