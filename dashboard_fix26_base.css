@@ -24,3 +24,4 @@ body{margin:0;background:#07090b;color:#e7eef3;font-family:Arial,Helvetica,sans-
 .badge-neutral{border-color:#2a3138;}
 .badge-attn{border-color:rgba(92,164,255,0.45);box-shadow:0 0 0 1px rgba(92,164,255,0.08) inset;}
 #chart{width:100%;height:clamp(760px,88vh,1080px);}
+@media (max-width:700px){#chart{height:clamp(720px,112vh,980px);}}
