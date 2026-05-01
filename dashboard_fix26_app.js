@@ -10329,6 +10329,19 @@ window.SETA_BUILD_INFO = {
   };
 })();
 // END phase_seta_deferred_dropdown_dispatch_v1
+// BEGIN phase_seta_frequency_dispatch_guard_v1
+(function phase_seta_frequency_dispatch_guard_v1(){
+  window.SETA_FREQUENCY_DISPATCH_GUARD = {
+    enabled:true,
+    immediateIds:["freq","frequency","asset","range","displayRange"],
+    firedCount:0,
+    deferredCount:0,
+    lastSelectId:"",
+    lastValue:"",
+    lastMode:""
+  };
+})();
+// END phase_seta_frequency_dispatch_guard_v1
 
 // BEGIN phase_seta_custom_dropdowns_v1
 
@@ -11492,9 +11505,47 @@ window.SETA_BUILD_INFO = {
 
   }
   const __setaDeferredDropdownDispatchTimers = new WeakMap();
+  function shouldDispatchSelectImmediately(sel){
+    const id = String(sel && sel.id || "").toLowerCase();
+    const name = String(sel && sel.name || "").toLowerCase();
+    const aria = String(sel && sel.getAttribute && (sel.getAttribute("aria-label") || "") || "").toLowerCase();
+    const key = [id, name, aria].join(" ");
+
+    // These controls change the underlying dataset/window and some existing
+    // dashboard paths expect their native change event immediately.
+    return /\b(freq|frequency|asset|range|displayrange)\b/.test(key);
+  }
 
   function dispatchNativeSelectChangeDeferred(sel, delayMs){
     const state = window.SETA_DEFERRED_DROPDOWN_DISPATCH || {};
+    const guard = window.SETA_FREQUENCY_DISPATCH_GUARD || {};
+    const immediate = shouldDispatchSelectImmediately(sel);
+
+    if (immediate) {
+      const prior = __setaDeferredDropdownDispatchTimers.get(sel);
+      if (prior) {
+        clearTimeout(prior);
+        __setaDeferredDropdownDispatchTimers.delete(sel);
+      }
+
+      sel.dispatchEvent(new Event("input", {bubbles:true}));
+      sel.dispatchEvent(new Event("change", {bubbles:true}));
+
+      if (guard) {
+        guard.firedCount = (guard.firedCount || 0) + 1;
+        guard.lastSelectId = sel.id || sel.name || "";
+        guard.lastValue = sel.value;
+        guard.lastMode = "immediate";
+      }
+      if (state) {
+        state.firedCount = (state.firedCount || 0) + 1;
+        state.lastFiredAt = new Date();
+        state.lastSelectId = sel.id || sel.name || "";
+        state.lastValue = sel.value;
+      }
+      return;
+    }
+
     const delay = Number.isFinite(Number(delayMs)) ? Number(delayMs) : Number(state.delayMs || 75);
 
     const prior = __setaDeferredDropdownDispatchTimers.get(sel);
@@ -11505,6 +11556,12 @@ window.SETA_BUILD_INFO = {
       state.lastSelectId = sel.id || sel.name || "";
       state.lastValue = sel.value;
       state.lastScheduledAt = new Date();
+    }
+    if (guard) {
+      guard.deferredCount = (guard.deferredCount || 0) + 1;
+      guard.lastSelectId = sel.id || sel.name || "";
+      guard.lastValue = sel.value;
+      guard.lastMode = "deferred";
     }
 
     const timer = setTimeout(() => {
