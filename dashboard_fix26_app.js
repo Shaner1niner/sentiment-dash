@@ -4623,3 +4623,186 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
   }
 })();
 // END phase_seta_score_history_tooltip_v1
+
+// BEGIN phase_seta_score_history_tooltip_v11
+(function phase_seta_score_history_tooltip_v11(){
+  if (window.__phase_seta_score_history_tooltip_v11) return;
+  window.__phase_seta_score_history_tooltip_v11 = true;
+
+  function toNumber(v){
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function fmtSigned(v){
+    if (v === null || v === undefined || !Number.isFinite(Number(v))) return "n/a";
+    const n = Number(v);
+    const sign = n > 0 ? "+" : "";
+    return sign + n.toFixed(1);
+  }
+
+  function fmtPctl(v){
+    if (v === null || v === undefined || !Number.isFinite(Number(v))) return "n/a";
+    return Math.round(Number(v)).toString();
+  }
+
+  function percentileWindow(scores, i, windowSize){
+    const cur = scores[i];
+    if (cur === null || cur === undefined || !Number.isFinite(cur)) return null;
+    const start = Math.max(0, i - windowSize + 1);
+    const vals = [];
+    for (let j = start; j <= i; j++){
+      const v = scores[j];
+      if (v !== null && v !== undefined && Number.isFinite(v)) vals.push(v);
+    }
+    if (vals.length < Math.min(20, windowSize)) return null;
+    let le = 0;
+    vals.forEach(v => { if (v <= cur) le += 1; });
+    return (le / vals.length) * 100;
+  }
+
+  function inferScoreIndex(trace){
+    const ht = String(trace && trace.hovertemplate || "");
+    const scoreRef = ht.match(/SETA\s+Score[^%]*%\{customdata\[(\d+)\]/i);
+    if (scoreRef) return Number(scoreRef[1]);
+
+    const rows = Array.isArray(trace && trace.customdata) ? trace.customdata : [];
+    if (!rows.length || !Array.isArray(rows[0])) return null;
+
+    let bestIdx = null;
+    let bestCount = -1;
+    const width = Math.min(rows[0].length, 20);
+    for (let idx = 0; idx < width; idx++){
+      let count = 0;
+      let plausible = 0;
+      for (let i = 0; i < rows.length; i++){
+        const n = toNumber(rows[i] && rows[i][idx]);
+        if (n === null) continue;
+        count += 1;
+        if (n >= 0 && n <= 100) plausible += 1;
+      }
+      if (count >= 10 && plausible / count > 0.75 && plausible > bestCount){
+        bestCount = plausible;
+        bestIdx = idx;
+      }
+    }
+    return bestIdx;
+  }
+
+  function patchDailySetaTrace(trace){
+    if (!trace || !Array.isArray(trace.customdata) || !trace.customdata.length) return false;
+
+    const ht = String(trace.hovertemplate || "");
+    const name = String(trace.name || "");
+    const looksLikeDailySeta =
+      /Daily\s+SETA\s+Tooltip/i.test(name) ||
+      (/SETA\s+Score/i.test(ht) && /Price\s*[·\/-]\s*O\/H\/L\/C/i.test(ht));
+
+    if (!looksLikeDailySeta) return false;
+    if (/SETA\s+history/i.test(ht)) return false;
+
+    const rows = trace.customdata;
+    if (!Array.isArray(rows[0])) return false;
+
+    const scoreIdx = inferScoreIndex(trace);
+    if (scoreIdx === null || scoreIdx === undefined || !Number.isFinite(scoreIdx)) return false;
+
+    const scores = rows.map(row => toNumber(row && row[scoreIdx]));
+    const historyIdx = rows[0].length;
+
+    for (let i = 0; i < rows.length; i++){
+      const s = scores[i];
+      const d5 = (s !== null && i >= 5 && scores[i-5] !== null) ? s - scores[i-5] : null;
+      const d20 = (s !== null && i >= 20 && scores[i-20] !== null) ? s - scores[i-20] : null;
+      const p90 = percentileWindow(scores, i, 90);
+      const line = "5d " + fmtSigned(d5) + " · 20d " + fmtSigned(d20) + " · 90d Pctl " + fmtPctl(p90);
+      rows[i].push(line);
+    }
+
+    let newTemplate = ht;
+
+    if (/SETA\s+Score[\s\S]*?<br>/i.test(newTemplate)){
+      newTemplate = newTemplate.replace(
+        /(SETA\s+Score[\s\S]*?<br>)/i,
+        "$1SETA history: %{customdata[" + historyIdx + "]}<br>"
+      );
+    } else if (/<br>\s*Ribbon/i.test(newTemplate)){
+      newTemplate = newTemplate.replace(
+        /(<br>\s*Ribbon)/i,
+        "<br>SETA history: %{customdata[" + historyIdx + "]}$1"
+      );
+    } else if (/<extra><\/extra>/i.test(newTemplate)){
+      newTemplate = newTemplate.replace(
+        /<extra><\/extra>/i,
+        "SETA history: %{customdata[" + historyIdx + "]}<br><extra></extra>"
+      );
+    } else {
+      newTemplate += "<br>SETA history: %{customdata[" + historyIdx + "]}<extra></extra>";
+    }
+
+    trace.customdata = rows;
+    trace.hovertemplate = newTemplate;
+    return true;
+  }
+
+  function patchData(data){
+    if (!Array.isArray(data)) return false;
+    let changed = false;
+    data.forEach(trace => {
+      try {
+        if (patchDailySetaTrace(trace)) changed = true;
+      } catch (err) {
+        console.warn("SETA history tooltip trace patch failed:", err);
+      }
+    });
+    return changed;
+  }
+
+  function patchExistingPlots(){
+    if (!window.Plotly) return;
+    document.querySelectorAll(".js-plotly-plot").forEach(gd => {
+      if (!gd || !Array.isArray(gd.data)) return;
+      const changed = patchData(gd.data);
+      if (changed){
+        try {
+          if (window.Plotly.redraw) window.Plotly.redraw(gd);
+        } catch (err) {
+          console.warn("SETA history tooltip redraw failed:", err);
+        }
+      }
+    });
+  }
+
+  function wrapPlotly(){
+    if (!window.Plotly || window.Plotly.__setaScoreHistoryTooltipV11Wrapped) return;
+    window.Plotly.__setaScoreHistoryTooltipV11Wrapped = true;
+
+    ["newPlot", "react"].forEach(fnName => {
+      const original = window.Plotly[fnName];
+      if (typeof original !== "function") return;
+      window.Plotly[fnName] = function(gd, data, layout, config){
+        try { patchData(data); } catch (err) { console.warn("SETA history tooltip pre-render patch failed:", err); }
+        const result = original.apply(this, arguments);
+        try { setTimeout(patchExistingPlots, 0); } catch (err) {}
+        return result;
+      };
+    });
+  }
+
+  function install(){
+    wrapPlotly();
+    patchExistingPlots();
+  }
+
+  install();
+  document.addEventListener("DOMContentLoaded", install);
+  window.addEventListener("load", install);
+
+  let attempts = 0;
+  const timer = setInterval(() => {
+    attempts += 1;
+    install();
+    if (attempts >= 20) clearInterval(timer);
+  }, 250);
+})();
+// END phase_seta_score_history_tooltip_v11
