@@ -6,7 +6,23 @@
 
 
 
+
+
+
+
+
+
+
+
   v26 Recovery Baseline
+
+
+
+
+
+
+
+
 
 
 
@@ -22,7 +38,23 @@
 
 
 
+
+
+
+
+
+
+
+
   Provenance:
+
+
+
+
+
+
+
+
 
 
 
@@ -38,6 +70,14 @@
 
 
 
+
+
+
+
+
+
+
+
     through v20, v21/v22, and v23.
 
 
@@ -46,7 +86,23 @@
 
 
 
+
+
+
+
+
+
+
+
   - Intentional choice: preserve the last coherent UI/control structure and transform
+
+
+
+
+
+
+
+
 
 
 
@@ -70,7 +126,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   What this file is:
+
+
+
+
+
+
+
+
 
 
 
@@ -94,7 +174,31 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   What this file is not yet:
+
+
+
+
+
+
+
+
 
 
 
@@ -110,7 +214,23 @@
 
 
 
+
+
+
+
+
+
+
+
   - A fully confirmed recreation of every unsaved v26 delta.
+
+
+
+
+
+
+
+
 
 
 
@@ -126,7 +246,23 @@
 
 
 
+
+
+
+
+
+
+
+
 const DASH_MODE_DEFAULT = window.DASH_MODE_DEFAULT || "public";
+
+
+
+
+
+
+
+
 
 
 
@@ -142,7 +278,23 @@ const MANIFEST_URL = new URLSearchParams(location.search).get("manifest") || win
 
 
 
+
+
+
+
+
+
+
+
 let STORE = null;
+
+
+
+
+
+
+
+
 
 
 
@@ -158,7 +310,23 @@ let MODE_MANIFEST = null;
 
 
 
+
+
+
+
+
+
+
+
 // phaseG_market_tape_loader_foundation_v1
+
+
+
+
+
+
+
+
 
 
 
@@ -174,7 +342,23 @@ let SCREENER_STORE = null;
 
 
 
+
+
+
+
+
+
+
+
 let SCREENER_SECTION = "top_priority";
+
+
+
+
+
+
+
+
 
 
 
@@ -198,7 +382,31 @@ const SCREENER_STORE_URL = new URLSearchParams(location.search).get("screener") 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 window.SETA_BUILD_INFO = {
+
+
+
+
+
+
+
+
 
 
 
@@ -214,7 +422,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   branch: "phase-e-stability-build-info",
+
+
+
+
+
+
+
+
 
 
 
@@ -230,7 +454,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   mode: window.DASH_MODE || "unknown",
+
+
+
+
+
+
+
+
 
 
 
@@ -246,7 +486,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   updated: "2026-04-25"
+
+
+
+
+
+
+
+
 
 
 
@@ -262,7 +518,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
 // BEGIN phase_seta_perf_diagnostics_v1
+
+
+
+
+
+
+
+
 
 
 
@@ -278,7 +550,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phase_seta_perf_diagnostics_v1) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -302,7 +590,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const state = {
+
+
+
+
+
+
+
+
 
 
 
@@ -318,7 +630,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     expanded: false,
+
+
+
+
+
+
+
+
 
 
 
@@ -334,7 +662,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     lastRenderMs: null,
+
+
+
+
+
+
+
+
 
 
 
@@ -350,7 +694,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     lastFetchUrl: "",
+
+
+
+
+
+
+
+
 
 
 
@@ -366,7 +726,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     lastError: "",
+
+
+
+
+
+
+
+
 
 
 
@@ -382,7 +758,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     points: 0,
+
+
+
+
+
+
+
+
 
 
 
@@ -398,7 +790,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     customRows: 0,
+
+
+
+
+
+
+
+
 
 
 
@@ -414,7 +822,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   };
+
+
+
+
+
+
+
+
 
 
 
@@ -438,7 +862,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function safeNum(n){ return Number.isFinite(Number(n)) ? Number(n) : null; }
+
+
+
+
+
+
+
+
 
 
 
@@ -454,7 +902,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const n = safeNum(ms);
+
+
+
+
+
+
+
+
 
 
 
@@ -470,6 +934,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     return n >= 1000 ? (n/1000).toFixed(2) + "s" : Math.round(n) + "ms";
 
 
@@ -478,7 +950,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -494,7 +982,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const x = safeNum(n);
+
+
+
+
+
+
+
+
 
 
 
@@ -510,6 +1014,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     return Math.round(x).toLocaleString();
 
 
@@ -518,7 +1030,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -534,7 +1062,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const s = String(u || "");
+
+
+
+
+
+
+
+
 
 
 
@@ -550,7 +1094,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -566,7 +1126,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const el = document.getElementById(id);
+
+
+
+
+
+
+
+
 
 
 
@@ -582,7 +1158,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -598,7 +1190,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     try{
+
+
+
+
+
+
+
+
 
 
 
@@ -614,7 +1222,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       const used = performance.memory.usedJSHeapSize / 1048576;
+
+
+
+
+
+
+
+
 
 
 
@@ -630,7 +1254,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       if (!Number.isFinite(used) || !Number.isFinite(limit)) return "";
+
+
+
+
+
+
+
+
 
 
 
@@ -646,7 +1286,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     }catch(_){ return ""; }
+
+
+
+
+
+
+
+
 
 
 
@@ -662,7 +1318,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   function traceStats(data){
+
+
+
+
+
+
+
+
 
 
 
@@ -678,7 +1350,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     let points = 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -694,7 +1382,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     let customRows = 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -718,7 +1422,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     traces.forEach(t => {
+
+
+
+
+
+
+
+
 
 
 
@@ -734,7 +1462,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       const yLen = Array.isArray(t && t.y) ? t.y.length : 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -750,7 +1494,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       const closeLen = Array.isArray(t && t.close) ? t.close.length : 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -766,7 +1526,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       points += len;
+
+
+
+
+
+
+
+
 
 
 
@@ -790,7 +1566,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const cd = t && t.customdata;
+
+
+
+
+
+
+
+
 
 
 
@@ -806,7 +1606,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         customRows += cd.length;
+
+
+
+
+
+
+
+
 
 
 
@@ -822,7 +1638,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
           const r = cd[i];
+
+
+
+
+
+
+
+
 
 
 
@@ -838,7 +1670,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
 
 
 
@@ -854,7 +1702,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -878,7 +1750,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -902,6 +1798,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     let el = document.getElementById("setaPerfDiagnosticsPanel");
 
 
@@ -910,7 +1814,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     if (el) return el;
+
+
+
+
+
+
+
+
 
 
 
@@ -934,7 +1854,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     el = document.createElement("button");
+
+
+
+
+
+
+
+
 
 
 
@@ -950,7 +1894,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     el.type = "button";
+
+
+
+
+
+
+
+
 
 
 
@@ -966,7 +1926,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     el.setAttribute("aria-label", "SETA dashboard performance diagnostics");
+
+
+
+
+
+
+
+
 
 
 
@@ -982,7 +1958,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       state.expanded = !state.expanded;
+
+
+
+
+
+
+
+
 
 
 
@@ -998,7 +1990,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
 
 
 
@@ -1014,6 +2022,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     return el;
 
 
@@ -1022,7 +2038,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1046,7 +2086,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     if (document.getElementById("phase_seta_perf_diagnostics_v1_style")) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -1062,7 +2118,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const style = document.createElement("style");
+
+
+
+
+
+
+
+
 
 
 
@@ -1078,7 +2150,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     style.textContent = `
+
+
+
+
+
+
+
+
 
 
 
@@ -1094,7 +2182,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         position:fixed;
+
+
+
+
+
+
+
+
 
 
 
@@ -1110,7 +2214,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         bottom:10px;
+
+
+
+
+
+
+
+
 
 
 
@@ -1126,7 +2246,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         max-width:520px;
+
+
+
+
+
+
+
+
 
 
 
@@ -1142,7 +2278,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         border-radius:10px;
+
+
+
+
+
+
+
+
 
 
 
@@ -1158,7 +2310,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         color:#b8f7d0;
+
+
+
+
+
+
+
+
 
 
 
@@ -1174,7 +2342,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         padding:6px 9px;
+
+
+
+
+
+
+
+
 
 
 
@@ -1190,7 +2374,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         box-shadow:0 8px 24px rgba(0,0,0,.35);
+
+
+
+
+
+
+
+
 
 
 
@@ -1206,7 +2406,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         opacity:.82;
+
+
+
+
+
+
+
+
 
 
 
@@ -1222,7 +2438,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         white-space:nowrap;
+
+
+
+
+
+
+
+
 
 
 
@@ -1238,7 +2470,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       #setaPerfDiagnosticsPanel:hover{opacity:1;border-color:rgba(122,190,220,.85);}
+
+
+
+
+
+
+
+
 
 
 
@@ -1254,7 +2502,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       #setaPerfDiagnosticsPanel .bad{color:#ff8b8b;}
+
+
+
+
+
+
+
+
 
 
 
@@ -1270,7 +2534,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       #setaPerfDiagnosticsPanel .line{display:block;white-space:normal;}
+
+
+
+
+
+
+
+
 
 
 
@@ -1286,7 +2566,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     `;
+
+
+
+
+
+
+
+
 
 
 
@@ -1302,7 +2598,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1326,7 +2646,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const n = safeNum(ms);
+
+
+
+
+
+
+
+
 
 
 
@@ -1342,7 +2678,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     if (n >= 3000) return "bad";
+
+
+
+
+
+
+
+
 
 
 
@@ -1358,6 +2710,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     return "";
 
 
@@ -1366,7 +2726,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1390,6 +2774,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     injectStyle();
 
 
@@ -1398,7 +2790,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const el = panel();
+
+
+
+
+
+
+
+
 
 
 
@@ -1422,7 +2830,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const renderCls = severityClass(state.lastRenderMs);
+
+
+
+
+
+
+
+
 
 
 
@@ -1438,7 +2870,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       `Perf: ${fmtInt(state.rows)} rows · ${fmtInt(state.traces)} traces · ` +
+
+
+
+
+
+
+
+
 
 
 
@@ -1454,7 +2902,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       `<span class="${renderCls}">${fmtMs(state.lastRenderMs)}</span>` +
+
+
+
+
+
+
+
+
 
 
 
@@ -1478,7 +2942,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if (!state.expanded){
+
+
+
+
+
+
+
+
 
 
 
@@ -1494,6 +2982,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       return;
 
 
@@ -1502,7 +2998,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1526,7 +3046,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const when = state.lastAt ? state.lastAt.toLocaleTimeString() : "n/a";
+
+
+
+
+
+
+
+
 
 
 
@@ -1550,7 +3086,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     el.innerHTML = [
+
+
+
+
+
+
+
+
 
 
 
@@ -1566,7 +3126,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       `<span class="line muted">Mode ${mode} · ${selectedValue("asset")} · ${selectedValue("freq")} · ${selectedValue("range")}</span>`,
+
+
+
+
+
+
+
+
 
 
 
@@ -1582,7 +3158,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       `<span class="line muted">Customdata ${fmtInt(state.customRows)} rows / ${fmtInt(state.customCells)} cells · plot ${state.lastPlotFn} · ${when}</span>`,
+
+
+
+
+
+
+
+
 
 
 
@@ -1598,7 +3190,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       state.lastError ? `<span class="line bad">Last error: ${String(state.lastError).slice(0,180)}</span>` : "",
+
+
+
+
+
+
+
+
 
 
 
@@ -1614,6 +3222,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     ].filter(Boolean).join("");
 
 
@@ -1622,7 +3238,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1646,7 +3286,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const stats = traceStats(data);
+
+
+
+
+
+
+
+
 
 
 
@@ -1662,7 +3318,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     state.lastRenderMs = performance.now() - startedAt;
+
+
+
+
+
+
+
+
 
 
 
@@ -1678,7 +3350,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     state.traces = stats.traces;
+
+
+
+
+
+
+
+
 
 
 
@@ -1694,7 +3382,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     state.rows = stats.rows;
+
+
+
+
+
+
+
+
 
 
 
@@ -1710,7 +3414,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     state.customCells = stats.customCells;
+
+
+
+
+
+
+
+
 
 
 
@@ -1726,6 +3446,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     updatePanel();
 
 
@@ -1734,7 +3462,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1758,7 +3510,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     const P = window.Plotly;
+
+
+
+
+
+
+
+
 
 
 
@@ -1782,6 +3550,22 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ["newPlot","react"].forEach(fnName => {
 
 
@@ -1790,7 +3574,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       const original = P[fnName];
+
+
+
+
+
+
+
+
 
 
 
@@ -1814,7 +3614,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       function wrappedPlotlyCall(gd, data, layout, config){
+
+
+
+
+
+
+
+
 
 
 
@@ -1830,7 +3654,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         try{
+
+
+
+
+
+
+
+
 
 
 
@@ -1846,7 +3686,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
           if (result && typeof result.then === "function"){
+
+
+
+
+
+
+
+
 
 
 
@@ -1862,7 +3718,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
               value => { recordPlot(fnName, data, startedAt); return value; },
+
+
+
+
+
+
+
+
 
 
 
@@ -1878,7 +3750,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
                 state.lastError = fnName + ": " + (err && err.message ? err.message : String(err));
+
+
+
+
+
+
+
+
 
 
 
@@ -1894,7 +3782,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
                 throw err;
+
+
+
+
+
+
+
+
 
 
 
@@ -1910,7 +3814,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
             );
+
+
+
+
+
+
+
+
 
 
 
@@ -1926,7 +3846,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
           recordPlot(fnName, data, startedAt);
+
+
+
+
+
+
+
+
 
 
 
@@ -1942,7 +3878,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         }catch(err){
+
+
+
+
+
+
+
+
 
 
 
@@ -1958,7 +3910,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
           updatePanel();
+
+
+
+
+
+
+
+
 
 
 
@@ -1974,7 +3942,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
 
 
 
@@ -1990,6 +3974,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       wrappedPlotlyCall.__setaPerfDiagnosticsWrapped = true;
 
 
@@ -1998,7 +3990,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       P[fnName] = wrappedPlotlyCall;
+
+
+
+
+
+
+
+
 
 
 
@@ -2022,7 +4030,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     P.__setaPerfDiagnosticsPatched = true;
+
+
+
+
+
+
+
+
 
 
 
@@ -2038,6 +4070,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     return true;
 
 
@@ -2046,7 +4086,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2070,7 +4134,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     if (window.__setaPerfDiagnosticsFetchPatched || typeof window.fetch !== "function") return;
+
+
+
+
+
+
+
+
 
 
 
@@ -2086,7 +4166,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     window.fetch = function(){
+
+
+
+
+
+
+
+
 
 
 
@@ -2102,7 +4198,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       const url = arguments[0] && arguments[0].url ? arguments[0].url : arguments[0];
+
+
+
+
+
+
+
+
 
 
 
@@ -2118,7 +4230,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         const elapsed = performance.now() - startedAt;
+
+
+
+
+
+
+
+
 
 
 
@@ -2134,7 +4262,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         if (/\.json(\?|$)|chart_store|screener|manifest/i.test(u)){
+
+
+
+
+
+
+
+
 
 
 
@@ -2150,7 +4294,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
           state.lastFetchUrl = u;
+
+
+
+
+
+
+
+
 
 
 
@@ -2166,7 +4326,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
 
 
 
@@ -2182,7 +4358,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       });
+
+
+
+
+
+
+
+
 
 
 
@@ -2198,6 +4390,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     window.__setaPerfDiagnosticsFetchPatched = true;
 
 
@@ -2206,7 +4406,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2230,7 +4454,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     injectStyle();
+
+
+
+
+
+
+
+
 
 
 
@@ -2246,7 +4486,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     updatePanel();
+
+
+
+
+
+
+
+
 
 
 
@@ -2262,7 +4518,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       const timer = setInterval(() => {
+
+
+
+
+
+
+
+
 
 
 
@@ -2278,7 +4550,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
       }, 250);
+
+
+
+
+
+
+
+
 
 
 
@@ -2294,6 +4582,14 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -2302,7 +4598,31 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2326,7 +4646,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     document.addEventListener("DOMContentLoaded", boot, {once:true});
+
+
+
+
+
+
+
+
 
 
 
@@ -2342,7 +4678,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
     boot();
+
+
+
+
+
+
+
+
 
 
 
@@ -2358,7 +4710,23 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -2399,114 +4767,335 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phase_seta_visible_window_optimizer_v1
+
 (function phase_seta_visible_window_optimizer_v1(){
+
   if (window.__phase_seta_visible_window_optimizer_v1) return;
+
   window.__phase_seta_visible_window_optimizer_v1 = true;
 
+
+
   const STATS = {enabled:true,lastInPoints:0,lastOutPoints:0,lastInRows:0,lastOutRows:0,lastRange:"",lastWindow:"",lastAppliedAt:null};
+
   window.SETA_VISIBLE_WINDOW_OPTIMIZER = STATS;
 
+
+
   function selectedValue(id){ const el=document.getElementById(id); return el ? String(el.value || el.textContent || "") : ""; }
+
   function parseDateMs(v){
+
     if (v == null || v === "") return null;
+
     if (v instanceof Date){ const t=v.getTime(); return Number.isFinite(t)?t:null; }
+
     if (typeof v === "number" && Number.isFinite(v)) return v;
+
     const s=String(v); const t=Date.parse(s.length<=10 ? s+"T00:00:00" : s);
+
     return Number.isFinite(t)?t:null;
+
   }
+
   function fmtDate(ms){ try{return new Date(ms).toISOString().slice(0,10);}catch(_){return "";} }
+
   function traceRows(trace){
+
     if (!trace) return 0;
+
     return Math.max(Array.isArray(trace.x)?trace.x.length:0, Array.isArray(trace.y)?trace.y.length:0, Array.isArray(trace.open)?trace.open.length:0, Array.isArray(trace.close)?trace.close.length:0, 0);
+
   }
+
   function pointStats(data){
+
     if (!Array.isArray(data)) return {rows:0,points:0};
+
     let rows=0, points=0;
+
     data.forEach(t=>{ const n=traceRows(t); rows=Math.max(rows,n); points+=n; });
+
     return {rows,points};
+
   }
+
   function findMaxDate(data){
+
     let max=null;
+
     if (!Array.isArray(data)) return null;
+
     data.forEach(tr=>{
+
       const x=(tr && Array.isArray(tr.x)) ? tr.x : null;
+
       if (!x) return;
+
       for (let i=0;i<x.length;i++){ const t=parseDateMs(x[i]); if (t!=null && (max==null || t>max)) max=t; }
+
     });
+
     return max;
+
   }
+
   function daysForPreset(p){
+
     const s=String(p||"").trim().toUpperCase();
+
     if (s==="1M") return 31; if (s==="3M") return 92; if (s==="6M") return 183; if (s==="1Y") return 366;
+
     return null;
+
   }
+
   function deriveWindow(layout,data){
+
     const preset=String(selectedValue("range") || selectedValue("displayRange") || "").trim();
+
     if (!preset || /^all$/i.test(preset)) return null;
+
     const xr=layout && layout.xaxis && Array.isArray(layout.xaxis.range) ? layout.xaxis.range : null;
+
     if (xr && xr.length>=2){
+
       const a=parseDateMs(xr[0]), b=parseDateMs(xr[1]);
+
       if (a!=null && b!=null && Math.abs(b-a)>86400000) return {startMs:Math.min(a,b),endMs:Math.max(a,b),preset,source:"layout"};
+
     }
+
     const max=findMaxDate(data); if (max==null) return null;
+
     if (/^ytd$/i.test(preset)){ const d=new Date(max); return {startMs:Date.UTC(d.getUTCFullYear(),0,1),endMs:max,preset,source:"preset"}; }
+
     const days=daysForPreset(preset); if (!days) return null;
+
     return {startMs:max-days*86400000,endMs:max,preset,source:"preset"};
+
   }
+
   function filterArray(arr,keep){ const out=[]; for(let i=0;i<keep.length;i++){ if(keep[i]) out.push(arr[i]); } return out; }
+
   function filterNested(obj,keep){
+
     if (!obj || typeof obj!=="object" || Array.isArray(obj)) return obj;
+
     let changed=false; const out={...obj};
+
     Object.keys(out).forEach(k=>{ const v=out[k]; if(Array.isArray(v) && v.length===keep.length){ out[k]=filterArray(v,keep); changed=true; } });
+
     return changed ? out : obj;
+
   }
+
   function filterTrace(trace,startMs,endMs){
+
     if (!trace || !Array.isArray(trace.x) || !trace.x.length) return trace;
+
     const x=trace.x, bufferDays=10, lo=startMs-bufferDays*86400000, hi=endMs+bufferDays*86400000;
+
     let valid=0, kept=0;
+
     const keep=x.map(v=>{ const t=parseDateMs(v); if(t==null) return true; valid++; const yes=t>=lo && t<=hi; if(yes) kept++; return yes; });
+
     if (!valid || !kept || kept===x.length) return trace;
+
     const out={...trace};
+
     Object.keys(out).forEach(k=>{ const v=out[k]; if(Array.isArray(v) && v.length===x.length) out[k]=filterArray(v,keep); });
+
     if (out.marker) out.marker=filterNested(out.marker,keep);
+
     if (out.textfont) out.textfont=filterNested(out.textfont,keep);
+
     if (out.error_y) out.error_y=filterNested(out.error_y,keep);
+
     if (out.error_x) out.error_x=filterNested(out.error_x,keep);
+
     return out;
+
   }
+
   function clipData(data,layout){
+
     const before=pointStats(data), win=deriveWindow(layout,data);
+
     if (!win || !Array.isArray(data)){
+
       STATS.lastInRows=before.rows; STATS.lastOutRows=before.rows; STATS.lastInPoints=before.points; STATS.lastOutPoints=before.points; STATS.lastRange=win?win.preset:(selectedValue("range")||""); STATS.lastWindow="not clipped";
+
+      return data;
+
+    }
+
+    const clipped=data.map(t=>filterTrace(t,win.startMs,win.endMs));
+
+    const after=pointStats(clipped);
+
+    STATS.lastInRows=before.rows; STATS.lastOutRows=after.rows; STATS.lastInPoints=before.points; STATS.lastOutPoints=after.points;
+
+    STATS.lastRange=win.preset; STATS.lastWindow=`${fmtDate(win.startMs)} to ${fmtDate(win.endMs)} (${win.source})`; STATS.lastAppliedAt=new Date();
+
+    return clipped;
+
+  }
+
+  function patchPlotly(){
+
+    const P=window.Plotly; if(!P || P.__setaVisibleWindowOptimizerPatched) return false;
+
+    ["newPlot","react"].forEach(fnName=>{
+
+      const original=P[fnName]; if(typeof original!=="function" || original.__setaVisibleWindowOptimizerWrapped) return;
+
+      function wrappedVisibleWindowOptimizer(gd,data,layout,config){ return original.call(this, gd, clipData(data,layout), layout, config); }
+
+      wrappedVisibleWindowOptimizer.__setaVisibleWindowOptimizerWrapped=true; P[fnName]=wrappedVisibleWindowOptimizer;
+
+    });
+
+    P.__setaVisibleWindowOptimizerPatched=true; return true;
+
+  }
+
+  function boot(){ if(!patchPlotly()){ const timer=setInterval(()=>{ if(patchPlotly()) clearInterval(timer); },250); setTimeout(()=>clearInterval(timer),15000); } }
+
+  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot,{once:true}); else boot();
+
+})();
+
+// END phase_seta_visible_window_optimizer_v1
+
+
+// BEGIN phase_seta_dropdown_perf_bands_guard_v1
+(function phase_seta_dropdown_perf_bands_guard_v1(){
+  if (window.__phase_seta_dropdown_perf_bands_guard_v1) return;
+  window.__phase_seta_dropdown_perf_bands_guard_v1 = true;
+
+  window.SETA_BANDS_NONE_GUARD = {enabled:true,lastBandsValue:"",lastRemoved:0,lastKept:0,lastAt:null};
+
+  function bandsValue(){
+    const ids = ["bollinger", "bands", "bandSelector", "bandMode"];
+    for (let i=0; i<ids.length; i++){
+      const el = document.getElementById(ids[i]);
+      if (el) return String(el.value || el.textContent || "").trim();
+    }
+    const selects = Array.from(document.querySelectorAll("select"));
+    const hit = selects.find(s => /band/i.test(String(s.id || s.name || s.getAttribute("aria-label") || "")));
+    return hit ? String(hit.value || hit.textContent || "").trim() : "";
+  }
+  function bandsAreNone(){
+    const v = bandsValue();
+    return !v || /^none$/i.test(v);
+  }
+  function traceName(t){
+    return [t && t.name, t && t.legendgroup, t && t.hovertemplate, t && t.text && !Array.isArray(t.text) ? t.text : ""].filter(Boolean).join(" ");
+  }
+  function isBandTrace(t){
+    const s = traceName(t).toLowerCase();
+    if (/contextual\s+overlap|combined\s+overlap|overlap\s+(upper|lower|band)|expected\s+range/.test(s)) return true;
+    if (/price\s+band|bollinger|envelope|upper\s+band|lower\s+band|band\s+\(tv|band\s+upper|band\s+lower/.test(s)) return true;
+    if ((t && t.fill && t.fill !== "none") && /overlap|band|range|envelope/.test(s)) return true;
+    return false;
+  }
+  function filterBandsIfNone(data){
+    if (!Array.isArray(data) || !bandsAreNone()){
+      window.SETA_BANDS_NONE_GUARD.lastBandsValue = bandsValue();
+      window.SETA_BANDS_NONE_GUARD.lastRemoved = 0;
+      window.SETA_BANDS_NONE_GUARD.lastKept = Array.isArray(data) ? data.length : 0;
+      window.SETA_BANDS_NONE_GUARD.lastAt = new Date();
       return data;
     }
-    const clipped=data.map(t=>filterTrace(t,win.startMs,win.endMs));
-    const after=pointStats(clipped);
-    STATS.lastInRows=before.rows; STATS.lastOutRows=after.rows; STATS.lastInPoints=before.points; STATS.lastOutPoints=after.points;
-    STATS.lastRange=win.preset; STATS.lastWindow=`${fmtDate(win.startMs)} to ${fmtDate(win.endMs)} (${win.source})`; STATS.lastAppliedAt=new Date();
-    return clipped;
+    let removed = 0;
+    const kept = data.filter(t => {
+      const drop = isBandTrace(t);
+      if (drop) removed += 1;
+      return !drop;
+    });
+    window.SETA_BANDS_NONE_GUARD.lastBandsValue = bandsValue();
+    window.SETA_BANDS_NONE_GUARD.lastRemoved = removed;
+    window.SETA_BANDS_NONE_GUARD.lastKept = kept.length;
+    window.SETA_BANDS_NONE_GUARD.lastAt = new Date();
+    return removed ? kept : data;
   }
   function patchPlotly(){
-    const P=window.Plotly; if(!P || P.__setaVisibleWindowOptimizerPatched) return false;
-    ["newPlot","react"].forEach(fnName=>{
-      const original=P[fnName]; if(typeof original!=="function" || original.__setaVisibleWindowOptimizerWrapped) return;
-      function wrappedVisibleWindowOptimizer(gd,data,layout,config){ return original.call(this, gd, clipData(data,layout), layout, config); }
-      wrappedVisibleWindowOptimizer.__setaVisibleWindowOptimizerWrapped=true; P[fnName]=wrappedVisibleWindowOptimizer;
+    const P = window.Plotly;
+    if (!P || P.__setaBandsNoneGuardPatched) return false;
+    ["newPlot","react"].forEach(fnName => {
+      const original = P[fnName];
+      if (typeof original !== "function" || original.__setaBandsNoneGuardWrapped) return;
+      function wrappedBandsNoneGuard(gd, data, layout, config){
+        return original.call(this, gd, filterBandsIfNone(data), layout, config);
+      }
+      wrappedBandsNoneGuard.__setaBandsNoneGuardWrapped = true;
+      P[fnName] = wrappedBandsNoneGuard;
     });
-    P.__setaVisibleWindowOptimizerPatched=true; return true;
+    P.__setaBandsNoneGuardPatched = true;
+    return true;
   }
-  function boot(){ if(!patchPlotly()){ const timer=setInterval(()=>{ if(patchPlotly()) clearInterval(timer); },250); setTimeout(()=>clearInterval(timer),15000); } }
-  if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",boot,{once:true}); else boot();
+  function boot(){
+    if (!patchPlotly()){
+      const timer = setInterval(() => { if (patchPlotly()) clearInterval(timer); }, 250);
+      setTimeout(() => clearInterval(timer), 15000);
+    }
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, {once:true});
+  else boot();
 })();
-// END phase_seta_visible_window_optimizer_v1
+// END phase_seta_dropdown_perf_bands_guard_v1
 // BEGIN phase_seta_custom_dropdowns_v1
+
+
 
 (function phase_seta_custom_dropdowns_v1(){
 
+
+
   if (window.__phase_seta_custom_dropdowns_v1) return;
 
+
+
   window.__phase_seta_custom_dropdowns_v1 = true;
+
+
+
+
 
 
 
@@ -2514,603 +5103,1199 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
   function esc(s){
+
+
 
     return String(s == null ? "" : s).replace(/[&<>"']/g, ch => ({
 
+
+
       "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+
+
 
     }[ch]));
 
+
+
   }
+
+
+
+
 
 
 
   function injectStyle(){
 
+
+
     if (document.getElementById("phase_seta_custom_dropdowns_v1_style")) return;
+
+
 
     if (!document.head) return;
 
+
+
     const style = document.createElement("style");
+
+
 
     style.id = "phase_seta_custom_dropdowns_v1_style";
 
+
+
     style.textContent = `
+
+
 
       .setaCustomSelectWrap{
 
+
+
         position:relative;
+
+
 
         display:inline-block;
 
+
+
         vertical-align:top;
+
+
 
         min-width:112px;
 
+
+
       }
+
+
 
       .setaCustomSelectWrap select.setaNativeSelectHidden{
 
+
+
         position:absolute !important;
+
+
 
         inset:0 !important;
 
+
+
         width:100% !important;
+
+
 
         height:100% !important;
 
+
+
         opacity:0 !important;
+
+
 
         pointer-events:none !important;
 
+
+
         tab-index:-1;
 
+
+
       }
+
+
 
       .setaCustomSelectButton{
 
+
+
         width:100%;
+
+
 
         min-height:38px;
 
+
+
         display:flex;
+
+
 
         align-items:center;
 
+
+
         justify-content:space-between;
+
+
 
         gap:10px;
 
+
+
         padding:9px 12px;
+
+
 
         border-radius:9px;
 
+
+
         border:1px solid rgba(92,140,160,.45);
+
+
 
         background:#0b0f14;
 
+
+
         color:#ffffff;
+
+
 
         font:600 13px/1.2 inherit;
 
+
+
         cursor:pointer;
 
+
+
         text-align:left;
+
+
 
         box-shadow:inset 0 1px 0 rgba(255,255,255,.03);
 
+
+
       }
+
+
 
       .setaCustomSelectButton:hover{
 
+
+
         border-color:rgba(122,190,220,.68);
+
+
 
         background:#10161c;
 
+
+
       }
+
+
 
       .setaCustomSelectButton:focus{
 
+
+
         outline:none;
+
+
 
         border-color:rgba(94,234,212,.78);
 
+
+
         box-shadow:0 0 0 2px rgba(94,234,212,.13);
 
+
+
       }
+
+
 
       .setaCustomSelectButton[aria-expanded="true"]{
 
+
+
         border-color:rgba(255,218,78,.82);
+
+
 
         box-shadow:0 0 0 2px rgba(255,218,78,.10);
 
+
+
       }
+
+
 
       .setaCustomSelectLabel{
 
+
+
         overflow:hidden;
+
+
 
         text-overflow:ellipsis;
 
+
+
         white-space:nowrap;
 
+
+
       }
+
+
 
       .setaCustomSelectChevron{
 
+
+
         flex:0 0 auto;
+
+
 
         width:0;
 
+
+
         height:0;
+
+
 
         border-left:5px solid transparent;
 
+
+
         border-right:5px solid transparent;
+
+
 
         border-top:6px solid #d9e9f0;
 
+
+
         opacity:.9;
 
+
+
       }
+
+
 
       .setaCustomSelectWrap.open .setaCustomSelectChevron{
 
+
+
         transform:rotate(180deg);
 
+
+
       }
+
+
 
       .setaCustomSelectMenu{
 
+
+
         position:absolute;
+
+
 
         left:0;
 
+
+
         top:calc(100% + 4px);
+
+
 
         z-index:2147482500;
 
+
+
         min-width:100%;
+
+
 
         max-width:min(360px, 92vw);
 
+
+
         max-height:280px;
+
+
 
         overflow:auto;
 
+
+
         display:none;
+
+
 
         padding:5px;
 
+
+
         border:1px solid rgba(92,140,160,.62);
+
+
 
         border-radius:10px;
 
+
+
         background:#080c10;
+
+
 
         box-shadow:0 18px 40px rgba(0,0,0,.58), 0 0 0 1px rgba(255,255,255,.03) inset;
 
+
+
       }
+
+
 
       .setaCustomSelectWrap.open .setaCustomSelectMenu{
 
+
+
         display:block;
 
+
+
       }
+
+
 
       .setaCustomSelectOption{
 
+
+
         width:100%;
+
+
 
         display:block;
 
+
+
         padding:8px 10px;
+
+
 
         border:0;
 
+
+
         border-radius:7px;
+
+
 
         background:transparent;
 
+
+
         color:#e7eef3;
+
+
 
         font:600 12px/1.2 inherit;
 
+
+
         text-align:left;
+
+
 
         cursor:pointer;
 
+
+
         white-space:nowrap;
+
+
 
         overflow:hidden;
 
+
+
         text-overflow:ellipsis;
 
+
+
       }
+
+
 
       .setaCustomSelectOption:hover,
 
+
+
       .setaCustomSelectOption:focus{
+
+
 
         outline:none;
 
+
+
         background:#14202a;
+
+
 
         color:#ffffff;
 
+
+
       }
+
+
 
       .setaCustomSelectOption.selected{
 
+
+
         background:rgba(255,218,78,.16);
+
+
 
         color:#ffde4e;
 
+
+
       }
+
+
 
       .setaCustomSelectOption[disabled]{
 
+
+
         opacity:.45;
+
+
 
         cursor:not-allowed;
 
+
+
       }
+
+
 
       .setaCustomSelectOptgroup{
 
+
+
         padding:7px 9px 4px;
+
+
 
         color:#8ea4ad;
 
+
+
         font:700 10px/1.2 inherit;
+
+
 
         text-transform:uppercase;
 
+
+
         letter-spacing:.05em;
 
+
+
       }
+
+
 
       @media print{
 
+
+
         .setaCustomSelectMenu{display:none!important;}
+
+
 
       }
 
+
+
     `;
+
+
 
     document.head.appendChild(style);
 
+
+
   }
+
+
+
+
 
 
 
   function selectedOption(sel){
 
+
+
     return sel.options && sel.options.length ? sel.options[sel.selectedIndex >= 0 ? sel.selectedIndex : 0] : null;
 
+
+
   }
+
+
+
+
 
 
 
   function syncNativeSelect(sel, value){
-
-    if (sel.value === value) return;
-
-    sel.value = value;
-
+    const nextValue = String(value == null ? "" : value);
+    let changed = String(sel.value) !== nextValue;
+    const options = Array.from(sel.options || []);
+    const idx = options.findIndex(opt => String(opt.value) === nextValue);
+    if (idx >= 0 && sel.selectedIndex !== idx) { sel.selectedIndex = idx; changed = true; }
+    if (String(sel.value) !== nextValue) { sel.value = nextValue; changed = true; }
+    options.forEach((opt, i) => { if (i === sel.selectedIndex) opt.setAttribute("selected", "selected"); else opt.removeAttribute("selected"); });
+    if (!changed) return;
     sel.dispatchEvent(new Event("input", {bubbles:true}));
-
     sel.dispatchEvent(new Event("change", {bubbles:true}));
-
+    setTimeout(() => { sel.dispatchEvent(new Event("change", {bubbles:true})); }, 0);
   }
+
+
+
+
 
 
 
   function closeMenu(wrap){
 
+
+
     if (!wrap) return;
+
+
 
     wrap.classList.remove("open");
 
+
+
     const btn = wrap.querySelector(".setaCustomSelectButton");
+
+
 
     if (btn) btn.setAttribute("aria-expanded", "false");
 
+
+
     if (openWrap === wrap) openWrap = null;
 
+
+
   }
+
+
+
+
 
 
 
   function closeAll(){
 
+
+
     document.querySelectorAll(".setaCustomSelectWrap.open").forEach(closeMenu);
+
+
 
     openWrap = null;
 
+
+
   }
+
+
+
+
 
 
 
   function openMenu(wrap){
 
+
+
     if (!wrap) return;
+
+
 
     if (openWrap && openWrap !== wrap) closeMenu(openWrap);
 
+
+
     wrap.classList.add("open");
+
+
 
     openWrap = wrap;
 
+
+
     const btn = wrap.querySelector(".setaCustomSelectButton");
+
+
 
     if (btn) btn.setAttribute("aria-expanded", "true");
 
+
+
     const selected = wrap.querySelector(".setaCustomSelectOption.selected");
+
+
 
     if (selected) {
 
+
+
       try { selected.scrollIntoView({block:"nearest"}); } catch(_){}
+
+
 
     }
 
+
+
   }
+
+
+
+
 
 
 
   function optionButton(sel, opt){
 
+
+
     const btn = document.createElement("button");
+
+
 
     btn.type = "button";
 
+
+
     btn.className = "setaCustomSelectOption";
+
+
 
     btn.setAttribute("role", "option");
 
+
+
     btn.dataset.value = opt.value;
+
+
 
     btn.innerHTML = esc(opt.textContent || opt.label || opt.value);
 
+
+
     if (opt.disabled) btn.disabled = true;
+
+
 
     if (opt.selected) {
 
+
+
       btn.classList.add("selected");
+
+
 
       btn.setAttribute("aria-selected", "true");
 
+
+
     } else {
+
+
 
       btn.setAttribute("aria-selected", "false");
 
+
+
     }
+
+
 
     btn.addEventListener("click", ev => {
 
+
+
       ev.preventDefault();
+
+
 
       ev.stopPropagation();
 
+
+
       if (btn.disabled) return;
+
+
 
       syncNativeSelect(sel, opt.value);
 
+
+
       const wrap = sel.closest(".setaCustomSelectWrap");
+
+
 
       renderSelect(sel);
 
+
+
       closeMenu(wrap);
+
+
 
       const trigger = wrap && wrap.querySelector(".setaCustomSelectButton");
 
+
+
       if (trigger) trigger.focus();
+
+
 
     });
 
+
+
     return btn;
 
+
+
   }
+
+
+
+
 
 
 
   function renderMenuOptions(sel, menu){
 
+
+
     menu.innerHTML = "";
+
+
 
     Array.from(sel.children).forEach(child => {
 
+
+
       if (child.tagName === "OPTGROUP"){
+
+
 
         const label = document.createElement("div");
 
+
+
         label.className = "setaCustomSelectOptgroup";
+
+
 
         label.textContent = child.label || "";
 
+
+
         menu.appendChild(label);
+
+
 
         Array.from(child.children).forEach(opt => menu.appendChild(optionButton(sel, opt)));
 
+
+
       } else if (child.tagName === "OPTION") {
+
+
 
         menu.appendChild(optionButton(sel, child));
 
+
+
       }
+
+
 
     });
 
+
+
   }
+
+
+
+
 
 
 
   function renderSelect(sel){
 
+
+
     const wrap = sel.closest(".setaCustomSelectWrap");
+
+
 
     if (!wrap) return;
 
+
+
     const label = wrap.querySelector(".setaCustomSelectLabel");
+
+
 
     const menu = wrap.querySelector(".setaCustomSelectMenu");
 
+
+
     const opt = selectedOption(sel);
 
+
+
     if (label) label.textContent = opt ? (opt.textContent || opt.label || opt.value) : "";
+
+
 
     if (menu) renderMenuOptions(sel, menu);
 
 
 
+
+
+
+
     // Keep the custom control aligned to the original select/control dimensions.
+
+
 
     const parentControl = wrap.closest(".control");
 
+
+
     const sourceWidth = Number(sel.dataset.setaOriginalWidth || 0);
+
+
 
     const currentWidth = sourceWidth || Math.max(112, Math.round(wrap.getBoundingClientRect().width || 0));
 
+
+
     if (currentWidth) wrap.style.width = currentWidth + "px";
 
+
+
     if (parentControl) wrap.style.maxWidth = "100%";
+
+
 
   }
 
 
 
+
+
+
+
   function enhanceSelect(sel){
 
+
+
     if (!sel || sel.dataset.setaCustomDropdown === "1") return;
+
+
 
     if (sel.closest(".setaCustomSelectWrap")) return;
 
 
 
+
+
+
+
     const rect = sel.getBoundingClientRect();
+
+
 
     if (rect.width) sel.dataset.setaOriginalWidth = String(Math.max(112, Math.round(rect.width)));
 
 
 
+
+
+
+
     const wrap = document.createElement("div");
 
+
+
     wrap.className = "setaCustomSelectWrap";
+
+
 
     wrap.style.width = (sel.dataset.setaOriginalWidth || Math.max(112, Math.round(sel.offsetWidth || 112))) + "px";
 
 
 
+
+
+
+
     const btn = document.createElement("button");
+
+
 
     btn.type = "button";
 
+
+
     btn.className = "setaCustomSelectButton";
+
+
 
     btn.setAttribute("aria-haspopup", "listbox");
 
+
+
     btn.setAttribute("aria-expanded", "false");
+
+
 
     btn.innerHTML = `<span class="setaCustomSelectLabel"></span><span class="setaCustomSelectChevron" aria-hidden="true"></span>`;
 
 
 
+
+
+
+
     const menu = document.createElement("div");
 
+
+
     menu.className = "setaCustomSelectMenu";
+
+
 
     menu.setAttribute("role", "listbox");
 
 
 
+
+
+
+
     sel.parentNode.insertBefore(wrap, sel);
+
+
 
     wrap.appendChild(sel);
 
+
+
     wrap.appendChild(btn);
+
+
 
     wrap.appendChild(menu);
 
 
 
+
+
+
+
     sel.dataset.setaCustomDropdown = "1";
+
+
 
     sel.classList.add("setaNativeSelectHidden");
 
+
+
     sel.tabIndex = -1;
+
+
 
     sel.setAttribute("aria-hidden", "true");
 
 
 
+
+
+
+
     btn.addEventListener("click", ev => {
+
+
 
       ev.preventDefault();
 
+
+
       ev.stopPropagation();
+
+
 
       if (wrap.classList.contains("open")) closeMenu(wrap);
 
+
+
       else openMenu(wrap);
 
+
+
     });
+
+
+
+
 
 
 
     btn.addEventListener("keydown", ev => {
 
+
+
       const options = Array.from(wrap.querySelectorAll(".setaCustomSelectOption:not([disabled])"));
+
+
 
       if (ev.key === "Escape"){
 
+
+
         closeMenu(wrap);
+
+
 
       } else if (ev.key === "ArrowDown" || ev.key === "Enter" || ev.key === " "){
 
+
+
         ev.preventDefault();
+
+
 
         openMenu(wrap);
 
+
+
         const selected = wrap.querySelector(".setaCustomSelectOption.selected:not([disabled])") || options[0];
+
+
 
         if (selected) selected.focus();
 
+
+
       }
 
+
+
     });
+
+
+
+
 
 
 
     menu.addEventListener("keydown", ev => {
 
+
+
       const options = Array.from(wrap.querySelectorAll(".setaCustomSelectOption:not([disabled])"));
+
+
 
       const idx = options.indexOf(document.activeElement);
 
+
+
       if (ev.key === "Escape"){
 
+
+
         ev.preventDefault();
+
+
 
         closeMenu(wrap);
 
+
+
         btn.focus();
+
+
 
       } else if (ev.key === "ArrowDown"){
 
+
+
         ev.preventDefault();
+
+
 
         (options[Math.min(options.length - 1, idx + 1)] || options[0])?.focus();
 
+
+
       } else if (ev.key === "ArrowUp"){
+
+
 
         ev.preventDefault();
 
+
+
         (options[Math.max(0, idx - 1)] || options[options.length - 1])?.focus();
+
+
 
       }
 
+
+
     });
+
+
+
+
 
 
 
@@ -3118,81 +6303,167 @@ window.SETA_BUILD_INFO = {
 
 
 
+
+
+
+
     const optObserver = new MutationObserver(() => renderSelect(sel));
+
+
 
     optObserver.observe(sel, {childList:true, subtree:true, attributes:true, attributeFilter:["selected","disabled","label","value"]});
 
 
 
+
+
+
+
     renderSelect(sel);
 
+
+
   }
+
+
+
+
 
 
 
   function enhanceAll(){
 
+
+
     document.querySelectorAll("select").forEach(enhanceSelect);
 
+
+
   }
+
+
+
+
 
 
 
   function boot(){
 
+
+
     injectStyle();
+
+
 
     enhanceAll();
 
 
 
+
+
+
+
     document.addEventListener("click", ev => {
+
+
 
       if (!ev.target || !ev.target.closest || !ev.target.closest(".setaCustomSelectWrap")) closeAll();
 
+
+
     }, true);
+
+
+
+
 
 
 
     document.addEventListener("keydown", ev => {
 
+
+
       if (ev.key === "Escape") closeAll();
+
+
 
     }, true);
 
 
 
+
+
+
+
     const obs = new MutationObserver(() => enhanceAll());
+
+
 
     if (document.body) obs.observe(document.body, {childList:true, subtree:true});
 
 
 
+
+
+
+
     window.addEventListener("resize", () => {
+
+
 
       document.querySelectorAll("select[data-seta-custom-dropdown='1']").forEach(renderSelect);
 
+
+
     });
 
+
+
   }
+
+
+
+
 
 
 
   if (document.readyState === "loading"){
 
+
+
     document.addEventListener("DOMContentLoaded", boot, {once:true});
+
+
 
   }else{
 
+
+
     boot();
+
+
 
   }
 
+
+
 })();
+
+
 
 // END phase_seta_custom_dropdowns_v1
 
+
+
 function currentMode(){ return new URLSearchParams(location.search).get("mode") || DASH_MODE_DEFAULT || "public"; }
+
+
+
+
+
+
+
+
 
 
 
@@ -3208,7 +6479,23 @@ function manifestModeConfig(){
 
 
 
+
+
+
+
+
+
+
+
   if (!MODE_MANIFEST || !MODE_MANIFEST.modes) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -3224,7 +6511,23 @@ function manifestModeConfig(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3240,7 +6543,23 @@ function assetUniverse(){
 
 
 
+
+
+
+
+
+
+
+
   const cfg = manifestModeConfig();
+
+
+
+
+
+
+
+
 
 
 
@@ -3256,7 +6575,23 @@ function assetUniverse(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3272,7 +6607,23 @@ function modeDefaults(){
 
 
 
+
+
+
+
+
+
+
+
   const cfg = manifestModeConfig();
+
+
+
+
+
+
+
+
 
 
 
@@ -3288,7 +6639,23 @@ function modeDefaults(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3304,6 +6671,14 @@ function activeDataUrl(){
 
 
 
+
+
+
+
+
+
+
+
   return new URLSearchParams(location.search).get('data') || manifestModeConfig()?.dataUrl || 'fix26_chart_store_public.json';
 
 
@@ -3312,7 +6687,23 @@ function activeDataUrl(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3328,7 +6719,23 @@ function showLegend(){ return !!manifestModeConfig()?.showLegend; }
 
 
 
+
+
+
+
+
+
+
+
 function showLowerPanes(){ return manifestModeConfig()?.showLowerPanes !== false; }
+
+
+
+
+
+
+
+
 
 
 
@@ -3344,7 +6751,23 @@ function badgeOrder(){ return manifestModeConfig()?.badgeOrder || []; }
 
 
 
+
+
+
+
+
+
+
+
 function helperPrefix(){ return manifestModeConfig()?.helperPrefix || null; }
+
+
+
+
+
+
+
+
 
 
 
@@ -3360,7 +6783,23 @@ function setSelectValue(id,val){ const el=document.getElementById(id); if(el && 
 
 
 
+
+
+
+
+
+
+
+
 function populateAssetOptions(){
+
+
+
+
+
+
+
+
 
 
 
@@ -3376,7 +6815,23 @@ function populateAssetOptions(){
 
 
 
+
+
+
+
+
+
+
+
   const cfg = manifestModeConfig();
+
+
+
+
+
+
+
+
 
 
 
@@ -3392,7 +6847,23 @@ function populateAssetOptions(){
 
 
 
+
+
+
+
+
+
+
+
   sel.innerHTML = allowed.map(a=>`<option value="${a}">${a}</option>`).join('');
+
+
+
+
+
+
+
+
 
 
 
@@ -3408,7 +6879,23 @@ function populateAssetOptions(){
 
 
 
+
+
+
+
+
+
+
+
   const preferred = (qAsset && allowed.includes(qAsset)) ? qAsset : (cfg?.defaultAsset && allowed.includes(cfg.defaultAsset) ? cfg.defaultAsset : allowed[0]);
+
+
+
+
+
+
+
+
 
 
 
@@ -3424,7 +6911,23 @@ function populateAssetOptions(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3440,7 +6943,23 @@ function applyControlLabels(){
 
 
 
+
+
+
+
+
+
+
+
   const labels = (MODE_MANIFEST && MODE_MANIFEST.controlLabels) ? MODE_MANIFEST.controlLabels : {};
+
+
+
+
+
+
+
+
 
 
 
@@ -3456,7 +6975,23 @@ function applyControlLabels(){
 
 
 
+
+
+
+
+
+
+
+
     const key = el.getAttribute('data-label-for');
+
+
+
+
+
+
+
+
 
 
 
@@ -3472,6 +7007,14 @@ function applyControlLabels(){
 
 
 
+
+
+
+
+
+
+
+
   });
 
 
@@ -3480,7 +7023,23 @@ function applyControlLabels(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3496,7 +7055,23 @@ function applyControlVisibility(){
 
 
 
+
+
+
+
+
+
+
+
   const cfg = manifestModeConfig();
+
+
+
+
+
+
+
+
 
 
 
@@ -3512,7 +7087,23 @@ function applyControlVisibility(){
 
 
 
+
+
+
+
+
+
+
+
   document.querySelectorAll('.control[data-control]').forEach(el=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -3528,6 +7119,14 @@ function applyControlVisibility(){
 
 
 
+
+
+
+
+
+
+
+
   });
 
 
@@ -3536,7 +7135,23 @@ function applyControlVisibility(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3552,7 +7167,23 @@ function applyModeUi(){
 
 
 
+
+
+
+
+
+
+
+
   const mode=currentMode();
+
+
+
+
+
+
+
+
 
 
 
@@ -3568,7 +7199,23 @@ function applyModeUi(){
 
 
 
+
+
+
+
+
+
+
+
   document.getElementById('modeBadge').textContent = cfg.modeBadge || (mode==='member' ? 'Member Mode' : 'Public Mode');
+
+
+
+
+
+
+
+
 
 
 
@@ -3584,7 +7231,23 @@ function applyModeUi(){
 
 
 
+
+
+
+
+
+
+
+
   document.querySelector('.sub').textContent = cfg.subtitle || (mode==='member'
+
+
+
+
+
+
+
+
 
 
 
@@ -3600,7 +7263,23 @@ function applyModeUi(){
 
 
 
+
+
+
+
+
+
+
+
     : 'Combined Overlap leads. Engagement confirms. Traditional indicators remain visible for timing.');
+
+
+
+
+
+
+
+
 
 
 
@@ -3616,7 +7295,23 @@ function applyModeUi(){
 
 
 
+
+
+
+
+
+
+
+
   applyControlLabels();
+
+
+
+
+
+
+
+
 
 
 
@@ -3632,7 +7327,31 @@ function applyModeUi(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3656,7 +7375,23 @@ async function loadScreenerStore(){
 
 
 
+
+
+
+
+
+
+
+
   try{
+
+
+
+
+
+
+
+
 
 
 
@@ -3672,7 +7407,23 @@ async function loadScreenerStore(){
 
 
 
+
+
+
+
+
+
+
+
     if(!res.ok){
+
+
+
+
+
+
+
+
 
 
 
@@ -3688,7 +7439,23 @@ async function loadScreenerStore(){
 
 
 
+
+
+
+
+
+
+
+
       SCREENER_STORE = null;
+
+
+
+
+
+
+
+
 
 
 
@@ -3704,7 +7471,23 @@ async function loadScreenerStore(){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -3720,7 +7503,23 @@ async function loadScreenerStore(){
 
 
 
+
+
+
+
+
+
+
+
     window.SCREENER_STORE = SCREENER_STORE;
+
+
+
+
+
+
+
+
 
 
 
@@ -3736,7 +7535,23 @@ async function loadScreenerStore(){
 
 
 
+
+
+
+
+
+
+
+
     console.warn("Screener store load failed:", err);
+
+
+
+
+
+
+
+
 
 
 
@@ -3752,7 +7567,23 @@ async function loadScreenerStore(){
 
 
 
+
+
+
+
+
+
+
+
     window.SCREENER_STORE = null;
+
+
+
+
+
+
+
+
 
 
 
@@ -3768,7 +7599,31 @@ async function loadScreenerStore(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3792,7 +7647,23 @@ function applyModeDefaults(){
 
 
 
+
+
+
+
+
+
+
+
   const d = modeDefaults();
+
+
+
+
+
+
+
+
 
 
 
@@ -3808,7 +7679,23 @@ function applyModeDefaults(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3824,7 +7711,23 @@ async function loadManifest(){
 
 
 
+
+
+
+
+
+
+
+
   const res = await fetch(MANIFEST_URL, {cache:'no-store'});
+
+
+
+
+
+
+
+
 
 
 
@@ -3840,6 +7743,14 @@ async function loadManifest(){
 
 
 
+
+
+
+
+
+
+
+
   MODE_MANIFEST = await res.json();
 
 
@@ -3848,7 +7759,23 @@ async function loadManifest(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3864,7 +7791,23 @@ async function loadStore(){
 
 
 
+
+
+
+
+
+
+
+
   const res = await fetch(activeDataUrl(), {cache:'no-store'});
+
+
+
+
+
+
+
+
 
 
 
@@ -3880,6 +7823,14 @@ async function loadStore(){
 
 
 
+
+
+
+
+
+
+
+
   STORE = await res.json();
 
 
@@ -3888,7 +7839,23 @@ async function loadStore(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -3904,7 +7871,23 @@ const COLORS = {
 
 
 
+
+
+
+
+
+
+
+
   bg:'#07090b', panel:'#0b0d10', grid:'rgba(255,255,255,0.12)', text:'#e7eef3', price:'#d8d8d8',
+
+
+
+
+
+
+
+
 
 
 
@@ -3920,7 +7903,23 @@ const COLORS = {
 
 
 
+
+
+
+
+
+
+
+
   priceBand:'rgba(125,185,255,0.95)', priceFill:'rgba(85,135,215,0.10)',
+
+
+
+
+
+
+
+
 
 
 
@@ -3936,7 +7935,23 @@ const COLORS = {
 
 
 
+
+
+
+
+
+
+
+
   sent7:'#00ff00', sent21:'#38ff63', sent50:'#5cff8b', sent100:'#80ffb2', sent200:'#a6ffd6',
+
+
+
+
+
+
+
+
 
 
 
@@ -3952,7 +7967,23 @@ const COLORS = {
 
 
 
+
+
+
+
+
+
+
+
   regimeBullFill:'rgba(71,221,123,0.07)', regimeBearFill:'rgba(255,116,116,0.07)', regimeFlatFill:'rgba(214,191,94,0.06)',
+
+
+
+
+
+
+
+
 
 
 
@@ -3968,7 +7999,23 @@ const COLORS = {
 
 
 
+
+
+
+
+
+
+
+
   overlapBand:'rgba(255,224,120,0.95)', overlapFill:'rgba(255,224,120,0.12)', rsi:'#e8e8e8', stoch:'#46b9ff', stochD:'#d99c2c',
+
+
+
+
+
+
+
+
 
 
 
@@ -3984,7 +8031,23 @@ const COLORS = {
 
 
 
+
+
+
+
+
+
+
+
 };
+
+
+
+
+
+
+
+
 
 
 
@@ -4000,7 +8063,23 @@ function hexToRgba(hex, alpha){
 
 
 
+
+
+
+
+
+
+
+
   const h=String(hex||'').replace('#','');
+
+
+
+
+
+
+
+
 
 
 
@@ -4016,7 +8095,23 @@ function hexToRgba(hex, alpha){
 
 
 
+
+
+
+
+
+
+
+
   const r=parseInt(h.slice(0,2),16), g=parseInt(h.slice(2,4),16), b=parseInt(h.slice(4,6),16);
+
+
+
+
+
+
+
+
 
 
 
@@ -4032,7 +8127,23 @@ function hexToRgba(hex, alpha){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4048,7 +8159,23 @@ function clamp(v, lo, hi){ return Math.max(lo, Math.min(hi, v)); }
 
 
 
+
+
+
+
+
+
+
+
 function mixHex(hexA, hexB, t){
+
+
+
+
+
+
+
+
 
 
 
@@ -4064,7 +8191,23 @@ function mixHex(hexA, hexB, t){
 
 
 
+
+
+
+
+
+
+
+
   if(a.length!==6 || b.length!==6) return hexA || hexB || '#ffffff';
+
+
+
+
+
+
+
+
 
 
 
@@ -4080,7 +8223,23 @@ function mixHex(hexA, hexB, t){
 
 
 
+
+
+
+
+
+
+
+
   const ch=(s,i)=>parseInt(s.slice(i,i+2),16);
+
+
+
+
+
+
+
+
 
 
 
@@ -4096,7 +8255,23 @@ function mixHex(hexA, hexB, t){
 
 
 
+
+
+
+
+
+
+
+
   const r=ch(a,0)*(1-tt)+ch(b,0)*tt, g=ch(a,2)*(1-tt)+ch(b,2)*tt, b2=ch(a,4)*(1-tt)+ch(b,4)*tt;
+
+
+
+
+
+
+
+
 
 
 
@@ -4112,7 +8287,23 @@ function mixHex(hexA, hexB, t){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4128,7 +8319,23 @@ function regimeBaseColor(regime){
 
 
 
+
+
+
+
+
+
+
+
   if(regime==='Bullish') return COLORS.regimeBull;
+
+
+
+
+
+
+
+
 
 
 
@@ -4144,6 +8351,14 @@ function regimeBaseColor(regime){
 
 
 
+
+
+
+
+
+
+
+
   return COLORS.regimeFlat;
 
 
@@ -4152,7 +8367,23 @@ function regimeBaseColor(regime){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4168,7 +8399,23 @@ function regimeFillColor(regime){
 
 
 
+
+
+
+
+
+
+
+
   if(regime==='Bullish') return COLORS.regimeBullFill;
+
+
+
+
+
+
+
+
 
 
 
@@ -4184,6 +8431,14 @@ function regimeFillColor(regime){
 
 
 
+
+
+
+
+
+
+
+
   return COLORS.regimeFlatFill;
 
 
@@ -4192,7 +8447,23 @@ function regimeFillColor(regime){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4208,7 +8479,23 @@ function regimePalette(regime, period){
 
 
 
+
+
+
+
+
+
+
+
   const base=regimeBaseColor(regime);
+
+
+
+
+
+
+
+
 
 
 
@@ -4224,7 +8511,23 @@ function regimePalette(regime, period){
 
 
 
+
+
+
+
+
+
+
+
   const core=mixHex(base,'#ffffff',lighten);
+
+
+
+
+
+
+
+
 
 
 
@@ -4240,7 +8543,23 @@ function regimePalette(regime, period){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4256,7 +8575,23 @@ function sentimentPalette(period){
 
 
 
+
+
+
+
+
+
+
+
   const core = ({7:COLORS.sent7,21:COLORS.sent21,50:COLORS.sent50,100:COLORS.sent100,200:COLORS.sent200})[period] || COLORS.sentCore;
+
+
+
+
+
+
+
+
 
 
 
@@ -4272,7 +8607,23 @@ function sentimentPalette(period){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4288,7 +8639,23 @@ function num(v){ const n=(v===null||v===undefined||v==='')?null:Number(v); retur
 
 
 
+
+
+
+
+
+
+
+
 function cloneRows(rows){ return rows.map(r=>{ const x={...r}; x.dateObj=new Date(r.date+'T00:00:00'); return x; }); }
+
+
+
+
+
+
+
+
 
 
 
@@ -4304,7 +8671,23 @@ function detectCalendar(rows){ return (rows[0]&&rows[0].asset_calendar)||'tradin
 
 
 
+
+
+
+
+
+
+
+
 function visibleRows(rows,preset){
+
+
+
+
+
+
+
+
 
 
 
@@ -4320,7 +8703,23 @@ function visibleRows(rows,preset){
 
 
 
+
+
+
+
+
+
+
+
   const end=rows[rows.length-1].dateObj;
+
+
+
+
+
+
+
+
 
 
 
@@ -4336,7 +8735,23 @@ function visibleRows(rows,preset){
 
 
 
+
+
+
+
+
+
+
+
   if(preset==='All') return rows.slice();
+
+
+
+
+
+
+
+
 
 
 
@@ -4352,7 +8767,23 @@ function visibleRows(rows,preset){
 
 
 
+
+
+
+
+
+
+
+
   else {
+
+
+
+
+
+
+
+
 
 
 
@@ -4368,7 +8799,23 @@ function visibleRows(rows,preset){
 
 
 
+
+
+
+
+
+
+
+
     const map={'1M':31,'3M':92,'6M':183,'1Y':366};
+
+
+
+
+
+
+
+
 
 
 
@@ -4384,7 +8831,23 @@ function visibleRows(rows,preset){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -4400,7 +8863,23 @@ function visibleRows(rows,preset){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4416,7 +8895,23 @@ function fitRowsForSentiment(rows, visRows, freq){
 
 
 
+
+
+
+
+
+
+
+
   if(!rows.length||!visRows.length) return rows.slice();
+
+
+
+
+
+
+
+
 
 
 
@@ -4432,7 +8927,23 @@ function fitRowsForSentiment(rows, visRows, freq){
 
 
 
+
+
+
+
+
+
+
+
   const start=new Date(visStart);
+
+
+
+
+
+
+
+
 
 
 
@@ -4448,7 +8959,23 @@ function fitRowsForSentiment(rows, visRows, freq){
 
 
 
+
+
+
+
+
+
+
+
   else start.setDate(start.getDate()-260);
+
+
+
+
+
+
+
+
 
 
 
@@ -4464,6 +8991,14 @@ function fitRowsForSentiment(rows, visRows, freq){
 
 
 
+
+
+
+
+
+
+
+
   return fit.length ? fit : rows.slice();
 
 
@@ -4472,7 +9007,23 @@ function fitRowsForSentiment(rows, visRows, freq){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4488,7 +9039,23 @@ function futurePadDays(calendar,freq){ if(freq==='W') return 14; return calendar
 
 
 
+
+
+
+
+
+
+
+
 function nextRangeEnd(visEnd,calendar,freq){ const d=new Date(visEnd); d.setDate(d.getDate()+futurePadDays(calendar,freq)); return d; }
+
+
+
+
+
+
+
+
 
 
 
@@ -4504,6 +9071,14 @@ function traceLine(x,y,name,color,width,dash='solid',axis='y',showlegend=true,ho
 
 
 
+
+
+
+
+
+
+
+
   return {type:'scatter',mode:'lines',x,y,name,xaxis:axis==='y'?'x':axis==='y2'?'x2':axis==='y3'?'x3':'x4',yaxis:axis,line:{color,width,dash,shape:'linear'},connectgaps,opacity,showlegend,hovertemplate};
 
 
@@ -4512,7 +9087,23 @@ function traceLine(x,y,name,color,width,dash='solid',axis='y',showlegend=true,ho
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4528,7 +9119,23 @@ function sentimentBundle(x,y,name,axis,showlegend=true,hovertemplate=null,width=
 
 
 
+
+
+
+
+
+
+
+
   const p=palette||{core:COLORS.sentCore, inner:COLORS.sentInner, outer:COLORS.sentOuter};
+
+
+
+
+
+
+
+
 
 
 
@@ -4544,7 +9151,23 @@ function sentimentBundle(x,y,name,axis,showlegend=true,hovertemplate=null,width=
 
 
 
+
+
+
+
+
+
+
+
     traceLine(x,y,name+' glow 1',p.outer,width+4.0,'solid',axis,false,null,1.0,connectgaps),
+
+
+
+
+
+
+
+
 
 
 
@@ -4560,7 +9183,23 @@ function sentimentBundle(x,y,name,axis,showlegend=true,hovertemplate=null,width=
 
 
 
+
+
+
+
+
+
+
+
     traceLine(x,y,name,p.core,width,'solid',axis,showlegend,hovertemplate,0.92,connectgaps)
+
+
+
+
+
+
+
+
 
 
 
@@ -4576,7 +9215,23 @@ function sentimentBundle(x,y,name,axis,showlegend=true,hovertemplate=null,width=
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4592,7 +9247,23 @@ function addFilledBand(data,x,upper,lower,lineColor,fillColor,namePrefix,axis){
 
 
 
+
+
+
+
+
+
+
+
   data.push(traceLine(x,lower,namePrefix+' Lower',lineColor,1.0,'solid',axis,false,'%{x|%b %d, %Y}<br>'+namePrefix+' Lower=%{y:.2f}<extra></extra>',0.9));
+
+
+
+
+
+
+
+
 
 
 
@@ -4608,7 +9279,23 @@ function addFilledBand(data,x,upper,lower,lineColor,fillColor,namePrefix,axis){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4624,7 +9311,23 @@ function finiteVals(arr){ return arr.map(num).filter(v=>v!==null && Number.isFin
 
 
 
+
+
+
+
+
+
+
+
 function mean(arr){ return arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : null; }
+
+
+
+
+
+
+
+
 
 
 
@@ -4640,7 +9343,23 @@ function quantile(arr,q){
 
 
 
+
+
+
+
+
+
+
+
   if(!arr.length) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -4656,7 +9375,23 @@ function quantile(arr,q){
 
 
 
+
+
+
+
+
+
+
+
   const pos=(xs.length-1)*q, base=Math.floor(pos), rest=pos-base;
+
+
+
+
+
+
+
+
 
 
 
@@ -4672,6 +9407,14 @@ function quantile(arr,q){
 
 
 
+
+
+
+
+
+
+
+
   return xs[base];
 
 
@@ -4680,7 +9423,23 @@ function quantile(arr,q){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4696,7 +9455,23 @@ function stddev(arr){
 
 
 
+
+
+
+
+
+
+
+
   if(arr.length<2) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -4712,7 +9487,23 @@ function stddev(arr){
 
 
 
+
+
+
+
+
+
+
+
   const v=arr.reduce((a,b)=>a+(b-m)*(b-m),0)/(arr.length-1);
+
+
+
+
+
+
+
+
 
 
 
@@ -4728,7 +9519,23 @@ function stddev(arr){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4744,7 +9551,23 @@ function rangeFinite(arr){
 
 
 
+
+
+
+
+
+
+
+
   const xs=finiteVals(arr);
+
+
+
+
+
+
+
+
 
 
 
@@ -4760,6 +9583,14 @@ function rangeFinite(arr){
 
 
 
+
+
+
+
+
+
+
+
   return Math.max(...xs) - Math.min(...xs);
 
 
@@ -4768,7 +9599,23 @@ function rangeFinite(arr){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -4784,7 +9631,23 @@ function rollingStd(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
   const out=new Array(series.length).fill(null);
+
+
+
+
+
+
+
+
 
 
 
@@ -4800,7 +9663,23 @@ function rollingStd(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
     const win=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -4816,7 +9695,23 @@ function rollingStd(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
     for(let j=start;j<=i;j++){
+
+
+
+
+
+
+
+
 
 
 
@@ -4832,7 +9727,23 @@ function rollingStd(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
       if(v!==null) win.push(v);
+
+
+
+
+
+
+
+
 
 
 
@@ -4848,7 +9759,23 @@ function rollingStd(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
     out[i]=win.length>=window ? stddev(win) : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -4864,7 +9791,23 @@ function rollingStd(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
   return out;
+
+
+
+
+
+
+
+
 
 
 
@@ -4880,7 +9823,23 @@ function rollingStd(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
 function robustSharedSentTransform(allRows, fitRows, visRows){
+
+
+
+
+
+
+
+
 
 
 
@@ -4896,7 +9855,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   const rawVis=finiteVals(visRows.map(r=>r.combined_compound_ma_21));
+
+
+
+
+
+
+
+
 
 
 
@@ -4912,6 +9887,14 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   const priceVis=finiteVals(visRows.map(r=>num(r.close_ma_21) ?? num(r.close)));
 
 
@@ -4920,7 +9903,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   const rawAll=finiteVals(allRows.map(r=>r.combined_compound_ma_21));
+
+
+
+
+
+
+
+
 
 
 
@@ -4944,7 +9943,31 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const rx=rawFit.length ? rawFit : (rawVis.length ? rawVis : rawAll);
+
+
+
+
+
+
+
+
 
 
 
@@ -4960,6 +9983,14 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   const anchorRaw=rawVis.length ? rawVis : rx;
 
 
@@ -4968,7 +9999,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   const anchorPrice=priceVis.length ? priceVis : py;
+
+
+
+
+
+
+
+
 
 
 
@@ -4992,7 +10039,31 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   let a=null, b=null;
+
+
+
+
+
+
+
+
 
 
 
@@ -5008,7 +10079,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   if([x05,x95,y05,y95].every(v=>v!==null && Number.isFinite(v)) && Math.abs(x95-x05) > 1e-12){
+
+
+
+
+
+
+
+
 
 
 
@@ -5024,7 +10111,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -5040,7 +10143,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
     const sx=stddev(rx), sy=stddev(py);
+
+
+
+
+
+
+
+
 
 
 
@@ -5056,7 +10175,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
       a=sy/sx;
+
+
+
+
+
+
+
+
 
 
 
@@ -5072,7 +10207,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -5088,7 +10239,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   const mRaw=mean(anchorRaw), mPrice=mean(anchorPrice);
+
+
+
+
+
+
+
+
 
 
 
@@ -5104,7 +10271,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   b=mPrice - a*mRaw;
+
+
+
+
+
+
+
+
 
 
 
@@ -5120,7 +10303,23 @@ function robustSharedSentTransform(allRows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -5136,7 +10335,23 @@ function applyTransform(v, model){ const x=num(v); if(x===null||!model) return n
 
 
 
+
+
+
+
+
+
+
+
 function rollingMean(series, window=20){
+
+
+
+
+
+
+
+
 
 
 
@@ -5152,7 +10367,23 @@ function rollingMean(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
   for(let i=0;i<series.length;i++){
+
+
+
+
+
+
+
+
 
 
 
@@ -5168,7 +10399,23 @@ function rollingMean(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
     const start=Math.max(0, i-window+1);
+
+
+
+
+
+
+
+
 
 
 
@@ -5184,7 +10431,23 @@ function rollingMean(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
       const v=num(series[j]);
+
+
+
+
+
+
+
+
 
 
 
@@ -5200,7 +10463,23 @@ function rollingMean(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -5216,7 +10495,23 @@ function rollingMean(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -5232,7 +10527,23 @@ function rollingMean(series, window=20){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -5248,7 +10559,23 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
   const up=new Array(rows.length).fill(null);
+
+
+
+
+
+
+
+
 
 
 
@@ -5264,7 +10591,23 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
   const basis=new Array(rows.length).fill(null);
+
+
+
+
+
+
+
+
 
 
 
@@ -5280,7 +10623,23 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
   rows.forEach((r,i)=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -5296,6 +10655,14 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
     if(c!==null && Number.isFinite(c)){ validClose.push(c); validIdx.push(i); }
 
 
@@ -5304,7 +10671,23 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
   });
+
+
+
+
+
+
+
+
 
 
 
@@ -5320,7 +10703,23 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
   const validSd=rollingStd(validClose,20);
+
+
+
+
+
+
+
+
 
 
 
@@ -5336,7 +10735,23 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
     const b=validBasis[k], s=validSd[k];
+
+
+
+
+
+
+
+
 
 
 
@@ -5352,7 +10767,23 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
     basis[rowIdx]=b;
+
+
+
+
+
+
+
+
 
 
 
@@ -5368,6 +10799,14 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
     low[rowIdx]=b - 2*s;
 
 
@@ -5376,7 +10815,23 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
   });
+
+
+
+
+
+
+
+
 
 
 
@@ -5392,7 +10847,23 @@ function computePriceBands(rows){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -5408,7 +10879,23 @@ function mappedSentimentBands(rows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   const model=robustSharedSentTransform(rows, fitRows, visRows);
+
+
+
+
+
+
+
+
 
 
 
@@ -5424,6 +10911,14 @@ function mappedSentimentBands(rows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
   return {up: rows.map(r=>applyTransform(r.sentiment_upper_band, model)), low: rows.map(r=>applyTransform(r.sentiment_lower_band, model)), model};
 
 
@@ -5432,7 +10927,23 @@ function mappedSentimentBands(rows, fitRows, visRows){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -5448,7 +10959,23 @@ function smoothFiniteSeries(values, window){
 
 
 
+
+
+
+
+
+
+
+
   const out=new Array(values.length).fill(null);
+
+
+
+
+
+
+
+
 
 
 
@@ -5464,7 +10991,23 @@ function smoothFiniteSeries(values, window){
 
 
 
+
+
+
+
+
+
+
+
   for(let i=0;i<values.length;i++){
+
+
+
+
+
+
+
+
 
 
 
@@ -5480,7 +11023,23 @@ function smoothFiniteSeries(values, window){
 
 
 
+
+
+
+
+
+
+
+
     for(let j=Math.max(0,i-half); j<=Math.min(values.length-1,i+half); j++){
+
+
+
+
+
+
+
+
 
 
 
@@ -5496,7 +11055,23 @@ function smoothFiniteSeries(values, window){
 
 
 
+
+
+
+
+
+
+
+
       if(v!==null){ sum+=v; count+=1; }
+
+
+
+
+
+
+
+
 
 
 
@@ -5512,7 +11087,23 @@ function smoothFiniteSeries(values, window){
 
 
 
+
+
+
+
+
+
+
+
     out[i]=count ? sum/count : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -5528,6 +11119,14 @@ function smoothFiniteSeries(values, window){
 
 
 
+
+
+
+
+
+
+
+
   return out;
 
 
@@ -5536,7 +11135,23 @@ function smoothFiniteSeries(values, window){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -5552,7 +11167,23 @@ function rollingQuantileSeries(values, window, q, minPeriods){
 
 
 
+
+
+
+
+
+
+
+
   const out=new Array(values.length).fill(null);
+
+
+
+
+
+
+
+
 
 
 
@@ -5568,7 +11199,23 @@ function rollingQuantileSeries(values, window, q, minPeriods){
 
 
 
+
+
+
+
+
+
+
+
     const start=Math.max(0,i-window+1);
+
+
+
+
+
+
+
+
 
 
 
@@ -5584,7 +11231,23 @@ function rollingQuantileSeries(values, window, q, minPeriods){
 
 
 
+
+
+
+
+
+
+
+
     for(let j=start;j<=i;j++){ const v=num(values[j]); if(v!==null && Number.isFinite(v)) vals.push(v); }
+
+
+
+
+
+
+
+
 
 
 
@@ -5600,7 +11263,23 @@ function rollingQuantileSeries(values, window, q, minPeriods){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -5616,7 +11295,23 @@ function rollingQuantileSeries(values, window, q, minPeriods){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -5632,7 +11327,23 @@ function rollingRobustZ(values, window=60, minPeriods=20){
 
 
 
+
+
+
+
+
+
+
+
   const out=new Array(values.length).fill(null);
+
+
+
+
+
+
+
+
 
 
 
@@ -5648,7 +11359,23 @@ function rollingRobustZ(values, window=60, minPeriods=20){
 
 
 
+
+
+
+
+
+
+
+
     const start=Math.max(0,i-window+1);
+
+
+
+
+
+
+
+
 
 
 
@@ -5664,7 +11391,23 @@ function rollingRobustZ(values, window=60, minPeriods=20){
 
 
 
+
+
+
+
+
+
+
+
     for(let j=start;j<=i;j++){ const v=num(values[j]); if(v!==null && Number.isFinite(v)) vals.push(v); }
+
+
+
+
+
+
+
+
 
 
 
@@ -5680,7 +11423,23 @@ function rollingRobustZ(values, window=60, minPeriods=20){
 
 
 
+
+
+
+
+
+
+
+
     const med=quantile(vals,0.5);
+
+
+
+
+
+
+
+
 
 
 
@@ -5696,7 +11455,23 @@ function rollingRobustZ(values, window=60, minPeriods=20){
 
 
 
+
+
+
+
+
+
+
+
     const mad=quantile(absDevs,0.5);
+
+
+
+
+
+
+
+
 
 
 
@@ -5712,7 +11487,23 @@ function rollingRobustZ(values, window=60, minPeriods=20){
 
 
 
+
+
+
+
+
+
+
+
     if(cur===null || med===null || mad===null){ out[i]=null; continue; }
+
+
+
+
+
+
+
+
 
 
 
@@ -5728,7 +11519,23 @@ function rollingRobustZ(values, window=60, minPeriods=20){
 
 
 
+
+
+
+
+
+
+
+
     out[i]=(cur-med)/(scale || 1);
+
+
+
+
+
+
+
+
 
 
 
@@ -5744,6 +11551,14 @@ function rollingRobustZ(values, window=60, minPeriods=20){
 
 
 
+
+
+
+
+
+
+
+
   return out;
 
 
@@ -5752,7 +11567,23 @@ function rollingRobustZ(values, window=60, minPeriods=20){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -5768,7 +11599,23 @@ function chooseRegimeBasis(rows){
 
 
 
+
+
+
+
+
+
+
+
   const rawDistinct=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -5784,7 +11631,23 @@ function chooseRegimeBasis(rows){
 
 
 
+
+
+
+
+
+
+
+
     const vals=[num(r.combined_compound_ma_7),num(r.combined_compound_ma_21),num(r.combined_compound_ma_50),num(r.combined_compound_ma_100),num(r.combined_compound_ma_200)].filter(v=>v!==null);
+
+
+
+
+
+
+
+
 
 
 
@@ -5800,7 +11663,23 @@ function chooseRegimeBasis(rows){
 
 
 
+
+
+
+
+
+
+
+
   });
+
+
+
+
+
+
+
+
 
 
 
@@ -5816,6 +11695,14 @@ function chooseRegimeBasis(rows){
 
 
 
+
+
+
+
+
+
+
+
   return maxSpread>1e-6 ? 'raw' : 'scaled';
 
 
@@ -5824,7 +11711,23 @@ function chooseRegimeBasis(rows){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -5840,7 +11743,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
   const basis=chooseRegimeBasis(rows);
+
+
+
+
+
+
+
+
 
 
 
@@ -5856,7 +11775,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
   const ma7=rows.map(r=>num(r[prefix+'combined_compound_ma_7']));
+
+
+
+
+
+
+
+
 
 
 
@@ -5872,7 +11807,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
   const ma50=rows.map(r=>num(r[prefix+'combined_compound_ma_50']));
+
+
+
+
+
+
+
+
 
 
 
@@ -5888,7 +11839,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
   const ma200=rows.map(r=>num(r[prefix+'combined_compound_ma_200']));
+
+
+
+
+
+
+
+
 
 
 
@@ -5904,7 +11871,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
   const widthRaw=ma7.map((v,i)=> v!==null && ma200[i]!==null ? v-ma200[i] : null);
+
+
+
+
+
+
+
+
 
 
 
@@ -5920,7 +11903,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
   const widthQ25=rollingQuantileSeries(widthAbs, 60, 0.25, 20);
+
+
+
+
+
+
+
+
 
 
 
@@ -5936,7 +11935,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
   const slopeZ=rollingRobustZ(slope21, 60, 20);
+
+
+
+
+
+
+
+
 
 
 
@@ -5952,7 +11967,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
   let prevRegime=null;
+
+
+
+
+
+
+
+
 
 
 
@@ -5968,7 +11999,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
     const comps=[
+
+
+
+
+
+
+
+
 
 
 
@@ -5984,7 +12031,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
       ma21[i]!==null&&ma50[i]!==null ? Math.sign(ma21[i]-ma50[i]) : 0,
+
+
+
+
+
+
+
+
 
 
 
@@ -6000,7 +12063,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
       ma100[i]!==null&&ma200[i]!==null ? Math.sign(ma100[i]-ma200[i]) : 0
+
+
+
+
+
+
+
+
 
 
 
@@ -6016,7 +12095,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
     const bullStack=comps.every(v=>v===1);
+
+
+
+
+
+
+
+
 
 
 
@@ -6032,7 +12127,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
     const alignmentCount=comps.filter(v=>v!==0).length;
+
+
+
+
+
+
+
+
 
 
 
@@ -6048,7 +12159,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
     const compression=widthAbs[i]!==null && widthQ25[i]!==null ? (widthAbs[i] <= widthQ25[i]) : false;
+
+
+
+
+
+
+
+
 
 
 
@@ -6064,7 +12191,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
     const sScore=((clamp(slopeZ[i]??0,-3,3))/3)*100;
+
+
+
+
+
+
+
+
 
 
 
@@ -6080,7 +12223,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
     const confidence=clamp(0.50*Math.abs(stackScore) + 0.30*Math.min(100, Math.abs(widthZ[i]??0)*25) + 0.20*Math.min(100, Math.abs(slopeZ[i]??0)*25), 0, 100);
+
+
+
+
+
+
+
+
 
 
 
@@ -6096,7 +12255,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
     if(bullStack && (slope21[i]??0) > 0 && !compression) regime='Bullish';
+
+
+
+
+
+
+
+
 
 
 
@@ -6112,7 +12287,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
     const transition=prevRegime!==null && regime!==prevRegime;
+
+
+
+
+
+
+
+
 
 
 
@@ -6128,7 +12319,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
       regime, regimeScore, confidence, compression, transition,
+
+
+
+
+
+
+
+
 
 
 
@@ -6144,7 +12351,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
       widthRaw: widthRaw[i], widthAbs: widthAbs[i], widthZ: widthZ[i], slope21: slope21[i], slopeZ: slopeZ[i],
+
+
+
+
+
+
+
+
 
 
 
@@ -6160,7 +12383,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
 
 
 
@@ -6176,7 +12415,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -6192,7 +12447,23 @@ function deriveRegimeInfo(rows){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -6208,7 +12479,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
   const haveUpstream = rows.some(r => r.sent_ribbon_regime_raw!==undefined || r.sent_ribbon_regime_score!==undefined);
+
+
+
+
+
+
+
+
 
 
 
@@ -6224,7 +12511,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
   return rows.map((r,i)=>({
+
+
+
+
+
+
+
+
 
 
 
@@ -6240,7 +12543,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
     regimeScore: num(r.sent_ribbon_regime_score) ?? 0,
+
+
+
+
+
+
+
+
 
 
 
@@ -6256,7 +12575,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
     compression: Boolean(Number(r.sent_ribbon_compression_flag||0)),
+
+
+
+
+
+
+
+
 
 
 
@@ -6272,7 +12607,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
     transitionType: r.sent_ribbon_transition_type || null,
+
+
+
+
+
+
+
+
 
 
 
@@ -6288,7 +12639,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
     widthAbs: num(r.sent_ribbon_width_abs),
+
+
+
+
+
+
+
+
 
 
 
@@ -6304,7 +12671,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
     slope21: num(r.sent_ribbon_center_slope_21),
+
+
+
+
+
+
+
+
 
 
 
@@ -6320,7 +12703,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
     stackScore: num(r.sent_ribbon_stack_score),
+
+
+
+
+
+
+
+
 
 
 
@@ -6336,7 +12735,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
     basis: 'upstream'
+
+
+
+
+
+
+
+
 
 
 
@@ -6352,7 +12767,23 @@ function regimeInfoForRows(rows){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -6368,7 +12799,23 @@ function buildRegimeBadgesHTML(current, lastTransitionRow, lastTransitionInfo){
 
 
 
+
+
+
+
+
+
+
+
   const cls = current.regime==='Bullish' ? 'badge-bull' : current.regime==='Bearish' ? 'badge-bear' : 'badge-flat';
+
+
+
+
+
+
+
+
 
 
 
@@ -6384,7 +12831,23 @@ function buildRegimeBadgesHTML(current, lastTransitionRow, lastTransitionInfo){
 
 
 
+
+
+
+
+
+
+
+
   const score=(current.regimeScore ?? 0).toFixed(0);
+
+
+
+
+
+
+
+
 
 
 
@@ -6400,7 +12863,23 @@ function buildRegimeBadgesHTML(current, lastTransitionRow, lastTransitionInfo){
 
 
 
+
+
+
+
+
+
+
+
   const transitionText = lastTransitionRow ? `${lastTransitionInfo.transitionType || 'state change'} on ${lastTransitionRow.date}` : 'none in view';
+
+
+
+
+
+
+
+
 
 
 
@@ -6416,7 +12895,23 @@ function buildRegimeBadgesHTML(current, lastTransitionRow, lastTransitionInfo){
 
 
 
+
+
+
+
+
+
+
+
     `<span class="badge ${cls}"><b>Ribbon</b> ${current.regime}</span>`,
+
+
+
+
+
+
+
+
 
 
 
@@ -6432,7 +12927,23 @@ function buildRegimeBadgesHTML(current, lastTransitionRow, lastTransitionInfo){
 
 
 
+
+
+
+
+
+
+
+
     `<span class="badge badge-neutral"><b>Score</b> ${score}</span>`,
+
+
+
+
+
+
+
+
 
 
 
@@ -6448,7 +12959,23 @@ function buildRegimeBadgesHTML(current, lastTransitionRow, lastTransitionInfo){
 
 
 
+
+
+
+
+
+
+
+
     `<span class="badge badge-neutral"><b>Last transition</b> ${transitionText}</span>`
+
+
+
+
+
+
+
+
 
 
 
@@ -6464,7 +12991,23 @@ function buildRegimeBadgesHTML(current, lastTransitionRow, lastTransitionInfo){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -6480,7 +13023,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
   const basePalette=sentimentPalette(period);
+
+
+
+
+
+
+
+
 
 
 
@@ -6496,7 +13055,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     traceLine(x,y,name+' base glow 1',basePalette.outer,Math.max(1,width+3.2),'solid',axis,false,null,0.12,true),
+
+
+
+
+
+
+
+
 
 
 
@@ -6512,7 +13087,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     traceLine(x,y,name+' base',basePalette.core,Math.max(0.9,width*0.98),'solid',axis,false,hovertemplate,0.42,true)
+
+
+
+
+
+
+
+
 
 
 
@@ -6536,7 +13127,31 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const segments=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -6552,7 +13167,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
   for(let i=0;i<y.length;i++){
+
+
+
+
+
+
+
+
 
 
 
@@ -6568,6 +13199,14 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     const reg=v!==null && regimeInfo[i] ? regimeInfo[i].regime : null;
 
 
@@ -6576,7 +13215,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     if(reg!==current){
+
+
+
+
+
+
+
+
 
 
 
@@ -6592,7 +13247,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
       current=reg;
+
+
+
+
+
+
+
+
 
 
 
@@ -6608,6 +13279,14 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -6616,7 +13295,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -6632,7 +13327,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
   let legendShown=false;
+
+
+
+
+
+
+
+
 
 
 
@@ -6648,7 +13359,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     const segStart=Math.max(0, seg.start - (seg.start>0 ? 1 : 0));
+
+
+
+
+
+
+
+
 
 
 
@@ -6664,7 +13391,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     const sx=x.slice(segStart, segEnd+1);
+
+
+
+
+
+
+
+
 
 
 
@@ -6680,7 +13423,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     const palette=regimePalette(seg.regime, period);
+
+
+
+
+
+
+
+
 
 
 
@@ -6696,7 +13455,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     bundle.forEach((t,idx)=>{ t.legendgroup=name; if(idx<2) t.showlegend=false; else if(legendShown) t.showlegend=false; data.push(t); });
+
+
+
+
+
+
+
+
 
 
 
@@ -6712,7 +13487,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
   });
+
+
+
+
+
+
+
+
 
 
 
@@ -6728,7 +13519,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
     sentimentBundle(x, y, name, axis, true, hovertemplate, width, regimePalette('Flat', period), true).forEach(t=>data.push(t));
+
+
+
+
+
+
+
+
 
 
 
@@ -6744,7 +13551,23 @@ function pushRegimeSegmentedBundle(data, x, y, name, axis, hovertemplate, width,
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -6760,7 +13583,23 @@ function regimeSegments(rows, regimeInfo, visStart, visEnd){
 
 
 
+
+
+
+
+
+
+
+
   const segs=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -6776,7 +13615,23 @@ function regimeSegments(rows, regimeInfo, visStart, visEnd){
 
 
 
+
+
+
+
+
+
+
+
   for(let i=0;i<rows.length;i++){
+
+
+
+
+
+
+
+
 
 
 
@@ -6792,7 +13647,23 @@ function regimeSegments(rows, regimeInfo, visStart, visEnd){
 
 
 
+
+
+
+
+
+
+
+
     if(d<visStart || d>visEnd) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -6808,7 +13679,23 @@ function regimeSegments(rows, regimeInfo, visStart, visEnd){
 
 
 
+
+
+
+
+
+
+
+
     if(reg!==current){
+
+
+
+
+
+
+
+
 
 
 
@@ -6824,7 +13711,23 @@ function regimeSegments(rows, regimeInfo, visStart, visEnd){
 
 
 
+
+
+
+
+
+
+
+
       current=reg; startDate=d; endDate=d;
+
+
+
+
+
+
+
+
 
 
 
@@ -6840,7 +13743,23 @@ function regimeSegments(rows, regimeInfo, visStart, visEnd){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -6856,7 +13775,23 @@ function regimeSegments(rows, regimeInfo, visStart, visEnd){
 
 
 
+
+
+
+
+
+
+
+
   return segs;
+
+
+
+
+
+
+
+
 
 
 
@@ -6872,7 +13807,23 @@ function regimeSegments(rows, regimeInfo, visStart, visEnd){
 
 
 
+
+
+
+
+
+
+
+
 function sentimentRibbonSeries(rows, fitRows, visRows, mode){
+
+
+
+
+
+
+
+
 
 
 
@@ -6888,6 +13839,14 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
   const specs = mode==='full'
 
 
@@ -6896,7 +13855,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     ? [['combined_compound_ma_7','Scaled Sent MA 7',1.0,7],['combined_compound_ma_21','Scaled Sent MA 21',1.15,21],['combined_compound_ma_50','Scaled Sent MA 50',1.0,50],['combined_compound_ma_100','Scaled Sent MA 100',0.95,100],['combined_compound_ma_200','Scaled Sent MA 200',0.9,200]]
+
+
+
+
+
+
+
+
 
 
 
@@ -6920,7 +13895,31 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const rawCenter=rows.map(r=> model ? applyTransform(r.combined_compound_ma_21, model) : null);
+
+
+
+
+
+
+
+
 
 
 
@@ -6936,7 +13935,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
   const smoothRawCenter=smoothFiniteSeries(rawCenter, 9);
+
+
+
+
+
+
+
+
 
 
 
@@ -6952,7 +13967,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
   let centerSeries=rows.map((r,i)=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -6968,7 +13999,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     const scaled=smoothScaledCenter[i]!==null ? smoothScaledCenter[i] : scaledCenter[i];
+
+
+
+
+
+
+
+
 
 
 
@@ -6984,7 +14031,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     if(scaled===null) return raw;
+
+
+
+
+
+
+
+
 
 
 
@@ -7000,7 +14063,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     const prevScaled=i>0 && smoothScaledCenter[i-1]!==null ? smoothScaledCenter[i-1] : (i>0 ? scaledCenter[i-1] : null);
+
+
+
+
+
+
+
+
 
 
 
@@ -7016,7 +14095,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     const scaledJump=prevScaled!==null ? Math.abs(scaled-prevScaled) : 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -7032,7 +14127,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     const anchorBand=Math.max(8, Math.abs(scaled)*0.015, scaledJump*4);
+
+
+
+
+
+
+
+
 
 
 
@@ -7048,7 +14159,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     const jumpPenalty=Math.min(1, Math.max(0, rawJump-scaledJump)/(anchorBand*1.5));
+
+
+
+
+
+
+
+
 
 
 
@@ -7064,6 +14191,14 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     return scaled*(1-rawWeight) + raw*rawWeight;
 
 
@@ -7072,7 +14207,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
   });
+
+
+
+
+
+
+
+
 
 
 
@@ -7096,7 +14247,31 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(mode!=='full'){
+
+
+
+
+
+
+
+
 
 
 
@@ -7112,7 +14287,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
       series: [{name:'Scaled Sent MA 21', width:1.15, period:21, palette:sentimentPalette(21), y:centerSeries}],
+
+
+
+
+
+
+
+
 
 
 
@@ -7128,7 +14319,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
       usedHybridOffsets:false,
+
+
+
+
+
+
+
+
 
 
 
@@ -7144,6 +14351,14 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     };
 
 
@@ -7152,7 +14367,31 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7176,7 +14415,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
   const familySeries=specs.map(([rawCol,name,w,period])=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -7192,7 +14447,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
       return {name, width:w, period, palette:sentimentPalette(period), y:centerSeries};
+
+
+
+
+
+
+
+
 
 
 
@@ -7208,7 +14479,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     const scaledCol='scaled_'+rawCol;
+
+
+
+
+
+
+
+
 
 
 
@@ -7224,7 +14511,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     const raw21Series=centerSeries;
+
+
+
+
+
+
+
+
 
 
 
@@ -7240,7 +14543,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     const smoothRawOffsets=smoothFiniteSeries(rawOffsets, offsetWindowForPeriod(period));
+
+
+
+
+
+
+
+
 
 
 
@@ -7256,7 +14575,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
       const base=num(r.scaled_combined_compound_ma_21);
+
+
+
+
+
+
+
+
 
 
 
@@ -7272,6 +14607,14 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
       return base!==null && target!==null ? target-base : null;
 
 
@@ -7280,7 +14623,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
 
 
 
@@ -7296,7 +14655,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     const y=rows.map((r,i)=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -7312,7 +14687,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
       const structural=structuralOffsets[i];
+
+
+
+
+
+
+
+
 
 
 
@@ -7328,7 +14719,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
       if(center===null) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -7344,7 +14751,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
         const blended=rawOffset!==null ? (0.15*rawOffset + 0.85*structural) : structural;
+
+
+
+
+
+
+
+
 
 
 
@@ -7360,7 +14783,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -7376,7 +14815,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
       const scaled=num(r[scaledCol]);
+
+
+
+
+
+
+
+
 
 
 
@@ -7392,6 +14847,14 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     });
 
 
@@ -7400,7 +14863,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     return {name, width:w, period, palette:sentimentPalette(period), y};
+
+
+
+
+
+
+
+
 
 
 
@@ -7424,7 +14903,31 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return {
+
+
+
+
+
+
+
+
 
 
 
@@ -7440,7 +14943,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     usedScaledFallback:false,
+
+
+
+
+
+
+
+
 
 
 
@@ -7456,7 +14975,23 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
     model
+
+
+
+
+
+
+
+
 
 
 
@@ -7472,7 +15007,31 @@ function sentimentRibbonSeries(rows, fitRows, visRows, mode){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -7496,7 +15055,23 @@ function displayedOverlap(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
   const up=[], low=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -7512,7 +15087,23 @@ function displayedOverlap(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
     const pu=num(priceUp[i]), pl=num(priceLow[i]), su=num(sentUp[i]), sl=num(sentLow[i]);
+
+
+
+
+
+
+
+
 
 
 
@@ -7528,7 +15119,23 @@ function displayedOverlap(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
     const lo=Math.max(pl,sl), hi=Math.min(pu,su);
+
+
+
+
+
+
+
+
 
 
 
@@ -7544,7 +15151,23 @@ function displayedOverlap(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -7560,7 +15183,23 @@ function displayedOverlap(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -7576,7 +15215,23 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
   const up=[], low=[], source=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -7592,7 +15247,23 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
     const r=rows[i]||{};
+
+
+
+
+
+
+
+
 
 
 
@@ -7608,7 +15279,23 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
     const advLow = num(r.boll_lower_overlap_advanced);
+
+
+
+
+
+
+
+
 
 
 
@@ -7624,6 +15311,14 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
     const bandLow = num(r.boll_lower_overlap_band);
 
 
@@ -7632,7 +15327,23 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
     const derUp = num(derivedOverlap?.up?.[i]);
+
+
+
+
+
+
+
+
 
 
 
@@ -7656,7 +15367,31 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if(advUp!==null && advLow!==null){
+
+
+
+
+
+
+
+
 
 
 
@@ -7672,7 +15407,23 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
     } else if(bandUp!==null && bandLow!==null){
+
+
+
+
+
+
+
+
 
 
 
@@ -7688,7 +15439,23 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
     } else if(derUp!==null && derLow!==null){
+
+
+
+
+
+
+
+
 
 
 
@@ -7704,7 +15471,23 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
     } else {
+
+
+
+
+
+
+
+
 
 
 
@@ -7720,6 +15503,14 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -7728,7 +15519,23 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -7744,7 +15551,23 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -7760,7 +15583,23 @@ function contextualCalibrationSpec(rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
   const continuous = calendar==='continuous';
+
+
+
+
+
+
+
+
 
 
 
@@ -7776,7 +15615,23 @@ function contextualCalibrationSpec(rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     '1M': {window: continuous ? 30 : 21, minPeriods: continuous ? 14 : 12, smooth: 3},
+
+
+
+
+
+
+
+
 
 
 
@@ -7792,7 +15647,23 @@ function contextualCalibrationSpec(rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     '6M': {window: continuous ? 120 : 84, minPeriods: continuous ? 32 : 24, smooth: 5},
+
+
+
+
+
+
+
+
 
 
 
@@ -7808,7 +15679,23 @@ function contextualCalibrationSpec(rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     '1Y': {window: continuous ? 180 : 126, minPeriods: continuous ? 48 : 32, smooth: 7},
+
+
+
+
+
+
+
+
 
 
 
@@ -7824,7 +15711,23 @@ function contextualCalibrationSpec(rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
   };
+
+
+
+
+
+
+
+
 
 
 
@@ -7840,7 +15743,23 @@ function contextualCalibrationSpec(rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -7856,7 +15775,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
   const spec=contextualCalibrationSpec(rangePreset, calendar);
+
+
+
+
+
+
+
+
 
 
 
@@ -7872,7 +15807,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
   const sentUpRaw=rows.map(r=>num(r.sentiment_upper_band));
+
+
+
+
+
+
+
+
 
 
 
@@ -7888,7 +15839,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
   const closes=rows.map(r=>num(r.close) ?? num(r.close_ma_21));
+
+
+
+
+
+
+
+
 
 
 
@@ -7904,7 +15871,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
   const {window, minPeriods, smooth, qLo, qHi}=spec;
+
+
+
+
+
+
+
+
 
 
 
@@ -7920,7 +15903,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     const start=Math.max(0, i-window+1);
+
+
+
+
+
+
+
+
 
 
 
@@ -7936,7 +15935,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     for(let j=start;j<=i;j++){
+
+
+
+
+
+
+
+
 
 
 
@@ -7952,7 +15967,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
       const pv=num(closes[j]);
+
+
+
+
+
+
+
+
 
 
 
@@ -7968,6 +15999,14 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
       if(pv!==null && Number.isFinite(pv)) priceVals.push(pv);
 
 
@@ -7976,7 +16015,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -7992,7 +16047,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     if(curUp===null || curLow===null || rawVals.length<minPeriods || priceVals.length<minPeriods) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -8008,7 +16079,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     const priceLo=quantile(priceVals, qLo), priceHi=quantile(priceVals, qHi), priceMid=quantile(priceVals, 0.5);
+
+
+
+
+
+
+
+
 
 
 
@@ -8024,7 +16111,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     if([rawLo, rawHi, priceLo, priceHi].every(v=>v!==null && Number.isFinite(v)) && Math.abs(rawHi-rawLo) > 1e-12){
+
+
+
+
+
+
+
+
 
 
 
@@ -8040,7 +16143,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -8056,7 +16175,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
       const sRaw=stddev(rawVals), sPrice=stddev(priceVals);
+
+
+
+
+
+
+
+
 
 
 
@@ -8072,7 +16207,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
         a=sPrice/sRaw;
+
+
+
+
+
+
+
+
 
 
 
@@ -8088,7 +16239,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -8104,7 +16271,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     const b=priceMid - a*rawMid;
+
+
+
+
+
+
+
+
 
 
 
@@ -8120,7 +16303,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     low[i]=a*curLow + b;
+
+
+
+
+
+
+
+
 
 
 
@@ -8136,7 +16335,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
     basis[i]=center===null ? null : a*center + b;
+
+
+
+
+
+
+
+
 
 
 
@@ -8152,7 +16367,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -8168,7 +16399,23 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -8184,7 +16431,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
   const up=[], low=[], source=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -8200,7 +16463,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
     const pu=num(priceUp[i]), pl=num(priceLow[i]), su=num(sentUp[i]), sl=num(sentLow[i]);
+
+
+
+
+
+
+
+
 
 
 
@@ -8216,7 +16495,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
     let upper=null, lower=null;
+
+
+
+
+
+
+
+
 
 
 
@@ -8232,7 +16527,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
       upper = Math.max(Math.min(pu, su), pl);
+
+
+
+
+
+
+
+
 
 
 
@@ -8248,7 +16559,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
       source.push('contextual_intersection');
+
+
+
+
+
+
+
+
 
 
 
@@ -8264,7 +16591,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
       upper = Math.abs(pu - sl) < Math.abs(su - pl) ? Math.max(pu, pl) : Math.max(su, pl);
+
+
+
+
+
+
+
+
 
 
 
@@ -8280,6 +16623,14 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
       source.push('contextual_nearest');
 
 
@@ -8288,7 +16639,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -8304,7 +16671,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
       const lo=Math.min(upper, lower), hi=Math.max(upper, lower);
+
+
+
+
+
+
+
+
 
 
 
@@ -8320,7 +16703,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -8336,7 +16735,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -8352,7 +16767,23 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -8368,7 +16799,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
   if(bollinger==='contextual' || bollinger==='both'){
+
+
+
+
+
+
+
+
 
 
 
@@ -8384,7 +16831,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
     const overlap = deriveAdvancedOverlapBands(priceBands.up, priceBands.low, contextualBands.up, contextualBands.low);
+
+
+
+
+
+
+
+
 
 
 
@@ -8400,7 +16863,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
       family:'contextual',
+
+
+
+
+
+
+
+
 
 
 
@@ -8416,7 +16895,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
       overlap:{...overlap, family:'contextual'},
+
+
+
+
+
+
+
+
 
 
 
@@ -8432,7 +16927,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
     };
+
+
+
+
+
+
+
+
 
 
 
@@ -8448,7 +16959,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
   const ovRaw=displayedOverlap(priceBands.up,priceBands.low,mappedBands.up,mappedBands.low);
+
+
+
+
+
+
+
+
 
 
 
@@ -8464,7 +16991,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
   return {
+
+
+
+
+
+
+
+
 
 
 
@@ -8480,7 +17023,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
     label:'Canonical Overlap',
+
+
+
+
+
+
+
+
 
 
 
@@ -8496,7 +17055,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
     sentimentBands:mappedBands
+
+
+
+
+
+
+
+
 
 
 
@@ -8512,7 +17087,23 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -8528,7 +17119,23 @@ function finiteQuantile(values, q){
 
 
 
+
+
+
+
+
+
+
+
   const xs=values.filter(v=>Number.isFinite(v)).slice().sort((a,b)=>a-b);
+
+
+
+
+
+
+
+
 
 
 
@@ -8544,7 +17151,23 @@ function finiteQuantile(values, q){
 
 
 
+
+
+
+
+
+
+
+
   if(xs.length===1) return xs[0];
+
+
+
+
+
+
+
+
 
 
 
@@ -8560,7 +17183,23 @@ function finiteQuantile(values, q){
 
 
 
+
+
+
+
+
+
+
+
   if(lo===hi) return xs[lo];
+
+
+
+
+
+
+
+
 
 
 
@@ -8576,6 +17215,14 @@ function finiteQuantile(values, q){
 
 
 
+
+
+
+
+
+
+
+
   return xs[lo]*(1-w)+xs[hi]*w;
 
 
@@ -8584,7 +17231,31 @@ function finiteQuantile(values, q){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -8608,7 +17279,23 @@ function overlapVolatilityState(row){
 
 
 
+
+
+
+
+
+
+
+
   const txt=String(row?.boll_volatility_flag || '').trim().toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -8624,7 +17311,23 @@ function overlapVolatilityState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(txt==='low' || txt==='stability' || txt==='stable') return 'Low';
+
+
+
+
+
+
+
+
 
 
 
@@ -8640,7 +17343,23 @@ function overlapVolatilityState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(n!==null) return n>0 ? 'High' : 'Low';
+
+
+
+
+
+
+
+
 
 
 
@@ -8656,7 +17375,23 @@ function overlapVolatilityState(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -8672,7 +17407,23 @@ function overlapOutsideType(row, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const c=num(row.close) ?? num(row.close_fill);
+
+
+
+
+
+
+
+
 
 
 
@@ -8688,7 +17439,23 @@ function overlapOutsideType(row, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   if(c===null || ou===null || ol===null) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -8704,7 +17471,23 @@ function overlapOutsideType(row, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   if(c<ol) return 'bullish';
+
+
+
+
+
+
+
+
 
 
 
@@ -8720,7 +17503,23 @@ function overlapOutsideType(row, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -8736,7 +17535,23 @@ function explicitHighVolumeState(row){
 
 
 
+
+
+
+
+
+
+
+
   const hv20=num(row?.high_volume_20);
+
+
+
+
+
+
+
+
 
 
 
@@ -8752,7 +17567,23 @@ function explicitHighVolumeState(row){
 
 
 
+
+
+
+
+
+
+
+
   const hv7=num(row?.high_volume_7);
+
+
+
+
+
+
+
+
 
 
 
@@ -8768,7 +17599,23 @@ function explicitHighVolumeState(row){
 
 
 
+
+
+
+
+
+
+
+
   const txt=String(row?.boll_overlap_volume_confirmation_flag || '').trim().toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -8784,7 +17631,23 @@ function explicitHighVolumeState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(txt.includes('normal') || txt.includes('low')) return {known:true, high:false, source:'boll_overlap_volume_confirmation_flag'};
+
+
+
+
+
+
+
+
 
 
 
@@ -8800,7 +17663,23 @@ function explicitHighVolumeState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(confirmed!==null) return {known:true, high:confirmed>0, source:'boll_overlap_break_confirmed_high_volume'};
+
+
+
+
+
+
+
+
 
 
 
@@ -8816,7 +17695,23 @@ function explicitHighVolumeState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(signalConfirmed!==null) return {known:true, high:signalConfirmed>0, source:'signal_boll_overlap_break_confirmed_high_volume'};
+
+
+
+
+
+
+
+
 
 
 
@@ -8832,7 +17727,23 @@ function explicitHighVolumeState(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -8848,7 +17759,23 @@ function inferredHighVolumeState(rows, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   const row=rows?.[idx] || {};
+
+
+
+
+
+
+
+
 
 
 
@@ -8864,7 +17791,23 @@ function inferredHighVolumeState(rows, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   if(cur===null || !Number.isFinite(cur) || cur<=0) return {known:false, high:false, source:'volume_missing'};
+
+
+
+
+
+
+
+
 
 
 
@@ -8880,7 +17823,23 @@ function inferredHighVolumeState(rows, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   for(let j=Math.max(0, idx-window+1); j<=idx; j++){
+
+
+
+
+
+
+
+
 
 
 
@@ -8896,7 +17855,23 @@ function inferredHighVolumeState(rows, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
     if(v!==null && Number.isFinite(v) && v>0) vals.push(v);
+
+
+
+
+
+
+
+
 
 
 
@@ -8912,7 +17887,23 @@ function inferredHighVolumeState(rows, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   if(vals.length<15) return {known:false, high:false, source:'volume_short_history'};
+
+
+
+
+
+
+
+
 
 
 
@@ -8928,7 +17919,23 @@ function inferredHighVolumeState(rows, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   const q75=finiteQuantile(vals, 0.75);
+
+
+
+
+
+
+
+
 
 
 
@@ -8944,7 +17951,23 @@ function inferredHighVolumeState(rows, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   const elevated = q75!==null && cur>=q75;
+
+
+
+
+
+
+
+
 
 
 
@@ -8960,7 +17983,23 @@ function inferredHighVolumeState(rows, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -8976,7 +18015,23 @@ function activeHighVolumeState(row, rows=null, idx=0){
 
 
 
+
+
+
+
+
+
+
+
   const explicit=explicitHighVolumeState(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -8992,7 +18047,23 @@ function activeHighVolumeState(row, rows=null, idx=0){
 
 
 
+
+
+
+
+
+
+
+
   if(rows && rows.length) return inferredHighVolumeState(rows, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -9008,7 +18079,23 @@ function activeHighVolumeState(row, rows=null, idx=0){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9024,6 +18111,14 @@ function currentHighVolumeState(row){
 
 
 
+
+
+
+
+
+
+
+
   return explicitHighVolumeState(row).high;
 
 
@@ -9032,7 +18127,31 @@ function currentHighVolumeState(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -9056,7 +18175,23 @@ function sourceFieldText(row, ...cols){
 
 
 
+
+
+
+
+
+
+
+
   for(const col of cols){
+
+
+
+
+
+
+
+
 
 
 
@@ -9072,6 +18207,14 @@ function sourceFieldText(row, ...cols){
 
 
 
+
+
+
+
+
+
+
+
     if(v!==undefined && v!==null && String(v).trim()!=='') return String(v).trim();
 
 
@@ -9080,7 +18223,23 @@ function sourceFieldText(row, ...cols){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -9096,7 +18255,23 @@ function sourceFieldText(row, ...cols){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9112,7 +18287,23 @@ function sourceAlertDirection(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
   const txt=sourceFieldText(row,
+
+
+
+
+
+
+
+
 
 
 
@@ -9128,7 +18319,23 @@ function sourceAlertDirection(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
   ).toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -9144,7 +18351,23 @@ function sourceAlertDirection(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
   if(txt.includes('bearish')) return 'bearish';
+
+
+
+
+
+
+
+
 
 
 
@@ -9160,7 +18383,23 @@ function sourceAlertDirection(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
   if(code!==null){
+
+
+
+
+
+
+
+
 
 
 
@@ -9176,6 +18415,14 @@ function sourceAlertDirection(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
     if(code<0) return 'bearish';
 
 
@@ -9184,7 +18431,23 @@ function sourceAlertDirection(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -9200,7 +18463,23 @@ function sourceAlertDirection(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
   if(truthyFlag(row,'signal_boll_overlap_bearish')) return 'bearish';
+
+
+
+
+
+
+
+
 
 
 
@@ -9216,7 +18495,23 @@ function sourceAlertDirection(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9232,7 +18527,23 @@ function sourceAlertQuality(row){
 
 
 
+
+
+
+
+
+
+
+
   const direct=num(row?.boll_overlap_alert_quality_score);
+
+
+
+
+
+
+
+
 
 
 
@@ -9248,7 +18559,23 @@ function sourceAlertQuality(row){
 
 
 
+
+
+
+
+
+
+
+
   const strength=num(row?.boll_overlap_signal_strength_abs);
+
+
+
+
+
+
+
+
 
 
 
@@ -9264,7 +18591,23 @@ function sourceAlertQuality(row){
 
 
 
+
+
+
+
+
+
+
+
   const dist=num(row?.boll_overlap_break_distance_pct_band);
+
+
+
+
+
+
+
+
 
 
 
@@ -9280,6 +18623,14 @@ function sourceAlertQuality(row){
 
 
 
+
+
+
+
+
+
+
+
   return null;
 
 
@@ -9288,7 +18639,23 @@ function sourceAlertQuality(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9304,7 +18671,23 @@ function sourceConfirmedAlertType(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
   const tier=sourceFieldText(row,'boll_overlap_alert_tier').toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -9320,7 +18703,23 @@ function sourceConfirmedAlertType(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
     || truthyFlag(row,'signal_boll_overlap_break_confirmed_high_volume')
+
+
+
+
+
+
+
+
 
 
 
@@ -9336,7 +18735,23 @@ function sourceConfirmedAlertType(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
   if(!directConfirmed) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -9352,7 +18767,23 @@ function sourceConfirmedAlertType(row, fallbackType=null){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9368,7 +18799,23 @@ function sourceVolatilityState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(truthyFlag(row,'signal_boll_overlap_high_volatility')) return 'High';
+
+
+
+
+
+
+
+
 
 
 
@@ -9384,6 +18831,14 @@ function sourceVolatilityState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(tier.includes('confirmed')) return 'High';
 
 
@@ -9392,7 +18847,23 @@ function sourceVolatilityState(row){
 
 
 
+
+
+
+
+
+
+
+
   const quality=sourceAlertQuality(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -9408,6 +18879,14 @@ function sourceVolatilityState(row){
 
 
 
+
+
+
+
+
+
+
+
   return 'Low';
 
 
@@ -9416,7 +18895,23 @@ function sourceVolatilityState(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9432,7 +18927,23 @@ function materialOutsideState(row, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const type=overlapOutsideType(row, overlap, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -9448,7 +18959,23 @@ function materialOutsideState(row, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const c=num(row.close) ?? num(row.close_fill);
+
+
+
+
+
+
+
+
 
 
 
@@ -9464,7 +18991,23 @@ function materialOutsideState(row, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const outsidePct=(c!==null && rim!==null && Math.abs(rim)>1e-9) ? Math.abs(c-rim)/Math.abs(rim) : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -9480,7 +19023,23 @@ function materialOutsideState(row, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9496,7 +19055,23 @@ function upstreamLegacySignalType(row){
 
 
 
+
+
+
+
+
+
+
+
   const buy=num(row?.buy), sell=num(row?.sell);
+
+
+
+
+
+
+
+
 
 
 
@@ -9512,7 +19087,23 @@ function upstreamLegacySignalType(row){
 
 
 
+
+
+
+
+
+
+
+
   const sellSignal=num(row?.sell_signal ?? row?.Sell_Signal ?? row?.['Sell Signal']);
+
+
+
+
+
+
+
+
 
 
 
@@ -9528,7 +19119,23 @@ function upstreamLegacySignalType(row){
 
 
 
+
+
+
+
+
+
+
+
   const bearish = (sell!==null && sell>0 && (buy===null || sell>buy)) || (sellSignal!==null && sellSignal>0);
+
+
+
+
+
+
+
+
 
 
 
@@ -9544,7 +19151,23 @@ function upstreamLegacySignalType(row){
 
 
 
+
+
+
+
+
+
+
+
   if(bearish && !bullish) return 'bearish';
+
+
+
+
+
+
+
+
 
 
 
@@ -9560,7 +19183,23 @@ function upstreamLegacySignalType(row){
 
 
 
+
+
+
+
+
+
+
+
     if((buy??0)>(sell??0)) return 'bullish';
+
+
+
+
+
+
+
+
 
 
 
@@ -9576,7 +19215,23 @@ function upstreamLegacySignalType(row){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -9592,7 +19247,23 @@ function upstreamLegacySignalType(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9608,6 +19279,14 @@ function currentAssetTerm(){
 
 
 
+
+
+
+
+
+
+
+
   return document.getElementById('asset')?.value || null;
 
 
@@ -9616,7 +19295,23 @@ function currentAssetTerm(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9632,7 +19327,23 @@ function assetUniverseType(term, rows){
 
 
 
+
+
+
+
+
+
+
+
   const t=String(term || '').trim().toUpperCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -9648,7 +19359,23 @@ function assetUniverseType(term, rows){
 
 
 
+
+
+
+
+
+
+
+
   if(cryptoSet.has(t)) return 'crypto';
+
+
+
+
+
+
+
+
 
 
 
@@ -9664,7 +19391,23 @@ function assetUniverseType(term, rows){
 
 
 
+
+
+
+
+
+
+
+
   if(calendar==='continuous') return 'crypto';
+
+
+
+
+
+
+
+
 
 
 
@@ -9680,7 +19423,23 @@ function assetUniverseType(term, rows){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -9696,7 +19455,23 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 
 
 
+
+
+
+
+
+
+
+
   if(overlap?.family!=='contextual') return overlapVolatilityState(rows[idx]);
+
+
+
+
+
+
+
+
 
 
 
@@ -9712,7 +19487,23 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 
 
 
+
+
+
+
+
+
+
+
   for(let j=Math.max(0, idx-window+1); j<=idx; j++){
+
+
+
+
+
+
+
+
 
 
 
@@ -9728,7 +19519,23 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 
 
 
+
+
+
+
+
+
+
+
     if(w!==null) widths.push(w);
+
+
+
+
+
+
+
+
 
 
 
@@ -9744,7 +19551,23 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 
 
 
+
+
+
+
+
+
+
+
   if(widths.length < 20) return overlapVolatilityState(rows[idx]);
+
+
+
+
+
+
+
+
 
 
 
@@ -9760,7 +19583,23 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 
 
 
+
+
+
+
+
+
+
+
   if(current===null) return overlapVolatilityState(rows[idx]);
+
+
+
+
+
+
+
+
 
 
 
@@ -9776,7 +19615,23 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 
 
 
+
+
+
+
+
+
+
+
   const threshold = finiteQuantile(widths, q);
+
+
+
+
+
+
+
+
 
 
 
@@ -9792,7 +19647,23 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 
 
 
+
+
+
+
+
+
+
+
   const m = mean(widths), s = stddev(widths);
+
+
+
+
+
+
+
+
 
 
 
@@ -9808,7 +19679,23 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 
 
 
+
+
+
+
+
+
+
+
   return 'Low';
+
+
+
+
+
+
+
+
 
 
 
@@ -9824,7 +19711,23 @@ function activeOverlapVolatilityState(rows, overlap, idx, window=40, universe='e
 
 
 
+
+
+
+
+
+
+
+
 function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
+
+
+
+
+
+
+
+
 
 
 
@@ -9840,7 +19743,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const idxUse = rows ? idx : 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -9856,7 +19775,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const outsideState=materialOutsideState(row, overlap, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -9872,7 +19807,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const upstreamType=upstreamLegacySignalType(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -9888,7 +19839,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const type=overlapType || directSourceType || upstreamType;
+
+
+
+
+
+
+
+
 
 
 
@@ -9904,7 +19871,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const legacyVol=overlapVolatilityState(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -9920,7 +19903,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const sourceVol=sourceVolatilityState(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -9936,7 +19935,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const structuralVol=structure==='Expansion' ? 'High' : 'Low';
+
+
+
+
+
+
+
+
 
 
 
@@ -9952,6 +19967,14 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const highVolume=volumeState.high;
 
 
@@ -9960,7 +19983,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const quality=sourceAlertQuality(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -9984,7 +20023,31 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Explicit source-confirmed rows are authoritative if the chart can determine a direction.
+
+
+
+
+
+
+
+
 
 
 
@@ -10000,7 +20063,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   if(directSourceType){
+
+
+
+
+
+
+
+
 
 
 
@@ -10016,7 +20095,31 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10040,7 +20143,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   // restore the prior candlestick diamonds while the overlap model remains primary.
+
+
+
+
+
+
+
+
 
 
 
@@ -10056,6 +20175,14 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
     return {type, confirmed:true, policy:universe==='crypto' ? 'legacy' : 'hybrid', universe, legacyVol, contextualVol, sourceVol, structuralVol, highVolume, volumeSource:volumeState.source, signalSource, upstreamSignal:true, quality, structure, detail:'Upstream legacy signal confirmation from multi-window Bollinger counts'};
 
 
@@ -10064,7 +20191,31 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -10096,7 +20247,31 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Fix 26 parity update: volume remains the hard confirmation gate, but volatility
+
+
+
+
+
+
+
+
 
 
 
@@ -10112,7 +20287,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   // legacy overlap volatility, contextual width expansion, explicit source volatility,
+
+
+
+
+
+
+
+
 
 
 
@@ -10128,7 +20319,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const highQuality = quality!==null && quality >= (universe==='crypto' ? 65 : 55);
+
+
+
+
+
+
+
+
 
 
 
@@ -10144,7 +20351,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const usedContextual = legacyVol!=='High' && contextualVol==='High';
+
+
+
+
+
+
+
+
 
 
 
@@ -10160,7 +20383,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const usedQuality = legacyVol!=='High' && contextualVol!=='High' && sourceVol!=='High' && structuralVol!=='High' && highQuality;
+
+
+
+
+
+
+
+
 
 
 
@@ -10176,7 +20415,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   if(sourceVol==='High') policy='source_volatility';
+
+
+
+
+
+
+
+
 
 
 
@@ -10192,7 +20447,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   if(usedQuality) policy='quality_gate';
+
+
+
+
+
+
+
+
 
 
 
@@ -10208,6 +20479,14 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   return {type:confirmed ? type : null, confirmed, policy, universe, legacyVol, contextualVol, sourceVol, structuralVol, highVolume, volumeSource:volumeState.source, signalSource, usedContextual, usedStructural, usedQuality, quality, structure, detail: confirmed ? `Confirmation: outside overlap + ${gateLabel} + High volume` : 'Confirmation failed: no volatility, structural expansion, or quality gate passed'};
 
 
@@ -10216,7 +20495,23 @@ function overlapConfirmationMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -10232,7 +20527,23 @@ function overlapConfirmedEventType(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   return overlapConfirmationMeta(row, overlap, idx, rows, term).type;
+
+
+
+
+
+
+
+
 
 
 
@@ -10248,7 +20559,23 @@ function overlapConfirmedEventType(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
 function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
+
+
+
+
+
+
+
+
 
 
 
@@ -10264,6 +20591,14 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const idxUse = rows ? idx : 0;
 
 
@@ -10272,7 +20607,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const confirmedMeta = overlapConfirmationMeta(row, overlap, idx, rows, term);
+
+
+
+
+
+
+
+
 
 
 
@@ -10296,6 +20647,22 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const universe=assetUniverseType(term || currentAssetTerm(), rowsUse);
 
 
@@ -10304,7 +20671,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const type=overlapOutsideType(row, overlap, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -10328,7 +20711,31 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const legacyVol=overlapVolatilityState(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -10344,7 +20751,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const volumeState=activeHighVolumeState(row, rowsUse, idxUse);
+
+
+
+
+
+
+
+
 
 
 
@@ -10360,7 +20783,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const widthPrev=idx>0 ? overlapWidthAt(overlap, idx-1) : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -10376,7 +20815,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const c=num(row.close) ?? num(row.close_fill);
+
+
+
+
+
+
+
+
 
 
 
@@ -10392,7 +20847,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const outsidePct=(c!==null && rim!==null && Math.abs(rim)>1e-9) ? Math.abs(c-rim)/Math.abs(rim) : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -10416,7 +20887,31 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const reasons=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -10432,7 +20927,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   else if(volumeState.known) reasons.push('volume normal');
+
+
+
+
+
+
+
+
 
 
 
@@ -10448,7 +20959,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   if(legacyVol==='High') reasons.push('legacy volatility high');
+
+
+
+
+
+
+
+
 
 
 
@@ -10464,7 +20991,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   if(widthExpanding) reasons.push('overlap width expanding');
+
+
+
+
+
+
+
+
 
 
 
@@ -10488,7 +21031,31 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const watch = contextualVol==='High' || legacyVol==='High' || volumeState.high || (widthExpanding && materialOutside);
+
+
+
+
+
+
+
+
 
 
 
@@ -10504,7 +21071,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
     type: watch ? type : null,
+
+
+
+
+
+
+
+
 
 
 
@@ -10520,7 +21103,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
     confirmed:false,
+
+
+
+
+
+
+
+
 
 
 
@@ -10536,7 +21135,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
     universe,
+
+
+
+
+
+
+
+
 
 
 
@@ -10552,7 +21167,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
     contextualVol,
+
+
+
+
+
+
+
+
 
 
 
@@ -10568,7 +21199,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
     volumeSource:volumeState.source,
+
+
+
+
+
+
+
+
 
 
 
@@ -10584,7 +21231,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
     outsidePct,
+
+
+
+
+
+
+
+
 
 
 
@@ -10600,6 +21263,14 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
   };
 
 
@@ -10608,7 +21279,23 @@ function overlapWatchCandidateMeta(row, overlap, idx, rows=null, term=null){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -10624,7 +21311,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
   const info={outside:0, volume:0, volatility:0, confirmed:0, watch:0};
+
+
+
+
+
+
+
+
 
 
 
@@ -10640,7 +21343,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
     if(!visibleMask[i]) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -10656,7 +21375,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
     if(outside) info.outside += 1;
+
+
+
+
+
+
+
+
 
 
 
@@ -10672,7 +21407,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
     const legacyVol=overlapVolatilityState(rows[i]);
+
+
+
+
+
+
+
+
 
 
 
@@ -10688,7 +21439,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
     const sourceVol=sourceVolatilityState(rows[i]);
+
+
+
+
+
+
+
+
 
 
 
@@ -10704,7 +21471,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
     const quality=sourceAlertQuality(rows[i]);
+
+
+
+
+
+
+
+
 
 
 
@@ -10720,7 +21503,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
     if(activeHighVolumeState(rows[i], rows, i).high) info.volume += 1;
+
+
+
+
+
+
+
+
 
 
 
@@ -10736,7 +21535,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
     if(meta.type) info.confirmed += 1;
+
+
+
+
+
+
+
+
 
 
 
@@ -10752,7 +21567,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -10768,7 +21599,23 @@ function computeAlertDiagnosticInfo(rows, overlap, visibleMask, term=null){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -10784,7 +21631,23 @@ function overlapMidAt(overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const ou=num(overlap.up[idx]), ol=num(overlap.low[idx]);
+
+
+
+
+
+
+
+
 
 
 
@@ -10800,6 +21663,14 @@ function overlapMidAt(overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   return (ou + ol) / 2;
 
 
@@ -10808,7 +21679,23 @@ function overlapMidAt(overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -10824,7 +21711,23 @@ function priorFiniteFrom(getter, idx, lookback){
 
 
 
+
+
+
+
+
+
+
+
   for(let j=Math.max(0, idx-lookback); j<=idx; j++){
+
+
+
+
+
+
+
+
 
 
 
@@ -10840,7 +21743,23 @@ function priorFiniteFrom(getter, idx, lookback){
 
 
 
+
+
+
+
+
+
+
+
     if(v!==null && Number.isFinite(v)) return {idx:j, value:v};
+
+
+
+
+
+
+
+
 
 
 
@@ -10856,7 +21775,23 @@ function priorFiniteFrom(getter, idx, lookback){
 
 
 
+
+
+
+
+
+
+
+
   return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -10872,7 +21807,23 @@ function priorFiniteFrom(getter, idx, lookback){
 
 
 
+
+
+
+
+
+
+
+
 function overlapTrendContext(rows, overlap, idx, lookback=5){
+
+
+
+
+
+
+
+
 
 
 
@@ -10888,7 +21839,23 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
   const currentWidth = overlapWidthAt(overlap, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -10912,6 +21879,22 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const prevMidRef = priorFiniteFrom(j=>overlapMidAt(overlap,j), idx-1, lookback);
 
 
@@ -10920,7 +21903,23 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
   const prevPrevMidRef = priorFiniteFrom(j=>overlapMidAt(overlap,j), (prevMidRef?.idx ?? idx)-1, lookback);
+
+
+
+
+
+
+
+
 
 
 
@@ -10944,7 +21943,31 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const denom = prevMidRef && Math.abs(prevMidRef.value) > 1e-9 ? Math.abs(prevMidRef.value) : Math.max(Math.abs(currentMid), 1e-9);
+
+
+
+
+
+
+
+
 
 
 
@@ -10968,7 +21991,31 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   let prevSlopePct = null;
+
+
+
+
+
+
+
+
 
 
 
@@ -10984,7 +22031,23 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
     const prevDenom = Math.abs(prevPrevMidRef.value) > 1e-9 ? Math.abs(prevPrevMidRef.value) : Math.max(Math.abs(prevMidRef.value), 1e-9);
+
+
+
+
+
+
+
+
 
 
 
@@ -11000,7 +22063,31 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11024,6 +22111,14 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
   const widthSlopePct = (currentWidth!==null && prevWidthRef && Math.abs(prevWidthRef.value) > 1e-9)
 
 
@@ -11032,7 +22127,23 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
     ? (currentWidth - prevWidthRef.value) / Math.abs(prevWidthRef.value)
+
+
+
+
+
+
+
+
 
 
 
@@ -11056,7 +22167,31 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return {midSlopePct, midAccelPct, widthSlopePct};
+
+
+
+
+
+
+
+
 
 
 
@@ -11072,7 +22207,23 @@ function overlapTrendContext(rows, overlap, idx, lookback=5){
 
 
 
+
+
+
+
+
+
+
+
 function confirmedContextProfile(rows, overlap, idx){
+
+
+
+
+
+
+
+
 
 
 
@@ -11088,7 +22239,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const type = meta.type;
+
+
+
+
+
+
+
+
 
 
 
@@ -11104,7 +22271,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     return {label:'Unconfirmed', code:'unconfirmed', detail: meta.detail || 'No confirmed overlap alert on this bar.', midSlopePct:null, midAccelPct:null, widthSlopePct:null};
+
+
+
+
+
+
+
+
 
 
 
@@ -11120,7 +22303,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const trend = overlapTrendContext(rows, overlap, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -11136,6 +22335,14 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const accel = trend.midAccelPct;
 
 
@@ -11144,7 +22351,31 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const widthSlope = trend.widthSlopePct;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11168,7 +22399,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const hardDown = slope!==null && slope <= -0.025;
+
+
+
+
+
+
+
+
 
 
 
@@ -11184,7 +22431,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const accelDown = accel!==null && accel <= -0.008;
+
+
+
+
+
+
+
+
 
 
 
@@ -11208,7 +22471,31 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(type==='bullish' && hardDown && (accelDown || widthExpanding)){
+
+
+
+
+
+
+
+
 
 
 
@@ -11224,6 +22511,14 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       label:'Countertrend',
 
 
@@ -11232,7 +22527,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       code:'countertrend',
+
+
+
+
+
+
+
+
 
 
 
@@ -11248,7 +22559,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       ...trend
+
+
+
+
+
+
+
+
 
 
 
@@ -11264,7 +22591,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -11280,7 +22623,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     return {
+
+
+
+
+
+
+
+
 
 
 
@@ -11296,7 +22655,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       code:'countertrend',
+
+
+
+
+
+
+
+
 
 
 
@@ -11312,7 +22687,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       ...trend
+
+
+
+
+
+
+
+
 
 
 
@@ -11328,7 +22719,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -11344,7 +22751,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     label:'Trend-Aligned',
+
+
+
+
+
+
+
+
 
 
 
@@ -11360,7 +22783,23 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     detail:`Confirmed ${type} pressure is aligned with the active overlap corridor context. ${meta.policy==='hybrid' ? 'Hybrid policy active.' : 'Legacy policy active.'}`,
+
+
+
+
+
+
+
+
 
 
 
@@ -11376,6 +22815,14 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   };
 
 
@@ -11384,7 +22831,31 @@ function confirmedContextProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11408,7 +22879,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const structure = overlapStructureAt(rows, overlap, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -11424,7 +22911,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const state = overlapStateAt(rows, overlap, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -11440,7 +22943,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const trend = overlapTrendContext(rows, overlap, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -11456,6 +22975,14 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const slope = trend.midSlopePct;
 
 
@@ -11464,7 +22991,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const accel = trend.midAccelPct;
+
+
+
+
+
+
+
+
 
 
 
@@ -11488,7 +23031,31 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   let tag = 'Inside Expected Range';
+
+
+
+
+
+
+
+
 
 
 
@@ -11504,7 +23071,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   let detail = 'Price remains inside the active overlap corridor. Use the overlap rim as the current shared expectation boundary.';
+
+
+
+
+
+
+
+
 
 
 
@@ -11528,7 +23111,31 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(currentEvent==='Compression' || structure==='Compression'){
+
+
+
+
+
+
+
+
 
 
 
@@ -11544,7 +23151,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     family = 'Bollinger';
+
+
+
+
+
+
+
+
 
 
 
@@ -11560,7 +23183,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     confidence = 'Medium';
+
+
+
+
+
+
+
+
 
 
 
@@ -11576,7 +23215,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     tag = 'Expansion Shock';
+
+
+
+
+
+
+
+
 
 
 
@@ -11592,7 +23247,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     detail = 'The active overlap has expanded materially. Expect wider expected-range behavior and less forgiving mean reversion.';
+
+
+
+
+
+
+
+
 
 
 
@@ -11608,7 +23279,31 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11632,6 +23327,14 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     tag = 'Failed Break / Re-entry';
 
 
@@ -11640,7 +23343,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     family = 'Bollinger';
+
+
+
+
+
+
+
+
 
 
 
@@ -11656,7 +23375,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     confidence = 'Medium';
+
+
+
+
+
+
+
+
 
 
 
@@ -11672,7 +23407,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     tag = currentEvent;
+
+
+
+
+
+
+
+
 
 
 
@@ -11688,7 +23439,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     detail = 'Price tested the active overlap edge and failed to hold beyond it, suggesting rejection at the corridor boundary.';
+
+
+
+
+
+
+
+
 
 
 
@@ -11704,7 +23471,31 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -11728,7 +23519,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     if(context.code==='countertrend'){
+
+
+
+
+
+
+
+
 
 
 
@@ -11744,7 +23551,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       family = 'Wyckoff Analog';
+
+
+
+
+
+
+
+
 
 
 
@@ -11760,6 +23583,14 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       confidence = 'Medium';
 
 
@@ -11768,7 +23599,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     } else {
+
+
+
+
+
+
+
+
 
 
 
@@ -11784,7 +23631,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       family = 'Bollinger';
+
+
+
+
+
+
+
+
 
 
 
@@ -11800,6 +23663,14 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       confidence = 'High';
 
 
@@ -11808,7 +23679,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -11824,7 +23711,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     if(context.code==='countertrend'){
+
+
+
+
+
+
+
+
 
 
 
@@ -11840,7 +23743,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       family = 'Wyckoff Analog';
+
+
+
+
+
+
+
+
 
 
 
@@ -11856,7 +23775,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       confidence = 'Medium';
+
+
+
+
+
+
+
+
 
 
 
@@ -11872,6 +23807,14 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       tag = 'Mean-Reversion Short';
 
 
@@ -11880,7 +23823,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       family = 'Bollinger';
+
+
+
+
+
+
+
+
 
 
 
@@ -11896,6 +23855,14 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       confidence = 'High';
 
 
@@ -11904,7 +23871,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -11920,6 +23903,14 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     tag = 'Lower-Rim Reversal Watch';
 
 
@@ -11928,7 +23919,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     family = 'Bollinger';
+
+
+
+
+
+
+
+
 
 
 
@@ -11944,7 +23951,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     confidence = 'Low';
+
+
+
+
+
+
+
+
 
 
 
@@ -11960,7 +23983,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     tag = 'Upper-Rim Fade Watch';
+
+
+
+
+
+
+
+
 
 
 
@@ -11976,7 +24015,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     detail = 'Price is above the active overlap upper rim, but the move is not fully confirmed. Treat as a developing fade watch, not a completed signal.';
+
+
+
+
+
+
+
+
 
 
 
@@ -11992,7 +24047,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   } else if(structure==='Balanced' && slope!==null){
+
+
+
+
+
+
+
+
 
 
 
@@ -12008,6 +24079,14 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       tag = 'Band Walk Up';
 
 
@@ -12016,7 +24095,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       family = 'Bollinger';
+
+
+
+
+
+
+
+
 
 
 
@@ -12032,7 +24127,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       confidence = 'Medium';
+
+
+
+
+
+
+
+
 
 
 
@@ -12048,7 +24159,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       tag = 'Band Walk Down';
+
+
+
+
+
+
+
+
 
 
 
@@ -12064,7 +24191,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
       detail = 'The active overlap midline is falling with a balanced corridor. This is more trend-carrying than mean-reverting behavior.';
+
+
+
+
+
+
+
+
 
 
 
@@ -12080,7 +24223,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -12104,7 +24263,31 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return {
+
+
+
+
+
+
+
+
 
 
 
@@ -12120,7 +24303,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     stateLabel: state.label,
+
+
+
+
+
+
+
+
 
 
 
@@ -12136,7 +24335,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     currentEvent,
+
+
+
+
+
+
+
+
 
 
 
@@ -12152,7 +24367,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     midSlopePct: slope,
+
+
+
+
+
+
+
+
 
 
 
@@ -12168,7 +24399,23 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     widthSlopePct: widthSlope
+
+
+
+
+
+
+
+
 
 
 
@@ -12184,7 +24431,31 @@ function overlapPlaybookProfile(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12208,7 +24479,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
   const playbook = rows.map((r,i)=>overlapPlaybookProfile(rows, overlap, i));
+
+
+
+
+
+
+
+
 
 
 
@@ -12224,7 +24511,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
     const score=setaScoreFromRow(r);
+
+
+
+
+
+
+
+
 
 
 
@@ -12240,7 +24543,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       'attention_level_score',
+
+
+
+
+
+
+
+
 
 
 
@@ -12256,7 +24575,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       'attention_spike_score',
+
+
+
+
+
+
+
+
 
 
 
@@ -12272,7 +24607,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
     ]);
+
+
+
+
+
+
+
+
 
 
 
@@ -12288,7 +24639,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       'sent_ribbon_label',
+
+
+
+
+
+
+
+
 
 
 
@@ -12304,7 +24671,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       'sent_ribbon_regime_raw',
+
+
+
+
+
+
+
+
 
 
 
@@ -12320,7 +24703,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
     ]) || 'n/a';
+
+
+
+
+
+
+
+
 
 
 
@@ -12336,7 +24735,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       num(r.rsi_d) ?? num(r.rsi),
+
+
+
+
+
+
+
+
 
 
 
@@ -12352,6 +24767,14 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       'rsi'
 
 
@@ -12360,7 +24783,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
     );
+
+
+
+
+
+
+
+
 
 
 
@@ -12376,7 +24815,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       num(r.stochastic_rsi),
+
+
+
+
+
+
+
+
 
 
 
@@ -12392,7 +24847,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       'stoch'
+
+
+
+
+
+
+
+
 
 
 
@@ -12408,7 +24879,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
     return [
+
+
+
+
+
+
+
+
 
 
 
@@ -12424,7 +24911,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       playbook[i]?.family || 'Baseline',
+
+
+
+
+
+
+
+
 
 
 
@@ -12440,7 +24943,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       playbook[i]?.detail || 'No playbook context available.',
+
+
+
+
+
+
+
+
 
 
 
@@ -12456,7 +24975,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       playbook[i]?.structure || 'Unknown',
+
+
+
+
+
+
+
+
 
 
 
@@ -12472,7 +25007,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       setaScoreAttentionLine(score, attention),
+
+
+
+
+
+
+
+
 
 
 
@@ -12488,7 +25039,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       ribbon,
+
+
+
+
+
+
+
+
 
 
 
@@ -12504,7 +25071,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
       stochGap.label
+
+
+
+
+
+
+
+
 
 
 
@@ -12520,7 +25103,31 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12544,6 +25151,14 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
   const hover = `%{x|%b %d, %Y}<br><b>${namePrefix}</b> · %{customdata[0]}<br>%{customdata[4]} · %{customdata[5]} · %{customdata[2]} confidence<br><b>SETA</b> %{customdata[7]}<br>Ribbon %{customdata[9]} · RSI %{customdata[10]}<br>Stoch %{customdata[11]}<extra></extra>`;
 
 
@@ -12560,7 +25175,31 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   data.push({
+
+
+
+
+
+
+
+
 
 
 
@@ -12576,7 +25215,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
     xaxis:axis==='y'?'x':axis==='y2'?'x2':axis==='y3'?'x3':'x4', yaxis:axis,
+
+
+
+
+
+
+
+
 
 
 
@@ -12592,6 +25247,14 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
     hoverinfo:'skip', opacity:0.9
 
 
@@ -12600,7 +25263,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
   });
+
+
+
+
+
+
+
+
 
 
 
@@ -12616,7 +25295,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
     type:'scatter', mode:'lines', x:x, y:upper, customdata:custom, name:namePrefix+' Upper',
+
+
+
+
+
+
+
+
 
 
 
@@ -12632,7 +25327,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
     line:{color:lineColor,width:1.0,dash:'solid',shape:'linear'}, connectgaps:true, showlegend:true,
+
+
+
+
+
+
+
+
 
 
 
@@ -12648,6 +25359,14 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
   });
 
 
@@ -12656,7 +25375,23 @@ function addOverlapBandWithPlaybook(data, x, upper, lower, rows, overlap, lineCo
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -12672,6 +25407,14 @@ function formatPct(v){
 
 
 
+
+
+
+
+
+
+
+
   return (v===null || !Number.isFinite(v)) ? 'n/a' : `${(v*100).toFixed(1)}%`;
 
 
@@ -12680,7 +25423,31 @@ function formatPct(v){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12704,6 +25471,14 @@ function formatNum(v, digits=1){
 
 
 
+
+
+
+
+
+
+
+
   return (v===null || !Number.isFinite(v)) ? 'n/a' : Number(v).toFixed(digits);
 
 
@@ -12712,7 +25487,31 @@ function formatNum(v, digits=1){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12736,7 +25535,23 @@ function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
 
 
 
+
+
+
+
+
+
+
+
   const price=num(priceVal), sent=num(sentVal);
+
+
+
+
+
+
+
+
 
 
 
@@ -12752,7 +25567,23 @@ function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
 
 
 
+
+
+
+
+
+
+
+
   const gap=sent-price;
+
+
+
+
+
+
+
+
 
 
 
@@ -12768,7 +25599,23 @@ function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
 
 
 
+
+
+
+
+
+
+
+
   const tier = abs>=25 ? 'Extreme' : (abs>=15 ? 'Material' : (abs>=8 ? 'Notable' : 'Aligned'));
+
+
+
+
+
+
+
+
 
 
 
@@ -12784,7 +25631,23 @@ function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
 
 
 
+
+
+
+
+
+
+
+
   if(tier!=='Aligned'){
+
+
+
+
+
+
+
+
 
 
 
@@ -12800,7 +25663,23 @@ function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
 
 
 
+
+
+
+
+
+
+
+
     else direction=(kind==='stoch' && price>=70) ? 'Sent Deterioration' : 'Price Lead';
+
+
+
+
+
+
+
+
 
 
 
@@ -12816,7 +25695,23 @@ function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
 
 
 
+
+
+
+
+
+
+
+
   const signed=(gap>=0?'+':'')+gap.toFixed(1);
+
+
+
+
+
+
+
+
 
 
 
@@ -12832,6 +25727,14 @@ function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
 
 
 
+
+
+
+
+
+
+
+
   return {gap, tier, direction, label};
 
 
@@ -12840,7 +25743,31 @@ function oscillatorGapInfo(priceVal, sentVal, kind='rsi'){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -12864,7 +25791,23 @@ function firstFiniteFromRow(row, keys){
 
 
 
+
+
+
+
+
+
+
+
   for(const key of keys){
+
+
+
+
+
+
+
+
 
 
 
@@ -12880,7 +25823,23 @@ function firstFiniteFromRow(row, keys){
 
 
 
+
+
+
+
+
+
+
+
     if(v!==null && Number.isFinite(v)) return v;
+
+
+
+
+
+
+
+
 
 
 
@@ -12896,6 +25855,14 @@ function firstFiniteFromRow(row, keys){
 
 
 
+
+
+
+
+
+
+
+
   return null;
 
 
@@ -12904,7 +25871,23 @@ function firstFiniteFromRow(row, keys){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -12920,7 +25903,23 @@ function firstTextFromRow(row, keys){
 
 
 
+
+
+
+
+
+
+
+
   for(const key of keys){
+
+
+
+
+
+
+
+
 
 
 
@@ -12936,7 +25935,23 @@ function firstTextFromRow(row, keys){
 
 
 
+
+
+
+
+
+
+
+
     if(v!==null && v!==undefined && String(v).trim()!=='') return String(v).trim();
+
+
+
+
+
+
+
+
 
 
 
@@ -12952,6 +25967,14 @@ function firstTextFromRow(row, keys){
 
 
 
+
+
+
+
+
+
+
+
   return null;
 
 
@@ -12960,7 +25983,23 @@ function firstTextFromRow(row, keys){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -12976,7 +26015,23 @@ function setaScoreFromRow(row){
 
 
 
+
+
+
+
+
+
+
+
   return firstFiniteFromRow(row,[
+
+
+
+
+
+
+
+
 
 
 
@@ -12992,7 +26047,23 @@ function setaScoreFromRow(row){
 
 
 
+
+
+
+
+
+
+
+
     'seta_summary_score',
+
+
+
+
+
+
+
+
 
 
 
@@ -13008,7 +26079,23 @@ function setaScoreFromRow(row){
 
 
 
+
+
+
+
+
+
+
+
     'summary_score',
+
+
+
+
+
+
+
+
 
 
 
@@ -13024,7 +26111,23 @@ function setaScoreFromRow(row){
 
 
 
+
+
+
+
+
+
+
+
     'screener_summary_score'
+
+
+
+
+
+
+
+
 
 
 
@@ -13040,7 +26143,23 @@ function setaScoreFromRow(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -13056,7 +26175,23 @@ function setaScoreAttentionLine(score, attention){
 
 
 
+
+
+
+
+
+
+
+
   const scorePart = score===null ? null : `Score ${Math.round(score)}`;
+
+
+
+
+
+
+
+
 
 
 
@@ -13072,6 +26207,14 @@ function setaScoreAttentionLine(score, attention){
 
 
 
+
+
+
+
+
+
+
+
   return [scorePart, attnPart].filter(Boolean).join(' · ') || 'Context unavailable';
 
 
@@ -13080,7 +26223,23 @@ function setaScoreAttentionLine(score, attention){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -13096,7 +26255,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
   return rows.map((row,i)=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -13112,7 +26287,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
     const attention=firstFiniteFromRow(row,[
+
+
+
+
+
+
+
+
 
 
 
@@ -13128,7 +26319,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       'attention_regime_score',
+
+
+
+
+
+
+
+
 
 
 
@@ -13144,7 +26351,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       'attention_participation_score'
+
+
+
+
+
+
+
+
 
 
 
@@ -13160,7 +26383,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
     const ribbon=firstTextFromRow(row,[
+
+
+
+
+
+
+
+
 
 
 
@@ -13176,7 +26415,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       'sentiment_ribbon_label',
+
+
+
+
+
+
+
+
 
 
 
@@ -13192,7 +26447,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       'ribbon_label'
+
+
+
+
+
+
+
+
 
 
 
@@ -13208,7 +26479,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
     const overlapProfile=overlap ? overlapPlaybookProfile(rows, overlap, i) : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -13224,7 +26511,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       ? `${overlapProfile.tag || 'Inside Expected Range'} · ${overlapProfile.structure || 'Unknown'}`
+
+
+
+
+
+
+
+
 
 
 
@@ -13240,7 +26543,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
     const rsiGap=oscillatorGapInfo(
+
+
+
+
+
+
+
+
 
 
 
@@ -13256,7 +26575,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       num(row.sentiment_rsi_d) ?? num(row.sentiment_rsi),
+
+
+
+
+
+
+
+
 
 
 
@@ -13272,7 +26607,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
     );
+
+
+
+
+
+
+
+
 
 
 
@@ -13288,7 +26639,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       num(row.stochastic_rsi),
+
+
+
+
+
+
+
+
 
 
 
@@ -13304,7 +26671,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       'stoch'
+
+
+
+
+
+
+
+
 
 
 
@@ -13320,7 +26703,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
     return [
+
+
+
+
+
+
+
+
 
 
 
@@ -13336,7 +26735,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       attention===null ? 'n/a' : attention.toFixed(1),
+
+
+
+
+
+
+
+
 
 
 
@@ -13352,7 +26767,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       overlapText,
+
+
+
+
+
+
+
+
 
 
 
@@ -13368,7 +26799,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
       stochGap.label
+
+
+
+
+
+
+
+
 
 
 
@@ -13384,6 +26831,14 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
   });
 
 
@@ -13392,7 +26847,23 @@ function priceHoverContextCustomData(rows, regimeInfo, overlap){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -13408,7 +26879,23 @@ function priceHoverTemplate(kind='candles'){
 
 
 
+
+
+
+
+
+
+
+
   const priceBlock = kind==='candles'
+
+
+
+
+
+
+
+
 
 
 
@@ -13424,7 +26911,23 @@ function priceHoverTemplate(kind='candles'){
 
 
 
+
+
+
+
+
+
+
+
     : 'Close=%{y:.2f}';
+
+
+
+
+
+
+
+
 
 
 
@@ -13440,7 +26943,23 @@ function priceHoverTemplate(kind='candles'){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -13456,7 +26975,23 @@ function hoverDateLabel(row){
 
 
 
+
+
+
+
+
+
+
+
   const d = row?.dateObj instanceof Date ? row.dateObj : new Date(String(row?.date || '') + 'T00:00:00');
+
+
+
+
+
+
+
+
 
 
 
@@ -13472,6 +27007,14 @@ function hoverDateLabel(row){
 
 
 
+
+
+
+
+
+
+
+
   return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
 
 
@@ -13480,7 +27023,23 @@ function hoverDateLabel(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -13496,7 +27055,23 @@ function priceHoverText(rows, regimeInfo, overlap, kind='candles'){
 
 
 
+
+
+
+
+
+
+
+
   const ctx = priceHoverContextCustomData(rows, regimeInfo, overlap);
+
+
+
+
+
+
+
+
 
 
 
@@ -13512,7 +27087,23 @@ function priceHoverText(rows, regimeInfo, overlap, kind='candles'){
 
 
 
+
+
+
+
+
+
+
+
     const c = ctx[i] || ['n/a','n/a','n/a','n/a','n/a','n/a'];
+
+
+
+
+
+
+
+
 
 
 
@@ -13528,7 +27119,23 @@ function priceHoverText(rows, regimeInfo, overlap, kind='candles'){
 
 
 
+
+
+
+
+
+
+
+
       ? `O/H/L/C ${formatNum(num(row.open),2)} / ${formatNum(num(row.high),2)} / ${formatNum(num(row.low),2)} / ${formatNum(num(row.close),2)}`
+
+
+
+
+
+
+
+
 
 
 
@@ -13544,7 +27151,23 @@ function priceHoverText(rows, regimeInfo, overlap, kind='candles'){
 
 
 
+
+
+
+
+
+
+
+
     return `${hoverDateLabel(row)}<br><b>Price</b> · ${priceBlock}<br><b>SETA</b> ${c[0]}<br>Ribbon ${c[2]} · Overlap ${c[3]}<br>RSI ${c[4]}<br>Stoch ${c[5]}`;
+
+
+
+
+
+
+
+
 
 
 
@@ -13560,7 +27183,31 @@ function priceHoverText(rows, regimeInfo, overlap, kind='candles'){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -13584,7 +27231,23 @@ function overlapWidthAt(overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const ou=num(overlap.up[idx]), ol=num(overlap.low[idx]);
+
+
+
+
+
+
+
+
 
 
 
@@ -13600,7 +27263,23 @@ function overlapWidthAt(overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const w=ou-ol;
+
+
+
+
+
+
+
+
 
 
 
@@ -13616,7 +27295,23 @@ function overlapWidthAt(overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -13632,7 +27327,23 @@ function overlapStructureAt(rows, overlap, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   const current=overlapWidthAt(overlap, idx);
+
+
+
+
+
+
+
+
 
 
 
@@ -13648,7 +27359,23 @@ function overlapStructureAt(rows, overlap, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   const widths=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -13664,7 +27391,23 @@ function overlapStructureAt(rows, overlap, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
     const w=overlapWidthAt(overlap, j);
+
+
+
+
+
+
+
+
 
 
 
@@ -13680,7 +27423,23 @@ function overlapStructureAt(rows, overlap, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -13696,6 +27455,14 @@ function overlapStructureAt(rows, overlap, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
     return overlapVolatilityState(rows[idx])==='High' ? 'Expansion' : 'Balanced';
 
 
@@ -13704,7 +27471,23 @@ function overlapStructureAt(rows, overlap, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -13720,7 +27503,23 @@ function overlapStructureAt(rows, overlap, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   const q75=finiteQuantile(widths, 0.75);
+
+
+
+
+
+
+
+
 
 
 
@@ -13736,7 +27535,23 @@ function overlapStructureAt(rows, overlap, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
   if(q75!==null && current>=q75) return 'Expansion';
+
+
+
+
+
+
+
+
 
 
 
@@ -13752,7 +27567,23 @@ function overlapStructureAt(rows, overlap, idx, window=60){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -13768,7 +27599,23 @@ function truthyFlag(row, col){
 
 
 
+
+
+
+
+
+
+
+
   const n=num(row?.[col]);
+
+
+
+
+
+
+
+
 
 
 
@@ -13784,7 +27631,23 @@ function truthyFlag(row, col){
 
 
 
+
+
+
+
+
+
+
+
   const s=String(row?.[col] ?? '').trim().toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -13800,7 +27663,23 @@ function truthyFlag(row, col){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -13816,7 +27695,23 @@ function overlapStateAt(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const confirmed=overlapConfirmedEventType(rows[idx], overlap, idx, rows, currentAssetTerm());
+
+
+
+
+
+
+
+
 
 
 
@@ -13832,7 +27727,23 @@ function overlapStateAt(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   if(confirmed==='bearish') return {label:'Confirmed Bearish Pressure', cls:'badge-bear', code:'confirmed_bearish'};
+
+
+
+
+
+
+
+
 
 
 
@@ -13848,7 +27759,23 @@ function overlapStateAt(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   if(outside==='bullish') return {label:'Bullish Pressure', cls:'badge-bull', code:'bullish_pressure'};
+
+
+
+
+
+
+
+
 
 
 
@@ -13864,6 +27791,14 @@ function overlapStateAt(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   return {label:'Inside Expected Range', cls:'badge-neutral', code:'inside_expected_range'};
 
 
@@ -13872,7 +27807,23 @@ function overlapStateAt(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -13888,7 +27839,23 @@ function overlapCurrentEventType(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   const row=rows[idx] || {};
+
+
+
+
+
+
+
+
 
 
 
@@ -13904,7 +27871,23 @@ function overlapCurrentEventType(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     const prevType = idx>0 ? overlapOutsideType(rows[idx-1], overlap, idx-1) : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -13920,7 +27903,23 @@ function overlapCurrentEventType(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
     if(prevType==='bearish') return 'Re-entry from Above';
+
+
+
+
+
+
+
+
 
 
 
@@ -13936,7 +27935,23 @@ function overlapCurrentEventType(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -13952,7 +27967,23 @@ function overlapCurrentEventType(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   if(overlap?.family==='canonical' && truthyFlag(row, 'boll_overlap_rejection_bearish_flag')) return 'Bearish Rejection';
+
+
+
+
+
+
+
+
 
 
 
@@ -13968,7 +27999,23 @@ function overlapCurrentEventType(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   if(state.code==='confirmed_bullish' || state.code==='confirmed_bearish') return 'Confirmed Break';
+
+
+
+
+
+
+
+
 
 
 
@@ -13984,7 +28031,23 @@ function overlapCurrentEventType(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   if(state.code==='inside_expected_range' && structure==='Compression') return 'Compression';
+
+
+
+
+
+
+
+
 
 
 
@@ -14000,6 +28063,14 @@ function overlapCurrentEventType(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
   return 'No Fresh Event';
 
 
@@ -14008,7 +28079,23 @@ function overlapCurrentEventType(rows, overlap, idx){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -14024,7 +28111,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   let latestIdx=-1;
+
+
+
+
+
+
+
+
 
 
 
@@ -14040,7 +28143,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     if(!visibleMask[i]) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -14056,6 +28175,14 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     if(c!==null){ latestIdx=i; break; }
 
 
@@ -14064,7 +28191,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -14080,7 +28223,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     return {
+
+
+
+
+
+
+
+
 
 
 
@@ -14096,7 +28255,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
       currentEvent:'No Fresh Event', eventCls:'badge-neutral', condition:'Stability', volume:'Normal Volume',
+
+
+
+
+
+
+
+
 
 
 
@@ -14112,7 +28287,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
       annotation:'Combined overlap model: unavailable', latestConfirmed:'No confirmed alert in view.', modelLabel: overlap?.family==='contextual' ? 'Contextual Overlap' : 'Canonical Overlap'
+
+
+
+
+
+
+
+
 
 
 
@@ -14128,7 +28319,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -14144,7 +28351,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const state=overlapStateAt(rows, overlap, latestIdx);
+
+
+
+
+
+
+
+
 
 
 
@@ -14160,7 +28383,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const currentEvent=overlapCurrentEventType(rows, overlap, latestIdx);
+
+
+
+
+
+
+
+
 
 
 
@@ -14176,7 +28415,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const highVol=latestMeta.legacyVol==='High';
+
+
+
+
+
+
+
+
 
 
 
@@ -14192,7 +28447,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const highVolume=latestMeta.highVolume;
+
+
+
+
+
+
+
+
 
 
 
@@ -14208,7 +28479,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const volume=highVolume ? 'High Volume' : 'Normal Volume';
+
+
+
+
+
+
+
+
 
 
 
@@ -14224,7 +28511,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const structureCls = structure==='Compression' ? 'badge-neutral' : (structure==='Expansion' ? 'badge-bear' : 'badge-neutral');
+
+
+
+
+
+
+
+
 
 
 
@@ -14240,7 +28543,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   let latestConfirmed='No confirmed alert in view.';
+
+
+
+
+
+
+
+
 
 
 
@@ -14256,7 +28575,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     if(!visibleMask[i]) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -14272,7 +28607,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     if(t){
+
+
+
+
+
+
+
+
 
 
 
@@ -14288,7 +28639,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
       break;
+
+
+
+
+
+
+
+
 
 
 
@@ -14304,7 +28671,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -14320,7 +28703,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   if(state.code==='confirmed_bullish') narrative=`Price closed below the active overlap range with ${latestMeta.policy==='hybrid' && latestMeta.legacyVol!=='High' && latestMeta.contextualVol==='High' ? 'contextual volatility' : 'High volatility'} and High volume, confirming bullish pressure from the combined overlap model.`;
+
+
+
+
+
+
+
+
 
 
 
@@ -14336,7 +28735,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   else if(state.code==='bullish_pressure') narrative='Price is below the advanced overlap range, signaling bullish pressure from the combined overlap model.';
+
+
+
+
+
+
+
+
 
 
 
@@ -14352,7 +28767,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   else if(currentEvent==='Compression') narrative='Combined overlap is compressed relative to its recent width distribution, suggesting a tighter joint expectation range.';
+
+
+
+
+
+
+
+
 
 
 
@@ -14368,7 +28799,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   else if(currentEvent==='Re-entry from Below' || currentEvent==='Re-entry from Above') narrative=`${currentEvent} suggests price has moved back into the combined overlap range.`;
+
+
+
+
+
+
+
+
 
 
 
@@ -14384,7 +28831,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const modelLabel = overlap?.family==='contextual' ? 'Contextual Overlap' : 'Canonical Overlap';
+
+
+
+
+
+
+
+
 
 
 
@@ -14400,7 +28863,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     for(let i=rows.length-1;i>=0;i--){
+
+
+
+
+
+
+
+
 
 
 
@@ -14416,6 +28895,14 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
       if(overlapConfirmedEventType(rows[i], overlap, i, rows, currentAssetTerm())) return i;
 
 
@@ -14424,7 +28911,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -14440,7 +28943,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   })();
+
+
+
+
+
+
+
+
 
 
 
@@ -14456,7 +28975,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   return {
+
+
+
+
+
+
+
+
 
 
 
@@ -14472,7 +29007,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     stateCls:state.cls,
+
+
+
+
+
+
+
+
 
 
 
@@ -14488,7 +29039,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     structureCls,
+
+
+
+
+
+
+
+
 
 
 
@@ -14504,7 +29071,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     eventCls,
+
+
+
+
+
+
+
+
 
 
 
@@ -14520,7 +29103,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     volume,
+
+
+
+
+
+
+
+
 
 
 
@@ -14536,7 +29135,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     contextCls:(highVol || highVolume) ? 'badge-bear' : 'badge-neutral',
+
+
+
+
+
+
+
+
 
 
 
@@ -14552,7 +29167,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     annotation,
+
+
+
+
+
+
+
+
 
 
 
@@ -14568,7 +29199,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     modelLabel
+
+
+
+
+
+
+
+
 
 
 
@@ -14584,7 +29231,23 @@ function computeOverlapSignalInfo(rows, overlap, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -14600,7 +29263,23 @@ function attentionLevelState(row){
 
 
 
+
+
+
+
+
+
+
+
   const level=num(row?.attention_level_score) ?? num(row?.attention_regime_score);
+
+
+
+
+
+
+
+
 
 
 
@@ -14616,7 +29295,23 @@ function attentionLevelState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(level>=75) return {label:'Extreme', cls:'badge-bear', code:'extreme'};
+
+
+
+
+
+
+
+
 
 
 
@@ -14632,7 +29327,23 @@ function attentionLevelState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(level>=40) return {label:'Normal', cls:'badge-neutral', code:'normal'};
+
+
+
+
+
+
+
+
 
 
 
@@ -14648,7 +29359,23 @@ function attentionLevelState(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -14664,7 +29391,23 @@ function attentionConvictionState(row){
 
 
 
+
+
+
+
+
+
+
+
   const c=num(row?.attention_conviction_score_signed);
+
+
+
+
+
+
+
+
 
 
 
@@ -14680,7 +29423,23 @@ function attentionConvictionState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(c>=25) return {label:'Bullish Conviction', cls:'badge-bull'};
+
+
+
+
+
+
+
+
 
 
 
@@ -14696,6 +29455,14 @@ function attentionConvictionState(row){
 
 
 
+
+
+
+
+
+
+
+
   return {label:'Mixed / Neutral', cls:'badge-neutral'};
 
 
@@ -14704,7 +29471,23 @@ function attentionConvictionState(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -14720,7 +29503,23 @@ function attentionRegimeState(row){
 
 
 
+
+
+
+
+
+
+
+
   const r=num(row?.attention_regime_score);
+
+
+
+
+
+
+
+
 
 
 
@@ -14736,7 +29535,23 @@ function attentionRegimeState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(r===null && s===null) return {label:'Normal Regime', cls:'badge-neutral'};
+
+
+
+
+
+
+
+
 
 
 
@@ -14752,7 +29567,23 @@ function attentionRegimeState(row){
 
 
 
+
+
+
+
+
+
+
+
   if(r!==null && r>=55) return {label:'Elevated Participation', cls:'badge-attn'};
+
+
+
+
+
+
+
+
 
 
 
@@ -14768,7 +29599,23 @@ function attentionRegimeState(row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -14784,7 +29631,23 @@ function attentionSoftOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const out=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -14800,7 +29663,23 @@ function attentionSoftOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     if(!visibleMask[i]) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -14816,7 +29695,23 @@ function attentionSoftOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     const conviction=Math.abs(num(rows[i]?.attention_conviction_score_signed) ?? 0);
+
+
+
+
+
+
+
+
 
 
 
@@ -14832,7 +29727,23 @@ function attentionSoftOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -14848,7 +29759,23 @@ function attentionSoftOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -14864,7 +29791,23 @@ function attentionStrongOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const out=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -14880,7 +29823,23 @@ function attentionStrongOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     if(!visibleMask[i]) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -14896,7 +29855,23 @@ function attentionStrongOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     const spike=num(rows[i]?.attention_spike_score);
+
+
+
+
+
+
+
+
 
 
 
@@ -14912,7 +29887,23 @@ function attentionStrongOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -14928,7 +29919,23 @@ function attentionStrongOverlayRows(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -14944,7 +29951,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
   const softIdxs=attentionSoftOverlayRows(rows, visibleMask);
+
+
+
+
+
+
+
+
 
 
 
@@ -14960,7 +29983,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
   const shapes=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -14976,7 +30015,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
   for(const i of softIdxs){
+
+
+
+
+
+
+
+
 
 
 
@@ -14992,7 +30047,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
     const d=row.dateObj; if(!(d instanceof Date)) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -15008,7 +30079,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
     const level=num(row.attention_level_score) ?? num(row.attention_regime_score) ?? 50;
+
+
+
+
+
+
+
+
 
 
 
@@ -15024,7 +30111,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
     const strong=strongSet.has(i);
+
+
+
+
+
+
+
+
 
 
 
@@ -15040,7 +30143,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
     const fill=conviction>=25 ? `rgba(70,220,120,${softOpacity})` : (conviction<=-25 ? `rgba(255,110,110,${softOpacity})` : `rgba(92,164,255,${softOpacity})`);
+
+
+
+
+
+
+
+
 
 
 
@@ -15056,7 +30175,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
     const x0=new Date(d); x0.setDate(x0.getDate()-widthDays);
+
+
+
+
+
+
+
+
 
 
 
@@ -15072,7 +30207,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
     shapes.push({type:'rect',xref:'x',x0:x0,x1:x1,yref:'paper',y0:0.54,y1:0.98,line:{width:0},fillcolor:fill,layer:'below'});
+
+
+
+
+
+
+
+
 
 
 
@@ -15088,7 +30239,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
       const topOpacity=Math.max(0.18, Math.min(0.34, 0.16 + (Math.max(regime, level)/100)*0.18));
+
+
+
+
+
+
+
+
 
 
 
@@ -15104,7 +30271,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
       shapes.push({type:'rect',xref:'x',x0:x0,x1:x1,yref:'paper',y0:0.94,y1:0.985,line:{width:0},fillcolor:topFill,layer:'below'});
+
+
+
+
+
+
+
+
 
 
 
@@ -15120,6 +30303,14 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -15128,7 +30319,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -15144,7 +30351,23 @@ function engagementOverlayShapes(rows, visibleMask, freq){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -15160,7 +30383,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   let latestIdx=-1;
+
+
+
+
+
+
+
+
 
 
 
@@ -15176,7 +30415,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   if(latestIdx<0) return {levelLabel:'Unknown', levelCls:'badge-neutral', convictionLabel:'Mixed / Neutral', convictionCls:'badge-neutral', regimeLabel:'Normal Regime', regimeCls:'badge-neutral', latestSpike:'No elevated attention in view.', latestEvent:'No strong event in view.'};
+
+
+
+
+
+
+
+
 
 
 
@@ -15192,7 +30447,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const level=attentionLevelState(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -15208,7 +30479,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   const regime=attentionRegimeState(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -15224,7 +30511,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   let latestEvent='No strong event in view.';
+
+
+
+
+
+
+
+
 
 
 
@@ -15240,7 +30543,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     if(!visibleMask[i]) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -15256,7 +30575,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     const cv=Math.abs(num(rows[i]?.attention_conviction_score_signed) ?? 0);
+
+
+
+
+
+
+
+
 
 
 
@@ -15272,7 +30607,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     const sp=num(rows[i]?.attention_spike_score);
+
+
+
+
+
+
+
+
 
 
 
@@ -15288,7 +30639,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
     if((rr!==null && rr>=55) || (sp!==null && sp>=60)){ latestEvent=`${attentionRegimeState(rows[i]).label} • ${rows[i].date}`; break; }
+
+
+
+
+
+
+
+
 
 
 
@@ -15304,6 +30671,14 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
   return {levelLabel:level.label, levelCls:level.cls, convictionLabel:conviction.label, convictionCls:conviction.cls, regimeLabel:regime.label, regimeCls:regime.cls, latestSpike, latestEvent};
 
 
@@ -15312,7 +30687,23 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -15328,7 +30719,23 @@ function buildEngagementBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
   return [
+
+
+
+
+
+
+
+
 
 
 
@@ -15344,7 +30751,23 @@ function buildEngagementBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
     `<span class="badge ${info.convictionCls || 'badge-neutral'}"><b>Conviction</b> ${info.convictionLabel}</span>`,
+
+
+
+
+
+
+
+
 
 
 
@@ -15360,7 +30783,23 @@ function buildEngagementBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
     `<span class="badge badge-neutral"><b>Latest Elevated</b> ${info.latestSpike}</span>`,
+
+
+
+
+
+
+
+
 
 
 
@@ -15376,6 +30815,14 @@ function buildEngagementBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
   ].join('');
 
 
@@ -15384,7 +30831,31 @@ function buildEngagementBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15408,7 +30879,23 @@ function buildOverlapBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
   return [
+
+
+
+
+
+
+
+
 
 
 
@@ -15424,7 +30911,23 @@ function buildOverlapBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
     `<span class="badge ${info.structureCls || 'badge-neutral'}"><b>Structure</b> ${info.structure}</span>`,
+
+
+
+
+
+
+
+
 
 
 
@@ -15440,7 +30943,23 @@ function buildOverlapBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
     `<span class="badge ${info.contextCls || 'badge-neutral'}"><b>Context</b> ${info.context}</span>`,
+
+
+
+
+
+
+
+
 
 
 
@@ -15456,7 +30975,23 @@ function buildOverlapBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
   ].join('');
+
+
+
+
+
+
+
+
 
 
 
@@ -15472,7 +31007,23 @@ function buildOverlapBadgesHTML(info){
 
 
 
+
+
+
+
+
+
+
+
 function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context'){
+
+
+
+
+
+
+
+
 
 
 
@@ -15488,7 +31039,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   const bullishX=[], bullishY=[], bullishText=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -15504,7 +31071,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   const watchBullishX=[], watchBullishY=[], watchBullishText=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -15520,7 +31103,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   const loVals=rows.map(r=>num(r.low)).filter(v=>v!==null);
+
+
+
+
+
+
+
+
 
 
 
@@ -15536,6 +31135,14 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   const offset=span*0.014;
 
 
@@ -15544,7 +31151,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   const modelLabel = overlap?.family==='contextual' ? 'Contextual Overlap' : 'Canonical Overlap';
+
+
+
+
+
+
+
+
 
 
 
@@ -15568,7 +31191,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   for(let i=0;i<rows.length;i++){
+
+
+
+
+
+
+
+
 
 
 
@@ -15592,7 +31239,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const meta=overlapConfirmationMeta(rows[i], overlap, i, rows, term);
+
+
+
+
+
+
+
+
 
 
 
@@ -15608,7 +31279,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
     const d=rows[i].dateObj;
+
+
+
+
+
+
+
+
 
 
 
@@ -15632,7 +31319,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const hi=num(rows[i].high) ?? num(rows[i].close) ?? null;
+
+
+
+
+
+
+
+
 
 
 
@@ -15656,7 +31367,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if(type){
+
+
+
+
+
+
+
+
 
 
 
@@ -15672,7 +31407,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
         ? 'Legacy'
+
+
+
+
+
+
+
+
 
 
 
@@ -15696,7 +31447,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       const gateLabel = meta.upstreamSignal
+
+
+
+
+
+
+
+
 
 
 
@@ -15712,7 +31487,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
         : (meta.usedContextual
+
+
+
+
+
+
+
+
 
 
 
@@ -15728,7 +31519,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
             : 'outside active overlap + High volatility + High volume');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15760,7 +31575,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if(type==='bearish' && hi!==null){
+
+
+
+
+
+
+
+
 
 
 
@@ -15776,7 +31615,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
         bearishY.push(hi+offset);
+
+
+
+
+
+
+
+
 
 
 
@@ -15792,7 +31647,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
       } else if(type==='bullish' && lo!==null){
+
+
+
+
+
+
+
+
 
 
 
@@ -15808,6 +31679,14 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
         bullishY.push(lo-offset);
 
 
@@ -15816,7 +31695,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
         bullishText.push(detail);
+
+
+
+
+
+
+
+
 
 
 
@@ -15840,7 +31735,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -15864,7 +31783,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Candidate/watch markers are hidden from the default chart view.
+
+
+
+
+
+
+
+
 
 
 
@@ -15880,6 +31823,14 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
     //   Overlay Marks: member-only, all watch candidate circles.
 
 
@@ -15888,7 +31839,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
     const showWatchMarkersOnChart = currentMode()==='member' && markerPolicy==='overlay';
+
+
+
+
+
+
+
+
 
 
 
@@ -15912,7 +31879,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const watch=overlapWatchCandidateMeta(rows[i], overlap, i, rows, term);
+
+
+
+
+
+
+
+
 
 
 
@@ -15928,7 +31919,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
     if(!type) continue;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -15960,7 +31975,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if(type==='bearish' && hi!==null){
+
+
+
+
+
+
+
+
 
 
 
@@ -15976,7 +32015,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
       watchBearishY.push(hi+offset*0.55);
+
+
+
+
+
+
+
+
 
 
 
@@ -15992,7 +32047,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
     } else if(type==='bullish' && lo!==null){
+
+
+
+
+
+
+
+
 
 
 
@@ -16008,7 +32079,23 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
       watchBullishY.push(lo-offset*0.55);
+
+
+
+
+
+
+
+
 
 
 
@@ -16024,6 +32111,14 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -16032,7 +32127,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16064,7 +32183,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(bearishX.length){
+
+
+
+
+
+
+
+
 
 
 
@@ -16080,7 +32223,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16104,6 +32271,14 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
     traces.push({type:'scatter',mode:'markers',x:bullishX,y:bullishY,text:bullishText,xaxis:'x',yaxis:'y',name:'Bullish Confirmed Alert',showlegend:false,marker:{symbol:'diamond-open',size:8,color:'rgba(112,232,148,0.98)',line:{color:'rgba(112,232,148,0.98)',width:1.4}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
 
 
@@ -16112,7 +32287,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16136,6 +32335,14 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
     traces.push({type:'scatter',mode:'markers',x:watchBearishX,y:watchBearishY,text:watchBearishText,xaxis:'x',yaxis:'y',name:'Bearish Watch Candidate',showlegend:false,marker:{symbol:'circle-open',size:6,color:'rgba(255,184,184,0.72)',line:{color:'rgba(255,184,184,0.72)',width:1.1}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
 
 
@@ -16144,7 +32351,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16168,6 +32399,14 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
     traces.push({type:'scatter',mode:'markers',x:watchBullishX,y:watchBullishY,text:watchBullishText,xaxis:'x',yaxis:'y',name:'Bullish Watch Candidate',showlegend:false,marker:{symbol:'circle-open',size:6,color:'rgba(157,240,181,0.72)',line:{color:'rgba(157,240,181,0.72)',width:1.1}},hovertemplate:`%{x|%b %d, %Y}<br>%{text}<extra></extra>`});
 
 
@@ -16176,7 +32415,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16200,7 +32463,31 @@ function overlapTableauMarkers(rows, overlap, visibleMask, markerPolicy='context
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16224,6 +32511,14 @@ function escapeHTML(v){
 
 
 
+
+
+
+
+
+
+
+
   return String(v ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 
 
@@ -16232,7 +32527,23 @@ function escapeHTML(v){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -16248,7 +32559,23 @@ function escapeHTML(v){
 
 
 
+
+
+
+
+
+
+
+
 // Phase C3: right-side alert drawer collapses horizontally and lets chart expand.
+
+
+
+
+
+
+
+
 
 
 
@@ -16264,7 +32591,23 @@ function syncAlertSidePanelHeight(){
 
 
 
+
+
+
+
+
+
+
+
   const chart=document.getElementById('chart');
+
+
+
+
+
+
+
+
 
 
 
@@ -16280,7 +32623,23 @@ function syncAlertSidePanelHeight(){
 
 
 
+
+
+
+
+
+
+
+
   if(!chart || !panel) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -16296,7 +32655,23 @@ function syncAlertSidePanelHeight(){
 
 
 
+
+
+
+
+
+
+
+
     panel.style.height='';
+
+
+
+
+
+
+
+
 
 
 
@@ -16312,7 +32687,23 @@ function syncAlertSidePanelHeight(){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -16328,6 +32719,14 @@ function syncAlertSidePanelHeight(){
 
 
 
+
+
+
+
+
+
+
+
   if(chartHeight>0) panel.style.height=`${Math.max(chartHeight,360)}px`;
 
 
@@ -16336,7 +32735,31 @@ function syncAlertSidePanelHeight(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -16360,7 +32783,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
   const chart=document.getElementById('chart');
+
+
+
+
+
+
+
+
 
 
 
@@ -16376,7 +32815,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
   if(!document.getElementById('alertSidePanelStyle')){
+
+
+
+
+
+
+
+
 
 
 
@@ -16392,7 +32847,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
     style.id='alertSidePanelStyle';
+
+
+
+
+
+
+
+
 
 
 
@@ -16408,7 +32879,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:start;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16424,7 +32911,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .chartPanelGrid>#chart{min-width:0;width:100%;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16440,7 +32943,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertSidePanel h3{margin:0;font-size:14px;letter-spacing:.02em;color:#f1f6fa;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16456,7 +32975,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertPanelHeader{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid rgba(255,255,255,.08);cursor:pointer;user-select:none;background:rgba(255,255,255,.025);flex:0 0 auto;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16472,7 +33007,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertPanelHeaderSummary{font-size:11px;color:#9fb0ba;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16488,7 +33039,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertPanelBody{padding:10px 12px 12px 12px;overflow:auto;flex:1 1 auto;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16504,7 +33071,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertSidePanel.collapsed .alertPanelBody{display:none;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16520,7 +33103,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertSidePanel.collapsed .alertPanelHeaderMain{writing-mode:vertical-rl;transform:rotate(180deg);align-items:center;gap:8px;min-width:0;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16536,7 +33135,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertSidePanel.collapsed .alertPanelHeaderSummary{display:none;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16552,7 +33167,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertPanelControls{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16568,7 +33199,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertEventCard{border:1px solid #25313a;border-radius:12px;padding:9px 9px;margin:8px 0;background:rgba(255,255,255,.025);}
+
+
+
+
+
+
+
+
 
 
 
@@ -16584,7 +33231,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertEventCard.confirmed.bullish{border-color:rgba(112,232,148,.62);background:linear-gradient(135deg,rgba(112,232,148,.105),rgba(255,255,255,.025));box-shadow:0 0 0 1px rgba(112,232,148,.10) inset,0 0 18px rgba(112,232,148,.10);}
+
+
+
+
+
+
+
+
 
 
 
@@ -16600,7 +33263,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertEventCard.watch.bullish{border-color:rgba(112,232,148,.30);}
+
+
+
+
+
+
+
+
 
 
 
@@ -16616,7 +33295,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertEventCard.watch{border-color:rgba(140,170,210,.28);}
+
+
+
+
+
+
+
+
 
 
 
@@ -16632,7 +33327,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertEventDate{font-size:11px;color:#9fb0ba;white-space:nowrap;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16648,7 +33359,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertEventMeta{font-size:11px;color:#b8c5cd;line-height:1.35;margin-top:5px;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16664,7 +33391,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .miniBadge{display:inline-block;border-radius:999px;padding:2px 6px;font-size:10px;margin-right:4px;border:1px solid #35424d;background:rgba(255,255,255,.04);color:#c9d5dc;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16680,7 +33423,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
       .alertPanelEmpty{font-size:12px;color:#9fb0ba;border:1px dashed #33404a;border-radius:12px;padding:12px;line-height:1.35;}
+
+
+
+
+
+
+
+
 
 
 
@@ -16696,7 +33455,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
     `;
+
+
+
+
+
+
+
+
 
 
 
@@ -16712,7 +33487,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -16728,7 +33519,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
   if(!grid){
+
+
+
+
+
+
+
+
 
 
 
@@ -16744,7 +33551,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
     grid.id='chartPanelGrid';
+
+
+
+
+
+
+
+
 
 
 
@@ -16760,7 +33583,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
     chart.parentNode.insertBefore(grid, chart);
+
+
+
+
+
+
+
+
 
 
 
@@ -16776,7 +33615,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
     const panel=document.createElement('aside');
+
+
+
+
+
+
+
+
 
 
 
@@ -16792,7 +33647,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
     panel.className='alertSidePanel';
+
+
+
+
+
+
+
+
 
 
 
@@ -16808,7 +33679,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -16824,7 +33711,23 @@ function ensureAlertSidePanel(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -16840,7 +33743,23 @@ function resizeChartAfterDrawerToggle(){
 
 
 
+
+
+
+
+
+
+
+
   const chart=document.getElementById('chart');
+
+
+
+
+
+
+
+
 
 
 
@@ -16856,7 +33775,23 @@ function resizeChartAfterDrawerToggle(){
 
 
 
+
+
+
+
+
+
+
+
     window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); syncAlertSidePanelHeight(); }catch(e){} }, 80);
+
+
+
+
+
+
+
+
 
 
 
@@ -16872,7 +33807,23 @@ function resizeChartAfterDrawerToggle(){
 
 
 
+
+
+
+
+
+
+
+
   }else{
+
+
+
+
+
+
+
+
 
 
 
@@ -16888,6 +33839,14 @@ function resizeChartAfterDrawerToggle(){
 
 
 
+
+
+
+
+
+
+
+
   }
 
 
@@ -16896,7 +33855,23 @@ function resizeChartAfterDrawerToggle(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -16912,7 +33887,23 @@ function alertQualityScore(row, meta){
 
 
 
+
+
+
+
+
+
+
+
   const candidates=[
+
+
+
+
+
+
+
+
 
 
 
@@ -16928,7 +33919,23 @@ function alertQualityScore(row, meta){
 
 
 
+
+
+
+
+
+
+
+
     num(row?.seta_alert_quality_score),
+
+
+
+
+
+
+
+
 
 
 
@@ -16944,7 +33951,23 @@ function alertQualityScore(row, meta){
 
 
 
+
+
+
+
+
+
+
+
     num(row?.boll_overlap_signal_strength),
+
+
+
+
+
+
+
+
 
 
 
@@ -16960,7 +33983,23 @@ function alertQualityScore(row, meta){
 
 
 
+
+
+
+
+
+
+
+
   ].filter(v=>v!==null);
+
+
+
+
+
+
+
+
 
 
 
@@ -16976,6 +34015,14 @@ function alertQualityScore(row, meta){
 
 
 
+
+
+
+
+
+
+
+
   return Math.max(...candidates.map(v=>Math.abs(v)));
 
 
@@ -16984,7 +34031,23 @@ function alertQualityScore(row, meta){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -17000,7 +34063,23 @@ function alertDirectionLabel(type){
 
 
 
+
+
+
+
+
+
+
+
   if(type==='bullish') return 'Bullish';
+
+
+
+
+
+
+
+
 
 
 
@@ -17016,6 +34095,14 @@ function alertDirectionLabel(type){
 
 
 
+
+
+
+
+
+
+
+
   return 'Mixed';
 
 
@@ -17024,7 +34111,23 @@ function alertDirectionLabel(type){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -17040,7 +34143,23 @@ function alertDirectionClass(type){
 
 
 
+
+
+
+
+
+
+
+
   if(type==='bullish') return 'miniBull';
+
+
+
+
+
+
+
+
 
 
 
@@ -17056,6 +34175,14 @@ function alertDirectionClass(type){
 
 
 
+
+
+
+
+
+
+
+
   return '';
 
 
@@ -17064,7 +34191,23 @@ function alertDirectionClass(type){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -17080,7 +34223,23 @@ function alertSummaryForRow(row, meta, tier){
 
 
 
+
+
+
+
+
+
+
+
   const dashboardSummary = row?.seta_dashboard_summary_label || row?.seta_alert_context_label || row?.boll_overlap_event_type || row?.boll_overlap_signal;
+
+
+
+
+
+
+
+
 
 
 
@@ -17096,7 +34255,23 @@ function alertSummaryForRow(row, meta, tier){
 
 
 
+
+
+
+
+
+
+
+
   if(tier==='Confirmed') return meta?.detail || 'Confirmed overlap alert passed source/volatility, volume, and structure gates.';
+
+
+
+
+
+
+
+
 
 
 
@@ -17112,7 +34287,23 @@ function alertSummaryForRow(row, meta, tier){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -17128,7 +34319,23 @@ function materialWatchForPanel(watch){
 
 
 
+
+
+
+
+
+
+
+
   const material = (watch.outsidePct!==null && watch.outsidePct>=0.006);
+
+
+
+
+
+
+
+
 
 
 
@@ -17144,6 +34351,14 @@ function materialWatchForPanel(watch){
 
 
 
+
+
+
+
+
+
+
+
   return !!(watch.highVolume && (material || volOk));
 
 
@@ -17152,7 +34367,23 @@ function materialWatchForPanel(watch){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -17168,7 +34399,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
   const out=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -17184,7 +34431,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
     if(!visibleMask[i]) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -17200,7 +34463,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
     const d=row.dateObj;
+
+
+
+
+
+
+
+
 
 
 
@@ -17216,7 +34495,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
     const confirmed=overlapConfirmationMeta(row, overlap, i, rows, term);
+
+
+
+
+
+
+
+
 
 
 
@@ -17232,7 +34527,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
       const quality=alertQualityScore(row, confirmed);
+
+
+
+
+
+
+
+
 
 
 
@@ -17248,7 +34559,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
       continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -17264,7 +34591,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
     if(markerPolicy==='off') continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -17280,7 +34623,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
     if(!watch.type) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -17296,7 +34655,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
     const quality=alertQualityScore(row, watch);
+
+
+
+
+
+
+
+
 
 
 
@@ -17312,7 +34687,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -17328,7 +34719,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
     const td=b.dateObj-a.dateObj;
+
+
+
+
+
+
+
+
 
 
 
@@ -17344,7 +34751,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
     return (b.quality ?? -1) - (a.quality ?? -1);
+
+
+
+
+
+
+
+
 
 
 
@@ -17360,7 +34783,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
   return out;
+
+
+
+
+
+
+
+
 
 
 
@@ -17376,7 +34815,23 @@ function collectVisibleAlertEvents(term, rows, overlap, visibleMask, markerPolic
 
 
 
+
+
+
+
+
+
+
+
 function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='context'){
+
+
+
+
+
+
+
+
 
 
 
@@ -17392,6 +34847,14 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   if(!panel) return;
 
 
@@ -17400,7 +34863,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   panel.style.display='';
+
+
+
+
+
+
+
+
 
 
 
@@ -17416,7 +34895,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   panel.style.display='';
+
+
+
+
+
+
+
+
 
 
 
@@ -17432,7 +34927,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   const confirmedCount=events.filter(e=>e.tier==='Confirmed').length;
+
+
+
+
+
+
+
+
 
 
 
@@ -17448,7 +34959,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   const latest=events.slice(0,5);
+
+
+
+
+
+
+
+
 
 
 
@@ -17464,7 +34991,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   const showingText = events.length ? `Showing ${latest.length} of ${events.length}` : 'No visible events';
+
+
+
+
+
+
+
+
 
 
 
@@ -17480,7 +35023,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   const savedCollapsed = window.localStorage ? window.localStorage.getItem(collapsedKey) : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -17496,7 +35055,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   const cards=latest.map(e=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -17512,7 +35087,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     const meta=e.meta || {};
+
+
+
+
+
+
+
+
 
 
 
@@ -17528,6 +35119,14 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     const direction=alertDirectionLabel(e.type);
 
 
@@ -17536,7 +35135,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     const directionCls=alertDirectionClass(e.type);
+
+
+
+
+
+
+
+
 
 
 
@@ -17560,7 +35175,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const close=num(row.close);
+
+
+
+
+
+
+
+
 
 
 
@@ -17576,6 +35215,14 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       ? `Close ${close.toLocaleString(undefined, {maximumFractionDigits:2})}`
 
 
@@ -17584,7 +35231,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       : '';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17608,7 +35279,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       num(row.seta_dashboard_summary_score),
+
+
+
+
+
+
+
+
 
 
 
@@ -17624,7 +35311,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       num(row.summary_score_0_100),
+
+
+
+
+
+
+
+
 
 
 
@@ -17640,7 +35343,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       num(row.dashboard_score),
+
+
+
+
+
+
+
+
 
 
 
@@ -17656,7 +35375,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       num(row.screener_attention_priority_score)
+
+
+
+
+
+
+
+
 
 
 
@@ -17680,7 +35415,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const scoreText=Number.isFinite(scoreThen)
+
+
+
+
+
+
+
+
 
 
 
@@ -17696,7 +35455,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       : '';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17720,6 +35503,14 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       num(row.attention_regime_score) ??
 
 
@@ -17728,7 +35519,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       num(row.attention_level_score) ??
+
+
+
+
+
+
+
+
 
 
 
@@ -17752,6 +35559,22 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const attentionText=attentionVal!==null
 
 
@@ -17760,7 +35583,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       ? `Attention ${attentionVal.toFixed(1)}`
+
+
+
+
+
+
+
+
 
 
 
@@ -17784,7 +35623,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const ribbon=
+
+
+
+
+
+
+
+
 
 
 
@@ -17800,7 +35663,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       row.sent_ribbon_attention_regime ||
+
+
+
+
+
+
+
+
 
 
 
@@ -17816,7 +35695,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       '';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17848,7 +35751,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     let why=alertSummaryForRow(row, meta, e.tier);
+
+
+
+
+
+
+
+
 
 
 
@@ -17864,7 +35791,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       .replace(/^Confirmation:\s*/i, '')
+
+
+
+
+
+
+
+
 
 
 
@@ -17880,7 +35823,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       .replace(/Source alert confirmation from enriched overlap-alert fields/i, 'Confirmed overlap alert from enriched context fields')
+
+
+
+
+
+
+
+
 
 
 
@@ -17896,6 +35855,14 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       .replace(/;\s*/g, ' + ')
 
 
@@ -17904,7 +35871,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       .trim();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -17936,7 +35927,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     let read='';
+
+
+
+
+
+
+
+
 
 
 
@@ -17952,7 +35967,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       read='Bullish pressure was confirmed, with ribbon context providing the broader structure.';
+
+
+
+
+
+
+
+
 
 
 
@@ -17968,7 +35999,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       read='Bearish pressure was confirmed, with ribbon context providing the broader structure.';
+
+
+
+
+
+
+
+
 
 
 
@@ -17984,7 +36031,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       read='Bullish setup was visible, but confirmation was not complete.';
+
+
+
+
+
+
+
+
 
 
 
@@ -18000,7 +36063,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       read='Bearish setup was visible, but confirmation was not complete.';
+
+
+
+
+
+
+
+
 
 
 
@@ -18016,6 +36095,14 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       read='Context event detected; use the chart panes for structure and timing context.';
 
 
@@ -18024,7 +36111,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18048,7 +36159,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       read += ' Ribbon context remained bearish, so the event was mixed.';
+
+
+
+
+
+
+
+
 
 
 
@@ -18064,7 +36191,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       read += ' Ribbon context remained bullish, so the event was mixed.';
+
+
+
+
+
+
+
+
 
 
 
@@ -18080,7 +36223,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       read += ' Ribbon context remained transitional.';
+
+
+
+
+
+
+
+
 
 
 
@@ -18104,7 +36263,31 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return `<div class="alertEventCard ${e.tier.toLowerCase()} ${directionCardCls}">
+
+
+
+
+
+
+
+
 
 
 
@@ -18120,7 +36303,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       ${contextLine ? `<div class="alertEventMeta">${contextLine}</div>` : ''}
+
+
+
+
+
+
+
+
 
 
 
@@ -18136,7 +36335,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       <div class="alertEventSummary"><b>Trigger:</b> ${escapeHTML(why)}</div>
+
+
+
+
+
+
+
+
 
 
 
@@ -18152,7 +36367,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     </div>`;
+
+
+
+
+
+
+
+
 
 
 
@@ -18168,7 +36399,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   panel.innerHTML = `<div class="alertPanelHeader" id="alertPanelHeader" title="Click to expand/collapse alert events">
+
+
+
+
+
+
+
+
 
 
 
@@ -18184,7 +36431,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       <button class="alertPanelToggle" id="alertPanelToggle" type="button" aria-label="Toggle alert events panel">${shouldCollapse ? '+' : '−'}</button>
+
+
+
+
+
+
+
+
 
 
 
@@ -18200,7 +36463,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     <div class="alertPanelBody">
+
+
+
+
+
+
+
+
 
 
 
@@ -18216,7 +36495,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       <div class="alertPanelControls"><span class="alertPanelPill">Confirmed ${confirmedCount}</span><span class="alertPanelPill">Watch ${watchCount}</span><span class="alertPanelPill">${escapeHTML(showingText)}</span><span class="alertPanelPill">Policy ${escapeHTML(markerPolicy)}</span></div>
+
+
+
+
+
+
+
+
 
 
 
@@ -18232,7 +36527,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     </div>`;
+
+
+
+
+
+
+
+
 
 
 
@@ -18248,7 +36559,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   window.requestAnimationFrame(()=>syncAlertSidePanelHeight());
+
+
+
+
+
+
+
+
 
 
 
@@ -18264,7 +36591,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   if(grid) grid.classList.toggle('drawerCollapsed', shouldCollapse);
+
+
+
+
+
+
+
+
 
 
 
@@ -18280,7 +36623,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   const toggle = panel.querySelector('#alertPanelToggle');
+
+
+
+
+
+
+
+
 
 
 
@@ -18296,7 +36655,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     panel.classList.toggle('collapsed', collapsed);
+
+
+
+
+
+
+
+
 
 
 
@@ -18312,7 +36687,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     if(grid) grid.classList.toggle('drawerCollapsed', collapsed);
+
+
+
+
+
+
+
+
 
 
 
@@ -18328,7 +36719,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     if(window.localStorage) window.localStorage.setItem(collapsedKey, String(collapsed));
+
+
+
+
+
+
+
+
 
 
 
@@ -18344,7 +36751,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   };
+
+
+
+
+
+
+
+
 
 
 
@@ -18360,7 +36783,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
     header.onclick = (ev) => {
+
+
+
+
+
+
+
+
 
 
 
@@ -18376,7 +36815,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
       applyCollapsed(!panel.classList.contains('collapsed'));
+
+
+
+
+
+
+
+
 
 
 
@@ -18392,6 +36847,14 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
   }
 
 
@@ -18400,7 +36863,39 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18432,7 +36927,23 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
+
+
+
+
+
+
+
+
 // phaseG_market_tape_v1: enhanced screener + archetype + indicator Market Tape UI.
+
+
+
+
+
+
+
+
 
 
 
@@ -18448,7 +36959,23 @@ function mtTerm(row){ return String(row?.term || row?.asset || '').toUpperCase()
 
 
 
+
+
+
+
+
+
+
+
 function mtScore(row, key, digits=1){ const v=num(row?.[key]); return v===null ? 'n/a' : v.toFixed(digits); }
+
+
+
+
+
+
+
+
 
 
 
@@ -18464,7 +36991,23 @@ function mtScoreNum(row, key, fallback=0){ const v=num(row?.[key]); return v===n
 
 
 
+
+
+
+
+
+
+
+
 function mtDirectionClass(label){ const s=String(label || '').toLowerCase(); if(s.includes('bull')) return 'bullish'; if(s.includes('bear')) return 'bearish'; if(s.includes('risk') || s.includes('conflict')) return 'risk'; return 'mixed'; }
+
+
+
+
+
+
+
+
 
 
 
@@ -18480,7 +37023,23 @@ function mtStoreRecords(){ if(!SCREENER_STORE) return []; if(Array.isArray(SCREE
 
 
 
+
+
+
+
+
+
+
+
 function mtByTerm(term){ const t=String(term || '').toUpperCase(); return SCREENER_STORE?.by_term?.[t] || null; }
+
+
+
+
+
+
+
+
 
 
 
@@ -18504,7 +37063,31 @@ function mtSectionRows(section){ if(!SCREENER_STORE) return []; const sections=S
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // phaseG_market_tape_allowed_terms_force_v1: safe fallback for Market Tape term filtering.
+
+
+
+
+
+
+
+
 
 
 
@@ -18520,7 +37103,23 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
   try{
+
+
+
+
+
+
+
+
 
 
 
@@ -18536,7 +37135,23 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
     if(Array.isArray(fromAssets) && fromAssets.length){
+
+
+
+
+
+
+
+
 
 
 
@@ -18552,7 +37167,23 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -18568,7 +37199,23 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
   try{
+
+
+
+
+
+
+
+
 
 
 
@@ -18584,7 +37231,23 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
     if(sel && sel.options && sel.options.length){
+
+
+
+
+
+
+
+
 
 
 
@@ -18600,6 +37263,14 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -18608,7 +37279,23 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
   }catch(e){}
+
+
+
+
+
+
+
+
 
 
 
@@ -18624,7 +37311,23 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
     if(window.SCREENER_STORE && window.SCREENER_STORE.by_term){
+
+
+
+
+
+
+
+
 
 
 
@@ -18640,7 +37343,23 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -18656,6 +37375,14 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
   return new Set();
 
 
@@ -18664,7 +37391,31 @@ function screenerAllowedTerms(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -18688,7 +37439,23 @@ function mtAllowedRows(rows){ const allowed=(typeof screenerAllowedTerms === 'fu
 
 
 
+
+
+
+
+
+
+
+
 function mtBestArchetype(row, detail){ return detail?.archetype || row || {}; }
+
+
+
+
+
+
+
+
 
 
 
@@ -18704,7 +37471,23 @@ function mtReason(row, archetype){ return row?.screener_reason_summary || archet
 
 
 
+
+
+
+
+
+
+
+
 function mtRisk(archetype, row){ return archetype?.archetype_risk_note || row?.archetype_risk_note || ''; }
+
+
+
+
+
+
+
+
 
 
 
@@ -18720,7 +37503,23 @@ function mtMissing(archetype, row){ return archetype?.missing_confirmations || r
 
 
 
+
+
+
+
+
+
+
+
 function mtFamilyScoreClass(score, label){ const s=Number(score); const dir=mtDirectionClass(label); if(dir==='bullish') return 'bullish'; if(dir==='bearish') return 'bearish'; if(Number.isFinite(s) && s>=65) return 'bullish'; if(Number.isFinite(s) && s<=35) return 'bearish'; return 'mixed'; }
+
+
+
+
+
+
+
+
 
 
 
@@ -18736,7 +37535,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
   if(document.getElementById('phaseGMarketTapeStyle')) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -18752,7 +37567,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
   style.id='phaseGMarketTapeStyle';
+
+
+
+
+
+
+
+
 
 
 
@@ -18768,7 +37599,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .screenerPanel.marketTape{margin:10px 0 12px 0;border:1px solid #202a33;border-radius:16px;background:linear-gradient(135deg,rgba(11,13,16,.92),rgba(11,13,16,.68));box-shadow:0 10px 28px rgba(0,0,0,.22);padding:10px 12px;color:#dce7ee;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18784,7 +37631,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeTopline{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18800,7 +37663,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .screenerPanel.marketTape.collapsed .marketTapeCards,.screenerPanel.marketTape.collapsed .marketTapeDetail{display:none;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18816,7 +37695,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .screenerPanel.marketTape.collapsed .marketTapeHeader{margin-bottom:0;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18832,7 +37727,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeSub{font-size:11px;color:#99a8b3;line-height:1.35;margin-top:3px;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18848,7 +37759,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeTab{border:1px solid #33404a;border-radius:999px;background:rgba(255,255,255,.035);color:#cbd8df;font-size:11px;padding:5px 8px;cursor:pointer;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18864,7 +37791,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeCards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin-bottom:8px;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18880,7 +37823,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeCard:hover{border-color:#51606c;background:rgba(255,255,255,.045);transform:translateY(-1px);}
+
+
+
+
+
+
+
+
 
 
 
@@ -18896,7 +37855,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeCard.bullish{border-color:rgba(112,232,148,.34);}
+
+
+
+
+
+
+
+
 
 
 
@@ -18912,7 +37887,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeCard.risk{border-color:rgba(255,224,120,.38);}
+
+
+
+
+
+
+
+
 
 
 
@@ -18928,7 +37919,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeTerm{font-size:13px;font-weight:850;color:#f2f7fa;letter-spacing:.02em;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18944,7 +37951,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapePill{display:inline-block;border:1px solid #35424d;border-radius:999px;padding:2px 6px;font-size:10px;margin:0 4px 4px 0;color:#c9d5dc;background:rgba(255,255,255,.04);}
+
+
+
+
+
+
+
+
 
 
 
@@ -18960,7 +37983,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapePill.bearish{border-color:rgba(255,128,128,.45);color:#ffb8b8;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18976,7 +38015,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeReason{font-size:10.5px;color:#c9d5dc;line-height:1.28;margin-top:2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+
+
+
+
+
+
+
+
 
 
 
@@ -18992,7 +38047,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeDetailTop{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:10px;align-items:start;}
+
+
+
+
+
+
+
+
 
 
 
@@ -19008,7 +38079,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeDetailText{font-size:11px;color:#c9d5dc;line-height:1.38;}
+
+
+
+
+
+
+
+
 
 
 
@@ -19024,7 +38111,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeMissing{margin-top:3px;color:#9fb0ba;}
+
+
+
+
+
+
+
+
 
 
 
@@ -19040,7 +38143,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeFamily{border:1px solid #33404a;border-radius:11px;background:rgba(255,255,255,.028);padding:5px 7px;min-height:48px;cursor:default;}
+
+
+
+
+
+
+
+
 
 
 
@@ -19056,7 +38175,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeFamily.bearish{border-color:rgba(255,128,128,.34);}
+
+
+
+
+
+
+
+
 
 
 
@@ -19072,7 +38207,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeFamilyScore{font-size:13px;font-weight:850;color:#f2f7fa;margin-top:1px;}
+
+
+
+
+
+
+
+
 
 
 
@@ -19088,7 +38239,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     .marketTapeEmpty{border:1px dashed #33404a;border-radius:12px;padding:10px;font-size:12px;color:#9fb0ba;}
+
+
+
+
+
+
+
+
 
 
 
@@ -19104,7 +38271,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
     @media (max-width:800px){.marketTapeHeader{display:block}.marketTapeTabs{justify-content:flex-start;margin-top:8px}.marketTapeCards{grid-template-columns:1fr}.marketTapeFamilyGrid{grid-template-columns:1fr;}}
+
+
+
+
+
+
+
+
 
 
 
@@ -19120,6 +38303,14 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
   document.head.appendChild(style);
 
 
@@ -19128,7 +38319,23 @@ function mtEnsureStyle(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -19144,7 +38351,23 @@ function mtSectionTabs(){ return [['top_priority','Top Priority'],['fresh_confir
 
 
 
+
+
+
+
+
+
+
+
 function mtIndicatorFamiliesForTerm(term){ const detail=mtByTerm(term); if(Array.isArray(detail?.indicator_families)) return detail.indicator_families; return []; }
+
+
+
+
+
+
+
+
 
 
 
@@ -19160,7 +38383,23 @@ function mtFallbackFamilies(row){ return [['Bollinger','attention_adjusted_bolli
 
 
 
+
+
+
+
+
+
+
+
 function mtRenderFamilyGrid(term, row){
+
+
+
+
+
+
+
+
 
 
 
@@ -19176,7 +38415,23 @@ function mtRenderFamilyGrid(term, row){
 
 
 
+
+
+
+
+
+
+
+
   if(!families.length) families=mtFallbackFamilies(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -19192,7 +38447,23 @@ function mtRenderFamilyGrid(term, row){
 
 
 
+
+
+
+
+
+
+
+
   families=families.filter(f=>keep.has(f.indicator_family)).slice(0,7);
+
+
+
+
+
+
+
+
 
 
 
@@ -19208,7 +38479,23 @@ function mtRenderFamilyGrid(term, row){
 
 
 
+
+
+
+
+
+
+
+
     const score=num(f.score_0_100);
+
+
+
+
+
+
+
+
 
 
 
@@ -19224,7 +38511,23 @@ function mtRenderFamilyGrid(term, row){
 
 
 
+
+
+
+
+
+
+
+
     const label=f.direction_label || f.strength_label || '';
+
+
+
+
+
+
+
+
 
 
 
@@ -19240,7 +38543,23 @@ function mtRenderFamilyGrid(term, row){
 
 
 
+
+
+
+
+
+
+
+
     const title=[f.primary_indicator, f.interpretation].filter(Boolean).join(' — ');
+
+
+
+
+
+
+
+
 
 
 
@@ -19256,7 +38575,23 @@ function mtRenderFamilyGrid(term, row){
 
 
 
+
+
+
+
+
+
+
+
     return `<div class="marketTapeFamily ${cls}" title="${escapeHTML(title)}"><div class="marketTapeFamilyName">${escapeHTML(familyName)}</div><div class="marketTapeFamilyScore">${escapeHTML(scoreTxt)}</div><div class="marketTapeFamilyLabel">${escapeHTML(label)}</div></div>`;
+
+
+
+
+
+
+
+
 
 
 
@@ -19272,7 +38607,31 @@ function mtRenderFamilyGrid(term, row){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19296,6 +38655,14 @@ function mtRenderFamilyGrid(term, row){
 
 
 
+
+
+
+
+
+
+
+
 function ensureScreenerPanel(){
 
 
@@ -19304,7 +38671,23 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
   let panel = document.getElementById('screenerPanel');
+
+
+
+
+
+
+
+
 
 
 
@@ -19328,7 +38711,31 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const anchor =
+
+
+
+
+
+
+
+
 
 
 
@@ -19344,7 +38751,23 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
     document.getElementById('regimeBar') ||
+
+
+
+
+
+
+
+
 
 
 
@@ -19360,7 +38783,31 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
     document.getElementById('chart');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19392,6 +38839,22 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   panel = document.createElement('section');
 
 
@@ -19400,7 +38863,23 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
   panel.id = 'screenerPanel';
+
+
+
+
+
+
+
+
 
 
 
@@ -19424,7 +38903,31 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Preferred placement: immediately after the asset title, before the chart grid/drawer.
+
+
+
+
+
+
+
+
 
 
 
@@ -19440,7 +38943,23 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
   const preferredAfter =
+
+
+
+
+
+
+
+
 
 
 
@@ -19456,7 +38975,23 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
     document.querySelector('.controlGrid') ||
+
+
+
+
+
+
+
+
 
 
 
@@ -19472,7 +39007,23 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
     document.getElementById('assetTitle') ||
+
+
+
+
+
+
+
+
 
 
 
@@ -19496,7 +39047,31 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(preferredAfter && preferredAfter.parentNode){
+
+
+
+
+
+
+
+
 
 
 
@@ -19512,7 +39087,23 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
   } else {
+
+
+
+
+
+
+
+
 
 
 
@@ -19528,7 +39119,23 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -19544,7 +39151,39 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19576,6 +39215,14 @@ function ensureScreenerPanel(){
 
 
 
+
+
+
+
+
+
+
+
 function setDashboardAssetFromScreener(term){
 
 
@@ -19584,7 +39231,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   const t = String(term || '').trim().toUpperCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -19608,7 +39271,31 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const sel = document.getElementById('asset');
+
+
+
+
+
+
+
+
 
 
 
@@ -19624,7 +39311,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
     console.warn('Asset selector not found for Market Tape click.');
+
+
+
+
+
+
+
+
 
 
 
@@ -19640,7 +39343,31 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19664,7 +39391,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   if(!available.includes(t)){
+
+
+
+
+
+
+
+
 
 
 
@@ -19680,6 +39423,14 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
     return;
 
 
@@ -19688,7 +39439,31 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19720,6 +39495,22 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   try{
 
 
@@ -19728,7 +39519,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
     sel.dispatchEvent(new Event('change', {bubbles:true}));
+
+
+
+
+
+
+
+
 
 
 
@@ -19752,7 +39559,31 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   try{
+
+
+
+
+
+
+
+
 
 
 
@@ -19768,7 +39599,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
       buildFigure();
+
+
+
+
+
+
+
+
 
 
 
@@ -19784,7 +39631,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
       renderDashboard();
+
+
+
+
+
+
+
+
 
 
 
@@ -19800,7 +39663,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
       initDashboard();
+
+
+
+
+
+
+
+
 
 
 
@@ -19816,7 +39695,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   }catch(err){
+
+
+
+
+
+
+
+
 
 
 
@@ -19832,7 +39727,31 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -19856,7 +39775,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
     renderScreenerPanel(t);
+
+
+
+
+
+
+
+
 
 
 
@@ -19872,6 +39807,14 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
     console.warn('Market Tape panel refresh after click failed:', err);
 
 
@@ -19880,7 +39823,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -19912,7 +39871,39 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (function(){
+
+
+
+
+
+
+
+
 
 
 
@@ -19928,7 +39919,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   const st=document.createElement('style');
+
+
+
+
+
+
+
+
 
 
 
@@ -19944,6 +39951,14 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   st.textContent='\n/* phaseG_market_tape_polish_v2 */\n.screenerPanel.marketTape{font-size:12px;line-height:1.35;}\n.marketTapeTitle h3{font-size:14px!important;letter-spacing:.01em;}\n.marketTapeSub{font-size:11.5px!important;line-height:1.35;color:#9fb4bf!important;max-width:760px;}\n.marketTapeTabs{gap:6px!important;justify-content:flex-end;}\n.marketTapeTab{font-size:10.5px!important;padding:4px 8px!important;opacity:.82;}\n.marketTapeTab.active{opacity:1;border-color:#4ade80!important;box-shadow:0 0 0 1px rgba(74,222,128,.18),0 0 10px rgba(74,222,128,.12);}\n.marketTapeCards{grid-template-columns:repeat(5,minmax(145px,1fr))!important;gap:8px!important;}\n.marketTapeCard{min-height:86px!important;padding:8px 9px!important;transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease,background .12s ease;}\n.marketTapeCard:hover{transform:translateY(-1px);border-color:#60a5fa!important;box-shadow:0 0 0 1px rgba(96,165,250,.18),0 8px 20px rgba(0,0,0,.22);background:rgba(96,165,250,.045)!important;}\n.marketTapeCard.active{border-color:#facc15!important;box-shadow:0 0 0 1px rgba(250,204,21,.20),0 0 18px rgba(250,204,21,.12);}\n.marketTapeCardTop{font-size:13px!important;}\n.marketTapeTerm{font-size:14px!important;}\n.marketTapeScore{font-size:13px!important;}\n.marketTapePill{font-size:10.5px!important;padding:2px 6px!important;}\n.marketTapeReason{font-size:11.25px!important;line-height:1.32!important;}\n.marketTapeDetail{display:grid!important;grid-template-columns:minmax(0,1.45fr) minmax(320px,.95fr)!important;gap:12px!important;align-items:start;min-height:118px;}\n.marketTapeDetailTitle{font-size:13px!important;margin-bottom:6px!important;}\n.marketTapeDetailText,.marketTapeMatched,.marketTapeMissing,.marketTapeRisk{font-size:12.25px!important;line-height:1.42!important;}\n.marketTapeFamilyGrid{grid-template-columns:repeat(3,minmax(92px,1fr))!important;gap:7px!important;}\n.marketTapeFamily{min-height:52px!important;padding:7px 8px!important;}\n.marketTapeFamilyName{font-size:10.75px!important;}\n.marketTapeFamilyScore{font-size:15px!important;}\n.marketTapeFamilyLabel{font-size:10.75px!important;}\n@media (max-width:980px){.marketTapeCards{grid-template-columns:repeat(2,minmax(0,1fr))!important}.marketTapeDetail{grid-template-columns:1fr!important}.marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}\n';
 
 
@@ -19952,7 +39967,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   document.head.appendChild(st);
+
+
+
+
+
+
+
+
 
 
 
@@ -19984,7 +40015,39 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 (function(){
+
+
+
+
+
+
+
+
 
 
 
@@ -20000,7 +40063,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   if(old) old.remove();
+
+
+
+
+
+
+
+
 
 
 
@@ -20016,7 +40095,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   st.id='phaseG_market_tape_layout_v3_style';
+
+
+
+
+
+
+
+
 
 
 
@@ -20032,6 +40127,14 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   document.head.appendChild(st);
 
 
@@ -20040,7 +40143,39 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -20072,7 +40207,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   const old=document.getElementById('phaseG_market_tape_layout_v4_style');
+
+
+
+
+
+
+
+
 
 
 
@@ -20088,7 +40239,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   const st=document.createElement('style');
+
+
+
+
+
+
+
+
 
 
 
@@ -20104,7 +40271,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
   st.textContent='\n/* phaseG_market_tape_layout_v4 */\n.screenerPanel.marketTape{\n  --mt-bg: rgba(8,13,18,.80);\n  --mt-panel: rgba(255,255,255,.028);\n  --mt-panel-2: rgba(255,255,255,.042);\n  --mt-border: #263641;\n  --mt-border-soft: #1c2a33;\n  --mt-text: #e5f1f7;\n  --mt-muted: #94a8b3;\n  --mt-green: #4ade80;\n  --mt-yellow: #facc15;\n  --mt-blue: #60a5fa;\n  --mt-red: #fb7185;\n  --mt-pill-h: 30px;\n  padding:10px 12px!important;\n  margin:10px 0 16px!important;\n  border-radius:14px!important;\n  background:linear-gradient(180deg, rgba(10,16,22,.94), rgba(7,12,17,.86))!important;\n  border:1px solid var(--mt-border)!important;\n  box-shadow:0 10px 30px rgba(0,0,0,.20)!important;\n  font-size:12px!important;\n  line-height:1.32!important;\n}\n.marketTapeHeader{\n  display:grid!important;\n  grid-template-columns:minmax(360px,1fr) auto!important;\n  gap:10px!important;\n  align-items:start!important;\n  margin-bottom:8px!important;\n}\n.marketTapeTitle h3{\n  font-size:14px!important;\n  line-height:1.15!important;\n  margin:0!important;\n  letter-spacing:.01em!important;\n}\n.marketTapeSub{\n  font-size:10.75px!important;\n  line-height:1.28!important;\n  color:var(--mt-muted)!important;\n  max-width:820px!important;\n  margin-top:3px!important;\n}\n.marketTapeToggle{\n  width:22px!important;\n  height:22px!important;\n  font-size:12px!important;\n  border-radius:7px!important;\n}\n.marketTapeTabs{\n  display:flex!important;\n  flex-wrap:wrap!important;\n  justify-content:flex-end!important;\n  gap:5px!important;\n  max-width:620px!important;\n}\n.marketTapeTab{\n  font-size:9.75px!important;\n  line-height:1!important;\n  padding:4px 7px!important;\n  border-radius:999px!important;\n  opacity:.76!important;\n  border-color:#2a3842!important;\n  background:rgba(255,255,255,.025)!important;\n}\n.marketTapeTab.active{\n  opacity:1!important;\n  color:#d9ffe8!important;\n  border-color:var(--mt-green)!important;\n  background:rgba(74,222,128,.08)!important;\n  box-shadow:0 0 0 1px rgba(74,222,128,.14),0 0 12px rgba(74,222,128,.10)!important;\n}\n\n/* Six-card discovery tape */\n.marketTapeCards{\n  display:grid!important;\n  grid-template-columns:repeat(6,minmax(0,1fr))!important;\n  gap:7px!important;\n  margin:7px 0 8px!important;\n}\n.marketTapeCard{\n  min-height:72px!important;\n  padding:7px 8px!important;\n  border-radius:12px!important;\n  border:1px solid var(--mt-border)!important;\n  background:var(--mt-panel)!important;\n  cursor:pointer!important;\n  overflow:hidden!important;\n  transition:transform .12s ease,border-color .12s ease,box-shadow .12s ease,background .12s ease!important;\n}\n.marketTapeCard:hover{\n  transform:translateY(-1px)!important;\n  border-color:var(--mt-blue)!important;\n  background:rgba(96,165,250,.055)!important;\n  box-shadow:0 0 0 1px rgba(96,165,250,.17),0 8px 20px rgba(0,0,0,.18)!important;\n}\n.marketTapeCard.active{\n  border-color:var(--mt-yellow)!important;\n  background:rgba(250,204,21,.055)!important;\n  box-shadow:0 0 0 1px rgba(250,204,21,.20),0 0 18px rgba(250,204,21,.10)!important;\n}\n.marketTapeCardTop{\n  display:flex!important;\n  justify-content:space-between!important;\n  align-items:center!important;\n  gap:6px!important;\n  font-size:12.25px!important;\n  line-height:1.1!important;\n  margin-bottom:5px!important;\n}\n.marketTapeTerm{\n  font-size:13px!important;\n  font-weight:900!important;\n}\n.marketTapeScore{\n  font-size:12.5px!important;\n  font-weight:900!important;\n  color:var(--mt-yellow)!important;\n}\n.marketTapePill{\n  font-size:9.5px!important;\n  line-height:1!important;\n  padding:2px 5px!important;\n  border-radius:999px!important;\n}\n.marketTapeReason{\n  font-size:10.4px!important;\n  line-height:1.25!important;\n  margin-top:4px!important;\n  display:-webkit-box!important;\n  -webkit-line-clamp:2!important;\n  -webkit-box-orient:vertical!important;\n  overflow:hidden!important;\n}\n\n/* Selected setup composition: no unused right-side void. */\n.marketTapeDetail{\n  display:grid!important;\n  grid-template-columns:minmax(300px,5fr) minmax(420px,7fr)!important;\n  gap:10px!important;\n  align-items:stretch!important;\n  min-height:0!important;\n  padding:8px!important;\n  border-radius:13px!important;\n  border:1px solid var(--mt-border)!important;\n  background:rgba(255,255,255,.018)!important;\n}\n.marketTapeDetail > div:first-child{\n  min-width:0!important;\n  padding:8px 9px!important;\n  border:1px solid rgba(255,255,255,.055)!important;\n  border-radius:12px!important;\n  background:rgba(255,255,255,.022)!important;\n}\n.marketTapeDetailTitle{\n  display:flex!important;\n  align-items:center!important;\n  flex-wrap:wrap!important;\n  gap:5px!important;\n  font-size:12.5px!important;\n  line-height:1.18!important;\n  margin-bottom:6px!important;\n}\n.marketTapeDetailText{\n  font-size:11.5px!important;\n  line-height:1.38!important;\n  color:#d8e7ee!important;\n  max-width:100%!important;\n  margin-bottom:5px!important;\n}\n.marketTapeMatched,.marketTapeMissing,.marketTapeRisk{\n  font-size:11.5px!important;\n  line-height:1.36!important;\n  margin-top:3px!important;\n}\n.marketTapeRisk{color:#ffd95a!important;}\n\n/* Metric deck: restore pill-box feel with better balance. */\n.marketTapeFamilyGrid{\n  display:grid!important;\n  grid-template-columns:repeat(5,minmax(0,1fr))!important;\n  grid-auto-rows:minmax(50px,auto)!important;\n  gap:6px!important;\n  align-content:stretch!important;\n  height:100%!important;\n}\n.marketTapeFamily{\n  min-height:50px!important;\n  padding:7px 8px!important;\n  border-radius:11px!important;\n  background:var(--mt-panel-2)!important;\n  border:1px solid #31414d!important;\n  display:flex!important;\n  flex-direction:column!important;\n  justify-content:center!important;\n}\n.marketTapeFamilyName{\n  font-size:9.8px!important;\n  line-height:1.05!important;\n  color:#aebec6!important;\n  white-space:nowrap!important;\n  overflow:hidden!important;\n  text-overflow:ellipsis!important;\n}\n.marketTapeFamilyScore{\n  font-size:14px!important;\n  line-height:1.05!important;\n  margin:2px 0 1px!important;\n  font-weight:900!important;\n}\n.marketTapeFamilyLabel{\n  font-size:9.8px!important;\n  line-height:1.05!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child{\n  grid-column:span 2!important;\n  grid-row:span 2!important;\n  justify-content:center!important;\n  background:linear-gradient(180deg,rgba(250,204,21,.09),rgba(255,255,255,.035))!important;\n  border-color:rgba(250,204,21,.38)!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyName{\n  font-size:10.5px!important;\n  color:#d9e7ef!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyScore{\n  font-size:22px!important;\n  line-height:1!important;\n  color:var(--mt-yellow)!important;\n}\n.marketTapeDetail .marketTapeFamily:first-child .marketTapeFamilyLabel{\n  font-size:11px!important;\n}\n\n/* Balanced diagnostic/state ribbon. */\n.marketTapeStateRibbon{\n  display:grid!important;\n  grid-template-columns:repeat(6,minmax(0,1fr))!important;\n  gap:6px!important;\n  margin-top:8px!important;\n}\n.marketTapeStatePill{\n  min-height:var(--mt-pill-h)!important;\n  border:1px solid #2d3b45!important;\n  border-radius:10px!important;\n  background:rgba(255,255,255,.028)!important;\n  padding:5px 7px!important;\n  display:flex!important;\n  align-items:center!important;\n  gap:6px!important;\n  min-width:0!important;\n}\n.marketTapeStateLabel{\n  font-size:9.6px!important;\n  color:#92a6b0!important;\n  white-space:nowrap!important;\n}\n.marketTapeStateValue{\n  font-size:10.4px!important;\n  color:#e5f1f7!important;\n  font-weight:800!important;\n  overflow:hidden!important;\n  text-overflow:ellipsis!important;\n  white-space:nowrap!important;\n}\n.marketTapeStatePill.bullish{border-color:rgba(74,222,128,.42)!important;background:rgba(74,222,128,.045)!important;}\n.marketTapeStatePill.bearish{border-color:rgba(251,113,133,.42)!important;background:rgba(251,113,133,.045)!important;}\n.marketTapeStatePill.neutral{border-color:#2d3b45!important;background:rgba(255,255,255,.026)!important;}\n\n.screenerPanel.marketTape.collapsed .marketTapeCards,\n.screenerPanel.marketTape.collapsed .marketTapeDetail,\n.screenerPanel.marketTape.collapsed .marketTapeStateRibbon{\n  display:none!important;\n}\n.screenerPanel.marketTape.collapsed{\n  padding:8px 10px!important;\n  margin-bottom:8px!important;\n}\n\n@media (max-width:1220px){\n  .marketTapeCards{grid-template-columns:repeat(3,minmax(0,1fr))!important;}\n  .marketTapeDetail{grid-template-columns:1fr!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(5,minmax(0,1fr))!important;}\n  .marketTapeStateRibbon{grid-template-columns:repeat(3,minmax(0,1fr))!important;}\n}\n@media (max-width:760px){\n  .marketTapeHeader{grid-template-columns:1fr!important;}\n  .marketTapeTabs{justify-content:flex-start!important;max-width:none!important;}\n  .marketTapeCards{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n  .marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important;}\n  .marketTapeDetail .marketTapeFamily:first-child{grid-column:span 2!important;grid-row:span 1!important;}\n  .marketTapeStateRibbon{grid-template-columns:1fr!important;}\n}\n';
+
+
+
+
+
+
+
+
 
 
 
@@ -20120,7 +40303,39 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -20152,7 +40367,23 @@ function setDashboardAssetFromScreener(term){
 
 
 
+
+
+
+
+
+
+
+
 function mtStateClass(v){
+
+
+
+
+
+
+
+
 
 
 
@@ -20168,7 +40399,23 @@ function mtStateClass(v){
 
 
 
+
+
+
+
+
+
+
+
   if(s.includes('bull') || s.includes('strong') || s.includes('positive') || s.includes('confirmed')) return 'bullish';
+
+
+
+
+
+
+
+
 
 
 
@@ -20184,6 +40431,14 @@ function mtStateClass(v){
 
 
 
+
+
+
+
+
+
+
+
   return 'neutral';
 
 
@@ -20192,7 +40447,23 @@ function mtStateClass(v){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -20208,7 +40479,23 @@ function mtFirstPresent(row, keys, fallback=''){
 
 
 
+
+
+
+
+
+
+
+
   for(const k of keys){
+
+
+
+
+
+
+
+
 
 
 
@@ -20224,7 +40511,23 @@ function mtFirstPresent(row, keys, fallback=''){
 
 
 
+
+
+
+
+
+
+
+
     if(v!==undefined && v!==null && String(v).trim()!=='' && String(v).toLowerCase()!=='nan'){
+
+
+
+
+
+
+
+
 
 
 
@@ -20240,7 +40543,23 @@ function mtFirstPresent(row, keys, fallback=''){
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -20256,7 +40575,23 @@ function mtFirstPresent(row, keys, fallback=''){
 
 
 
+
+
+
+
+
+
+
+
   return fallback;
+
+
+
+
+
+
+
+
 
 
 
@@ -20272,7 +40607,23 @@ function mtFirstPresent(row, keys, fallback=''){
 
 
 
+
+
+
+
+
+
+
+
 function mtStateRibbon(row){
+
+
+
+
+
+
+
+
 
 
 
@@ -20288,7 +40639,23 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
   const items=[
+
+
+
+
+
+
+
+
 
 
 
@@ -20304,7 +40671,23 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
     ['Secondary', mtFirstPresent(row,['secondary_archetype','archetype_risk_note','latest_event_tier'])],
+
+
+
+
+
+
+
+
 
 
 
@@ -20320,7 +40703,23 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
     ['Consensus', mtFirstPresent(row,['signal_consensus_direction_label','signal_consensus_direction_score'])],
+
+
+
+
+
+
+
+
 
 
 
@@ -20336,7 +40735,23 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
     ['Event', mtFirstPresent(row,['latest_event_dashboard_summary_label','latest_confirmed_dashboard_summary_label'])],
+
+
+
+
+
+
+
+
 
 
 
@@ -20352,7 +40767,23 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
     ['Watch', mtFirstPresent(row,['recent_watch_count_7d','latest_event_quality_score'])],
+
+
+
+
+
+
+
+
 
 
 
@@ -20368,7 +40799,23 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
     ['MACD', mtFirstPresent(row,['macd_family_label','sent_price_macd_joint_slope_label','macd_family_direction_score'])],
+
+
+
+
+
+
+
+
 
 
 
@@ -20384,6 +40831,14 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
     ['Ribbon', mtFirstPresent(row,['sent_ribbon_label','sent_ribbon_direction_score'])],
 
 
@@ -20392,7 +40847,31 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
   ].filter(([label,value]) => value!==undefined && value!==null && String(value).trim()!=='');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -20424,7 +40903,31 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return `<div class="marketTapeStateRibbon">${items.map(([label,value])=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -20440,6 +40943,14 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
     return `<div class="marketTapeStatePill ${cls}"><span class="marketTapeStateLabel">${escapeHTML(label)}</span><span class="marketTapeStateValue">${escapeHTML(value)}</span></div>`;
 
 
@@ -20448,7 +40959,23 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
   }).join('')}</div>`;
+
+
+
+
+
+
+
+
 
 
 
@@ -20472,7 +40999,31 @@ function mtStateRibbon(row){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function renderScreenerPanel(activeTerm=null){
+
+
+
+
+
+
+
+
 
 
 
@@ -20488,7 +41039,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   if(!panel) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -20504,6 +41071,14 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   mtEnsureStyle();
 
 
@@ -20512,7 +41087,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   panel.style.display='';
+
+
+
+
+
+
+
+
 
 
 
@@ -20536,7 +41127,31 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const tabs=mtSectionTabs();
+
+
+
+
+
+
+
+
 
 
 
@@ -20560,7 +41175,31 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const rows=mtAllowedRows(mtSectionRows(SCREENER_SECTION)).slice(0,5);
+
+
+
+
+
+
+
+
 
 
 
@@ -20576,7 +41215,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const activeRow=(mtByTerm(currentTerm)?.screener) || rows.find(r=>mtTerm(r)===currentTerm) || rows[0] || {};
+
+
+
+
+
+
+
+
 
 
 
@@ -20592,6 +41247,14 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const activeArch=mtBestArchetype(activeRow, activeDetail);
 
 
@@ -20600,7 +41263,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const version=SCREENER_STORE.model_version || '';
+
+
+
+
+
+
+
+
 
 
 
@@ -20624,7 +41303,31 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const tabHtml=tabs.map(([key,label])=>`<button type="button" class="marketTapeTab ${key===SCREENER_SECTION?'active':''}" data-screener-section="${escapeHTML(key)}">${escapeHTML(label)}</button>`).join('');
+
+
+
+
+
+
+
+
 
 
 
@@ -20640,7 +41343,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
     const term=mtTerm(r);
+
+
+
+
+
+
+
+
 
 
 
@@ -20656,7 +41375,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
     const cls=mtDirectionClass(dir);
+
+
+
+
+
+
+
+
 
 
 
@@ -20672,7 +41407,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
     const score=mtScore(r,'screener_attention_priority_score');
+
+
+
+
+
+
+
+
 
 
 
@@ -20688,7 +41439,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
     const arch=r.primary_archetype || 'Monitor';
+
+
+
+
+
+
+
+
 
 
 
@@ -20704,6 +41471,14 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
     const dispersion=mtScore(r,'signal_dispersion_score',0);
 
 
@@ -20712,7 +41487,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
     return `<button type="button" class="marketTapeCard ${cls} ${active?'active':''}" data-screener-term="${escapeHTML(term)}" title="Load ${escapeHTML(term)} chart" title="Load ${escapeHTML(term)} chart" title="Load ${escapeHTML(term)} chart"><div class="marketTapeCardTop"><span class="marketTapeTerm">#${escapeHTML(r.screener_attention_priority_rank || idx+1)} ${escapeHTML(term)}</span><span class="marketTapeScore">${escapeHTML(score)}</span></div><div><span class="marketTapePill ${cls}">${escapeHTML(dir)}</span><span class="marketTapePill">${escapeHTML(bucket)}</span><span class="marketTapePill">Conflict ${escapeHTML(dispersion)}</span></div><div class="marketTapeReason"><b>${escapeHTML(arch)}</b> · ${escapeHTML(reason)}</div></button>`;
+
+
+
+
+
+
+
+
 
 
 
@@ -20736,7 +41527,31 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const detailDir=activeArch.archetype_direction || activeRow.signal_consensus_direction_label || activeRow.latest_event_direction || 'Mixed';
+
+
+
+
+
+
+
+
 
 
 
@@ -20752,7 +41567,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const detailTitle=`${currentTerm} · ${activeArch.primary_archetype || activeRow.primary_archetype || 'Monitor'}`;
+
+
+
+
+
+
+
+
 
 
 
@@ -20768,7 +41599,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const risk=mtRisk(activeArch, activeRow);
+
+
+
+
+
+
+
+
 
 
 
@@ -20784,6 +41631,14 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const matched=activeArch.matched_conditions || activeRow.matched_conditions || '';
 
 
@@ -20792,7 +41647,31 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const familyGrid=mtRenderFamilyGrid(currentTerm, activeRow);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -20824,7 +41703,31 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   panel.querySelectorAll('[data-screener-section]').forEach(btn=>{ btn.onclick=()=>{ SCREENER_SECTION=btn.getAttribute('data-screener-section') || 'top_priority'; renderScreenerPanel(document.getElementById('asset')?.value || null); }; });
+
+
+
+
+
+
+
+
 
 
 
@@ -20840,7 +41743,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const collapsedKey='setaMarketTapeCollapsed';
+
+
+
+
+
+
+
+
 
 
 
@@ -20856,7 +41775,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const shouldCollapse = savedCollapsed === 'true';
+
+
+
+
+
+
+
+
 
 
 
@@ -20872,7 +41807,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   const applyMarketTapeCollapsed = (collapsed) => {
+
+
+
+
+
+
+
+
 
 
 
@@ -20888,7 +41839,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
     if(toggle) toggle.textContent = collapsed ? '+' : '−';
+
+
+
+
+
+
+
+
 
 
 
@@ -20904,7 +41871,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   };
+
+
+
+
+
+
+
+
 
 
 
@@ -20920,7 +41903,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   if(toggle){
+
+
+
+
+
+
+
+
 
 
 
@@ -20936,7 +41935,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
       ev.preventDefault();
+
+
+
+
+
+
+
+
 
 
 
@@ -20952,7 +41967,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
       applyMarketTapeCollapsed(!panel.classList.contains('collapsed'));
+
+
+
+
+
+
+
+
 
 
 
@@ -20968,7 +41999,23 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -20992,7 +42039,31 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function buildFigure(){
+
+
+
+
+
+
+
+
 
 
 
@@ -21008,7 +42079,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const rows=cloneRows(STORE[freq][term]||[]); if(!rows.length) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -21024,7 +42111,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const calendar=detectCalendar(rows), xs=rows.map(r=>r.dateObj), visStart=visRows[0].dateObj, visEnd=visRows[visRows.length-1].dateObj, visEndPad=nextRangeEnd(visEnd,calendar,freq);
+
+
+
+
+
+
+
+
 
 
 
@@ -21040,7 +42143,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const fitRows=fitRowsForSentiment(rows, visRows, freq);
+
+
+
+
+
+
+
+
 
 
 
@@ -21056,7 +42175,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const sentRibbonSpec=sentRibbonInfo.series;
+
+
+
+
+
+
+
+
 
 
 
@@ -21072,7 +42207,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const regimeInfo=regimeInfoForRows(rows);
+
+
+
+
+
+
+
+
 
 
 
@@ -21088,7 +42239,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const priceBands=computePriceBands(rows);
+
+
+
+
+
+
+
+
 
 
 
@@ -21104,7 +42271,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   document.getElementById('assetTitle').textContent=`${term} · ${freq==='D'?'Daily':'Weekly'}`;
+
+
+
+
+
+
+
+
 
 
 
@@ -21120,7 +42303,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const helperParts=[`${calendar==='continuous'?'Continuous calendar':'Trading-session compression'} · sentiment transform fit includes hidden warmup`];
+
+
+
+
+
+
+
+
 
 
 
@@ -21136,7 +42335,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   if(bollinger==='contextual' || bollinger==='both') helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
+
+
+
+
+
+
+
+
 
 
 
@@ -21152,7 +42367,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   if(bollinger==='contextual' || bollinger==='overlap' || bollinger==='both') helperParts.push('confirmed diamonds require High volume plus legacy or contextual volatility; member mode also shows quieter watch candidates for outside-overlap events blocked by one gate');
+
+
+
+
+
+
+
+
 
 
 
@@ -21168,7 +42399,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const currentRegimeInfo=regimeInfo[rows.length-1] || {regime:'Flat', confidence:0, basis:'derived'};
+
+
+
+
+
+
+
+
 
 
 
@@ -21184,7 +42431,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   helperParts.push(`scale mode: ${scaleModeLabel}`);
+
+
+
+
+
+
+
+
 
 
 
@@ -21200,7 +42463,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   if(engagement!=='off') helperParts.push(engagement==='overlay' ? 'attention overlay marks soft participation days, stronger event bursts, and all member watch candidates' : 'attention badges show level, conviction, regime, and material member watch candidates');
+
+
+
+
+
+
+
+
 
 
 
@@ -21216,7 +42495,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
     ? helperParts.join(' · ')
+
+
+
+
+
+
+
+
 
 
 
@@ -21240,6 +42535,22 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(priceDisplay==='candles') data.push({type:'candlestick',x:xs,open:rows.map(r=>num(r.open)),high:rows.map(r=>num(r.high)),low:rows.map(r=>num(r.low)),close:rows.map(r=>num(r.close)),name:'Price',xaxis:'x',yaxis:'y',showlegend:true,increasing:{line:{color:COLORS.price},fillcolor:COLORS.price},decreasing:{line:{color:'#9f9f9f'},fillcolor:'#9f9f9f'},hovertemplate:'%{x|%b %d, %Y}<br>Open=%{open:.2f}<br>High=%{high:.2f}<br>Low=%{low:.2f}<br>Close=%{close:.2f}<extra></extra>'});
 
 
@@ -21248,7 +42559,31 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   else data.push(traceLine(xs,rows.map(r=>num(r.close)),'Price',COLORS.price,2.0,'solid','y',true,'%{x|%b %d, %Y}<br>Close=%{y:.2f}<extra></extra>'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -21280,7 +42615,39 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(showSentRibbon) sentRibbonSpec.forEach(s=>{ const hover=`%{x|%b %d, %Y}<br>${s.name}=%{y:.2f}<extra></extra>`; if(regimeLayer==='on') pushRegimeSegmentedBundle(data, xs, s.y, s.name, 'y', hover, s.width, s.period, regimeInfo); else sentimentBundle(xs, s.y, s.name, 'y', true, hover, s.width, s.palette).forEach(t=>data.push(t)); });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -21304,7 +42671,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const activeOverlapModel=chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar, bollinger);
+
+
+
+
+
+
+
+
 
 
 
@@ -21320,7 +42703,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   if(bollinger==='sentiment'||bollinger==='both') addFilledBand(data,xs,activeSentBands.up,activeSentBands.low,COLORS.sentCore,COLORS.sentFill,activeOverlapModel.family==='contextual' ? 'Contextual Sentiment Envelope' : 'Sentiment Band','y');
+
+
+
+
+
+
+
+
 
 
 
@@ -21336,7 +42735,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const priceHoverCustomData=priceHoverContextCustomData(rows, regimeInfo, ov);
+
+
+
+
+
+
+
+
 
 
 
@@ -21352,7 +42767,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
     data[0].customdata=priceHoverCustomData;
+
+
+
+
+
+
+
+
 
 
 
@@ -21368,7 +42799,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
       // Candlestick traces can fall back to their native OHLC hover in some Plotly builds.
+
+
+
+
+
+
+
+
 
 
 
@@ -21384,7 +42831,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
       data[0].hovertext=priceHoverText(rows, regimeInfo, ov, 'candles');
+
+
+
+
+
+
+
+
 
 
 
@@ -21400,7 +42863,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
       data[0].hovertemplate=null;
+
+
+
+
+
+
+
+
 
 
 
@@ -21416,7 +42895,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
       data[0].hovertemplate=priceHoverTemplate('line');
+
+
+
+
+
+
+
+
 
 
 
@@ -21432,6 +42927,14 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   }
 
 
@@ -21440,7 +42943,23 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
   const overlapInfo=computeOverlapSignalInfo(rows, ov, visibleMask);
+
+
+
+
+
+
+
+
 
 
 
@@ -21464,7 +42983,31 @@ function buildFigure(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const mode=currentMode();
+
+
+
+
+
+
+
+
 
 
 
@@ -21480,7 +43023,23 @@ const cfg = manifestModeConfig() || {};
 
 
 
+
+
+
+
+
+
+
+
 const summaryText = `${overlapInfo.stateLabel} · ${overlapInfo.context} · ${engagement==='off' ? 'Engagement Hidden' : `${engagementInfo.levelLabel} / ${engagementInfo.regimeLabel}`}`;
+
+
+
+
+
+
+
+
 
 
 
@@ -21496,7 +43055,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const overlapMarkerTraces=overlapTableauMarkers(rows, ov, visibleMask, engagement);
+
+
+
+
+
+
+
+
 
 
 
@@ -21512,7 +43087,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   renderAlertSidePanel(term, rows, ov, visibleMask, engagement);
+
+
+
+
+
+
+
+
 
 
 
@@ -21528,7 +43119,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   if((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both')) overlapMarkerTraces.forEach(t=>data.push(t));
+
+
+
+
+
+
+
+
 
 
 
@@ -21544,7 +43151,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const visRegimeInfo=regimeInfo.filter((r,i)=>visibleMask[i]);
+
+
+
+
+
+
+
+
 
 
 
@@ -21560,7 +43183,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const lastRegimeInfo=visRegimeInfo[visRegimeInfo.length-1] || regimeInfo[regimeInfo.length-1] || {regime:'Flat', confidence:0, regimeScore:0, compression:false};
+
+
+
+
+
+
+
+
 
 
 
@@ -21576,7 +43215,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const lastTransitionRow=lastTransitionIdx!==undefined ? visRegimeRows[lastTransitionIdx] : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -21592,7 +43247,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const showOverlapContext = (bollinger==='overlap' || bollinger==='contextual' || bollinger==='both' || cfg.alwaysShowOverlapBadges);
+
+
+
+
+
+
+
+
 
 
 
@@ -21608,7 +43279,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const showRibbonContext = regimeLayer==='on' || showSentRibbon;
+
+
+
+
+
+
+
+
 
 
 
@@ -21624,7 +43311,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     overlapState: showOverlapContext ? `<span class="badge ${overlapInfo.stateCls || 'badge-neutral'}"><b>Overlap State</b> ${overlapInfo.stateLabel}</span>` : null,
+
+
+
+
+
+
+
+
 
 
 
@@ -21640,7 +43343,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     structure: showOverlapContext ? `<span class="badge ${overlapInfo.structureCls || 'badge-neutral'}"><b>Structure</b> ${overlapInfo.structure}</span>` : null,
+
+
+
+
+
+
+
+
 
 
 
@@ -21656,7 +43375,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     context: showOverlapContext ? `<span class="badge ${overlapInfo.contextCls || 'badge-neutral'}"><b>Context</b> ${overlapInfo.context}</span>` : null,
+
+
+
+
+
+
+
+
 
 
 
@@ -21672,7 +43407,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     alertDiagnostics: (showOverlapContext && currentMode()==='member') ? `<span class="badge badge-neutral"><b>Alert Funnel</b> Outside ${alertDiagnostics.outside} · Vol ${alertDiagnostics.volatility} · Volume ${alertDiagnostics.volume} · Confirmed ${alertDiagnostics.confirmed} · Watch ${alertDiagnostics.watch}</span>` : null,
+
+
+
+
+
+
+
+
 
 
 
@@ -21688,7 +43439,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     conviction: showEngagementContext ? `<span class="badge ${engagementInfo.convictionCls || 'badge-neutral'}"><b>Conviction</b> ${engagementInfo.convictionLabel}</span>` : null,
+
+
+
+
+
+
+
+
 
 
 
@@ -21704,7 +43471,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     latestElevated: showEngagementContext ? `<span class="badge badge-neutral"><b>Latest Elevated</b> ${engagementInfo.latestSpike}</span>` : null,
+
+
+
+
+
+
+
+
 
 
 
@@ -21720,7 +43503,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     sentimentRibbon: showRibbonContext ? `<span class="badge ${lastRegimeInfo.regime==='Bullish' ? 'badge-bull' : lastRegimeInfo.regime==='Bearish' ? 'badge-bear' : 'badge-flat'}"><b>Ribbon</b> ${lastRegimeInfo.regime}</span>` : null,
+
+
+
+
+
+
+
+
 
 
 
@@ -21736,7 +43535,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     score: showRibbonContext ? `<span class="badge badge-neutral"><b>Score</b> ${(lastRegimeInfo.regimeScore ?? 0).toFixed(0)}</span>` : null,
+
+
+
+
+
+
+
+
 
 
 
@@ -21752,7 +43567,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     lastTransition: showRibbonContext ? `<span class="badge badge-neutral"><b>Last transition</b> ${lastTransitionRow ? `${(lastTransitionInfo?.transitionType || 'state change')} on ${lastTransitionRow.date}` : 'none in view'}</span>` : null
+
+
+
+
+
+
+
+
 
 
 
@@ -21768,7 +43599,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const orderedKeys = (badgeOrder() || []).slice();
+
+
+
+
+
+
+
+
 
 
 
@@ -21784,7 +43631,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     const idx = orderedKeys.indexOf('latestConfirmed');
+
+
+
+
+
+
+
+
 
 
 
@@ -21800,6 +43663,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     else orderedKeys.push('alertDiagnostics');
 
 
@@ -21808,7 +43679,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -21824,7 +43711,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     const idx = orderedKeys.indexOf('latestConfirmed');
+
+
+
+
+
+
+
+
 
 
 
@@ -21840,7 +43743,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     else orderedKeys.push('confirmedContext');
+
+
+
+
+
+
+
+
 
 
 
@@ -21856,7 +43775,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const badgeParts=orderedKeys.map(key=>badgeMap[key]).filter(Boolean);
+
+
+
+
+
+
+
+
 
 
 
@@ -21880,7 +43815,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   if(regimeLayer==='on' && showSentRibbon) {
+
+
+
+
+
+
+
+
 
 
 
@@ -21896,7 +43855,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     rows.forEach((r,i)=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -21912,7 +43887,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       if(!visibleMask[i] || !info || !info.transition) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -21928,7 +43919,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       if(y===null) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -21944,7 +43951,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       transY.push(y);
+
+
+
+
+
+
+
+
 
 
 
@@ -21960,7 +43983,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       transColor.push(info.regime==='Bullish' ? COLORS.transitionBull : info.regime==='Bearish' ? COLORS.transitionBear : COLORS.transitionFlat);
+
+
+
+
+
+
+
+
 
 
 
@@ -21976,6 +44015,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     if(transX.length) data.push({type:'scatter',mode:'markers',x:transX,y:transY,xaxis:'x',yaxis:'y',marker:{size:10,color:transColor,symbol:'diamond-wide'},name:'Ribbon transitions',hovertemplate:'%{x|%b %d, %Y}<br>%{text}<extra></extra>',text:transText});
 
 
@@ -21984,7 +44031,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -22008,7 +44079,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const histColors=hist.map((v,i)=>{if(v===null)return 'rgba(0,0,0,0)';const prev=i>0&&hist[i-1]!==null?hist[i-1]:v;const accel=v>=prev; if(v>=0) return accel?COLORS.histUp:COLORS.histUpSoft; return accel?COLORS.histDownSoft:COLORS.histDown;});
+
+
+
+
+
+
+
+
 
 
 
@@ -22032,7 +44119,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // SETA MACD visual polish v3:
+
+
+
+
+
+
+
+
 
 
 
@@ -22048,7 +44159,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   // The volatile scaled sentiment MACD fast line remains available in hover/customdata but is not drawn by default.
+
+
+
+
+
+
+
+
 
 
 
@@ -22064,7 +44191,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const sentHistHasData=sentHist.some(v=>v!==null&&Number.isFinite(v));
+
+
+
+
+
+
+
+
 
 
 
@@ -22080,7 +44223,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     const sentHistColors=sentHist.map(v=>v==null?'rgba(180,180,180,0)':v>=0?'rgba(75,230,180,0.20)':'rgba(255,185,120,0.18)');
+
+
+
+
+
+
+
+
 
 
 
@@ -22096,7 +44255,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -22112,7 +44287,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   data.push(traceLine(xs,rows.map(r=>num(r.macd_signal)),'Signal',COLORS.ma50,1.5,'solid','y2',false,'%{x|%b %d, %Y}<br>Signal=%{y:.2f}<extra></extra>'));
+
+
+
+
+
+
+
+
 
 
 
@@ -22128,7 +44319,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     // Match Sent RSI / Sent Stoch visual language: solid green sentiment line with a subtle narrow glow.
+
+
+
+
+
+
+
+
 
 
 
@@ -22144,7 +44351,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     const sentMacdBundle = sentimentBundle(
+
+
+
+
+
+
+
+
 
 
 
@@ -22160,7 +44383,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       rows.map(r=>num(r.scaled_sentiment_macd_signal)),
+
+
+
+
+
+
+
+
 
 
 
@@ -22176,7 +44415,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       'y2',
+
+
+
+
+
+
+
+
 
 
 
@@ -22192,6 +44447,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       '%{x|%b %d, %Y}<br>Sentiment MACD Signal=%{y:.2f}<br>Hidden fast line=%{customdata:.2f}<extra></extra>',
 
 
@@ -22200,7 +44463,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       1.15
+
+
+
+
+
+
+
+
 
 
 
@@ -22224,7 +44503,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     sentMacdBundle[0].line = {
+
+
+
+
+
+
+
+
 
 
 
@@ -22240,6 +44543,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       width: 3.8,
 
 
@@ -22248,7 +44559,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       dash: 'solid',
+
+
+
+
+
+
+
+
 
 
 
@@ -22264,7 +44591,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     };
+
+
+
+
+
+
+
+
 
 
 
@@ -22280,7 +44623,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       ...(sentMacdBundle[1].line || {}),
+
+
+
+
+
+
+
+
 
 
 
@@ -22296,7 +44655,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       dash: 'solid',
+
+
+
+
+
+
+
+
 
 
 
@@ -22312,7 +44687,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     };
+
+
+
+
+
+
+
+
 
 
 
@@ -22328,7 +44719,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       ...(sentMacdBundle[2].line || {}),
+
+
+
+
+
+
+
+
 
 
 
@@ -22344,7 +44751,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       dash: 'solid',
+
+
+
+
+
+
+
+
 
 
 
@@ -22360,7 +44783,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -22384,7 +44831,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       t.customdata=rows.map(r=>num(r.scaled_sentiment_macd));
+
+
+
+
+
+
+
+
 
 
 
@@ -22400,6 +44863,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     });
 
 
@@ -22408,7 +44879,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -22432,7 +44927,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   rows.forEach(r=>{const c=num(r.macd_signal_cross), y=num(r.scaled_sentiment_macd_signal) ?? num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Sentiment bull':'Sentiment bear'); crossSize.push(Math.min(15,8+Math.abs(num(r.macd_cross_significance)||0)*1.6)); crossColor.push(c===1?'rgba(83,235,175,0.92)':'rgba(255,174,118,0.90)');}});
+
+
+
+
+
+
+
+
 
 
 
@@ -22456,7 +44967,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   data.push(traceLine(xs,rows.map(r=>num(r.rsi_d)||num(r.rsi)),'RSI',COLORS.rsi,2.0,'solid','y3',false,'%{x|%b %d, %Y}<br>RSI=%{y:.2f}<extra></extra>'));
+
+
+
+
+
+
+
+
 
 
 
@@ -22472,6 +45007,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi)),'Stoch RSI %K',COLORS.stoch,1.8,'solid','y4',false,'%{x|%b %d, %Y}<br>Stoch RSI %K=%{y:.2f}<extra></extra>'));
 
 
@@ -22480,7 +45023,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   data.push(traceLine(xs,rows.map(r=>num(r.stochastic_rsi_d)),'Stoch RSI %D',COLORS.stochD,1.3,'solid','y4',false,'%{x|%b %d, %Y}<br>Stoch RSI %D=%{y:.2f}<extra></extra>'));
+
+
+
+
+
+
+
+
 
 
 
@@ -22504,7 +45063,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const priceCandidates=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -22520,7 +45103,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     if(priceDisplay==='candles'){
+
+
+
+
+
+
+
+
 
 
 
@@ -22536,7 +45135,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     } else {
+
+
+
+
+
+
+
+
 
 
 
@@ -22552,7 +45167,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -22568,6 +45199,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       ['close_ma_7','close_ma_21','close_ma_50','close_ma_100','close_ma_200'].forEach(c=>{const v=num(r[c]); if(v!==null) priceCandidates.push(v);});
 
 
@@ -22576,7 +45215,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -22592,6 +45247,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       sentRibbonSpec.forEach(s=>{const v=num(s.y[i]); if(v!==null) priceCandidates.push(v);});
 
 
@@ -22600,7 +45263,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -22616,6 +45295,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       const up=num(priceBands.up[i]), lo=num(priceBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
 
 
@@ -22624,7 +45311,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -22640,6 +45343,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       const up=num(activeSentBands.up[i]), lo=num(activeSentBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
 
 
@@ -22648,7 +45359,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -22664,7 +45391,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       const up=num(ov.up[i]), lo=num(ov.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
+
+
+
+
+
+
+
+
 
 
 
@@ -22680,7 +45423,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -22704,7 +45471,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   if(priceCandidates.length){
+
+
+
+
+
+
+
+
 
 
 
@@ -22720,7 +45503,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     const span=Math.max(hi-lo,Math.abs((hi+lo)/2)*0.02,1);
+
+
+
+
+
+
+
+
 
 
 
@@ -22736,7 +45535,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     const pad=span*padPct;
+
+
+
+
+
+
+
+
 
 
 
@@ -22752,7 +45567,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -22776,7 +45615,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const sentConf=(num(last.scaled_sentiment_macd)!==null&&num(last.macd)!==null)?(((num(last.scaled_sentiment_macd)>=num(last.scaled_sentiment_macd_signal))===(num(last.macd)>=num(last.macd_signal)))?'yes':'no'):'n/a';
+
+
+
+
+
+
+
+
 
 
 
@@ -22792,7 +45647,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const lastCrossRow=[...visRows].reverse().find(r=>Math.abs(num(r.macd_signal_cross)||0)===1);
+
+
+
+
+
+
+
+
 
 
 
@@ -22808,7 +45679,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const histDir=visRows.length>=2&&num(visRows[visRows.length-1].macd_histogram)!==null&&num(visRows[visRows.length-2].macd_histogram)!==null?(num(visRows[visRows.length-1].macd_histogram)>=num(visRows[visRows.length-2].macd_histogram)?'rising':'falling'):'flat';
+
+
+
+
+
+
+
+
 
 
 
@@ -22824,7 +45711,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const macdRegime=(num(last.macd)!==null&&num(last.macd_signal)!==null&&num(last.macd)>=num(last.macd_signal))?'Bullish':'Bearish';
+
+
+
+
+
+
+
+
 
 
 
@@ -22840,7 +45743,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const lastSentRsiVal = num(last.sentiment_rsi_d) ?? num(last.sentiment_rsi);
+
+
+
+
+
+
+
+
 
 
 
@@ -22856,7 +45775,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const rsiGap=oscillatorGapInfo(lastRsiVal, lastSentRsiVal, 'rsi');
+
+
+
+
+
+
+
+
 
 
 
@@ -22872,7 +45807,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const lastStochK = num(last.stochastic_rsi);
+
+
+
+
+
+
+
+
 
 
 
@@ -22888,7 +45839,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const lastSentStoch = num(last.sentiment_stochastic_rsi_d);
+
+
+
+
+
+
+
+
 
 
 
@@ -22904,7 +45871,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const stochGap=oscillatorGapInfo(lastStochK, lastSentStoch, 'stoch');
+
+
+
+
+
+
+
+
 
 
 
@@ -22920,7 +45903,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const rb=(calendar==='trading_sessions' && freq==='D')?[{bounds:['sat','mon']}]:[];
+
+
+
+
+
+
+
+
 
 
 
@@ -22936,7 +45935,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   const overlapTriggerShapes=[];
+
+
+
+
+
+
+
+
 
 
 
@@ -22960,7 +45975,31 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const lowerPanesVisible = showLowerPanes();
+
+
+
+
+
+
+
+
 
 
 
@@ -22976,7 +46015,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     paper_bgcolor:COLORS.bg, plot_bgcolor:COLORS.panel, font:{color:COLORS.text}, margin:{l:64,r:30,t:18,b:54}, barmode:'overlay',
+
+
+
+
+
+
+
+
 
 
 
@@ -22992,7 +46047,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     legend:{orientation:'v', y:0.945, x:0.0, xanchor:'left', yanchor:'top', bgcolor:'rgba(0,0,0,0.24)', bordercolor:'#2a3138', borderwidth:1, font:{size:11}},
+
+
+
+
+
+
+
+
 
 
 
@@ -23008,7 +46079,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     yaxis:{domain: lowerPanesVisible ? [0.54,0.98] : [0.08,0.98],title:'Price',showgrid:true,gridcolor:COLORS.grid,zeroline:false,range:yRange},
+
+
+
+
+
+
+
+
 
 
 
@@ -23024,7 +46111,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       xaxis2:{domain:[0,1],anchor:'y2',matches:'x',showgrid:true,gridcolor:COLORS.grid,showticklabels:false,rangebreaks:rb},
+
+
+
+
+
+
+
+
 
 
 
@@ -23040,7 +46143,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       xaxis3:{domain:[0,1],anchor:'y3',matches:'x',showgrid:true,gridcolor:COLORS.grid,showticklabels:false,rangebreaks:rb},
+
+
+
+
+
+
+
+
 
 
 
@@ -23056,7 +46175,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       xaxis4:{domain:[0,1],anchor:'y4',matches:'x',showgrid:true,gridcolor:COLORS.grid,tickformat:freq==='W'?'%b %Y':'%b %d\n%Y',rangebreaks:rb},
+
+
+
+
+
+
+
+
 
 
 
@@ -23072,7 +46207,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     } : {}),
+
+
+
+
+
+
+
+
 
 
 
@@ -23088,7 +46239,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       ...regimeRects,
+
+
+
+
+
+
+
+
 
 
 
@@ -23104,7 +46271,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       ...overlapTriggerShapes,
+
+
+
+
+
+
+
+
 
 
 
@@ -23120,7 +46303,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       {type:'line',xref:'paper',x0:0,x1:1,yref:'y3',y0:30,y1:30,line:{color:'rgba(255,255,255,0.25)',width:1,dash:'dot'}},
+
+
+
+
+
+
+
+
 
 
 
@@ -23136,6 +46335,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       {type:'line',xref:'paper',x0:0,x1:1,yref:'y4',y0:20,y1:20,line:{color:'rgba(255,255,255,0.25)',width:1,dash:'dot'}}
 
 
@@ -23144,7 +46351,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     ],
+
+
+
+
+
+
+
+
 
 
 
@@ -23160,7 +46383,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       {xref:'paper',yref:'paper',x:0.5,y:0.995,text:'Price',showarrow:false,font:{size:15,color:COLORS.text}},
+
+
+
+
+
+
+
+
 
 
 
@@ -23176,7 +46415,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       {xref:'paper',yref:'paper',x:0.5,y:0.505,text:'MACD',showarrow:false,font:{size:15,color:COLORS.text}},
+
+
+
+
+
+
+
+
 
 
 
@@ -23192,7 +46447,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       {xref:'paper',yref:'paper',x:0.5,y:0.145,text:'Stoch RSI',showarrow:false,font:{size:15,color:COLORS.text}}
+
+
+
+
+
+
+
+
 
 
 
@@ -23208,7 +46479,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       ...(cfg.showRibbonAnnotation !== false && regimeLayer==='on' && showSentRibbon ? [{xref:'paper',yref:'paper',x:0.99,y:0.985,xanchor:'right',text:`Ribbon: ${lastRegimeInfo.regime} | Confidence: ${(lastRegimeInfo.confidence ?? 0).toFixed(0)} | ${(lastRegimeInfo.compression ? 'Compressed' : ((lastRegimeInfo.widthZ ?? 0)>=0 ? 'Expanding' : 'Narrowing'))}`,showarrow:false,align:'right',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+
+
+
+
+
+
+
+
 
 
 
@@ -23224,7 +46511,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD ${macdRegime} · Sent Cross ${lastCrossText} · Hist ${histDirLabel} · Sent ${sentConfLabel}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+
+
+
+
+
+
+
+
 
 
 
@@ -23240,7 +46543,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.135,xanchor:'left',text:stochPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
+
+
+
+
+
+
+
+
 
 
 
@@ -23256,7 +46575,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     hovermode:'closest',
+
+
+
+
+
+
+
+
 
 
 
@@ -23272,7 +46607,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     hoverdistance:18,
+
+
+
+
+
+
+
+
 
 
 
@@ -23288,7 +46639,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       bgcolor:'rgba(5,7,10,0.96)',
+
+
+
+
+
+
+
+
 
 
 
@@ -23304,7 +46671,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
       font:{color:COLORS.text,size:12},
+
+
+
+
+
+
+
+
 
 
 
@@ -23320,7 +46703,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -23336,7 +46735,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   Plotly.newPlot('chart', data, layout, {responsive:true, displaylogo:false}).then(()=>{
+
+
+
+
+
+
+
+
 
 
 
@@ -23352,6 +46767,14 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
   });
 
 
@@ -23360,7 +46783,23 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -23376,7 +46815,23 @@ const CONTROL_IDS=['asset','freq','range','priceDisplay','scaleMode','ribbon','s
 
 
 
+
+
+
+
+
+
+
+
 function attachControlHandlers(){ CONTROL_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change', buildFigure); }); }
+
+
+
+
+
+
+
+
 
 
 
@@ -23392,7 +46847,23 @@ async function initDashboard(){
 
 
 
+
+
+
+
+
+
+
+
   try{
+
+
+
+
+
+
+
+
 
 
 
@@ -23408,7 +46879,23 @@ async function initDashboard(){
 
 
 
+
+
+
+
+
+
+
+
     applyModeUi();
+
+
+
+
+
+
+
+
 
 
 
@@ -23424,7 +46911,23 @@ async function initDashboard(){
 
 
 
+
+
+
+
+
+
+
+
     await Promise.all([loadStore(), loadScreenerStore()]);
+
+
+
+
+
+
+
+
 
 
 
@@ -23440,7 +46943,23 @@ async function initDashboard(){
 
 
 
+
+
+
+
+
+
+
+
     attachControlHandlers();
+
+
+
+
+
+
+
+
 
 
 
@@ -23456,7 +46975,23 @@ async function initDashboard(){
 
 
 
+
+
+
+
+
+
+
+
   }catch(err){
+
+
+
+
+
+
+
+
 
 
 
@@ -23472,7 +47007,23 @@ async function initDashboard(){
 
 
 
+
+
+
+
+
+
+
+
     document.getElementById('helperText').textContent = `Data load error: ${err.message}`;
+
+
+
+
+
+
+
+
 
 
 
@@ -23488,6 +47039,14 @@ async function initDashboard(){
 
 
 
+
+
+
+
+
+
+
+
   }
 
 
@@ -23496,7 +47055,23 @@ async function initDashboard(){
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -23528,7 +47103,39 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phaseG_market_tape_metric_deck_v6
+
+
+
+
+
+
+
+
 
 
 
@@ -23544,7 +47151,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   if(window.__phaseG_market_tape_metric_deck_v6) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -23568,7 +47191,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const css = `
+
+
+
+
+
+
+
+
 
 
 
@@ -23584,7 +47231,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeDetail{grid-template-columns:minmax(360px,1.05fr) minmax(520px,1.45fr)!important;gap:10px!important;}
+
+
+
+
+
+
+
+
 
 
 
@@ -23600,7 +47263,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeFamily{min-height:58px!important;padding:8px 9px!important;border-radius:11px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;overflow:hidden!important;}
+
+
+
+
+
+
+
+
 
 
 
@@ -23616,7 +47295,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeFamily:first-child .marketTapeFamilyName{font-size:11px!important;}
+
+
+
+
+
+
+
+
 
 
 
@@ -23632,7 +47327,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeFamily:first-child .marketTapeFamilyLabel{font-size:11px!important;white-space:normal!important;}
+
+
+
+
+
+
+
+
 
 
 
@@ -23648,7 +47359,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeFamilyScore{font-size:17px!important;line-height:1!important;font-weight:900!important;margin:3px 0 2px!important;}
+
+
+
+
+
+
+
+
 
 
 
@@ -23664,6 +47391,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 @media (max-width:1220px){.marketTapeDetail{grid-template-columns:1fr!important}.marketTapeFamilyGrid{grid-template-columns:repeat(4,minmax(0,1fr))!important;grid-template-rows:auto!important}.marketTapeFamily:first-child{grid-column:span 1!important;grid-row:auto!important;min-height:58px!important}}
 
 
@@ -23672,7 +47407,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 @media (max-width:760px){.marketTapeFamilyGrid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+
+
+
+
+
+
+
 
 
 
@@ -23696,7 +47447,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function installStyle(){
+
+
+
+
+
+
+
+
 
 
 
@@ -23712,7 +47487,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     if(!style){
+
+
+
+
+
+
+
+
 
 
 
@@ -23728,7 +47519,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       style.id = 'phaseG_market_tape_metric_deck_v6_style';
+
+
+
+
+
+
+
+
 
 
 
@@ -23744,7 +47551,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -23760,7 +47583,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -23784,7 +47631,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   function asScore(v){
+
+
+
+
+
+
+
+
 
 
 
@@ -23800,7 +47663,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     const n = Number(v);
+
+
+
+
+
+
+
+
 
 
 
@@ -23816,6 +47695,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     return String(v);
 
 
@@ -23824,7 +47711,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -23840,6 +47743,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     return String(s == null ? '' : s).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
 
 
@@ -23848,7 +47759,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -23864,7 +47791,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     const sel = document.getElementById('asset');
+
+
+
+
+
+
+
+
 
 
 
@@ -23880,7 +47823,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     const h = document.querySelector('.marketTapeTitle h3');
+
+
+
+
+
+
+
+
 
 
 
@@ -23896,6 +47855,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     return m ? m[1].toUpperCase() : '';
 
 
@@ -23904,7 +47871,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -23920,7 +47903,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     const t = activeTerm();
+
+
+
+
+
+
+
+
 
 
 
@@ -23936,7 +47935,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     const byTerm = store.by_term || {};
+
+
+
+
+
+
+
+
 
 
 
@@ -23952,7 +47967,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -23968,7 +47999,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     if(!obj || depth > 5) return out;
+
+
+
+
+
+
+
+
 
 
 
@@ -23984,7 +48031,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       obj.forEach(x => collectObjects(x, out, depth + 1));
+
+
+
+
+
+
+
+
 
 
 
@@ -24000,7 +48063,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       out.push(obj);
+
+
+
+
+
+
+
+
 
 
 
@@ -24016,7 +48095,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -24032,7 +48127,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -24048,7 +48159,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     if(!obj) return '';
+
+
+
+
+
+
+
+
 
 
 
@@ -24064,7 +48191,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       if(obj[k] !== undefined && obj[k] !== null && String(obj[k]).trim() !== '') return obj[k];
+
+
+
+
+
+
+
+
 
 
 
@@ -24080,6 +48223,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     return '';
 
 
@@ -24088,7 +48239,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -24104,7 +48271,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     const objects = collectObjects(obj, [], 0);
+
+
+
+
+
+
+
+
 
 
 
@@ -24120,7 +48303,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       const v = firstValue(o, keys);
+
+
+
+
+
+
+
+
 
 
 
@@ -24136,7 +48335,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -24152,7 +48367,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -24168,7 +48399,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     const objs = collectObjects(rec, [], 0);
+
+
+
+
+
+
+
+
 
 
 
@@ -24184,7 +48431,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     for(const o of objs){
+
+
+
+
+
+
+
+
 
 
 
@@ -24200,7 +48463,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       if(def.tokens.some(tok => hay.includes(tok))){ best = o; break; }
+
+
+
+
+
+
+
+
 
 
 
@@ -24216,7 +48495,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     const score = best ? firstValue(best, ['score','family_score','direction_score','state_score','value','metric_score']) : '';
+
+
+
+
+
+
+
+
 
 
 
@@ -24232,7 +48527,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     return {
+
+
+
+
+
+
+
+
 
 
 
@@ -24248,7 +48559,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       score: asScore(score || deepFirst(rec, def.scoreKeys)),
+
+
+
+
+
+
+
+
 
 
 
@@ -24264,6 +48591,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     };
 
 
@@ -24272,7 +48607,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -24288,7 +48639,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     if(!m.score && !m.label) return '';
+
+
+
+
+
+
+
+
 
 
 
@@ -24304,7 +48671,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -24320,7 +48703,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     installStyle();
+
+
+
+
+
+
+
+
 
 
 
@@ -24336,6 +48735,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     if(!grid) return;
 
 
@@ -24344,7 +48751,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     const rec = activeRecord();
+
+
+
+
+
+
+
+
 
 
 
@@ -24368,7 +48791,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const existingText = Array.from(grid.querySelectorAll('.marketTapeFamilyName')).map(el => el.textContent.trim().toLowerCase()).join(' | ');
+
+
+
+
+
+
+
+
 
 
 
@@ -24384,7 +48831,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       {name:'Bollinger', tokens:['bollinger','overlap'], scoreKeys:['attention_adjusted_bollinger_score','bollinger_direction_score','bollinger_score','overlap_score'], labelKeys:['bollinger_direction_label','overlap_state','overlap_state_label','bollinger_label'], fallbackLabel:'Overlap'},
+
+
+
+
+
+
+
+
 
 
 
@@ -24400,7 +48863,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       {name:'Trend', tokens:['trend','ma trend','moving average','ma family'], scoreKeys:['ma_family_direction_score','ma_trend_score','trend_score','ma_score'], labelKeys:['ma_family_label','ma_trend_label','trend_label'], fallbackLabel:'MA Trend'},
+
+
+
+
+
+
+
+
 
 
 
@@ -24416,7 +48895,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     defs.forEach(def => {
+
+
+
+
+
+
+
+
 
 
 
@@ -24432,7 +48927,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       if(existingText.includes(key)) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -24448,7 +48959,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
       const html = metricHtml(m);
+
+
+
+
+
+
+
+
 
 
 
@@ -24464,6 +48991,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     });
 
 
@@ -24472,7 +49007,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -24496,7 +49055,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   function start(){
+
+
+
+
+
+
+
+
 
 
 
@@ -24512,7 +49087,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
     ensureMetricDeck();
+
+
+
+
+
+
+
+
 
 
 
@@ -24528,7 +49119,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -24544,6 +49151,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   else start();
 
 
@@ -24552,7 +49167,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -24584,7 +49215,39 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phaseG_market_tape_layout_v5
+
+
+
+
+
+
+
+
 
 
 
@@ -24600,6 +49263,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   if (typeof document === "undefined") return;
 
 
@@ -24608,7 +49279,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phaseG_market_tape_layout_v5) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -24632,7 +49319,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const css = `
+
+
+
+
+
+
+
+
 
 
 
@@ -24648,7 +49359,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 :root {
+
+
+
+
+
+
+
+
 
 
 
@@ -24664,6 +49391,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   --mt-v5-score-min-h: 78px;
 
 
@@ -24672,7 +49407,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -24696,7 +49455,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-top-row,
+
+
+
+
+
+
+
+
 
 
 
@@ -24712,7 +49487,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-leaders,
+
+
+
+
+
+
+
+
 
 
 
@@ -24728,7 +49519,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-movers-top,
+
+
+
+
+
+
+
+
 
 
 
@@ -24744,7 +49551,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-grid-top,
+
+
+
+
+
+
+
+
 
 
 
@@ -24760,7 +49583,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 [data-market-tape-top-row="true"],
+
+
+
+
+
+
+
+
 
 
 
@@ -24776,7 +49615,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 [data-market-tape-section="leaders"] {
+
+
+
+
+
+
+
+
 
 
 
@@ -24792,7 +49647,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   grid-template-columns: repeat(5,minmax(0,1fr)) !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -24808,6 +49679,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   align-items: stretch !important;
 
 
@@ -24816,7 +49695,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -24840,7 +49743,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-top-row > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -24856,7 +49775,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-leaders > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -24872,7 +49807,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-movers-top > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -24888,7 +49839,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-grid-top > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -24904,7 +49871,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 [data-market-tape-top-row="true"] > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -24920,7 +49903,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 [data-market-tape-section="leaders"] > * {
+
+
+
+
+
+
+
+
 
 
 
@@ -24936,6 +49935,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   min-height: var(--mt-v5-card-min-h) !important;
 
 
@@ -24944,7 +49951,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -24968,7 +49999,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-top-row .symbol,
+
+
+
+
+
+
+
+
 
 
 
@@ -24984,7 +50031,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeTopRow .symbol,
+
+
+
+
+
+
+
+
 
 
 
@@ -25000,7 +50063,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-leaders .symbol,
+
+
+
+
+
+
+
+
 
 
 
@@ -25016,7 +50095,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeLeaders .symbol {
+
+
+
+
+
+
+
+
 
 
 
@@ -25032,7 +50127,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   text-overflow: ellipsis !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -25048,7 +50159,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -25072,7 +50207,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-score-grid,
+
+
+
+
+
+
+
+
 
 
 
@@ -25088,7 +50239,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-score-row,
+
+
+
+
+
+
+
+
 
 
 
@@ -25104,7 +50271,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-score-boxes,
+
+
+
+
+
+
+
+
 
 
 
@@ -25120,7 +50303,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 [data-market-tape-section="scores"],
+
+
+
+
+
+
+
+
 
 
 
@@ -25136,7 +50335,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   display: grid !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -25152,7 +50367,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   gap: 10px !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -25168,7 +50399,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -25192,7 +50447,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeScoreGrid > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -25208,7 +50479,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeScoreRow > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -25224,7 +50511,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeScoreBoxes > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -25240,7 +50543,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 [data-market-tape-score-grid="true"] > * {
+
+
+
+
+
+
+
+
 
 
 
@@ -25256,7 +50575,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   min-height: var(--mt-v5-score-min-h) !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -25272,7 +50607,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -25296,7 +50655,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeScoreGrid .label,
+
+
+
+
+
+
+
+
 
 
 
@@ -25312,7 +50687,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeScoreRow .label,
+
+
+
+
+
+
+
+
 
 
 
@@ -25328,7 +50719,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeScoreBoxes .label,
+
+
+
+
+
+
+
+
 
 
 
@@ -25344,7 +50751,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   display: block !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -25360,7 +50783,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   overflow-wrap: anywhere !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -25376,7 +50815,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -25400,7 +50863,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-selected-detail,
+
+
+
+
+
+
+
+
 
 
 
@@ -25416,7 +50895,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .market-tape-detail-panel,
+
+
+
+
+
+
+
+
 
 
 
@@ -25432,7 +50927,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 [data-market-tape-section="selected-detail"],
+
+
+
+
+
+
+
+
 
 
 
@@ -25448,7 +50959,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   display: grid !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -25464,7 +50991,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   gap: 14px !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -25480,7 +51023,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -25504,7 +51071,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeSelectedDetail > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -25520,7 +51103,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeDetailPanel > *,
+
+
+
+
+
+
+
+
 
 
 
@@ -25536,7 +51135,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 [data-market-tape-section="detail"] > * {
+
+
+
+
+
+
+
+
 
 
 
@@ -25552,7 +51167,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -25576,7 +51215,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .market-tape-top-row,
+
+
+
+
+
+
+
+
 
 
 
@@ -25592,7 +51247,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .market-tape-leaders,
+
+
+
+
+
+
+
+
 
 
 
@@ -25608,7 +51279,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .market-tape-movers-top,
+
+
+
+
+
+
+
+
 
 
 
@@ -25624,7 +51311,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .market-tape-grid-top,
+
+
+
+
+
+
+
+
 
 
 
@@ -25640,7 +51343,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   [data-market-tape-top-row="true"],
+
+
+
+
+
+
+
+
 
 
 
@@ -25656,7 +51375,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   [data-market-tape-section="leaders"] {
+
+
+
+
+
+
+
+
 
 
 
@@ -25672,6 +51407,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
 
 
@@ -25680,7 +51423,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -25704,7 +51471,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .market-tape-top-row,
+
+
+
+
+
+
+
+
 
 
 
@@ -25720,7 +51503,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .market-tape-leaders,
+
+
+
+
+
+
+
+
 
 
 
@@ -25736,7 +51535,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .market-tape-movers-top,
+
+
+
+
+
+
+
+
 
 
 
@@ -25752,7 +51567,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .market-tape-grid-top,
+
+
+
+
+
+
+
+
 
 
 
@@ -25768,7 +51599,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   [data-market-tape-top-row="true"],
+
+
+
+
+
+
+
+
 
 
 
@@ -25784,7 +51631,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   [data-market-tape-section="leaders"],
+
+
+
+
+
+
+
+
 
 
 
@@ -25800,7 +51663,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .marketTapeSelectedDetail,
+
+
+
+
+
+
+
+
 
 
 
@@ -25816,7 +51695,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   .marketTapeDetailPanel,
+
+
+
+
+
+
+
+
 
 
 
@@ -25832,7 +51727,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   [data-market-tape-section="detail"] {
+
+
+
+
+
+
+
+
 
 
 
@@ -25848,6 +51759,14 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   }
 
 
@@ -25856,7 +51775,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -25880,7 +51815,31 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const style = document.createElement("style");
+
+
+
+
+
+
+
+
 
 
 
@@ -25896,7 +51855,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
   style.textContent = css;
+
+
+
+
+
+
+
+
 
 
 
@@ -25912,7 +51887,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -25928,7 +51919,23 @@ initDashboard();
 
 
 
+
+
+
+
+
+
+
+
 // phaseG_market_tape_cache_013
+
+
+
+
+
+
+
+
 
 
 
@@ -25968,7 +51975,47 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phaseG_market_tape_metric_deck_v7
+
+
+
+
+
+
+
+
 
 
 
@@ -25984,7 +52031,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phaseG_market_tape_metric_deck_v7) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -26008,7 +52071,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const css = `
+
+
+
+
+
+
+
+
 
 
 
@@ -26024,7 +52111,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 /* Normalize Market Tape metric deck: SETA Score + strict 3x2 mini grid. */
+
+
+
+
+
+
+
+
 
 
 
@@ -26040,7 +52143,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   display:grid!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26056,7 +52175,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   grid-template-rows:repeat(2,58px)!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26072,7 +52207,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   grid-auto-columns:minmax(74px,1fr)!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26088,7 +52239,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   align-items:stretch!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26104,7 +52271,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   justify-content:start!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26120,6 +52303,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   max-width:520px!important;
 
 
@@ -26128,7 +52319,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26152,7 +52367,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   min-width:0!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26168,7 +52399,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   height:58px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26184,7 +52431,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   border-radius:10px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26200,7 +52463,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   display:flex!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26216,7 +52495,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   justify-content:center!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26232,7 +52527,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26256,7 +52575,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   grid-column:1!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26272,7 +52607,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   width:124px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26288,7 +52639,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   height:123px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26304,7 +52671,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   justify-content:center!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26320,7 +52703,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   background:linear-gradient(180deg,rgba(250,204,21,.10),rgba(255,255,255,.035))!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26336,7 +52735,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26360,6 +52783,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   width:auto!important;
 
 
@@ -26368,7 +52799,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26392,7 +52847,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   font-size:10px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26408,7 +52879,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   white-space:nowrap!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26424,7 +52911,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   text-overflow:ellipsis!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26440,7 +52943,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26464,7 +52991,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   font-size:17px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26480,7 +53023,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   margin:3px 0 2px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26496,7 +53055,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   white-space:nowrap!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26512,6 +53087,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   text-overflow:clip!important;
 
 
@@ -26520,7 +53103,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26544,7 +53151,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   font-size:10px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26560,7 +53183,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   white-space:nowrap!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26576,6 +53215,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   text-overflow:ellipsis!important;
 
 
@@ -26584,7 +53231,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26608,7 +53279,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   font-size:24px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26624,6 +53311,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   color:#facc15!important;
 
 
@@ -26632,7 +53327,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26656,6 +53375,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   font-size:11px!important;
 
 
@@ -26664,7 +53391,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26688,7 +53439,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   font-size:11px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26704,6 +53471,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   overflow:visible!important;
 
 
@@ -26712,7 +53487,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26736,7 +53535,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   grid-template-columns:minmax(300px,1fr) minmax(520px,1fr)!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26752,7 +53567,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26776,7 +53615,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .screenerPanel.marketTape .marketTapeDetail > div:first-child{
+
+
+
+
+
+
+
+
 
 
 
@@ -26792,7 +53647,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26816,7 +53695,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   .screenerPanel.marketTape .marketTapeDetail{
+
+
+
+
+
+
+
+
 
 
 
@@ -26832,7 +53727,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -26848,7 +53759,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     max-width:none!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26864,6 +53791,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
 
 
@@ -26872,7 +53807,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -26896,7 +53855,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   .screenerPanel.marketTape .marketTapeFamilyGrid{
+
+
+
+
+
+
+
+
 
 
 
@@ -26912,7 +53887,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     grid-template-rows:auto!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26928,7 +53919,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -26944,7 +53951,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     grid-column:1 / span 2!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26960,7 +53983,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     width:auto!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26976,7 +54015,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     min-height:70px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -26992,7 +54047,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -27016,7 +54087,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function injectMetricDeckStyle(){
+
+
+
+
+
+
+
+
 
 
 
@@ -27032,7 +54127,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (old) old.remove();
+
+
+
+
+
+
+
+
 
 
 
@@ -27048,7 +54159,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     style.id = "phaseG_market_tape_metric_deck_v7_style";
+
+
+
+
+
+
+
+
 
 
 
@@ -27064,6 +54191,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     document.head.appendChild(style);
 
 
@@ -27072,7 +54207,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27096,7 +54255,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const cards = Array.from(document.querySelectorAll(".marketTapeFamily"));
+
+
+
+
+
+
+
+
 
 
 
@@ -27112,7 +54287,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const nameEl = card.querySelector(".marketTapeFamilyName");
+
+
+
+
+
+
+
+
 
 
 
@@ -27128,7 +54319,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const labelEl = card.querySelector(".marketTapeFamilyLabel");
+
+
+
+
+
+
+
+
 
 
 
@@ -27152,7 +54359,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       // Trend currently has a direction label but no numeric field in the store.
+
+
+
+
+
+
+
+
 
 
 
@@ -27168,7 +54399,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (name === "summary" && nameEl){
+
+
+
+
+
+
+
+
 
 
 
@@ -27184,7 +54431,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27208,7 +54479,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         const s = (scoreEl.textContent || "").trim().toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -27224,7 +54511,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
           scoreEl.textContent = "--";
+
+
+
+
+
+
+
+
 
 
 
@@ -27240,7 +54543,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27264,7 +54591,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (labelEl){
+
+
+
+
+
+
+
+
 
 
 
@@ -27280,7 +54623,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -27296,7 +54655,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27320,7 +54703,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     injectMetricDeckStyle();
+
+
+
+
+
+
+
+
 
 
 
@@ -27336,7 +54735,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27360,7 +54783,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (typeof oldRender === "function" && !oldRender.__metricDeckV7Wrapped){
+
+
+
+
+
+
+
+
 
 
 
@@ -27376,7 +54815,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const out = oldRender.apply(this, arguments);
+
+
+
+
+
+
+
+
 
 
 
@@ -27392,7 +54847,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       setTimeout(applyMarketTapeMetricDeckV7, 80);
+
+
+
+
+
+
+
+
 
 
 
@@ -27408,7 +54879,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     };
+
+
+
+
+
+
+
+
 
 
 
@@ -27424,6 +54911,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     window.renderScreenerPanel = wrapped;
 
 
@@ -27432,7 +54927,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27456,7 +54975,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (document.querySelector(".marketTapeFamilyGrid")){
+
+
+
+
+
+
+
+
 
 
 
@@ -27472,7 +55007,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -27496,7 +55047,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function startObserver(){
+
+
+
+
+
+
+
+
 
 
 
@@ -27512,7 +55087,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       obs.observe(document.body, {childList:true, subtree:true});
+
+
+
+
+
+
+
+
 
 
 
@@ -27528,7 +55119,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     } else {
+
+
+
+
+
+
+
+
 
 
 
@@ -27544,7 +55151,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -27568,6 +55191,22 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   startObserver();
 
 
@@ -27576,7 +55215,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -27624,7 +55279,55 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phaseG_market_tape_metric_deck_v8
+
+
+
+
+
+
+
+
 
 
 
@@ -27640,7 +55343,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phaseG_market_tape_metric_deck_v8) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -27664,7 +55383,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const css = `
+
+
+
+
+
+
+
+
 
 
 
@@ -27680,7 +55423,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 /* Market Tape metric deck: SETA Score left, six metric cards in a stable 3x2 grid. */
+
+
+
+
+
+
+
+
 
 
 
@@ -27696,7 +55455,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTape .marketTapeFamilyGrid{
+
+
+
+
+
+
+
+
 
 
 
@@ -27712,7 +55487,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   grid-template-columns:124px repeat(3,74px)!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27728,7 +55519,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   grid-auto-flow:row!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27744,7 +55551,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   gap:7px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27760,7 +55583,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   justify-content:start!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27776,7 +55615,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   width:max-content!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27792,7 +55647,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   min-height:123px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27808,7 +55679,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27832,7 +55727,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTape .marketTapeFamily{
+
+
+
+
+
+
+
+
 
 
 
@@ -27848,7 +55759,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   width:74px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27864,7 +55791,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   height:58px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27880,7 +55823,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   border-radius:10px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27896,7 +55855,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   display:flex!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27912,7 +55887,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   justify-content:center!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27928,7 +55919,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -27952,7 +55967,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTape .marketTapeFamily:first-child{
+
+
+
+
+
+
+
+
 
 
 
@@ -27968,7 +55999,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   grid-row:1 / span 2!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -27984,7 +56031,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   min-width:124px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28000,7 +56063,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   min-height:123px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28016,7 +56095,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   justify-content:center!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28032,7 +56127,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   background:linear-gradient(180deg,rgba(250,204,21,.10),rgba(255,255,255,.035))!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28048,7 +56159,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28072,7 +56207,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .screenerPanel.marketTape .marketTapeFamily:nth-child(2),
+
+
+
+
+
+
+
+
 
 
 
@@ -28088,7 +56239,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .screenerPanel.marketTape .marketTapeFamily:nth-child(3),
+
+
+
+
+
+
+
+
 
 
 
@@ -28104,7 +56271,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .screenerPanel.marketTape .marketTapeFamily:nth-child(4),
+
+
+
+
+
+
+
+
 
 
 
@@ -28120,7 +56303,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .screenerPanel.marketTape .marketTapeFamily:nth-child(5),
+
+
+
+
+
+
+
+
 
 
 
@@ -28136,7 +56335,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .screenerPanel.marketTape .marketTapeFamily:nth-child(6),
+
+
+
+
+
+
+
+
 
 
 
@@ -28152,7 +56367,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .screenerPanel.marketTape .marketTapeFamily:nth-child(7),
+
+
+
+
+
+
+
+
 
 
 
@@ -28176,7 +56407,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .screenerPanel.marketTape .marketTapeFamilyName,
+
+
+
+
+
+
+
+
 
 
 
@@ -28192,7 +56447,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   font-size:10px!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28208,7 +56479,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   white-space:nowrap!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28224,7 +56511,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   text-overflow:ellipsis!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28240,7 +56543,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28264,7 +56591,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTape .marketTapeFamilyScore{
+
+
+
+
+
+
+
+
 
 
 
@@ -28280,7 +56623,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   line-height:1!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28296,7 +56655,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   font-weight:900!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28312,7 +56687,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   overflow:hidden!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28328,7 +56719,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28352,7 +56767,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTape .marketTapeFamilyLabel{
+
+
+
+
+
+
+
+
 
 
 
@@ -28368,7 +56799,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   line-height:1.08!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28384,7 +56831,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   overflow:hidden!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28400,7 +56863,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28424,7 +56911,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTape .marketTapeFamily:first-child .marketTapeFamilyScore{
+
+
+
+
+
+
+
+
 
 
 
@@ -28440,7 +56943,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   line-height:1!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28456,7 +56975,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28480,7 +57023,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTape .marketTapeFamily:first-child .marketTapeFamilyName{
+
+
+
+
+
+
+
+
 
 
 
@@ -28496,7 +57055,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28520,7 +57103,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTape .marketTapeFamily:first-child .marketTapeFamilyLabel{
+
+
+
+
+
+
+
+
 
 
 
@@ -28536,7 +57135,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   white-space:normal!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28552,7 +57167,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28576,7 +57215,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTape .marketTapeDetail{
+
+
+
+
+
+
+
+
 
 
 
@@ -28592,6 +57247,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   align-items:stretch!important;
 
 
@@ -28600,7 +57263,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28624,7 +57311,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   .screenerPanel.marketTape .marketTapeDetail,
+
+
+
+
+
+
+
+
 
 
 
@@ -28640,7 +57343,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     grid-template-columns:1fr!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28656,7 +57375,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -28680,7 +57423,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   .screenerPanel.marketTape .marketTapeFamilyGrid,
+
+
+
+
+
+
+
+
 
 
 
@@ -28696,7 +57455,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     grid-template-columns:repeat(2,minmax(0,1fr))!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28712,6 +57487,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     width:100%!important;
 
 
@@ -28720,7 +57503,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -28736,7 +57535,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   .marketTape .marketTapeFamily{
+
+
+
+
+
+
+
+
 
 
 
@@ -28752,7 +57567,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -28768,7 +57599,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   .marketTape .marketTapeFamily:first-child{
+
+
+
+
+
+
+
+
 
 
 
@@ -28784,7 +57631,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     grid-row:auto!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28800,7 +57663,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     height:auto!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28816,7 +57695,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -28832,7 +57727,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   .marketTape .marketTapeFamily:nth-child(n+2){
+
+
+
+
+
+
+
+
 
 
 
@@ -28848,7 +57759,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     grid-row:auto!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -28864,7 +57791,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 
 
@@ -28888,7 +57831,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function injectMetricDeckStyle(){
+
+
+
+
+
+
+
+
 
 
 
@@ -28904,7 +57871,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       "phaseG_market_tape_metric_deck_v6_style",
+
+
+
+
+
+
+
+
 
 
 
@@ -28920,7 +57903,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       "phaseG_market_tape_metric_deck_v8_style"
+
+
+
+
+
+
+
+
 
 
 
@@ -28936,7 +57935,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const old = document.getElementById(id);
+
+
+
+
+
+
+
+
 
 
 
@@ -28952,7 +57967,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
 
 
 
@@ -28968,7 +57999,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     style.id = "phaseG_market_tape_metric_deck_v8_style";
+
+
+
+
+
+
+
+
 
 
 
@@ -28984,6 +58031,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     document.head.appendChild(style);
 
 
@@ -28992,7 +58047,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29016,7 +58095,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const cards = Array.from(document.querySelectorAll(".marketTapeFamily"));
+
+
+
+
+
+
+
+
 
 
 
@@ -29032,7 +58127,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const nameEl = card.querySelector(".marketTapeFamilyName");
+
+
+
+
+
+
+
+
 
 
 
@@ -29048,7 +58159,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const labelEl = card.querySelector(".marketTapeFamilyLabel");
+
+
+
+
+
+
+
+
 
 
 
@@ -29072,7 +58199,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       if (name === "summary" && nameEl){
+
+
+
+
+
+
+
+
 
 
 
@@ -29088,7 +58239,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29112,7 +58287,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         const s = (scoreEl.textContent || "").trim().toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -29128,7 +58319,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
           scoreEl.textContent = "--";
+
+
+
+
+
+
+
+
 
 
 
@@ -29144,7 +58351,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -29160,6 +58383,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -29168,7 +58399,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29192,7 +58447,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     injectMetricDeckStyle();
+
+
+
+
+
+
+
+
 
 
 
@@ -29208,7 +58479,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29232,7 +58527,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (typeof oldRender === "function" && !oldRender.__metricDeckV8Wrapped){
+
+
+
+
+
+
+
+
 
 
 
@@ -29248,7 +58559,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const out = oldRender.apply(this, arguments);
+
+
+
+
+
+
+
+
 
 
 
@@ -29264,7 +58591,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       setTimeout(applyMarketTapeMetricDeckV8, 80);
+
+
+
+
+
+
+
+
 
 
 
@@ -29280,7 +58623,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       return out;
+
+
+
+
+
+
+
+
 
 
 
@@ -29296,7 +58655,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     wrapped.__metricDeckV8Wrapped = true;
+
+
+
+
+
+
+
+
 
 
 
@@ -29312,7 +58687,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29336,7 +58735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (document.querySelector(".marketTapeFamilyGrid")) applyMarketTapeMetricDeckV8();
+
+
+
+
+
+
+
+
 
 
 
@@ -29360,7 +58775,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function startObserver(){
+
+
+
+
+
+
+
+
 
 
 
@@ -29376,7 +58815,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       obs.observe(document.body, {childList:true, subtree:true});
+
+
+
+
+
+
+
+
 
 
 
@@ -29392,7 +58847,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     } else {
+
+
+
+
+
+
+
+
 
 
 
@@ -29408,7 +58879,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -29432,6 +58919,22 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   startObserver();
 
 
@@ -29440,7 +58943,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -29464,7 +58983,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phase_daily_seta_tooltip_layer_v1
+
+
+
+
+
+
+
+
 
 
 
@@ -29480,6 +59023,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phase_daily_seta_tooltip_layer_v1) return;
 
 
@@ -29488,7 +59039,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   window.__phase_daily_seta_tooltip_layer_v1 = true;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29520,7 +59095,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function toNumber(value){
+
+
+
+
+
+
+
+
 
 
 
@@ -29536,7 +59135,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const n = Number(value);
+
+
+
+
+
+
+
+
 
 
 
@@ -29552,7 +59167,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29576,7 +59215,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const n = toNumber(value);
+
+
+
+
+
+
+
+
 
 
 
@@ -29592,6 +59247,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return n.toFixed(digits);
 
 
@@ -29600,7 +59263,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29624,7 +59311,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const n = toNumber(value);
+
+
+
+
+
+
+
+
 
 
 
@@ -29640,6 +59343,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return Math.abs(n - Math.round(n)) < 0.05 ? String(Math.round(n)) : n.toFixed(1);
 
 
@@ -29648,7 +59359,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29672,7 +59407,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return String(value ?? '')
+
+
+
+
+
+
+
+
 
 
 
@@ -29688,7 +59439,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .replace(/</g, '&lt;')
+
+
+
+
+
+
+
+
 
 
 
@@ -29704,7 +59471,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .replace(/"/g, '&quot;')
+
+
+
+
+
+
+
+
 
 
 
@@ -29720,7 +59503,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29744,7 +59551,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (value === null || value === undefined) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -29760,7 +59583,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const m = value.match(/\d{4}-\d{2}-\d{2}/);
+
+
+
+
+
+
+
+
 
 
 
@@ -29776,7 +59615,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -29792,7 +59647,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!Number.isFinite(d.getTime())) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -29808,7 +59679,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29832,7 +59727,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     let store = null;
+
+
+
+
+
+
+
+
 
 
 
@@ -29848,7 +59759,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!store) return [];
+
+
+
+
+
+
+
+
 
 
 
@@ -29864,7 +59791,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const freq = document.getElementById('freq')?.value || 'D';
+
+
+
+
+
+
+
+
 
 
 
@@ -29880,6 +59823,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return store[freq][asset];
 
 
@@ -29888,7 +59839,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -29912,7 +59887,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const high = toNumber(row.high);
+
+
+
+
+
+
+
+
 
 
 
@@ -29928,7 +59919,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const close = toNumber(row.close);
+
+
+
+
+
+
+
+
 
 
 
@@ -29944,7 +59951,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const mid = (high !== null && low !== null) ? (high + low) / 2 : (close ?? open ?? null);
+
+
+
+
+
+
+
+
 
 
 
@@ -29960,7 +59983,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (high !== null) out.push(high);
+
+
+
+
+
+
+
+
 
 
 
@@ -29976,7 +60015,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (low !== null) out.push(low);
+
+
+
+
+
+
+
+
 
 
 
@@ -29992,6 +60047,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return out;
 
 
@@ -30000,7 +60063,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30024,7 +60111,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const score = fmtScore(row?.seta_dashboard_summary_score);
+
+
+
+
+
+
+
+
 
 
 
@@ -30040,7 +60143,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (score === null) return '';
+
+
+
+
+
+
+
+
 
 
 
@@ -30056,7 +60175,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30080,7 +60223,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const transition = String(row?.sent_ribbon_transition_type || '').trim();
+
+
+
+
+
+
+
+
 
 
 
@@ -30096,7 +60255,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (transition) return `Ribbon ${esc(transition)}`;
+
+
+
+
+
+
+
+
 
 
 
@@ -30112,6 +60287,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return '';
 
 
@@ -30120,7 +60303,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30144,7 +60351,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const s = toNumber(sent);
+
+
+
+
+
+
+
+
 
 
 
@@ -30160,7 +60383,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (s === null || p === null) return '';
+
+
+
+
+
+
+
+
 
 
 
@@ -30176,7 +60415,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const abs = Math.abs(gap);
+
+
+
+
+
+
+
+
 
 
 
@@ -30192,7 +60447,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (gap >= leadThreshold) state = 'Sent Lead';
+
+
+
+
+
+
+
+
 
 
 
@@ -30208,7 +60479,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     let sev = '';
+
+
+
+
+
+
+
+
 
 
 
@@ -30224,7 +60511,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     else if (abs >= materialThreshold) sev = ' · Material';
+
+
+
+
+
+
+
+
 
 
 
@@ -30240,7 +60543,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30264,7 +60591,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const lines = [];
+
+
+
+
+
+
+
+
 
 
 
@@ -30288,7 +60631,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const score = scoreLine(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -30304,6 +60671,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (score && attn !== null) lines.push(`${score} · Attn ${attn}`);
 
 
@@ -30312,7 +60687,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     else if (score) lines.push(score);
+
+
+
+
+
+
+
+
 
 
 
@@ -30336,7 +60727,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const ribbon = ribbonLine(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -30360,7 +60775,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const rsi = gapLabel('RSI', row.sentiment_rsi_d ?? row.sentiment_rsi, row.rsi_d ?? row.rsi, 8, 18, 30);
+
+
+
+
+
+
+
+
 
 
 
@@ -30384,7 +60823,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const stoch = gapLabel('Stoch', row.sentiment_stochastic_rsi_d, row.stochastic_rsi_d ?? row.stochastic_rsi, 12, 25, 45);
+
+
+
+
+
+
+
+
 
 
 
@@ -30408,6 +60871,22 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     return lines.filter(Boolean).join('<br>');
 
 
@@ -30416,7 +60895,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30440,7 +60943,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!trace || trace.yaxis && trace.yaxis !== 'y') return false;
+
+
+
+
+
+
+
+
 
 
 
@@ -30456,7 +60975,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const isBandName = /(band|envelope|overlap|contextual)/i.test(name);
+
+
+
+
+
+
+
+
 
 
 
@@ -30472,7 +61007,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (trace.fill === 'tonexty') return true;
+
+
+
+
+
+
+
+
 
 
 
@@ -30488,6 +61039,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return false;
 
 
@@ -30496,7 +61055,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30520,7 +61103,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!Array.isArray(data)) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -30536,7 +61135,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (!isVisualBandTrace(trace)) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -30552,7 +61167,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       trace.hovertemplate = null;
+
+
+
+
+
+
+
+
 
 
 
@@ -30568,6 +61199,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     });
 
 
@@ -30576,7 +61215,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30600,7 +61263,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const rows = activeRows();
+
+
+
+
+
+
+
+
 
 
 
@@ -30624,7 +61303,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const x = [];
+
+
+
+
+
+
+
+
 
 
 
@@ -30640,7 +61343,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const text = [];
+
+
+
+
+
+
+
+
 
 
 
@@ -30656,7 +61375,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const d = row?.date;
+
+
+
+
+
+
+
+
 
 
 
@@ -30672,7 +61407,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (!d || !hover) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -30688,7 +61439,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         x.push(d);
+
+
+
+
+
+
+
+
 
 
 
@@ -30704,6 +61471,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         text.push(hover);
 
 
@@ -30712,7 +61487,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       });
+
+
+
+
+
+
+
+
 
 
 
@@ -30736,7 +61527,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if (!x.length) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -30752,7 +61567,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       type:'scatter',
+
+
+
+
+
+
+
+
 
 
 
@@ -30768,7 +61599,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       x,
+
+
+
+
+
+
+
+
 
 
 
@@ -30784,7 +61631,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       text,
+
+
+
+
+
+
+
+
 
 
 
@@ -30800,7 +61663,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       xaxis:'x',
+
+
+
+
+
+
+
+
 
 
 
@@ -30816,7 +61695,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       showlegend:false,
+
+
+
+
+
+
+
+
 
 
 
@@ -30832,7 +61727,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       hovertemplate:'<b>%{x|%b %d, %Y}</b><br>%{text}<extra></extra>',
+
+
+
+
+
+
+
+
 
 
 
@@ -30848,7 +61759,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         size:24,
+
+
+
+
+
+
+
+
 
 
 
@@ -30864,7 +61791,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         line:{width:0,color:'rgba(255,255,255,0)'}
+
+
+
+
+
+
+
+
 
 
 
@@ -30880,7 +61823,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       opacity:0.01,
+
+
+
+
+
+
+
+
 
 
 
@@ -30896,7 +61855,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       __dailySetaTooltipLayer:true
+
+
+
+
+
+
+
+
 
 
 
@@ -30912,7 +61887,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -30936,7 +61935,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!Array.isArray(data)) return -1;
+
+
+
+
+
+
+
+
 
 
 
@@ -30952,7 +61967,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (idx >= 0) return idx;
+
+
+
+
+
+
+
+
 
 
 
@@ -30968,6 +61999,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (idx >= 0) return idx;
 
 
@@ -30976,7 +62015,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return data.findIndex(t => t && (t.yaxis || 'y') === 'y');
+
+
+
+
+
+
+
+
 
 
 
@@ -31000,7 +62055,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function installDailyHoverLayer(data, layout){
+
+
+
+
+
+
+
+
 
 
 
@@ -31016,7 +62095,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     for (let i=data.length-1; i>=0; i--){
+
+
+
+
+
+
+
+
 
 
 
@@ -31032,7 +62127,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -31064,7 +62183,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const trace = dailyHoverTrace();
+
+
+
+
+
+
+
+
 
 
 
@@ -31080,6 +62223,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const idx = priceTraceIndex(data);
 
 
@@ -31088,7 +62239,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (idx >= 0) data.splice(idx + 1, 0, trace);
+
+
+
+
+
+
+
+
 
 
 
@@ -31112,7 +62279,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if (layout && typeof layout === 'object'){
+
+
+
+
+
+
+
+
 
 
 
@@ -31128,7 +62319,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       layout.hoverdistance = Math.max(40, Number(layout.hoverdistance || 0));
+
+
+
+
+
+
+
+
 
 
 
@@ -31144,6 +62351,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -31152,7 +62367,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -31176,7 +62415,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!window.Plotly || typeof window.Plotly[methodName] !== 'function') return false;
+
+
+
+
+
+
+
+
 
 
 
@@ -31192,7 +62447,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (original.__dailySetaTooltipWrapped) return true;
+
+
+
+
+
+
+
+
 
 
 
@@ -31208,7 +62479,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       try { installDailyHoverLayer(data, layout); }
+
+
+
+
+
+
+
+
 
 
 
@@ -31224,7 +62511,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       return original.apply(this, arguments);
+
+
+
+
+
+
+
+
 
 
 
@@ -31240,7 +62543,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     wrapped.__dailySetaTooltipWrapped = true;
+
+
+
+
+
+
+
+
 
 
 
@@ -31256,6 +62575,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return true;
 
 
@@ -31264,7 +62591,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -31288,7 +62639,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const ok1 = wrapPlotlyMethod('newPlot');
+
+
+
+
+
+
+
+
 
 
 
@@ -31304,7 +62671,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!ok1 && !ok2) setTimeout(install, 50);
+
+
+
+
+
+
+
+
 
 
 
@@ -31328,6 +62711,22 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   install();
 
 
@@ -31336,7 +62735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -31360,7 +62775,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phase_seta_glossary_help_v1
+
+
+
+
+
+
+
+
 
 
 
@@ -31376,7 +62815,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phase_seta_glossary_help_v1) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -31400,7 +62855,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const definitions = [
+
+
+
+
+
+
+
+
 
 
 
@@ -31416,7 +62895,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"Sentiment Repair", aliases:["Sent Repair"], definition:"Sentiment momentum is improving before price momentum has fully confirmed."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31432,7 +62927,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"High-Quality Watch", aliases:["High Quality Watch"], definition:"A strong candidate setup is forming, but one or more confirmation gates are still incomplete."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31448,7 +62959,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"Ribbon Expansion", aliases:["Bullish Expansion","Bearish Expansion"], definition:"The sentiment ribbon is widening or strengthening, suggesting clearer participation structure."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31464,7 +62991,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"Attention Quiet", aliases:["Quiet Attention"], definition:"Engagement context is muted. The setup may need more validation from participation."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31480,7 +63023,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"Attention Elevated", aliases:["Elevated Attention"], definition:"Engagement context is stronger than usual and may help validate the setup."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31496,7 +63055,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"Inside Expected Range", aliases:["Inside Range"], definition:"Price remains inside the current shared expectation corridor."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31512,7 +63087,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"Bearish Pressure", aliases:[], definition:"Price/sentiment context is pressing toward bearish confirmation."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31528,7 +63119,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"Model Contextual Overlap", aliases:["Contextual Overlap"], definition:"Uses the contextual overlap model as the primary envelope."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31544,7 +63151,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"Stoch Sent Repair", aliases:["Stoch Sent Deterioration","Stoch gap"], definition:"Compares sentiment stochastic RSI against price stochastic timing to flag early repair or deterioration."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31560,7 +63183,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"Watch", aliases:["Watch candidate"], definition:"A candidate setup is visible, but one or more confirmation gates are still incomplete."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31576,7 +63215,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     {term:"High Conflict", aliases:["Conflict"], definition:"Signals disagree across families, so confidence is lower."},
+
+
+
+
+
+
+
+
 
 
 
@@ -31592,7 +63247,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   ];
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -31624,7 +63303,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const css = `
+
+
+
+
+
+
+
+
 
 
 
@@ -31640,7 +63343,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       cursor:help!important;
+
+
+
+
+
+
+
+
 
 
 
@@ -31656,6 +63375,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       text-underline-offset:3px;
 
 
@@ -31664,7 +63391,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -31680,7 +63423,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       display:inline-flex;
+
+
+
+
+
+
+
+
 
 
 
@@ -31696,7 +63455,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       gap:4px;
+
+
+
+
+
+
+
+
 
 
 
@@ -31712,7 +63487,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       padding:2px 8px;
+
+
+
+
+
+
+
+
 
 
 
@@ -31728,7 +63519,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       border-radius:999px;
+
+
+
+
+
+
+
+
 
 
 
@@ -31744,7 +63551,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       color:#c9fbd1;
+
+
+
+
+
+
+
+
 
 
 
@@ -31760,6 +63583,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       font-weight:700;
 
 
@@ -31768,7 +63599,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       line-height:1.35;
+
+
+
+
+
+
+
+
 
 
 
@@ -31784,6 +63631,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       vertical-align:middle;
 
 
@@ -31792,7 +63647,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -31808,7 +63679,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     .setaGlossaryPanel{
+
+
+
+
+
+
+
+
 
 
 
@@ -31824,7 +63711,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       margin:8px 0 10px;
+
+
+
+
+
+
+
+
 
 
 
@@ -31840,7 +63743,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       border:1px solid rgba(126,231,135,.22);
+
+
+
+
+
+
+
+
 
 
 
@@ -31856,7 +63775,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       background:rgba(7,10,13,.92);
+
+
+
+
+
+
+
+
 
 
 
@@ -31872,7 +63807,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       color:#dfeaf0;
+
+
+
+
+
+
+
+
 
 
 
@@ -31888,6 +63839,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       line-height:1.35;
 
 
@@ -31896,7 +63855,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -31912,7 +63887,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       display:grid;
+
+
+
+
+
+
+
+
 
 
 
@@ -31928,7 +63919,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       gap:8px 14px;
+
+
+
+
+
+
+
+
 
 
 
@@ -31944,6 +63951,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     .setaGlossaryItem b{color:#c9fbd1;}
 
 
@@ -31952,7 +63967,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     .setaGlossaryItem span{color:#aebcc4;}
+
+
+
+
+
+
+
+
 
 
 
@@ -31976,7 +64007,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function injectStyle(){
+
+
+
+
+
+
+
+
 
 
 
@@ -31992,7 +64047,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const style = document.createElement("style");
+
+
+
+
+
+
+
+
 
 
 
@@ -32008,7 +64079,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     style.textContent = css;
+
+
+
+
+
+
+
+
 
 
 
@@ -32024,7 +64111,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32056,7 +64167,39 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const sortedDefs = definitions.slice().sort((a,b) => b.term.length - a.term.length);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32080,7 +64223,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const t = norm(text);
+
+
+
+
+
+
+
+
 
 
 
@@ -32096,7 +64255,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const hits = [];
+
+
+
+
+
+
+
+
 
 
 
@@ -32112,7 +64287,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const tokens = [item.term].concat(item.aliases || []);
+
+
+
+
+
+
+
+
 
 
 
@@ -32128,7 +64319,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         hits.push(item);
+
+
+
+
+
+
+
+
 
 
 
@@ -32144,7 +64351,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (hits.length >= 3) break;
+
+
+
+
+
+
+
+
 
 
 
@@ -32160,6 +64383,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return hits;
 
 
@@ -32168,7 +64399,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32192,7 +64447,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!el || el.nodeType !== 1) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -32208,7 +64479,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const text = (el.textContent || "").replace(/\s+/g, " ").trim();
+
+
+
+
+
+
+
+
 
 
 
@@ -32224,7 +64511,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!hits.length) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -32240,7 +64543,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (el.getAttribute("title") !== tip) el.setAttribute("title", tip);
+
+
+
+
+
+
+
+
 
 
 
@@ -32256,7 +64575,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     el.classList.add("setaHelpTerm");
+
+
+
+
+
+
+
+
 
 
 
@@ -32272,7 +64607,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32296,7 +64655,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     injectStyle();
+
+
+
+
+
+
+
+
 
 
 
@@ -32312,7 +64687,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       ".badge",
+
+
+
+
+
+
+
+
 
 
 
@@ -32328,7 +64719,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       ".marketTapeCard",
+
+
+
+
+
+
+
+
 
 
 
@@ -32344,7 +64751,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       ".marketTapeDetailTitle",
+
+
+
+
+
+
+
+
 
 
 
@@ -32360,7 +64783,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       ".marketTapeMatched",
+
+
+
+
+
+
+
+
 
 
 
@@ -32376,7 +64815,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       ".marketTapeRisk",
+
+
+
+
+
+
+
+
 
 
 
@@ -32392,7 +64847,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       ".alertPanePill",
+
+
+
+
+
+
+
+
 
 
 
@@ -32408,7 +64879,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       ".alertEventSummary",
+
+
+
+
+
+
+
+
 
 
 
@@ -32424,7 +64911,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       "[class*='Pill']",
+
+
+
+
+
+
+
+
 
 
 
@@ -32440,7 +64943,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       "[class*='Tag']"
+
+
+
+
+
+
+
+
 
 
 
@@ -32456,6 +64975,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     document.querySelectorAll(selector).forEach(applyHelpToElement);
 
 
@@ -32464,7 +64991,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32488,7 +65039,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const priority = [
+
+
+
+
+
+
+
+
 
 
 
@@ -32504,7 +65071,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       "Sentiment Repair",
+
+
+
+
+
+
+
+
 
 
 
@@ -32520,7 +65103,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       "Fresh Confirmed Event",
+
+
+
+
+
+
+
+
 
 
 
@@ -32536,7 +65135,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       "Compression / Transition",
+
+
+
+
+
+
+
+
 
 
 
@@ -32552,7 +65167,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       "Overlap State",
+
+
+
+
+
+
+
+
 
 
 
@@ -32568,7 +65199,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     ];
+
+
+
+
+
+
+
+
 
 
 
@@ -32584,7 +65231,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32608,7 +65279,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return document.querySelector(".marketTape, .screenerPanel") ||
+
+
+
+
+
+
+
+
 
 
 
@@ -32624,7 +65311,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         const txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+
+
+
+
+
+
+
+
 
 
 
@@ -32640,6 +65343,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       });
 
 
@@ -32648,7 +65359,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32672,7 +65407,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!root) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -32688,7 +65439,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const txt = (el.textContent || "").replace(/\s+/g, " ").trim();
+
+
+
+
+
+
+
+
 
 
 
@@ -32704,6 +65471,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     });
 
 
@@ -32712,7 +65487,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32736,6 +65535,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     injectStyle();
 
 
@@ -32744,7 +65551,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const root = findMarketTapeContainer();
+
+
+
+
+
+
+
+
 
 
 
@@ -32768,7 +65591,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const panel = document.createElement("div");
+
+
+
+
+
+
+
+
 
 
 
@@ -32784,7 +65631,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     panel.setAttribute("role", "region");
+
+
+
+
+
+
+
+
 
 
 
@@ -32800,6 +65663,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     panel.innerHTML = glossaryItems().map(item =>
 
 
@@ -32808,7 +65679,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       `<div class="setaGlossaryItem"><b>${escapeHtml(item.term)}</b><br><span>${escapeHtml(item.definition)}</span></div>`
+
+
+
+
+
+
+
+
 
 
 
@@ -32832,7 +65719,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const btn = document.createElement("button");
+
+
+
+
+
+
+
+
 
 
 
@@ -32848,7 +65759,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     btn.className = "setaGlossaryBtn";
+
+
+
+
+
+
+
+
 
 
 
@@ -32864,7 +65791,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     btn.title = "Open a compact glossary for SETA dashboard terms.";
+
+
+
+
+
+
+
+
 
 
 
@@ -32880,7 +65823,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       ev.preventDefault();
+
+
+
+
+
+
+
+
 
 
 
@@ -32896,6 +65855,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       panel.classList.toggle("open");
 
 
@@ -32904,7 +65871,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -32928,7 +65919,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (title){
+
+
+
+
+
+
+
+
 
 
 
@@ -32944,7 +65951,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (title.parentNode) title.parentNode.insertBefore(panel, title.nextSibling);
+
+
+
+
+
+
+
+
 
 
 
@@ -32960,7 +65983,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     } else {
+
+
+
+
+
+
+
+
 
 
 
@@ -32976,6 +66015,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       root.insertBefore(btn, panel);
 
 
@@ -32984,7 +66031,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33008,7 +66079,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33032,7 +66127,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return String(value ?? "")
+
+
+
+
+
+
+
+
 
 
 
@@ -33048,7 +66159,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .replace(/</g, "&lt;")
+
+
+
+
+
+
+
+
 
 
 
@@ -33064,7 +66191,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .replace(/"/g, "&quot;")
+
+
+
+
+
+
+
+
 
 
 
@@ -33080,7 +66223,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33104,7 +66271,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     applyHelpTerms();
+
+
+
+
+
+
+
+
 
 
 
@@ -33120,7 +66303,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33144,7 +66351,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   function scheduleRun(){
+
+
+
+
+
+
+
+
 
 
 
@@ -33160,7 +66383,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     pending = true;
+
+
+
+
+
+
+
+
 
 
 
@@ -33176,7 +66415,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       pending = false;
+
+
+
+
+
+
+
+
 
 
 
@@ -33192,6 +66447,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }, 80);
 
 
@@ -33200,7 +66463,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33224,7 +66511,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     document.addEventListener("DOMContentLoaded", run);
+
+
+
+
+
+
+
+
 
 
 
@@ -33240,6 +66543,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     run();
 
 
@@ -33248,7 +66559,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33272,7 +66607,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   function startObserver(){
+
+
+
+
+
+
+
+
 
 
 
@@ -33288,7 +66639,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     observer.observe(document.body, {childList:true, subtree:true});
+
+
+
+
+
+
+
+
 
 
 
@@ -33304,7 +66671,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     window.setTimeout(run, 250);
+
+
+
+
+
+
+
+
 
 
 
@@ -33320,7 +66703,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -33336,7 +66735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -33360,7 +66775,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phase_market_tape_explanation_layout_v21
+
+
+
+
+
+
+
+
 
 
 
@@ -33376,7 +66815,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phase_market_tape_explanation_layout_v21) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -33400,7 +66855,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function cleanText(value){
+
+
+
+
+
+
+
+
 
 
 
@@ -33416,7 +66895,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33440,7 +66943,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (typeof escapeHTML === 'function') return escapeHTML(value);
+
+
+
+
+
+
+
+
 
 
 
@@ -33456,7 +66975,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33480,7 +67023,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     for (const key of keys){
+
+
+
+
+
+
+
+
 
 
 
@@ -33496,7 +67055,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const text = cleanText(value);
+
+
+
+
+
+
+
+
 
 
 
@@ -33512,7 +67087,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -33528,7 +67119,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33552,7 +67167,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const n = Number(value);
+
+
+
+
+
+
+
+
 
 
 
@@ -33568,6 +67199,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return n.toFixed(decimals);
 
 
@@ -33576,7 +67215,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33600,7 +67263,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const raw = firstText(row, ['archetype_direction','signal_consensus_direction_label','latest_event_direction','latest_confirmed_event_direction']);
+
+
+
+
+
+
+
+
 
 
 
@@ -33616,7 +67295,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (low.includes('bull') && !low.includes('bear')) return 'bullish';
+
+
+
+
+
+
+
+
 
 
 
@@ -33632,6 +67327,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return 'mixed';
 
 
@@ -33640,7 +67343,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33664,7 +67391,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const active = document.querySelector('.marketTapeCard.active .marketTapeTerm');
+
+
+
+
+
+
+
+
 
 
 
@@ -33680,7 +67423,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const t = cleanText(active.textContent).split(/\s+/).pop();
+
+
+
+
+
+
+
+
 
 
 
@@ -33696,7 +67455,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -33712,7 +67487,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (select && select.value) return String(select.value).trim().toUpperCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -33728,7 +67519,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const m = cleanText(title?.textContent).match(/Active\s+([A-Z0-9.\-]+)/i);
+
+
+
+
+
+
+
+
 
 
 
@@ -33744,7 +67551,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33768,7 +67599,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const store = window.SCREENER_STORE;
+
+
+
+
+
+
+
+
 
 
 
@@ -33784,7 +67631,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (store.by_term && store.by_term[term]) return store.by_term[term];
+
+
+
+
+
+
+
+
 
 
 
@@ -33800,6 +67663,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return row ? {screener: row, archetype: null, indicator_families: [], indicators: []} : null;
 
 
@@ -33808,7 +67679,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33832,7 +67727,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const out = {};
+
+
+
+
+
+
+
+
 
 
 
@@ -33848,7 +67759,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     fams.forEach(f => {
+
+
+
+
+
+
+
+
 
 
 
@@ -33864,7 +67791,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (name) out[name] = f;
+
+
+
+
+
+
+
+
 
 
 
@@ -33880,6 +67823,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return out;
 
 
@@ -33888,7 +67839,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33912,7 +67887,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     for (const [name, fam] of Object.entries(map)){
+
+
+
+
+
+
+
+
 
 
 
@@ -33928,7 +67919,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -33944,7 +67951,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -33968,7 +67999,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const rows = Array.isArray(pack?.indicators) ? pack.indicators : [];
+
+
+
+
+
+
+
+
 
 
 
@@ -33984,7 +68031,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const hay = `${cleanText(r.indicator_name)} ${cleanText(r.indicator_family)} ${cleanText(r.direction_label)} ${cleanText(r.strength_label)} ${cleanText(r.interpretation)}`.toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -34000,6 +68063,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }) || null;
 
 
@@ -34008,7 +68079,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34032,7 +68127,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!fam) return '';
+
+
+
+
+
+
+
+
 
 
 
@@ -34048,7 +68159,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const score = numberText(fam.score_0_100, 0);
+
+
+
+
+
+
+
+
 
 
 
@@ -34064,7 +68191,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34088,7 +68239,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const arch = firstText(row, ['primary_archetype','secondary_archetype','screener_action_bucket']);
+
+
+
+
+
+
+
+
 
 
 
@@ -34104,7 +68271,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const low = `${arch} ${firstText(row, ['screener_reason_summary','archetype_summary'])}`.toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -34120,7 +68303,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (low.includes('deterioration') || low.includes('negative divergence')) return `${term} shows sentiment deterioration leading price risk.`;
+
+
+
+
+
+
+
+
 
 
 
@@ -34136,7 +68335,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (low.includes('fresh') && direction === 'bearish') return `${term} shows fresh bearish pressure with follow-through still being tested.`;
+
+
+
+
+
+
+
+
 
 
 
@@ -34152,7 +68367,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (low.includes('high-attention conflict') || low.includes('conflict')) return `${term} has active participation, but the signal deck remains conflicted.`;
+
+
+
+
+
+
+
+
 
 
 
@@ -34168,7 +68399,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (direction === 'bearish') return `${term} shows bearish pressure with confirmation context still developing.`;
+
+
+
+
+
+
+
+
 
 
 
@@ -34184,7 +68431,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34208,7 +68479,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const fam = familyByIncludes(map, ['macd']);
+
+
+
+
+
+
+
+
 
 
 
@@ -34224,7 +68511,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const reason = firstText(row, ['reason_macd_improving']);
+
+
+
+
+
+
+
+
 
 
 
@@ -34240,7 +68543,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (reason && reason !== '0') return 'Improving';
+
+
+
+
+
+
+
+
 
 
 
@@ -34256,7 +68575,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34280,7 +68623,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const rsiFam = familyByIncludes(map, ['rsi']);
+
+
+
+
+
+
+
+
 
 
 
@@ -34296,6 +68655,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return firstText(row, ['rsi_family_label']) || labelFromFamily(rsiFam) || firstText(rsiRel, ['direction_label','strength_label']);
 
 
@@ -34304,7 +68671,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34328,7 +68719,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const stoch = indicatorByIncludes(pack, ['stoch']) || null;
+
+
+
+
+
+
+
+
 
 
 
@@ -34344,7 +68751,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34368,7 +68799,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const fam = familyByIncludes(map, ['sentiment ribbon','ribbon']);
+
+
+
+
+
+
+
+
 
 
 
@@ -34384,7 +68831,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34408,7 +68879,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const fam = familyByIncludes(map, ['attention']);
+
+
+
+
+
+
+
+
 
 
 
@@ -34424,7 +68911,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const label = firstText(fam, ['direction_label','strength_label']);
+
+
+
+
+
+
+
+
 
 
 
@@ -34440,7 +68943,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (score) return score;
+
+
+
+
+
+
+
+
 
 
 
@@ -34456,7 +68975,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34480,7 +69023,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const matchedBase = firstText(row, ['matched_conditions']);
+
+
+
+
+
+
+
+
 
 
 
@@ -34496,7 +69055,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (low.includes('sentiment repair')) return 'Sentiment repair is active while price confirmation is still developing.';
+
+
+
+
+
+
+
+
 
 
 
@@ -34512,7 +69087,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (low.includes('fresh') && direction === 'bullish') return 'Fresh bullish pressure is active; follow-through remains the confirmation test.';
+
+
+
+
+
+
+
+
 
 
 
@@ -34528,7 +69119,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (low.includes('watch cluster')) return 'Clustered watch activity is active before full confirmation.';
+
+
+
+
+
+
+
+
 
 
 
@@ -34544,6 +69151,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return matchedBase || 'The setup has enough supporting context to remain on the active tape.';
 
 
@@ -34552,7 +69167,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34576,7 +69215,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const row = pack?.screener || pack?.archetype || {};
+
+
+
+
+
+
+
+
 
 
 
@@ -34592,7 +69247,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const direction = directionOf(row);
+
+
+
+
+
+
+
+
 
 
 
@@ -34608,7 +69279,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const macd = macdContext(row, pack, map);
+
+
+
+
+
+
+
+
 
 
 
@@ -34624,7 +69311,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const stoch = stochContext(row, pack);
+
+
+
+
+
+
+
+
 
 
 
@@ -34640,7 +69343,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const attention = attentionContext(row, pack, map);
+
+
+
+
+
+
+
+
 
 
 
@@ -34656,7 +69375,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (rsi) context.push(['RSI', rsi]);
+
+
+
+
+
+
+
+
 
 
 
@@ -34672,7 +69407,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (ribbon) context.push(['Ribbon', ribbon]);
+
+
+
+
+
+
+
+
 
 
 
@@ -34696,7 +69447,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     let missing = firstText(row, ['missing_confirmations']);
+
+
+
+
+
+
+
+
 
 
 
@@ -34712,7 +69487,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (direction === 'bullish') missing = 'price confirmation and follow-through still need to validate the sentiment setup.';
+
+
+
+
+
+
+
+
 
 
 
@@ -34728,6 +69519,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       else missing = 'directional confirmation is still mixed, so watch for cleaner alignment.';
 
 
@@ -34736,7 +69535,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34760,7 +69583,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!risk){
+
+
+
+
+
+
+
+
 
 
 
@@ -34776,7 +69615,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       else if (direction === 'bearish') risk = 'Early deterioration can fade unless price timing confirms.';
+
+
+
+
+
+
+
+
 
 
 
@@ -34792,7 +69647,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34816,7 +69695,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       summary: setupRead(term, row),
+
+
+
+
+
+
+
+
 
 
 
@@ -34832,7 +69727,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       context,
+
+
+
+
+
+
+
+
 
 
 
@@ -34848,7 +69759,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       risk
+
+
+
+
+
+
+
+
 
 
 
@@ -34864,7 +69791,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34888,7 +69839,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const detail = document.querySelector('.screenerPanel.marketTape .marketTapeDetail');
+
+
+
+
+
+
+
+
 
 
 
@@ -34904,7 +69871,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34928,7 +69919,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const target = String(label || '').toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -34944,7 +69951,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -34968,7 +69999,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!text) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -34984,7 +70031,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!line){
+
+
+
+
+
+
+
+
 
 
 
@@ -35000,7 +70063,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const risk = findLine(body, 'Risk');
+
+
+
+
+
+
+
+
 
 
 
@@ -35016,7 +70095,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       else body.insertBefore(line, risk);
+
+
+
+
+
+
+
+
 
 
 
@@ -35032,7 +70127,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     line.className = className;
+
+
+
+
+
+
+
+
 
 
 
@@ -35048,7 +70159,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -35072,7 +70207,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     Array.from(body.querySelectorAll('.marketTapeContextV21')).forEach(el => el.remove());
+
+
+
+
+
+
+
+
 
 
 
@@ -35088,7 +70239,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const block = document.createElement('div');
+
+
+
+
+
+
+
+
 
 
 
@@ -35104,7 +70271,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const chips = items.map(([label, value]) => `<span><b>${safeHTML(label)}</b> ${safeHTML(value)}</span>`).join('');
+
+
+
+
+
+
+
+
 
 
 
@@ -35120,7 +70303,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const missing = findLine(body, 'Missing');
+
+
+
+
+
+
+
+
 
 
 
@@ -35136,6 +70335,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     else body.appendChild(block);
 
 
@@ -35144,7 +70351,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -35168,7 +70399,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const panel = document.querySelector('.screenerPanel.marketTape');
+
+
+
+
+
+
+
+
 
 
 
@@ -35184,7 +70431,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const term = selectedTerm();
+
+
+
+
+
+
+
+
 
 
 
@@ -35200,6 +70463,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!pack) return;
 
 
@@ -35208,7 +70479,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const body = getDetailBody();
+
+
+
+
+
+
+
+
 
 
 
@@ -35232,7 +70519,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const narrative = marketTapeNarrative(term, pack);
+
+
+
+
+
+
+
+
 
 
 
@@ -35248,7 +70559,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (summaryEl && narrative.summary) summaryEl.textContent = narrative.summary;
+
+
+
+
+
+
+
+
 
 
 
@@ -35264,7 +70591,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     setContextBlock(body, narrative.context);
+
+
+
+
+
+
+
+
 
 
 
@@ -35280,7 +70623,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     setLine(body, 'Risk', 'marketTapeRisk', narrative.risk);
+
+
+
+
+
+
+
+
 
 
 
@@ -35296,7 +70655,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -35320,7 +70703,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (document.getElementById('phase_market_tape_explanation_layout_v21_style')) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -35336,7 +70735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     style.id = 'phase_market_tape_explanation_layout_v21_style';
+
+
+
+
+
+
+
+
 
 
 
@@ -35352,7 +70767,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 /* phase_market_tape_explanation_layout_v21 */
+
+
+
+
+
+
+
+
 
 
 
@@ -35368,7 +70799,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeContextV21{margin-top:4px;color:#bcd0dc!important;line-height:1.35;}
+
+
+
+
+
+
+
+
 
 
 
@@ -35384,7 +70831,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeContextGridV21{display:flex;flex-wrap:wrap;gap:3px 10px;margin-top:2px;}
+
+
+
+
+
+
+
+
 
 
 
@@ -35400,7 +70863,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 .marketTapeContextGridV21 span b{color:#e7eef3;}
+
+
+
+
+
+
+
+
 
 
 
@@ -35416,7 +70895,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 `;
+
+
+
+
+
+
+
+
 
 
 
@@ -35432,7 +70927,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -35464,7 +70983,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const oldRender = window.renderScreenerPanel;
+
+
+
+
+
+
+
+
 
 
 
@@ -35480,7 +71023,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const wrapped = function(){
+
+
+
+
+
+
+
+
 
 
 
@@ -35496,7 +71055,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       setTimeout(applyExplanationLayoutV21, 0);
+
+
+
+
+
+
+
+
 
 
 
@@ -35512,7 +71087,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       setTimeout(applyExplanationLayoutV21, 220);
+
+
+
+
+
+
+
+
 
 
 
@@ -35528,7 +71119,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     };
+
+
+
+
+
+
+
+
 
 
 
@@ -35544,6 +71151,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     window.renderScreenerPanel = wrapped;
 
 
@@ -35552,7 +71167,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -35576,7 +71215,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (ev.target && ev.target.closest && ev.target.closest('.marketTapeCard,.marketTapeTab')){
+
+
+
+
+
+
+
+
 
 
 
@@ -35592,6 +71247,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       setTimeout(applyExplanationLayoutV21, 180);
 
 
@@ -35600,7 +71263,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -35624,6 +71303,22 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const obs = new MutationObserver(() => {
 
 
@@ -35632,7 +71327,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (document.querySelector('.screenerPanel.marketTape .marketTapeDetail')) setTimeout(applyExplanationLayoutV21, 0);
+
+
+
+
+
+
+
+
 
 
 
@@ -35656,7 +71367,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function start(){
+
+
+
+
+
+
+
+
 
 
 
@@ -35672,7 +71407,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     obs.observe(document.body, {childList:true, subtree:true});
+
+
+
+
+
+
+
+
 
 
 
@@ -35688,7 +71439,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
 
 
 
@@ -35704,7 +71471,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -35728,7 +71511,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phase_market_tape_card_layout_polish_v1
+
+
+
+
+
+
+
+
 
 
 
@@ -35744,7 +71551,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phase_market_tape_card_layout_polish_v1) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -35768,7 +71591,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function injectMarketTapeCardLayoutPolish(){
+
+
+
+
+
+
+
+
 
 
 
@@ -35784,7 +71631,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const style = document.createElement("style");
+
+
+
+
+
+
+
+
 
 
 
@@ -35800,7 +71663,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     style.textContent = `
+
+
+
+
+
+
+
+
 
 
 
@@ -35816,7 +71695,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards{
+
+
+
+
+
+
+
+
 
 
 
@@ -35832,6 +71727,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         gap:10px;
 
 
@@ -35840,7 +71743,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -35856,7 +71775,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         min-width:0;
+
+
+
+
+
+
+
+
 
 
 
@@ -35872,7 +71807,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -35888,7 +71839,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards [class*="marketTapeCard"]{
+
+
+
+
+
+
+
+
 
 
 
@@ -35904,6 +71871,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         overflow:hidden;
 
 
@@ -35912,7 +71887,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -35928,7 +71919,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards .marketTapeCardHeader,
+
+
+
+
+
+
+
+
 
 
 
@@ -35944,7 +71951,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards [class*="Top"],
+
+
+
+
+
+
+
+
 
 
 
@@ -35960,6 +71983,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         min-width:0;
 
 
@@ -35968,7 +71999,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -35984,7 +72031,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards .marketTapeScore,
+
+
+
+
+
+
+
+
 
 
 
@@ -36000,7 +72063,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards [class*="Score"]{
+
+
+
+
+
+
+
+
 
 
 
@@ -36016,7 +72095,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         margin-left:auto;
+
+
+
+
+
+
+
+
 
 
 
@@ -36032,7 +72127,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         min-width:38px;
+
+
+
+
+
+
+
+
 
 
 
@@ -36048,7 +72159,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -36064,7 +72191,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards .marketTapeTag,
+
+
+
+
+
+
+
+
 
 
 
@@ -36080,7 +72223,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards .pill,
+
+
+
+
+
+
+
+
 
 
 
@@ -36096,7 +72255,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards [class*="Pill"],
+
+
+
+
+
+
+
+
 
 
 
@@ -36112,7 +72287,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards [class*="Badge"]{
+
+
+
+
+
+
+
+
 
 
 
@@ -36128,7 +72319,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         align-items:center;
+
+
+
+
+
+
+
+
 
 
 
@@ -36144,7 +72351,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         min-height:16px;
+
+
+
+
+
+
+
+
 
 
 
@@ -36160,6 +72383,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         white-space:nowrap;
 
 
@@ -36168,7 +72399,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         overflow:hidden;
+
+
+
+
+
+
+
+
 
 
 
@@ -36184,7 +72431,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         vertical-align:middle;
+
+
+
+
+
+
+
+
 
 
 
@@ -36200,7 +72463,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -36216,7 +72495,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards .marketTapeTags,
+
+
+
+
+
+
+
+
 
 
 
@@ -36232,7 +72527,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards .marketTapeCardMeta,
+
+
+
+
+
+
+
+
 
 
 
@@ -36248,7 +72559,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards [class*="Tags"],
+
+
+
+
+
+
+
+
 
 
 
@@ -36264,7 +72591,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         display:flex;
+
+
+
+
+
+
+
+
 
 
 
@@ -36280,7 +72623,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         align-items:center;
+
+
+
+
+
+
+
+
 
 
 
@@ -36296,7 +72655,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         min-height:18px;
+
+
+
+
+
+
+
+
 
 
 
@@ -36312,6 +72687,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         overflow:hidden;
 
 
@@ -36320,7 +72703,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -36336,7 +72735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards [class*="Title"]{
+
+
+
+
+
+
+
+
 
 
 
@@ -36352,7 +72767,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         overflow:hidden;
+
+
+
+
+
+
+
+
 
 
 
@@ -36368,7 +72799,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         -webkit-line-clamp:2;
+
+
+
+
+
+
+
+
 
 
 
@@ -36384,7 +72831,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -36400,7 +72863,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards .marketTapeCardReason,
+
+
+
+
+
+
+
+
 
 
 
@@ -36416,7 +72895,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCards [class*="Reason"],
+
+
+
+
+
+
+
+
 
 
 
@@ -36432,7 +72927,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         min-width:0;
+
+
+
+
+
+
+
+
 
 
 
@@ -36448,7 +72959,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         display:-webkit-box;
+
+
+
+
+
+
+
+
 
 
 
@@ -36464,6 +72991,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         -webkit-box-orient:vertical;
 
 
@@ -36472,7 +73007,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -36488,7 +73039,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         .marketTapeCards .marketTapePill,
+
+
+
+
+
+
+
+
 
 
 
@@ -36504,7 +73071,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         .marketTapeCards .marketTapeBadge,
+
+
+
+
+
+
+
+
 
 
 
@@ -36520,7 +73103,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         .marketTapeCards .badge,
+
+
+
+
+
+
+
+
 
 
 
@@ -36536,7 +73135,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         .marketTapeCards [class*="Tag"],
+
+
+
+
+
+
+
+
 
 
 
@@ -36552,7 +73167,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
           max-width:108px;
+
+
+
+
+
+
+
+
 
 
 
@@ -36568,7 +73199,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -36584,6 +73231,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     document.head.appendChild(style);
 
 
@@ -36592,7 +73247,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -36616,7 +73295,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     document.addEventListener("DOMContentLoaded", injectMarketTapeCardLayoutPolish, {once:true});
+
+
+
+
+
+
+
+
 
 
 
@@ -36632,7 +73327,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     injectMarketTapeCardLayoutPolish();
+
+
+
+
+
+
+
+
 
 
 
@@ -36648,7 +73359,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -36672,7 +73399,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phase_market_tape_card_soft_alignment_v1
+
+
+
+
+
+
+
+
 
 
 
@@ -36688,7 +73439,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phase_market_tape_card_soft_alignment_v1) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -36712,7 +73479,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function installSoftCardAlignment(){
+
+
+
+
+
+
+
+
 
 
 
@@ -36728,7 +73519,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const style = document.createElement("style");
+
+
+
+
+
+
+
+
 
 
 
@@ -36744,7 +73551,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     style.textContent = `
+
+
+
+
+
+
+
+
 
 
 
@@ -36760,7 +73583,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
          Goal: preserve readability while making cards share the same visual rhythm.
+
+
+
+
+
+
+
+
 
 
 
@@ -36784,7 +73623,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       .marketTapeCards{
+
+
+
+
+
+
+
+
 
 
 
@@ -36800,7 +73663,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -36824,7 +73711,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         position:relative !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -36840,7 +73743,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         flex-direction:column !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -36856,7 +73775,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         gap:5px !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -36872,7 +73807,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         height:auto !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -36888,6 +73839,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         overflow:hidden !important;
 
 
@@ -36896,7 +73855,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -36920,7 +73903,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeDetail *{
+
+
+
+
+
+
+
+
 
 
 
@@ -36936,7 +73935,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -36960,7 +73983,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCardTop,
+
+
+
+
+
+
+
+
 
 
 
@@ -36976,7 +74015,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeRankRow,
+
+
+
+
+
+
+
+
 
 
 
@@ -36992,7 +74047,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         display:flex !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37008,7 +74079,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         justify-content:space-between !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37024,7 +74111,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         min-height:20px !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37040,7 +74143,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37064,7 +74191,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeScore,
+
+
+
+
+
+
+
+
 
 
 
@@ -37080,7 +74223,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCard .score,
+
+
+
+
+
+
+
+
 
 
 
@@ -37096,7 +74255,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         margin-left:auto !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37112,7 +74287,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         text-align:right !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37128,7 +74319,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37152,7 +74367,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCardPills,
+
+
+
+
+
+
+
+
 
 
 
@@ -37168,7 +74399,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCardMeta,
+
+
+
+
+
+
+
+
 
 
 
@@ -37184,7 +74431,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCard .pillRow,
+
+
+
+
+
+
+
+
 
 
 
@@ -37200,7 +74463,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         display:flex !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37216,7 +74495,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         align-content:flex-start !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37232,7 +74527,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         gap:3px 4px !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37248,7 +74559,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         max-height:36px !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37264,7 +74591,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37288,7 +74639,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCard .alertEventPill,
+
+
+
+
+
+
+
+
 
 
 
@@ -37304,7 +74671,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCard [class*="Pill"],
+
+
+
+
+
+
+
+
 
 
 
@@ -37320,7 +74703,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         max-width:132px !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37336,7 +74735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         overflow:hidden !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37352,6 +74767,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         flex:0 1 auto !important;
 
 
@@ -37360,7 +74783,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37384,7 +74831,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCardTitle,
+
+
+
+
+
+
+
+
 
 
 
@@ -37400,7 +74863,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCardName,
+
+
+
+
+
+
+
+
 
 
 
@@ -37416,7 +74895,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         margin-top:1px !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37432,7 +74927,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         max-height:2.55em !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37448,7 +74959,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37472,7 +75007,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeReason,
+
+
+
+
+
+
+
+
 
 
 
@@ -37488,7 +75039,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCardText,
+
+
+
+
+
+
+
+
 
 
 
@@ -37504,7 +75071,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeCard .summary{
+
+
+
+
+
+
+
+
 
 
 
@@ -37520,7 +75103,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         max-height:2.65em !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37536,7 +75135,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37560,7 +75183,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeDetail,
+
+
+
+
+
+
+
+
 
 
 
@@ -37576,6 +75215,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         max-height:none !important;
 
 
@@ -37584,7 +75231,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37608,7 +75279,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         .marketTapeCard{
+
+
+
+
+
+
+
+
 
 
 
@@ -37624,7 +75311,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
 
 
 
@@ -37640,7 +75343,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         .marketTapeCard .alertEventPill,
+
+
+
+
+
+
+
+
 
 
 
@@ -37656,7 +75375,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         .marketTapeCard [class*="Pill"],
+
+
+
+
+
+
+
+
 
 
 
@@ -37672,7 +75407,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
           max-width:118px !important;
+
+
+
+
+
+
+
+
 
 
 
@@ -37688,7 +75439,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -37704,6 +75471,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     document.head.appendChild(style);
 
 
@@ -37712,7 +75487,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37736,7 +75535,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     document.addEventListener("DOMContentLoaded", installSoftCardAlignment, { once:true });
+
+
+
+
+
+
+
+
 
 
 
@@ -37752,7 +75567,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     installSoftCardAlignment();
+
+
+
+
+
+
+
+
 
 
 
@@ -37768,6 +75599,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
 
 
@@ -37776,7 +75615,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 // END phase_market_tape_card_soft_alignment_v1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37808,7 +75671,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phase_market_tape_detail_final_cleanup_v1
+
+
+
+
+
+
+
+
 
 
 
@@ -37824,7 +75711,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phase_market_tape_detail_final_cleanup_v1) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -37848,7 +75751,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function detailBlocks(){
+
+
+
+
+
+
+
+
 
 
 
@@ -37864,7 +75791,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37888,6 +75839,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return String(el && el.textContent || '').replace(/\s+/g,' ').trim();
 
 
@@ -37896,7 +75855,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37920,6 +75903,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return rowText(el).toLowerCase().startsWith(label.toLowerCase());
 
 
@@ -37928,7 +75919,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -37952,7 +75967,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!el) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -37968,7 +75999,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const rx = new RegExp('^\\s*(<b>)?'+oldLabel.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(</b>)?\\s*', 'i');
+
+
+
+
+
+
+
+
 
 
 
@@ -37984,7 +76031,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       el.innerHTML = html.replace(rx, '<b>'+newLabel+'</b> ');
+
+
+
+
+
+
+
+
 
 
 
@@ -38000,7 +76063,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
 
 
 
@@ -38016,7 +76095,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (txt.toLowerCase().startsWith(oldLabel.toLowerCase())) {
+
+
+
+
+
+
+
+
 
 
 
@@ -38032,7 +76127,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       el.innerHTML = '<b>'+newLabel+'</b> ' + rest;
+
+
+
+
+
+
+
+
 
 
 
@@ -38048,7 +76159,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38072,7 +76207,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const evidenceRows = Array.from(detail.querySelectorAll('div')).filter(el =>
+
+
+
+
+
+
+
+
 
 
 
@@ -38088,7 +76239,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     );
+
+
+
+
+
+
+
+
 
 
 
@@ -38104,6 +76271,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     Array.from(detail.querySelectorAll('.marketTapeDetailText')).forEach(el => el.remove());
 
 
@@ -38112,7 +76287,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38136,7 +76335,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!detail || detail.dataset.setaFinalCleanupActive === '1') return;
+
+
+
+
+
+
+
+
 
 
 
@@ -38152,7 +76367,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     try{
+
+
+
+
+
+
+
+
 
 
 
@@ -38176,6 +76407,22 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       let rows = Array.from(detail.querySelectorAll('div'));
 
 
@@ -38184,7 +76431,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const legacyMatched = rows.find(el => startsWithLabel(el, 'Matched:'));
+
+
+
+
+
+
+
+
 
 
 
@@ -38208,7 +76471,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       // Prefer the richer legacy v2.1 rows when present. Remove earlier direct-label rows
+
+
+
+
+
+
+
+
 
 
 
@@ -38224,6 +76511,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (legacyMatched) {
 
 
@@ -38232,7 +76527,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         Array.from(detail.querySelectorAll('div')).forEach(el => {
+
+
+
+
+
+
+
+
 
 
 
@@ -38248,7 +76559,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
 
 
 
@@ -38264,7 +76591,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -38280,7 +76623,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         Array.from(detail.querySelectorAll('div')).forEach(el => {
+
+
+
+
+
+
+
+
 
 
 
@@ -38296,7 +76655,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         });
+
+
+
+
+
+
+
+
 
 
 
@@ -38312,7 +76687,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38336,7 +76735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const seen = new Set();
+
+
+
+
+
+
+
+
 
 
 
@@ -38352,7 +76767,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         const txt = rowText(el);
+
+
+
+
+
+
+
+
 
 
 
@@ -38368,7 +76799,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         const isManaged = /^(Setup evidence:|Watch item:|Risk:)/i.test(txt);
+
+
+
+
+
+
+
+
 
 
 
@@ -38384,7 +76831,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         const key = txt.toLowerCase();
+
+
+
+
+
+
+
+
 
 
 
@@ -38400,6 +76863,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         else seen.add(key);
 
 
@@ -38408,7 +76879,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38432,7 +76927,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       rows = Array.from(detail.querySelectorAll('div'));
+
+
+
+
+
+
+
+
 
 
 
@@ -38448,7 +76959,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         const txt = rowText(el);
+
+
+
+
+
+
+
+
 
 
 
@@ -38464,7 +76991,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         const next = rows[idx+1];
+
+
+
+
+
+
+
+
 
 
 
@@ -38480,7 +77023,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         const nextTxt = rowText(next);
+
+
+
+
+
+
+
+
 
 
 
@@ -38496,7 +77055,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         el.classList.add('marketTapeContextLineInline');
+
+
+
+
+
+
+
+
 
 
 
@@ -38512,6 +77087,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         next.remove();
 
 
@@ -38520,7 +77103,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38544,7 +77151,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       Array.from(detail.querySelectorAll('div')).forEach(el => {
+
+
+
+
+
+
+
+
 
 
 
@@ -38560,7 +77183,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         if (/^Context:\s+/.test(txt) && !(el.innerHTML || '').match(/<b>\s*Context:\s*<\/b>/i)) {
+
+
+
+
+
+
+
+
 
 
 
@@ -38576,7 +77215,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
           el.classList.add('marketTapeContextLineInline');
+
+
+
+
+
+
+
+
 
 
 
@@ -38592,7 +77247,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         }
+
+
+
+
+
+
+
+
 
 
 
@@ -38616,7 +77287,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     } finally {
+
+
+
+
+
+
+
+
 
 
 
@@ -38632,6 +77327,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
 
 
@@ -38640,7 +77343,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38664,6 +77391,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     detailBlocks().forEach(cleanupDetail);
 
 
@@ -38672,7 +77407,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38696,7 +77455,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (document.getElementById('phase_market_tape_detail_final_cleanup_v1_style')) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -38712,7 +77487,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     style.id = 'phase_market_tape_detail_final_cleanup_v1_style';
+
+
+
+
+
+
+
+
 
 
 
@@ -38728,7 +77519,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       .marketTapeDetail .marketTapeContextLineInline{
+
+
+
+
+
+
+
+
 
 
 
@@ -38744,6 +77551,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         line-height:1.35;
 
 
@@ -38752,7 +77567,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -38768,7 +77599,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         color:#7bdcff;
+
+
+
+
+
+
+
+
 
 
 
@@ -38784,7 +77631,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     `;
+
+
+
+
+
+
+
+
 
 
 
@@ -38800,7 +77663,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -38824,6 +77711,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   setTimeout(runCleanup, 0);
 
 
@@ -38832,7 +77727,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   setTimeout(runCleanup, 150);
+
+
+
+
+
+
+
+
 
 
 
@@ -38856,7 +77767,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const observer = new MutationObserver(() => {
+
+
+
+
+
+
+
+
 
 
 
@@ -38872,7 +77807,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     window.__setaFinalCleanupPending = true;
+
+
+
+
+
+
+
+
 
 
 
@@ -38888,7 +77839,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       window.__setaFinalCleanupPending = false;
+
+
+
+
+
+
+
+
 
 
 
@@ -38904,7 +77871,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
 
 
 
@@ -38920,6 +77903,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   observer.observe(document.body, {childList:true, subtree:true});
 
 
@@ -38928,7 +77919,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -38952,7 +77959,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phase_seta_score_history_tooltip_v1
+
+
+
+
+
+
+
+
 
 
 
@@ -38968,7 +77999,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phase_seta_score_history_tooltip_v1) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -38992,7 +78039,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function toNum(v){
+
+
+
+
+
+
+
+
 
 
 
@@ -39008,6 +78079,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return Number.isFinite(n) ? n : null;
 
 
@@ -39016,7 +78095,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39040,7 +78143,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if(v === null || !Number.isFinite(v)) return label + " n/a";
+
+
+
+
+
+
+
+
 
 
 
@@ -39056,6 +78175,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return label + " " + sign + v.toFixed(1);
 
 
@@ -39064,7 +78191,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39088,7 +78239,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if(v === null || !Number.isFinite(v)) return "90d Pctl n/a";
+
+
+
+
+
+
+
+
 
 
 
@@ -39104,7 +78271,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39128,7 +78319,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const xs = values.filter(v => v !== null && Number.isFinite(v));
+
+
+
+
+
+
+
+
 
 
 
@@ -39144,7 +78351,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     let less = 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -39160,7 +78383,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     xs.forEach(v => {
+
+
+
+
+
+
+
+
 
 
 
@@ -39176,7 +78415,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       else if(v === current) equal += 1;
+
+
+
+
+
+
+
+
 
 
 
@@ -39192,6 +78447,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return ((less + 0.5 * equal) / xs.length) * 100;
 
 
@@ -39200,7 +78463,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39224,7 +78511,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const tmpl = String(trace && trace.hovertemplate || "");
+
+
+
+
+
+
+
+
 
 
 
@@ -39240,7 +78543,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if(m) return Number(m[1]);
+
+
+
+
+
+
+
+
 
 
 
@@ -39256,7 +78575,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if(m) return Number(m[1]);
+
+
+
+
+
+
+
+
 
 
 
@@ -39272,7 +78607,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39296,7 +78655,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const tmpl = String(trace && trace.hovertemplate || "");
+
+
+
+
+
+
+
+
 
 
 
@@ -39312,7 +78687,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39336,7 +78735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if(!trace || !Array.isArray(trace.customdata)) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -39352,7 +78767,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const tmpl = String(trace.hovertemplate || "");
+
+
+
+
+
+
+
+
 
 
 
@@ -39368,7 +78799,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if(!isDailyTooltip) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -39392,6 +78839,22 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const scoreIdx = detectScoreIndex(trace);
 
 
@@ -39400,7 +78863,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const baseLen = Math.max(0, ...trace.customdata.map(row => Array.isArray(row) ? row.length : 1));
+
+
+
+
+
+
+
+
 
 
 
@@ -39424,7 +78903,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     trace.customdata = trace.customdata.map((row, i) => {
+
+
+
+
+
+
+
+
 
 
 
@@ -39440,7 +78943,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       while(out.length < baseLen) out.push(null);
+
+
+
+
+
+
+
+
 
 
 
@@ -39456,7 +78975,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const d5 = (cur !== null && i >= 5 && scores[i-5] !== null) ? cur - scores[i-5] : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -39472,7 +79007,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const lookback = scores.slice(Math.max(0, i-89), i+1);
+
+
+
+
+
+
+
+
 
 
 
@@ -39488,7 +79039,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       out.push(fmtDelta("5d", d5));
+
+
+
+
+
+
+
+
 
 
 
@@ -39504,6 +79071,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       out.push(fmtPctl(pctl));
 
 
@@ -39512,7 +79087,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       return out;
+
+
+
+
+
+
+
+
 
 
 
@@ -39536,7 +79127,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const historyLine = `SETA history: %{customdata[${baseLen}]} · %{customdata[${baseLen+1}]} · %{customdata[${baseLen+2}]}<br>`;
+
+
+
+
+
+
+
+
 
 
 
@@ -39560,7 +79175,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if(/SETA\s*Score/i.test(nextTemplate)){
+
+
+
+
+
+
+
+
 
 
 
@@ -39576,7 +79215,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     } else if(nextTemplate.includes("<extra></extra>")){
+
+
+
+
+
+
+
+
 
 
 
@@ -39592,7 +79247,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     } else {
+
+
+
+
+
+
+
+
 
 
 
@@ -39608,7 +79279,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39632,6 +79327,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     trace.__setaScoreHistoryTooltipPatched = true;
 
 
@@ -39640,7 +79343,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39664,7 +79391,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if(!Array.isArray(data)) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -39680,7 +79423,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39704,7 +79471,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if(!window.Plotly || typeof window.Plotly[methodName] !== "function") return false;
+
+
+
+
+
+
+
+
 
 
 
@@ -39720,7 +79503,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if(original.__setaScoreHistoryWrapped) return true;
+
+
+
+
+
+
+
+
 
 
 
@@ -39736,7 +79535,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       try{ patchData(arguments[1]); }catch(err){ console.warn("SETA score history tooltip patch skipped:", err); }
+
+
+
+
+
+
+
+
 
 
 
@@ -39752,7 +79567,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     };
+
+
+
+
+
+
+
+
 
 
 
@@ -39768,7 +79599,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     window.Plotly[methodName] = wrapped;
+
+
+
+
+
+
+
+
 
 
 
@@ -39784,7 +79631,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39808,7 +79679,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const ok1 = wrapPlotlyMethod("newPlot");
+
+
+
+
+
+
+
+
 
 
 
@@ -39824,6 +79711,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return ok1 || ok2;
 
 
@@ -39832,7 +79727,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -39856,7 +79775,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     let tries = 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -39872,7 +79807,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       tries += 1;
+
+
+
+
+
+
+
+
 
 
 
@@ -39888,7 +79839,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }, 50);
+
+
+
+
+
+
+
+
 
 
 
@@ -39904,7 +79871,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
+
+
+
+
+
+
+
+
 
 
 
@@ -39928,7 +79911,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // BEGIN phase_seta_score_history_tooltip_v11
+
+
+
+
+
+
+
+
 
 
 
@@ -39944,7 +79951,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   if (window.__phase_seta_score_history_tooltip_v11) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -39968,7 +79991,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function toNumber(v){
+
+
+
+
+
+
+
+
 
 
 
@@ -39984,6 +80031,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return Number.isFinite(n) ? n : null;
 
 
@@ -39992,7 +80047,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40016,7 +80095,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (v === null || v === undefined || !Number.isFinite(Number(v))) return "n/a";
+
+
+
+
+
+
+
+
 
 
 
@@ -40032,7 +80127,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const sign = n > 0 ? "+" : "";
+
+
+
+
+
+
+
+
 
 
 
@@ -40048,7 +80159,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40072,7 +80207,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (v === null || v === undefined || !Number.isFinite(Number(v))) return "n/a";
+
+
+
+
+
+
+
+
 
 
 
@@ -40088,7 +80239,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40112,7 +80287,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const cur = scores[i];
+
+
+
+
+
+
+
+
 
 
 
@@ -40128,7 +80319,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const start = Math.max(0, i - windowSize + 1);
+
+
+
+
+
+
+
+
 
 
 
@@ -40144,7 +80351,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     for (let j = start; j <= i; j++){
+
+
+
+
+
+
+
+
 
 
 
@@ -40160,7 +80383,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (v !== null && v !== undefined && Number.isFinite(v)) vals.push(v);
+
+
+
+
+
+
+
+
 
 
 
@@ -40176,7 +80415,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (vals.length < Math.min(20, windowSize)) return null;
+
+
+
+
+
+
+
+
 
 
 
@@ -40192,7 +80447,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     vals.forEach(v => { if (v <= cur) le += 1; });
+
+
+
+
+
+
+
+
 
 
 
@@ -40208,7 +80479,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40232,6 +80527,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const ht = String(trace && trace.hovertemplate || "");
 
 
@@ -40240,7 +80543,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const scoreRef = ht.match(/SETA\s+Score[^%]*%\{customdata\[(\d+)\]/i);
+
+
+
+
+
+
+
+
 
 
 
@@ -40264,7 +80583,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const rows = Array.isArray(trace && trace.customdata) ? trace.customdata : [];
+
+
+
+
+
+
+
+
 
 
 
@@ -40288,7 +80631,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     let bestIdx = null;
+
+
+
+
+
+
+
+
 
 
 
@@ -40304,7 +80671,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const width = Math.min(rows[0].length, 20);
+
+
+
+
+
+
+
+
 
 
 
@@ -40320,7 +80703,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       let count = 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -40336,7 +80735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       for (let i = 0; i < rows.length; i++){
+
+
+
+
+
+
+
+
 
 
 
@@ -40352,7 +80767,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         if (n === null) continue;
+
+
+
+
+
+
+
+
 
 
 
@@ -40368,6 +80799,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         if (n >= 0 && n <= 100) plausible += 1;
 
 
@@ -40376,7 +80815,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -40392,7 +80847,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         bestCount = plausible;
+
+
+
+
+
+
+
+
 
 
 
@@ -40408,7 +80879,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -40424,7 +80911,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return bestIdx;
+
+
+
+
+
+
+
+
 
 
 
@@ -40448,7 +80951,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   function patchDailySetaTrace(trace){
+
+
+
+
+
+
+
+
 
 
 
@@ -40472,7 +80999,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const ht = String(trace.hovertemplate || "");
+
+
+
+
+
+
+
+
 
 
 
@@ -40488,6 +81039,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     const looksLikeDailySeta =
 
 
@@ -40496,7 +81055,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       /Daily\s+SETA\s+Tooltip/i.test(name) ||
+
+
+
+
+
+
+
+
 
 
 
@@ -40520,7 +81095,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if (!looksLikeDailySeta) return false;
+
+
+
+
+
+
+
+
 
 
 
@@ -40544,7 +81143,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const rows = trace.customdata;
+
+
+
+
+
+
+
+
 
 
 
@@ -40568,7 +81191,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const scoreIdx = inferScoreIndex(trace);
+
+
+
+
+
+
+
+
 
 
 
@@ -40592,7 +81239,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     const scores = rows.map(row => toNumber(row && row[scoreIdx]));
+
+
+
+
+
+
+
+
 
 
 
@@ -40616,7 +81287,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     for (let i = 0; i < rows.length; i++){
+
+
+
+
+
+
+
+
 
 
 
@@ -40632,7 +81327,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const d5 = (s !== null && i >= 5 && scores[i-5] !== null) ? s - scores[i-5] : null;
+
+
+
+
+
+
+
+
 
 
 
@@ -40648,7 +81359,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       const p90 = percentileWindow(scores, i, 90);
+
+
+
+
+
+
+
+
 
 
 
@@ -40664,6 +81391,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       rows[i].push(line);
 
 
@@ -40672,7 +81407,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40704,6 +81463,22 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if (/SETA\s+Score[\s\S]*?<br>/i.test(newTemplate)){
 
 
@@ -40712,7 +81487,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       newTemplate = newTemplate.replace(
+
+
+
+
+
+
+
+
 
 
 
@@ -40728,6 +81519,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         "$1SETA history: %{customdata[" + historyIdx + "]}<br>"
 
 
@@ -40736,7 +81535,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       );
+
+
+
+
+
+
+
+
 
 
 
@@ -40752,7 +81567,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       newTemplate = newTemplate.replace(
+
+
+
+
+
+
+
+
 
 
 
@@ -40768,6 +81599,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         "<br>SETA history: %{customdata[" + historyIdx + "]}$1"
 
 
@@ -40776,7 +81615,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       );
+
+
+
+
+
+
+
+
 
 
 
@@ -40792,7 +81647,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       newTemplate = newTemplate.replace(
+
+
+
+
+
+
+
+
 
 
 
@@ -40808,7 +81679,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         "SETA history: %{customdata[" + historyIdx + "]}<br><extra></extra>"
+
+
+
+
+
+
+
+
 
 
 
@@ -40824,6 +81711,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     } else {
 
 
@@ -40832,7 +81727,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       newTemplate += "<br>SETA history: %{customdata[" + historyIdx + "]}<extra></extra>";
+
+
+
+
+
+
+
+
 
 
 
@@ -40856,7 +81767,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     trace.customdata = rows;
+
+
+
+
+
+
+
+
 
 
 
@@ -40872,6 +81807,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     return true;
 
 
@@ -40880,7 +81823,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -40904,7 +81871,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!Array.isArray(data)) return false;
+
+
+
+
+
+
+
+
 
 
 
@@ -40920,7 +81903,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     data.forEach(trace => {
+
+
+
+
+
+
+
+
 
 
 
@@ -40936,7 +81935,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         if (patchDailySetaTrace(trace)) changed = true;
+
+
+
+
+
+
+
+
 
 
 
@@ -40952,7 +81967,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         console.warn("SETA history tooltip trace patch failed:", err);
+
+
+
+
+
+
+
+
 
 
 
@@ -40968,7 +81999,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     });
+
+
+
+
+
+
+
+
 
 
 
@@ -40984,7 +82031,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -41008,7 +82079,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!window.Plotly) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -41024,7 +82111,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (!gd || !Array.isArray(gd.data)) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -41040,7 +82143,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (changed){
+
+
+
+
+
+
+
+
 
 
 
@@ -41056,7 +82175,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
           if (window.Plotly.redraw) window.Plotly.redraw(gd);
+
+
+
+
+
+
+
+
 
 
 
@@ -41072,7 +82207,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
           console.warn("SETA history tooltip redraw failed:", err);
+
+
+
+
+
+
+
+
 
 
 
@@ -41088,7 +82239,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       }
+
+
+
+
+
+
+
+
 
 
 
@@ -41104,7 +82271,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -41128,7 +82319,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (!window.Plotly || window.Plotly.__setaScoreHistoryTooltipV11Wrapped) return;
+
+
+
+
+
+
+
+
 
 
 
@@ -41152,7 +82359,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     ["newPlot", "react"].forEach(fnName => {
+
+
+
+
+
+
+
+
 
 
 
@@ -41168,7 +82399,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       if (typeof original !== "function") return;
+
+
+
+
+
+
+
+
 
 
 
@@ -41184,7 +82431,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         try { patchData(data); } catch (err) { console.warn("SETA history tooltip pre-render patch failed:", err); }
+
+
+
+
+
+
+
+
 
 
 
@@ -41200,7 +82463,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
         try { setTimeout(patchExistingPlots, 0); } catch (err) {}
+
+
+
+
+
+
+
+
 
 
 
@@ -41216,7 +82495,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
       };
+
+
+
+
+
+
+
+
 
 
 
@@ -41232,7 +82527,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -41256,6 +82575,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     wrapPlotly();
 
 
@@ -41264,7 +82591,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     patchExistingPlots();
+
+
+
+
+
+
+
+
 
 
 
@@ -41288,6 +82631,22 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   install();
 
 
@@ -41296,7 +82655,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
   document.addEventListener("DOMContentLoaded", install);
+
+
+
+
+
+
+
+
 
 
 
@@ -41320,7 +82695,31 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   let attempts = 0;
+
+
+
+
+
+
+
+
 
 
 
@@ -41336,7 +82735,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     attempts += 1;
+
+
+
+
+
+
+
+
 
 
 
@@ -41352,7 +82767,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
     if (attempts >= 20) clearInterval(timer);
+
+
+
+
+
+
+
+
 
 
 
@@ -41368,6 +82799,14 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 })();
 
 
@@ -41376,7 +82815,23 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
+
+
+
+
+
+
+
+
 // END phase_seta_score_history_tooltip_v11
+
+
+
+
+
+
+
+
 
 
 
