@@ -5002,83 +5002,8 @@ window.SETA_BUILD_INFO = {
 
 // END phase_seta_visible_window_optimizer_v1
 
-
-// BEGIN phase_seta_dropdown_perf_bands_guard_v1
-(function phase_seta_dropdown_perf_bands_guard_v1(){
-  if (window.__phase_seta_dropdown_perf_bands_guard_v1) return;
-  window.__phase_seta_dropdown_perf_bands_guard_v1 = true;
-
-  window.SETA_BANDS_NONE_GUARD = {enabled:true,lastBandsValue:"",lastRemoved:0,lastKept:0,lastAt:null};
-
-  function bandsValue(){
-    const ids = ["bollinger", "bands", "bandSelector", "bandMode"];
-    for (let i=0; i<ids.length; i++){
-      const el = document.getElementById(ids[i]);
-      if (el) return String(el.value || el.textContent || "").trim();
-    }
-    const selects = Array.from(document.querySelectorAll("select"));
-    const hit = selects.find(s => /band/i.test(String(s.id || s.name || s.getAttribute("aria-label") || "")));
-    return hit ? String(hit.value || hit.textContent || "").trim() : "";
-  }
-  function bandsAreNone(){
-    const v = bandsValue();
-    return !v || /^none$/i.test(v);
-  }
-  function traceName(t){
-    return [t && t.name, t && t.legendgroup, t && t.hovertemplate, t && t.text && !Array.isArray(t.text) ? t.text : ""].filter(Boolean).join(" ");
-  }
-  function isBandTrace(t){
-    const s = traceName(t).toLowerCase();
-    if (/contextual\s+overlap|combined\s+overlap|overlap\s+(upper|lower|band)|expected\s+range/.test(s)) return true;
-    if (/price\s+band|bollinger|envelope|upper\s+band|lower\s+band|band\s+\(tv|band\s+upper|band\s+lower/.test(s)) return true;
-    if ((t && t.fill && t.fill !== "none") && /overlap|band|range|envelope/.test(s)) return true;
-    return false;
-  }
-  function filterBandsIfNone(data){
-    if (!Array.isArray(data) || !bandsAreNone()){
-      window.SETA_BANDS_NONE_GUARD.lastBandsValue = bandsValue();
-      window.SETA_BANDS_NONE_GUARD.lastRemoved = 0;
-      window.SETA_BANDS_NONE_GUARD.lastKept = Array.isArray(data) ? data.length : 0;
-      window.SETA_BANDS_NONE_GUARD.lastAt = new Date();
-      return data;
-    }
-    let removed = 0;
-    const kept = data.filter(t => {
-      const drop = isBandTrace(t);
-      if (drop) removed += 1;
-      return !drop;
-    });
-    window.SETA_BANDS_NONE_GUARD.lastBandsValue = bandsValue();
-    window.SETA_BANDS_NONE_GUARD.lastRemoved = removed;
-    window.SETA_BANDS_NONE_GUARD.lastKept = kept.length;
-    window.SETA_BANDS_NONE_GUARD.lastAt = new Date();
-    return removed ? kept : data;
-  }
-  function patchPlotly(){
-    const P = window.Plotly;
-    if (!P || P.__setaBandsNoneGuardPatched) return false;
-    ["newPlot","react"].forEach(fnName => {
-      const original = P[fnName];
-      if (typeof original !== "function" || original.__setaBandsNoneGuardWrapped) return;
-      function wrappedBandsNoneGuard(gd, data, layout, config){
-        return original.call(this, gd, filterBandsIfNone(data), layout, config);
-      }
-      wrappedBandsNoneGuard.__setaBandsNoneGuardWrapped = true;
-      P[fnName] = wrappedBandsNoneGuard;
-    });
-    P.__setaBandsNoneGuardPatched = true;
-    return true;
-  }
-  function boot(){
-    if (!patchPlotly()){
-      const timer = setInterval(() => { if (patchPlotly()) clearInterval(timer); }, 250);
-      setTimeout(() => clearInterval(timer), 15000);
-    }
-  }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, {once:true});
-  else boot();
-})();
-// END phase_seta_dropdown_perf_bands_guard_v1
+
+
 // BEGIN phase_seta_custom_dropdowns_v1
 
 
@@ -9239,6 +9164,92 @@ function sentimentBundle(x,y,name,axis,showlegend=true,hovertemplate=null,width=
 
 
 
+// BEGIN phase_seta_bands_layer_policy_v1
+function normalizeBandsMode(value){
+  const raw = String(value == null ? "" : value).replace(/\s+/g, " ").trim().toLowerCase();
+  if (!raw) return "";
+  if (raw === "none" || raw === "no bands" || raw === "off") return "none";
+  if (raw.includes("price")) return "price";
+  if (raw.includes("sentiment")) return "sentiment";
+  if (raw.includes("combined") || raw.includes("contextual") || raw.includes("canonical") || raw.includes("overlap")) return "overlap";
+  if (raw.includes("all") || raw.includes("full") || raw.includes("both")) return "all";
+  return raw;
+}
+
+function readBandsControlMode(){
+  function clean(v){ return String(v == null ? "" : v).replace(/\s+/g, " ").trim(); }
+  function lower(v){ return clean(v).toLowerCase(); }
+  function nodeTextWithoutMenu(node){
+    if (!node) return "";
+    try{
+      const c = node.cloneNode(true);
+      c.querySelectorAll(".setaCustomSelectMenu, option, optgroup").forEach(n => n.remove());
+      return clean(c.textContent || "");
+    }catch(_){
+      return clean(node.textContent || "");
+    }
+  }
+  function looksLikeBands(node){
+    if (!node) return false;
+    const text = lower(nodeTextWithoutMenu(node));
+    if (/\bbands?\b/.test(text)) return true;
+    const meta = [node.id, node.name, node.getAttribute && node.getAttribute("aria-label"), node.getAttribute && node.getAttribute("data-label")]
+      .map(clean).join(" ").toLowerCase();
+    return /\bbands?\b/.test(meta);
+  }
+  function customValue(node){
+    if (!node) return "";
+    const label = node.querySelector && node.querySelector(".setaCustomSelectLabel");
+    if (label) return clean(label.textContent || "");
+    const button = node.querySelector && node.querySelector(".setaCustomSelectButton");
+    if (button) return clean(button.textContent || "");
+    return "";
+  }
+
+  const controlNodes = Array.from(document.querySelectorAll(".control, .filterControl, .dashControl, label, [data-label]"));
+  for (const node of controlNodes){
+    if (!looksLikeBands(node)) continue;
+    const select = node.querySelector && node.querySelector("select");
+    if (select) return select.value || "";
+    const wrap = node.querySelector && node.querySelector(".setaCustomSelectWrap");
+    if (wrap) return customValue(wrap);
+    const button = node.querySelector && node.querySelector(".setaCustomSelectButton");
+    if (button) return clean(button.textContent || "");
+  }
+
+  const idCandidates = ["bands","band","bollinger","bandMode","bandsMode","bandSelector","bandsSelector"];
+  for (const id of idCandidates){
+    const el = document.getElementById(id);
+    if (el) return el.value || el.textContent || "";
+  }
+
+  const selects = Array.from(document.querySelectorAll("select"));
+  for (const sel of selects){
+    const options = Array.from(sel.options || []).map(o => lower(o.value || o.textContent || o.label));
+    const joined = options.join("|");
+    const hasNone = options.includes("none") || options.some(o => o === "no bands");
+    const hasBandChoice = joined.includes("price") || joined.includes("sentiment") || joined.includes("combined") || joined.includes("contextual") || joined.includes("overlap") || joined.includes("both");
+    if (hasNone && hasBandChoice) return sel.value || "";
+  }
+
+  return "";
+}
+
+function getBandsLayerPolicy(bollingerMode){
+  const fromControl = normalizeBandsMode(readBandsControlMode());
+  const fromArgument = normalizeBandsMode(bollingerMode);
+  const bandsMode = fromControl || fromArgument || "none";
+
+  return {
+    mode: bandsMode,
+    priceCandles: true,
+    priceBand: bandsMode === "price" || bandsMode === "all",
+    sentimentEnvelope: bandsMode === "sentiment" || bandsMode === "all",
+    overlapBand: bandsMode === "overlap" || bandsMode === "all",
+    allBandDiagnostics: bandsMode === "all"
+  };
+}
+// END phase_seta_bands_layer_policy_v1
 function addFilledBand(data,x,upper,lower,lineColor,fillColor,namePrefix,axis){
 
 
@@ -42327,7 +42338,8 @@ function buildFigure(){
 
 
 
-  if(priceBands.derived) helperParts.push('price bands derived in-view from close 20 SMA ± 2 std');
+  const bandsLayerPolicy = getBandsLayerPolicy(bollinger);
+  if(bandsLayerPolicy.priceBand && priceBands.derived) helperParts.push('price bands derived in-view from close 20 SMA ± 2 std');
 
 
 
@@ -42343,7 +42355,7 @@ function buildFigure(){
 
 
 
-  if(bollinger==='contextual' || bollinger==='both') helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
+  if(bandsLayerPolicy.overlapBand) helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
 
 
 
@@ -42663,7 +42675,7 @@ function buildFigure(){
 
 
 
-  if(bollinger==='price'||bollinger==='both') addFilledBand(data,xs,priceBands.up,priceBands.low,COLORS.priceBand,COLORS.priceFill,priceBands.derived?'Price Band (TV 20,2 Derived)':'Price Band','y');
+  if(bandsLayerPolicy.priceBand) addFilledBand(data,xs,priceBands.up,priceBands.low,COLORS.priceBand,COLORS.priceFill,priceBands.derived?'Price Band (TV 20,2 Derived)':'Price Band','y');
 
 
 
@@ -42711,7 +42723,7 @@ function buildFigure(){
 
 
 
-  if(bollinger==='sentiment'||bollinger==='both') addFilledBand(data,xs,activeSentBands.up,activeSentBands.low,COLORS.sentCore,COLORS.sentFill,activeOverlapModel.family==='contextual' ? 'Contextual Sentiment Envelope' : 'Sentiment Band','y');
+  if(bandsLayerPolicy.sentimentEnvelope) addFilledBand(data,xs,activeSentBands.up,activeSentBands.low,COLORS.sentCore,COLORS.sentFill,activeOverlapModel.family==='contextual' ? 'Contextual Sentiment Envelope' : 'Sentiment Band','y');
 
 
 
