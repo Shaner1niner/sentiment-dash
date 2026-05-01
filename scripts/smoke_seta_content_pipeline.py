@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / "scripts" / "run_seta_content_pipeline.py"
 SMOKE_OUT = ROOT / "reply_agent" / "pipeline_runs" / "_smoke"
+LOCAL_DAILY_CONTEXT = ROOT / "reply_agent" / "daily_context" / "seta_daily_context_latest.json"
 
 
 def ok(msg: str) -> None:
@@ -21,6 +22,10 @@ def fail(msg: str) -> None:
     raise SystemExit(1)
 
 
+def skip(msg: str) -> None:
+    print(f"[SKIP] {msg}")
+
+
 def main() -> int:
     print("=" * 76)
     print("SETA content pipeline runner smoke test")
@@ -29,6 +34,15 @@ def main() -> int:
     if not RUNNER.exists():
         fail(f"missing runner: {RUNNER}")
     ok("found pipeline runner")
+
+    if not LOCAL_DAILY_CONTEXT.exists() or LOCAL_DAILY_CONTEXT.stat().st_size == 0:
+        skip(
+            "local daily context is not present; run scripts/build_seta_daily_context.py "
+            "on the production machine before running this integration smoke"
+        )
+        print("=" * 76)
+        print("SKIPPED")
+        return 0
 
     proc = subprocess.run(
         [

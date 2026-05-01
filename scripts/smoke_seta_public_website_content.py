@@ -9,6 +9,7 @@ PIPELINE = ROOT / "scripts" / "run_seta_content_pipeline.py"
 PUBLISHER = ROOT / "scripts" / "publish_seta_public_website_content.py"
 SMOKE_PIPELINE_OUT = ROOT / "reply_agent" / "pipeline_runs" / "_smoke_public_website_content"
 SMOKE_PUBLIC_OUT = ROOT / "public_content" / "_smoke"
+LOCAL_DAILY_CONTEXT = ROOT / "reply_agent" / "daily_context" / "seta_daily_context_latest.json"
 
 def ok(msg: str) -> None:
     print(f"[OK] {msg}")
@@ -16,6 +17,9 @@ def ok(msg: str) -> None:
 def fail(msg: str) -> None:
     print(f"[ERROR] {msg}")
     raise SystemExit(1)
+
+def skip(msg: str) -> None:
+    print(f"[SKIP] {msg}")
 
 def run(cmd: list[str]) -> None:
     proc = subprocess.run(cmd, cwd=str(ROOT), text=True, capture_output=True)
@@ -32,6 +36,15 @@ def main() -> int:
         if not path.exists():
             fail(f"missing {label}: {path}")
         ok(f"found {label}")
+
+    if not LOCAL_DAILY_CONTEXT.exists() or LOCAL_DAILY_CONTEXT.stat().st_size == 0:
+        skip(
+            "local daily context is not present; run scripts/build_seta_daily_context.py "
+            "on the production machine before running this integration smoke"
+        )
+        print("=" * 76)
+        print("SKIPPED")
+        return 0
 
     run([sys.executable, str(PIPELINE), "--out-dir", str(SMOKE_PIPELINE_OUT)])
     snippets = ROOT / "reply_agent" / "website_snippets" / "seta_website_snippets_latest.json"
