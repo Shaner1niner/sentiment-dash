@@ -4358,3 +4358,173 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 // END phase_market_tape_card_soft_alignment_v1
 
 // phase_market_tape_direct_labels_v1: Market Tape selected-detail labels clarified at render time.
+
+// BEGIN phase_market_tape_detail_cleanup_v1
+(function phase_market_tape_detail_cleanup_v1(){
+  if (window.__phase_market_tape_detail_cleanup_v1) return;
+  window.__phase_market_tape_detail_cleanup_v1 = true;
+
+  function txt(v){ return String(v || "").replace(/\s+/g, " ").trim(); }
+  function stripPrefix(value, prefix){
+    const t = txt(value);
+    return t.toLowerCase().startsWith(prefix.toLowerCase()) ? txt(t.slice(prefix.length)) : t;
+  }
+  function uniq(values){
+    const out = [];
+    const seen = new Set();
+    (values || []).forEach(v => {
+      const t = txt(v);
+      const key = t.toLowerCase();
+      if (!t || seen.has(key)) return;
+      seen.add(key);
+      out.push(t);
+    });
+    return out;
+  }
+  function chooseSetup(candidates, summary){
+    const vals = uniq(candidates).filter(v => v && v.toLowerCase() !== txt(summary).toLowerCase());
+    const preferred = vals.find(v => /\b(active|developing|fresh|clustered|follow-through|pressure|repair|deterioration)\b/i.test(v) && !/price macd lagging or mixed/i.test(v));
+    return preferred || vals[0] || txt(summary);
+  }
+  function normalizeContext(parts){
+    return uniq(parts).join("   ")
+      .replace(/\bRSI\s+RSI\b/g, "RSI")
+      .replace(/\bStoch\s+Stoch\b/g, "Stoch")
+      .replace(/\bMACD\s+MACD\b/g, "MACD")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+  function makeRow(cls, label, value){
+    const row = document.createElement("div");
+    row.className = cls;
+    const b = document.createElement("b");
+    b.textContent = label;
+    row.appendChild(b);
+    row.appendChild(document.createTextNode(" " + txt(value)));
+    return row;
+  }
+  function makeContextRow(value){
+    const row = document.createElement("div");
+    row.className = "marketTapeContextLine marketTapeContextInlineClean";
+    const b = document.createElement("b");
+    b.textContent = "Context:";
+    const span = document.createElement("span");
+    span.textContent = txt(value);
+    row.appendChild(b);
+    row.appendChild(span);
+    return row;
+  }
+  function extractDetail(content){
+    const rows = Array.from(content.children || []).filter(el => !el.classList.contains("marketTapeDetailTitle"));
+    const setupCandidates = [];
+    const watchCandidates = [];
+    const contextParts = [];
+    let summary = "";
+    let risk = "";
+    let inContext = false;
+
+    rows.forEach(el => {
+      const t = txt(el.textContent);
+      if (!t) return;
+      if (/^Context:/i.test(t)){
+        const rest = stripPrefix(t, "Context:");
+        if (rest) contextParts.push(rest);
+        inContext = true;
+        return;
+      }
+      if (/^Matched:/i.test(t)){
+        setupCandidates.push(stripPrefix(t, "Matched:"));
+        inContext = false;
+        return;
+      }
+      if (/^Setup evidence:/i.test(t)){
+        setupCandidates.push(stripPrefix(t, "Setup evidence:"));
+        inContext = false;
+        return;
+      }
+      if (/^Missing:/i.test(t)){
+        watchCandidates.push(stripPrefix(t, "Missing:"));
+        inContext = false;
+        return;
+      }
+      if (/^Watch item:/i.test(t)){
+        watchCandidates.push(stripPrefix(t, "Watch item:"));
+        inContext = false;
+        return;
+      }
+      if (/^Risk:/i.test(t)){
+        risk = stripPrefix(t, "Risk:");
+        inContext = false;
+        return;
+      }
+      if (inContext){
+        contextParts.push(t);
+        return;
+      }
+      if (!summary) summary = t;
+    });
+
+    return {
+      setup: chooseSetup(setupCandidates, summary),
+      context: normalizeContext(contextParts),
+      watch: uniq(watchCandidates)[0] || "",
+      risk: risk || ""
+    };
+  }
+  function cleanOne(detail){
+    const top = detail.querySelector(".marketTapeDetailTop");
+    if (!top || !top.children || !top.children.length) return;
+    const content = top.children[0];
+    const title = Array.from(content.children || []).find(el => el.classList && el.classList.contains("marketTapeDetailTitle"));
+    if (!title) return;
+
+    const currentText = txt(content.textContent);
+    if (content.dataset.marketTapeDetailCleanupV1 === "1" && !/\b(Matched|Missing):/i.test(currentText)) return;
+
+    const detailData = extractDetail(content);
+    if (!detailData.setup && !detailData.context && !detailData.watch && !detailData.risk) return;
+
+    while (title.nextSibling) content.removeChild(title.nextSibling);
+    if (detailData.setup) content.appendChild(makeRow("marketTapeDetailText marketTapeSetupEvidenceClean", "Setup evidence:", detailData.setup));
+    if (detailData.context) content.appendChild(makeContextRow(detailData.context));
+    if (detailData.watch) content.appendChild(makeRow("marketTapeMissing marketTapeWatchItemClean", "Watch item:", detailData.watch));
+    if (detailData.risk) content.appendChild(makeRow("marketTapeRisk", "Risk:", detailData.risk));
+    content.dataset.marketTapeDetailCleanupV1 = "1";
+  }
+  function cleanAll(){
+    document.querySelectorAll(".marketTapeDetail").forEach(cleanOne);
+  }
+  function installStyle(){
+    if (document.getElementById("phase_market_tape_detail_cleanup_v1_style")) return;
+    const style = document.createElement("style");
+    style.id = "phase_market_tape_detail_cleanup_v1_style";
+    style.textContent = `
+      .marketTapeContextLine{
+        display:flex;
+        flex-wrap:wrap;
+        align-items:baseline;
+        gap:0 10px;
+        margin-top:3px;
+        color:#d7eef7;
+        line-height:1.35;
+      }
+      .marketTapeContextLine b{color:#7bdcff; flex:0 0 auto;}
+      .marketTapeContextLine span{min-width:0; white-space:normal;}
+      .marketTapeSetupEvidenceClean b,
+      .marketTapeWatchItemClean b{color:#7bdcff;}
+    `;
+    document.head.appendChild(style);
+  }
+
+  let timer = null;
+  function schedule(){
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(() => { installStyle(); cleanAll(); }, 80);
+  }
+  installStyle();
+  schedule();
+  document.addEventListener("DOMContentLoaded", schedule);
+  window.addEventListener("load", schedule);
+  new MutationObserver(schedule).observe(document.documentElement, {childList:true, subtree:true});
+})();
+// END phase_market_tape_detail_cleanup_v1
