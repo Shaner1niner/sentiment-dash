@@ -1023,6 +1023,203 @@ window.SETA_BUILD_INFO = {
 
 
 };
+// BEGIN phase_seta_bands_none_source_guard_v3
+(function phase_seta_bands_none_source_guard_v3(){
+  if (window.__phase_seta_bands_none_source_guard_v3) return;
+  window.__phase_seta_bands_none_source_guard_v3 = true;
+
+  const STATE = {
+    enabled:true,
+    lastBandsValue:"",
+    lastBandsSource:"",
+    lastModeArg:"",
+    lastRemovedTraces:0,
+    lastRemovedAnnotations:0,
+    lastKeptTraces:0,
+    lastAt:null
+  };
+  window.SETA_BANDS_NONE_SOURCE_GUARD = STATE;
+
+  function clean(v){ return String(v == null ? "" : v).replace(/\s+/g," ").trim(); }
+  function lower(v){ return clean(v).toLowerCase(); }
+
+  function valueLooksNone(v){
+    const s = lower(v);
+    return !s || s === "none" || s === "no bands" || s === "off";
+  }
+
+  function textWithoutMenu(el){
+    if (!el) return "";
+    try{
+      const c = el.cloneNode(true);
+      c.querySelectorAll(".setaCustomSelectMenu, option, optgroup").forEach(n => n.remove());
+      return clean(c.textContent || "");
+    }catch(_){
+      return clean(el.textContent || "");
+    }
+  }
+
+  function looksLikeBandsControl(el){
+    const txt = lower(textWithoutMenu(el));
+    if (/\bbands?\b/.test(txt)) return true;
+    const meta = [
+      el && el.id,
+      el && el.name,
+      el && el.getAttribute && el.getAttribute("aria-label"),
+      el && el.getAttribute && el.getAttribute("data-label")
+    ].map(clean).join(" ").toLowerCase();
+    return /\bbands?\b/.test(meta);
+  }
+
+  function customLabelValue(wrap){
+    if (!wrap) return "";
+    const label = wrap.querySelector(".setaCustomSelectLabel");
+    if (label) return clean(label.textContent || "");
+    const btn = wrap.querySelector(".setaCustomSelectButton");
+    if (btn) return clean(btn.textContent || "");
+    return "";
+  }
+
+  function readBandsControl(){
+    // 1) Prefer controls whose visible label says Bands.
+    const controlNodes = Array.from(document.querySelectorAll(".control, .filterControl, .dashControl, label, [data-label]"));
+    for (const node of controlNodes){
+      if (!looksLikeBandsControl(node)) continue;
+      const sel = node.querySelector && node.querySelector("select");
+      if (sel) return {value: sel.value || sel.textContent || "", source:"labeled-control-select"};
+      const wrap = node.querySelector && node.querySelector(".setaCustomSelectWrap");
+      if (wrap) return {value: customLabelValue(wrap), source:"labeled-control-custom"};
+      const btn = node.querySelector && node.querySelector(".setaCustomSelectButton");
+      if (btn) return {value: btn.textContent || "", source:"labeled-control-button"};
+    }
+
+    // 2) Look for obvious id/name candidates.
+    const selectors = [
+      "#bands", "#band", "#bandMode", "#bandsMode", "#bandSelector", "#bandsSelector",
+      "select[name='bands']", "select[name='bandMode']", "select[name='bandsMode']"
+    ];
+    for (const q of selectors){
+      const el = document.querySelector(q);
+      if (el) return {value: el.value || el.textContent || "", source:q};
+    }
+
+    // 3) If a select contains the known band choices, it is probably the Bands select.
+    const selects = Array.from(document.querySelectorAll("select"));
+    for (const sel of selects){
+      const options = Array.from(sel.options || []).map(o => lower(o.value || o.textContent || o.label));
+      const optionBlob = options.join("|");
+      const hasBandChoices =
+        optionBlob.includes("combined") ||
+        optionBlob.includes("contextual") ||
+        optionBlob.includes("sentiment") ||
+        optionBlob.includes("price") ||
+        optionBlob.includes("both");
+      const hasNone = options.includes("none") || options.some(o => o === "no bands");
+      if (hasBandChoices && hasNone){
+        return {value: sel.value || "", source:"band-options-select"};
+      }
+    }
+
+    // 4) Last resort: custom wrappers near text that says Bands.
+    const wraps = Array.from(document.querySelectorAll(".setaCustomSelectWrap"));
+    for (const wrap of wraps){
+      const parent = wrap.closest(".control") || wrap.parentElement;
+      if (parent && looksLikeBandsControl(parent)){
+        return {value: customLabelValue(wrap), source:"bands-near-custom-wrap"};
+      }
+    }
+
+    return {value:"", source:"not-found"};
+  }
+
+  window.SETA_BANDS_NONE_SOURCE_IS_NONE = function(modeArg){
+    STATE.lastModeArg = clean(modeArg || "");
+    if (valueLooksNone(modeArg)) {
+      STATE.lastBandsValue = clean(modeArg || "");
+      STATE.lastBandsSource = "mode-arg";
+      return true;
+    }
+    const r = readBandsControl();
+    STATE.lastBandsValue = clean(r.value);
+    STATE.lastBandsSource = r.source;
+    return valueLooksNone(r.value);
+  };
+
+  function arrText(v){
+    if (Array.isArray(v)) return v.slice(0,8).map(clean).join(" ");
+    return clean(v);
+  }
+
+  function traceText(t){
+    if (!t) return "";
+    return [t.name, t.legendgroup, t.hovertemplate, t.hovertext, t.texttemplate, arrText(t.text)]
+      .filter(Boolean).map(clean).join(" ");
+  }
+
+  function isBandTrace(t){
+    const s = lower(traceText(t));
+
+    // Filled scatter traces with band/overlap/range naming.
+    if (t && t.fill && t.fill !== "none" && /\b(overlap|band|bands|envelope|range|expected)\b/.test(s)) return true;
+
+    // Names/hover labels used in this dashboard.
+    if (/\b(contextual|combined|model|canonical)\s+overlap\b/.test(s)) return true;
+    if (/\boverlap\s+(upper|lower|band|envelope|state)\b/.test(s)) return true;
+    if (/\binside expected range\b/.test(s)) return true;
+    if (/\b(sentiment|price|contextual)\s+(envelope|band|bands)\b/.test(s)) return true;
+    if (/\bbollinger\b/.test(s)) return true;
+    if (/\b(upper|lower)\s+(band|envelope)\b/.test(s)) return true;
+    if (/\bband\s+\((tv|derived|price|sentiment)/.test(s)) return true;
+    if (/\bband\s+(upper|lower)\b/.test(s)) return true;
+
+    // Ultra-conservative fallback: invisible/filled scatter ranges without marker semantics.
+    if (t && t.fill && t.fill !== "none" && t.type === "scatter") return true;
+
+    return false;
+  }
+
+  function isBandAnnotation(a){
+    const s = lower([a && a.text, a && a.name, a && a.templateitemname].filter(Boolean).join(" "));
+    if (!s) return false;
+    if (/\b(contextual|combined|model|canonical)\s+overlap\b/.test(s)) return true;
+    if (/\b(sentiment|price|contextual)\s+(envelope|band|bands)\b/.test(s)) return true;
+    if (/\bbollinger\b/.test(s)) return true;
+    if (/\binside expected range\b/.test(s)) return true;
+    return false;
+  }
+
+  window.SETA_BANDS_NONE_SOURCE_FILTER = function(data, modeArg){
+    if (!Array.isArray(data) || !window.SETA_BANDS_NONE_SOURCE_IS_NONE(modeArg)){
+      STATE.lastRemovedTraces = 0;
+      STATE.lastKeptTraces = Array.isArray(data) ? data.length : 0;
+      STATE.lastAt = new Date();
+      return data;
+    }
+    let removed = 0;
+    const kept = data.filter(t => {
+      const drop = isBandTrace(t);
+      if (drop) removed += 1;
+      return !drop;
+    });
+    STATE.lastRemovedTraces = removed;
+    STATE.lastKeptTraces = kept.length;
+    STATE.lastAt = new Date();
+    return removed ? kept : data;
+  };
+
+  window.SETA_BANDS_NONE_SOURCE_FILTER_LAYOUT = function(layout, modeArg){
+    if (!layout || !window.SETA_BANDS_NONE_SOURCE_IS_NONE(modeArg)) return layout;
+    if (!Array.isArray(layout.annotations)){
+      STATE.lastRemovedAnnotations = 0;
+      return layout;
+    }
+    const kept = layout.annotations.filter(a => !isBandAnnotation(a));
+    STATE.lastRemovedAnnotations = layout.annotations.length - kept.length;
+    return STATE.lastRemovedAnnotations ? {...layout, annotations:kept} : layout;
+  };
+})();
+// END phase_seta_bands_none_source_guard_v3
+
 
 
 
@@ -10003,168 +10200,6 @@ window.SETA_BUILD_INFO = {
 
 
 // END phase_seta_visible_window_optimizer_v1
-// BEGIN phase_seta_bands_none_hard_override_v2
-(function phase_seta_bands_none_hard_override_v2(){
-  if (window.__phase_seta_bands_none_hard_override_v2) return;
-  window.__phase_seta_bands_none_hard_override_v2 = true;
-
-  const STATE = {
-    enabled:true, lastBandsValue:"", lastBandsSource:"",
-    lastRemovedTraces:0, lastRemovedAnnotations:0, lastKeptTraces:0, lastAt:null
-  };
-  window.SETA_BANDS_NONE_HARD_OVERRIDE = STATE;
-
-  function txt(v){ return String(v == null ? "" : v).replace(/\s+/g," ").trim(); }
-  function low(v){ return txt(v).toLowerCase(); }
-  function isNone(v){
-    const s = low(v);
-    return !s || s === "none" || s === "no bands" || s === "off";
-  }
-  function controlText(el){
-    if (!el) return "";
-    try{
-      const c = el.cloneNode(true);
-      c.querySelectorAll(".setaCustomSelectMenu, option, optgroup").forEach(n => n.remove());
-      return txt(c.textContent || "");
-    }catch(_){ return txt(el.textContent || ""); }
-  }
-  function looksBands(s){ return /\bbands?\b/i.test(s || ""); }
-
-  function readBands(){
-    // Public/member custom controls usually live inside .control containers.
-    const controls = Array.from(document.querySelectorAll(".control, .filterControl, .dashControl, label"));
-    for (const c of controls){
-      if (!looksBands(controlText(c))) continue;
-      const sel = c.querySelector && c.querySelector("select");
-      if (sel) return {value: sel.value || sel.textContent || "", source:"control-select"};
-      const lab = c.querySelector && c.querySelector(".setaCustomSelectLabel");
-      if (lab) return {value: lab.textContent || "", source:"control-custom-label"};
-      const btn = c.querySelector && c.querySelector(".setaCustomSelectButton");
-      if (btn) return {value: btn.textContent || "", source:"control-custom-button"};
-    }
-
-    const ids = ["bands","band","bollinger","bandMode","bandSelector","bandsSelector","bandsMode"];
-    for (const id of ids){
-      const el = document.getElementById(id);
-      if (el) return {value: el.value || el.textContent || "", source:"#"+id};
-    }
-
-    const selects = Array.from(document.querySelectorAll("select"));
-    for (const sel of selects){
-      const meta = [sel.id, sel.name, sel.getAttribute("aria-label"), sel.getAttribute("data-label")].map(txt).join(" ");
-      if (looksBands(meta)) return {value: sel.value || sel.textContent || "", source:"select-meta"};
-    }
-
-    const wraps = Array.from(document.querySelectorAll(".setaCustomSelectWrap"));
-    for (const wrap of wraps){
-      const parent = wrap.closest(".control") || wrap.parentElement;
-      if (!looksBands(controlText(parent))) continue;
-      const lab = wrap.querySelector(".setaCustomSelectLabel");
-      return {value: lab ? lab.textContent : wrap.textContent, source:"wrap-near-bands"};
-    }
-
-    return {value:"", source:"not-found"};
-  }
-
-  function bandsNone(){
-    const r = readBands();
-    STATE.lastBandsValue = txt(r.value);
-    STATE.lastBandsSource = r.source;
-    return isNone(r.value);
-  }
-
-  function arrText(v){
-    if (Array.isArray(v)) return v.slice(0,8).map(txt).join(" ");
-    return txt(v);
-  }
-  function traceText(t){
-    if (!t) return "";
-    return [t.name,t.legendgroup,t.hovertemplate,t.hovertext,t.texttemplate,arrText(t.text)].filter(Boolean).map(txt).join(" ");
-  }
-
-  function isBandTrace(t){
-    const s = low(traceText(t));
-    if (!s && t && t.fill && t.fill !== "none") return true;
-
-    if (/\b(contextual|combined|model|canonical)\s+overlap\b/.test(s)) return true;
-    if (/\boverlap\s+(upper|lower|band|envelope|state)\b/.test(s)) return true;
-    if (/\binside expected range\b/.test(s)) return true;
-
-    if (/\b(sentiment|price)\s+(envelope|band|bands)\b/.test(s)) return true;
-    if (/\bbollinger\b/.test(s)) return true;
-    if (/\b(upper|lower)\s+(band|envelope)\b/.test(s)) return true;
-    if (/\bband\s+\((tv|derived|price|sentiment)/.test(s)) return true;
-    if (/\bband\s+(upper|lower)\b/.test(s)) return true;
-
-    if (t && t.fill && t.fill !== "none" && /\b(overlap|band|envelope|range)\b/.test(s)) return true;
-    return false;
-  }
-
-  function isBandAnnotation(a){
-    const s = low([a && a.text, a && a.name, a && a.templateitemname].filter(Boolean).join(" "));
-    if (!s) return false;
-    return /\b(contextual|combined|model|canonical)\s+overlap\b/.test(s) ||
-           /\b(sentiment|price)\s+(envelope|band|bands)\b/.test(s) ||
-           /\bbollinger\b/.test(s);
-  }
-
-  function filterData(data){
-    if (!Array.isArray(data) || !bandsNone()){
-      STATE.lastRemovedTraces = 0;
-      STATE.lastKeptTraces = Array.isArray(data) ? data.length : 0;
-      STATE.lastAt = new Date();
-      return data;
-    }
-    let removed = 0;
-    const kept = data.filter(t => {
-      const drop = isBandTrace(t);
-      if (drop) removed += 1;
-      return !drop;
-    });
-    STATE.lastRemovedTraces = removed;
-    STATE.lastKeptTraces = kept.length;
-    STATE.lastAt = new Date();
-    return removed ? kept : data;
-  }
-
-  function filterLayout(layout){
-    if (!layout || !bandsNone()) return layout;
-    if (!Array.isArray(layout.annotations)){
-      STATE.lastRemovedAnnotations = 0;
-      return layout;
-    }
-    const kept = layout.annotations.filter(a => !isBandAnnotation(a));
-    STATE.lastRemovedAnnotations = layout.annotations.length - kept.length;
-    return STATE.lastRemovedAnnotations ? {...layout, annotations:kept} : layout;
-  }
-
-  function patchPlotly(){
-    const P = window.Plotly;
-    if (!P || P.__setaBandsNoneHardOverrideV2Patched) return false;
-    ["newPlot","react"].forEach(fnName => {
-      const original = P[fnName];
-      if (typeof original !== "function" || original.__setaBandsNoneHardOverrideV2Wrapped) return;
-      function wrapped(gd, data, layout, config){
-        return original.call(this, gd, filterData(data), filterLayout(layout), config);
-      }
-      wrapped.__setaBandsNoneHardOverrideV2Wrapped = true;
-      P[fnName] = wrapped;
-    });
-    P.__setaBandsNoneHardOverrideV2Patched = true;
-    return true;
-  }
-
-  function boot(){
-    if (!patchPlotly()){
-      const timer = setInterval(() => { if (patchPlotly()) clearInterval(timer); }, 250);
-      setTimeout(() => clearInterval(timer), 15000);
-    }
-  }
-
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, {once:true});
-  else boot();
-})();
-// END phase_seta_bands_none_hard_override_v2
 
 
 
@@ -33627,7 +33662,7 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
-  if(bollinger==='contextual' || bollinger==='both'){
+  if(!window.SETA_BANDS_NONE_SOURCE_IS_NONE(bollinger) && (bollinger==='contextual' || bollinger==='both')){
 
 
 
@@ -84699,7 +84734,7 @@ function buildFigure(){
 
 
 
-  if(bollinger==='contextual' || bollinger==='both') helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
+  if(!window.SETA_BANDS_NONE_SOURCE_IS_NONE(bollinger) && (bollinger==='contextual' || bollinger==='both')) helperParts.push('combined overlap uses a trailing price-space sentiment envelope with percentile calibration for tighter long-range behavior');
 
 
 
@@ -85339,7 +85374,7 @@ function buildFigure(){
 
 
 
-  if(bollinger==='price'||bollinger==='both') addFilledBand(data,xs,priceBands.up,priceBands.low,COLORS.priceBand,COLORS.priceFill,priceBands.derived?'Price Band (TV 20,2 Derived)':'Price Band','y');
+  if(!window.SETA_BANDS_NONE_SOURCE_IS_NONE(bollinger) && (bollinger==='price'||bollinger==='both')) addFilledBand(data,xs,priceBands.up,priceBands.low,COLORS.priceBand,COLORS.priceFill,priceBands.derived?'Price Band (TV 20,2 Derived)':'Price Band','y');
 
 
 
@@ -85435,7 +85470,7 @@ function buildFigure(){
 
 
 
-  if(bollinger==='sentiment'||bollinger==='both') addFilledBand(data,xs,activeSentBands.up,activeSentBands.low,COLORS.sentCore,COLORS.sentFill,activeOverlapModel.family==='contextual' ? 'Contextual Sentiment Envelope' : 'Sentiment Band','y');
+  if(!window.SETA_BANDS_NONE_SOURCE_IS_NONE(bollinger) && (bollinger==='sentiment'||bollinger==='both')) addFilledBand(data,xs,activeSentBands.up,activeSentBands.low,COLORS.sentCore,COLORS.sentFill,activeOverlapModel.family==='contextual' ? 'Contextual Sentiment Envelope' : 'Sentiment Band','y');
 
 
 
@@ -93499,7 +93534,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  Plotly.newPlot('chart', data, layout, {responsive:true, displaylogo:false}).then(()=>{
+  Plotly.newPlot('chart', window.SETA_BANDS_NONE_SOURCE_FILTER(data, bollinger), window.SETA_BANDS_NONE_SOURCE_FILTER_LAYOUT(layout, bollinger), {responsive:true, displaylogo:false}).then(()=>{
 
 
 
