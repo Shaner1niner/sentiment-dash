@@ -4501,3 +4501,125 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
   observer.observe(document.body, {childList:true, subtree:true});
 })();
 // END phase_market_tape_detail_final_cleanup_v1
+
+// BEGIN phase_seta_score_history_tooltip_v1
+(function phase_seta_score_history_tooltip_v1(){
+  if (window.__phase_seta_score_history_tooltip_v1) return;
+  window.__phase_seta_score_history_tooltip_v1 = true;
+
+  function toNum(v){
+    const n = Number(v);
+    return Number.isFinite(n) ? n : null;
+  }
+
+  function fmtDelta(label, v){
+    if(v === null || !Number.isFinite(v)) return label + " n/a";
+    const sign = v > 0 ? "+" : "";
+    return label + " " + sign + v.toFixed(1);
+  }
+
+  function fmtPctl(v){
+    if(v === null || !Number.isFinite(v)) return "90d Pctl n/a";
+    return "90d Pctl " + Math.round(v);
+  }
+
+  function percentileRank(values, current){
+    const xs = values.filter(v => v !== null && Number.isFinite(v));
+    if(!xs.length || current === null || !Number.isFinite(current)) return null;
+    let less = 0;
+    let equal = 0;
+    xs.forEach(v => {
+      if(v < current) less += 1;
+      else if(v === current) equal += 1;
+    });
+    return ((less + 0.5 * equal) / xs.length) * 100;
+  }
+
+  function detectScoreIndex(trace){
+    const tmpl = String(trace && trace.hovertemplate || "");
+    let m = tmpl.match(/SETA\s*Score[^%]*%\{customdata\[(\d+)\]/i);
+    if(m) return Number(m[1]);
+    m = tmpl.match(/Summary\s*Score[^%]*%\{customdata\[(\d+)\]/i);
+    if(m) return Number(m[1]);
+    return 4;
+  }
+
+  function alreadyHasHistory(trace){
+    const tmpl = String(trace && trace.hovertemplate || "");
+    return tmpl.includes("SETA history:") || tmpl.includes("Score history:") || trace.__setaScoreHistoryTooltipPatched;
+  }
+
+  function patchDailyTooltipTrace(trace){
+    if(!trace || !Array.isArray(trace.customdata)) return;
+    const name = String(trace.name || "");
+    const tmpl = String(trace.hovertemplate || "");
+    const isDailyTooltip = /Daily\s+SETA\s+Tooltip/i.test(name) || /SETA\s+Score/i.test(tmpl);
+    if(!isDailyTooltip) return;
+    if(alreadyHasHistory(trace)) return;
+
+    const scoreIdx = detectScoreIndex(trace);
+    const baseLen = Math.max(0, ...trace.customdata.map(row => Array.isArray(row) ? row.length : 1));
+    const scores = trace.customdata.map(row => Array.isArray(row) ? toNum(row[scoreIdx]) : null);
+
+    trace.customdata = trace.customdata.map((row, i) => {
+      const out = Array.isArray(row) ? row.slice() : [row];
+      while(out.length < baseLen) out.push(null);
+      const cur = scores[i];
+      const d5 = (cur !== null && i >= 5 && scores[i-5] !== null) ? cur - scores[i-5] : null;
+      const d20 = (cur !== null && i >= 20 && scores[i-20] !== null) ? cur - scores[i-20] : null;
+      const lookback = scores.slice(Math.max(0, i-89), i+1);
+      const pctl = percentileRank(lookback, cur);
+      out.push(fmtDelta("5d", d5));
+      out.push(fmtDelta("20d", d20));
+      out.push(fmtPctl(pctl));
+      return out;
+    });
+
+    const historyLine = `SETA history: %{customdata[${baseLen}]} · %{customdata[${baseLen+1}]} · %{customdata[${baseLen+2}]}<br>`;
+    let nextTemplate = tmpl;
+
+    if(/SETA\s*Score/i.test(nextTemplate)){
+      nextTemplate = nextTemplate.replace(/(SETA\s*Score[^<]*(?:<br>|$))/i, `$1${historyLine}`);
+    } else if(nextTemplate.includes("<extra></extra>")){
+      nextTemplate = nextTemplate.replace("<extra></extra>", historyLine + "<extra></extra>");
+    } else {
+      nextTemplate = nextTemplate + "<br>" + historyLine + "<extra></extra>";
+    }
+
+    trace.hovertemplate = nextTemplate;
+    trace.__setaScoreHistoryTooltipPatched = true;
+  }
+
+  function patchData(data){
+    if(!Array.isArray(data)) return;
+    data.forEach(patchDailyTooltipTrace);
+  }
+
+  function wrapPlotlyMethod(methodName){
+    if(!window.Plotly || typeof window.Plotly[methodName] !== "function") return false;
+    const original = window.Plotly[methodName];
+    if(original.__setaScoreHistoryWrapped) return true;
+    const wrapped = function(){
+      try{ patchData(arguments[1]); }catch(err){ console.warn("SETA score history tooltip patch skipped:", err); }
+      return original.apply(this, arguments);
+    };
+    wrapped.__setaScoreHistoryWrapped = true;
+    window.Plotly[methodName] = wrapped;
+    return true;
+  }
+
+  function install(){
+    const ok1 = wrapPlotlyMethod("newPlot");
+    const ok2 = wrapPlotlyMethod("react");
+    return ok1 || ok2;
+  }
+
+  if(!install()){
+    let tries = 0;
+    const timer = setInterval(() => {
+      tries += 1;
+      if(install() || tries > 80) clearInterval(timer);
+    }, 50);
+  }
+})();
+// END phase_seta_score_history_tooltip_v1
