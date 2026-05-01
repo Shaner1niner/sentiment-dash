@@ -10,7 +10,6 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-EXPECTED_CACHE = "phase_g_market_tape_016"
 EXPECTED_MARKER = "phaseG_market_tape_metric_deck_v8"
 
 ERRORS: list[str] = []
@@ -117,6 +116,71 @@ def check_chart_store(rel: str) -> None:
         warn(f"{rel} is small size={len(text)} bytes; verify payload builder output")
 
 
+def chart_store_assets(data: dict[str, Any]) -> set[str]:
+    assets: set[str] = set()
+    for freq in ["D", "W"]:
+        bucket = data.get(freq)
+        if isinstance(bucket, dict):
+            assets.update(str(k).upper() for k in bucket.keys())
+    meta = data.get("_meta")
+    if isinstance(meta, dict):
+        included = meta.get("included_assets")
+        if isinstance(included, list):
+            assets.update(str(x).upper() for x in included)
+    return assets
+
+
+def check_manifest_payload_coverage() -> None:
+    manifest_path = require_file("dashboard_fix26_mode_manifest.json")
+    if not manifest_path.exists():
+        return
+    manifest = load_json(manifest_path)
+    if not isinstance(manifest, dict):
+        fail("dashboard_fix26_mode_manifest.json root is not an object")
+        return
+
+    modes = manifest.get("modes")
+    if not isinstance(modes, dict) or not modes:
+        fail("manifest missing non-empty modes")
+        return
+
+    for mode_name, mode_cfg in modes.items():
+        if not isinstance(mode_cfg, dict):
+            fail(f"manifest mode {mode_name} is not an object")
+            continue
+        data_url = mode_cfg.get("dataUrl")
+        configured = {
+            str(asset).upper()
+            for asset in mode_cfg.get("assets", [])
+            if str(asset).strip()
+        }
+        if not data_url:
+            fail(f"manifest mode {mode_name} missing dataUrl")
+            continue
+        path = ROOT / str(data_url)
+        if not path.exists():
+            fail(f"manifest mode {mode_name} dataUrl missing: {data_url}")
+            continue
+        payload = load_json(path)
+        if not isinstance(payload, dict):
+            continue
+        included = chart_store_assets(payload)
+        missing = sorted(configured - included)
+        extras = sorted(included - configured)
+        if missing:
+            warn(
+                f"manifest mode {mode_name} configured assets missing from payload: "
+                f"{', '.join(missing)}; okay only while upstream coverage is absent"
+            )
+        else:
+            ok(f"manifest mode {mode_name} configured assets all present in {data_url}")
+        if extras:
+            warn(
+                f"manifest mode {mode_name} payload contains assets not configured in manifest: "
+                f"{', '.join(extras)}"
+            )
+
+
 def check_dashboard_js() -> None:
     path = require_file("dashboard_fix26_app.js")
     if not path.exists():
@@ -135,6 +199,7 @@ def check_dashboard_js() -> None:
 
 
 def check_embeds() -> None:
+    cache_tokens: dict[str, str] = {}
     for rel in ["interactive_dashboard_fix24_public_embed.html", "interactive_dashboard_fix24_member_embed.html"]:
         path = require_file(rel)
         if not path.exists():
@@ -145,9 +210,13 @@ def check_embeds() -> None:
             fail(f"{rel} does not reference dashboard_fix26_app.js with a cache token")
             continue
         cache = match.group(1)
+        cache_tokens[rel] = cache
         ok(f"{rel} cache token={cache}")
-        if cache != EXPECTED_CACHE:
-            warn(f"{rel} cache token is {cache}, expected {EXPECTED_CACHE}; update EXPECTED_CACHE after intentional bumps")
+    unique_tokens = sorted(set(cache_tokens.values()))
+    if len(unique_tokens) > 1:
+        warn(f"embed cache tokens differ: {cache_tokens}")
+    elif unique_tokens:
+        ok(f"embed cache token policy consistent: {unique_tokens[0]}")
 
 
 def main() -> int:
@@ -159,6 +228,7 @@ def main() -> int:
     check_screener_store()
     check_chart_store("fix26_chart_store_public.json")
     check_chart_store("fix26_chart_store_member.json")
+    check_manifest_payload_coverage()
     check_dashboard_js()
     check_embeds()
 

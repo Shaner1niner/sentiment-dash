@@ -32,13 +32,14 @@ def main() -> int:
         "SETA MACD visual polish v3",
         "Price MACD Histogram",
         "Sentiment MACD Histogram Overlay",
-        "Hidden by default: scaled_sentiment_macd",
+        "scaled_sentiment_macd",
+        "customdata=rows.map",
         "Sentiment MACD Signal",
         "Hidden fast line",
         "Sentiment bull",
         "Sentiment bear",
-        "Last Sentiment Cross",
-        "Price Hist",
+        "sentConfLabel",
+        "histDirLabel",
     ]
 
     for token in required_tokens:
