@@ -10315,20 +10315,6 @@ window.SETA_BUILD_INFO = {
   }
 })();
 // END phase_seta_render_debounce_v1
-// BEGIN phase_seta_deferred_dropdown_dispatch_v1
-(function phase_seta_deferred_dropdown_dispatch_v1(){
-  window.SETA_DEFERRED_DROPDOWN_DISPATCH = {
-    enabled:true,
-    delayMs:75,
-    scheduledCount:0,
-    firedCount:0,
-    lastSelectId:"",
-    lastValue:"",
-    lastScheduledAt:null,
-    lastFiredAt:null
-  };
-})();
-// END phase_seta_deferred_dropdown_dispatch_v1
 
 // BEGIN phase_seta_custom_dropdowns_v1
 
@@ -11491,56 +11477,60 @@ window.SETA_BUILD_INFO = {
 
 
   }
-  const __setaDeferredDropdownDispatchTimers = new WeakMap();
 
-  function dispatchNativeSelectChangeDeferred(sel, delayMs){
-    const state = window.SETA_DEFERRED_DROPDOWN_DISPATCH || {};
-    const delay = Number.isFinite(Number(delayMs)) ? Number(delayMs) : Number(state.delayMs || 75);
 
-    const prior = __setaDeferredDropdownDispatchTimers.get(sel);
-    if (prior) clearTimeout(prior);
 
-    if (state) {
-      state.scheduledCount = (state.scheduledCount || 0) + 1;
-      state.lastSelectId = sel.id || sel.name || "";
-      state.lastValue = sel.value;
-      state.lastScheduledAt = new Date();
-    }
 
-    const timer = setTimeout(() => {
-      __setaDeferredDropdownDispatchTimers.delete(sel);
-      sel.dispatchEvent(new Event("input", {bubbles:true}));
-      sel.dispatchEvent(new Event("change", {bubbles:true}));
-      if (state) {
-        state.firedCount = (state.firedCount || 0) + 1;
-        state.lastFiredAt = new Date();
-        state.lastSelectId = sel.id || sel.name || "";
-        state.lastValue = sel.value;
-      }
-    }, Math.max(0, delay));
 
-    __setaDeferredDropdownDispatchTimers.set(sel, timer);
-  }
+
+
+
+
+
+
+
+
+
 
   function syncNativeSelect(sel, value){
+
     const nextValue = String(value == null ? "" : value);
 
-    // Update the native select state immediately so labels, console checks, and
-    // any direct value reads see the chosen value right away.
+    let changed = String(sel.value) !== nextValue;
+
     const options = Array.from(sel.options || []);
+
     const idx = options.findIndex(opt => String(opt.value) === nextValue);
-    if (idx >= 0) sel.selectedIndex = idx;
-    if (String(sel.value) !== nextValue) sel.value = nextValue;
 
-    options.forEach((opt, i) => {
-      if (i === sel.selectedIndex) opt.setAttribute("selected", "selected");
-      else opt.removeAttribute("selected");
-    });
+    if (idx >= 0 && sel.selectedIndex !== idx) { sel.selectedIndex = idx; changed = true; }
 
-    // Defer the heavy dashboard listeners slightly. The custom dropdown has
-    // already updated visually by the time this fires, so the UI feels less sticky.
-    dispatchNativeSelectChangeDeferred(sel, 75);
+    if (String(sel.value) !== nextValue) { sel.value = nextValue; changed = true; }
+
+    options.forEach((opt, i) => { if (i === sel.selectedIndex) opt.setAttribute("selected", "selected"); else opt.removeAttribute("selected"); });
+
+    if (!changed) return;
+
+    sel.dispatchEvent(new Event("input", {bubbles:true}));
+
+    sel.dispatchEvent(new Event("change", {bubbles:true}));
+
+    setTimeout(() => { sel.dispatchEvent(new Event("change", {bubbles:true})); }, 0);
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   function closeMenu(wrap){
 
