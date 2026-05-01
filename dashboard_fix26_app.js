@@ -542,7 +542,7 @@ window.SETA_BUILD_INFO = {
 
 
 
-(function phase_seta_perf_diagnostics_v1(){
+(function phase_seta_perf_diagnostics_v1(){
 
 
 
@@ -558,7 +558,7 @@ window.SETA_BUILD_INFO = {
 
 
 
-  if (window.__phase_seta_perf_diagnostics_v1) return;
+  if (window.__phase_seta_perf_diagnostics_v1) return;
 
 
 
@@ -574,7 +574,11 @@ window.SETA_BUILD_INFO = {
 
 
 
-  window.__phase_seta_perf_diagnostics_v1 = true;
+  window.__phase_seta_perf_diagnostics_v1 = true;
+
+  const __setaPerfParams = new URLSearchParams(window.location.search || "");
+
+  if (!__setaPerfParams.has("diag") && !__setaPerfParams.has("perf")) return;
 
 
 
@@ -33458,7 +33462,14 @@ function ensureAlertSidePanel(){
 
 
 
-      @media (max-width:1100px){.chartPanelGrid{display:block}.alertSidePanel{max-height:none;margin-top:12px}}
+      @media (max-width:1100px){.chartPanelGrid{display:block}.alertSidePanel{max-height:none;margin-top:12px}}
+      @media (max-width:700px){
+        .alertSidePanel.collapsed{min-width:100%;max-width:100%;min-height:60px;height:60px;margin-top:12px;}
+        .alertSidePanel.collapsed .alertPanelHeader{height:60px;padding:8px 12px;flex-direction:row;justify-content:space-between;align-items:center;}
+        .alertSidePanel.collapsed .alertPanelHeaderMain{writing-mode:horizontal-tb;transform:none;align-items:center;gap:8px;}
+        .alertSidePanel.collapsed .alertPanelHeader h3{font-size:12px;letter-spacing:.06em;}
+        .alertSidePanel.collapsed .alertPanelToggle{width:28px;height:28px;}
+      }
 
 
 
@@ -45811,7 +45822,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  const rsiPaneText = `RSI / Sent RSI · ${formatNum(lastRsiVal)} / ${formatNum(lastSentRsiVal)} · ${rsiBias} · ${rsiGap.label}`;
+  const rsiPaneText = `RSI / Sent RSI · ${formatNum(lastRsiVal)} / ${formatNum(lastSentRsiVal)} · ${rsiBias} · ${rsiGap.label}`;
 
 
 
@@ -45907,7 +45918,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  const stochPaneText = `%K / %D / Sent Stoch · ${formatNum(lastStochK)} / ${formatNum(lastStochD)} / ${formatNum(lastSentStoch)} · ${stochBias} · ${stochGap.label}`;
+  const stochPaneText = `%K / %D / Sent Stoch · ${formatNum(lastStochK)} / ${formatNum(lastStochD)} / ${formatNum(lastSentStoch)} · ${stochBias} · ${stochGap.label}`;
 
 
 
@@ -45955,7 +45966,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  const overlapTriggerShapes=[];
+  const overlapTriggerShapes=[];
 
 
 
@@ -46003,7 +46014,27 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  const lowerPanesVisible = showLowerPanes();
+  const lowerPanesVisible = showLowerPanes();
+
+  const isMobileChart = (window.matchMedia && window.matchMedia('(max-width: 700px)').matches) || window.innerWidth <= 700;
+
+  const chartMargin = isMobileChart ? {l:52,r:14,t:30,b:58} : {l:64,r:30,t:18,b:54};
+
+  const paneTitleFontSize = isMobileChart ? 13 : 15;
+
+  const paneNoteFontSize = isMobileChart ? 10 : 11;
+
+  const overlapPaneText = cfg.compactAnnotations
+    ? (isMobileChart ? `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel}` : `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel} | ${overlapInfo.context}`)
+    : overlapInfo.annotation;
+
+  const rsiPaneAnnotationText = isMobileChart
+    ? `RSI / Sent RSI · ${formatNum(lastRsiVal)} / ${formatNum(lastSentRsiVal)} · ${rsiBias}`
+    : rsiPaneText;
+
+  const stochPaneAnnotationText = isMobileChart
+    ? `%K / %D / Sent · ${formatNum(lastStochK)} / ${formatNum(lastStochD)} / ${formatNum(lastSentStoch)}`
+    : stochPaneText;
 
 
 
@@ -46035,7 +46066,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-    paper_bgcolor:COLORS.bg, plot_bgcolor:COLORS.panel, font:{color:COLORS.text}, margin:{l:64,r:30,t:18,b:54}, barmode:'overlay',
+    paper_bgcolor:COLORS.bg, plot_bgcolor:COLORS.panel, font:{color:COLORS.text}, margin:chartMargin, barmode:'overlay',
 
 
 
@@ -46403,7 +46434,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      {xref:'paper',yref:'paper',x:0.5,y:0.995,text:'Price',showarrow:false,font:{size:15,color:COLORS.text}},
+      {xref:'paper',yref:'paper',x:0.5,y:0.995,text:isMobileChart ? '' : 'Price',showarrow:false,font:{size:paneTitleFontSize,color:COLORS.text}},
 
 
 
@@ -46435,7 +46466,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      {xref:'paper',yref:'paper',x:0.5,y:0.505,text:'MACD',showarrow:false,font:{size:15,color:COLORS.text}},
+      {xref:'paper',yref:'paper',x:0.5,y:0.505,text:isMobileChart ? '' : 'MACD',showarrow:false,font:{size:paneTitleFontSize,color:COLORS.text}},
 
 
 
@@ -46451,7 +46482,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      {xref:'paper',yref:'paper',x:0.5,y:0.285,text:'RSI',showarrow:false,font:{size:15,color:COLORS.text}},
+      {xref:'paper',yref:'paper',x:0.5,y:0.285,text:isMobileChart ? '' : 'RSI',showarrow:false,font:{size:paneTitleFontSize,color:COLORS.text}},
 
 
 
@@ -46467,7 +46498,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      {xref:'paper',yref:'paper',x:0.5,y:0.145,text:'Stoch RSI',showarrow:false,font:{size:15,color:COLORS.text}}
+      {xref:'paper',yref:'paper',x:0.5,y:0.145,text:isMobileChart ? '' : 'Stoch RSI',showarrow:false,font:{size:paneTitleFontSize,color:COLORS.text}}
 
 
 
@@ -46515,7 +46546,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      ...((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.988 : 0.972,xanchor:'left',text: cfg.compactAnnotations ? `${overlapInfo.modelLabel}: ${overlapInfo.stateLabel} | ${overlapInfo.context}` : overlapInfo.annotation,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...((bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') ? [{xref:'paper',yref:'paper',x:0.01,y: cfg.compactAnnotations ? 0.988 : 0.972,xanchor:'left',text:overlapPaneText,showarrow:false,align:'left',font:{size:paneNoteFontSize,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
 
 
 
@@ -46531,7 +46562,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD ${macdRegime} · Sent Cross ${lastCrossText} · Hist ${histDirLabel} · Sent ${sentConfLabel}`,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(cfg.showMacdAnnotation !== false && lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.495,xanchor:'left',text:`MACD ${macdRegime} · Sent Cross ${lastCrossText} · Hist ${histDirLabel} · Sent ${sentConfLabel}`,showarrow:false,align:'left',font:{size:paneNoteFontSize,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
 
 
 
@@ -46547,7 +46578,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.275,xanchor:'left',text:rsiPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
+      ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.275,xanchor:'left',text:rsiPaneAnnotationText,showarrow:false,align:'left',font:{size:paneNoteFontSize,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : []),
 
 
 
@@ -46563,7 +46594,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.135,xanchor:'left',text:stochPaneText,showarrow:false,align:'left',font:{size:11,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
+      ...(lowerPanesVisible ? [{xref:'paper',yref:'paper',x:0.01,y:0.135,xanchor:'left',text:stochPaneAnnotationText,showarrow:false,align:'left',font:{size:paneNoteFontSize,color:'#d7e0e6'},bgcolor:'rgba(0,0,0,0.25)',bordercolor:'#283038',borderwidth:1}] : [])
 
 
 
