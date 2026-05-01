@@ -137,5 +137,6 @@ Start here:
 
 - `docs/DASHBOARD_V2_ROADMAP.md`
 - `docs/REPO_STRUCTURE.md`
+- `docs/DASHBOARD_V2_COMPLETION_LEDGER.md`
 
 These docs define the Dashboard v2 operating plan, baseline, file ownership rules, patch discipline, and current repository structure.
