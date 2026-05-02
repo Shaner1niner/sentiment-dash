@@ -10600,7 +10600,7 @@ function rollingMean(series, window=20){
 
 
 
-function computePriceBands(rows){
+function computePriceBands(rows, freq){
 
 
 
@@ -10744,7 +10744,19 @@ function computePriceBands(rows){
 
 
 
-  const validBasis=rollingMean(validClose,20);
+  const period = 20;
+  const minPeriods = freq === 'W' ? 4 : 10;
+  const validBasis = new Array(validClose.length).fill(null);
+  const validSd = new Array(validClose.length).fill(null);
+  for(let k=0; k<validClose.length; k++){
+    const start = Math.max(0, k - period + 1);
+    const windowVals = validClose.slice(start, k + 1).filter(v=>v!==null && Number.isFinite(v));
+    if(windowVals.length < minPeriods) continue;
+    const mean = windowVals.reduce((a,b)=>a+b,0) / windowVals.length;
+    const variance = windowVals.reduce((a,b)=>a + Math.pow(b - mean, 2), 0) / windowVals.length;
+    validBasis[k] = mean;
+    validSd[k] = Math.sqrt(variance);
+  }
 
 
 
@@ -10760,7 +10772,6 @@ function computePriceBands(rows){
 
 
 
-  const validSd=rollingStd(validClose,20);
 
 
 
@@ -11000,7 +11011,43 @@ function mappedSentimentBands(rows, fitRows, visRows){
 
 
 
-function smoothFiniteSeries(values, window){
+function bandWithVisibleWindowCoverage(bands, visibleMask){
+
+  if(!bands || !Array.isArray(bands.up) || !Array.isArray(bands.low)) return bands;
+
+  const up = bands.up.slice();
+  const low = bands.low.slice();
+  const visibleIdx = [];
+
+  for(let i=0; i<visibleMask.length; i++){
+    if(visibleMask[i]) visibleIdx.push(i);
+  }
+
+  if(!visibleIdx.length) return {...bands, up, low};
+
+  const firstValid = visibleIdx.find(i=>num(up[i])!==null && num(low[i])!==null);
+  const lastValid = visibleIdx.slice().reverse().find(i=>num(up[i])!==null && num(low[i])!==null);
+
+  if(firstValid === undefined || lastValid === undefined) return {...bands, up, low};
+
+  for(const i of visibleIdx){
+    if(i >= firstValid) break;
+    up[i] = up[firstValid];
+    low[i] = low[firstValid];
+  }
+
+  for(let p=visibleIdx.length-1; p>=0; p--){
+    const i = visibleIdx[p];
+    if(i <= lastValid) break;
+    up[i] = up[lastValid];
+    low[i] = low[lastValid];
+  }
+
+  return {...bands, up, low, displayCoverage:'visible_window_edge_extended'};
+
+}
+
+function smoothFiniteSeries(values, window){
 
 
 
@@ -15624,7 +15671,7 @@ function overlapBandsForTableau(rows, derivedOverlap){
 
 
 
-function contextualCalibrationSpec(rangePreset, calendar){
+function contextualCalibrationSpec(rangePreset, calendar, freq){
 
 
 
@@ -15640,7 +15687,19 @@ function contextualCalibrationSpec(rangePreset, calendar){
 
 
 
-  const continuous = calendar==='continuous';
+  if(freq === 'W'){
+    const weeklyMap = {
+      '1M': {window: 4, minPeriods: 3, smooth: 2},
+      '3M': {window: 13, minPeriods: 4, smooth: 3},
+      '6M': {window: 26, minPeriods: 5, smooth: 3},
+      'YTD': {window: 26, minPeriods: 5, smooth: 3},
+      '1Y': {window: 52, minPeriods: 6, smooth: 3},
+      'All': {window: 52, minPeriods: 6, smooth: 3}
+    };
+    return {...(weeklyMap[rangePreset] || weeklyMap['3M']), qLo:0.05, qHi:0.95};
+  }
+
+  const continuous = calendar==='continuous';
 
 
 
@@ -15816,7 +15875,7 @@ function contextualCalibrationSpec(rangePreset, calendar){
 
 
 
-function computeContextualSentimentBands(rows, rangePreset, calendar){
+function computeContextualSentimentBands(rows, rangePreset, calendar, freq){
 
 
 
@@ -15832,7 +15891,7 @@ function computeContextualSentimentBands(rows, rangePreset, calendar){
 
 
 
-  const spec=contextualCalibrationSpec(rangePreset, calendar);
+  const spec=contextualCalibrationSpec(rangePreset, calendar, freq);
 
 
 
@@ -16840,7 +16899,7 @@ function deriveAdvancedOverlapBands(priceUp, priceLow, sentUp, sentLow){
 
 
 
-function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar, bollinger){
+function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar, bollinger, freq){
 
 
 
@@ -16872,7 +16931,7 @@ function chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar
 
 
 
-    const contextualBands = computeContextualSentimentBands(rows, rangePreset, calendar);
+    const contextualBands = computeContextualSentimentBands(rows, rangePreset, calendar, freq);
 
 
 
@@ -42505,7 +42564,9 @@ function buildFigure(){
 
 
 
-  const priceBands=computePriceBands(rows);
+  const priceBands=computePriceBands(rows, freq);
+
+  const displayPriceBands=bandWithVisibleWindowCoverage(priceBands, visibleMask);
 
 
 
@@ -42922,7 +42983,7 @@ function buildFigure(){
 
 
 
-  if(bandsLayerPolicy.priceBand) addFilledBand(data,xs,priceBands.up,priceBands.low,COLORS.priceBand,COLORS.priceFill,priceBands.derived?'Price Band (TV 20,2 Derived)':'Price Band','y');
+  if(bandsLayerPolicy.priceBand) addFilledBand(data,xs,displayPriceBands.up,displayPriceBands.low,COLORS.priceBand,COLORS.priceFill,priceBands.derived?'Price Band (TV 20,2 Derived)':'Price Band','y');
 
 
 
@@ -42938,7 +42999,7 @@ function buildFigure(){
 
 
 
-  const activeOverlapModel=chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar, bollinger);
+  const activeOverlapModel=chooseOverlapModel(rows, priceBands, mappedBands, rangePreset, calendar, bollinger, freq);
 
 
 
@@ -42954,7 +43015,9 @@ function buildFigure(){
 
 
 
-  const activeSentBands=activeOverlapModel.sentimentBands || mappedBands;
+  const activeSentBands=activeOverlapModel.sentimentBands || mappedBands;
+
+  const displaySentBands=bandWithVisibleWindowCoverage(activeSentBands, visibleMask);
 
 
 
@@ -42970,7 +43033,7 @@ function buildFigure(){
 
 
 
-  if(bandsLayerPolicy.sentimentEnvelope) addFilledBand(data,xs,activeSentBands.up,activeSentBands.low,COLORS.sentCore,COLORS.sentFill,activeOverlapModel.family==='contextual' ? 'Contextual Sentiment Envelope' : 'Sentiment Band','y');
+  if(bandsLayerPolicy.sentimentEnvelope) addFilledBand(data,xs,displaySentBands.up,displaySentBands.low,COLORS.sentCore,COLORS.sentFill,activeOverlapModel.family==='contextual' ? 'Contextual Sentiment Envelope' : 'Sentiment Band','y');
 
 
 
@@ -42986,7 +43049,9 @@ function buildFigure(){
 
 
 
-  const ov=activeOverlapModel.overlap;
+  const ov=activeOverlapModel.overlap;
+
+  const displayOv=bandWithVisibleWindowCoverage(ov, visibleMask);
 
 
 
@@ -43376,7 +43441,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  if(bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') addOverlapBandWithPlaybook(data,xs,ov.up,ov.low,rows,ov,COLORS.overlapBand,COLORS.overlapFill,overlapInfo.modelLabel,'y',visibleMask);
+  if(bollinger==='overlap' || bollinger==='contextual' || bollinger==='both') addOverlapBandWithPlaybook(data,xs,displayOv.up,displayOv.low,rows,ov,COLORS.overlapBand,COLORS.overlapFill,overlapInfo.modelLabel,'y',visibleMask);
 
 
 
@@ -45568,7 +45633,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      const up=num(priceBands.up[i]), lo=num(priceBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
+      const up=num(displayPriceBands.up[i]), lo=num(displayPriceBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
 
 
 
@@ -45616,7 +45681,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      const up=num(activeSentBands.up[i]), lo=num(activeSentBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
+      const up=num(displaySentBands.up[i]), lo=num(displaySentBands.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
 
 
 
@@ -45664,7 +45729,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      const up=num(ov.up[i]), lo=num(ov.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
+      const up=num(displayOv.up[i]), lo=num(displayOv.low[i]); if(up!==null) priceCandidates.push(up); if(lo!==null) priceCandidates.push(lo);
 
 
 
