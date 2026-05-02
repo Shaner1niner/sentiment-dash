@@ -149,3 +149,5 @@ Start here:
 - `docs/GITHUB_PAGES_LIVE_HEALTH_CHECK.md`
 
 These docs define the Dashboard v2 operating plan, baseline, file ownership rules, patch discipline, and current repository structure.
+
+- [Dashboard v2 RC Baseline - 2026-05-02](docs/DASHBOARD_V2_RC_BASELINE_2026-05-02.md)
