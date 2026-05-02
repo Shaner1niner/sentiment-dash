@@ -32834,7 +32834,17 @@ function setAlertSidePanelCollapsed(panel, collapsed, collapsedKey){
 
   panel.classList.toggle('collapsed', collapsed);
 
-  if(grid) grid.classList.toggle('drawerCollapsed', collapsed);
+  if(grid){
+
+    grid.classList.toggle('drawerCollapsed', collapsed);
+
+    const desktopGrid = !window.matchMedia || window.matchMedia('(min-width: 1101px)').matches;
+
+    grid.style.gridTemplateColumns = desktopGrid
+      ? (collapsed ? 'minmax(0,1fr) 46px' : 'minmax(0,1fr) minmax(280px,320px)')
+      : '';
+
+  }
 
   if(toggle){
 
@@ -36763,6 +36773,22 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
   const applyCollapsed = (collapsed) => {
     setAlertSidePanelCollapsed(panel, collapsed, collapsedKey);
+    if(!collapsed){
+
+      window.setTimeout(()=>{
+
+        try{
+
+          if(typeof scheduleBuildFigure === 'function') scheduleBuildFigure();
+          else if(typeof buildFigure === 'function') buildFigure();
+
+        }catch(e){}
+
+      }, 40);
+
+      window.setTimeout(resizeDashboardChartNow, 980);
+
+    }
     return;
 
 
