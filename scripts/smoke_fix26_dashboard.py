@@ -197,6 +197,45 @@ def check_dashboard_js() -> None:
         else:
             warn(f"dashboard JS missing token {token}")
 
+    drawer_tokens = [
+        "function applyExplicitAlertTimelineLayout(panel, collapsed)",
+        "const drawerWidth = collapsed ? 46 : 300",
+        "grid.style.gridTemplateColumns = `minmax(0, calc(100% - ${drawerWidth + gap}px)) ${drawerWidth}px`",
+        "chart.style.setProperty('width', `${chartWidth}px`, 'important')",
+        "function resizeDashboardChartNow()",
+    ]
+    for token in drawer_tokens:
+        if token in text:
+            ok(f"dashboard JS contains drawer layout token: {token[:54]}")
+        else:
+            fail(f"dashboard JS missing drawer layout token: {token}")
+
+    match = re.search(
+        r"const applyCollapsed = \(collapsed\) => \{(?P<body>.*?)\n\s*\};\n+\s*if\(header\)",
+        text,
+        flags=re.S,
+    )
+    if not match:
+        fail("dashboard JS missing alert timeline applyCollapsed block")
+    else:
+        body = match.group("body")
+        legacy_tokens = [
+            "panel.classList.toggle('collapsed', collapsed)",
+            "grid.classList.toggle('drawerCollapsed', collapsed)",
+            "setAlertSidePanelCollapsed(panel, collapsed, collapsedKey);",
+        ]
+        unexpected = [
+            token
+            for token in legacy_tokens
+            if token in body and body.count(token) > (1 if token.startswith("setAlertSidePanelCollapsed") else 0)
+        ]
+        if unexpected:
+            fail(f"alert timeline applyCollapsed still contains legacy duplicate toggle path: {unexpected}")
+        elif "return;" in body:
+            fail("alert timeline applyCollapsed still contains unreachable return guard")
+        else:
+            ok("alert timeline applyCollapsed has no unreachable legacy duplicate path")
+
 
 def check_embeds() -> None:
     cache_tokens: dict[str, str] = {}
