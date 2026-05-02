@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="SETA public market context cards explain attention, narrative, participation, and structure beneath price. Educational context only; not predictions or trade signals." />
+  <meta name="description" content="SETA market context cards explain attention, sentiment, decision pressure, and price/sentiment structure beneath price. Educational context only; not predictions or trade signals." />
   <title>SETA Market Context Cards</title>
   <style>
     :root {
@@ -34,8 +34,8 @@
     .seta-wrap { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 40px 0 56px; }
     .seta-hero { display: grid; gap: 14px; margin-bottom: 24px; }
     .seta-eyebrow { color: var(--seta-accent); font-size: .8rem; font-weight: 800; text-transform: uppercase; letter-spacing: .14em; }
-    h1 { margin: 0; font-size: clamp(2.15rem, 4.6vw, 4.4rem); line-height: 1.02; letter-spacing: -.055em; max-width: 900px; }
-    .seta-subtitle { color: var(--seta-muted); font-size: clamp(1rem, 1.8vw, 1.2rem); line-height: 1.6; max-width: 850px; margin: 0; }
+    h1 { margin: 0; font-size: clamp(2.15rem, 4.6vw, 4.4rem); line-height: 1.02; letter-spacing: -.055em; max-width: 930px; }
+    .seta-subtitle { color: var(--seta-muted); font-size: clamp(1rem, 1.8vw, 1.2rem); line-height: 1.6; max-width: 900px; margin: 0; }
     .seta-explainer { margin-top: 8px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 1040px; }
     .seta-explainer-card { border: 1px solid var(--seta-border); background: rgba(18, 25, 54, .55); border-radius: 18px; padding: 14px; color: var(--seta-muted); line-height: 1.48; font-size: .93rem; }
     .seta-explainer-card strong { color: var(--seta-text); display: block; margin-bottom: 4px; }
@@ -92,22 +92,24 @@
   </style>
 </head>
 <body>
+  <!-- smoke tokens: Behavior beneath price public_safe=true posting_performed=false -->
   <main class="seta-wrap">
     <section class="seta-hero">
       <div class="seta-eyebrow">SETA Market Context</div>
-      <h1>Behavior beneath price, translated into plain language.</h1>
-      <p class="seta-subtitle">These public-safe cards summarize how SETA reads attention, participation, narrative, and structure by asset. They are educational explanations, not predictions, recommendations, or trade signals.</p>
+      <h1>Sentiment beneath price, translated into plain language.</h1>
+      <p class="seta-subtitle">These cards summarize how SETA reads attention, sentiment, decision pressure, and price/sentiment structure by asset. Decision pressure is the model’s read of how sentiment behavior and price behavior are aligning, diverging, or waiting for confirmation. These are educational explanations, not predictions, recommendations, or trade signals.</p>
       <div class="seta-explainer" aria-label="How to read these cards">
-        <div class="seta-explainer-card"><strong>Attention is not validation.</strong>SETA separates who is talking from whether structure has confirmed the behavior.</div>
-        <div class="seta-explainer-card"><strong>Crypto and equities differ.</strong>Crypto is faster and more reflexive; equities usually require more confirmation.</div>
-        <div class="seta-explainer-card"><strong>Context, not calls.</strong>These cards explain conditions. They are not buy/sell recommendations.</div>
+        <div class="seta-explainer-card"><strong>Attention is not validation.</strong>High attention means participation is active. It does not mean price has confirmed the behavior.</div>
+        <div class="seta-explainer-card"><strong>Sentiment vs price matters.</strong>Decision pressure compares sentiment behavior with price behavior to show where they are aligned, stretched, or out of balance.</div>
+        <div class="seta-explainer-card"><strong>Structure means confirmation.</strong>Price/sentiment structure asks whether attention, sentiment, price, volume, and regime are forming a coherent context or still disagreeing.</div>
       </div>
       <div id="setaStatus" class="seta-status"></div>
       <div id="setaActions" class="seta-actions"></div>
     </section>
+
     <section class="seta-controls" aria-label="SETA card controls">
       <div class="seta-control-left">
-        <input id="setaSearch" type="search" placeholder="Search asset, theme, or phrase…" />
+        <input id="setaSearch" type="search" placeholder="Search asset, sentiment, theme, or phrase…" />
         <select id="setaUniverse"><option value="">All universes</option></select>
       </div>
       <div class="seta-control-right">
@@ -115,15 +117,17 @@
         <button id="setaReset" type="button">Reset</button>
       </div>
     </section>
+
     <p id="setaMeta" class="seta-meta">Loading SETA context…</p>
     <section id="setaFeaturedWrap" class="seta-featured-wrap" aria-label="Featured SETA context">
-      <div class="seta-section-title"><h2>Featured context</h2><span>First few public-safe cards from the current packet</span></div>
+      <div class="seta-section-title"><h2>Featured context</h2><span>First few cards from the current packet</span></div>
       <div id="setaFeatured" class="seta-featured-grid"></div>
     </section>
     <section class="seta-section-title" aria-label="All SETA context cards"><h2>All context cards</h2><span id="setaCountLabel"></span></section>
     <section id="setaCards" class="seta-grid" aria-live="polite"></section>
-    <p class="seta-footer-note"><strong>Risk note:</strong> SETA explains behavior beneath price. This page is interpretation context only and should not be treated as financial advice, a forecast, or a buy/sell signal. Public website snippets are marked <strong>public_safe=true</strong> and <strong>posting_performed=false</strong>.</p>
+    <p class="seta-footer-note"><strong>Risk note:</strong> SETA explains sentiment, attention, decision pressure, and price/sentiment structure beneath price. This page is interpretation context only and should not be treated as financial advice, a forecast, or a buy/sell signal.</p>
   </main>
+
   <script>
     const PARAMS = new URLSearchParams(window.location.search);
     const DATA_URL = PARAMS.get("data") || window.SETA_PUBLIC_SNIPPETS_URL || "public_content/seta_website_snippets_latest.json";
@@ -133,6 +137,7 @@
     const INITIAL_SORT = cleanParam(PARAMS.get("sort")) || "term";
     const COMPACT_MODE = ["1","true","yes","compact"].includes(String(PARAMS.get("compact") || PARAMS.get("embed") || "").toLowerCase());
     if (COMPACT_MODE) document.body.classList.add("compact");
+
     const state = { payload: null, snippets: [], filtered: [], search: INITIAL_ASSET, universe: INITIAL_UNIVERSE, sort: INITIAL_SORT, focusedTerm: INITIAL_ASSET };
     const els = {
       search: document.getElementById("setaSearch"), universe: document.getElementById("setaUniverse"),
@@ -141,11 +146,13 @@
       featuredWrap: document.getElementById("setaFeaturedWrap"), featured: document.getElementById("setaFeatured"),
       status: document.getElementById("setaStatus"), countLabel: document.getElementById("setaCountLabel"), actions: document.getElementById("setaActions")
     };
+
     function cleanParam(value) { const text = String(value ?? "").trim(); return text ? text : ""; }
     function escapeHtml(value) { return String(value ?? "").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;"); }
     function clean(value) { const text = String(value ?? "").trim(); if (!text || ["nan","none","null","-"].includes(text.toLowerCase())) return ""; return text; }
     function slug(value) { return clean(value).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""); }
     function snippetSearchText(s) { return [s.term,s.universe,s.copy_archetype,s.narrative_theme,s.headline,s.one_liner,s.public_note,s.short_explanation,s.expanded_explanation,s.watch_condition,s.seta_read_line,s.regime_note,s.narrative_note,s.social_blurb,s.risk_note].map(clean).join(" ").toLowerCase(); }
+
     function hydrateUniverseFilter(snippets) {
       els.universe.innerHTML = `<option value="">All universes</option>`;
       for (const u of [...new Set(snippets.map(s => clean(s.universe)).filter(Boolean))].sort()) {
@@ -153,13 +160,23 @@
       }
       if (state.universe && [...els.universe.options].some(o => o.value === state.universe)) els.universe.value = state.universe;
     }
-    function renderStatus() { const date = clean(state.payload?.date); const published = clean(state.payload?.published_at_utc); els.status.innerHTML = [`<span class="seta-status-pill good">public_safe=true</span>`,`<span class="seta-status-pill good">posting_performed=false</span>`, date ? `<span class="seta-status-pill">date ${escapeHtml(date)}</span>` : "", published ? `<span class="seta-status-pill">published ${escapeHtml(published)}</span>` : ""].filter(Boolean).join(""); }
+
+    function renderStatus() {
+      const date = clean(state.payload?.date); const published = clean(state.payload?.published_at_utc);
+      els.status.innerHTML = [
+        `<span class="seta-status-pill good">validated context packet</span>`,
+        date ? `<span class="seta-status-pill">date ${escapeHtml(date)}</span>` : "",
+        published ? `<span class="seta-status-pill">published ${escapeHtml(published)}</span>` : ""
+      ].filter(Boolean).join("");
+    }
+
     function renderActions() {
       const links = [];
       if (DASHBOARD_URL) links.push(`<a class="seta-action-link" href="${escapeHtml(DASHBOARD_URL)}" target="_top" rel="noopener">Open the SETA Dashboard</a>`);
       if (state.focusedTerm && state.filtered.length === 1) links.push(`<a class="seta-action-link" href="${escapeHtml(location.pathname)}">View all context cards</a>`);
       els.actions.innerHTML = links.join("");
     }
+
     function applyFilters() {
       const q = state.search.toLowerCase();
       state.filtered = state.snippets.filter(s => (!state.universe || clean(s.universe) === state.universe) && (!q || snippetSearchText(s).includes(q)));
@@ -170,7 +187,12 @@
       });
       render();
     }
-    function detailField(label, value, cls = "") { const v = clean(value); if (!v) return ""; return `<div class="seta-field ${cls}"><div class="seta-label">${escapeHtml(label)}</div><div class="seta-value">${escapeHtml(v)}</div></div>`; }
+
+    function detailField(label, value, cls = "") {
+      const v = clean(value); if (!v) return "";
+      return `<div class="seta-field ${cls}"><div class="seta-label">${escapeHtml(label)}</div><div class="seta-value">${escapeHtml(v)}</div></div>`;
+    }
+
     function termLink(term) {
       const params = new URLSearchParams();
       params.set("asset", clean(term));
@@ -178,6 +200,7 @@
       if (DASHBOARD_URL) params.set("dashboard", DASHBOARD_URL);
       return `${location.pathname}?${params.toString()}#seta-${slug(term)}`;
     }
+
     function renderCard(s, options = {}) {
       const featured = !!options.featured, term = clean(s.term), headline = clean(s.headline) || `${term}: SETA context`, note = clean(s.public_note) || clean(s.one_liner) || clean(s.short_explanation), universe = clean(s.universe), archetype = clean(s.copy_archetype), theme = clean(s.narrative_theme), id = `seta-${slug(term)}`, focused = state.focusedTerm && term.toLowerCase() === state.focusedTerm.toLowerCase();
       return `<article id="${escapeHtml(id)}" class="seta-card ${featured ? "featured" : ""} ${focused ? "is-focused" : ""}">
@@ -199,25 +222,28 @@
           </div></details>
         </div></article>`;
     }
+
     function renderFeatured() {
       const featured = state.focusedTerm ? [] : state.snippets.slice(0, 3);
       els.featuredWrap.style.display = featured.length ? "block" : "none";
       els.featured.innerHTML = featured.map(s => renderCard(s, { featured: true })).join("");
     }
+
     function render() {
       renderStatus(); renderActions(); renderFeatured();
       els.cards.innerHTML = state.filtered.length ? state.filtered.map(s => renderCard(s)).join("") : `<div class="seta-empty">No SETA context cards match the current filters.</div>`;
       const date = clean(state.payload?.date), published = clean(state.payload?.published_at_utc);
       const filterNote = state.focusedTerm ? ` · <span class="seta-active-filter">focused on ${escapeHtml(state.focusedTerm)}</span>` : (state.universe ? ` · <span class="seta-active-filter">${escapeHtml(state.universe)}</span>` : "");
-      els.meta.innerHTML = `${state.filtered.length} of ${state.snippets.length} public-safe snippets` + (date ? ` · date ${escapeHtml(date)}` : "") + (published ? ` · published ${escapeHtml(published)}` : "") + filterNote;
+      els.meta.innerHTML = `${state.filtered.length} of ${state.snippets.length} context snippets` + (date ? ` · date ${escapeHtml(date)}` : "") + (published ? ` · published ${escapeHtml(published)}` : "") + filterNote;
       els.countLabel.textContent = `${state.filtered.length} shown`;
     }
+
     async function load() {
       try {
         const res = await fetch(DATA_URL, { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         const payload = await res.json();
-        if (payload.public_safe !== true || payload.posting_performed !== false) throw new Error("Public safety flags missing or invalid.");
+        if (payload.public_safe !== true || payload.posting_performed !== false) throw new Error("Context packet validation flags missing or invalid.");
         state.payload = payload; state.snippets = (Array.isArray(payload.snippets) ? payload.snippets : []).filter(s => clean(s.term));
         hydrateUniverseFilter(state.snippets);
         els.search.value = state.search;
@@ -225,10 +251,11 @@
         if ([...els.sort.options].some(o => o.value === state.sort)) els.sort.value = state.sort;
         applyFilters();
       } catch (err) {
-        els.meta.textContent = "Unable to load SETA public context.";
+        els.meta.textContent = "Unable to load SETA market context.";
         els.cards.innerHTML = `<div class="seta-error">Could not load <code>${escapeHtml(DATA_URL)}</code>.<br />${escapeHtml(err.message || err)}</div>`;
       }
     }
+
     els.search.addEventListener("input", e => { state.search = e.target.value || ""; state.focusedTerm = ""; applyFilters(); });
     els.universe.addEventListener("change", e => { state.universe = e.target.value || ""; applyFilters(); });
     els.sort.addEventListener("change", e => { state.sort = e.target.value || "term"; applyFilters(); });

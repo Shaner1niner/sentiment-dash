@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="SETA dashboard navigation for public market dashboard, member research dashboard, and public market context cards." />
+  <meta name="description" content="SETA dashboard navigation for public market context, sentiment, decision pressure, and price/sentiment structure." />
   <title>SETA Sentiment Dashboard</title>
   <style>
     :root {
@@ -27,18 +27,19 @@
     .brand span { color: var(--muted); font-size: 13px; }
     .status { border: 1px solid rgba(158, 230, 195, .28); color: var(--green); background: rgba(158, 230, 195, .08); border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; }
     .hero { display: grid; gap: 14px; padding: 36px 0 24px; border-bottom: 1px solid var(--border); }
-    h1 { margin: 0; max-width: 820px; font-size: clamp(2rem, 5vw, 4.1rem); line-height: 1.02; letter-spacing: 0; }
-    .hero p { margin: 0; max-width: 820px; color: var(--muted); font-size: clamp(1rem, 1.8vw, 1.16rem); }
+    h1 { margin: 0; max-width: 880px; font-size: clamp(2rem, 5vw, 4.1rem); line-height: 1.02; letter-spacing: 0; }
+    .hero p { margin: 0; max-width: 850px; color: var(--muted); font-size: clamp(1rem, 1.8vw, 1.16rem); }
     .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 24px 0; }
     .card { display: grid; align-content: space-between; gap: 18px; min-height: 220px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); padding: 18px; text-decoration: none; }
     .card:hover, .card:focus { border-color: rgba(143, 179, 255, .68); background: var(--panel-2); outline: none; }
     .card h2 { margin: 0 0 8px; font-size: 1.25rem; letter-spacing: 0; }
     .card p { margin: 0; color: var(--muted); font-size: .96rem; }
     .card .meta { color: var(--accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
-    .ops { display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; border-top: 1px solid var(--border); padding-top: 22px; }
+    .ops { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; border-top: 1px solid var(--border); padding-top: 22px; margin-top: 2px; }
     .panel { border: 1px solid var(--border); border-radius: 8px; background: #0b0f13; padding: 16px; }
     .panel h2 { margin: 0 0 8px; font-size: 1rem; }
     .panel p { margin: 0; color: var(--muted); font-size: .94rem; }
+    .panel strong { color: var(--text); }
     code { color: var(--text); background: rgba(255,255,255,.06); border: 1px solid var(--border); border-radius: 6px; padding: 2px 5px; font-size: .9em; }
     @media (max-width: 820px) {
       .topbar, .ops { display: grid; grid-template-columns: 1fr; align-items: start; }
@@ -52,31 +53,65 @@
     <header class="topbar">
       <div class="brand">
         <strong>SETA Sentiment Dashboard</strong>
-        <span>Behavior beneath price, organized for research and education.</span>
+        <span>Sentiment, attention, and decision pressure beneath price.</span>
       </div>
       <span class="status">GitHub Pages live</span>
     </header>
+
     <section class="hero">
-      <h1>SETA Sentiment Dashboard</h1>
-      <p>Choose the public dashboard, member research surface, or public market context cards. All views are static GitHub Pages pages powered by the latest generated SETA payloads.</p>
+      <h1>Read market behavior beneath price.</h1>
+      <p>SETA helps organize sentiment, attention, and decision pressure into market context. Start with the public dashboard for the live overview, then use the context cards to understand how price and sentiment are lining up, diverging, or waiting for confirmation.</p>
     </section>
+
     <section class="grid" aria-label="SETA navigation">
       <a class="card" href="interactive_dashboard_fix24_public_embed.html">
-        <span><span class="meta">Public dashboard</span><h2>Market Dashboard</h2><p>Public-safe chart dashboard with core assets, price context, attention, bands, and timing panes.</p></span>
-        <span class="meta">Open public view</span>
+        <span>
+          <span class="meta">Start here</span>
+          <h2>Public Market Dashboard</h2>
+          <p>Chart dashboard with price, sentiment, attention, decision pressure, bands, and timing panes.</p>
+        </span>
+        <span class="meta">Start with the public dashboard</span>
       </a>
-      <a class="card" href="interactive_dashboard_fix24_member_embed.html">
-        <span><span class="meta">Member dashboard</span><h2>Research Dashboard</h2><p>Expanded asset universe and fuller analytical controls for SETA research workflows.</p></span>
-        <span class="meta">Open member view</span>
-      </a>
+
       <a class="card" href="seta_public_context_cards.html?dashboard=interactive_dashboard_fix24_public_embed.html">
-        <span><span class="meta">Public context</span><h2>Market Context Cards</h2><p>Public-safe explanatory cards for attention, narrative, participation, and structure by asset.</p></span>
-        <span class="meta">Open context cards</span>
+        <span>
+          <span class="meta">Plain-language context</span>
+          <h2>Market Context Cards</h2>
+          <p>Cards explaining attention, sentiment, decision pressure, and price/sentiment structure by asset.</p>
+        </span>
+        <span class="meta">Read market context cards</span>
+      </a>
+
+      <a class="card" href="interactive_dashboard_fix24_member_embed.html">
+        <span>
+          <span class="meta">Member research</span>
+          <h2>Research Dashboard</h2>
+          <p>Expanded asset universe and fuller analytical controls for deeper SETA research workflows.</p>
+        </span>
+        <span class="meta">Open full research view</span>
       </a>
     </section>
+
+    <section class="ops" aria-label="How to use SETA">
+      <div class="panel">
+        <h2>How to use SETA</h2>
+        <p>Use SETA to separate <strong>attention</strong> from <strong>validation</strong>. Attention shows where participation is active. Decision pressure shows where sentiment behavior and price behavior are meaningfully aligned or out of balance.</p>
+      </div>
+      <div class="panel">
+        <h2>What “structure” means</h2>
+        <p>On this site, structure means <strong>price/sentiment structure</strong>: whether price, sentiment, attention, volume, and confirmation are forming a coherent setup or still disagreeing.</p>
+      </div>
+    </section>
+
     <section class="ops" aria-label="Operations notes">
-      <div class="panel"><h2>Production Refresh</h2><p>The site is hosted on GitHub Pages. Daily refresh pushes update the static dashboard payloads and public context packet.</p></div>
-      <div class="panel"><h2>Health Check</h2><p>Run <code>python scripts/smoke_github_pages_live.py</code> from the repo root, or use the scheduled GitHub Actions workflow.</p></div>
+      <div class="panel">
+        <h2>Production Refresh</h2>
+        <p>The site is hosted on GitHub Pages. Refresh runs update static dashboard payloads and the context packet after safety and smoke gates pass.</p>
+      </div>
+      <div class="panel">
+        <h2>Not a trading signal</h2>
+        <p>SETA is a research and education layer. It is not a price forecast, buy/sell recommendation, or financial advice.</p>
+      </div>
     </section>
   </main>
 </body>
