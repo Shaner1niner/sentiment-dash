@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="SETA dashboard navigation for public market dashboard, member research dashboard, and public market context cards." />
+  <title>SETA Sentiment Dashboard</title>
+  <style>
+    :root {
+      --bg: #07090b;
+      --panel: #101418;
+      --panel-2: #0d1115;
+      --text: #e7eef3;
+      --muted: #a9b6bf;
+      --border: #242c33;
+      --accent: #8fb3ff;
+      --green: #9ee6c3;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: Arial, Helvetica, sans-serif; line-height: 1.48; }
+    a { color: inherit; }
+    .page { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 44px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 0 18px; border-bottom: 1px solid var(--border); }
+    .brand { display: grid; gap: 2px; }
+    .brand strong { font-size: 15px; letter-spacing: .08em; text-transform: uppercase; }
+    .brand span { color: var(--muted); font-size: 13px; }
+    .status { border: 1px solid rgba(158, 230, 195, .28); color: var(--green); background: rgba(158, 230, 195, .08); border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .hero { display: grid; gap: 14px; padding: 36px 0 24px; border-bottom: 1px solid var(--border); }
+    h1 { margin: 0; max-width: 820px; font-size: clamp(2rem, 5vw, 4.1rem); line-height: 1.02; letter-spacing: 0; }
+    .hero p { margin: 0; max-width: 820px; color: var(--muted); font-size: clamp(1rem, 1.8vw, 1.16rem); }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; padding: 24px 0; }
+    .card { display: grid; align-content: space-between; gap: 18px; min-height: 220px; border: 1px solid var(--border); border-radius: 8px; background: var(--panel); padding: 18px; text-decoration: none; }
+    .card:hover, .card:focus { border-color: rgba(143, 179, 255, .68); background: var(--panel-2); outline: none; }
+    .card h2 { margin: 0 0 8px; font-size: 1.25rem; letter-spacing: 0; }
+    .card p { margin: 0; color: var(--muted); font-size: .96rem; }
+    .card .meta { color: var(--accent); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .ops { display: grid; grid-template-columns: 1.2fr .8fr; gap: 14px; border-top: 1px solid var(--border); padding-top: 22px; }
+    .panel { border: 1px solid var(--border); border-radius: 8px; background: #0b0f13; padding: 16px; }
+    .panel h2 { margin: 0 0 8px; font-size: 1rem; }
+    .panel p { margin: 0; color: var(--muted); font-size: .94rem; }
+    code { color: var(--text); background: rgba(255,255,255,.06); border: 1px solid var(--border); border-radius: 6px; padding: 2px 5px; font-size: .9em; }
+    @media (max-width: 820px) {
+      .topbar, .ops { display: grid; grid-template-columns: 1fr; align-items: start; }
+      .grid { grid-template-columns: 1fr; }
+      .card { min-height: 170px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <strong>SETA Sentiment Dashboard</strong>
+        <span>Behavior beneath price, organized for research and education.</span>
+      </div>
+      <span class="status">GitHub Pages live</span>
+    </header>
+    <section class="hero">
+      <h1>SETA Sentiment Dashboard</h1>
+      <p>Choose the public dashboard, member research surface, or public market context cards. All views are static GitHub Pages pages powered by the latest generated SETA payloads.</p>
+    </section>
+    <section class="grid" aria-label="SETA navigation">
+      <a class="card" href="interactive_dashboard_fix24_public_embed.html">
+        <span><span class="meta">Public dashboard</span><h2>Market Dashboard</h2><p>Public-safe chart dashboard with core assets, price context, attention, bands, and timing panes.</p></span>
+        <span class="meta">Open public view</span>
+      </a>
+      <a class="card" href="interactive_dashboard_fix24_member_embed.html">
+        <span><span class="meta">Member dashboard</span><h2>Research Dashboard</h2><p>Expanded asset universe and fuller analytical controls for SETA research workflows.</p></span>
+        <span class="meta">Open member view</span>
+      </a>
+      <a class="card" href="seta_public_context_cards.html?dashboard=interactive_dashboard_fix24_public_embed.html">
+        <span><span class="meta">Public context</span><h2>Market Context Cards</h2><p>Public-safe explanatory cards for attention, narrative, participation, and structure by asset.</p></span>
+        <span class="meta">Open context cards</span>
+      </a>
+    </section>
+    <section class="ops" aria-label="Operations notes">
+      <div class="panel"><h2>Production Refresh</h2><p>The site is hosted on GitHub Pages. Daily refresh pushes update the static dashboard payloads and public context packet.</p></div>
+      <div class="panel"><h2>Health Check</h2><p>Run <code>python scripts/smoke_github_pages_live.py</code> from the repo root, or use the scheduled GitHub Actions workflow.</p></div>
+    </section>
+  </main>
+</body>
+</html>

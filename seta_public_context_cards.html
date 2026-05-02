@@ -127,7 +127,7 @@
   <script>
     const PARAMS = new URLSearchParams(window.location.search);
     const DATA_URL = PARAMS.get("data") || window.SETA_PUBLIC_SNIPPETS_URL || "public_content/seta_website_snippets_latest.json";
-    const DASHBOARD_URL = PARAMS.get("dashboard") || window.SETA_DASHBOARD_URL || "";
+    const DASHBOARD_URL = PARAMS.get("dashboard") || window.SETA_DASHBOARD_URL || "interactive_dashboard_fix24_public_embed.html";
     const INITIAL_ASSET = cleanParam(PARAMS.get("asset") || PARAMS.get("term") || PARAMS.get("ticker"));
     const INITIAL_UNIVERSE = cleanParam(PARAMS.get("universe"));
     const INITIAL_SORT = cleanParam(PARAMS.get("sort")) || "term";

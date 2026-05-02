@@ -7,6 +7,7 @@ on:
   pull_request:
     paths:
       - ".github/workflows/github-pages-live-health.yml"
+      - "index.html"
       - "scripts/smoke_github_pages_live.py"
       - "docs/GITHUB_PAGES_LIVE_HEALTH_CHECK.md"
       - "README.md"

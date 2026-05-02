@@ -119,7 +119,8 @@ class LiveHealthCheck:
                 self.fail(f"{label} is not valid JSON: {exc}")
 
     def check_html_contracts(self) -> None:
-        expected_titles = {
+        expected_titles: dict[str, str | tuple[str, ...]] = {
+            "site root": ("SETA Sentiment Dashboard", "SETA Sentiment Dashboard | sentiment-dash"),
             "public dashboard": "SETA Market Dashboard",
             "member dashboard": "SETA Research Dashboard",
             "market context cards": "SETA Market Context Cards",
@@ -129,10 +130,11 @@ class LiveHealthCheck:
             if response is None:
                 continue
             title = extract_title(response.text)
-            if title == expected:
-                self.ok(f"{label} title is {expected}")
+            expected_values = expected if isinstance(expected, tuple) else (expected,)
+            if title in expected_values:
+                self.ok(f"{label} title is {title}")
             else:
-                self.fail(f"{label} title expected {expected!r}, got {title!r}")
+                self.fail(f"{label} title expected one of {expected_values!r}, got {title!r}")
 
         cache_tokens: dict[str, str] = {}
         for label in ["public dashboard", "member dashboard"]:
@@ -169,6 +171,18 @@ class LiveHealthCheck:
             self.ok("market context cards references the public snippets payload")
         elif context:
             self.fail("market context cards does not reference the public snippets payload")
+
+        root = self.responses.get("site root")
+        if root is not None:
+            for required in [
+                "interactive_dashboard_fix24_public_embed.html",
+                "interactive_dashboard_fix24_member_embed.html",
+                "seta_public_context_cards.html",
+            ]:
+                if required in root.text:
+                    self.ok(f"site root links to {required}")
+                else:
+                    self.warn(f"site root does not link to {required}; okay during Pages propagation")
 
     def check_manifest_and_payloads(self) -> None:
         manifest = self.json_payloads.get("manifest")
