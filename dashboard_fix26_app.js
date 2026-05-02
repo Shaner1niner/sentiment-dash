@@ -32856,6 +32856,32 @@ function setAlertSidePanelCollapsed(panel, collapsed, collapsedKey){
 
 }
 
+function resizeDashboardChartNow(){
+
+  const chart=document.getElementById('chart');
+
+  if(!chart || !window.Plotly) return;
+
+  chart.style.width='100%';
+
+  const width=Math.floor(chart.getBoundingClientRect().width || chart.clientWidth || 0);
+
+  try{
+
+    if(width>0 && Plotly.relayout) Plotly.relayout(chart,{width,autosize:true});
+
+  }catch(e){}
+
+  try{
+
+    if(Plotly.Plots && Plotly.Plots.resize) Plotly.Plots.resize(chart);
+
+  }catch(e){}
+
+  try{ syncAlertSidePanelHeight(); }catch(e){}
+
+}
+
 function ensureAlertSidePanel(){
 
 
@@ -32968,7 +32994,7 @@ function ensureAlertSidePanel(){
 
 
 
-      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,360px);gap:12px;align-items:start;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
+      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,320px);gap:12px;align-items:start;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
 
 
 
@@ -33000,7 +33026,7 @@ function ensureAlertSidePanel(){
 
 
 
-      .chartPanelGrid>#chart{min-width:0;width:100%;}
+      .chartPanelGrid>#chart,.chartPanelGrid .js-plotly-plot,.chartPanelGrid .plot-container,.chartPanelGrid .svg-container{min-width:0;width:100%!important;max-width:100%;}
 
 
 
@@ -33871,7 +33897,7 @@ function resizeChartAfterDrawerToggle(){
 
 
 
-    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); syncAlertSidePanelHeight(); }catch(e){} }, 80);
+    window.requestAnimationFrame(()=>resizeDashboardChartNow());
 
 
 
@@ -33887,7 +33913,7 @@ function resizeChartAfterDrawerToggle(){
 
 
 
-    window.setTimeout(()=>{ try{ Plotly.Plots.resize(chart); syncAlertSidePanelHeight(); }catch(e){} }, 220);
+    [80,220,420,760].forEach(delay=>window.setTimeout(resizeDashboardChartNow, delay));
 
 
 
@@ -36735,7 +36761,9 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-  const applyCollapsed = (collapsed) => {
+  const applyCollapsed = (collapsed) => {
+    setAlertSidePanelCollapsed(panel, collapsed, collapsedKey);
+    return;
 
 
 
