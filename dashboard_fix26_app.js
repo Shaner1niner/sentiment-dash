@@ -366,7 +366,11 @@ let SCREENER_SECTION = "top_priority";
 
 
 
-const SCREENER_STORE_URL = new URLSearchParams(location.search).get("screener") || window.SETA_SCREENER_STORE_URL || "fix26_screener_store.json";
+const SCREENER_STORE_URL = new URLSearchParams(location.search).get("screener") || window.SETA_SCREENER_STORE_URL || "fix26_screener_store.json";
+
+function dashboardPayloadFetchOptions(){
+  return new URLSearchParams(location.search).has("refresh") ? {cache:"no-store"} : {cache:"default"};
+}
 
 
 
@@ -5607,7 +5611,6 @@ window.SETA_BUILD_INFO = {
     if (!changed) return;
     sel.dispatchEvent(new Event("input", {bubbles:true}));
     sel.dispatchEvent(new Event("change", {bubbles:true}));
-    setTimeout(() => { sel.dispatchEvent(new Event("change", {bubbles:true})); }, 0);
   }
 
 
@@ -5676,7 +5679,13 @@ window.SETA_BUILD_INFO = {
 
 
 
-    if (openWrap && openWrap !== wrap) closeMenu(openWrap);
+    if (openWrap && openWrap !== wrap) closeMenu(openWrap);
+
+    const sel = wrap.querySelector("select[data-seta-custom-dropdown='1']");
+
+    const menu = wrap.querySelector(".setaCustomSelectMenu");
+
+    if (sel && menu) renderMenuOptions(sel, menu);
 
 
 
@@ -5832,11 +5841,21 @@ window.SETA_BUILD_INFO = {
 
 
 
-  function renderMenuOptions(sel, menu){
+  function selectOptionsKey(sel){
+    return Array.from(sel.options || []).map(opt => [
+      String(opt.value),
+      String(opt.textContent || opt.label || ""),
+      opt.disabled ? "1" : "0"
+    ].join("\\x1f")).join("\\x1e");
+  }
+
+  function renderMenuOptions(sel, menu){
 
 
 
-    menu.innerHTML = "";
+    menu.innerHTML = "";
+
+    menu.dataset.optionsKey = selectOptionsKey(sel);
 
 
 
@@ -5920,7 +5939,7 @@ window.SETA_BUILD_INFO = {
 
 
 
-    if (menu) renderMenuOptions(sel, menu);
+    if (menu && (wrap.classList.contains("open") || !menu.childElementCount || menu.dataset.optionsKey !== selectOptionsKey(sel))) renderMenuOptions(sel, menu);
 
 
 
@@ -6120,7 +6139,7 @@ window.SETA_BUILD_INFO = {
 
 
 
-      const options = Array.from(wrap.querySelectorAll(".setaCustomSelectOption:not([disabled])"));
+      let options = Array.from(wrap.querySelectorAll(".setaCustomSelectOption:not([disabled])"));
 
 
 
@@ -6140,7 +6159,9 @@ window.SETA_BUILD_INFO = {
 
 
 
-        openMenu(wrap);
+        openMenu(wrap);
+
+        options = Array.from(wrap.querySelectorAll(".setaCustomSelectOption:not([disabled])"));
 
 
 
@@ -7328,7 +7349,7 @@ async function loadScreenerStore(){
 
 
 
-    const res = await fetch(SCREENER_STORE_URL, {cache:"no-store"});
+    const res = await fetch(SCREENER_STORE_URL, dashboardPayloadFetchOptions());
 
 
 
@@ -7728,7 +7749,9 @@ async function loadStore(){
 
 
 
-  const res = await fetch(activeDataUrl(), {cache:'no-store'});
+  const url = activeDataUrl();
+
+  const res = await fetch(url, dashboardPayloadFetchOptions());
 
 
 
@@ -7744,7 +7767,7 @@ async function loadStore(){
 
 
 
-  if(!res.ok) throw new Error(`Failed to load data from ${activeDataUrl()}: ${res.status}`);
+  if(!res.ok) throw new Error(`Failed to load data from ${url}: ${res.status}`);
 
 
 
@@ -8576,7 +8599,18 @@ function num(v){ const n=(v===null||v===undefined||v==='')?null:Number(v); retur
 
 
 
-function cloneRows(rows){ return rows.map(r=>{ const x={...r}; x.dateObj=new Date(r.date+'T00:00:00'); return x; }); }
+function cloneRows(rows){
+  if(!Array.isArray(rows)) return [];
+  if(Array.isArray(rows.__setaPreparedRows)) return rows.__setaPreparedRows;
+  const prepared = rows.map(r=>{
+    const x={...r};
+    x.dateObj = r.dateObj instanceof Date ? r.dateObj : new Date(String(r.date || '')+'T00:00:00');
+    return x;
+  });
+  try{ Object.defineProperty(rows, "__setaPreparedRows", {value:prepared, configurable:true}); }
+  catch(_){ rows.__setaPreparedRows = prepared; }
+  return prepared;
+}
 
 
 
@@ -39613,7 +39647,7 @@ function setDashboardAssetFromScreener(term){
 
 
 
-    if(typeof buildFigure === 'function'){
+    if(typeof scheduleBuildFigure === 'function'){
 
 
 
@@ -39629,7 +39663,7 @@ function setDashboardAssetFromScreener(term){
 
 
 
-      buildFigure();
+      scheduleBuildFigure();
 
 
 
@@ -42077,7 +42111,29 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
-function buildFigure(){
+let DASH_BUILD_SCHEDULED = false;
+
+function scheduleBuildFigure(){
+  if(DASH_BUILD_SCHEDULED) return;
+  DASH_BUILD_SCHEDULED = true;
+  const run = ()=>{
+    DASH_BUILD_SCHEDULED = false;
+    buildFigure();
+  };
+  if(typeof window !== "undefined" && typeof window.requestAnimationFrame === "function") window.requestAnimationFrame(run);
+  else setTimeout(run, 0);
+}
+
+function drawDashboardPlot(data, layout){
+  const chart = document.getElementById('chart');
+  if(!chart || typeof Plotly === 'undefined') return Promise.resolve();
+  const config = {responsive:true, displaylogo:false};
+  const hasPlot = Array.isArray(chart.data) && chart.data.length > 0;
+  if(hasPlot && typeof Plotly.react === 'function') return Plotly.react(chart, data, layout, config);
+  return Plotly.newPlot(chart, data, layout, config);
+}
+
+function buildFigure(){
 
 
 
@@ -46786,7 +46842,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  Plotly.newPlot('chart', data, layout, {responsive:true, displaylogo:false}).then(()=>{
+  drawDashboardPlot(data, layout).then(()=>{
 
 
 
@@ -46866,7 +46922,7 @@ const CONTROL_IDS=['asset','freq','range','priceDisplay','scaleMode','ribbon','s
 
 
 
-function attachControlHandlers(){ CONTROL_IDS.forEach(id=>{ const el=document.getElementById(id); if(el) el.addEventListener('change', buildFigure); }); }
+function attachControlHandlers(){ CONTROL_IDS.forEach(id=>{ const el=document.getElementById(id); if(el && el.dataset.setaBuildHandler!=="1"){ el.dataset.setaBuildHandler="1"; el.addEventListener('change', scheduleBuildFigure); } }); }
 
 
 
