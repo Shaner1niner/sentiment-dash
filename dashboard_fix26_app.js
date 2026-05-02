@@ -42216,6 +42216,103 @@ function priceCandlestickTrace(xs, rows, freq){
 
 }
 
+function weeklyCandleBodyWidthMs(xs){
+
+  const DAY_MS = 24 * 60 * 60 * 1000;
+
+  const diffs = [];
+
+  for(let i=1; i<xs.length; i++){
+    const prev = xs[i-1] instanceof Date ? xs[i-1].getTime() : Date.parse(xs[i-1]);
+    const cur = xs[i] instanceof Date ? xs[i].getTime() : Date.parse(xs[i]);
+    const diff = cur - prev;
+    if(Number.isFinite(diff) && diff > 0) diffs.push(diff);
+  }
+
+  diffs.sort((a,b)=>a-b);
+
+  const median = diffs.length ? diffs[Math.floor(diffs.length / 2)] : 7 * DAY_MS;
+
+  return Math.max(3.2 * DAY_MS, Math.min(5.4 * DAY_MS, median * 0.72));
+
+}
+
+function weeklyCandlestickTraces(xs, rows){
+
+  const upFill = 'rgba(236,242,245,0.98)';
+  const upLine = 'rgba(250,253,255,1)';
+  const downFill = 'rgba(125,136,145,0.94)';
+  const downLine = 'rgba(188,198,206,0.98)';
+  const neutralFill = 'rgba(176,184,190,0.96)';
+  const neutralLine = 'rgba(232,238,242,0.98)';
+  const bodyWidthMs = weeklyCandleBodyWidthMs(xs);
+
+  const bullWickX = [], bullWickY = [], bearWickX = [], bearWickY = [];
+  const bodyX = [], bodyY = [], bodyBase = [], bodyColor = [], bodyLine = [], customdata = [];
+  const highs = [], lows = [];
+
+  rows.forEach((r, idx)=>{
+    const x = xs[idx];
+    const open = num(r.open), high = num(r.high), low = num(r.low), close = num(r.close);
+    if(!x || open == null || high == null || low == null || close == null) return;
+
+    highs.push(high);
+    lows.push(low);
+
+    const bullish = close > open;
+    const bearish = close < open;
+    const wickX = bullish ? bullWickX : bearWickX;
+    const wickY = bullish ? bullWickY : bearWickY;
+
+    wickX.push(x, x, null);
+    wickY.push(low, high, null);
+
+    bodyX.push(x);
+    bodyBase.push(Math.min(open, close));
+    bodyY.push(Math.abs(close - open));
+    bodyColor.push(bullish ? upFill : (bearish ? downFill : neutralFill));
+    bodyLine.push(bullish ? upLine : (bearish ? downLine : neutralLine));
+    customdata.push([open, high, low, close]);
+  });
+
+  const span = highs.length && lows.length ? Math.max(...highs) - Math.min(...lows) : 0;
+  const minBody = span > 0 ? span * 0.0024 : 0;
+
+  for(let i=0; i<bodyY.length; i++){
+    if(bodyY[i] <= 0 && minBody > 0){
+      bodyBase[i] = customdata[i][3] - minBody / 2;
+      bodyY[i] = minBody;
+    }
+  }
+
+  return [
+    {type:'scatter',mode:'lines',x:bullWickX,y:bullWickY,name:'Price wicks',xaxis:'x',yaxis:'y',showlegend:false,hoverinfo:'skip',line:{color:upLine,width:1.35},opacity:0.92},
+    {type:'scatter',mode:'lines',x:bearWickX,y:bearWickY,name:'Price wicks',xaxis:'x',yaxis:'y',showlegend:false,hoverinfo:'skip',line:{color:downLine,width:1.35},opacity:0.92},
+    {
+      type:'bar',
+      x:bodyX,
+      y:bodyY,
+      base:bodyBase,
+      width:bodyWidthMs,
+      name:'Price',
+      xaxis:'x',
+      yaxis:'y',
+      showlegend:true,
+      marker:{color:bodyColor,line:{color:bodyLine,width:1.15}},
+      opacity:0.98,
+      customdata,
+      hovertemplate:'%{x|%b %d, %Y}<br>Open=%{customdata[0]:.2f}<br>High=%{customdata[1]:.2f}<br>Low=%{customdata[2]:.2f}<br>Close=%{customdata[3]:.2f}<extra></extra>'
+    }
+  ];
+
+}
+
+function priceCandlestickTraces(xs, rows, freq){
+
+  return freq === 'W' ? weeklyCandlestickTraces(xs, rows) : [priceCandlestickTrace(xs, rows, freq)];
+
+}
+
 function buildFigure(){
 
 
@@ -42713,7 +42810,7 @@ function buildFigure(){
 
 
 
-  if(priceDisplay==='candles') data.push(priceCandlestickTrace(xs, rows, freq));
+  if(priceDisplay==='candles') priceCandlestickTraces(xs, rows, freq).forEach(t=>data.push(t));
 
 
 
@@ -43001,7 +43098,11 @@ function buildFigure(){
 
 
 
-      data[0].hovertext=priceHoverText(rows, regimeInfo, ov, 'candles');
+      const priceHoverTrace=data.find(t=>t && t.name==='Price' && (t.yaxis||'y')==='y') || data[0];
+
+      if(priceHoverTrace){
+
+        priceHoverTrace.hovertext=priceHoverText(rows, regimeInfo, ov, 'candles');
 
 
 
@@ -43017,7 +43118,7 @@ function buildFigure(){
 
 
 
-      data[0].hoverinfo='text';
+        priceHoverTrace.hoverinfo='text';
 
 
 
@@ -43033,7 +43134,9 @@ function buildFigure(){
 
 
 
-      data[0].hovertemplate=null;
+        priceHoverTrace.hovertemplate=null;
+
+      }
 
 
 

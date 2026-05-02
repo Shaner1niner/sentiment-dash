@@ -236,6 +236,20 @@ def check_dashboard_js() -> None:
         else:
             ok("alert timeline applyCollapsed has no unreachable legacy duplicate path")
 
+    weekly_candle_tokens = [
+        "function weeklyCandleBodyWidthMs(xs)",
+        "function weeklyCandlestickTraces(xs, rows)",
+        "const bodyWidthMs = weeklyCandleBodyWidthMs(xs)",
+        "type:'bar'",
+        "width:bodyWidthMs",
+        "priceCandlestickTraces(xs, rows, freq).forEach(t=>data.push(t))",
+    ]
+    for token in weekly_candle_tokens:
+        if token in text:
+            ok(f"dashboard JS contains weekly candle token: {token[:54]}")
+        else:
+            fail(f"dashboard JS missing weekly candle token: {token}")
+
 
 def check_embeds() -> None:
     cache_tokens: dict[str, str] = {}
