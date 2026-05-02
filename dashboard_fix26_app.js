@@ -32824,6 +32824,60 @@ function syncAlertSidePanelHeight(){
 
 
 
+function applyExplicitAlertTimelineLayout(panel, collapsed){
+
+  const grid=document.getElementById('chartPanelGrid');
+
+  const chart=document.getElementById('chart');
+
+  const desktopGrid = !window.matchMedia || window.matchMedia('(min-width: 1101px)').matches;
+
+  if(!grid || !panel || !desktopGrid){
+
+    if(grid) grid.style.gridTemplateColumns='';
+
+    if(panel){
+      panel.style.width='';
+      panel.style.minWidth='';
+      panel.style.maxWidth='';
+    }
+
+    if(chart){
+      chart.style.setProperty('width', '100%', 'important');
+      chart.style.removeProperty('max-width');
+      chart.style.removeProperty('min-width');
+    }
+
+    return 0;
+
+  }
+
+  const gap = 12;
+
+  const drawerWidth = collapsed ? 46 : 300;
+
+  grid.classList.toggle('drawerCollapsed', collapsed);
+
+  grid.style.gridTemplateColumns = `minmax(0, calc(100% - ${drawerWidth + gap}px)) ${drawerWidth}px`;
+
+  panel.style.width = `${drawerWidth}px`;
+  panel.style.minWidth = `${drawerWidth}px`;
+  panel.style.maxWidth = `${drawerWidth}px`;
+
+  const gridWidth = Math.floor(grid.getBoundingClientRect().width || grid.clientWidth || 0);
+
+  const chartWidth = gridWidth > 0 ? Math.max(320, gridWidth - drawerWidth - gap) : 0;
+
+  if(chart && chartWidth > 0){
+    chart.style.setProperty('width', `${chartWidth}px`, 'important');
+    chart.style.setProperty('max-width', `${chartWidth}px`, 'important');
+    chart.style.setProperty('min-width', '0', 'important');
+  }
+
+  return chartWidth;
+
+}
+
 function setAlertSidePanelCollapsed(panel, collapsed, collapsedKey){
 
   if(!panel) return;
@@ -32845,6 +32899,8 @@ function setAlertSidePanelCollapsed(panel, collapsed, collapsedKey){
       : '';
 
   }
+
+  applyExplicitAlertTimelineLayout(panel, collapsed);
 
   if(toggle){
 
@@ -32872,9 +32928,15 @@ function resizeDashboardChartNow(){
 
   if(!chart || !window.Plotly) return;
 
-  chart.style.width='100%';
+  const panel=document.getElementById('alertSidePanel');
 
-  const width=Math.floor(chart.getBoundingClientRect().width || chart.clientWidth || 0);
+  const targetWidth = panel
+    ? applyExplicitAlertTimelineLayout(panel, panel.classList.contains('collapsed'))
+    : 0;
+
+  if(!targetWidth) chart.style.width='100%';
+
+  const width=targetWidth || Math.floor(chart.getBoundingClientRect().width || chart.clientWidth || 0);
 
   try{
 
