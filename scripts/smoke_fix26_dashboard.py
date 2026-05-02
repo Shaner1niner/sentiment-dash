@@ -250,6 +250,20 @@ def check_dashboard_js() -> None:
         else:
             fail(f"dashboard JS missing weekly candle token: {token}")
 
+    band_window_tokens = [
+        "function computePriceBands(rows, freq)",
+        "const minPeriods = freq === 'W' ? 4 : 10",
+        "function contextualCalibrationSpec(rangePreset, calendar, freq)",
+        "function bandWithVisibleWindowCoverage(bands, visibleMask)",
+        "const displayPriceBands=bandWithVisibleWindowCoverage(priceBands, visibleMask)",
+        "const displayOv=bandWithVisibleWindowCoverage(ov, visibleMask)",
+    ]
+    for token in band_window_tokens:
+        if token in text:
+            ok(f"dashboard JS contains band window token: {token[:54]}")
+        else:
+            fail(f"dashboard JS missing band window token: {token}")
+
 
 def check_embeds() -> None:
     cache_tokens: dict[str, str] = {}
