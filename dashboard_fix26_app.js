@@ -32824,7 +32824,39 @@ function syncAlertSidePanelHeight(){
 
 
 
-function ensureAlertSidePanel(){
+function setAlertSidePanelCollapsed(panel, collapsed, collapsedKey){
+
+  if(!panel) return;
+
+  const grid=document.getElementById('chartPanelGrid');
+
+  const toggle=panel.querySelector('#alertPanelToggle');
+
+  panel.classList.toggle('collapsed', collapsed);
+
+  if(grid) grid.classList.toggle('drawerCollapsed', collapsed);
+
+  if(toggle){
+
+    toggle.textContent = collapsed ? '+' : '-';
+
+    toggle.setAttribute('aria-expanded', String(!collapsed));
+
+  }
+
+  panel.setAttribute('aria-expanded', String(!collapsed));
+
+  if(window.localStorage && collapsedKey) window.localStorage.setItem(collapsedKey, String(collapsed));
+
+  if(!collapsed) panel.style.height='';
+
+  resizeChartAfterDrawerToggle();
+
+  window.setTimeout(()=>{ try{ syncAlertSidePanelHeight(); }catch(e){} }, collapsed ? 120 : 260);
+
+}
+
+function ensureAlertSidePanel(){
 
 
 
@@ -32936,7 +32968,7 @@ function ensureAlertSidePanel(){
 
 
 
-      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:12px;align-items:start;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
+      .chartPanelGrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,360px);gap:12px;align-items:start;margin-top:4px;width:100%;transition:grid-template-columns .18s ease;}
 
 
 
@@ -32984,7 +33016,7 @@ function ensureAlertSidePanel(){
 
 
 
-      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:0;height:auto;min-height:360px;max-height:none;overflow:hidden;color:#dce7ee;font-family:inherit;transition:width .18s ease, opacity .18s ease, border-color .18s ease, height .18s ease;display:flex;flex-direction:column;}
+      .alertSidePanel{background:rgba(11,13,16,0.96);border:1px solid #283038;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.24);padding:0;width:100%;height:auto;min-width:0;min-height:360px;max-height:none;overflow:hidden;color:#dce7ee;font-family:inherit;transition:width .18s ease, opacity .18s ease, border-color .18s ease, height .18s ease;display:flex;flex-direction:column;}
 
 
 
@@ -36607,7 +36639,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-  panel.classList.toggle('collapsed', shouldCollapse);
+  setAlertSidePanelCollapsed(panel, shouldCollapse, null);
 
 
 
@@ -36799,7 +36831,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-    resizeChartAfterDrawerToggle();
+    setAlertSidePanelCollapsed(panel, collapsed, collapsedKey);
 
 
 
@@ -42133,6 +42165,38 @@ function drawDashboardPlot(data, layout){
   return Plotly.newPlot(chart, data, layout, config);
 }
 
+function priceCandlestickTrace(xs, rows, freq){
+
+  const isWeekly = freq === 'W';
+
+  const upFill = isWeekly ? 'rgba(232,238,241,0.96)' : COLORS.price;
+
+  const upLine = isWeekly ? 'rgba(246,250,252,1)' : COLORS.price;
+
+  const downFill = isWeekly ? 'rgba(142,151,158,0.92)' : '#9f9f9f';
+
+  const downLine = isWeekly ? 'rgba(190,198,204,0.98)' : '#b5b5b5';
+
+  return {
+    type:'candlestick',
+    x:xs,
+    open:rows.map(r=>num(r.open)),
+    high:rows.map(r=>num(r.high)),
+    low:rows.map(r=>num(r.low)),
+    close:rows.map(r=>num(r.close)),
+    name:'Price',
+    xaxis:'x',
+    yaxis:'y',
+    showlegend:true,
+    whiskerwidth:isWeekly ? 0.58 : 0.36,
+    increasing:{line:{color:upLine,width:isWeekly ? 1.55 : 1.15},fillcolor:upFill},
+    decreasing:{line:{color:downLine,width:isWeekly ? 1.55 : 1.15},fillcolor:downFill},
+    opacity:isWeekly ? 0.98 : 0.94,
+    hovertemplate:'%{x|%b %d, %Y}<br>Open=%{open:.2f}<br>High=%{high:.2f}<br>Low=%{low:.2f}<br>Close=%{close:.2f}<extra></extra>'
+  };
+
+}
+
 function buildFigure(){
 
 
@@ -42630,7 +42694,7 @@ function buildFigure(){
 
 
 
-  if(priceDisplay==='candles') data.push({type:'candlestick',x:xs,open:rows.map(r=>num(r.open)),high:rows.map(r=>num(r.high)),low:rows.map(r=>num(r.low)),close:rows.map(r=>num(r.close)),name:'Price',xaxis:'x',yaxis:'y',showlegend:true,increasing:{line:{color:COLORS.price},fillcolor:COLORS.price},decreasing:{line:{color:'#9f9f9f'},fillcolor:'#9f9f9f'},hovertemplate:'%{x|%b %d, %Y}<br>Open=%{open:.2f}<br>High=%{high:.2f}<br>Low=%{low:.2f}<br>Close=%{close:.2f}<extra></extra>'});
+  if(priceDisplay==='candles') data.push(priceCandlestickTrace(xs, rows, freq));
 
 
 
