@@ -40,3 +40,4 @@ Recommended use:
 3. Treat failures as production-blocking unless they are clearly GitHub Pages propagation delay.
 4. Treat the `SPY` warning as informational until the upstream data pipeline restores SPY coverage.
 
+GitHub Actions also runs this check daily at 03:30 UTC and supports manual runs through `workflow_dispatch`.
