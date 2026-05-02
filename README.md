@@ -106,6 +106,14 @@ and preserve these public-safety flags:
 }
 ```
 
+Run the live GitHub Pages health check after daily refresh pushes:
+
+```powershell
+python scripts/smoke_github_pages_live.py
+```
+
+See `docs/GITHUB_PAGES_LIVE_HEALTH_CHECK.md` for the production checks and warning policy, including the expected upstream-only `SPY` gap.
+
 ## Development workflow
 
 Use one branch per focused change.
@@ -138,5 +146,6 @@ Start here:
 - `docs/DASHBOARD_V2_ROADMAP.md`
 - `docs/REPO_STRUCTURE.md`
 - `docs/DASHBOARD_V2_COMPLETION_LEDGER.md`
+- `docs/GITHUB_PAGES_LIVE_HEALTH_CHECK.md`
 
 These docs define the Dashboard v2 operating plan, baseline, file ownership rules, patch discipline, and current repository structure.
