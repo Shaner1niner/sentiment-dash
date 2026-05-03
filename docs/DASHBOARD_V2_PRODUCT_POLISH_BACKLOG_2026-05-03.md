@@ -1,6 +1,6 @@
 # Dashboard V2 Product Polish Backlog - 2026-05-03
 
-This backlog starts from the stable `band_window_006` dashboard baseline. It intentionally avoids reopening fixes that have already passed QA.
+This backlog now starts from the stable `refresh_status_001` dashboard baseline. It intentionally avoids reopening fixes that have already passed QA.
 
 ## P1 - Regression Protection
 
