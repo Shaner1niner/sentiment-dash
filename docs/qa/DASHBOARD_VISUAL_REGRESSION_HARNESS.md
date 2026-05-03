@@ -41,6 +41,8 @@ With `VISUAL_REQUIRED=1`, a missing Playwright install exits non-zero.
 - Public dashboard, BTC weekly 1Y, Price bands.
 - Public dashboard, BTC weekly 1Y, All Bands.
 - Event Timeline drawer present and rendered.
+- Mobile member dashboard, BTC weekly 1Y, Combined Overlap bands.
+- Mobile public dashboard, BTC weekly 1Y, All Bands.
 
 ## Checks
 
@@ -50,5 +52,6 @@ The script combines screenshots with lightweight DOM checks:
 - weekly candle scenarios contain a Plotly price bar trace;
 - band scenarios contain a band or overlap trace with finite values near the visible-window start;
 - drawer presence and rendered-width sanity.
+- mobile scenarios check for horizontal overflow on key controls, Market Tape cards, chart, and drawer surfaces.
 
 These checks are not a substitute for human visual QA, but they give us a fast tripwire before pushing dashboard changes.
