@@ -12,7 +12,7 @@ This backlog starts from the stable `band_window_006` dashboard baseline. It int
 
 - Monitor occasional weekly MACD final-period crowding after the histogram gutter polish; avoid changing core indicator calculations.
 - Review annotation density in MACD and RSI panes so signal labels remain readable on long display ranges.
-- Check mobile chart and Event Timeline spacing on public and member dashboards after future panel changes.
+- Mobile member/public viewport pass shipped for controls, Market Tape, chart panes, and collapsed Alert Events spacing; continue checking after future panel changes.
 - Keep weekly candle bodies visually wide enough on 3M, 6M, and 1Y windows.
 
 ## P2 - Control And Naming Clarity

@@ -117,7 +117,8 @@ async function waitForChart(page) {
   await page.waitForSelector("#chart", { timeout: 15000 });
   await page.waitForFunction(() => {
     const chart = document.querySelector("#chart");
-    return chart && chart.offsetWidth > 500 && chart.offsetHeight > 400;
+    const minWidth = Math.min(500, window.innerWidth - 32);
+    return chart && chart.offsetWidth >= minWidth && chart.offsetHeight > 360;
   }, null, { timeout: 15000 });
 }
 
@@ -151,7 +152,9 @@ async function assertChartBasics(page, scenario) {
     };
   }, scenario.expectBandCoverage);
 
-  if (result.chartWidth < 500 || result.chartHeight < 400) {
+  const minChartWidth = scenario.viewport && scenario.viewport.width < 700 ? 320 : 500;
+  const minChartHeight = scenario.viewport && scenario.viewport.width < 700 ? 360 : 400;
+  if (result.chartWidth < minChartWidth || result.chartHeight < minChartHeight) {
     throw new Error(`${scenario.name}: chart rendered too small (${result.chartWidth}x${result.chartHeight})`);
   }
 
@@ -198,6 +201,42 @@ async function runDrawerCheck(page) {
   });
 }
 
+async function assertViewportLayout(page, scenario) {
+  const issues = await page.evaluate(() => {
+    const selectors = [
+      ".control",
+      ".setaSelectButton",
+      ".marketTapeCard",
+      ".marketTapePill",
+      ".marketTapeUniverse",
+      ".metricBadge",
+      ".pill",
+      "#chart",
+      "#alertSidePanel",
+    ];
+    const visible = (el) => {
+      const style = window.getComputedStyle(el);
+      const box = el.getBoundingClientRect();
+      return style.display !== "none" && style.visibility !== "hidden" && box.width > 0 && box.height > 0;
+    };
+    const problems = [];
+    document.querySelectorAll(selectors.join(",")).forEach((el) => {
+      if (!visible(el)) return;
+      const box = el.getBoundingClientRect();
+      if (box.right > window.innerWidth + 2 || box.left < -2) {
+        problems.push(`${el.className || el.id || el.tagName} horizontal overflow ${Math.round(box.left)}-${Math.round(box.right)} / ${window.innerWidth}`);
+      }
+      if ((el.scrollWidth - el.clientWidth) > 2 && !["chart", "alertSidePanel"].includes(el.id)) {
+        problems.push(`${el.className || el.id || el.tagName} text overflow ${el.scrollWidth}/${el.clientWidth}`);
+      }
+    });
+    return problems.slice(0, 10);
+  });
+  if (issues.length) {
+    throw new Error(`${scenario.name}: viewport layout issues: ${issues.join("; ")}`);
+  }
+}
+
 async function run() {
   const playwright = loadPlaywright();
   if (!playwright) {
@@ -218,10 +257,6 @@ async function run() {
   baseUrl = baseUrl.replace(/\/$/, "");
 
   const browser = await playwright.chromium.launch();
-  const page = await browser.newPage({ viewport: { width: 1440, height: 1200 }, deviceScaleFactor: 1 });
-  await page.addInitScript(() => {
-    window.localStorage && window.localStorage.removeItem("setaAlertEventsPanelCollapsed");
-  });
 
   const scenarios = [
     {
@@ -232,6 +267,7 @@ async function run() {
       range: "1Y",
       bands: "contextual",
       expectBandCoverage: true,
+      viewport: { width: 1440, height: 1200 },
     },
     {
       name: "member-link-weekly-1y-combined-overlap",
@@ -241,6 +277,7 @@ async function run() {
       range: "1Y",
       bands: "contextual",
       expectBandCoverage: true,
+      viewport: { width: 1440, height: 1200 },
     },
     {
       name: "public-btc-weekly-1y-price-bands",
@@ -250,6 +287,7 @@ async function run() {
       range: "1Y",
       bands: "price",
       expectBandCoverage: true,
+      viewport: { width: 1440, height: 1200 },
     },
     {
       name: "public-btc-weekly-1y-all-bands",
@@ -259,11 +297,40 @@ async function run() {
       range: "1Y",
       bands: "both",
       expectBandCoverage: true,
+      viewport: { width: 1440, height: 1200 },
+    },
+    {
+      name: "mobile-member-btc-weekly-1y-combined-overlap",
+      path: "/interactive_dashboard_fix24_member_embed.html",
+      asset: "BTC",
+      frequency: "W",
+      range: "1Y",
+      bands: "contextual",
+      expectBandCoverage: true,
+      viewport: { width: 390, height: 1200 },
+    },
+    {
+      name: "mobile-public-btc-weekly-1y-all-bands",
+      path: "/interactive_dashboard_fix24_public_embed.html",
+      asset: "BTC",
+      frequency: "W",
+      range: "1Y",
+      bands: "both",
+      expectBandCoverage: true,
+      viewport: { width: 390, height: 1200 },
     },
   ];
 
   try {
     for (const scenario of scenarios) {
+      const page = await browser.newPage({
+        viewport: scenario.viewport || { width: 1440, height: 1200 },
+        deviceScaleFactor: 1,
+        isMobile: !!(scenario.viewport && scenario.viewport.width < 700),
+      });
+      await page.addInitScript(() => {
+        window.localStorage && window.localStorage.removeItem("setaAlertEventsPanelCollapsed");
+      });
       console.log(`[RUN] ${scenario.name}`);
       await page.goto(`${baseUrl}${scenario.path}`, { waitUntil: "commit", timeout: 15000 });
       await configureDashboard(page, scenario);
@@ -274,12 +341,15 @@ async function run() {
       console.log(`[READY] ${scenario.name} checks`);
       await assertMarketTapeUniverse(page, scenario);
       console.log(`[READY] ${scenario.name} universe`);
+      await assertViewportLayout(page, scenario);
+      console.log(`[READY] ${scenario.name} viewport`);
       if (scenario.name === "member-btc-weekly-1y-combined-overlap") {
         await runDrawerCheck(page);
         console.log(`[READY] ${scenario.name} drawer`);
       }
       const screenshotPath = path.join(screenshotDir, `${scenario.name}.png`);
-      await page.screenshot({ path: screenshotPath, fullPage: false });
+      await page.screenshot({ path: screenshotPath, fullPage: !!(scenario.viewport && scenario.viewport.width < 700) });
+      await page.close();
       console.log(`[OK] ${scenario.name}`);
     }
   } finally {
