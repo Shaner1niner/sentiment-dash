@@ -10,7 +10,7 @@ This backlog starts from the stable `band_window_006` dashboard baseline. It int
 
 ## P2 - Chart Readability
 
-- Reduce occasional weekly MACD final-period label, line, or histogram overlap without changing core indicator calculations.
+- Monitor occasional weekly MACD final-period crowding after the histogram gutter polish; avoid changing core indicator calculations.
 - Review annotation density in MACD and RSI panes so signal labels remain readable on long display ranges.
 - Check mobile chart and Event Timeline spacing on public and member dashboards after future panel changes.
 - Keep weekly candle bodies visually wide enough on 3M, 6M, and 1Y windows.
