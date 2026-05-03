@@ -10,8 +10,8 @@ This backlog now starts from the stable `refresh_status_001` dashboard baseline.
 
 ## P2 - Chart Readability
 
-- Monitor occasional weekly MACD final-period crowding after the histogram gutter polish; avoid changing core indicator calculations.
-- Review annotation density in MACD and RSI panes so signal labels remain readable on long display ranges.
+- MACD cross annotation density shipped: all bull/bear cross markers and hover text remain, while always-visible labels are capped by viewport, frequency, and spacing.
+- Continue watching RSI/Stoch pane label density on longer ranges; avoid changing core indicator calculations.
 - Mobile member/public viewport pass shipped for controls, Market Tape, chart panes, and collapsed Alert Events spacing; continue checking after future panel changes.
 - Keep weekly candle bodies visually wide enough on 3M, 6M, and 1Y windows.
 

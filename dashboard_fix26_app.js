@@ -90134,7 +90134,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  const crossX=[],crossY=[],crossText=[],crossSize=[],crossColor=[];
+  const crossX=[],crossY=[],crossText=[],crossSize=[],crossColor=[],crossVisible=[],crossRowIndex=[];
 
 
 
@@ -90166,7 +90166,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  rows.forEach(r=>{const c=num(r.macd_signal_cross), y=num(r.scaled_sentiment_macd_signal) ?? num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Sentiment bull':'Sentiment bear'); crossSize.push(Math.min(15,8+Math.abs(num(r.macd_cross_significance)||0)*1.6)); crossColor.push(c===1?'rgba(83,235,175,0.92)':'rgba(255,174,118,0.90)');}});
+  rows.forEach((r,i)=>{const c=num(r.macd_signal_cross), y=num(r.scaled_sentiment_macd_signal) ?? num(r.macd); if(c===1||c===-1){crossX.push(r.dateObj); crossY.push(y); crossText.push(c===1?'Sentiment bull':'Sentiment bear'); crossSize.push(Math.min(15,8+Math.abs(num(r.macd_cross_significance)||0)*1.6)); crossColor.push(c===1?'rgba(83,235,175,0.92)':'rgba(255,174,118,0.90)'); crossVisible.push(!!visibleMask[i]); crossRowIndex.push(i);}});
 
 
 
@@ -90198,7 +90198,26 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-  if(crossX.length) data.push({type:'scatter',mode:'markers+text',x:crossX,y:crossY,text:crossText,textposition:'top center',xaxis:'x2',yaxis:'y2',marker:{size:crossSize,color:crossColor,symbol:'triangle-up'},name:'Sentiment crosses',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>%{text} cross<extra></extra>'});
+  if(crossX.length){
+    const crossMobile = (window.matchMedia && window.matchMedia('(max-width: 700px)').matches) || window.innerWidth <= 700;
+    const crossLabelBudget = crossMobile ? 0 : (freq === 'W' ? 4 : 6);
+    const minCrossLabelGap = freq === 'W' ? 3 : Math.max(10, Math.ceil(visRows.length / 24));
+    const visibleCrosses = crossX.map((_,i)=>({i,rowIndex:crossRowIndex[i],size:crossSize[i]})).filter(c=>crossVisible[c.i]);
+    const selectedCrossLabels = new Set();
+    const spacedEnough = candidate => !Array.from(selectedCrossLabels).some(i=>Math.abs(crossRowIndex[i]-candidate.rowIndex)<minCrossLabelGap);
+    const latestVisibleCross = visibleCrosses[visibleCrosses.length-1];
+    if(crossLabelBudget>0 && latestVisibleCross) selectedCrossLabels.add(latestVisibleCross.i);
+    visibleCrosses
+      .slice()
+      .sort((a,b)=>(b.size-a.size)||(b.rowIndex-a.rowIndex))
+      .forEach(candidate=>{
+        if(selectedCrossLabels.size>=crossLabelBudget) return;
+        if(selectedCrossLabels.has(candidate.i) || !spacedEnough(candidate)) return;
+        selectedCrossLabels.add(candidate.i);
+      });
+    const sparseCrossText = crossText.map((label,i)=>selectedCrossLabels.has(i)?label:'');
+    data.push({type:'scatter',mode:'markers+text',x:crossX,y:crossY,text:sparseCrossText,customdata:crossText,textposition:'top center',textfont:{size:10,color:'#d7e0e6'},xaxis:'x2',yaxis:'y2',marker:{size:crossSize,color:crossColor,symbol:'triangle-up'},name:'Sentiment crosses',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>%{customdata} cross<extra></extra>'});
+  }
 
 
 

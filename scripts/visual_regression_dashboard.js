@@ -134,6 +134,9 @@ async function assertChartBasics(page, scenario) {
       const yaxis = trace.yaxis || "y";
       return yaxis === "y" && /(Band|Overlap|Envelope)/i.test(name);
     });
+    const crossTrace = traces.find((trace) => String(trace.name || "") === "Sentiment crosses");
+    const crossTexts = crossTrace && Array.isArray(crossTrace.text) ? crossTrace.text : [];
+    const visibleCrossLabelCount = crossTexts.filter((value) => String(value || "").trim()).length;
     const firstFiniteBandIndex = bandTraces
       .map((trace) => {
         const values = Array.isArray(trace.y) ? trace.y : [];
@@ -147,6 +150,7 @@ async function assertChartBasics(page, scenario) {
       chartHeight: chartBox.height,
       priceBarCount,
       bandTraceCount: bandTraces.length,
+      visibleCrossLabelCount,
       firstFiniteBandIndex,
       expectBandCoverage,
     };
@@ -160,6 +164,11 @@ async function assertChartBasics(page, scenario) {
 
   if (scenario.frequency === "W" && result.priceBarCount < 1) {
     throw new Error(`${scenario.name}: expected weekly custom price bar trace`);
+  }
+
+  const maxCrossLabels = scenario.maxCrossLabels ?? (scenario.frequency === "W" ? 4 : null);
+  if (maxCrossLabels !== null && result.visibleCrossLabelCount > maxCrossLabels) {
+    throw new Error(`${scenario.name}: too many visible MACD cross labels (${result.visibleCrossLabelCount})`);
   }
 
   if (scenario.expectBandCoverage) {
@@ -310,6 +319,29 @@ async function run() {
       range: "1Y",
       bands: "both",
       expectBandCoverage: true,
+      maxCrossLabels: 4,
+      viewport: { width: 1440, height: 1200 },
+    },
+    {
+      name: "public-btc-daily-1y-price-bands",
+      path: "/interactive_dashboard_fix24_public_embed.html",
+      asset: "BTC",
+      frequency: "D",
+      range: "1Y",
+      bands: "price",
+      expectBandCoverage: true,
+      maxCrossLabels: 6,
+      viewport: { width: 1440, height: 1200 },
+    },
+    {
+      name: "member-nvda-weekly-1y-all-bands",
+      path: "/interactive_dashboard_fix24_member_embed.html",
+      asset: "NVDA",
+      frequency: "W",
+      range: "1Y",
+      bands: "both",
+      expectBandCoverage: true,
+      maxCrossLabels: 4,
       viewport: { width: 1440, height: 1200 },
     },
     {
