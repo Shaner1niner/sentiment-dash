@@ -264,6 +264,18 @@ def check_dashboard_js() -> None:
         else:
             fail(f"dashboard JS missing band window token: {token}")
 
+    annotation_density_tokens = [
+        "const crossLabelBudget = crossMobile ? 0 : (freq === 'W' ? 4 : 6)",
+        "const minCrossLabelGap = freq === 'W' ? 3 : Math.max(10, Math.ceil(visRows.length / 24))",
+        "const sparseCrossText = crossText.map((label,i)=>selectedCrossLabels.has(i)?label:'')",
+        "customdata:crossText",
+    ]
+    for token in annotation_density_tokens:
+        if token in text:
+            ok(f"dashboard JS contains annotation density token: {token[:54]}")
+        else:
+            fail(f"dashboard JS missing annotation density token: {token}")
+
 
 def check_embeds() -> None:
     cache_tokens: dict[str, str] = {}
