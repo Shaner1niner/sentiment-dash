@@ -185,6 +185,19 @@ async function assertMarketTapeUniverse(page, scenario) {
   }
 }
 
+async function assertFreshnessStatus(page, scenario) {
+  const text = await page.evaluate(() => {
+    const el = document.querySelector("#freshnessStatus");
+    return el ? el.textContent || "" : "";
+  });
+  if (!text) {
+    throw new Error(`${scenario.name}: expected dashboard freshness status`);
+  }
+  if (!/Data \d{4}-\d{2}-\d{2}/.test(text) || !/assets covered/i.test(text)) {
+    throw new Error(`${scenario.name}: freshness status is incomplete (${text})`);
+  }
+}
+
 async function runDrawerCheck(page) {
   const hasDrawer = await page.evaluate(() => {
     return !!document.querySelector("#alertPanelToggle") && !!document.querySelector("#alertSidePanel");
@@ -341,6 +354,8 @@ async function run() {
       console.log(`[READY] ${scenario.name} checks`);
       await assertMarketTapeUniverse(page, scenario);
       console.log(`[READY] ${scenario.name} universe`);
+      await assertFreshnessStatus(page, scenario);
+      console.log(`[READY] ${scenario.name} freshness`);
       await assertViewportLayout(page, scenario);
       console.log(`[READY] ${scenario.name} viewport`);
       if (scenario.name === "member-btc-weekly-1y-combined-overlap") {

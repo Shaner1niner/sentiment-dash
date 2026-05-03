@@ -13482,6 +13482,44 @@ function badgeOrder(){ return manifestModeConfig()?.badgeOrder || []; }
 
 function helperPrefix(){ return manifestModeConfig()?.helperPrefix || null; }
 
+function freshnessAgeLabel(iso){
+  const t = Date.parse(iso || '');
+  if(!Number.isFinite(t)) return '';
+  const hours = Math.max(0, (Date.now() - t) / 36e5);
+  if(hours < 1) return `${Math.round(hours * 60)}m old`;
+  if(hours < 48) return `${hours.toFixed(hours < 10 ? 1 : 0)}h old`;
+  return `${Math.round(hours / 24)}d old`;
+}
+
+function shortUtcStamp(iso){
+  const t = Date.parse(iso || '');
+  if(!Number.isFinite(t)) return '';
+  const d = new Date(t);
+  return d.toISOString().replace('T',' ').slice(0,16) + ' UTC';
+}
+
+function refreshStatusText(){
+  const meta = STORE?._meta || {};
+  const dataIso = meta.generated_at_utc || '';
+  const screenerIso = SCREENER_STORE?.generated_at_utc || '';
+  const included = Array.isArray(meta.included_assets) ? meta.included_assets.length : null;
+  const missing = Array.isArray(meta.missing_assets) ? meta.missing_assets : [];
+  const parts = [];
+  if(dataIso) parts.push(`Data ${shortUtcStamp(dataIso)}${freshnessAgeLabel(dataIso) ? ` (${freshnessAgeLabel(dataIso)})` : ''}`);
+  if(screenerIso) parts.push(`Screener ${freshnessAgeLabel(screenerIso) || shortUtcStamp(screenerIso)}`);
+  if(included !== null) parts.push(`${included} assets covered`);
+  if(missing.length) parts.push(`${missing.slice(0,3).join(', ')}${missing.length>3 ? ` +${missing.length-3}` : ''} upstream gap`);
+  return parts.join(' · ');
+}
+
+function renderFreshnessStatus(){
+  const el = document.getElementById('freshnessStatus');
+  if(!el) return;
+  const text = refreshStatusText();
+  el.textContent = text;
+  el.title = text ? 'Dashboard refresh status' : '';
+}
+
 
 
 
@@ -14377,6 +14415,7 @@ function applyModeUi(){
 
 
   document.getElementById('modeBadge').textContent = cfg.modeBadge || (mode==='member' ? 'Member Mode' : 'Public Mode');
+  renderFreshnessStatus();
 
 
 
@@ -94098,6 +94137,7 @@ async function initDashboard(){
 
 
     await Promise.all([loadStore(), loadScreenerStore()]);
+    renderFreshnessStatus();
 
 
 
