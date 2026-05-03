@@ -23,8 +23,7 @@ This backlog starts from the stable `band_window_006` dashboard baseline. It int
 
 ## P3 - Market Tape And Asset Universe
 
-- Clarify whether the Market Tape should show all eligible assets, a capped ranked set, or a mode-specific subset.
-- Add a visible explanation if the ranked cards are intentionally filtered.
+- Market Tape universe clarification shipped: visible cards are a capped section slice, rank numbers are global screener ranks, and the header now states the active section/mode coverage.
 - Keep SPY behavior tolerant of upstream data gaps so it returns naturally when the pipeline is fixed.
 
 ## P3 - Interaction Polish
