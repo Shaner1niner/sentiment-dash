@@ -74923,6 +74923,43 @@ function screenerAllowedTerms(){
 
 function mtAllowedRows(rows){ const allowed=(typeof screenerAllowedTerms === 'function') ? screenerAllowedTerms() : new Set(); return (rows || []).filter(r=>!allowed.size || allowed.has(mtTerm(r))); }
 
+function mtUniverseStats(section, sectionRows, visibleRows){
+  const byTerm = SCREENER_STORE?.by_term || {};
+  const screenerTerms = Object.keys(byTerm).map(t=>String(t).toUpperCase()).filter(Boolean);
+  const screenerSet = new Set(screenerTerms);
+  const allowed = (typeof screenerAllowedTerms === 'function') ? screenerAllowedTerms() : new Set();
+  const allowedTerms = Array.from(allowed || []).map(t=>String(t).toUpperCase()).filter(Boolean);
+  const coveredTerms = screenerTerms.filter(t=>!allowedTerms.length || allowed.has(t));
+  const missingTerms = allowedTerms.filter(t=>!screenerSet.has(t)).sort();
+  const tab = mtSectionTabs().find(([key])=>key===section);
+  const cfg = (typeof manifestModeConfig === 'function') ? manifestModeConfig() : {};
+  const modeName = String(cfg?.modeBadge || '').replace(/\s*Mode\s*$/i,'').trim().toLowerCase() || 'mode';
+  return {
+    sectionLabel: tab ? tab[1] : String(section || 'selected'),
+    shownCount: (visibleRows || []).length,
+    sectionCount: (sectionRows || []).length,
+    screenerCount: screenerTerms.length,
+    coveredCount: coveredTerms.length,
+    modeName,
+    missingTerms,
+  };
+}
+
+function mtUniverseText(stats){
+  if(!stats) return '';
+  const sectionLabel = stats.sectionLabel || 'selected';
+  const parts = [];
+  parts.push(`Showing ${stats.shownCount} of ${stats.sectionCount} ${sectionLabel} candidates`);
+  if(stats.screenerCount) parts.push(`rank # is global across ${stats.screenerCount} screener assets`);
+  if(stats.coveredCount) parts.push(`${stats.coveredCount} ${stats.modeName || 'mode'} assets covered`);
+  if(stats.missingTerms && stats.missingTerms.length){
+    const listed = stats.missingTerms.slice(0,3).join(', ');
+    const suffix = stats.missingTerms.length > 3 ? ` +${stats.missingTerms.length - 3}` : '';
+    parts.push(`${listed}${suffix} awaiting upstream data`);
+  }
+  return parts.join(' · ');
+}
+
 
 
 
@@ -75530,6 +75567,7 @@ function mtEnsureStyle(){
 
 
     .marketTapeSub{font-size:11px;color:#99a8b3;line-height:1.35;margin-top:3px;}
+    .marketTapeUniverse{display:block;margin-top:2px;color:#c5d5df;}
 
 
 
@@ -82439,7 +82477,9 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
-  const rows=mtAllowedRows(mtSectionRows(SCREENER_SECTION)).slice(0,5);
+  const sectionRows=mtAllowedRows(mtSectionRows(SCREENER_SECTION));
+  const rows=sectionRows.slice(0,5);
+  const universeText=mtUniverseText(mtUniverseStats(SCREENER_SECTION, sectionRows, rows));
 
 
 
@@ -83494,6 +83534,16 @@ function renderScreenerPanel(activeTerm=null){
 
 
 
+
+  if(universeText){
+    const sub=panel.querySelector('.marketTapeSub');
+    if(sub){
+      const span=document.createElement('span');
+      span.className='marketTapeUniverse';
+      span.textContent=universeText;
+      sub.appendChild(span);
+    }
+  }
 
   panel.querySelectorAll('[data-screener-section]').forEach(btn=>{ btn.onclick=()=>{ SCREENER_SECTION=btn.getAttribute('data-screener-section') || 'top_priority'; renderScreenerPanel(document.getElementById('asset')?.value || null); }; });
 
