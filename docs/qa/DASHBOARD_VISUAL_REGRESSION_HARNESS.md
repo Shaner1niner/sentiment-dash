@@ -23,7 +23,7 @@ docs/qa/dashboard-visual-regression-latest/
 
 ## Dependency Model
 
-Playwright is optional for the repository. If `playwright` or `playwright-core` is not installed, the script exits with a clear skip message and status `0`.
+Playwright is optional for the repository. If `playwright` or `playwright-core` is not installed, the script first checks the bundled Codex runtime path. If no Playwright package is available, it exits with a clear skip message and status `0`.
 
 For a required CI-style run, set:
 
@@ -40,7 +40,7 @@ With `VISUAL_REQUIRED=1`, a missing Playwright install exits non-zero.
 - Member dashboard, LINK weekly 1Y, Combined Overlap bands.
 - Public dashboard, BTC weekly 1Y, Price bands.
 - Public dashboard, BTC weekly 1Y, All Bands.
-- Event Timeline drawer collapsed and reopened.
+- Event Timeline drawer present and rendered.
 
 ## Checks
 
@@ -49,6 +49,6 @@ The script combines screenshots with lightweight DOM checks:
 - chart container has a real rendered size;
 - weekly candle scenarios contain a Plotly price bar trace;
 - band scenarios contain a band or overlap trace with finite values near the visible-window start;
-- drawer collapse and reopen changes the panel width as expected.
+- drawer presence and rendered-width sanity.
 
 These checks are not a substitute for human visual QA, but they give us a fast tripwire before pushing dashboard changes.

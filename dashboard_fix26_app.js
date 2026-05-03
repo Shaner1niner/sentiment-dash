@@ -767,12 +767,12 @@ function dashboardPayloadFetchOptions(){
       const medianGap = gaps[Math.floor(gaps.length / 2)];
 
       // Plotly date-axis bar width is in milliseconds.
-      // Use most of the candle spacing so weekly MACD bars do not look like hairlines.
-      const rawWidth = medianGap * 0.72;
+      // Keep MACD bars broad enough to read while preserving a visible gutter at the latest edge.
+      const rawWidth = medianGap * 0.62;
 
       // Guardrails: enough visual body on daily, but capped to avoid weekly bars merging.
       const minWidth = 0.35 * 24 * 60 * 60 * 1000;
-      const maxWidth = 6.00 * 24 * 60 * 60 * 1000;
+      const maxWidth = 5.25 * 24 * 60 * 60 * 1000;
       return Math.max(minWidth, Math.min(rawWidth, maxWidth));
     }catch(_){
       return undefined;
