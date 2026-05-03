@@ -88671,7 +88671,6 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-    const sentHistColors=sentHist.map(v=>v==null?'rgba(180,180,180,0)':v>=0?'rgba(75,230,180,0.20)':'rgba(255,185,120,0.18)');
 
 
 
@@ -88703,7 +88702,6 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-    data.push({type:'bar',x:xs,y:sentHist,name:'Sentiment MACD Histogram Overlay',marker:{color:sentHistColors,line:{width:0}},opacity:0.72,xaxis:'x2',yaxis:'y2',showlegend:false,hovertemplate:'%{x|%b %d, %Y}<br>Sentiment MACD Histogram=%{y:.2f}<extra></extra>'});
 
 
 
@@ -165858,34 +165856,3 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 // END phase_seta_score_history_tooltip_v11
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
