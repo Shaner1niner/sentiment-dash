@@ -6,7 +6,7 @@ This backlog starts from the stable `band_window_006` dashboard baseline. It int
 
 - Keep the visual regression harness current as controls, routes, or chart IDs change.
 - Capture fresh screenshots before and after any future chart-rendering change.
-- Preserve smoke coverage for local dashboard generation and GitHub Pages health.
+- Daily refresh confidence shipped: dashboard freshness line, local smoke/visual checks, and GitHub Pages health checklist.
 
 ## P2 - Chart Readability
 
