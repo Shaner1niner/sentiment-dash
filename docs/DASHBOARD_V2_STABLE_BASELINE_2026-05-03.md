@@ -4,9 +4,9 @@ This is the current stable dashboard baseline after the Event Timeline drawer, w
 
 ## Baseline Identity
 
-- Stable source head before this documentation/tooling pass: `6f8ccc2`
-- Intended stable tag after merge: `dashboard-v2-stable-band-window-2026-05-03`
-- Live cache token validated: `band_window_006`
+- Stable source head: `7d7cd92`
+- Stable tag: `dashboard-v2-stable-band-window-2026-05-03`
+- Live cache token validated: `remove_sent_macd_overlay_001`
 - Primary host: GitHub Pages only
 - Public URL family: `https://shaner1niner.github.io/sentiment-dash/`
 
