@@ -116,6 +116,39 @@ def check_chart_store(rel: str) -> None:
         warn(f"{rel} is small size={len(text)} bytes; verify payload builder output")
 
 
+def check_asset_index(rel: str) -> set[str]:
+    path = require_file(rel)
+    if not path.exists():
+        return set()
+    data = load_json(path)
+    if not isinstance(data, dict):
+        fail(f"{rel} root is not an object")
+        return set()
+    assets = data.get("assets")
+    if not isinstance(assets, dict) or not assets:
+        fail(f"{rel} missing non-empty assets object")
+        return set()
+    ok(f"{rel} asset count={len(assets)}")
+    found: set[str] = set()
+    for term, info in assets.items():
+        asset = str(term).upper()
+        found.add(asset)
+        url = info.get("url") if isinstance(info, dict) else None
+        if not url:
+            fail(f"{rel} asset {asset} missing url")
+            continue
+        asset_path = ROOT / str(url)
+        if not asset_path.exists():
+            fail(f"{rel} asset {asset} payload missing: {url}")
+            continue
+        payload = load_json(asset_path)
+        if not isinstance(payload, dict):
+            continue
+        if asset not in chart_store_assets(payload):
+            fail(f"{rel} asset {asset} payload does not contain matching chart rows")
+    return found
+
+
 def chart_store_assets(data: dict[str, Any]) -> set[str]:
     assets: set[str] = set()
     for freq in ["D", "W"]:
@@ -149,6 +182,7 @@ def check_manifest_payload_coverage() -> None:
             fail(f"manifest mode {mode_name} is not an object")
             continue
         data_url = mode_cfg.get("dataUrl")
+        asset_index_url = mode_cfg.get("assetIndexUrl")
         configured = {
             str(asset).upper()
             for asset in mode_cfg.get("assets", [])
@@ -165,6 +199,14 @@ def check_manifest_payload_coverage() -> None:
         if not isinstance(payload, dict):
             continue
         included = chart_store_assets(payload)
+        if asset_index_url:
+            indexed = check_asset_index(str(asset_index_url))
+            missing_from_index = sorted(configured - indexed)
+            if missing_from_index:
+                warn(
+                    f"manifest mode {mode_name} configured assets missing from asset index: "
+                    f"{', '.join(missing_from_index)}; okay only while upstream coverage is absent"
+                )
         missing = sorted(configured - included)
         extras = sorted(included - configured)
         if missing:
@@ -191,7 +233,7 @@ def check_dashboard_js() -> None:
     else:
         fail(f"dashboard JS missing {EXPECTED_MARKER}")
 
-    for token in ["SETA Market Tape", "marketTapeFamily", "fix26_screener_store.json"]:
+    for token in ["SETA Market Tape", "marketTapeFamily", "fix26_screener_store.json", "activeAssetIndexUrl", "ensureAssetPayload"]:
         if token in text:
             ok(f"dashboard JS contains {token}")
         else:

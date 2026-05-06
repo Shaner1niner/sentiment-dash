@@ -502,6 +502,72 @@ def write_payload(df: pd.DataFrame, mode: str, manifest: dict[str, Any], output_
     return payload
 
 
+def asset_payload_url(mode: str, term: str) -> str:
+    safe = re.sub(r"[^0-9A-Za-z._-]+", "_", term.strip().upper())
+    return f"fix26_chart_store_assets/{mode}/{safe}.json"
+
+
+def write_asset_split_payloads(payload: dict[str, Any], mode: str, output_dir: Path, *, minify: bool) -> Path:
+    meta = payload.get("_meta", {})
+    daily = payload.get("D", {})
+    weekly = payload.get("W", {})
+    assets = sorted(set(daily.keys()) | set(weekly.keys()))
+    index: dict[str, Any] = {
+        "version": meta.get("manifest_version", "fix26"),
+        "mode": mode,
+        "generated_at_utc": meta.get("generated_at_utc"),
+        "source_payload": meta.get("source_csv"),
+        "assets": {},
+        "_meta": {
+            "builder": "build_fix26_chart_store_payloads.py",
+            "split": "asset",
+            "mode": mode,
+            "asset_count": len(assets),
+            "total_daily_rows": 0,
+            "total_weekly_rows": 0,
+        },
+    }
+
+    for term in assets:
+        term_payload = {
+            "D": {term: daily.get(term, [])},
+            "W": {term: weekly.get(term, [])},
+            "_meta": {
+                **meta,
+                "mode": mode,
+                "asset": term,
+                "included_assets": [term],
+                "term_count": 1,
+                "row_count_daily": len(daily.get(term, [])),
+                "row_count_weekly": len(weekly.get(term, [])),
+                "split": "asset",
+            },
+        }
+        rel = asset_payload_url(mode, term)
+        path = output_dir / rel
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with path.open("w", encoding="utf-8") as f:
+            if minify:
+                json.dump(term_payload, f, allow_nan=False, separators=(",", ":"))
+            else:
+                json.dump(term_payload, f, allow_nan=False, indent=2)
+        index["assets"][term] = {
+            "url": rel,
+            "daily_rows": len(daily.get(term, [])),
+            "weekly_rows": len(weekly.get(term, [])),
+        }
+        index["_meta"]["total_daily_rows"] += len(daily.get(term, []))
+        index["_meta"]["total_weekly_rows"] += len(weekly.get(term, []))
+
+    index_path = output_dir / f"fix26_chart_store_{mode}_index.json"
+    with index_path.open("w", encoding="utf-8") as f:
+        if minify:
+            json.dump(index, f, allow_nan=False, separators=(",", ":"))
+        else:
+            json.dump(index, f, allow_nan=False, indent=2)
+    return index_path
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Build lean Fix 26 chart-store JSON payloads from chart-history CSV.")
     parser.add_argument("--manifest", default="dashboard_fix26_mode_manifest.json", help="Path to Fix 26 mode manifest JSON")
@@ -509,6 +575,7 @@ def main() -> int:
     parser.add_argument("--output-dir", default=".", help="Directory for generated JSON payloads")
     parser.add_argument("--mode", choices=["public", "member", "all"], default="all", help="Which payload(s) to generate")
     parser.add_argument("--minify", action="store_true", help="Write compact JSON without pretty indentation")
+    parser.add_argument("--split-assets", action="store_true", help="Also write per-asset payloads and a small mode index")
     parser.add_argument("--print-export-terms", action="store_true", help="Print the union of public/member assets and exit")
     args = parser.parse_args()
 
@@ -530,6 +597,9 @@ def main() -> int:
     for mode in modes:
         default_name = manifest.get("modes", {}).get(mode, {}).get("dataUrl") or f"fix26_chart_store_{mode}.json"
         payload = write_payload(df, mode, manifest, output_dir / default_name, Path(args.input_csv).resolve(), minify=args.minify)
+        if args.split_assets:
+            index_path = write_asset_split_payloads(payload, mode, output_dir, minify=args.minify)
+            payload.setdefault("_meta", {})["asset_index_path"] = str(index_path)
         written.append((mode, output_dir / default_name, payload))
 
     for mode, path, payload in written:

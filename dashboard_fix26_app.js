@@ -576,6 +576,12 @@ const MANIFEST_URL = new URLSearchParams(location.search).get("manifest") || win
 
 let STORE = null;
 
+let ASSET_STORE_INDEX = null;
+
+const ASSET_PAYLOAD_CACHE = {};
+
+const ASSET_PAYLOAD_PENDING = {};
+
 
 
 
@@ -11300,8 +11306,6 @@ window.SETA_BUILD_INFO = {
 
     if (String(sel.value) !== nextValue) { sel.value = nextValue; changed = true; }
 
-    options.forEach((opt, i) => { if (i === sel.selectedIndex) opt.setAttribute("selected", "selected"); else opt.removeAttribute("selected"); });
-
     if (!changed) return;
 
     sel.dispatchEvent(new Event("input", {bubbles:true}));
@@ -12584,7 +12588,7 @@ window.SETA_BUILD_INFO = {
 
 
 
-    optObserver.observe(sel, {childList:true, subtree:true, attributes:true, attributeFilter:["selected","disabled","label","value"]});
+    optObserver.observe(sel, {childList:true, subtree:true});
 
 
 
@@ -13354,6 +13358,12 @@ function activeDataUrl(){
 
 }
 
+function activeAssetIndexUrl(){
+  const params = new URLSearchParams(location.search);
+  if(params.has('assetIndex')) return params.get('assetIndex');
+  return manifestModeConfig()?.assetIndexUrl || null;
+}
+
 
 
 
@@ -13678,7 +13688,7 @@ function populateAssetOptions(){
 
 
 
-  const allowed = assetUniverse().filter(a => STORE && STORE.D && STORE.D[a]);
+  const allowed = assetUniverse().filter(a => hasAssetRows(a));
 
 
 
@@ -15598,6 +15608,22 @@ async function loadStore(){
 
 
 
+  const indexUrl = activeAssetIndexUrl();
+
+  if(indexUrl){
+    try{
+      const indexRes = await fetch(indexUrl, dashboardPayloadFetchOptions());
+      if(indexRes.ok){
+        ASSET_STORE_INDEX = await indexRes.json();
+        STORE = {D:{}, W:{}, _meta:{split:"asset", indexUrl:indexUrl, mode:currentMode()}};
+        return;
+      }
+      console.warn(`Asset chart-store index not available from ${indexUrl}: ${indexRes.status}; falling back to monolithic payload.`);
+    }catch(err){
+      console.warn("Asset chart-store index load failed; falling back to monolithic payload:", err);
+    }
+  }
+
   const url = activeDataUrl();
 
   const res = await fetch(url, dashboardPayloadFetchOptions());
@@ -15664,6 +15690,7 @@ async function loadStore(){
 
   STORE = await res.json();
 
+  ASSET_STORE_INDEX = null;
 
 
 
@@ -15694,6 +15721,53 @@ async function loadStore(){
 
 
 
+
+}
+
+function assetIndexEntry(term){
+  const t = String(term || '').toUpperCase();
+  return ASSET_STORE_INDEX?.assets?.[t] || null;
+}
+
+function hasAssetRows(term){
+  const t = String(term || '').toUpperCase();
+  return !!(STORE && STORE.D && STORE.W && (STORE.D[t] || assetIndexEntry(t)));
+}
+
+async function ensureAssetPayload(term){
+  const t = String(term || '').toUpperCase();
+  if(!t || !STORE) return false;
+  if(STORE.D?.[t] && STORE.W?.[t]) return true;
+  const entry = assetIndexEntry(t);
+  if(!entry || !entry.url) return !!(STORE.D?.[t] || STORE.W?.[t]);
+  if(ASSET_PAYLOAD_CACHE[t]){
+    mergeAssetPayload(t, ASSET_PAYLOAD_CACHE[t]);
+    return true;
+  }
+  if(!ASSET_PAYLOAD_PENDING[t]){
+    ASSET_PAYLOAD_PENDING[t] = fetch(entry.url, dashboardPayloadFetchOptions())
+      .then(res => {
+        if(!res.ok) throw new Error(`Failed to load ${t} asset payload from ${entry.url}: ${res.status}`);
+        return res.json();
+      })
+      .then(payload => {
+        ASSET_PAYLOAD_CACHE[t] = payload;
+        mergeAssetPayload(t, payload);
+        return payload;
+      })
+      .finally(() => { delete ASSET_PAYLOAD_PENDING[t]; });
+  }
+  await ASSET_PAYLOAD_PENDING[t];
+  return !!(STORE.D?.[t] || STORE.W?.[t]);
+}
+
+function mergeAssetPayload(term, payload){
+  const t = String(term || '').toUpperCase();
+  if(!payload || !STORE) return;
+  if(!STORE.D) STORE.D = {};
+  if(!STORE.W) STORE.W = {};
+  if(payload.D && Array.isArray(payload.D[t])) STORE.D[t] = payload.D[t];
+  if(payload.W && Array.isArray(payload.W[t])) STORE.W[t] = payload.W[t];
 }
 
 
@@ -84258,12 +84332,31 @@ function renderScreenerPanel(activeTerm=null){
 
 let DASH_BUILD_SCHEDULED = false;
 
+let DASH_RENDER_IN_PROGRESS = false;
+
+let DASH_RENDER_QUEUED = false;
+
+let LAST_SCREENER_RENDER_TERM = null;
+
 function scheduleBuildFigure(){
+  if(DASH_RENDER_IN_PROGRESS){
+    DASH_RENDER_QUEUED = true;
+    return;
+  }
   if(DASH_BUILD_SCHEDULED) return;
   DASH_BUILD_SCHEDULED = true;
   const run = ()=>{
     DASH_BUILD_SCHEDULED = false;
-    buildFigure();
+    DASH_RENDER_IN_PROGRESS = true;
+    Promise.resolve(buildFigure())
+      .catch(err => console.error("Dashboard render failed:", err))
+      .finally(()=>{
+        DASH_RENDER_IN_PROGRESS = false;
+        if(DASH_RENDER_QUEUED){
+          DASH_RENDER_QUEUED = false;
+          scheduleBuildFigure();
+        }
+      });
   };
   if(typeof window !== "undefined" && typeof window.requestAnimationFrame === "function") window.requestAnimationFrame(run);
   else setTimeout(run, 0);
@@ -84276,6 +84369,10 @@ function drawDashboardPlot(data, layout){
   const hasPlot = Array.isArray(chart.data) && chart.data.length > 0;
   if(hasPlot && typeof Plotly.react === 'function') return Plotly.react(chart, data, layout, config);
   return Plotly.newPlot(chart, data, layout, config);
+}
+
+function currentDashboardControlKey(){
+  return CONTROL_IDS.map(id => document.getElementById(id)?.value || "").join("|");
 }
 
 function priceCandlestickTrace(xs, rows, freq){
@@ -84407,7 +84504,7 @@ function priceCandlestickTraces(xs, rows, freq){
 
 }
 
-function buildFigure(){
+async function buildFigure(){
 
 
 
@@ -84440,6 +84537,7 @@ function buildFigure(){
 
   const term=document.getElementById('asset').value, freq=document.getElementById('freq').value, rangePreset=document.getElementById('range').value, priceDisplay=document.getElementById('priceDisplay').value, scaleMode=document.getElementById('scaleMode').value, ribbon=document.getElementById('ribbon').value, sentRibbon=document.getElementById('sentRibbon').value, regimeLayer=document.getElementById('regimeLayer').value, engagement=document.getElementById('engagement').value, bollinger=document.getElementById('bollinger').value, osc=document.getElementById('osc').value;
 
+  const renderKey = currentDashboardControlKey();
 
 
 
@@ -84469,6 +84567,16 @@ function buildFigure(){
 
 
 
+
+
+  if(!STORE?.D?.[term] && assetIndexEntry(term)) document.getElementById('helperText').textContent = `Loading ${term} dashboard data...`;
+
+  if(!await ensureAssetPayload(term)){
+    document.getElementById('helperText').textContent = `Loading ${term} dashboard data...`;
+    return;
+  }
+
+  if(document.getElementById('asset')?.value !== term) return scheduleBuildFigure();
 
   const rows=cloneRows(STORE[freq][term]||[]); if(!rows.length) return;
 
@@ -84887,7 +84995,10 @@ function buildFigure(){
 
 
 
-  renderScreenerPanel(term);
+  if(LAST_SCREENER_RENDER_TERM !== term){
+    renderScreenerPanel(term);
+    LAST_SCREENER_RENDER_TERM = term;
+  }
 
 
 
@@ -93805,6 +93916,8 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
+  if(DASH_RENDER_QUEUED || renderKey !== currentDashboardControlKey()) return;
+
   drawDashboardPlot(data, layout).then(()=>{
 
 
@@ -94252,7 +94365,7 @@ async function initDashboard(){
 
 
 
-    buildFigure();
+    await buildFigure();
 
 
 

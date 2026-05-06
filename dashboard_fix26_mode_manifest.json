@@ -19,6 +19,7 @@
       "title": "SETA Market Dashboard",
       "subtitle": "Combined Overlap leads. Engagement confirms. Traditional indicators remain visible for timing.",
       "dataUrl": "fix26_chart_store_public.json",
+      "assetIndexUrl": "fix26_chart_store_public_index.json",
       "assets": [
         "BTC",
         "ETH",
@@ -72,6 +73,7 @@
       "title": "SETA Research Dashboard",
       "subtitle": "Combined Overlap remains primary, Engagement stays contextual, and member mode keeps the fuller analytical surface without losing price readability.",
       "dataUrl": "fix26_chart_store_member.json",
+      "assetIndexUrl": "fix26_chart_store_member_index.json",
       "assets": [
         "BTC",
         "ETH",

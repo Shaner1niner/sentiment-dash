@@ -244,7 +244,8 @@ echo ============================================================
   --input-csv "%INPUT_CSV%" ^
   --output-dir "%WEBSITE_REPO%" ^
   --mode all ^
-  --minify
+  --minify ^
+  --split-assets
 if errorlevel 1 (
   echo [ERROR] Fix 26 payload builder failed.
   goto :fail
@@ -293,6 +294,9 @@ git add build_fix26_chart_store_payloads.py
 git add refresh_fix26_dashboard_all.bat
 git add fix26_chart_store_public.json
 git add fix26_chart_store_member.json
+git add fix26_chart_store_public_index.json
+git add fix26_chart_store_member_index.json
+if exist fix26_chart_store_assets git add fix26_chart_store_assets
 git add fix26_screener_store.json
 if exist scripts\build_seta_market_screener.py git add scripts\build_seta_market_screener.py
 if exist scripts\build_fix26_screener_store.py git add scripts\build_fix26_screener_store.py
