@@ -33,6 +33,7 @@ set "LOG_DIR=%WEBSITE_REPO%\logs"
 
 if "%COMMIT_MESSAGE%"=="" set "COMMIT_MESSAGE=Automated SETA website refresh"
 if "%RUN_LIVE_SMOKE%"=="" set "RUN_LIVE_SMOKE=0"
+if "%RUN_MACD_VISUAL_SMOKE%"=="" set "RUN_MACD_VISUAL_SMOKE=0"
 
 set "STAMP=%DATE:~-4%%DATE:~4,2%%DATE:~7,2%_%TIME:~0,2%%TIME:~3,2%%TIME:~6,2%"
 set "STAMP=%STAMP: =0%"
@@ -151,8 +152,13 @@ if errorlevel 1 goto :fail
 "%PYTHON_EXE%" scripts\smoke_seta_public_website_content.py >> "%LOG_FILE%" 2>&1
 if errorlevel 1 goto :fail
 
-"%PYTHON_EXE%" scripts\smoke_seta_macd_visual_polish_v3.py >> "%LOG_FILE%" 2>&1
-if errorlevel 1 goto :fail
+if "%RUN_MACD_VISUAL_SMOKE%"=="1" (
+  "%PYTHON_EXE%" scripts\smoke_seta_macd_visual_polish_v3.py >> "%LOG_FILE%" 2>&1
+  if errorlevel 1 goto :fail
+) else (
+  echo Skipping obsolete MACD visual smoke. Set RUN_MACD_VISUAL_SMOKE=1 to enable it.
+  echo Skipping obsolete MACD visual smoke. Set RUN_MACD_VISUAL_SMOKE=1 to enable it. >> "%LOG_FILE%"
+)
 
 git diff --check >> "%LOG_FILE%" 2>&1
 if errorlevel 1 goto :fail
@@ -168,11 +174,19 @@ echo [8/11] Staging generated website-facing files only...
 echo [8/11] Staging generated website-facing files only... >> "%LOG_FILE%"
 
 REM Intentionally do not stage runner scripts here. Script changes should be reviewed separately.
+REM Dashboard stores
 git add -- fix26_chart_store_public.json
 git add -- fix26_chart_store_member.json
 git add -- fix26_screener_store.json
+git add -- fix26_chart_store_public_index.json
+git add -- fix26_chart_store_member_index.json
+
+REM Split asset payloads
+git add -- fix26_chart_store_assets\public
+git add -- fix26_chart_store_assets\member
+
+REM Public market-context card payloads
 git add -- public_content
-git add -- reply_agent\daily_context
 
 git status --short >> "%LOG_FILE%" 2>&1
 
@@ -189,7 +203,7 @@ echo [10/11] Committing and pushing if changes exist... >> "%LOG_FILE%"
 
 git diff --cached --quiet
 if errorlevel 1 (
-  git commit -m "%COMMIT_MESSAGE%" >> "%LOG_FILE%" 2>&1
+  git -c gc.auto=0 commit -m "%COMMIT_MESSAGE%" >> "%LOG_FILE%" 2>&1
   if errorlevel 1 goto :fail
 
   git push origin HEAD:main >> "%LOG_FILE%" 2>&1
