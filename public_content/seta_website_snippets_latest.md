@@ -10,7 +10,7 @@ ADA is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 1 | positive skew | Belief exceeds permission
+**SETA read:** participation diffusion | rank 1 | positive skew | belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -46,7 +46,7 @@ XRP is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 2 | positive skew | Belief exceeds permission
+**SETA read:** participation diffusion | rank 2 | positive skew | belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -70,7 +70,7 @@ LINK is showing broader participation. That is constructive for the crypto tape,
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 3 | positive skew | Rejection / decay
+**SETA read:** participation diffusion | rank 3 | positive skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -94,7 +94,7 @@ SHIB sits in a elevated decision-pressure zone in the crypto tape.
 
 **Watch condition:** Watch whether participation and narrative coherence improves.
 
-**SETA read:** seta context | rank 4 | negative skew | Belief exceeds permission
+**SETA read:** seta context | rank 4 | negative skew | belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -114,11 +114,11 @@ NVDA is showing broader participation. That is constructive for the equity tape,
 
 ## BNB: contested structure
 
-BNB is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Belief exceeds permission is the key tension.
+BNB is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. belief exceeds permission is the key tension.
 
 **Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** contested structure | rank 5 | negative skew | Belief exceeds permission
+**SETA read:** contested structure | rank 5 | negative skew | belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
