@@ -318,6 +318,18 @@ def check_dashboard_js() -> None:
         else:
             fail(f"dashboard JS missing annotation density token: {token}")
 
+    briefing_tokens = [
+        "function sourceBreadthState(row)",
+        "function renderBriefingPanel(term, freq, rangePreset, row, overlapInfo, engagementInfo)",
+        "Trust layer: source breadth",
+        "breadth: showEngagementContext",
+    ]
+    for token in briefing_tokens:
+        if token in text:
+            ok(f"dashboard JS contains briefing breadth token: {token[:54]}")
+        else:
+            fail(f"dashboard JS missing briefing breadth token: {token}")
+
 
 def check_embeds() -> None:
     cache_tokens: dict[str, str] = {}
@@ -326,6 +338,10 @@ def check_embeds() -> None:
         if not path.exists():
             continue
         text = read_text(path)
+        if 'data-control="briefingMode"' in text:
+            ok(f"{rel} contains Briefing Mode control")
+        else:
+            fail(f"{rel} missing Briefing Mode control")
         match = re.search(r'dashboard_fix26_app\.js\?v=([^"\']+)', text)
         if not match:
             fail(f"{rel} does not reference dashboard_fix26_app.js with a cache token")

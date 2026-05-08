@@ -144,6 +144,9 @@ Rules for Dashboard v2 work:
 Start here:
 
 - `docs/DASHBOARD_V2_ROADMAP.md`
+- `docs/SETA_METHODOLOGY.md`
+- `docs/UX_BRIEFING_MODE_V1.md`
+- `docs/AI_BRIEFING_SCHEMA_V1.md`
 - `docs/REPO_STRUCTURE.md`
 - `docs/DASHBOARD_V2_COMPLETION_LEDGER.md`
 - `docs/GITHUB_PAGES_LIVE_HEALTH_CHECK.md`

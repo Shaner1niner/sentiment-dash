@@ -10,11 +10,14 @@ SETA explains behavior beneath price.
 
 Dashboard v2 should help users understand attention, sentiment, participation, narrative, indicator structure, and validation without turning the interface into a prediction board or signal service.
 
+Authorship/source breadth is part of the trust model for attention and participation. It helps distinguish broader participation from narrow amplification by a small number of loud voices. For X and news, breadth should be confidence-weighted because API limits, syndication, outlet dynamics, and repeated coverage can make the sample incomplete or less representative.
+
 Non-negotiable product rules:
 
 - SETA is educational and analytical.
 - Sentiment is context, not a trading signal.
 - Attention is not validation.
+- Breadth is a trust check, not proof of organic demand.
 - Crypto and equities require different interpretation rules.
 - Public/member mode remains manifest-driven.
 - Public copy avoids price predictions, buy/sell language, guarantees, and personalized advice.
@@ -59,6 +62,18 @@ These architectural choices should remain intact unless a phase explicitly targe
 - The frontend should not absorb upstream enrichment responsibilities by default.
 - The payload builder should only change when the UI clearly needs persisted data.
 - The refresh workflow should continue to stop on required upstream failures.
+
+## Sprint 1 product roadmap alignment
+
+The Sprint 1 patch pack direction is accepted as the strategic roadmap for trust, positioning, SaaS migration, AI briefings, and demo assets. Implementation should translate it into scoped repo changes rather than applying the document as an unreviewed paste.
+
+Immediate Sprint 1 additions:
+
+- `docs/SETA_METHODOLOGY.md`
+- `docs/UX_BRIEFING_MODE_V1.md`
+- `docs/AI_BRIEFING_SCHEMA_V1.md`
+
+Briefing Mode starts inside the existing dashboard and includes source breadth from day one. Later SaaS phases can move briefing generation behind an API, auth, saved views, and billing.
 
 ## Development discipline
 

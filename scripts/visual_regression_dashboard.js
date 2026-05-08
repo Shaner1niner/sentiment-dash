@@ -128,6 +128,8 @@ async function assertChartBasics(page, scenario) {
     const gd = chart && chart.data ? chart : chart && chart.querySelector(".js-plotly-plot");
     const traces = gd && gd.data ? gd.data : [];
     const chartBox = chart ? chart.getBoundingClientRect() : { width: 0, height: 0 };
+    const briefing = document.querySelector("#briefingPanel");
+    const briefingText = briefing ? briefing.textContent || "" : "";
     const priceBarCount = traces.filter((trace) => trace.type === "bar" && trace.name === "Price").length;
     const bandTraces = traces.filter((trace) => {
       const name = String(trace.name || "");
@@ -151,6 +153,7 @@ async function assertChartBasics(page, scenario) {
       priceBarCount,
       bandTraceCount: bandTraces.length,
       visibleCrossLabelCount,
+      briefingText,
       firstFiniteBandIndex,
       expectBandCoverage,
     };
@@ -164,6 +167,10 @@ async function assertChartBasics(page, scenario) {
 
   if (scenario.frequency === "W" && result.priceBarCount < 1) {
     throw new Error(`${scenario.name}: expected weekly custom price bar trace`);
+  }
+
+  if (!/Trust layer|source breadth|Trust Check/i.test(result.briefingText || "")) {
+    throw new Error(`${scenario.name}: expected Briefing Mode source breadth trust text`);
   }
 
   const maxCrossLabels = scenario.maxCrossLabels ?? (scenario.frequency === "W" ? 4 : null);
@@ -202,7 +209,7 @@ async function assertFreshnessStatus(page, scenario) {
   if (!text) {
     throw new Error(`${scenario.name}: expected dashboard freshness status`);
   }
-  if (!/Data \d{4}-\d{2}-\d{2}/.test(text) || !/assets covered/i.test(text)) {
+  if (!/(Data \d{4}-\d{2}-\d{2}|Screener \d+(?:\.\d+)?[mhd] old)/.test(text)) {
     throw new Error(`${scenario.name}: freshness status is incomplete (${text})`);
   }
 }

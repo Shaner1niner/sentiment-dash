@@ -13228,7 +13228,7 @@ function modeDefaults(){
 
 
 
-  return cfg && cfg.defaults ? cfg.defaults : {freq:'D',range:'3M',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'off',engagement:'context',bollinger:'contextual',osc:'both'};
+  return cfg && cfg.defaults ? cfg.defaults : {freq:'D',range:'3M',briefingMode:'briefing',priceDisplay:'candles',scaleMode:'price_overlays',ribbon:'none',sentRibbon:'curated',regimeLayer:'off',engagement:'context',bollinger:'contextual',osc:'both'};
 
 
 
@@ -61641,6 +61641,40 @@ function computeEngagementInfo(rows, visibleMask){
 
 
 
+function sourceBreadthState(row){
+  const score = num(row?.attention_source_breadth_score) ?? num(row?.engagement_source_breadth_score);
+  const rawLabel = String(row?.attention_breadth_label || row?.engagement_breadth_label || '').trim();
+  if(score === null && rawLabel) return {label:rawLabel, score:null, cls:'badge-neutral', read:'Breadth label is available, but the numeric source breadth score is not present in this payload.'};
+  if(score === null) return {label:'Source Limited', score:null, cls:'badge-neutral', read:'Source breadth is not available for this row, so participation should be treated as sample-limited.'};
+  if(score >= 70) return {label:'Broad', score, cls:'badge-attn', read:'Participation is showing across a broader source base, which improves trust in the attention read.'};
+  if(score >= 45) return {label:'Moderate', score, cls:'badge-neutral', read:'Participation has some breadth, but the read still needs confirmation from structure and follow-through.'};
+  return {label:'Narrow', score, cls:'badge-flat', read:'Attention may be concentrated in a smaller source set, so loud-voice amplification remains a risk.'};
+}
+
+function briefingModeValue(){
+  const el=document.getElementById('briefingMode');
+  return el ? el.value : (manifestModeConfig()?.defaults?.briefingMode || 'briefing');
+}
+
+function renderBriefingPanel(term, freq, rangePreset, row, overlapInfo, engagementInfo){
+  const panel=document.getElementById('briefingPanel');
+  if(!panel) return;
+  if(briefingModeValue()!=='briefing'){
+    panel.hidden=true;
+    panel.innerHTML='';
+    return;
+  }
+  const breadth=sourceBreadthState(row || {});
+  const breadthScore = breadth.score === null ? '' : ` ${breadth.score.toFixed(0)}`;
+  const context = overlapInfo?.context || 'Context unavailable';
+  const sees = `${term} is in ${overlapInfo?.stateLabel || 'an unavailable overlap state'} with ${context.toLowerCase()}.`;
+  const matters = `${engagementInfo?.levelLabel || 'Attention'} attention and ${engagementInfo?.regimeLabel || 'normal regime'} describe participation context, not a trading instruction.`;
+  const evidence = `${overlapInfo?.modelLabel || 'SETA'} model, ${overlapInfo?.latestConfirmed || 'no confirmed alert in view'}, breadth ${breadth.label}${breadthScore}.`;
+  const limits = `${breadth.read} X and news inputs can be source-limited, so breadth is a trust check rather than proof of organic demand.`;
+  panel.hidden=false;
+  panel.innerHTML=`<div class="briefingHeader"><div><div class="briefingTitle">SETA Briefing - ${escapeHTML(term)}</div><div class="briefingMeta">${escapeHTML(freq==='W'?'Weekly':'Daily')} · ${escapeHTML(rangePreset)} · educational context only</div></div><div class="briefingMeta">Trust layer: source breadth ${escapeHTML(breadth.label)}${escapeHTML(breadthScore)}</div></div><div class="briefingGrid"><div class="briefingCard"><h3>What SETA Sees</h3><p>${escapeHTML(sees)}</p></div><div class="briefingCard"><h3>Why It Matters</h3><p>${escapeHTML(matters)}</p></div><div class="briefingCard"><h3>Evidence</h3><p>${escapeHTML(evidence)}</p></div><div class="briefingCard briefingTrust"><h3>Trust Check</h3><p><strong>${escapeHTML(breadth.label)} breadth.</strong> ${escapeHTML(limits)}</p></div></div>`;
+}
+
 function buildEngagementBadgesHTML(info){
 
 
@@ -84535,7 +84569,7 @@ async function buildFigure(){
 
 
 
-  const term=document.getElementById('asset').value, freq=document.getElementById('freq').value, rangePreset=document.getElementById('range').value, priceDisplay=document.getElementById('priceDisplay').value, scaleMode=document.getElementById('scaleMode').value, ribbon=document.getElementById('ribbon').value, sentRibbon=document.getElementById('sentRibbon').value, regimeLayer=document.getElementById('regimeLayer').value, engagement=document.getElementById('engagement').value, bollinger=document.getElementById('bollinger').value, osc=document.getElementById('osc').value;
+  const term=document.getElementById('asset').value, freq=document.getElementById('freq').value, rangePreset=document.getElementById('range').value, briefingMode=briefingModeValue(), priceDisplay=document.getElementById('priceDisplay').value, scaleMode=document.getElementById('scaleMode').value, ribbon=document.getElementById('ribbon').value, sentRibbon=document.getElementById('sentRibbon').value, regimeLayer=document.getElementById('regimeLayer').value, engagement=document.getElementById('engagement').value, bollinger=document.getElementById('bollinger').value, osc=document.getElementById('osc').value;
 
   const renderKey = currentDashboardControlKey();
 
@@ -86345,6 +86379,7 @@ async function buildFigure(){
 
 
   const engagementInfo=computeEngagementInfo(rows, visibleMask);
+  const breadthInfo=sourceBreadthState(visRows[visRows.length-1] || rows[rows.length-1]);
 
 
 
@@ -86505,6 +86540,8 @@ const summaryText = `${overlapInfo.stateLabel} · ${overlapInfo.context} · ${en
 
 
 document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b>Combined Summary</b> ${summaryText}</span><span class="summaryCard"><b>Model</b> ${overlapInfo.modelLabel}</span>`;
+
+  renderBriefingPanel(term, freq, rangePreset, visRows[visRows.length-1] || rows[rows.length-1], overlapInfo, engagementInfo);
 
 
 
@@ -87176,6 +87213,8 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
     context: showOverlapContext ? `<span class="badge ${overlapInfo.contextCls || 'badge-neutral'}"><b>Context</b> ${overlapInfo.context}</span>` : null,
+
+    breadth: showEngagementContext ? `<span class="badge ${breadthInfo.cls || 'badge-neutral'}"><b>Breadth</b> ${breadthInfo.label}${breadthInfo.score===null ? '' : ` ${breadthInfo.score.toFixed(0)}`}</span>` : null,
 
 
 
@@ -94045,7 +94084,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-const CONTROL_IDS=['asset','freq','range','priceDisplay','scaleMode','ribbon','sentRibbon','regimeLayer','engagement','bollinger','osc'];
+const CONTROL_IDS=['asset','freq','range','briefingMode','priceDisplay','scaleMode','ribbon','sentRibbon','regimeLayer','engagement','bollinger','osc'];
 
 
 
