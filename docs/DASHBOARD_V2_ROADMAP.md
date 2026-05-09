@@ -72,6 +72,10 @@ Immediate Sprint 1 additions:
 - `docs/SETA_METHODOLOGY.md`
 - `docs/UX_BRIEFING_MODE_V1.md`
 - `docs/AI_BRIEFING_SCHEMA_V1.md`
+- `docs/SAAS_ARCHITECTURE_V1.md`
+- `docs/DEMO_SCRIPT_V1.md`
+- `docs/MONETIZATION_STRUCTURE_V1.md`
+- `docs/INVESTOR_ONE_PAGER_V1.md`
 
 Briefing Mode starts inside the existing dashboard and includes source breadth from day one. Later SaaS phases can move briefing generation behind an API, auth, saved views, and billing.
 

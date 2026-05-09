@@ -147,10 +147,14 @@ Start here:
 - `docs/SETA_METHODOLOGY.md`
 - `docs/UX_BRIEFING_MODE_V1.md`
 - `docs/AI_BRIEFING_SCHEMA_V1.md`
+- `docs/SAAS_ARCHITECTURE_V1.md`
+- `docs/DEMO_SCRIPT_V1.md`
+- `docs/MONETIZATION_STRUCTURE_V1.md`
+- `docs/INVESTOR_ONE_PAGER_V1.md`
 - `docs/REPO_STRUCTURE.md`
 - `docs/DASHBOARD_V2_COMPLETION_LEDGER.md`
 - `docs/GITHUB_PAGES_LIVE_HEALTH_CHECK.md`
 
-These docs define the Dashboard v2 operating plan, baseline, file ownership rules, patch discipline, and current repository structure.
+These docs define the Dashboard v2 operating plan, SETA methodology, Briefing Mode direction, AI briefing schema, SaaS migration path, demo narrative, monetization posture, and current repository structure.
 
 - [Dashboard v2 RC Baseline - 2026-05-02](docs/DASHBOARD_V2_RC_BASELINE_2026-05-02.md)
