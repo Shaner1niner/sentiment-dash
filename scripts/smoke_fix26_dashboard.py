@@ -177,6 +177,15 @@ def check_manifest_payload_coverage() -> None:
         fail("manifest missing non-empty modes")
         return
 
+    reviewed_url = manifest.get("reviewedBriefingsUrl")
+    if reviewed_url:
+        if (ROOT / str(reviewed_url)).exists():
+            ok(f"manifest reviewedBriefingsUrl exists: {reviewed_url}")
+        else:
+            fail(f"manifest reviewedBriefingsUrl missing: {reviewed_url}")
+    else:
+        fail("manifest missing reviewedBriefingsUrl")
+
     for mode_name, mode_cfg in modes.items():
         if not isinstance(mode_cfg, dict):
             fail(f"manifest mode {mode_name} is not an object")
@@ -238,6 +247,20 @@ def check_dashboard_js() -> None:
             ok(f"dashboard JS contains {token}")
         else:
             warn(f"dashboard JS missing token {token}")
+
+    reviewed_briefing_tokens = [
+        "let REVIEWED_BRIEFINGS_PAYLOAD = null",
+        "function activeReviewedBriefingsUrl()",
+        "async function loadReviewedBriefings()",
+        "function reviewedBriefingFor(term, freq, rangePreset, row)",
+        "function renderReviewedBriefingPanel(panel, briefing, term, freq, rangePreset)",
+        "using deterministic Briefing Mode",
+    ]
+    for token in reviewed_briefing_tokens:
+        if token in text:
+            ok(f"dashboard JS contains reviewed briefing token: {token[:54]}")
+        else:
+            fail(f"dashboard JS missing reviewed briefing token: {token}")
 
     drawer_tokens = [
         "function applyExplicitAlertTimelineLayout(panel, collapsed)",
@@ -331,6 +354,25 @@ def check_dashboard_js() -> None:
             fail(f"dashboard JS missing briefing breadth token: {token}")
 
 
+def check_reviewed_briefing_payload() -> None:
+    path = require_file("generated_briefings_reviewed.json")
+    if not path.exists():
+        return
+    payload = load_json(path)
+    if not isinstance(payload, dict):
+        fail("generated_briefings_reviewed.json root is not an object")
+        return
+    if payload.get("schema_version") == "generated_briefings_reviewed_v1":
+        ok("reviewed briefing payload schema version is correct")
+    else:
+        fail("reviewed briefing payload schema version is incorrect")
+    briefings = payload.get("briefings")
+    if isinstance(briefings, dict):
+        ok(f"reviewed briefing payload contains {len(briefings)} keyed briefing(s)")
+    else:
+        fail("reviewed briefing payload missing briefings object")
+
+
 def check_embeds() -> None:
     cache_tokens: dict[str, str] = {}
     for rel in ["interactive_dashboard_fix24_public_embed.html", "interactive_dashboard_fix24_member_embed.html"]:
@@ -367,6 +409,7 @@ def main() -> int:
     check_chart_store("fix26_chart_store_member.json")
     check_manifest_payload_coverage()
     check_dashboard_js()
+    check_reviewed_briefing_payload()
     check_embeds()
 
     print("============================================================")

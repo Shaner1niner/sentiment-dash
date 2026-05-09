@@ -92,7 +92,7 @@ generated_briefings_reviewed.json
 Acceptance:
 
 - only reviewed/public-safe outputs are published
-- dashboard can fall back to deterministic Briefing Mode
+- dashboard prefers fresh, reviewed payload matches and falls back to deterministic Briefing Mode otherwise
 - payload has date/model/schema metadata
 - stale payloads are detectable
 
@@ -395,7 +395,7 @@ Example reviewed payload promotion:
 python scripts/promote_ai_briefing_reviewed.py briefing_outputs/btc_d_3m_public_YYYYMMDD_draft.json --input briefing_inputs/btc_d_3m.json --mode public --display-range 3M --output generated_briefings_reviewed.json
 ```
 
-Only genuinely reviewed outputs should be promoted into `generated_briefings_reviewed.json`. The dashboard should still treat deterministic Briefing Mode as the fallback until reviewed-payload rendering is explicitly wired.
+Only genuinely reviewed outputs should be promoted into `generated_briefings_reviewed.json`. The dashboard now loads that static payload when present, requires a current asset/frequency/range/mode/as-of match with `review_status: reviewed`, and falls back to deterministic Briefing Mode for missing, stale, suppressed, or mismatched items.
 
 ## Open decisions
 

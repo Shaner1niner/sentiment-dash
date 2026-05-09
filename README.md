@@ -134,6 +134,8 @@ Promote a validated, human-reviewed draft into the reviewed static payload:
 python scripts/promote_ai_briefing_reviewed.py briefing_outputs/btc_d_3m_public_YYYYMMDD_draft.json --input briefing_inputs/btc_d_3m.json --mode public --display-range 3M --output generated_briefings_reviewed.json
 ```
 
+The dashboard reads `generated_briefings_reviewed.json` when available. It only renders fresh reviewed matches for the current mode, asset, frequency, range, and as-of date; otherwise it falls back to deterministic Briefing Mode.
+
 ## Development workflow
 
 Use one branch per focused change.
