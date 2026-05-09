@@ -1,4 +1,4 @@
-# UX Briefing Mode V1
+﻿# UX Briefing Mode V1
 
 Briefing Mode is the first simplified reading layer for Dashboard v2.
 
@@ -14,6 +14,23 @@ Briefing Mode should answer four questions:
 - Trust check
 
 The trust check must include authorship/source breadth when available.
+## Semantic Contract
+
+Briefing Mode should separate the SETA read into plain-language layers before showing internal labels.
+
+Use these public meanings consistently:
+
+- **Primary read**: the main SETA interpretation for the selected asset, frequency, and display range.
+- **Overlap**: the shared zone where price bands and sentiment bands agree.
+- **Outside Shared Zone**: a condition where price is outside that shared price/sentiment zone. This is the preferred public label for the internal overlap-event concept.
+- **Structure**: the broader price/sentiment regime shape, such as Bullish Expansion, Bearish Expansion, Compression / Transition, or Flat / Transition.
+- **Timing context**: whether traditional timing indicators confirm, weaken, or conflict with the current structure.
+- **Attention**: participation context, not validation.
+- **Source breadth**: a trust check on whether participation appears distributed or concentrated.
+
+Avoid stacking mixed labels without naming their layer. For example, do not present "Inactive with Bullish Expansion and bearish confirmation" as one undifferentiated read. Prefer a layered sentence such as: "Price is not currently outside the shared price/sentiment zone. Structure leans Bullish Expansion, while timing indicators remain bearish."
+
+Source-specific caveats are primarily internal-facing unless they materially affect the public breadth finding. Public copy should present the qualified finding rather than measurement internals.
 
 ## Breadth As A Trust Layer
 
