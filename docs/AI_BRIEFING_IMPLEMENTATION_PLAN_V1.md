@@ -358,6 +358,7 @@ Recommended first implementation sequence:
 Current local harness files:
 
 - `scripts/build_ai_briefing_input.py` extracts `ai_briefing_input_v1` from Fix 26 chart and screener payloads.
+- `scripts/generate_ai_briefing_draft.py` writes a deterministic local `ai_briefing_output_v1` draft for review.
 - `scripts/check_ai_briefing_output.py` validates generated `ai_briefing_output_v1` JSON before review or publication.
 - `scripts/smoke_ai_briefing_contract.py` smoke-tests the input normalizer and safety checker.
 
@@ -372,6 +373,14 @@ Example output validation:
 ```powershell
 python scripts/check_ai_briefing_output.py briefing_outputs/btc_d_3m_draft.json --input briefing_inputs/btc_d_3m.json
 ```
+
+Example deterministic draft generation:
+
+```powershell
+python scripts/generate_ai_briefing_draft.py --mode public --asset BTC --frequency D --display-range 3M
+```
+
+The draft generator is intentionally local and deterministic. It proves the review/output workflow without calling an AI provider or publishing anything to the dashboard.
 
 ## Open decisions
 
