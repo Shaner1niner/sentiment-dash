@@ -11,6 +11,7 @@ from build_ai_briefing_input import build_input
 from check_ai_briefing_output import validate_output
 from generate_ai_briefing_draft import generate_draft
 from ai_briefing_quality_gates import check_briefing_quality_gates, count_visible_metrics
+from ai_briefing_reference import build_default_briefing_guidance, load_briefing_reference_pack
 
 
 def assert_true(condition: bool, message: str) -> None:
@@ -58,6 +59,8 @@ def main() -> int:
     assert_true(btc["asset"] == "BTC", "BTC input asset is correct")
     assert_true(btc["breadth_trust"]["source_breadth_label"] in {"Broad", "Moderate", "Narrow", "Source Limited"}, "BTC breadth label is normalized")
     assert_true(btc["safety_constraints"]["public_safe_required"] is True, "BTC input requires public safety")
+    assert_true(bool(btc["reference_guidance"]["definitions"]), "BTC input includes reference guidance")
+    assert_true(not btc["reference_guidance"]["missing_files"], "reference guidance has no missing files")
 
     nvda = build_input("member", "NVDA", "W", "1Y")
     assert_true(nvda["frequency"] == "W", "NVDA weekly input frequency is correct")
@@ -70,6 +73,7 @@ def main() -> int:
     generated = generate_draft(btc)
     assert_true(validate_output(generated, btc) == [], "deterministic generated draft passes safety checks")
     assert_true(generated["review_status"] == "draft", "deterministic generated draft stays in draft status")
+    assert_true(generated["reference_guidance_used"] is True, "deterministic generated draft records reference guidance usage")
 
     bad = dict(good)
     bad["headline"] = "BTC will rally to a guaranteed price target"
@@ -98,6 +102,12 @@ def main() -> int:
         out.write_text(json.dumps(btc, indent=2), encoding="utf-8")
         reloaded = json.loads(out.read_text(encoding="utf-8"))
         assert_true(reloaded["asset"] == "BTC", "briefing input JSON round-trips")
+
+    pack = load_briefing_reference_pack()
+    assert_true(len(pack.columns) >= 100, "reference pack column index is populated")
+    guidance = build_default_briefing_guidance(archetypes=["Fresh Bullish Reversal"])
+    joined = " ".join(str(item) for item in guidance["definitions"] + guidance["cautions"])
+    assert_true("attention" in joined.lower() or "breadth" in joined.lower(), "reference guidance includes attention or breadth context")
 
     print("AI briefing contract smoke test PASSED")
     return 0
