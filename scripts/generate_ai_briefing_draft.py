@@ -78,9 +78,12 @@ def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
     breadth = briefing_input.get("breadth_trust") or {}
     indicators = briefing_input.get("indicator_context") or {}
     event = briefing_input.get("event_context") or {}
+    close_label = "Latest available close" if price.get("price_data_lagged") else "Latest close"
+    close_date = clean_text(price.get("latest_close_date"), "")
+    close_date_text = f" from {close_date}" if price.get("price_data_lagged") and close_date else ""
     evidence = [
         (
-            f"Latest close is {compact_number(price.get('latest_close'))}; "
+            f"{close_label} is {compact_number(price.get('latest_close'))}{close_date_text}; "
             f"recent visible direction is {clean_text(price.get('recent_direction_label')).lower()} "
             f"with {clean_text(price.get('volume_confirmation')).lower()}."
         ),

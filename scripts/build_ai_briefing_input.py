@@ -90,6 +90,13 @@ def visible_rows(rows: list[dict[str, Any]], display_range: str) -> list[dict[st
     return filtered or rows
 
 
+def latest_priced_row(rows: list[dict[str, Any]]) -> tuple[dict[str, Any], int]:
+    for idx in range(len(rows) - 1, -1, -1):
+        if num(rows[idx].get("close")) is not None:
+            return rows[idx], idx
+    return rows[-1], len(rows) - 1
+
+
 def load_manifest_mode(mode: str) -> dict[str, Any]:
     manifest = read_json(ROOT / "dashboard_fix26_mode_manifest.json")
     modes = manifest.get("modes") or {}
@@ -217,9 +224,10 @@ def build_input(mode: str, asset: str, frequency: str, display_range: str) -> di
     rows, payload_meta = load_asset_rows(mode, asset, frequency)
     vis = visible_rows(rows, display_range)
     latest = vis[-1]
-    previous = vis[-2] if len(vis) > 1 else {}
+    latest_price_row, latest_price_idx = latest_priced_row(vis)
+    previous = vis[latest_price_idx - 1] if latest_price_idx > 0 else {}
     screener = load_screener_row(asset)
-    latest_close = num(latest.get("close"))
+    latest_close = num(latest_price_row.get("close"))
     previous_close = num(previous.get("close"))
     price_change = None
     if latest_close is not None and previous_close not in (None, 0):
@@ -249,6 +257,8 @@ def build_input(mode: str, asset: str, frequency: str, display_range: str) -> di
         },
         "price_context": {
             "latest_close": rounded(latest_close, 6),
+            "latest_close_date": latest_price_row.get("date"),
+            "price_data_lagged": latest_price_row is not latest,
             "previous_visible_close": rounded(previous_close, 6),
             "visible_period_change_pct": rounded(price_change * 100 if price_change is not None else None, 3),
             "recent_direction_label": "Rising" if (price_change or 0) > 0 else ("Falling" if (price_change or 0) < 0 else "Flat"),

@@ -12,7 +12,7 @@ from check_ai_briefing_output import validate_output
 from generate_ai_briefing_draft import generate_draft
 from ai_briefing_quality_gates import check_briefing_quality_gates, count_visible_metrics
 from ai_briefing_reference import build_default_briefing_guidance, load_briefing_reference_pack
-from promote_ai_briefing_reviewed import payload_for, reviewed_briefing
+from promote_ai_briefing_reviewed import payload_for, payload_for_entries, reviewed_briefing
 
 
 def assert_true(condition: bool, message: str) -> None:
@@ -87,6 +87,11 @@ def main() -> int:
     reviewed_payload = payload_for([reviewed], mode="public", display_range="3M", payload_note="Smoke-test payload only.")
     assert_true(reviewed_payload["schema_version"] == "generated_briefings_reviewed_v1", "reviewed payload schema version is correct")
     assert_true(reviewed_payload["briefing_count"] == 1, "reviewed payload contains one briefing")
+    mixed_payload = payload_for_entries(
+        [(reviewed, "public", "3M"), (reviewed, "public", "1Y")],
+        payload_note="Smoke-test mixed range payload only.",
+    )
+    assert_true(mixed_payload["briefing_count"] == 2, "reviewed payload supports mixed display ranges")
 
     bad = dict(good)
     bad["headline"] = "BTC will rally to a guaranteed price target"

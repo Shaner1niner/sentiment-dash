@@ -372,13 +372,13 @@ Briefing inputs also include `reference_guidance`, a compact glossary/caution ob
 Example local input build:
 
 ```powershell
-python scripts/build_ai_briefing_input.py --mode public --asset BTC --frequency D --display-range 3M --output briefing_inputs/btc_d_3m.json
+python scripts/build_ai_briefing_input.py --mode public --asset BTC --frequency D --display-range 3M --output briefing_inputs/btc_d_3m_public.json
 ```
 
 Example output validation:
 
 ```powershell
-python scripts/check_ai_briefing_output.py briefing_outputs/btc_d_3m_draft.json --input briefing_inputs/btc_d_3m.json
+python scripts/check_ai_briefing_output.py briefing_outputs/btc_d_3m_public_YYYYMMDD_draft.json --input briefing_inputs/btc_d_3m_public.json
 ```
 
 Example deterministic draft generation:
@@ -392,10 +392,12 @@ The draft generator is intentionally local and deterministic. It proves the revi
 Example reviewed payload promotion:
 
 ```powershell
-python scripts/promote_ai_briefing_reviewed.py briefing_outputs/btc_d_3m_public_YYYYMMDD_draft.json --input briefing_inputs/btc_d_3m.json --mode public --display-range 3M --output generated_briefings_reviewed.json
+python scripts/promote_ai_briefing_reviewed.py briefing_outputs/btc_d_3m_public_YYYYMMDD_draft.json --input briefing_inputs/btc_d_3m_public.json --mode public --display-range 3M --output generated_briefings_reviewed.json
 ```
 
 Only genuinely reviewed outputs should be promoted into `generated_briefings_reviewed.json`. The dashboard now loads that static payload when present, requires a current asset/frequency/range/mode/as-of match with `review_status: reviewed`, and falls back to deterministic Briefing Mode for missing, stale, suppressed, or mismatched items.
+
+The first reviewed static payload is intentionally small: public BTC and NVDA daily/weekly matches. Small reviewed batches make it easier to inspect language quality, confirm source-breadth framing, and catch stale-price edge cases before expanding coverage.
 
 ## Open decisions
 
