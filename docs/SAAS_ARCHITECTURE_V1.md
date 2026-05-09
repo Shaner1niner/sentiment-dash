@@ -129,6 +129,13 @@ Acceptance:
 - public-safety guardrails are enforced
 - generated content can be reviewed or suppressed
 
+Near-term bridge:
+
+- start with a local offline briefing harness
+- publish only reviewed static outputs if needed
+- keep deterministic Briefing Mode as the dashboard fallback
+- move live generation server-side only when auth, persistence, and review controls exist
+
 ### Phase 3 - Auth and entitlements
 
 Add user accounts and separate public/member/pro capabilities.

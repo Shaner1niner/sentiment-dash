@@ -1,0 +1,370 @@
+# AI Briefing Implementation Plan v1
+
+This document turns the AI briefing schema into an implementation path. It is designed to keep the current GitHub Pages dashboard useful while preparing SETA for generated briefings later.
+
+The core rule: do not call an AI API directly from the static dashboard. API keys, review workflows, and generated content controls belong in a local/offline job first, then a server-side service.
+
+## Objective
+
+AI briefings should explain structured SETA evidence in plain language.
+
+They should not:
+
+- invent facts not present in the input
+- provide buy/sell instructions
+- create price targets
+- imply guaranteed outcomes
+- treat attention or breadth as proof
+- personalize financial advice
+
+The first useful implementation is not a chatbot. It is a constrained briefing generator that receives a versioned SETA input object and returns a versioned public-safe output object.
+
+## Current state
+
+SETA already has a manual/dashboard Briefing Mode. It uses structured dashboard state to describe:
+
+- setup summary
+- evidence
+- watch item
+- risk
+- breadth/trust context
+- public/member mode differences
+
+This is the right foundation. The AI path should preserve this shape and replace only the narrative generation layer when the input/output contract is trusted.
+
+## Recommended rollout
+
+### Phase 0 - Deterministic briefing baseline
+
+Status: in progress through the current dashboard Briefing Mode.
+
+Purpose:
+
+- keep briefings fast and static-safe
+- prove the sections users actually value
+- identify missing fields before AI is introduced
+
+Acceptance:
+
+- public/member dashboards render Briefing Mode without a backend
+- breadth appears as a trust layer
+- missing breadth degrades to Source Limited
+- language stays non-advisory
+
+### Phase 1 - Local offline AI briefing harness
+
+Purpose:
+
+- generate sample briefings from local payloads
+- store outputs as review artifacts
+- compare generated text against deterministic dashboard briefings
+- refine prompts, schema, and safety checks
+
+Recommended output location:
+
+```text
+briefing_outputs/
+```
+
+This folder should stay out of the committed production path unless a reviewed artifact is intentionally promoted.
+
+Acceptance:
+
+- no API key is committed
+- generator reads structured local JSON inputs
+- generated outputs include schema version and model metadata
+- outputs pass public-safety checks before review
+- breadth/trust language appears when the input contains breadth data
+
+### Phase 2 - Reviewed static briefing payloads
+
+Purpose:
+
+- publish reviewed generated briefings as static JSON
+- allow GitHub Pages to display AI-assisted copy without exposing an API key
+
+Possible payload:
+
+```text
+generated_briefings_reviewed.json
+```
+
+Acceptance:
+
+- only reviewed/public-safe outputs are published
+- dashboard can fall back to deterministic Briefing Mode
+- payload has date/model/schema metadata
+- stale payloads are detectable
+
+### Phase 3 - Server-side briefing service
+
+Purpose:
+
+- move generation behind auth, entitlements, usage controls, and review policy
+
+Acceptance:
+
+- all AI calls are server-side
+- user entitlements are enforced outside the client
+- generated outputs are stored with lineage
+- safety checks run before display
+- public/member/pro differences are explicit
+
+## Input contract
+
+The AI generator should receive a compact, evidence-only input. Do not send entire chart payloads when a smaller normalized object will do.
+
+Required envelope:
+
+```json
+{
+  "schema_version": "ai_briefing_input_v1",
+  "asset": "BTC",
+  "frequency": "D",
+  "display_range": "3M",
+  "mode": "public",
+  "as_of": "2026-05-03",
+  "price_context": {},
+  "overlap_context": {},
+  "sentiment_context": {},
+  "attention_context": {},
+  "breadth_trust": {},
+  "indicator_context": {},
+  "event_context": {},
+  "safety_constraints": {}
+}
+```
+
+### Minimum field groups
+
+`price_context` should include:
+
+- latest close
+- recent direction label
+- volatility label when available
+- whether price confirmation is present, missing, or mixed
+
+`overlap_context` should include:
+
+- overlap source
+- overlap state
+- structure label
+- latest transition
+- whether the asset is inside or outside expected range
+
+`sentiment_context` should include:
+
+- sentiment state
+- sentiment repair or deterioration flags
+- narrative/engagement state when available
+
+`attention_context` should include:
+
+- attention score
+- attention label
+- attention caveat
+- whether attention is material enough to mention
+
+`breadth_trust` should include:
+
+- source breadth label
+- source breadth confidence
+- concentration or narrowness note when available
+- channel caveat
+- whether breadth should be mentioned in public copy
+
+`indicator_context` should include:
+
+- MACD label
+- RSI label
+- Stoch RSI label
+- Bollinger/overlap label
+- any timing caveat
+
+`event_context` should include:
+
+- latest confirmed event
+- latest watch event
+- event count in visible window
+- whether no visible events exist
+
+`safety_constraints` should include:
+
+- public_safe required boolean
+- disallowed phrases
+- financial-advice prohibition
+- allowed tone
+- maximum length
+
+## Output contract
+
+Recommended output:
+
+```json
+{
+  "schema_version": "ai_briefing_output_v1",
+  "asset": "BTC",
+  "frequency": "D",
+  "as_of": "2026-05-03",
+  "headline": "",
+  "summary": "",
+  "what_seta_sees": "",
+  "why_it_matters": "",
+  "evidence": [],
+  "trust_check": "",
+  "watch_item": "",
+  "limitations": "",
+  "public_safe_disclaimer": "",
+  "source_breadth_used": true,
+  "review_status": "draft",
+  "model_metadata": {
+    "provider": "",
+    "model": "",
+    "prompt_version": "seta_briefing_prompt_v1"
+  }
+}
+```
+
+The dashboard should be able to ignore unknown fields. This keeps future output versions additive where possible.
+
+## Prompt contract
+
+Use a short system instruction plus a strict task prompt. The task prompt should require JSON output.
+
+### System instruction
+
+```text
+You write SETA market briefings from structured evidence. You do not invent facts, provide investment advice, create price targets, or use buy/sell instructions. Treat sentiment, attention, and source breadth as context. Breadth is a trust check, not proof of organic demand. Use concise, plain language suitable for an educational market dashboard.
+```
+
+### Task prompt
+
+```text
+Given the SETA briefing input JSON, produce one JSON object matching ai_briefing_output_v1.
+
+Rules:
+- Use only facts present in the input.
+- If evidence is mixed, say it is mixed.
+- If breadth is narrow, source-limited, or unavailable, mention that as a confidence limitation.
+- If attention is elevated without structure confirmation, do not call it validation.
+- Avoid buy, sell, hold, target, guaranteed, should enter, should exit, and similar advisory language.
+- Keep the headline under 90 characters.
+- Keep the summary under 45 words.
+- Keep evidence to 3 to 5 bullets.
+- Include a watch_item only when the input supports one.
+- Include a limitations sentence.
+- Return JSON only.
+```
+
+## Safety checks
+
+Every generated output should pass a simple local safety check before review or publication.
+
+Minimum checks:
+
+- valid JSON
+- required output fields exist
+- headline and summary length limits
+- no forbidden advisory phrases
+- no price target language
+- no unsupported claims such as "will rise" or "will fall"
+- no claim that breadth proves organic demand
+- trust_check is present when breadth_trust exists
+- limitations is present
+- public_safe_disclaimer is present
+
+Forbidden phrase examples:
+
+- buy
+- sell
+- strong buy
+- price target
+- guaranteed
+- will rally
+- will crash
+- should enter
+- should exit
+- financial advice
+
+The checker should distinguish forbidden advisory use from allowed disclaimers where needed. For example, "not financial advice" may be allowed in a disclaimer, but "this is financial advice" should fail.
+
+## Human review
+
+For public surfaces, generated briefings should start as review-required.
+
+Suggested statuses:
+
+- `draft`
+- `reviewed`
+- `suppressed`
+- `expired`
+
+Only `reviewed` briefings should be eligible for static publication.
+
+## Dashboard behavior
+
+The dashboard should preserve deterministic Briefing Mode as the fallback.
+
+Recommended display order:
+
+1. reviewed generated briefing if available and fresh
+2. deterministic Briefing Mode if generated briefing is missing, stale, suppressed, or invalid
+3. compact unavailable state only if neither path has enough data
+
+This protects the current product while AI quality improves.
+
+## Staleness policy
+
+Generated briefings should be treated as stale when the dashboard data date moves beyond the briefing `as_of` date.
+
+Near-term policy:
+
+- daily views: stale after the next data refresh
+- weekly views: stale after the next weekly input update or seven calendar days
+- public context cards: use existing live health checks
+
+## Test assets
+
+Use a fixed review set:
+
+- BTC
+- ETH
+- SOL
+- LINK
+- NVDA
+- MSFT
+- AAPL
+- GLD
+- SPY when upstream coverage returns
+
+Review each across:
+
+- daily 3M
+- weekly 1Y
+- public mode
+- member mode when applicable
+
+## Implementation checklist
+
+Recommended first implementation sequence:
+
+1. add a local input normalizer that extracts `ai_briefing_input_v1` from current payloads
+2. add a JSON safety checker for generated outputs
+3. add a local generator harness that writes draft artifacts outside the production dashboard path
+4. review sample outputs against deterministic Briefing Mode
+5. add a reviewed static briefing payload only after output quality is stable
+6. teach the dashboard to prefer reviewed generated briefings and fall back to deterministic Briefing Mode
+
+## Open decisions
+
+Decisions to make before Phase 1:
+
+- which provider/model will generate draft briefings
+- whether generated outputs should be stored per asset/frequency/range or only per asset/frequency
+- who marks outputs as reviewed
+- whether member mode can show draft/internal briefings locally
+- how much source/channel detail should appear in public copy
+
+## Current recommendation
+
+Proceed with Phase 1 as a local offline harness. It gives SETA the benefits of AI-assisted drafting while preserving the current static dashboard, review discipline, and public-safety posture.
