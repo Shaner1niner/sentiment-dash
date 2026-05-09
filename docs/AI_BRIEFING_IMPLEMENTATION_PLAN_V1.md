@@ -361,6 +361,7 @@ Current local harness files:
 - `scripts/generate_ai_briefing_draft.py` writes a deterministic local `ai_briefing_output_v1` draft for review.
 - `scripts/ai_briefing_quality_gates.py` applies dashboard briefing safety gates adapted from the SETA reply-engine quality doctrine.
 - `scripts/ai_briefing_reference.py` loads compact SETA glossary/reference guidance for briefing inputs and draft metadata.
+- `scripts/promote_ai_briefing_reviewed.py` promotes validated local drafts into a `generated_briefings_reviewed_v1` static payload.
 - `scripts/check_ai_briefing_output.py` validates generated `ai_briefing_output_v1` JSON before review or publication.
 - `scripts/smoke_ai_briefing_contract.py` smoke-tests the input normalizer and safety checker.
 
@@ -387,6 +388,14 @@ python scripts/generate_ai_briefing_draft.py --mode public --asset BTC --frequen
 ```
 
 The draft generator is intentionally local and deterministic. It proves the review/output workflow without calling an AI provider or publishing anything to the dashboard.
+
+Example reviewed payload promotion:
+
+```powershell
+python scripts/promote_ai_briefing_reviewed.py briefing_outputs/btc_d_3m_public_YYYYMMDD_draft.json --input briefing_inputs/btc_d_3m.json --mode public --display-range 3M --output generated_briefings_reviewed.json
+```
+
+Only genuinely reviewed outputs should be promoted into `generated_briefings_reviewed.json`. The dashboard should still treat deterministic Briefing Mode as the fallback until reviewed-payload rendering is explicitly wired.
 
 ## Open decisions
 

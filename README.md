@@ -128,6 +128,12 @@ python scripts/generate_ai_briefing_draft.py --mode public --asset BTC --frequen
 
 Draft briefing artifacts are written under ignored local folders such as `briefing_outputs/`.
 
+Promote a validated, human-reviewed draft into the reviewed static payload:
+
+```powershell
+python scripts/promote_ai_briefing_reviewed.py briefing_outputs/btc_d_3m_public_YYYYMMDD_draft.json --input briefing_inputs/btc_d_3m.json --mode public --display-range 3M --output generated_briefings_reviewed.json
+```
+
 ## Development workflow
 
 Use one branch per focused change.

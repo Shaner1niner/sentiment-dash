@@ -12,6 +12,7 @@ from check_ai_briefing_output import validate_output
 from generate_ai_briefing_draft import generate_draft
 from ai_briefing_quality_gates import check_briefing_quality_gates, count_visible_metrics
 from ai_briefing_reference import build_default_briefing_guidance, load_briefing_reference_pack
+from promote_ai_briefing_reviewed import payload_for, reviewed_briefing
 
 
 def assert_true(condition: bool, message: str) -> None:
@@ -74,6 +75,18 @@ def main() -> int:
     assert_true(validate_output(generated, btc) == [], "deterministic generated draft passes safety checks")
     assert_true(generated["review_status"] == "draft", "deterministic generated draft stays in draft status")
     assert_true(generated["reference_guidance_used"] is True, "deterministic generated draft records reference guidance usage")
+    reviewed = reviewed_briefing(
+        generated,
+        briefing_input=btc,
+        reviewer="smoke-test",
+        review_note="Smoke-test promotion only.",
+        source_path=Path("briefing_outputs/smoke_fixture.json"),
+    )
+    assert_true(reviewed["review_status"] == "reviewed", "review promotion marks draft as reviewed")
+    assert_true(validate_output(reviewed, btc) == [], "reviewed briefing passes validation")
+    reviewed_payload = payload_for([reviewed], mode="public", display_range="3M", payload_note="Smoke-test payload only.")
+    assert_true(reviewed_payload["schema_version"] == "generated_briefings_reviewed_v1", "reviewed payload schema version is correct")
+    assert_true(reviewed_payload["briefing_count"] == 1, "reviewed payload contains one briefing")
 
     bad = dict(good)
     bad["headline"] = "BTC will rally to a guaranteed price target"
@@ -102,6 +115,10 @@ def main() -> int:
         out.write_text(json.dumps(btc, indent=2), encoding="utf-8")
         reloaded = json.loads(out.read_text(encoding="utf-8"))
         assert_true(reloaded["asset"] == "BTC", "briefing input JSON round-trips")
+        payload_out = Path(tmp) / "generated_briefings_reviewed.json"
+        payload_out.write_text(json.dumps(reviewed_payload, indent=2), encoding="utf-8")
+        reloaded_payload = json.loads(payload_out.read_text(encoding="utf-8"))
+        assert_true(reloaded_payload["briefing_count"] == 1, "reviewed payload JSON round-trips")
 
     pack = load_briefing_reference_pack()
     assert_true(len(pack.columns) >= 100, "reference pack column index is populated")
