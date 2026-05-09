@@ -131,8 +131,10 @@ Draft briefing artifacts are written under ignored local folders such as `briefi
 Promote a validated, human-reviewed draft into the reviewed static payload:
 
 ```powershell
-python scripts/promote_ai_briefing_reviewed.py briefing_outputs/btc_d_3m_public_YYYYMMDD_draft.json --input briefing_inputs/btc_d_3m.json --mode public --display-range 3M --output generated_briefings_reviewed.json
+python scripts/promote_ai_briefing_reviewed.py briefing_outputs/btc_d_3m_public_YYYYMMDD_draft.json --input briefing_inputs/btc_d_3m_public.json --mode public --display-range 3M --output generated_briefings_reviewed.json
 ```
+
+Multiple generated draft files can be promoted together when their matching inputs are present under `briefing_inputs/`; the promoter infers each draft's mode and display range from its filename.
 
 The dashboard reads `generated_briefings_reviewed.json` when available. It only renders fresh reviewed matches for the current mode, asset, frequency, range, and as-of date; otherwise it falls back to deterministic Briefing Mode.
 
