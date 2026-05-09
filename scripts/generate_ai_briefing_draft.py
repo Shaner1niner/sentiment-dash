@@ -33,6 +33,13 @@ def sentence(value: Any, fallback: str = "Context is unavailable.") -> str:
     return text
 
 
+def public_safe_sentence(value: Any, fallback: str = "Context is unavailable.") -> str:
+    text = sentence(value, fallback)
+    text = re.sub(r"\brisk/reward\b", "signal freshness", text, flags=re.I)
+    text = re.sub(r"\bless favorable\b", "less clear", text, flags=re.I)
+    return text
+
+
 def compact_number(value: Any) -> str:
     try:
         n = float(value)
@@ -63,11 +70,23 @@ def build_summary(briefing_input: dict[str, Any]) -> str:
     attention = briefing_input.get("attention_context") or {}
     breadth = briefing_input.get("breadth_trust") or {}
     return (
-        f"{asset} shows {clean_text(overlap.get('overlap_event_type'))} with "
-        f"{clean_text(sentiment.get('sentiment_state'))} sentiment, "
+        f"{asset} shows the {overlap_read_label(overlap).lower()} setup alongside "
+        f"{clean_text(sentiment.get('sentiment_state')).lower()} sentiment, "
         f"{clean_text(attention.get('attention_label')).lower()} attention, and "
         f"{clean_text(breadth.get('source_breadth_label')).lower()} source breadth."
     )
+
+
+def overlap_read_label(overlap: dict[str, Any]) -> str:
+    state = clean_text(overlap.get("overlap_state"))
+    event_type = clean_text(overlap.get("overlap_event_type"))
+    state_l = state.lower()
+    event_l = event_type.lower()
+    if "bullish pressure" in state_l and "bearish" in event_l:
+        return "Bullish Pressure, Bearish Watch"
+    if "bearish pressure" in state_l and "bullish" in event_l:
+        return "Bearish Pressure, Bullish Watch"
+    return event_type
 
 
 def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
@@ -120,7 +139,7 @@ def build_watch_item(briefing_input: dict[str, Any]) -> str:
     price = briefing_input.get("price_context") or {}
     risk = sentiment.get("archetype_risk_note")
     if risk:
-        return sentence(risk)
+        return public_safe_sentence(risk)
     confirmation = price.get("price_confirmation")
     if confirmation:
         return f"Watch whether {clean_text(confirmation).lower()} context gains structure and follow-through."
@@ -146,7 +165,7 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
         "asset": asset,
         "frequency": frequency,
         "as_of": as_of,
-        "headline": f"{asset} SETA briefing: {clean_text(overlap.get('overlap_event_type'))}"[:90],
+        "headline": f"{asset} SETA briefing: {overlap_read_label(overlap)}"[:90],
         "summary": summary,
         "what_seta_sees": (
             f"SETA sees {clean_text(overlap.get('overlap_state'))} with "

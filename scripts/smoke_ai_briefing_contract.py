@@ -75,6 +75,11 @@ def main() -> int:
     assert_true(validate_output(generated, btc) == [], "deterministic generated draft passes safety checks")
     assert_true(generated["review_status"] == "draft", "deterministic generated draft stays in draft status")
     assert_true(generated["reference_guidance_used"] is True, "deterministic generated draft records reference guidance usage")
+    extension_input = dict(btc)
+    extension_input["sentiment_context"] = dict(btc["sentiment_context"])
+    extension_input["sentiment_context"]["archetype_risk_note"] = "Strength can persist, but risk/reward may be less favorable after extension."
+    extension_draft = generate_draft(extension_input)
+    assert_true("risk/reward" not in extension_draft["watch_item"].lower(), "deterministic draft sanitizes risk/reward wording")
     reviewed = reviewed_briefing(
         generated,
         briefing_input=btc,
