@@ -91,7 +91,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--display-range", default="3M", help="Display range for payload keying.")
     parser.add_argument("--reviewer", default="local-review", help="Reviewer name or identifier.")
     parser.add_argument("--review-note", default="Promoted through local reviewed-briefing workflow.")
-    parser.add_argument("--payload-note", default="Reviewed SETA briefing payload. Dashboard consumption is not wired yet.")
+    parser.add_argument("--payload-note", default="Reviewed SETA briefing payload. Dashboard falls back to deterministic Briefing Mode when no matching reviewed item is available.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Reviewed static payload path.")
     return parser.parse_args()
 

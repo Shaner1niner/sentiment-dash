@@ -614,6 +614,8 @@ const ASSET_PAYLOAD_PENDING = {};
 
 let MODE_MANIFEST = null;
 
+let REVIEWED_BRIEFINGS_PAYLOAD = null;
+
 
 
 
@@ -13358,6 +13360,12 @@ function activeDataUrl(){
 
 }
 
+function activeReviewedBriefingsUrl(){
+  const params = new URLSearchParams(location.search);
+  if(params.has('briefings')) return params.get('briefings');
+  return window.SETA_REVIEWED_BRIEFINGS_URL || manifestModeConfig()?.reviewedBriefingsUrl || MODE_MANIFEST?.reviewedBriefingsUrl || 'generated_briefings_reviewed.json';
+}
+
 function activeAssetIndexUrl(){
   const params = new URLSearchParams(location.search);
   if(params.has('assetIndex')) return params.get('assetIndex');
@@ -15575,6 +15583,27 @@ async function loadManifest(){
 
 
 
+
+async function loadReviewedBriefings(){
+  const url = activeReviewedBriefingsUrl();
+  REVIEWED_BRIEFINGS_PAYLOAD = null;
+  if(!url) return;
+  try{
+    const res = await fetch(url, dashboardPayloadFetchOptions());
+    if(!res.ok){
+      console.warn(`Reviewed briefing payload not available from ${url}: ${res.status}; using deterministic Briefing Mode.`);
+      return;
+    }
+    const payload = await res.json();
+    if(payload?.schema_version !== 'generated_briefings_reviewed_v1' || !payload.briefings || typeof payload.briefings !== 'object'){
+      console.warn(`Reviewed briefing payload from ${url} has an unsupported schema; using deterministic Briefing Mode.`);
+      return;
+    }
+    REVIEWED_BRIEFINGS_PAYLOAD = payload;
+  }catch(err){
+    console.warn('Reviewed briefing payload load failed; using deterministic Briefing Mode:', err);
+  }
+}
 
 async function loadStore(){
 
@@ -61656,6 +61685,57 @@ function briefingModeValue(){
   return el ? el.value : (manifestModeConfig()?.defaults?.briefingMode || 'briefing');
 }
 
+function reviewedBriefingKeyPart(value, fallback){
+  const text=String(value || fallback || '').trim().toLowerCase();
+  return text.replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'') || fallback;
+}
+
+function reviewedBriefingKey(mode, term, freq, rangePreset, asOf){
+  return [
+    reviewedBriefingKeyPart(mode, 'mode'),
+    reviewedBriefingKeyPart(term, 'asset'),
+    reviewedBriefingKeyPart(freq, 'freq'),
+    reviewedBriefingKeyPart(rangePreset, 'range'),
+    reviewedBriefingKeyPart(asOf, 'asof')
+  ].join('::');
+}
+
+function reviewedBriefingText(value, fallback=''){
+  return String(value || fallback || '').trim();
+}
+
+function reviewedBriefingMatches(item, term, freq, rangePreset, asOf){
+  if(!item || typeof item !== 'object') return false;
+  if(item.schema_version !== 'ai_briefing_output_v1') return false;
+  if(item.review_status !== 'reviewed') return false;
+  if(item.suppressed === true || item.public_suppressed === true) return false;
+  if(reviewedBriefingKeyPart(item.asset, 'asset') !== reviewedBriefingKeyPart(term, 'asset')) return false;
+  if(reviewedBriefingKeyPart(item.frequency, 'freq') !== reviewedBriefingKeyPart(freq, 'freq')) return false;
+  if(reviewedBriefingKeyPart(item.as_of, 'asof') !== reviewedBriefingKeyPart(asOf, 'asof')) return false;
+  if(item.mode && reviewedBriefingKeyPart(item.mode, 'mode') !== reviewedBriefingKeyPart(currentMode(), 'mode')) return false;
+  if(item.display_range && reviewedBriefingKeyPart(item.display_range, 'range') !== reviewedBriefingKeyPart(rangePreset, 'range')) return false;
+  return true;
+}
+
+function reviewedBriefingFor(term, freq, rangePreset, row){
+  const asOf=reviewedBriefingText(row?.date || row?.as_of);
+  const payload=REVIEWED_BRIEFINGS_PAYLOAD;
+  if(!asOf || !payload?.briefings) return null;
+  const key=reviewedBriefingKey(currentMode(), term, freq, rangePreset, asOf);
+  const direct=payload.briefings[key];
+  if(reviewedBriefingMatches(direct, term, freq, rangePreset, asOf)) return direct;
+  return null;
+}
+
+function renderReviewedBriefingPanel(panel, briefing, term, freq, rangePreset){
+  const evidence = Array.isArray(briefing.evidence) ? briefing.evidence.map(v=>reviewedBriefingText(v)).filter(Boolean).slice(0,3).join(' ') : reviewedBriefingText(briefing.evidence);
+  const reviewDate = reviewedBriefingText(briefing.review_metadata?.reviewed_at_utc).slice(0,10);
+  const meta = [freq==='W'?'Weekly':'Daily', rangePreset, 'reviewed', 'educational context only'].filter(Boolean).map(v=>escapeHTML(v)).join(' &middot; ');
+  const trust = [reviewedBriefingText(briefing.trust_check), reviewedBriefingText(briefing.limitations), reviewedBriefingText(briefing.public_safe_disclaimer)].filter(Boolean).join(' ');
+  panel.hidden=false;
+  panel.innerHTML=`<div class="briefingHeader"><div><div class="briefingTitle">${escapeHTML(briefing.headline || `SETA Briefing - ${term}`)}</div><div class="briefingMeta">${meta}</div></div><div class="briefingMeta">Reviewed payload${reviewDate ? ` &middot; ${escapeHTML(reviewDate)}` : ''}</div></div><div class="briefingGrid"><div class="briefingCard"><h3>What SETA Sees</h3><p>${escapeHTML(briefing.what_seta_sees || briefing.summary || 'Reviewed briefing context is available.')}</p></div><div class="briefingCard"><h3>Why It Matters</h3><p>${escapeHTML(briefing.why_it_matters || briefing.summary || 'Context is educational and should be read with the chart evidence.')}</p></div><div class="briefingCard"><h3>Evidence</h3><p>${escapeHTML(evidence || briefing.summary || 'Reviewed evidence summary is available.')}</p></div><div class="briefingCard briefingTrust"><h3>Trust Check</h3><p>${escapeHTML(trust || 'Source breadth remains a trust layer, not proof of organic demand.')}</p></div></div>`;
+}
+
 function renderBriefingPanel(term, freq, rangePreset, row, overlapInfo, engagementInfo){
   const panel=document.getElementById('briefingPanel');
   if(!panel) return;
@@ -61664,6 +61744,8 @@ function renderBriefingPanel(term, freq, rangePreset, row, overlapInfo, engageme
     panel.innerHTML='';
     return;
   }
+  const reviewed=reviewedBriefingFor(term, freq, rangePreset, row || {});
+  if(reviewed) return renderReviewedBriefingPanel(panel, reviewed, term, freq, rangePreset);
   const breadth=sourceBreadthState(row || {});
   const breadthScore = breadth.score === null ? '' : ` ${breadth.score.toFixed(0)}`;
   const context = overlapInfo?.context || 'Context unavailable';
@@ -94307,7 +94389,7 @@ async function initDashboard(){
 
 
 
-    await Promise.all([loadStore(), loadScreenerStore()]);
+    await Promise.all([loadStore(), loadScreenerStore(), loadReviewedBriefings()]);
     renderFreshnessStatus();
 
 
