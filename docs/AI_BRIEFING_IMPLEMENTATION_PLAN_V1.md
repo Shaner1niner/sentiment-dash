@@ -360,10 +360,13 @@ Current local harness files:
 - `scripts/build_ai_briefing_input.py` extracts `ai_briefing_input_v1` from Fix 26 chart and screener payloads.
 - `scripts/generate_ai_briefing_draft.py` writes a deterministic local `ai_briefing_output_v1` draft for review.
 - `scripts/ai_briefing_quality_gates.py` applies dashboard briefing safety gates adapted from the SETA reply-engine quality doctrine.
+- `scripts/ai_briefing_reference.py` loads compact SETA glossary/reference guidance for briefing inputs and draft metadata.
 - `scripts/check_ai_briefing_output.py` validates generated `ai_briefing_output_v1` JSON before review or publication.
 - `scripts/smoke_ai_briefing_contract.py` smoke-tests the input normalizer and safety checker.
 
 The briefing quality gates intentionally borrow the reply-engine guardrail philosophy: no trade calls, no price predictions, no internal labels or raw column names, no attention-as-adoption framing, and no claim that breadth proves organic demand.
+
+Briefing inputs also include `reference_guidance`, a compact glossary/caution object built from `agent_reference/`. This gives future model prompts definitions and do-not-overclaim guidance without exposing raw reference files or bloating the dashboard payload.
 
 Example local input build:
 

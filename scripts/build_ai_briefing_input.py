@@ -9,6 +9,8 @@ from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
 
+from ai_briefing_reference import build_default_briefing_guidance
+
 ROOT = Path(__file__).resolve().parents[1]
 
 RANGE_DAYS = {
@@ -224,6 +226,11 @@ def build_input(mode: str, asset: str, frequency: str, display_range: str) -> di
         price_change = (latest_close - previous_close) / previous_close
     breadth = source_breadth(latest)
     summary_label = str(latest.get("seta_dashboard_summary_label") or "")
+    archetypes = [
+        item
+        for item in [screener.get("primary_archetype"), screener.get("secondary_archetype")]
+        if item
+    ]
 
     return {
         "schema_version": "ai_briefing_input_v1",
@@ -322,6 +329,7 @@ def build_input(mode: str, asset: str, frequency: str, display_range: str) -> di
             "no_visible_events": not bool(screener.get("latest_event_date") or screener.get("latest_confirmed_event_date")),
             "screener_reason_summary": screener.get("screener_reason_summary"),
         },
+        "reference_guidance": build_default_briefing_guidance(archetypes=archetypes),
         "safety_constraints": {
             "public_safe_required": True,
             "educational_only": True,

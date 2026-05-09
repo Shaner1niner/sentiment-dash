@@ -174,6 +174,7 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
             "model": "deterministic_template_v1",
             "prompt_version": "seta_briefing_prompt_v1",
         },
+        "reference_guidance_used": bool((briefing_input.get("reference_guidance") or {}).get("definitions")),
     }
 
 
