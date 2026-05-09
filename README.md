@@ -120,6 +120,14 @@ Run the local AI briefing contract smoke test when changing briefing schemas, pr
 python scripts/smoke_ai_briefing_contract.py
 ```
 
+Build a local draft briefing artifact for review:
+
+```powershell
+python scripts/generate_ai_briefing_draft.py --mode public --asset BTC --frequency D --display-range 3M
+```
+
+Draft briefing artifacts are written under ignored local folders such as `briefing_outputs/`.
+
 ## Development workflow
 
 Use one branch per focused change.

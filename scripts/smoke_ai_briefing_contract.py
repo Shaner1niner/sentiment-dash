@@ -9,6 +9,7 @@ from tempfile import TemporaryDirectory
 
 from build_ai_briefing_input import build_input
 from check_ai_briefing_output import validate_output
+from generate_ai_briefing_draft import generate_draft
 
 
 def assert_true(condition: bool, message: str) -> None:
@@ -64,6 +65,10 @@ def main() -> int:
 
     good = valid_output(btc)
     assert_true(validate_output(good, btc) == [], "valid fixture output passes safety checks")
+
+    generated = generate_draft(btc)
+    assert_true(validate_output(generated, btc) == [], "deterministic generated draft passes safety checks")
+    assert_true(generated["review_status"] == "draft", "deterministic generated draft stays in draft status")
 
     bad = dict(good)
     bad["headline"] = "BTC will rally to a guaranteed price target"
