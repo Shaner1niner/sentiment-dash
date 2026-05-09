@@ -82,3 +82,11 @@ refresh_fix26_dashboard_all_20*.bat
 
 # Visual regression local screenshots
 docs/qa/dashboard-visual-regression-latest/
+
+# SETA AI briefing local harness outputs
+briefing_outputs/
+briefing_inputs/
+
+# Python local caches
+__pycache__/
+*.pyc

@@ -114,6 +114,12 @@ python scripts/smoke_github_pages_live.py
 
 See `docs/GITHUB_PAGES_LIVE_HEALTH_CHECK.md` for the production checks and warning policy, including the expected upstream-only `SPY` gap.
 
+Run the local AI briefing contract smoke test when changing briefing schemas, prompts, or local briefing harness scripts:
+
+```powershell
+python scripts/smoke_ai_briefing_contract.py
+```
+
 ## Development workflow
 
 Use one branch per focused change.

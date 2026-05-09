@@ -355,6 +355,24 @@ Recommended first implementation sequence:
 5. add a reviewed static briefing payload only after output quality is stable
 6. teach the dashboard to prefer reviewed generated briefings and fall back to deterministic Briefing Mode
 
+Current local harness files:
+
+- `scripts/build_ai_briefing_input.py` extracts `ai_briefing_input_v1` from Fix 26 chart and screener payloads.
+- `scripts/check_ai_briefing_output.py` validates generated `ai_briefing_output_v1` JSON before review or publication.
+- `scripts/smoke_ai_briefing_contract.py` smoke-tests the input normalizer and safety checker.
+
+Example local input build:
+
+```powershell
+python scripts/build_ai_briefing_input.py --mode public --asset BTC --frequency D --display-range 3M --output briefing_inputs/btc_d_3m.json
+```
+
+Example output validation:
+
+```powershell
+python scripts/check_ai_briefing_output.py briefing_outputs/btc_d_3m_draft.json --input briefing_inputs/btc_d_3m.json
+```
+
 ## Open decisions
 
 Decisions to make before Phase 1:
