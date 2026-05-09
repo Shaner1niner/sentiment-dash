@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 """Generate a local draft SETA AI briefing output from structured input.
 
 This is intentionally deterministic. It exercises the AI briefing workflow and
@@ -63,20 +63,6 @@ def output_path_for(briefing_input: dict[str, Any], output_dir: Path) -> Path:
     return output_dir / f"{asset}_{freq}_{display_range}_{mode}_{as_of}_draft.json"
 
 
-def build_summary(briefing_input: dict[str, Any]) -> str:
-    asset = briefing_input["asset"]
-    overlap = briefing_input.get("overlap_context") or {}
-    sentiment = briefing_input.get("sentiment_context") or {}
-    attention = briefing_input.get("attention_context") or {}
-    breadth = briefing_input.get("breadth_trust") or {}
-    return (
-        f"{asset} shows the {overlap_read_label(overlap).lower()} setup alongside "
-        f"{clean_text(sentiment.get('sentiment_state')).lower()} sentiment, "
-        f"{clean_text(attention.get('attention_label')).lower()} attention, and "
-        f"{clean_text(breadth.get('source_breadth_label')).lower()} source breadth."
-    )
-
-
 def overlap_read_label(overlap: dict[str, Any]) -> str:
     state = clean_text(overlap.get("overlap_state"))
     event_type = clean_text(overlap.get("overlap_event_type"))
@@ -87,6 +73,83 @@ def overlap_read_label(overlap: dict[str, Any]) -> str:
     if "bearish pressure" in state_l and "bullish" in event_l:
         return "Bearish Pressure, Bullish Watch"
     return event_type
+
+
+def overlap_zone_sentence(overlap: dict[str, Any]) -> str:
+    """Translate internal overlap state into public shared-zone language."""
+    state = clean_text(overlap.get("overlap_state"), "")
+    label = overlap_read_label(overlap)
+    combined = f"{state} {label}".lower()
+
+    if "inactive" in combined:
+        return "Price is not currently outside the shared price/sentiment zone."
+    if "pressure active" in combined:
+        return "Price is outside the shared price/sentiment zone."
+    if "watch" in combined:
+        return "SETA is watching whether price remains outside or returns toward the shared price/sentiment zone."
+    return "SETA compares price behavior against the shared price/sentiment zone."
+
+
+def overlap_definition_sentence() -> str:
+    return "Overlap is the shared zone where price bands and sentiment bands agree."
+
+
+def timing_definition_sentence() -> str:
+    return "Timing context means whether indicators confirm, weaken, or conflict with the setup."
+
+
+def structure_label(overlap: dict[str, Any]) -> str:
+    return clean_text(overlap.get("structure_label"), "structure unavailable")
+
+
+def timing_context_label(indicators: dict[str, Any]) -> str:
+    macd = clean_text(indicators.get("macd_label"), "")
+    rsi = clean_text(indicators.get("rsi_label"), "")
+    parts = [part for part in [macd, rsi] if part and part != "unavailable"]
+    if not parts:
+        return "timing unavailable"
+    return "; ".join(parts)
+
+
+def build_summary(briefing_input: dict[str, Any]) -> str:
+    asset = briefing_input["asset"]
+    overlap = briefing_input.get("overlap_context") or {}
+    sentiment = briefing_input.get("sentiment_context") or {}
+    attention = briefing_input.get("attention_context") or {}
+    breadth = briefing_input.get("breadth_trust") or {}
+
+    return (
+        f"{asset} shows the {overlap_read_label(overlap).lower()} setup with "
+        f"{clean_text(sentiment.get('sentiment_state')).lower()} sentiment, "
+        f"{clean_text(attention.get('attention_label')).lower()} attention, and "
+        f"{clean_text(breadth.get('source_breadth_label')).lower()} source breadth."
+    )
+
+
+def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
+    overlap = briefing_input.get("overlap_context") or {}
+    indicators = briefing_input.get("indicator_context") or {}
+    primary = overlap_read_label(overlap)
+    structure = structure_label(overlap)
+    timing = timing_context_label(indicators)
+
+    return (
+        f"Primary read: {primary}. "
+        f"{overlap_zone_sentence(overlap)} "
+        f"Structure reads {structure}, while timing context reads {timing}."
+    )
+
+
+def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
+    attention = briefing_input.get("attention_context") or {}
+    attention_label = clean_text(attention.get("attention_label"), "Attention")
+    attention_regime = clean_text(attention.get("attention_regime_label"), "normal regime").lower()
+
+    return (
+        "This keeps the read layered: overlap shows whether price is inside or outside the shared zone, "
+        "structure describes the broader regime, and timing context shows whether indicators align or conflict. "
+        f"{attention_label} attention and {attention_regime} remain participation context."
+    )
 
 
 def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
@@ -100,6 +163,7 @@ def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
     close_label = "Latest available close" if price.get("price_data_lagged") else "Latest close"
     close_date = clean_text(price.get("latest_close_date"), "")
     close_date_text = f" from {close_date}" if price.get("price_data_lagged") and close_date else ""
+
     evidence = [
         (
             f"{close_label} is {compact_number(price.get('latest_close'))}{close_date_text}; "
@@ -107,7 +171,7 @@ def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
             f"with {clean_text(price.get('volume_confirmation')).lower()}."
         ),
         (
-            f"Overlap context is {clean_text(overlap.get('overlap_state'))}; "
+            f"Shared-zone state: {clean_text(overlap.get('overlap_state'))}; "
             f"structure reads {clean_text(overlap.get('structure_label'))}."
         ),
         (
@@ -133,6 +197,42 @@ def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
     return evidence[:5]
 
 
+def public_breadth_caveat(breadth: dict[str, Any]) -> str:
+    label = clean_text(breadth.get("source_breadth_label"), "").lower()
+    confidence = clean_text(
+        breadth.get("source_breadth_confidence")
+        or breadth.get("confidence")
+        or breadth.get("source_confidence"),
+        "",
+    ).lower()
+
+    if "source limited" in label or "narrow" in label or "limited" in confidence or "low" in confidence:
+        return "Confidence is qualified by available source coverage."
+    return ""
+
+
+def build_trust_check(briefing_input: dict[str, Any]) -> str:
+    breadth = briefing_input.get("breadth_trust") or {}
+    breadth_label = clean_text(breadth.get("source_breadth_label"), "Source Limited")
+    breadth_score = breadth.get("source_breadth_score")
+    breadth_score_text = "" if breadth_score is None else f" ({compact_number(breadth_score)})"
+    interpretation = clean_text(
+        breadth.get("interpretation"),
+        "Source breadth is a trust layer for the participation read.",
+    )
+    caveat = public_breadth_caveat(breadth)
+    return " ".join(
+        part
+        for part in [
+            f"Source breadth is {breadth_label}{breadth_score_text}.",
+            interpretation,
+            caveat,
+            "Breadth is a trust layer for participation context, not a standalone demand signal.",
+        ]
+        if part
+    )
+
+
 def build_watch_item(briefing_input: dict[str, Any]) -> str:
     event = briefing_input.get("event_context") or {}
     sentiment = briefing_input.get("sentiment_context") or {}
@@ -153,13 +253,8 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
     frequency = briefing_input["frequency"]
     as_of = briefing_input["as_of"]
     overlap = briefing_input.get("overlap_context") or {}
-    attention = briefing_input.get("attention_context") or {}
-    breadth = briefing_input.get("breadth_trust") or {}
-    indicators = briefing_input.get("indicator_context") or {}
     summary = build_summary(briefing_input)
-    breadth_label = clean_text(breadth.get("source_breadth_label"), "Source Limited")
-    breadth_score = breadth.get("source_breadth_score")
-    breadth_score_text = "" if breadth_score is None else f" ({compact_number(breadth_score)})"
+
     return {
         "schema_version": "ai_briefing_output_v1",
         "asset": asset,
@@ -167,33 +262,21 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
         "as_of": as_of,
         "headline": f"{asset} SETA briefing: {overlap_read_label(overlap)}"[:90],
         "summary": summary,
-        "what_seta_sees": (
-            f"SETA sees {clean_text(overlap.get('overlap_state'))} with "
-            f"{clean_text(overlap.get('structure_label'))} structure and "
-            f"{clean_text(indicators.get('macd_label')).lower()} timing context."
-        ),
-        "why_it_matters": (
-            f"{clean_text(attention.get('attention_label'))} attention and "
-            f"{clean_text(attention.get('attention_regime_label')).lower()} describe participation context, "
-            "while price and overlap structure remain the evidence base."
-        ),
+        "what_seta_sees": build_what_seta_sees(briefing_input),
+        "why_it_matters": build_why_it_matters(briefing_input),
         "evidence": build_evidence(briefing_input),
-        "trust_check": (
-            f"Source breadth is {breadth_label}{breadth_score_text}. "
-            f"{clean_text(breadth.get('interpretation'))} "
-            f"{clean_text(breadth.get('source_caveat'))}"
-        ),
+        "trust_check": build_trust_check(briefing_input),
         "watch_item": build_watch_item(briefing_input),
         "limitations": (
-            "This draft uses only structured SETA payload fields. Source coverage, X sampling, "
-            "news repetition, and stale upstream data can limit confidence."
+            "This draft uses only structured SETA payload fields. Source coverage and stale upstream data "
+            "can limit confidence."
         ),
         "public_safe_disclaimer": "Educational market context only; not investment advice.",
         "source_breadth_used": True,
         "review_status": "draft",
         "model_metadata": {
             "provider": "local",
-            "model": "deterministic_template_v1",
+            "model": "deterministic_template_v2",
             "prompt_version": "seta_briefing_prompt_v1",
         },
         "reference_guidance_used": bool((briefing_input.get("reference_guidance") or {}).get("definitions")),
@@ -239,3 +322,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
