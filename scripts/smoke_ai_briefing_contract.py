@@ -10,6 +10,7 @@ from tempfile import TemporaryDirectory
 from build_ai_briefing_input import build_input
 from check_ai_briefing_output import validate_output
 from generate_ai_briefing_draft import generate_draft
+from ai_briefing_quality_gates import check_briefing_quality_gates, count_visible_metrics
 
 
 def assert_true(condition: bool, message: str) -> None:
@@ -75,6 +76,22 @@ def main() -> int:
     bad["evidence"] = ["Buy BTC now", "Source breadth proves organic demand", "Price target is certain"]
     errors = validate_output(bad, btc)
     assert_true(any("forbidden" in error for error in errors), "unsafe fixture output fails forbidden-language checks")
+
+    attention_bad = dict(good)
+    attention_bad["why_it_matters"] = "Attention proves adoption and validates the move."
+    attention_errors = validate_output(attention_bad, btc)
+    assert_true(any("attention treated as" in error for error in attention_errors), "attention/adoption misuse fails quality gates")
+
+    internal_bad = dict(good)
+    internal_bad["what_seta_sees"] = "Route=technical_structure and signal_consensus_direction_score show the setup."
+    internal_errors = validate_output(internal_bad, btc)
+    assert_true(any("internal" in error or "debug" in error for error in internal_errors), "internal/debug language fails quality gates")
+
+    metric_heavy = dict(good)
+    metric_heavy["evidence"] = ["RSI 52, sentiment 61, attention 72, dispersion 18.", "Breadth is broad.", "Context is mixed."]
+    metric_gate = check_briefing_quality_gates(metric_heavy, btc, max_visible_metrics=3)
+    assert_true(bool(metric_gate["warnings"]), "metric-heavy briefing receives a quality warning")
+    assert_true(count_visible_metrics(metric_heavy["evidence"][0]) == 4, "visible metric counter catches numeric receipts")
 
     with TemporaryDirectory() as tmp:
         out = Path(tmp) / "btc_input.json"

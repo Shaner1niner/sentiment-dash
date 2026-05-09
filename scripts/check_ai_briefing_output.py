@@ -10,6 +10,8 @@ import sys
 from pathlib import Path
 from typing import Any
 
+from ai_briefing_quality_gates import check_briefing_quality_gates
+
 REQUIRED_FIELDS = [
     "schema_version",
     "asset",
@@ -31,39 +33,12 @@ REQUIRED_FIELDS = [
 
 ALLOWED_REVIEW_STATUSES = {"draft", "reviewed", "suppressed", "expired"}
 
-FORBIDDEN_PATTERNS = [
-    (re.compile(r"\bstrong\s+buy\b", re.I), "strong buy language"),
-    (re.compile(r"\bbuy\b", re.I), "buy language"),
-    (re.compile(r"\bsell\b", re.I), "sell language"),
-    (re.compile(r"\bhold\b", re.I), "hold language"),
-    (re.compile(r"\bprice\s+target\b", re.I), "price target language"),
-    (re.compile(r"\bguaranteed\b", re.I), "guarantee language"),
-    (re.compile(r"\bwill\s+(rally|rise|crash|fall|moon|surge|collapse)\b", re.I), "unsupported future claim"),
-    (re.compile(r"\bshould\s+(enter|exit|buy|sell|hold)\b", re.I), "personalized action language"),
-    (re.compile(r"\bproves?\s+organic\s+demand\b", re.I), "overstated breadth claim"),
-]
-
-
 def load_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
 def word_count(text: str) -> int:
     return len(re.findall(r"\b[\w'-]+\b", text))
-
-
-def text_fields(output: dict[str, Any]) -> list[tuple[str, str]]:
-    fields: list[tuple[str, str]] = []
-    for key, value in output.items():
-        if key == "public_safe_disclaimer":
-            continue
-        if isinstance(value, str):
-            fields.append((key, value))
-        elif isinstance(value, list):
-            for idx, item in enumerate(value):
-                if isinstance(item, str):
-                    fields.append((f"{key}[{idx}]", item))
-    return fields
 
 
 def validate_output(output: dict[str, Any], briefing_input: dict[str, Any] | None = None) -> list[str]:
@@ -119,10 +94,8 @@ def validate_output(output: dict[str, Any], briefing_input: dict[str, Any] | Non
         if breadth and not str(output.get("trust_check") or "").strip():
             errors.append("trust_check is required when breadth_trust is present")
 
-    for field, value in text_fields(output):
-        for pattern, label in FORBIDDEN_PATTERNS:
-            if pattern.search(value):
-                errors.append(f"{field} contains forbidden {label}: {value!r}")
+    gates = check_briefing_quality_gates(output, briefing_input)
+    errors.extend(str(error) for error in gates.get("errors") or [])
 
     return errors
 
