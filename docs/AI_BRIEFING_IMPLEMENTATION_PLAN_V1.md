@@ -397,7 +397,7 @@ python scripts/promote_ai_briefing_reviewed.py briefing_outputs/btc_d_3m_public_
 
 Only genuinely reviewed outputs should be promoted into `generated_briefings_reviewed.json`. The dashboard now loads that static payload when present, requires a current asset/frequency/range/mode/as-of match with `review_status: reviewed`, and falls back to deterministic Briefing Mode for missing, stale, suppressed, or mismatched items.
 
-The first reviewed static payload is intentionally small: public BTC and NVDA daily/weekly matches. Small reviewed batches make it easier to inspect language quality, confirm source-breadth framing, and catch stale-price edge cases before expanding coverage.
+The reviewed static payload started with public BTC and NVDA daily/weekly matches, then expanded to all public assets with upstream coverage. SPY remains excluded until the upstream payload gap is resolved. Small reviewed batches make it easier to inspect language quality, confirm source-breadth framing, and catch stale-price edge cases before expanding coverage.
 
 ## Open decisions
 

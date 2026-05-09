@@ -1,19 +1,97 @@
 {
-  "briefing_count": 4,
+  "briefing_count": 16,
   "briefings": {
+    "public::aapl::d::3m::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "AAPL",
+      "display_range": "3M",
+      "evidence": [
+        "Latest available close is 293 from 2026-05-08; recent visible direction is rising with high volume.",
+        "Overlap context is Inactive; structure reads Bullish Expansion.",
+        "Sentiment context is Bullish Expansion; primary setup is Narrative Deterioration Despite Price Strength.",
+        "Attention is normal with normal regime. Source breadth is broad.",
+        "Timing context: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral."
+      ],
+      "frequency": "D",
+      "headline": "AAPL SETA briefing: Narrative Deterioration Despite Price Strength",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::aapl::d::3m::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/aapl_d_3m_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "AAPL shows the narrative deterioration despite price strength setup alongside bullish expansion sentiment, normal attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "This can be an early warning rather than an immediate breakdown signal.",
+      "what_seta_sees": "SETA sees Inactive with Bullish Expansion structure and negative divergence / narrative weakening timing context.",
+      "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::aapl::w::1y::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "AAPL",
+      "display_range": "1Y",
+      "evidence": [
+        "Latest available close is 293 from 2026-05-08; recent visible direction is rising with high volume.",
+        "Overlap context is Inactive; structure reads Bullish Expansion.",
+        "Sentiment context is Bullish Expansion; primary setup is Narrative Deterioration Despite Price Strength.",
+        "Attention is normal with normal regime. Source breadth is broad.",
+        "Timing context: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral."
+      ],
+      "frequency": "W",
+      "headline": "AAPL SETA briefing: Narrative Deterioration Despite Price Strength",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::aapl::w::1y::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/aapl_w_1y_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "AAPL shows the narrative deterioration despite price strength setup alongside bullish expansion sentiment, normal attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "This can be an early warning rather than an immediate breakdown signal.",
+      "what_seta_sees": "SETA sees Inactive with Bullish Expansion structure and negative divergence / narrative weakening timing context.",
+      "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
     "public::btc::d::3m::2026_05_09": {
       "as_of": "2026-05-09",
       "asset": "BTC",
       "display_range": "3M",
       "evidence": [
-        "Latest close is 80,427; recent visible direction is rising with normal volume.",
-        "Overlap context is Bearish Pressure Active; structure reads Bullish Expansion. Latest event is Watch on 2026-05-09.",
-        "Sentiment context is Bullish Expansion; primary setup is Fresh Bullish Reversal.",
+        "Latest close is 80,222; recent visible direction is rising with normal volume.",
+        "Overlap context is Bearish Pressure Active; structure reads Compression / Transition. Latest event is Watch on 2026-05-09.",
+        "Sentiment context is Compression / Transition; primary setup is Fresh Bullish Reversal.",
         "Attention is normal with normal regime. Source breadth is broad.",
         "Timing context: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral."
       ],
       "frequency": "D",
-      "headline": "BTC SETA briefing: Unconfirmed Bullish Pressure",
+      "headline": "BTC SETA briefing: Bearish Pressure, Bullish Watch",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
       "mode": "public",
       "model_metadata": {
@@ -25,19 +103,19 @@
       "public_safe_disclaimer": "Educational market context only; not investment advice.",
       "reference_guidance_used": true,
       "review_metadata": {
-        "review_note": "First public reviewed smoke batch; deterministic drafts inspected for non-advisory language, breadth framing, and stale-price handling.",
-        "reviewed_at_utc": "2026-05-09T04:59:52+00:00",
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
         "reviewer": "codex-local-review",
-        "source_draft_path": "briefing_outputs/btc_d_3m_public_20260509_draft.json",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/btc_d_3m_public_20260509_draft.json",
         "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "BTC shows Unconfirmed Bullish Pressure with Bullish Expansion sentiment, normal attention, and broad source breadth.",
+      "summary": "BTC shows the bearish pressure, bullish watch setup alongside compression / transition sentiment, normal attention, and broad source breadth.",
       "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
       "watch_item": "Mean-reversion/reversal setups still need price follow-through after the confirmed event.",
-      "what_seta_sees": "SETA sees Bearish Pressure Active with Bullish Expansion structure and negative divergence / narrative weakening timing context.",
+      "what_seta_sees": "SETA sees Bearish Pressure Active with Compression / Transition structure and negative divergence / narrative weakening timing context.",
       "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
     },
     "public::btc::w::1y::2026_05_09": {
@@ -45,14 +123,14 @@
       "asset": "BTC",
       "display_range": "1Y",
       "evidence": [
-        "Latest close is 80,427; recent visible direction is rising with normal volume.",
-        "Overlap context is Bearish Pressure Active; structure reads Bullish Expansion. Latest event is Watch on 2026-05-09.",
-        "Sentiment context is Bullish Expansion; primary setup is Fresh Bullish Reversal.",
+        "Latest close is 80,222; recent visible direction is rising with normal volume.",
+        "Overlap context is Bearish Pressure Active; structure reads Compression / Transition. Latest event is Watch on 2026-05-09.",
+        "Sentiment context is Compression / Transition; primary setup is Fresh Bullish Reversal.",
         "Attention is normal with normal regime. Source breadth is broad.",
         "Timing context: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral."
       ],
       "frequency": "W",
-      "headline": "BTC SETA briefing: Unconfirmed Bullish Pressure",
+      "headline": "BTC SETA briefing: Bearish Pressure, Bullish Watch",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
       "mode": "public",
       "model_metadata": {
@@ -64,19 +142,331 @@
       "public_safe_disclaimer": "Educational market context only; not investment advice.",
       "reference_guidance_used": true,
       "review_metadata": {
-        "review_note": "First public reviewed smoke batch; deterministic drafts inspected for non-advisory language, breadth framing, and stale-price handling.",
-        "reviewed_at_utc": "2026-05-09T04:59:52+00:00",
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
         "reviewer": "codex-local-review",
-        "source_draft_path": "briefing_outputs/btc_w_1y_public_20260509_draft.json",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/btc_w_1y_public_20260509_draft.json",
         "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "BTC shows Unconfirmed Bullish Pressure with Bullish Expansion sentiment, normal attention, and broad source breadth.",
+      "summary": "BTC shows the bearish pressure, bullish watch setup alongside compression / transition sentiment, normal attention, and broad source breadth.",
       "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
       "watch_item": "Mean-reversion/reversal setups still need price follow-through after the confirmed event.",
-      "what_seta_sees": "SETA sees Bearish Pressure Active with Bullish Expansion structure and negative divergence / narrative weakening timing context.",
+      "what_seta_sees": "SETA sees Bearish Pressure Active with Compression / Transition structure and negative divergence / narrative weakening timing context.",
+      "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::coin::d::3m::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "COIN",
+      "display_range": "3M",
+      "evidence": [
+        "Latest available close is 201 from 2026-05-08; recent visible direction is rising with high volume.",
+        "Overlap context is Inactive; structure reads Compression / Transition.",
+        "Sentiment context is Compression / Transition; primary setup is Narrative Deterioration Despite Price Strength.",
+        "Attention is quiet with normal regime. Source breadth is broad.",
+        "Timing context: Negative Divergence / Narrative Weakening; RSI Weak."
+      ],
+      "frequency": "D",
+      "headline": "COIN SETA briefing: Narrative Deterioration Despite Price Strength",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::coin::d::3m::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/coin_d_3m_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "COIN shows the narrative deterioration despite price strength setup alongside compression / transition sentiment, quiet attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "This can be an early warning rather than an immediate breakdown signal.",
+      "what_seta_sees": "SETA sees Inactive with Compression / Transition structure and negative divergence / narrative weakening timing context.",
+      "why_it_matters": "Quiet attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::coin::w::1y::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "COIN",
+      "display_range": "1Y",
+      "evidence": [
+        "Latest available close is 201 from 2026-05-08; recent visible direction is rising with high volume.",
+        "Overlap context is Inactive; structure reads Compression / Transition.",
+        "Sentiment context is Compression / Transition; primary setup is Narrative Deterioration Despite Price Strength.",
+        "Attention is quiet with normal regime. Source breadth is broad.",
+        "Timing context: Negative Divergence / Narrative Weakening; RSI Weak."
+      ],
+      "frequency": "W",
+      "headline": "COIN SETA briefing: Narrative Deterioration Despite Price Strength",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::coin::w::1y::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/coin_w_1y_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "COIN shows the narrative deterioration despite price strength setup alongside compression / transition sentiment, quiet attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "This can be an early warning rather than an immediate breakdown signal.",
+      "what_seta_sees": "SETA sees Inactive with Compression / Transition structure and negative divergence / narrative weakening timing context.",
+      "why_it_matters": "Quiet attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::eth::d::3m::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "ETH",
+      "display_range": "3M",
+      "evidence": [
+        "Latest close is 2,315; recent visible direction is rising with normal volume.",
+        "Overlap context is Bullish Pressure Active; structure reads Bullish Expansion. Latest event is Watch on 2026-05-09.",
+        "Sentiment context is Bullish Expansion; primary setup is Sentiment Repair Ahead of Price.",
+        "Attention is normal with normal regime. Source breadth is broad.",
+        "Timing context: Positive Divergence / Sentiment Repair; RSI Mixed / Neutral."
+      ],
+      "frequency": "D",
+      "headline": "ETH SETA briefing: Unconfirmed Bullish Pressure",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::eth::d::3m::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/eth_d_3m_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "ETH shows the unconfirmed bullish pressure setup alongside bullish expansion sentiment, normal attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
+      "what_seta_sees": "SETA sees Bullish Pressure Active with Bullish Expansion structure and positive divergence / sentiment repair timing context.",
+      "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::eth::w::1y::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "ETH",
+      "display_range": "1Y",
+      "evidence": [
+        "Latest close is 2,315; recent visible direction is rising with normal volume.",
+        "Overlap context is Bullish Pressure Active; structure reads Bullish Expansion. Latest event is Watch on 2026-05-09.",
+        "Sentiment context is Bullish Expansion; primary setup is Sentiment Repair Ahead of Price.",
+        "Attention is normal with normal regime. Source breadth is broad.",
+        "Timing context: Positive Divergence / Sentiment Repair; RSI Mixed / Neutral."
+      ],
+      "frequency": "W",
+      "headline": "ETH SETA briefing: Unconfirmed Bullish Pressure",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::eth::w::1y::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/eth_w_1y_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "ETH shows the unconfirmed bullish pressure setup alongside bullish expansion sentiment, normal attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
+      "what_seta_sees": "SETA sees Bullish Pressure Active with Bullish Expansion structure and positive divergence / sentiment repair timing context.",
+      "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::gld::d::3m::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "GLD",
+      "display_range": "3M",
+      "evidence": [
+        "Latest available close is 434 from 2026-05-08; recent visible direction is rising with normal volume.",
+        "Overlap context is Inactive; structure reads Flat / Transition.",
+        "Sentiment context is Flat / Transition; primary setup is Quiet Neutral.",
+        "Attention is quiet with normal regime. Source breadth is broad.",
+        "Timing context: Bullish Confirmation; RSI Constructive."
+      ],
+      "frequency": "D",
+      "headline": "GLD SETA briefing: Quiet Neutral",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::gld::d::3m::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/gld_d_3m_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "GLD shows the quiet neutral setup alongside flat / transition sentiment, quiet attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "No immediate setup from the current screener state.",
+      "what_seta_sees": "SETA sees Inactive with Flat / Transition structure and bullish confirmation timing context.",
+      "why_it_matters": "Quiet attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::gld::w::1y::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "GLD",
+      "display_range": "1Y",
+      "evidence": [
+        "Latest available close is 434 from 2026-05-08; recent visible direction is rising with normal volume.",
+        "Overlap context is Inactive; structure reads Flat / Transition.",
+        "Sentiment context is Flat / Transition; primary setup is Quiet Neutral.",
+        "Attention is quiet with normal regime. Source breadth is broad.",
+        "Timing context: Bullish Confirmation; RSI Constructive."
+      ],
+      "frequency": "W",
+      "headline": "GLD SETA briefing: Quiet Neutral",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::gld::w::1y::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/gld_w_1y_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "GLD shows the quiet neutral setup alongside flat / transition sentiment, quiet attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "No immediate setup from the current screener state.",
+      "what_seta_sees": "SETA sees Inactive with Flat / Transition structure and bullish confirmation timing context.",
+      "why_it_matters": "Quiet attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::msft::d::3m::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "MSFT",
+      "display_range": "3M",
+      "evidence": [
+        "Latest available close is 415 from 2026-05-08; recent visible direction is falling with high volume.",
+        "Overlap context is Inactive; structure reads Bearish Expansion.",
+        "Sentiment context is Bearish Expansion; primary setup is Monitor.",
+        "Attention is normal with normal regime. Source breadth is broad.",
+        "Timing context: Bearish Confirmation; RSI Mixed / Neutral."
+      ],
+      "frequency": "D",
+      "headline": "MSFT SETA briefing: Monitor",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::msft::d::3m::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/msft_d_3m_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "MSFT shows the monitor setup alongside bearish expansion sentiment, normal attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "No single setup family dominates the current profile.",
+      "what_seta_sees": "SETA sees Inactive with Bearish Expansion structure and bearish confirmation timing context.",
+      "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::msft::w::1y::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "MSFT",
+      "display_range": "1Y",
+      "evidence": [
+        "Latest available close is 415 from 2026-05-08; recent visible direction is rising with high volume.",
+        "Overlap context is Inactive; structure reads Bearish Expansion.",
+        "Sentiment context is Bearish Expansion; primary setup is Monitor.",
+        "Attention is normal with normal regime. Source breadth is broad.",
+        "Timing context: Bearish Confirmation; RSI Mixed / Neutral."
+      ],
+      "frequency": "W",
+      "headline": "MSFT SETA briefing: Monitor",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::msft::w::1y::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/msft_w_1y_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "MSFT shows the monitor setup alongside bearish expansion sentiment, normal attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "No single setup family dominates the current profile.",
+      "what_seta_sees": "SETA sees Inactive with Bearish Expansion structure and bearish confirmation timing context.",
       "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
     },
     "public::nvda::d::3m::2026_05_09": {
@@ -86,12 +476,12 @@
       "evidence": [
         "Latest available close is 215 from 2026-05-08; recent visible direction is rising with normal volume.",
         "Overlap context is Inactive; structure reads Bullish Expansion.",
-        "Sentiment context is Bullish Expansion; primary setup is Compression Coil / Transition Risk.",
+        "Sentiment context is Bullish Expansion; primary setup is Quiet Neutral.",
         "Attention is normal with normal regime. Source breadth is broad.",
         "Timing context: Bearish Confirmation; RSI Mixed / Neutral."
       ],
       "frequency": "D",
-      "headline": "NVDA SETA briefing: Compression Coil / Transition Risk",
+      "headline": "NVDA SETA briefing: Quiet Neutral",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
       "mode": "public",
       "model_metadata": {
@@ -103,18 +493,18 @@
       "public_safe_disclaimer": "Educational market context only; not investment advice.",
       "reference_guidance_used": true,
       "review_metadata": {
-        "review_note": "First public reviewed smoke batch; deterministic drafts inspected for non-advisory language, breadth framing, and stale-price handling.",
-        "reviewed_at_utc": "2026-05-09T04:59:52+00:00",
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
         "reviewer": "codex-local-review",
-        "source_draft_path": "briefing_outputs/nvda_d_3m_public_20260509_draft.json",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/nvda_d_3m_public_20260509_draft.json",
         "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "NVDA shows Compression Coil / Transition Risk with Bullish Expansion sentiment, normal attention, and broad source breadth.",
+      "summary": "NVDA shows the quiet neutral setup alongside bullish expansion sentiment, normal attention, and broad source breadth.",
       "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
-      "watch_item": "Compression can precede expansion, but direction should come from follow-through and consensus.",
+      "watch_item": "No immediate setup from the current screener state.",
       "what_seta_sees": "SETA sees Inactive with Bullish Expansion structure and bearish confirmation timing context.",
       "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
     },
@@ -125,12 +515,12 @@
       "evidence": [
         "Latest available close is 215 from 2026-05-08; recent visible direction is rising with normal volume.",
         "Overlap context is Inactive; structure reads Bullish Expansion.",
-        "Sentiment context is Bullish Expansion; primary setup is Compression Coil / Transition Risk.",
+        "Sentiment context is Bullish Expansion; primary setup is Quiet Neutral.",
         "Attention is normal with normal regime. Source breadth is broad.",
         "Timing context: Bearish Confirmation; RSI Mixed / Neutral."
       ],
       "frequency": "W",
-      "headline": "NVDA SETA briefing: Compression Coil / Transition Risk",
+      "headline": "NVDA SETA briefing: Quiet Neutral",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
       "mode": "public",
       "model_metadata": {
@@ -142,23 +532,101 @@
       "public_safe_disclaimer": "Educational market context only; not investment advice.",
       "reference_guidance_used": true,
       "review_metadata": {
-        "review_note": "First public reviewed smoke batch; deterministic drafts inspected for non-advisory language, breadth framing, and stale-price handling.",
-        "reviewed_at_utc": "2026-05-09T04:59:52+00:00",
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
         "reviewer": "codex-local-review",
-        "source_draft_path": "briefing_outputs/nvda_w_1y_public_20260509_draft.json",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/nvda_w_1y_public_20260509_draft.json",
         "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "NVDA shows Compression Coil / Transition Risk with Bullish Expansion sentiment, normal attention, and broad source breadth.",
+      "summary": "NVDA shows the quiet neutral setup alongside bullish expansion sentiment, normal attention, and broad source breadth.",
       "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
-      "watch_item": "Compression can precede expansion, but direction should come from follow-through and consensus.",
+      "watch_item": "No immediate setup from the current screener state.",
       "what_seta_sees": "SETA sees Inactive with Bullish Expansion structure and bearish confirmation timing context.",
       "why_it_matters": "Normal attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::sol::d::3m::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "SOL",
+      "display_range": "3M",
+      "evidence": [
+        "Latest close is 93.7; recent visible direction is rising with normal volume.",
+        "Overlap context is Bullish Pressure Active; structure reads Mixed. Latest event is Rejection on 2026-05-09.",
+        "Sentiment context is Mixed; primary setup is Fresh Bullish Reversal.",
+        "Attention is quiet with normal regime. Source breadth is broad.",
+        "Timing context: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral."
+      ],
+      "frequency": "D",
+      "headline": "SOL SETA briefing: Bullish Pressure, Bearish Watch",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::sol::d::3m::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/sol_d_3m_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "SOL shows the bullish pressure, bearish watch setup alongside mixed sentiment, quiet attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "Mean-reversion/reversal setups still need price follow-through after the confirmed event.",
+      "what_seta_sees": "SETA sees Bullish Pressure Active with Mixed structure and negative divergence / narrative weakening timing context.",
+      "why_it_matters": "Quiet attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
+    },
+    "public::sol::w::1y::2026_05_09": {
+      "as_of": "2026-05-09",
+      "asset": "SOL",
+      "display_range": "1Y",
+      "evidence": [
+        "Latest close is 93.7; recent visible direction is rising with normal volume.",
+        "Overlap context is Bullish Pressure Active; structure reads Mixed. Latest event is Rejection on 2026-05-09.",
+        "Sentiment context is Mixed; primary setup is Fresh Bullish Reversal.",
+        "Attention is quiet with normal regime. Source breadth is broad.",
+        "Timing context: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral."
+      ],
+      "frequency": "W",
+      "headline": "SOL SETA briefing: Bullish Pressure, Bearish Watch",
+      "limitations": "This draft uses only structured SETA payload fields. Source coverage, X sampling, news repetition, and stale upstream data can limit confidence.",
+      "mode": "public",
+      "model_metadata": {
+        "model": "deterministic_template_v1",
+        "prompt_version": "seta_briefing_prompt_v1",
+        "provider": "local"
+      },
+      "payload_key": "public::sol::w::1y::2026_05_09",
+      "public_safe_disclaimer": "Educational market context only; not investment advice.",
+      "reference_guidance_used": true,
+      "review_metadata": {
+        "review_note": "Expanded public reviewed batch; deterministic drafts inspected for non-advisory language, breadth framing, stale-price handling, and mixed pressure/watch wording.",
+        "reviewed_at_utc": "2026-05-09T09:37:33+00:00",
+        "reviewer": "codex-local-review",
+        "source_draft_path": "C:/Users/shane/Documents/Codex/2026-05-01/can-you-access-my-github-account/sentiment-dash-live-health/briefing_outputs/sol_w_1y_public_20260509_draft.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
+      },
+      "review_status": "reviewed",
+      "schema_version": "ai_briefing_output_v1",
+      "source_breadth_used": true,
+      "summary": "SOL shows the bullish pressure, bearish watch setup alongside mixed sentiment, quiet attention, and broad source breadth.",
+      "trust_check": "Source breadth is Broad (100). Participation appears distributed across a broader source base. X and news inputs may be sample-limited; news breadth may reflect outlet repetition or syndication.",
+      "watch_item": "Mean-reversion/reversal setups still need price follow-through after the confirmed event.",
+      "what_seta_sees": "SETA sees Bullish Pressure Active with Mixed structure and negative divergence / narrative weakening timing context.",
+      "why_it_matters": "Quiet attention and normal regime describe participation context, while price and overlap structure remain the evidence base."
     }
   },
-  "generated_at_utc": "2026-05-09T04:59:52+00:00",
-  "payload_note": "First reviewed SETA briefing payload. Dashboard falls back to deterministic Briefing Mode when no matching reviewed item is available.",
+  "generated_at_utc": "2026-05-09T09:37:33+00:00",
+  "payload_note": "Expanded reviewed SETA briefing payload for public dashboard coverage. Dashboard falls back to deterministic Briefing Mode when no matching reviewed item is available.",
   "schema_version": "generated_briefings_reviewed_v1"
 }
