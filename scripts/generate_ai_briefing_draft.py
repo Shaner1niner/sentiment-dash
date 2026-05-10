@@ -165,7 +165,7 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     else:
         base = "This matters because SETA is separating structure, timing, and participation before assigning confidence."
 
-    return " ".join(part for part in [base, quality_note] if part)
+    return " ".join(part for part in [base, "Timing context shows whether indicators align or conflict with the setup.", quality_note] if part)
 
 
 def read_implication_label(primary: str, zone: str, structure: str, timing: str) -> str:
