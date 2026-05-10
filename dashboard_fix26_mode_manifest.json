@@ -1,83 +1,21 @@
 {
-  "version": "fix26",
-  "reviewedBriefingsUrl": "generated_briefings_reviewed.json",
+  "cache_refresh_token": "card_jobs_v2_001",
   "controlLabels": {
     "asset": "ASSET",
-    "freq": "FREQUENCY",
-    "range": "DISPLAY RANGE",
-    "briefingMode": "VIEW",
-    "priceDisplay": "CHART TYPE",
-    "scaleMode": "SCALE MODE",
-    "ribbon": "RIBBON",
-    "sentRibbon": "SENTIMENT RIBBON",
-    "regimeLayer": "REGIME VISUALS",
-    "engagement": "ATTENTION",
     "bollinger": "BANDS",
-    "osc": "TIMING VIEW"
+    "briefingMode": "VIEW",
+    "engagement": "ATTENTION",
+    "freq": "FREQUENCY",
+    "osc": "TIMING VIEW",
+    "priceDisplay": "CHART TYPE",
+    "range": "DISPLAY RANGE",
+    "regimeLayer": "REGIME VISUALS",
+    "ribbon": "RIBBON",
+    "scaleMode": "SCALE MODE",
+    "sentRibbon": "SENTIMENT RIBBON"
   },
   "modes": {
-    "public": {
-      "modeBadge": "Public Mode",
-      "title": "SETA Market Dashboard",
-      "subtitle": "Combined Overlap leads. Engagement confirms. Traditional indicators remain visible for timing.",
-      "dataUrl": "fix26_chart_store_public.json",
-      "assetIndexUrl": "fix26_chart_store_public_index.json",
-      "assets": [
-        "BTC",
-        "ETH",
-        "SOL",
-        "NVDA",
-        "MSFT",
-        "COIN",
-        "AAPL",
-        "SPY",
-        "GLD"
-      ],
-      "defaultAsset": "BTC",
-      "defaults": {
-        "freq": "D",
-        "range": "3M",
-        "briefingMode": "briefing",
-        "priceDisplay": "candles",
-        "scaleMode": "price_overlays",
-        "ribbon": "none",
-        "sentRibbon": "curated",
-        "regimeLayer": "off",
-        "engagement": "context",
-        "bollinger": "contextual",
-        "osc": "both"
-      },
-      "controls": [
-        "asset",
-        "freq",
-        "range",
-        "briefingMode",
-        "priceDisplay",
-        "engagement",
-        "bollinger",
-        "osc"
-      ],
-      "badgeOrder": [
-        "overlapState",
-        "overlapModel",
-        "context",
-        "breadth",
-        "attention",
-        "latestConfirmed"
-      ],
-      "showLegend": false,
-      "showLowerPanes": true,
-      "compactAnnotations": true,
-      "showAttentionAnnotation": false,
-      "showMacdAnnotation": false,
-      "showRibbonAnnotation": false,
-      "helperPrefix": "Daily view \u00b7 Combined Overlap primary \u00b7 Engagement contextual \u00b7 Timing panes optional."
-    },
     "member": {
-      "modeBadge": "Member Mode",
-      "title": "SETA Research Dashboard",
-      "subtitle": "Combined Overlap remains primary, Engagement stays contextual, and member mode keeps the fuller analytical surface without losing price readability.",
-      "dataUrl": "fix26_chart_store_member.json",
       "assetIndexUrl": "fix26_chart_store_member_index.json",
       "assets": [
         "BTC",
@@ -109,34 +47,6 @@
         "SMCI",
         "MSTR"
       ],
-      "defaultAsset": "BTC",
-      "defaults": {
-        "freq": "D",
-        "range": "6M",
-        "briefingMode": "briefing",
-        "priceDisplay": "candles",
-        "scaleMode": "price_overlays",
-        "ribbon": "none",
-        "sentRibbon": "curated",
-        "regimeLayer": "on",
-        "engagement": "context",
-        "bollinger": "contextual",
-        "osc": "both"
-      },
-      "controls": [
-        "asset",
-        "freq",
-        "range",
-        "briefingMode",
-        "priceDisplay",
-        "scaleMode",
-        "ribbon",
-        "sentRibbon",
-        "regimeLayer",
-        "engagement",
-        "bollinger",
-        "osc"
-      ],
       "badgeOrder": [
         "sentimentRibbon",
         "confidence",
@@ -156,13 +66,104 @@
         "latestElevated",
         "latestEvent"
       ],
+      "compactAnnotations": false,
+      "controls": [
+        "asset",
+        "freq",
+        "range",
+        "briefingMode",
+        "priceDisplay",
+        "scaleMode",
+        "ribbon",
+        "sentRibbon",
+        "regimeLayer",
+        "engagement",
+        "bollinger",
+        "osc"
+      ],
+      "dataUrl": "fix26_chart_store_member.json",
+      "defaultAsset": "BTC",
+      "defaults": {
+        "bollinger": "contextual",
+        "briefingMode": "briefing",
+        "engagement": "context",
+        "freq": "D",
+        "osc": "both",
+        "priceDisplay": "candles",
+        "range": "6M",
+        "regimeLayer": "on",
+        "ribbon": "none",
+        "scaleMode": "price_overlays",
+        "sentRibbon": "curated"
+      },
+      "helperPrefix": null,
+      "modeBadge": "Member Mode",
+      "showAttentionAnnotation": true,
       "showLegend": true,
       "showLowerPanes": true,
-      "compactAnnotations": false,
-      "showAttentionAnnotation": true,
       "showMacdAnnotation": true,
       "showRibbonAnnotation": true,
-      "helperPrefix": null
+      "subtitle": "Combined Overlap remains primary, Engagement stays contextual, and member mode keeps the fuller analytical surface without losing price readability.",
+      "title": "SETA Research Dashboard"
+    },
+    "public": {
+      "assetIndexUrl": "fix26_chart_store_public_index.json",
+      "assets": [
+        "BTC",
+        "ETH",
+        "SOL",
+        "NVDA",
+        "MSFT",
+        "COIN",
+        "AAPL",
+        "SPY",
+        "GLD"
+      ],
+      "badgeOrder": [
+        "overlapState",
+        "overlapModel",
+        "context",
+        "breadth",
+        "attention",
+        "latestConfirmed"
+      ],
+      "compactAnnotations": true,
+      "controls": [
+        "asset",
+        "freq",
+        "range",
+        "briefingMode",
+        "priceDisplay",
+        "engagement",
+        "bollinger",
+        "osc"
+      ],
+      "dataUrl": "fix26_chart_store_public.json",
+      "defaultAsset": "BTC",
+      "defaults": {
+        "bollinger": "contextual",
+        "briefingMode": "briefing",
+        "engagement": "context",
+        "freq": "D",
+        "osc": "both",
+        "priceDisplay": "candles",
+        "range": "3M",
+        "regimeLayer": "off",
+        "ribbon": "none",
+        "scaleMode": "price_overlays",
+        "sentRibbon": "curated"
+      },
+      "helperPrefix": "Daily view \u00b7 Combined Overlap primary \u00b7 Engagement contextual \u00b7 Timing panes optional.",
+      "modeBadge": "Public Mode",
+      "showAttentionAnnotation": false,
+      "showLegend": false,
+      "showLowerPanes": true,
+      "showMacdAnnotation": false,
+      "showRibbonAnnotation": false,
+      "subtitle": "Combined Overlap leads. Engagement confirms. Traditional indicators remain visible for timing.",
+      "title": "SETA Market Dashboard"
     }
-  }
+  },
+  "reviewedBriefingsUrl": "generated_briefings_reviewed_v2.json",
+  "version": "fix26"
 }
