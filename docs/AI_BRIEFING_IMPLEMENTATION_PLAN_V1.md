@@ -395,6 +395,7 @@ Current local harness files:
 - `scripts/ai_briefing_reference.py` loads compact SETA glossary/reference guidance for briefing inputs and draft metadata.
 - `scripts/promote_ai_briefing_reviewed.py` promotes validated local drafts into a `generated_briefings_reviewed_v1` static payload.
 - `scripts/check_ai_briefing_output.py` validates generated `ai_briefing_output_v1` JSON before review or publication.
+- `scripts/build_ai_briefing_sample_packet.py` creates a local sample review packet with representative inputs, validated v2 drafts, and a Markdown human-review artifact.
 - `scripts/smoke_ai_briefing_contract.py` smoke-tests the input normalizer and safety checker.
 
 The briefing quality gates intentionally borrow the reply-engine guardrail philosophy: no trade calls, no price predictions, no internal labels or raw column names, no attention-as-adoption framing, and no claim that breadth proves organic demand.
@@ -420,6 +421,18 @@ python scripts/generate_ai_briefing_draft.py --mode public --asset BTC --frequen
 ```
 
 The draft generator is intentionally local and deterministic. It proves the review/output workflow without calling an AI provider or publishing anything to the dashboard.
+
+Example sample review packet:
+
+```powershell
+python scripts/build_ai_briefing_sample_packet.py
+```
+
+This writes a local-only packet under `briefing_outputs/sample_review_<UTC stamp>/`
+with representative inputs, validated draft outputs, and
+`sample_review_packet.md` for human language review. The packet is the preferred
+next checkpoint before asking an AI provider to generate alternative prose for
+the same structured inputs.
 
 Example reviewed payload promotion:
 
