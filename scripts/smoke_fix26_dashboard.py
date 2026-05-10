@@ -400,6 +400,32 @@ def check_reviewed_briefing_payload_file(rel: str) -> None:
         fail(f"{rel} has payload_key fields that do not match their map keys: {mismatched_payload_keys[:3]}")
     else:
         ok(f"{rel} payload_key fields match map keys")
+    missing_cards = []
+    mismatched_cards = []
+    for key, item in briefings.items():
+        if not isinstance(item, dict):
+            continue
+        cards = item.get("briefing_cards")
+        if not isinstance(cards, dict):
+            missing_cards.append(key)
+            continue
+        required = ["what_seta_sees", "why_it_matters", "evidence", "participation_quality"]
+        if any(not isinstance(cards.get(name), dict) for name in required):
+            missing_cards.append(key)
+            continue
+        if (cards["what_seta_sees"].get("copy") != item.get("what_seta_sees")
+                or cards["why_it_matters"].get("copy") != item.get("why_it_matters")
+                or cards["evidence"].get("items") != item.get("evidence")
+                or cards["participation_quality"].get("copy") != item.get("trust_check")):
+            mismatched_cards.append(key)
+    if missing_cards:
+        fail(f"{rel} missing structured briefing_cards on reviewed items: {missing_cards[:3]}")
+    else:
+        ok(f"{rel} reviewed items include structured briefing_cards")
+    if mismatched_cards:
+        fail(f"{rel} structured briefing_cards do not match legacy fields: {mismatched_cards[:3]}")
+    else:
+        ok(f"{rel} structured briefing_cards match legacy fields")
     manifest_path = ROOT / "dashboard_fix26_mode_manifest.json"
     if not manifest_path.exists():
         return

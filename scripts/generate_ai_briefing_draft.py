@@ -250,6 +250,27 @@ def build_trust_check(briefing_input: dict[str, Any]) -> str:
     )
 
 
+def build_briefing_cards(briefing_input: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "what_seta_sees": {
+            "role": "Interpretation",
+            "copy": build_what_seta_sees(briefing_input),
+        },
+        "why_it_matters": {
+            "role": "Implication",
+            "copy": build_why_it_matters(briefing_input),
+        },
+        "evidence": {
+            "role": "Receipts",
+            "items": build_evidence_receipts(briefing_input),
+        },
+        "participation_quality": {
+            "role": "Trust check",
+            "copy": build_trust_check(briefing_input),
+        },
+    }
+
+
 def build_watch_item(briefing_input: dict[str, Any]) -> str:
     event = briefing_input.get("event_context") or {}
     sentiment = briefing_input.get("sentiment_context") or {}
@@ -271,6 +292,7 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
     as_of = briefing_input["as_of"]
     overlap = briefing_input.get("overlap_context") or {}
     summary = build_summary(briefing_input)
+    briefing_cards = build_briefing_cards(briefing_input)
 
     return {
         "schema_version": "ai_briefing_output_v1",
@@ -279,10 +301,11 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
         "as_of": as_of,
         "headline": f"{asset} SETA briefing: {overlap_read_label(overlap)}"[:90],
         "summary": summary,
-        "what_seta_sees": build_what_seta_sees(briefing_input),
-        "why_it_matters": build_why_it_matters(briefing_input),
-        "evidence": build_evidence(briefing_input),
-        "trust_check": build_trust_check(briefing_input),
+        "what_seta_sees": briefing_cards["what_seta_sees"]["copy"],
+        "why_it_matters": briefing_cards["why_it_matters"]["copy"],
+        "evidence": briefing_cards["evidence"]["items"],
+        "trust_check": briefing_cards["participation_quality"]["copy"],
+        "briefing_cards": briefing_cards,
         "watch_item": build_watch_item(briefing_input),
         "limitations": (
             "This draft uses only structured SETA payload fields. Source coverage and stale upstream data "

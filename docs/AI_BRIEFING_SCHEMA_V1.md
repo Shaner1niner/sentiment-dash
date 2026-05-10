@@ -47,12 +47,35 @@ The implementation plan expands these groups into the minimum normalized fields 
   "why_it_matters": "",
   "evidence": [],
   "trust_check": "",
+  "briefing_cards": {
+    "what_seta_sees": {
+      "role": "Interpretation",
+      "copy": ""
+    },
+    "why_it_matters": {
+      "role": "Implication",
+      "copy": ""
+    },
+    "evidence": {
+      "role": "Receipts",
+      "items": []
+    },
+    "participation_quality": {
+      "role": "Trust check",
+      "copy": ""
+    }
+  },
   "limitations": "",
   "public_safe_disclaimer": "",
   "source_breadth_used": true,
   "review_status": "draft"
 }
 ```
+
+`briefing_cards` is the preferred structured card contract for dashboard rendering
+and future AI generation. The legacy top-level fields remain required for
+backward compatibility. The structured card copy/items should match the legacy
+fields until a later schema version intentionally separates them.
 
 ## Rules
 

@@ -68,6 +68,42 @@ def validate_output(output: dict[str, Any], briefing_input: dict[str, Any] | Non
     elif not 3 <= len(evidence) <= 5:
         errors.append("evidence must contain 3 to 5 bullets")
 
+    cards = output.get("briefing_cards")
+    if cards is not None:
+        if not isinstance(cards, dict):
+            errors.append("briefing_cards must be an object when present")
+        else:
+            required_cards = ["what_seta_sees", "why_it_matters", "evidence", "participation_quality"]
+            for card_name in required_cards:
+                if card_name not in cards or not isinstance(cards.get(card_name), dict):
+                    errors.append(f"briefing_cards.{card_name} must be an object")
+            text_card_map = {
+                "what_seta_sees": "what_seta_sees",
+                "why_it_matters": "why_it_matters",
+                "participation_quality": "trust_check",
+            }
+            for card_name, legacy_field in text_card_map.items():
+                card = cards.get(card_name)
+                if isinstance(card, dict):
+                    copy = card.get("copy")
+                    role = card.get("role")
+                    if not isinstance(role, str) or not role.strip():
+                        errors.append(f"briefing_cards.{card_name}.role must be a non-empty string")
+                    if not isinstance(copy, str) or not copy.strip():
+                        errors.append(f"briefing_cards.{card_name}.copy must be a non-empty string")
+                    elif copy != output.get(legacy_field):
+                        errors.append(f"briefing_cards.{card_name}.copy must match {legacy_field}")
+            evidence_card = cards.get("evidence")
+            if isinstance(evidence_card, dict):
+                role = evidence_card.get("role")
+                items = evidence_card.get("items")
+                if not isinstance(role, str) or not role.strip():
+                    errors.append("briefing_cards.evidence.role must be a non-empty string")
+                if not isinstance(items, list) or not all(isinstance(item, str) and item.strip() for item in items):
+                    errors.append("briefing_cards.evidence.items must be a non-empty list of strings")
+                elif items != evidence:
+                    errors.append("briefing_cards.evidence.items must match evidence")
+
     review_status = output.get("review_status")
     if review_status not in ALLOWED_REVIEW_STATUSES:
         errors.append(f"review_status must be one of {sorted(ALLOWED_REVIEW_STATUSES)}")

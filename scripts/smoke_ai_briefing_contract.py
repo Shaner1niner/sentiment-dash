@@ -73,6 +73,11 @@ def main() -> int:
 
     generated = generate_draft(btc)
     assert_true(validate_output(generated, btc) == [], "deterministic generated draft passes safety checks")
+    cards = generated.get("briefing_cards") or {}
+    assert_true(set(cards) >= {"what_seta_sees", "why_it_matters", "evidence", "participation_quality"}, "deterministic generated draft includes structured briefing cards")
+    assert_true(cards["what_seta_sees"]["copy"] == generated["what_seta_sees"], "structured interpretation card matches legacy field")
+    assert_true(cards["evidence"]["items"] == generated["evidence"], "structured evidence card matches legacy receipts")
+    assert_true(cards["participation_quality"]["copy"] == generated["trust_check"], "structured participation card matches trust field")
     assert_true(generated["review_status"] == "draft", "deterministic generated draft stays in draft status")
     assert_true(generated["reference_guidance_used"] is True, "deterministic generated draft records reference guidance usage")
     extension_input = dict(btc)
