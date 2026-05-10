@@ -170,7 +170,7 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
 
 def read_implication_label(primary: str, zone: str, structure: str, timing: str) -> str:
     combined = f"{primary} {zone} {structure} {timing}".lower()
-    if "outside" in zone.lower() or "pressure" in combined:
+    if "not currently outside" not in zone.lower() and ("outside" in zone.lower() or "pressure active" in combined):
         return "outside-zone condition"
     if "watch" in combined:
         return "watch condition"
