@@ -63,6 +63,8 @@ def check_payload(path: Path) -> list[str]:
         ("what_seta_sees", "timing context reads", what),
         ("why_it_matters", "timing context", why),
         ("why_it_matters", "indicators align or conflict", why),
+        ("trust_check", "Participation", trust),
+        ("trust_check", "Authorship breadth", trust),
         ("trust_check", "trust layer", trust),
         ("trust_check", "standalone demand signal", trust),
     ]
@@ -85,6 +87,14 @@ def check_payload(path: Path) -> list[str]:
     for needle in forbidden:
         if needle in combined:
             errors.append(f"{path.name}: contains forbidden phrase: {needle!r}")
+
+    evidence = payload.get("evidence")
+    if isinstance(evidence, list):
+        what_norm = " ".join(what.lower().split())
+        for idx, item in enumerate(evidence):
+            item_norm = " ".join(str(item).lower().split())
+            if item_norm and (item_norm in what_norm or what_norm in item_norm):
+                errors.append(f"{path.name}: evidence[{idx}] repeats the interpretation instead of acting as a receipt")
 
     return errors
 
