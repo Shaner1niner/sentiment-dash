@@ -397,6 +397,39 @@ def check_reviewed_briefing_payload_file(rel: str) -> None:
         fail(f"{rel} has payload_key fields that do not match their map keys: {mismatched_payload_keys[:3]}")
     else:
         ok(f"{rel} payload_key fields match map keys")
+    manifest_path = ROOT / "dashboard_fix26_mode_manifest.json"
+    if not manifest_path.exists():
+        return
+    manifest = load_json(manifest_path)
+    modes = manifest.get("modes") if isinstance(manifest, dict) else None
+    if not isinstance(modes, dict):
+        return
+    missing_expected = []
+    for mode_name, mode_cfg in modes.items():
+        if not isinstance(mode_cfg, dict):
+            continue
+        index_url = mode_cfg.get("assetIndexUrl")
+        if not index_url:
+            continue
+        index_path = ROOT / str(index_url)
+        if not index_path.exists():
+            continue
+        index = load_json(index_path)
+        available_assets = set((index.get("assets") or {}).keys())
+        daily_range = str((mode_cfg.get("defaults") or {}).get("range") or "3M").lower()
+        for asset in mode_cfg.get("assets") or []:
+            asset = str(asset).upper()
+            if asset not in available_assets:
+                continue
+            expected_prefixes = [
+                f"{str(mode_name).lower()}::{asset.lower()}::d::{daily_range}::",
+                f"{str(mode_name).lower()}::{asset.lower()}::w::1y::",
+            ]
+            missing_expected.extend(prefix for prefix in expected_prefixes if not any(key.startswith(prefix) for key in briefings))
+    if missing_expected:
+        fail(f"{rel} missing expected reviewed manifest coverage: {missing_expected[:5]}")
+    else:
+        ok(f"{rel} covers available manifest assets for daily defaults and weekly 1Y")
 
 
 def check_reviewed_briefing_payload() -> None:

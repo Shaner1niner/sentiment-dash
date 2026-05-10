@@ -278,13 +278,13 @@ echo ============================================================
 echo [5/8] Refreshing reviewed Briefing Mode payload keys...
 echo ============================================================
 pushd "%WEBSITE_REPO%"
-"%PYTHON_EXE%" "%REVIEWED_BRIEFING_REFRESH%" --path "%REVIEWED_BRIEFINGS_V2_JSON%" --refresh-keys
+"%PYTHON_EXE%" "%REVIEWED_BRIEFING_REFRESH%" --path "%REVIEWED_BRIEFINGS_V2_JSON%" --refresh-keys --expand-from-manifest
 if errorlevel 1 (
   popd
   echo [ERROR] Reviewed briefing V2 refresh failed.
   goto :fail
 )
-"%PYTHON_EXE%" "%REVIEWED_BRIEFING_REFRESH%" --path "%REVIEWED_BRIEFINGS_JSON%" --refresh-keys
+"%PYTHON_EXE%" "%REVIEWED_BRIEFING_REFRESH%" --path "%REVIEWED_BRIEFINGS_JSON%" --refresh-keys --expand-from-manifest
 if errorlevel 1 (
   popd
   echo [ERROR] Legacy reviewed briefing refresh failed.

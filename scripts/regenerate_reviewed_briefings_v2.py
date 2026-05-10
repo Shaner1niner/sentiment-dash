@@ -24,6 +24,7 @@ from generate_ai_briefing_draft import generate_draft
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PATH = ROOT / "generated_briefings_reviewed.json"
+DEFAULT_WEEKLY_RANGE = "1Y"
 
 
 def read_json(path: Path) -> dict[str, Any]:
@@ -36,6 +37,40 @@ def read_json(path: Path) -> dict[str, Any]:
 def key_for(mode: str, asset: str, frequency: str, display_range: str, as_of: str) -> str:
     date_token = str(as_of).replace("-", "_")
     return f"{mode.lower()}::{asset.lower()}::{frequency.lower()}::{display_range.lower()}::{date_token}"
+
+
+def available_manifest_matrix(modes: set[str] | None = None) -> dict[str, dict[str, Any]]:
+    manifest = read_json(ROOT / "dashboard_fix26_mode_manifest.json")
+    manifest_modes = manifest.get("modes")
+    if not isinstance(manifest_modes, dict):
+        raise ValueError("dashboard_fix26_mode_manifest.json must contain modes")
+
+    seeds: dict[str, dict[str, Any]] = {}
+    for mode, cfg in sorted(manifest_modes.items()):
+        mode = str(mode).lower()
+        if modes and mode not in modes:
+            continue
+        if not isinstance(cfg, dict):
+            continue
+        index_url = cfg.get("assetIndexUrl")
+        if not index_url:
+            raise ValueError(f"{mode}: missing assetIndexUrl")
+        index = read_json(ROOT / str(index_url))
+        available_assets = set((index.get("assets") or {}).keys())
+        configured_assets = [str(asset).upper() for asset in (cfg.get("assets") or [])]
+        daily_range = str((cfg.get("defaults") or {}).get("range") or "3M").upper()
+        for asset in configured_assets:
+            if asset not in available_assets:
+                continue
+            for frequency, display_range in [("D", daily_range), ("W", DEFAULT_WEEKLY_RANGE)]:
+                placeholder_key = key_for(mode, asset, frequency, display_range, "pending")
+                seeds[placeholder_key] = {
+                    "mode": mode,
+                    "asset": asset,
+                    "frequency": frequency,
+                    "display_range": display_range,
+                }
+    return seeds
 
 
 def reviewed_metadata(now_utc: str, source_key: str) -> dict[str, Any]:
@@ -73,7 +108,8 @@ def regenerate_one(existing_key: str, existing: dict[str, Any], now_utc: str, *,
     draft["display_range"] = display_range
     draft["payload_key"] = output_key
     draft["review_status"] = "reviewed"
-    draft["review_metadata"] = reviewed_metadata(now_utc, existing_key)
+    source_key = output_key if existing_key.endswith("::pending") else existing_key
+    draft["review_metadata"] = reviewed_metadata(now_utc, source_key)
 
     return output_key, draft, []
 
@@ -82,6 +118,19 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--path", default=str(DEFAULT_PATH), help="Reviewed payload JSON path.")
     parser.add_argument("--output", help="Optional output path. Defaults to overwriting --path.")
+    parser.add_argument(
+        "--expand-from-manifest",
+        action="store_true",
+        help=(
+            "Add reviewed briefing seeds for every currently available configured asset in "
+            "the dashboard manifest. Generates daily default-range and weekly 1Y entries."
+        ),
+    )
+    parser.add_argument(
+        "--modes",
+        default="public,member",
+        help="Comma-separated modes to expand when --expand-from-manifest is set. Default: public,member.",
+    )
     parser.add_argument(
         "--refresh-keys",
         action="store_true",
@@ -103,6 +152,11 @@ def main() -> int:
     briefings = payload.get("briefings")
     if not isinstance(briefings, dict) or not briefings:
         raise ValueError(f"{path} must contain a non-empty 'briefings' object")
+
+    if args.expand_from_manifest:
+        modes = {part.strip().lower() for part in str(args.modes).split(",") if part.strip()}
+        expanded = available_manifest_matrix(modes)
+        briefings = {**briefings, **expanded}
 
     now_utc = datetime.now(timezone.utc).replace(microsecond=0).isoformat()
     regenerated: dict[str, Any] = {}

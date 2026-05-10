@@ -218,9 +218,15 @@ with refreshed keys so dashboard lookup does not fall back to deterministic
 in-browser copy:
 
 ```powershell
-python scripts/regenerate_reviewed_briefings_v2.py --path generated_briefings_reviewed_v2.json --refresh-keys
-python scripts/regenerate_reviewed_briefings_v2.py --path generated_briefings_reviewed.json --refresh-keys
+python scripts/regenerate_reviewed_briefings_v2.py --path generated_briefings_reviewed_v2.json --refresh-keys --expand-from-manifest
+python scripts/regenerate_reviewed_briefings_v2.py --path generated_briefings_reviewed.json --refresh-keys --expand-from-manifest
 ```
+
+`--expand-from-manifest` keeps the reviewed payload aligned with dashboard
+coverage. It generates reviewed entries for every configured asset that is
+currently present in the asset indexes, using each mode's daily default range
+plus weekly `1Y`. Assets absent upstream, such as SPY while coverage is missing,
+are skipped and will be picked up once they appear in the asset index.
 
 ## Acceptance Criteria
 
