@@ -72,3 +72,8 @@ The initial implementation keeps the existing chart and controls available while
 - Public-safe wording avoids advice, predictions, and trade instructions.
 - Missing breadth data degrades to Source Limited rather than hiding uncertainty.
 
+
+## V2 Card Jobs
+
+The next briefing-panel product contract is documented in [Briefing Card Jobs V2](BRIEFING_CARD_JOBS_V2.md). V2 separates interpretation, implication, factual receipts, and participation quality so the four cards do not repeat one another.
+
