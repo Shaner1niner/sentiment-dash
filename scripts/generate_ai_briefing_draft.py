@@ -141,60 +141,35 @@ def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
 
 
 def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
-    attention = briefing_input.get("attention_context") or {}
-    attention_label = clean_text(attention.get("attention_label"), "Attention")
-    attention_regime = clean_text(attention.get("attention_regime_label"), "normal regime").lower()
+    overlap = briefing_input.get("overlap_context") or {}
+    indicators = briefing_input.get("indicator_context") or {}
+    quality = briefing_input.get("participation_quality") or {}
 
-    return (
-        "This keeps the read layered: overlap shows whether price is inside or outside the shared zone, "
-        "structure describes the broader regime, and timing context shows whether indicators align or conflict. "
-        f"{attention_label} attention and {attention_regime} remain participation context."
-    )
+    primary = overlap_read_label(overlap)
+    zone = overlap_zone_sentence(overlap)
+    structure = structure_label(overlap)
+    timing = timing_context_label(indicators)
+    implication = read_implication_label(primary, zone, structure, timing)
+    quality_note = clean_text(quality.get("public_note"), "")
+
+    if implication == "outside-zone condition":
+        base = "This matters because price is outside the shared zone, so SETA treats the move as a potential price/sentiment dislocation."
+    elif implication == "watch condition":
+        base = "This matters because SETA is watching whether the move returns inside the shared zone or develops stronger confirmation."
+    elif implication == "mixed constructive structure":
+        base = "This matters because structure is constructive, but timing has not confirmed it, keeping the read mixed rather than decisive."
+    elif implication == "mixed defensive structure":
+        base = "This matters because timing is improving against a weaker structure, so confirmation still needs more support."
+    elif implication == "low-escalation context":
+        base = "This matters because the setup is low-escalation: useful context, but not a strong participation-driven move."
+    else:
+        base = "This matters because SETA is separating structure, timing, and participation before assigning confidence."
+
+    return " ".join(part for part in [base, quality_note] if part)
 
 
 def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
-    price = briefing_input.get("price_context") or {}
-    overlap = briefing_input.get("overlap_context") or {}
-    sentiment = briefing_input.get("sentiment_context") or {}
-    attention = briefing_input.get("attention_context") or {}
-    breadth = briefing_input.get("breadth_trust") or {}
-    indicators = briefing_input.get("indicator_context") or {}
-    event = briefing_input.get("event_context") or {}
-    close_label = "Latest available close" if price.get("price_data_lagged") else "Latest close"
-    close_date = clean_text(price.get("latest_close_date"), "")
-    close_date_text = f" from {close_date}" if price.get("price_data_lagged") and close_date else ""
-
-    evidence = [
-        (
-            f"{close_label} is {compact_number(price.get('latest_close'))}{close_date_text}; "
-            f"recent visible direction is {clean_text(price.get('recent_direction_label')).lower()} "
-            f"with {clean_text(price.get('volume_confirmation')).lower()}."
-        ),
-        (
-            f"Shared-zone state: {clean_text(overlap.get('overlap_state'))}; "
-            f"structure reads {clean_text(overlap.get('structure_label'))}."
-        ),
-        (
-            f"Sentiment context is {clean_text(sentiment.get('sentiment_state'))}; "
-            f"primary setup is {clean_text(sentiment.get('primary_archetype'))}."
-        ),
-        (
-            f"Attention is {clean_text(attention.get('attention_label')).lower()} "
-            f"with {clean_text(attention.get('attention_regime_label')).lower()}."
-        ),
-        (
-            f"Timing context: {clean_text(indicators.get('macd_label'))}; "
-            f"{clean_text(indicators.get('rsi_label'))}."
-        ),
-    ]
-    if breadth.get("source_breadth_label"):
-        evidence[3] += f" Source breadth is {clean_text(breadth.get('source_breadth_label')).lower()}."
-    if event.get("latest_event_tier") or event.get("latest_confirmed_event_date"):
-        evidence[1] += (
-            f" Latest event is {clean_text(event.get('latest_event_tier'))}"
-            f" on {clean_text(event.get('latest_event_date'))}."
-        )
-    return evidence[:5]
+    return build_evidence_receipts(briefing_input)
 
 
 def public_breadth_caveat(breadth: dict[str, Any]) -> str:
@@ -212,28 +187,24 @@ def public_breadth_caveat(breadth: dict[str, Any]) -> str:
 
 
 def build_trust_check(briefing_input: dict[str, Any]) -> str:
+    participation = briefing_input.get("participation_trend") or {}
+    breadth_trend = briefing_input.get("authorship_breadth_trend") or {}
+    quality = briefing_input.get("participation_quality") or {}
     breadth = briefing_input.get("breadth_trust") or {}
-    breadth_label = clean_text(breadth.get("source_breadth_label"), "Source Limited")
-    breadth_score = breadth.get("source_breadth_score")
-    breadth_score_text = "" if breadth_score is None else f" ({compact_number(breadth_score)})"
 
-    public_note = clean_text(
-        breadth.get("source_breadth_public_note") or breadth.get("interpretation"),
-        "Source breadth is a trust layer for the participation read.",
-    )
-    caveat = clean_text(breadth.get("source_caveat"), "")
-    if "x and news" in caveat.lower() or "news breadth" in caveat.lower():
-        caveat = ""
-    if not caveat:
-        caveat = public_breadth_caveat(breadth)
+    participation_note = clean_text(participation.get("public_note"), "")
+    breadth_note = clean_text(breadth_trend.get("public_note") or breadth.get("source_breadth_public_note"), "")
+    quality_note = clean_text(quality.get("public_note"), "")
+    quality_label = clean_text(quality.get("label"), "Participation quality")
 
     return " ".join(
         part
         for part in [
-            f"Source breadth is {breadth_label}{breadth_score_text}.",
-            public_note,
-            caveat,
-            "Breadth is a trust layer for participation context, not a standalone demand signal.",
+            f"{quality_label}.",
+            participation_note,
+            breadth_note,
+            quality_note,
+            "Participation quality is a trust layer, not a standalone demand signal.",
         ]
         if part
     )

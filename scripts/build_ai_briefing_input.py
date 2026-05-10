@@ -313,6 +313,126 @@ def source_breadth(row: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+
+def _trend_direction(delta: float | None, *, up: str = "Rising", down: str = "Falling", flat: str = "Stable", threshold: float = 5.0) -> str:
+    if delta is None:
+        return "Unknown"
+    if delta >= threshold:
+        return up
+    if delta <= -threshold:
+        return down
+    return flat
+
+
+def _trend_prior_value(rows: list[dict[str, Any]], keys: list[str], lookback: int = 5) -> float | None:
+    if not rows:
+        return None
+    start = max(0, len(rows) - 1 - lookback)
+    candidates = rows[start:-1]
+    for row in reversed(candidates):
+        value = first_num(row, keys)
+        if value is not None:
+            return value
+    return None
+
+
+def participation_trend_state(rows: list[dict[str, Any]], latest: dict[str, Any]) -> dict[str, Any]:
+    keys = ["attention_level_score", "attention_regime_score"]
+    current = first_num(latest, keys)
+    prior = _trend_prior_value(rows, keys)
+    delta = None if current is None or prior is None else round(current - prior, 2)
+    label = attention_level_label(latest)
+    direction = _trend_direction(delta)
+
+    if direction == "Rising":
+        note = f"Participation is {label.lower()} and increasing."
+    elif direction == "Falling":
+        note = f"Participation is {label.lower()} and cooling."
+    elif direction == "Stable":
+        note = f"Participation is {label.lower()} and broadly stable."
+    else:
+        note = f"Participation is {label.lower()}; trend is unavailable."
+
+    return {
+        "current_label": label,
+        "direction": direction,
+        "current_score": rounded(current, 2),
+        "prior_score": rounded(prior, 2),
+        "delta": delta,
+        "public_note": note,
+    }
+
+
+def authorship_breadth_trend_state(rows: list[dict[str, Any]], latest: dict[str, Any], breadth: dict[str, Any]) -> dict[str, Any]:
+    keys = ["attention_source_breadth_score", "engagement_source_breadth_score"]
+    current = first_num(latest, keys)
+    prior = _trend_prior_value(rows, keys)
+    delta = None if current is None or prior is None else round(current - prior, 2)
+    label = clean_text(breadth.get("source_breadth_label"), "Source Limited")
+    direction = _trend_direction(delta, up="Broadening", down="Narrowing", flat="Stable")
+
+    if label == "Source Limited":
+        note = "Authorship breadth is source-limited, so participation confidence is qualified."
+    elif direction == "Broadening":
+        note = f"Authorship breadth is {label.lower()} and broadening."
+    elif direction == "Narrowing":
+        note = f"Authorship breadth is {label.lower()} but narrowing."
+    elif direction == "Stable":
+        note = f"Authorship breadth is {label.lower()} and broadly stable."
+    else:
+        note = f"Authorship breadth is {label.lower()}; trend is unavailable."
+
+    return {
+        "current_label": label,
+        "direction": direction,
+        "current_score": rounded(current, 2),
+        "prior_score": rounded(prior, 2),
+        "delta": delta,
+        "public_note": note,
+        "channel_quality": breadth.get("source_breadth_channel_quality"),
+    }
+
+
+def participation_quality_from_trends(participation: dict[str, Any], breadth: dict[str, Any]) -> dict[str, Any]:
+    p_label = clean_text(participation.get("current_label"), "Unknown")
+    p_direction = clean_text(participation.get("direction"), "Unknown")
+    b_label = clean_text(breadth.get("current_label"), "Source Limited")
+    b_direction = clean_text(breadth.get("direction"), "Unknown")
+
+    if p_direction == "Rising" and b_direction == "Broadening":
+        label = "Expanding participation"
+        note = "Participation is increasing and spreading across more sources."
+    elif p_direction == "Rising" and b_direction == "Narrowing":
+        label = "Concentrated attention"
+        note = "Attention is increasing, but the activity may be concentrated."
+    elif p_direction == "Falling" and b_label in {"Broad", "Moderate"}:
+        label = "Cooling but distributed"
+        note = "Broad interest remains visible, but participation intensity is cooling."
+    elif p_label == "Quiet" and b_label == "Broad":
+        label = "Measured / distributed"
+        note = "No participation surge is visible, but available activity is not narrowly isolated."
+    elif p_label in {"Elevated", "Extreme"} and b_label == "Source Limited":
+        label = "Visible but source-limited"
+        note = "Attention is visible, but confidence is qualified by available coverage."
+    elif p_label == "Quiet" and b_label in {"Narrow", "Source Limited"}:
+        label = "Low-intensity / concentrated"
+        note = "The participation signal is low-intensity and concentrated or source-limited."
+    elif b_label == "Broad":
+        label = "Distributed participation"
+        note = "Participation quality supports a measured read because available activity appears broadly distributed."
+    else:
+        label = "Mixed participation quality"
+        note = "Participation and breadth are mixed, so the attention read should stay qualified."
+
+    return {
+        "label": label,
+        "participation_label": p_label,
+        "participation_direction": p_direction,
+        "breadth_label": b_label,
+        "breadth_direction": b_direction,
+        "public_note": note,
+    }
+
 def build_input(mode: str, asset: str, frequency: str, display_range: str) -> dict[str, Any]:
     mode = mode.lower()
     asset = asset.upper()
@@ -329,6 +449,9 @@ def build_input(mode: str, asset: str, frequency: str, display_range: str) -> di
     if latest_close is not None and previous_close not in (None, 0):
         price_change = (latest_close - previous_close) / previous_close
     breadth = source_breadth(latest)
+    participation_trend = participation_trend_state(vis, latest)
+    authorship_breadth_trend = authorship_breadth_trend_state(vis, latest, breadth)
+    participation_quality = participation_quality_from_trends(participation_trend, authorship_breadth_trend)
     summary_label = str(latest.get("seta_dashboard_summary_label") or "")
     archetypes = [
         item
@@ -411,6 +534,9 @@ def build_input(mode: str, asset: str, frequency: str, display_range: str) -> di
             "material_enough_to_mention": attention_level_label(latest) in {"Elevated", "Extreme"} or breadth["source_breadth_label"] != "Source Limited",
         },
         "breadth_trust": breadth,
+        "participation_trend": participation_trend,
+        "authorship_breadth_trend": authorship_breadth_trend,
+        "participation_quality": participation_quality,
         "indicator_context": {
             "macd_label": screener.get("macd_family_label") or score_label(rounded(latest.get("macd")), "MACD Bullish", "MACD Neutral", "MACD Bearish"),
             "macd": rounded(latest.get("macd"), 4),
