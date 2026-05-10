@@ -61750,7 +61750,7 @@ function renderReviewedBriefingPanel(panel, briefing, term, freq, rangePreset){
   const meta = [freq==='W'?'Weekly':'Daily', rangePreset, 'reviewed', 'educational context only'].filter(Boolean).map(v=>escapeHTML(v)).join(' &middot; ');
   const sourceRange = reviewedBriefingText(briefing.display_range).toUpperCase();
   const requestedRange = reviewedBriefingText(briefing.requested_display_range || rangePreset).toUpperCase();
-  const rangeNote = briefing.reviewed_range_fallback && sourceRange && requestedRange && sourceRange !== requestedRange ? ` &middot; reviewed ${escapeHTML(sourceRange)} read` : '';
+  const rangeNote = briefing.reviewed_range_fallback && sourceRange && requestedRange && sourceRange !== requestedRange ? ` &middot; using reviewed ${escapeHTML(sourceRange)} context` : '';
   const trust = [reviewedBriefingText(briefing.trust_check), reviewedBriefingText(briefing.limitations), reviewedBriefingText(briefing.public_safe_disclaimer)].filter(Boolean).join(' ');
   const trustMatch = trust.match(/^([^.!?]+[.!?])\s*(.*)$/);
   const trustLead = trustMatch ? trustMatch[1] : trust;

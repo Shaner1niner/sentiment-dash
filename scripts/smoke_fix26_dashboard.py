@@ -255,7 +255,7 @@ def check_dashboard_js() -> None:
         "function reviewedBriefingFor(term, freq, rangePreset, row)",
         "function reviewedBriefingSameContext(item, term, freq, asOf)",
         "reviewed_range_fallback:true",
-        "reviewed ${escapeHTML(sourceRange)} read",
+        "using reviewed ${escapeHTML(sourceRange)} context",
         "function renderReviewedBriefingPanel(panel, briefing, term, freq, rangePreset)",
         "using deterministic Briefing Mode",
     ]
@@ -433,6 +433,120 @@ def check_reviewed_briefing_payload_file(rel: str) -> None:
         fail(f"{rel} missing expected reviewed manifest coverage: {missing_expected[:5]}")
     else:
         ok(f"{rel} covers available manifest assets for daily defaults and weekly 1Y")
+    check_reviewed_range_fallback_contract(rel, briefings)
+
+
+def reviewed_key_part(value: Any) -> str:
+    return str(value or "").strip().lower().replace("-", "_")
+
+
+def briefing_matches(item: dict[str, Any] | None, mode: str, asset: str, freq: str, display_range: str, as_of: str) -> bool:
+    if not isinstance(item, dict):
+        return False
+    if item.get("schema_version") != "ai_briefing_output_v1":
+        return False
+    if item.get("review_status") != "reviewed":
+        return False
+    if item.get("suppressed") is True or item.get("public_suppressed") is True:
+        return False
+    if reviewed_key_part(item.get("mode")) != reviewed_key_part(mode):
+        return False
+    if reviewed_key_part(item.get("asset")) != reviewed_key_part(asset):
+        return False
+    if reviewed_key_part(item.get("frequency")) != reviewed_key_part(freq):
+        return False
+    if reviewed_key_part(item.get("as_of")) != reviewed_key_part(as_of):
+        return False
+    if reviewed_key_part(item.get("display_range")) != reviewed_key_part(display_range):
+        return False
+    return True
+
+
+def briefing_same_context(item: dict[str, Any] | None, mode: str, asset: str, freq: str, as_of: str) -> bool:
+    if not isinstance(item, dict):
+        return False
+    if item.get("schema_version") != "ai_briefing_output_v1":
+        return False
+    if item.get("review_status") != "reviewed":
+        return False
+    if item.get("suppressed") is True or item.get("public_suppressed") is True:
+        return False
+    return (
+        reviewed_key_part(item.get("mode")) == reviewed_key_part(mode)
+        and reviewed_key_part(item.get("asset")) == reviewed_key_part(asset)
+        and reviewed_key_part(item.get("frequency")) == reviewed_key_part(freq)
+        and reviewed_key_part(item.get("as_of")) == reviewed_key_part(as_of)
+    )
+
+
+def reviewed_lookup(
+    briefings: dict[str, Any],
+    mode: str,
+    asset: str,
+    freq: str,
+    display_range: str,
+    as_of: str,
+) -> tuple[dict[str, Any] | None, bool]:
+    key = "::".join(
+        [
+            reviewed_key_part(mode),
+            reviewed_key_part(asset),
+            reviewed_key_part(freq),
+            reviewed_key_part(display_range),
+            reviewed_key_part(as_of),
+        ]
+    )
+    direct = briefings.get(key)
+    if briefing_matches(direct, mode, asset, freq, display_range, as_of):
+        return direct, False
+    candidates = [
+        item
+        for item in briefings.values()
+        if briefing_same_context(item if isinstance(item, dict) else None, mode, asset, freq, as_of)
+    ]
+    preferred_range = "1y" if reviewed_key_part(freq) == "w" else "6m"
+    for item in candidates:
+        if reviewed_key_part(item.get("display_range")) == preferred_range:
+            return item, True
+    return (candidates[0], True) if candidates else (None, False)
+
+
+def check_reviewed_range_fallback_contract(rel: str, briefings: dict[str, Any]) -> None:
+    member_link_daily_key = next((key for key in briefings if key.startswith("member::link::d::6m::")), None)
+    member_link_weekly_key = next((key for key in briefings if key.startswith("member::link::w::1y::")), None)
+    public_btc_daily_key = next((key for key in briefings if key.startswith("public::btc::d::3m::")), None)
+    if not (member_link_daily_key and member_link_weekly_key and public_btc_daily_key):
+        fail(f"{rel} missing representative keys for reviewed range fallback contract")
+        return
+
+    member_as_of = str(briefings[member_link_daily_key].get("as_of"))
+    public_as_of = str(briefings[public_btc_daily_key].get("as_of"))
+    daily_exact, daily_exact_fallback = reviewed_lookup(briefings, "member", "LINK", "D", "6M", member_as_of)
+    daily_fallback, daily_was_fallback = reviewed_lookup(briefings, "member", "LINK", "D", "1Y", member_as_of)
+    weekly_fallback, weekly_was_fallback = reviewed_lookup(briefings, "member", "LINK", "W", "3M", member_as_of)
+    public_fallback, public_was_fallback = reviewed_lookup(briefings, "public", "BTC", "D", "1Y", public_as_of)
+    mismatch, mismatch_fallback = reviewed_lookup(briefings, "member", "LINK", "D", "1Y", "1900-01-01")
+
+    if daily_exact and not daily_exact_fallback:
+        ok(f"{rel} exact reviewed lookup prefers direct range")
+    else:
+        fail(f"{rel} exact reviewed lookup did not prefer direct range")
+    if daily_fallback and daily_was_fallback and reviewed_key_part(daily_fallback.get("display_range")) == "6m":
+        ok(f"{rel} member daily non-reviewed range falls back to 6M")
+    else:
+        fail(f"{rel} member daily non-reviewed range did not fall back to 6M")
+    if weekly_fallback and weekly_was_fallback and reviewed_key_part(weekly_fallback.get("display_range")) == "1y":
+        ok(f"{rel} member weekly non-reviewed range falls back to 1Y")
+    else:
+        fail(f"{rel} member weekly non-reviewed range did not fall back to 1Y")
+    if public_fallback and public_was_fallback and reviewed_key_part(public_fallback.get("display_range")) == "3m":
+        ok(f"{rel} public daily non-reviewed range falls back to default 3M")
+    else:
+        fail(f"{rel} public daily non-reviewed range did not fall back to default 3M")
+    if mismatch is None and not mismatch_fallback:
+        ok(f"{rel} reviewed fallback rejects mismatched as_of context")
+    else:
+        fail(f"{rel} reviewed fallback accepted mismatched as_of context")
 
 
 def check_reviewed_briefing_payload() -> None:
