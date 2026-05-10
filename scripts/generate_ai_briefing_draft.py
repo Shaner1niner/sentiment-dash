@@ -216,16 +216,22 @@ def build_trust_check(briefing_input: dict[str, Any]) -> str:
     breadth_label = clean_text(breadth.get("source_breadth_label"), "Source Limited")
     breadth_score = breadth.get("source_breadth_score")
     breadth_score_text = "" if breadth_score is None else f" ({compact_number(breadth_score)})"
-    interpretation = clean_text(
-        breadth.get("interpretation"),
+
+    public_note = clean_text(
+        breadth.get("source_breadth_public_note") or breadth.get("interpretation"),
         "Source breadth is a trust layer for the participation read.",
     )
-    caveat = public_breadth_caveat(breadth)
+    caveat = clean_text(breadth.get("source_caveat"), "")
+    if "x and news" in caveat.lower() or "news breadth" in caveat.lower():
+        caveat = ""
+    if not caveat:
+        caveat = public_breadth_caveat(breadth)
+
     return " ".join(
         part
         for part in [
             f"Source breadth is {breadth_label}{breadth_score_text}.",
-            interpretation,
+            public_note,
             caveat,
             "Breadth is a trust layer for participation context, not a standalone demand signal.",
         ]

@@ -78,6 +78,9 @@ def check_payload(path: Path) -> list[str]:
         "attention confirms",
         "attention validates",
         "overlap event",
+        "x and news inputs",
+        "news breadth may reflect",
+        "outlet repetition or syndication",
     ]
     for needle in forbidden:
         if needle in combined:
