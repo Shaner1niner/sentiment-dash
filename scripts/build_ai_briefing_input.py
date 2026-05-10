@@ -38,6 +38,11 @@ def read_json(path: Path) -> Any:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
+def clean_text(value: Any, fallback: str = "unavailable") -> str:
+    text = str(value).strip() if value not in (None, "") else fallback
+    return " ".join(text.split())
+
+
 def num(value: Any) -> float | None:
     try:
         n = float(value)

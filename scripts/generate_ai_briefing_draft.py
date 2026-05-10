@@ -168,6 +168,46 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     return " ".join(part for part in [base, quality_note] if part)
 
 
+def read_implication_label(primary: str, zone: str, structure: str, timing: str) -> str:
+    combined = f"{primary} {zone} {structure} {timing}".lower()
+    if "outside" in zone.lower() or "pressure" in combined:
+        return "outside-zone condition"
+    if "watch" in combined:
+        return "watch condition"
+    if "bullish" in structure.lower() and "bearish" in timing.lower():
+        return "mixed constructive structure"
+    if "bearish" in structure.lower() and "bullish" in timing.lower():
+        return "mixed defensive structure"
+    if "quiet" in combined or "neutral" in combined:
+        return "low-escalation context"
+    return "layered SETA context"
+
+
+def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
+    price = briefing_input.get("price_context") or {}
+    overlap = briefing_input.get("overlap_context") or {}
+    attention = briefing_input.get("attention_context") or {}
+    indicators = briefing_input.get("indicator_context") or {}
+    event = briefing_input.get("event_context") or {}
+
+    close_label = "Latest available close" if price.get("price_data_lagged") else "Latest close"
+    close_date = clean_text(price.get("latest_close_date"), "")
+    close_date_text = f" ({close_date})" if close_date else ""
+
+    receipts = [
+        f"{close_label}: {compact_number(price.get('latest_close'))}{close_date_text}.",
+        f"Shared zone: {clean_text(overlap.get('overlap_state'))}.",
+        f"Structure: {clean_text(overlap.get('structure_label'))}.",
+        f"Timing: {clean_text(indicators.get('macd_label'))}; {clean_text(indicators.get('rsi_label'))}.",
+        f"Participation: {clean_text(attention.get('attention_label'))}; volume is {clean_text(price.get('volume_confirmation')).lower()}.",
+    ]
+
+    if event.get("latest_event_tier") or event.get("latest_confirmed_event_date"):
+        receipts[1] += f" Latest event: {clean_text(event.get('latest_event_tier'))} on {clean_text(event.get('latest_event_date'))}."
+
+    return receipts[:5]
+
+
 def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
     return build_evidence_receipts(briefing_input)
 
