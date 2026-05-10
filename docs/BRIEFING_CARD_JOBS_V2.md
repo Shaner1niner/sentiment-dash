@@ -195,8 +195,8 @@ Update the primary briefing panel renderer so:
 - the fourth card is labeled `Participation Quality`
 - card copy avoids repetition
 
-A semantic patch file may remain as a temporary compatibility layer, but the main
-dashboard renderer should be the source of truth once the contract is stable.
+The main dashboard renderer is the source of truth for Card Jobs V2. Do not load
+the retired `dashboard_briefing_semantic_patch.js` sidecar from the embeds.
 
 ### Phase 5: Regression Tests
 

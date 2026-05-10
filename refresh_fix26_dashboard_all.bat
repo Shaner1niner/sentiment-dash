@@ -14,9 +14,10 @@ REM   2. Writes chart-history/attention/alert CSV outputs locally and to Tableau
 REM   3. Builds SETA screener, indicator matrix, and signal archetype CSVs/JSONs
 REM   4. Builds Fix 26 screener JSON payload for the website
 REM   5. Builds separate lean public/member chart JSON payloads
-REM   6. Runs dashboard smoke checks
-REM   7. Stages changed website repo files in git
-REM   8. Optionally commits and pushes
+REM   6. Refreshes reviewed Briefing Mode payload keys against the latest chart date
+REM   7. Runs dashboard smoke checks
+REM   8. Stages changed website repo files in git
+REM   9. Optionally commits and pushes
 REM
 REM Safety behavior:
 REM   - Stops if any required upstream step fails
@@ -44,6 +45,9 @@ if not exist "%SCREENER_SCRIPT%" set "SCREENER_SCRIPT=C:\Users\shane\build_seta_
 
 set "SCREENER_STORE_BUILDER=%WEBSITE_REPO%\scripts\build_fix26_screener_store.py"
 set "SCREENER_STORE_JSON=%WEBSITE_REPO%\fix26_screener_store.json"
+set "REVIEWED_BRIEFING_REFRESH=%WEBSITE_REPO%\scripts\regenerate_reviewed_briefings_v2.py"
+set "REVIEWED_BRIEFINGS_JSON=%WEBSITE_REPO%\generated_briefings_reviewed.json"
+set "REVIEWED_BRIEFINGS_V2_JSON=%WEBSITE_REPO%\generated_briefings_reviewed_v2.json"
 
 set "SCREENER_CSV=%TABLEAU_AUTOSYNC_DIR%\seta_market_screener_365d.csv"
 set "SCREENER_JSON=%TABLEAU_AUTOSYNC_DIR%\seta_market_screener_365d.json"
@@ -102,6 +106,12 @@ if not exist "%SCREENER_STORE_BUILDER%" (
 if not exist "%SMOKE_SCRIPT%" (
   echo [ERROR] Dashboard smoke test not found:
   echo         %SMOKE_SCRIPT%
+  goto :fail
+)
+
+if not exist "%REVIEWED_BRIEFING_REFRESH%" (
+  echo [ERROR] Reviewed briefing refresh script not found:
+  echo         %REVIEWED_BRIEFING_REFRESH%
   goto :fail
 )
 
@@ -265,7 +275,26 @@ if not exist "%MEMBER_JSON%" (
 
 echo.
 echo ============================================================
-echo [5/7] Running dashboard smoke test...
+echo [5/8] Refreshing reviewed Briefing Mode payload keys...
+echo ============================================================
+pushd "%WEBSITE_REPO%"
+"%PYTHON_EXE%" "%REVIEWED_BRIEFING_REFRESH%" --path "%REVIEWED_BRIEFINGS_V2_JSON%" --refresh-keys
+if errorlevel 1 (
+  popd
+  echo [ERROR] Reviewed briefing V2 refresh failed.
+  goto :fail
+)
+"%PYTHON_EXE%" "%REVIEWED_BRIEFING_REFRESH%" --path "%REVIEWED_BRIEFINGS_JSON%" --refresh-keys
+if errorlevel 1 (
+  popd
+  echo [ERROR] Legacy reviewed briefing refresh failed.
+  goto :fail
+)
+popd
+
+echo.
+echo ============================================================
+echo [6/8] Running dashboard smoke test...
 echo ============================================================
 pushd "%WEBSITE_REPO%"
 "%PYTHON_EXE%" "%SMOKE_SCRIPT%"
@@ -278,7 +307,7 @@ popd
 
 echo.
 echo ============================================================
-echo [6/7] Staging website repo changes...
+echo [7/8] Staging website repo changes...
 echo ============================================================
 pushd "%WEBSITE_REPO%"
 if errorlevel 1 (
@@ -298,8 +327,11 @@ git add fix26_chart_store_public_index.json
 git add fix26_chart_store_member_index.json
 if exist fix26_chart_store_assets git add fix26_chart_store_assets
 git add fix26_screener_store.json
+if exist generated_briefings_reviewed.json git add generated_briefings_reviewed.json
+if exist generated_briefings_reviewed_v2.json git add generated_briefings_reviewed_v2.json
 if exist scripts\build_seta_market_screener.py git add scripts\build_seta_market_screener.py
 if exist scripts\build_fix26_screener_store.py git add scripts\build_fix26_screener_store.py
+if exist scripts\regenerate_reviewed_briefings_v2.py git add scripts\regenerate_reviewed_briefings_v2.py
 if exist scripts\smoke_fix26_dashboard.py git add scripts\smoke_fix26_dashboard.py
 if exist interactive_dashboard_fix24_public_embed.html git add interactive_dashboard_fix24_public_embed.html
 if exist interactive_dashboard_fix24_member_embed.html git add interactive_dashboard_fix24_member_embed.html
@@ -322,7 +354,7 @@ git status --short
 if "%AUTO_COMMIT%"=="1" (
   echo.
   echo ============================================================
-  echo [7/7] Creating git commit...
+  echo [8/8] Creating git commit...
   echo ============================================================
   git commit -m "%COMMIT_MESSAGE%"
   if errorlevel 1 (

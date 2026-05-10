@@ -420,6 +420,10 @@ def check_embeds() -> None:
             ok(f"{rel} contains Briefing Mode control")
         else:
             fail(f"{rel} missing Briefing Mode control")
+        if "dashboard_briefing_semantic_patch.js" in text:
+            fail(f"{rel} still loads retired semantic briefing sidecar")
+        else:
+            ok(f"{rel} does not load retired semantic briefing sidecar")
         match = re.search(r'dashboard_fix26_app\.js\?v=([^"\']+)', text)
         if not match:
             fail(f"{rel} does not reference dashboard_fix26_app.js with a cache token")
