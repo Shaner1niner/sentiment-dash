@@ -253,6 +253,9 @@ def check_dashboard_js() -> None:
         "function activeReviewedBriefingsUrl()",
         "async function loadReviewedBriefings()",
         "function reviewedBriefingFor(term, freq, rangePreset, row)",
+        "function reviewedBriefingSameContext(item, term, freq, asOf)",
+        "reviewed_range_fallback:true",
+        "reviewed ${escapeHTML(sourceRange)} read",
         "function renderReviewedBriefingPanel(panel, briefing, term, freq, rangePreset)",
         "using deterministic Briefing Mode",
     ]
