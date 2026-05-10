@@ -208,6 +208,24 @@ Recommended output:
   "as_of": "2026-05-03",
   "headline": "",
   "summary": "",
+  "briefing_cards": {
+    "what_seta_sees": {
+      "role": "Interpretation",
+      "copy": ""
+    },
+    "why_it_matters": {
+      "role": "Implication",
+      "copy": ""
+    },
+    "evidence": {
+      "role": "Receipts",
+      "items": []
+    },
+    "participation_quality": {
+      "role": "Trust check",
+      "copy": ""
+    }
+  },
   "what_seta_sees": "",
   "why_it_matters": "",
   "evidence": [],
@@ -220,12 +238,15 @@ Recommended output:
   "model_metadata": {
     "provider": "",
     "model": "",
-    "prompt_version": "seta_briefing_prompt_v1"
+    "prompt_version": "seta_briefing_prompt_v2"
   }
 }
 ```
 
-The dashboard should be able to ignore unknown fields. This keeps future output versions additive where possible.
+`briefing_cards` is the primary generation target. The legacy top-level fields
+are compatibility mirrors and should be derived from the cards until the
+dashboard no longer needs them. The dashboard should be able to ignore unknown
+fields, keeping future output versions additive where possible.
 
 ## Prompt contract
 
@@ -240,7 +261,7 @@ You write SETA market briefings from structured evidence. You do not invent fact
 ### Task prompt
 
 ```text
-Given the SETA briefing input JSON, produce one JSON object matching ai_briefing_output_v1.
+Given the SETA briefing input JSON, produce one JSON object matching ai_briefing_output_v1 using prompt_version seta_briefing_prompt_v2.
 
 Rules:
 - Use only facts present in the input.
@@ -250,6 +271,12 @@ Rules:
 - Avoid buy, sell, hold, target, guaranteed, should enter, should exit, and similar advisory language.
 - Keep the headline under 90 characters.
 - Keep the summary under 45 words.
+- Generate briefing_cards first:
+  - what_seta_sees: interpretation of the current read.
+  - why_it_matters: implication of the read, without advice or prediction.
+  - evidence: factual receipts only.
+  - participation_quality: participation movement plus authorship/source breadth as a trust layer.
+- Mirror briefing_cards into the legacy top-level fields.
 - Keep evidence to 3 to 5 bullets.
 - Include a watch_item only when the input supports one.
 - Include a limitations sentence.
@@ -264,6 +291,11 @@ Minimum checks:
 
 - valid JSON
 - required output fields exist
+- `briefing_cards` exists with the four required card objects
+- card roles match the contract: Interpretation, Implication, Receipts, Trust check
+- legacy fields mirror the card copy/items
+- evidence card items remain factual receipts
+- Participation Quality mentions participation and authorship/source breadth
 - headline and summary length limits
 - no forbidden advisory phrases
 - no price target language

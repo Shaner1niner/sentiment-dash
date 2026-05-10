@@ -251,6 +251,10 @@ def build_trust_check(briefing_input: dict[str, Any]) -> str:
 
 
 def build_briefing_cards(briefing_input: dict[str, Any]) -> dict[str, Any]:
+    """Build the canonical briefing-card contract.
+
+    Top-level prose fields are compatibility mirrors of these cards.
+    """
     return {
         "what_seta_sees": {
             "role": "Interpretation",
@@ -317,7 +321,7 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
         "model_metadata": {
             "provider": "local",
             "model": "deterministic_template_v2",
-            "prompt_version": "seta_briefing_prompt_v1",
+            "prompt_version": "seta_briefing_prompt_v2",
         },
         "reference_guidance_used": bool((briefing_input.get("reference_guidance") or {}).get("definitions")),
     }

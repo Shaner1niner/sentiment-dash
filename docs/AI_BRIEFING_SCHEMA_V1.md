@@ -43,10 +43,6 @@ The implementation plan expands these groups into the minimum normalized fields 
 {
   "headline": "",
   "summary": "",
-  "what_seta_sees": "",
-  "why_it_matters": "",
-  "evidence": [],
-  "trust_check": "",
   "briefing_cards": {
     "what_seta_sees": {
       "role": "Interpretation",
@@ -65,6 +61,10 @@ The implementation plan expands these groups into the minimum normalized fields 
       "copy": ""
     }
   },
+  "what_seta_sees": "",
+  "why_it_matters": "",
+  "evidence": [],
+  "trust_check": "",
   "limitations": "",
   "public_safe_disclaimer": "",
   "source_breadth_used": true,
@@ -72,14 +72,24 @@ The implementation plan expands these groups into the minimum normalized fields 
 }
 ```
 
-`briefing_cards` is the preferred structured card contract for dashboard rendering
-and future AI generation. The legacy top-level fields remain required for
-backward compatibility. The structured card copy/items should match the legacy
-fields until a later schema version intentionally separates them.
+`briefing_cards` is required and is the primary generation target. The legacy
+top-level fields remain required for backward compatibility and must mirror the
+structured cards:
+
+- `what_seta_sees` mirrors `briefing_cards.what_seta_sees.copy`
+- `why_it_matters` mirrors `briefing_cards.why_it_matters.copy`
+- `evidence` mirrors `briefing_cards.evidence.items`
+- `trust_check` mirrors `briefing_cards.participation_quality.copy`
+
+Until a later schema version intentionally separates them, generators should
+write the four cards first and derive the legacy fields from those cards.
 
 ## Rules
 
+- Keep the four card jobs distinct: interpretation, implication, receipts, and participation quality.
+- Evidence items should be factual receipts only, not interpretation.
 - Treat breadth as a trust layer, not a signal.
+- Participation Quality should combine participation movement with authorship/source breadth.
 - Mention narrow or source-limited breadth when it affects confidence.
 - Do not claim that broad breadth proves organic demand.
 - Do not treat attention as validation unless structure and context also support the read.

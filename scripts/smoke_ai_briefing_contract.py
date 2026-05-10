@@ -26,7 +26,7 @@ def valid_output(briefing_input: dict) -> dict:
     frequency = briefing_input["frequency"]
     as_of = briefing_input["as_of"]
     breadth = briefing_input["breadth_trust"]["source_breadth_label"]
-    return {
+    output = {
         "schema_version": "ai_briefing_output_v1",
         "asset": asset,
         "frequency": frequency,
@@ -40,7 +40,7 @@ def valid_output(briefing_input: dict) -> dict:
             f"Source breadth is {breadth}.",
             "Attention is treated as context rather than validation by itself.",
         ],
-        "trust_check": f"Source breadth is {breadth}, so confidence should be calibrated to the breadth caveat in the input.",
+        "trust_check": f"Participation quality uses source breadth as a trust layer; breadth is {breadth}, so confidence should be calibrated to the input caveat.",
         "watch_item": "Watch for confirmation from structure and follow-through if the setup remains active.",
         "limitations": "This briefing uses only the structured SETA input and may be limited by source coverage.",
         "public_safe_disclaimer": "Educational market context only; not investment advice.",
@@ -49,9 +49,28 @@ def valid_output(briefing_input: dict) -> dict:
         "model_metadata": {
             "provider": "local-smoke",
             "model": "fixture",
-            "prompt_version": "seta_briefing_prompt_v1",
+            "prompt_version": "seta_briefing_prompt_v2",
         },
     }
+    output["briefing_cards"] = {
+        "what_seta_sees": {
+            "role": "Interpretation",
+            "copy": output["what_seta_sees"],
+        },
+        "why_it_matters": {
+            "role": "Implication",
+            "copy": output["why_it_matters"],
+        },
+        "evidence": {
+            "role": "Receipts",
+            "items": output["evidence"],
+        },
+        "participation_quality": {
+            "role": "Trust check",
+            "copy": output["trust_check"],
+        },
+    }
+    return output
 
 
 def main() -> int:
@@ -78,6 +97,13 @@ def main() -> int:
     assert_true(cards["what_seta_sees"]["copy"] == generated["what_seta_sees"], "structured interpretation card matches legacy field")
     assert_true(cards["evidence"]["items"] == generated["evidence"], "structured evidence card matches legacy receipts")
     assert_true(cards["participation_quality"]["copy"] == generated["trust_check"], "structured participation card matches trust field")
+    missing_cards = dict(good)
+    del missing_cards["briefing_cards"]
+    assert_true(any("briefing_cards" in error for error in validate_output(missing_cards, btc)), "briefing cards are required by the output contract")
+    role_bad = dict(good)
+    role_bad["briefing_cards"] = json.loads(json.dumps(good["briefing_cards"]))
+    role_bad["briefing_cards"]["evidence"]["role"] = "Evidence"
+    assert_true(any("briefing_cards.evidence.role" in error for error in validate_output(role_bad, btc)), "briefing card roles are constrained")
     assert_true(generated["review_status"] == "draft", "deterministic generated draft stays in draft status")
     assert_true(generated["reference_guidance_used"] is True, "deterministic generated draft records reference guidance usage")
     extension_input = dict(btc)
