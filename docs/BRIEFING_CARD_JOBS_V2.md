@@ -189,11 +189,14 @@ Update `scripts/generate_ai_briefing_draft.py` so:
 
 ### Phase 4: UI Renderer
 
-Update the briefing panel renderer or semantic patch so:
+Update the primary briefing panel renderer so:
 
 - evidence displays as receipt chips / compact bullets
-- trust check becomes participation quality
+- the fourth card is labeled `Participation Quality`
 - card copy avoids repetition
+
+A semantic patch file may remain as a temporary compatibility layer, but the main
+dashboard renderer should be the source of truth once the contract is stable.
 
 ### Phase 5: Regression Tests
 
@@ -204,10 +207,25 @@ Extend `scripts/check_briefing_semantic_regression.py` to assert:
 - `trust_check` includes participation and breadth concepts
 - old internal caveat wording does not reappear in public copy
 
+Extend the dashboard smoke test to assert:
+
+- reviewed briefing keys match each item's `as_of` date
+- each item `payload_key` matches its map key
+- the dashboard renderer contains the Card Jobs V2 labels
+
+When the chart store advances to a new `as_of` date, regenerate reviewed payloads
+with refreshed keys so dashboard lookup does not fall back to deterministic
+in-browser copy:
+
+```powershell
+python scripts/regenerate_reviewed_briefings_v2.py --path generated_briefings_reviewed_v2.json --refresh-keys
+python scripts/regenerate_reviewed_briefings_v2.py --path generated_briefings_reviewed.json --refresh-keys
+```
+
 ## Acceptance Criteria
 
 - Each card has a distinct reader job.
 - "What SETA Sees" and "Evidence" no longer repeat the same message.
 - "Why It Matters" explains why the state is useful to understand.
-- "Trust Check" explains participation quality using participation + authorship breadth.
+- "Participation Quality" explains participation quality using participation + authorship breadth.
 - Public copy remains educational, non-advisory, and non-predictive.

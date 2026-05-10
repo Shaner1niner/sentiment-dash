@@ -61728,12 +61728,20 @@ function reviewedBriefingFor(term, freq, rangePreset, row){
 }
 
 function renderReviewedBriefingPanel(panel, briefing, term, freq, rangePreset){
-  const evidence = Array.isArray(briefing.evidence) ? briefing.evidence.map(v=>reviewedBriefingText(v)).filter(Boolean).slice(0,3).join(' ') : reviewedBriefingText(briefing.evidence);
+  const evidenceItems = Array.isArray(briefing.evidence)
+    ? briefing.evidence.map(v=>reviewedBriefingText(v)).filter(Boolean).slice(0,5)
+    : [reviewedBriefingText(briefing.evidence)].filter(Boolean);
   const reviewDate = reviewedBriefingText(briefing.review_metadata?.reviewed_at_utc).slice(0,10);
   const meta = [freq==='W'?'Weekly':'Daily', rangePreset, 'reviewed', 'educational context only'].filter(Boolean).map(v=>escapeHTML(v)).join(' &middot; ');
   const trust = [reviewedBriefingText(briefing.trust_check), reviewedBriefingText(briefing.limitations), reviewedBriefingText(briefing.public_safe_disclaimer)].filter(Boolean).join(' ');
+  const trustMatch = trust.match(/^([^.!?]+[.!?])\s*(.*)$/);
+  const trustLead = trustMatch ? trustMatch[1] : trust;
+  const trustRest = trustMatch ? trustMatch[2] : '';
+  const evidenceHtml = evidenceItems.length
+    ? `<ul class="briefingEvidenceList">${evidenceItems.map(item=>`<li>${escapeHTML(item)}</li>`).join('')}</ul>`
+    : `<p>${escapeHTML(briefing.summary || 'Reviewed evidence receipts are not available for this payload.')}</p>`;
   panel.hidden=false;
-  panel.innerHTML=`<div class="briefingHeader"><div><div class="briefingTitle">${escapeHTML(briefing.headline || `SETA Briefing - ${term}`)}</div><div class="briefingMeta">${meta}</div></div><div class="briefingMeta">Reviewed payload${reviewDate ? ` &middot; ${escapeHTML(reviewDate)}` : ''}</div></div><div class="briefingGrid"><div class="briefingCard"><h3>What SETA Sees</h3><p>${escapeHTML(briefing.what_seta_sees || briefing.summary || 'Reviewed briefing context is available.')}</p></div><div class="briefingCard"><h3>Why It Matters</h3><p>${escapeHTML(briefing.why_it_matters || briefing.summary || 'Context is educational and should be read with the chart evidence.')}</p></div><div class="briefingCard"><h3>Evidence</h3><p>${escapeHTML(evidence || briefing.summary || 'Reviewed evidence summary is available.')}</p></div><div class="briefingCard briefingTrust"><h3>Trust Check</h3><p>${escapeHTML(trust || 'Source breadth remains a trust layer, not proof of organic demand.')}</p></div></div>`;
+  panel.innerHTML=`<div class="briefingHeader briefingSemanticHeader"><div><div class="briefingTitle">${escapeHTML(briefing.headline || `SETA Briefing - ${term}`)}</div><div class="briefingMeta">${meta}</div></div><div class="briefingMeta">Reviewed payload${reviewDate ? ` &middot; ${escapeHTML(reviewDate)}` : ''}</div></div><div class="briefingGrid briefingSemanticGrid"><div class="briefingCard briefingSemanticCard"><h3>What SETA Sees</h3><span class="briefingCardRole">Interpretation</span><p>${escapeHTML(briefing.what_seta_sees || briefing.summary || 'Reviewed briefing context is available.')}</p></div><div class="briefingCard briefingSemanticCard"><h3>Why It Matters</h3><span class="briefingCardRole">Implication</span><p>${escapeHTML(briefing.why_it_matters || briefing.summary || 'Context is educational and should be read with the chart evidence.')}</p></div><div class="briefingCard briefingSemanticCard"><h3>Evidence</h3><span class="briefingCardRole">Receipts</span>${evidenceHtml}</div><div class="briefingCard briefingTrust briefingSemanticCard"><h3>Participation Quality</h3><span class="briefingCardRole">Trust check</span><p><span class="briefingTrustLead">${escapeHTML(trustLead || 'Participation quality is unavailable for this reviewed payload.')}</span>${trustRest ? ` ${escapeHTML(trustRest)}` : ''}</p></div></div>`;
 }
 
 function renderBriefingPanel(term, freq, rangePreset, row, overlapInfo, engagementInfo){

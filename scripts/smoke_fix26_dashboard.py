@@ -346,6 +346,9 @@ def check_dashboard_js() -> None:
         "function renderBriefingPanel(term, freq, rangePreset, row, overlapInfo, engagementInfo)",
         "Trust layer: source breadth",
         "breadth: showEngagementContext",
+        "Participation Quality",
+        "briefingEvidenceList",
+        "briefingCardRole",
     ]
     for token in briefing_tokens:
         if token in text:
@@ -354,23 +357,56 @@ def check_dashboard_js() -> None:
             fail(f"dashboard JS missing briefing breadth token: {token}")
 
 
-def check_reviewed_briefing_payload() -> None:
-    path = require_file("generated_briefings_reviewed.json")
+def check_reviewed_briefing_payload_file(rel: str) -> None:
+    path = require_file(rel)
     if not path.exists():
         return
     payload = load_json(path)
     if not isinstance(payload, dict):
-        fail("generated_briefings_reviewed.json root is not an object")
+        fail(f"{rel} root is not an object")
         return
     if payload.get("schema_version") == "generated_briefings_reviewed_v1":
-        ok("reviewed briefing payload schema version is correct")
+        ok(f"{rel} schema version is correct")
     else:
-        fail("reviewed briefing payload schema version is incorrect")
+        fail(f"{rel} schema version is incorrect")
+    if payload.get("reviewed_payload_contract") == "briefing_card_jobs_v2":
+        ok(f"{rel} declares Card Jobs V2 contract")
+    else:
+        fail(f"{rel} missing Card Jobs V2 contract")
     briefings = payload.get("briefings")
-    if isinstance(briefings, dict):
-        ok(f"reviewed briefing payload contains {len(briefings)} keyed briefing(s)")
+    if not isinstance(briefings, dict):
+        fail(f"{rel} missing briefings object")
+        return
+    ok(f"{rel} contains {len(briefings)} keyed briefing(s)")
+    mismatched_keys = []
+    mismatched_payload_keys = []
+    for key, item in briefings.items():
+        if not isinstance(item, dict):
+            fail(f"{rel} briefing {key} is not an object")
+            continue
+        expected_suffix = str(item.get("as_of", "")).replace("-", "_")
+        if expected_suffix and not key.endswith(f"::{expected_suffix}"):
+            mismatched_keys.append(key)
+        if item.get("payload_key") != key:
+            mismatched_payload_keys.append(key)
+    if mismatched_keys:
+        fail(f"{rel} has briefing keys that do not match item as_of: {mismatched_keys[:3]}")
     else:
-        fail("reviewed briefing payload missing briefings object")
+        ok(f"{rel} briefing keys match item as_of dates")
+    if mismatched_payload_keys:
+        fail(f"{rel} has payload_key fields that do not match their map keys: {mismatched_payload_keys[:3]}")
+    else:
+        ok(f"{rel} payload_key fields match map keys")
+
+
+def check_reviewed_briefing_payload() -> None:
+    check_reviewed_briefing_payload_file("generated_briefings_reviewed.json")
+    manifest_path = ROOT / "dashboard_fix26_mode_manifest.json"
+    if manifest_path.exists():
+        manifest = load_json(manifest_path)
+        reviewed_url = manifest.get("reviewedBriefingsUrl") if isinstance(manifest, dict) else None
+        if reviewed_url and reviewed_url != "generated_briefings_reviewed.json":
+            check_reviewed_briefing_payload_file(str(reviewed_url))
 
 
 def check_embeds() -> None:

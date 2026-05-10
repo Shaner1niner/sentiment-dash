@@ -5,8 +5,9 @@ This script reads the current generated_briefings_reviewed.json, regenerates eac
 existing reviewed briefing key using the deterministic local generator, validates
 each output, and writes the reviewed payload back to disk.
 
-It preserves the current reviewed key matrix. It does not add new assets or
-ranges by default.
+It preserves the current reviewed key matrix by default. After a chart-store
+refresh advances the visible as_of date, run with --refresh-keys so dashboard
+lookup keys stay aligned with the reviewed item dates.
 """
 
 from __future__ import annotations
@@ -84,7 +85,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--refresh-keys",
         action="store_true",
-        help="Use generated as_of date in payload keys. Default preserves existing keys for dashboard lookup stability.",
+        help=(
+            "Use generated as_of date in payload keys. Recommended after chart-store "
+            "refreshes; default preserves existing keys for targeted review edits."
+        ),
     )
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()

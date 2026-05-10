@@ -18,6 +18,10 @@ body{margin:0;background:#07090b;color:#e7eef3;font-family:Arial,Helvetica,sans-
 .briefingCard{border:1px solid #2a3943;border-radius:10px;background:rgba(255,255,255,.025);padding:9px 10px;min-height:86px;}
 .briefingCard h3{margin:0 0 5px 0;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#b8c7cf;}
 .briefingCard p{margin:0;font-size:12px;line-height:1.38;color:#e1ebf1;}
+.briefingCardRole{display:inline-block;margin-bottom:5px;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:#8fa4af;}
+.briefingEvidenceList{margin:0;padding-left:16px;font-size:12px;line-height:1.35;color:#d8e5eb;}
+.briefingEvidenceList li{margin:0 0 4px 0;}
+.briefingTrustLead{font-weight:800;color:#eaf6ed;}
 .briefingTrust{border-color:rgba(96,165,250,.42);background:rgba(96,165,250,.045);}
 .briefingTrust strong{color:#d8ecff;}
 .header{padding:18px 18px 10px 18px;border-bottom:1px solid #1d2329;}
