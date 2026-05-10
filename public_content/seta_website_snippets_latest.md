@@ -1,16 +1,16 @@
-# SETA Website Snippets — 2026-05-09
+# SETA Website Snippets — 2026-05-10
 
 Public-safe explanation copy for website/dashboard display.
 
 > SETA explains behavior beneath price. Interpretation context only; not predictions or trade signals.
 
-## XRP: participation is broadening
+## BTC: participation is broadening
 
-XRP is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+BTC is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 1 | positive skew | 5) One-Line Analyst Takes
+**SETA read:** participation diffusion | rank 1 | positive skew | Rejection / Decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -76,13 +76,13 @@ AMC is showing broader participation. That is constructive for the equity tape, 
 
 ---
 
-## ATOM: contested structure
+## ATOM: SETA context
 
-ATOM is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
+ATOM sits in a elevated decision-pressure zone in the crypto tape.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether participation and narrative coherence improves.
 
-**SETA read:** contested structure | rank 4
+**SETA read:** seta context | rank 4
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -136,13 +136,13 @@ BNB is active, and SETA reads the structure as contested rather than cleanly con
 
 ---
 
-## COIN: SETA context
+## BAC: repair watch
 
-COIN sits in a elevated decision-pressure zone in the equity tape.
+BAC looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
-**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** seta context | rank 6
+**SETA read:** repair watch | rank 6
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 

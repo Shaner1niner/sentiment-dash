@@ -1,63 +1,63 @@
 {
   "schema_version": "seta_public_website_snippets_v1",
-  "date": "2026-05-09",
-  "published_at_utc": "2026-05-10T03:13:36+00:00",
+  "date": "2026-05-10",
+  "published_at_utc": "2026-05-10T04:13:37+00:00",
   "draft_only": false,
   "public_safe": true,
   "posting_performed": false,
   "description": "Public-safe SETA website explanation snippets. Interpretation context only; not predictions or trade signals.",
   "snippets": [
     {
-      "term": "XRP",
+      "term": "BTC",
       "universe": "crypto",
       "copy_archetype": "participation_diffusion",
-      "narrative_theme": "breakout/rally debate",
-      "headline": "XRP: participation is broadening",
-      "one_liner": "XRP is showing broader participation, and the open question is whether that breadth can hold.",
-      "public_note": "XRP is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
-      "short_explanation": "XRP is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as 5) One-Line Analyst Takes. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "XRP is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as 5) One-Line Analyst Takes. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal. The live narrative theme is breakout/rally debate. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "narrative_theme": "resistance / cost-basis debate",
+      "headline": "BTC: participation is broadening",
+      "one_liner": "BTC is showing broader participation, and the open question is whether that breadth can hold.",
+      "public_note": "BTC is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
+      "short_explanation": "BTC is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / Decay. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "BTC is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / Decay. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal. The live narrative theme is resistance / cost-basis debate. For the crypto tape, the key test is whether attention broadens sustainably.",
       "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
-      "seta_read_line": "participation diffusion | rank 1 | positive skew | 5) One-Line Analyst Takes",
-      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as 5) One-Line Analyst Takes. Decision-pressure rank: 1. Resolution skew: positive.",
-      "narrative_note": "The live narrative is clustering around breakout/rally debate.",
-      "social_blurb": "XRP is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
+      "seta_read_line": "participation diffusion | rank 1 | positive skew | Rejection / Decay",
+      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Rejection / Decay. Decision-pressure rank: 1. Resolution skew: positive.",
+      "narrative_note": "The live narrative is clustering around resistance / cost-basis debate.",
+      "social_blurb": "BTC is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "Participation diffusion",
       "asset_state": "diffusion",
       "decision_pressure_rank": 1,
-      "structural_state": "5) One-Line Analyst Takes",
+      "structural_state": "Rejection / Decay",
       "resolution_skew": "positive",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [
         {
-          "keyword": "breakout xrp profit",
+          "keyword": "resistance",
           "rank": 1,
-          "share": 0.071429
+          "share": 0.125572
         },
         {
-          "keyword": "bulls",
+          "keyword": "basis",
           "rank": 2,
-          "share": 0.071429
+          "share": 0.12473
         },
         {
-          "keyword": "bulls hold",
+          "keyword": "cost basis",
           "rank": 3,
-          "share": 0.071429
+          "share": 0.109472
         },
         {
-          "keyword": "bulls hold price",
+          "keyword": "volume",
           "rank": 4,
-          "share": 0.071429
+          "share": 0.102272
         },
         {
-          "keyword": "chance",
+          "keyword": "schwab",
           "rank": 5,
-          "share": 0.071429
+          "share": 0.100814
         }
       ],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "MSTR",
@@ -83,7 +83,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "AAVE",
@@ -109,7 +109,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "AAPL",
@@ -161,7 +161,7 @@
           "share": 0.090771
         }
       ],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "ADA",
@@ -187,7 +187,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "AMC",
@@ -213,33 +213,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "ATOM",
       "universe": "crypto",
-      "copy_archetype": "contested_structure",
+      "copy_archetype": "seta_context",
       "narrative_theme": "",
-      "headline": "ATOM: contested structure",
-      "one_liner": "ATOM is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
-      "public_note": "ATOM is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.",
-      "short_explanation": "ATOM is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Decision-pressure rank: 4. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "ATOM is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Decision-pressure rank: 4. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
-      "seta_read_line": "contested structure | rank 4",
-      "regime_note": "In the crypto tape, this reads as disagreement. Decision-pressure rank: 4.",
+      "headline": "ATOM: SETA context",
+      "one_liner": "ATOM sits in a elevated decision-pressure zone in the crypto tape.",
+      "public_note": "ATOM sits in a elevated decision-pressure zone in the crypto tape.",
+      "short_explanation": "ATOM sits in a elevated decision-pressure zone in the crypto tape. Decision-pressure rank: 4. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "ATOM sits in a elevated decision-pressure zone in the crypto tape. Decision-pressure rank: 4. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether participation and narrative coherence improves.",
+      "seta_read_line": "seta context | rank 4",
+      "regime_note": "In the crypto tape, this reads as neutral. Decision-pressure rank: 4.",
       "narrative_note": "",
-      "social_blurb": "ATOM is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "social_blurb": "ATOM sits in a elevated decision-pressure zone in the crypto tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Decision pressure / contested structure",
-      "asset_state": "disagreement",
+      "content_angle": "SETA context watch",
+      "asset_state": "neutral",
       "decision_pressure_rank": 4,
       "structural_state": "",
       "resolution_skew": "unknown",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "AMD",
@@ -265,7 +265,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "AVAX",
@@ -291,7 +291,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "AMZN",
@@ -317,7 +317,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
       "term": "BNB",
@@ -343,113 +343,87 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     {
-      "term": "COIN",
+      "term": "BAC",
       "universe": "equities",
-      "copy_archetype": "seta_context",
-      "narrative_theme": "payments and crypto exposure",
-      "headline": "COIN: SETA context",
-      "one_liner": "COIN sits in a elevated decision-pressure zone in the equity tape.",
-      "public_note": "COIN sits in a elevated decision-pressure zone in the equity tape.",
-      "short_explanation": "COIN sits in a elevated decision-pressure zone in the equity tape. Decision-pressure rank: 6. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "COIN sits in a elevated decision-pressure zone in the equity tape. Decision-pressure rank: 6. This is interpretation context, not a trade signal. The live narrative theme is payments and crypto exposure. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sector leadership and structural confirmation improves.",
-      "seta_read_line": "seta context | rank 6",
-      "regime_note": "In the equity tape, this reads as decay. Decision-pressure rank: 6.",
-      "narrative_note": "The live narrative is clustering around payments and crypto exposure.",
-      "social_blurb": "COIN sits in a elevated decision-pressure zone in the equity tape. Context, not a signal.",
+      "copy_archetype": "repair_watch",
+      "narrative_theme": "",
+      "headline": "BAC: repair watch",
+      "one_liner": "BAC looks more like repair than all-clear; confirmation still matters.",
+      "public_note": "BAC looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
+      "short_explanation": "BAC is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Decision-pressure rank: 6. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "BAC is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Decision-pressure rank: 6. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
+      "seta_read_line": "repair watch | rank 6",
+      "regime_note": "In the equity tape, this reads as repair. Decision-pressure rank: 6.",
+      "narrative_note": "",
+      "social_blurb": "BAC looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Validation risk",
-      "asset_state": "decay",
+      "content_angle": "Repair watch",
+      "asset_state": "repair",
       "decision_pressure_rank": 6,
       "structural_state": "",
       "resolution_skew": "unknown",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
-      "narrative_top_keywords": [
-        {
-          "keyword": "usbc",
-          "rank": 1,
-          "share": 0.099968
-        },
-        {
-          "keyword": "boards",
-          "rank": 2,
-          "share": 0.08086
-        },
-        {
-          "keyword": "mstr",
-          "rank": 3,
-          "share": 0.075835
-        },
-        {
-          "keyword": "antalpha",
-          "rank": 4,
-          "share": 0.071029
-        },
-        {
-          "keyword": "lending",
-          "rank": 5,
-          "share": 0.071029
-        }
-      ],
-      "updated_at": "2026-05-09"
+      "narrative_top_keywords": [],
+      "updated_at": "2026-05-10"
     }
   ],
   "by_term": {
-    "XRP": {
-      "term": "XRP",
+    "BTC": {
+      "term": "BTC",
       "universe": "crypto",
       "copy_archetype": "participation_diffusion",
-      "narrative_theme": "breakout/rally debate",
-      "headline": "XRP: participation is broadening",
-      "one_liner": "XRP is showing broader participation, and the open question is whether that breadth can hold.",
-      "public_note": "XRP is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
-      "short_explanation": "XRP is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as 5) One-Line Analyst Takes. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "XRP is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as 5) One-Line Analyst Takes. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal. The live narrative theme is breakout/rally debate. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "narrative_theme": "resistance / cost-basis debate",
+      "headline": "BTC: participation is broadening",
+      "one_liner": "BTC is showing broader participation, and the open question is whether that breadth can hold.",
+      "public_note": "BTC is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
+      "short_explanation": "BTC is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / Decay. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "BTC is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / Decay. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal. The live narrative theme is resistance / cost-basis debate. For the crypto tape, the key test is whether attention broadens sustainably.",
       "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
-      "seta_read_line": "participation diffusion | rank 1 | positive skew | 5) One-Line Analyst Takes",
-      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as 5) One-Line Analyst Takes. Decision-pressure rank: 1. Resolution skew: positive.",
-      "narrative_note": "The live narrative is clustering around breakout/rally debate.",
-      "social_blurb": "XRP is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
+      "seta_read_line": "participation diffusion | rank 1 | positive skew | Rejection / Decay",
+      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Rejection / Decay. Decision-pressure rank: 1. Resolution skew: positive.",
+      "narrative_note": "The live narrative is clustering around resistance / cost-basis debate.",
+      "social_blurb": "BTC is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "Participation diffusion",
       "asset_state": "diffusion",
       "decision_pressure_rank": 1,
-      "structural_state": "5) One-Line Analyst Takes",
+      "structural_state": "Rejection / Decay",
       "resolution_skew": "positive",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [
         {
-          "keyword": "breakout xrp profit",
+          "keyword": "resistance",
           "rank": 1,
-          "share": 0.071429
+          "share": 0.125572
         },
         {
-          "keyword": "bulls",
+          "keyword": "basis",
           "rank": 2,
-          "share": 0.071429
+          "share": 0.12473
         },
         {
-          "keyword": "bulls hold",
+          "keyword": "cost basis",
           "rank": 3,
-          "share": 0.071429
+          "share": 0.109472
         },
         {
-          "keyword": "bulls hold price",
+          "keyword": "volume",
           "rank": 4,
-          "share": 0.071429
+          "share": 0.102272
         },
         {
-          "keyword": "chance",
+          "keyword": "schwab",
           "rank": 5,
-          "share": 0.071429
+          "share": 0.100814
         }
       ],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "MSTR": {
       "term": "MSTR",
@@ -475,7 +449,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "AAVE": {
       "term": "AAVE",
@@ -501,7 +475,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "AAPL": {
       "term": "AAPL",
@@ -553,7 +527,7 @@
           "share": 0.090771
         }
       ],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "ADA": {
       "term": "ADA",
@@ -579,7 +553,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "AMC": {
       "term": "AMC",
@@ -605,33 +579,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "ATOM": {
       "term": "ATOM",
       "universe": "crypto",
-      "copy_archetype": "contested_structure",
+      "copy_archetype": "seta_context",
       "narrative_theme": "",
-      "headline": "ATOM: contested structure",
-      "one_liner": "ATOM is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
-      "public_note": "ATOM is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.",
-      "short_explanation": "ATOM is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Decision-pressure rank: 4. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "ATOM is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Decision-pressure rank: 4. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
-      "seta_read_line": "contested structure | rank 4",
-      "regime_note": "In the crypto tape, this reads as disagreement. Decision-pressure rank: 4.",
+      "headline": "ATOM: SETA context",
+      "one_liner": "ATOM sits in a elevated decision-pressure zone in the crypto tape.",
+      "public_note": "ATOM sits in a elevated decision-pressure zone in the crypto tape.",
+      "short_explanation": "ATOM sits in a elevated decision-pressure zone in the crypto tape. Decision-pressure rank: 4. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "ATOM sits in a elevated decision-pressure zone in the crypto tape. Decision-pressure rank: 4. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether participation and narrative coherence improves.",
+      "seta_read_line": "seta context | rank 4",
+      "regime_note": "In the crypto tape, this reads as neutral. Decision-pressure rank: 4.",
       "narrative_note": "",
-      "social_blurb": "ATOM is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "social_blurb": "ATOM sits in a elevated decision-pressure zone in the crypto tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Decision pressure / contested structure",
-      "asset_state": "disagreement",
+      "content_angle": "SETA context watch",
+      "asset_state": "neutral",
       "decision_pressure_rank": 4,
       "structural_state": "",
       "resolution_skew": "unknown",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "AMD": {
       "term": "AMD",
@@ -657,7 +631,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "AVAX": {
       "term": "AVAX",
@@ -683,7 +657,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "AMZN": {
       "term": "AMZN",
@@ -709,7 +683,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
     "BNB": {
       "term": "BNB",
@@ -735,59 +709,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-09"
+      "updated_at": "2026-05-10"
     },
-    "COIN": {
-      "term": "COIN",
+    "BAC": {
+      "term": "BAC",
       "universe": "equities",
-      "copy_archetype": "seta_context",
-      "narrative_theme": "payments and crypto exposure",
-      "headline": "COIN: SETA context",
-      "one_liner": "COIN sits in a elevated decision-pressure zone in the equity tape.",
-      "public_note": "COIN sits in a elevated decision-pressure zone in the equity tape.",
-      "short_explanation": "COIN sits in a elevated decision-pressure zone in the equity tape. Decision-pressure rank: 6. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "COIN sits in a elevated decision-pressure zone in the equity tape. Decision-pressure rank: 6. This is interpretation context, not a trade signal. The live narrative theme is payments and crypto exposure. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sector leadership and structural confirmation improves.",
-      "seta_read_line": "seta context | rank 6",
-      "regime_note": "In the equity tape, this reads as decay. Decision-pressure rank: 6.",
-      "narrative_note": "The live narrative is clustering around payments and crypto exposure.",
-      "social_blurb": "COIN sits in a elevated decision-pressure zone in the equity tape. Context, not a signal.",
+      "copy_archetype": "repair_watch",
+      "narrative_theme": "",
+      "headline": "BAC: repair watch",
+      "one_liner": "BAC looks more like repair than all-clear; confirmation still matters.",
+      "public_note": "BAC looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
+      "short_explanation": "BAC is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Decision-pressure rank: 6. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "BAC is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Decision-pressure rank: 6. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
+      "seta_read_line": "repair watch | rank 6",
+      "regime_note": "In the equity tape, this reads as repair. Decision-pressure rank: 6.",
+      "narrative_note": "",
+      "social_blurb": "BAC looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Validation risk",
-      "asset_state": "decay",
+      "content_angle": "Repair watch",
+      "asset_state": "repair",
       "decision_pressure_rank": 6,
       "structural_state": "",
       "resolution_skew": "unknown",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
-      "narrative_top_keywords": [
-        {
-          "keyword": "usbc",
-          "rank": 1,
-          "share": 0.099968
-        },
-        {
-          "keyword": "boards",
-          "rank": 2,
-          "share": 0.08086
-        },
-        {
-          "keyword": "mstr",
-          "rank": 3,
-          "share": 0.075835
-        },
-        {
-          "keyword": "antalpha",
-          "rank": 4,
-          "share": 0.071029
-        },
-        {
-          "keyword": "lending",
-          "rank": 5,
-          "share": 0.071029
-        }
-      ],
-      "updated_at": "2026-05-09"
+      "narrative_top_keywords": [],
+      "updated_at": "2026-05-10"
     }
   },
   "counts": {
