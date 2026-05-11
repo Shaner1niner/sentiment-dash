@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -18,6 +19,13 @@ CARD_TITLES = {
     "evidence": "Evidence",
     "participation_quality": "Participation Quality",
 }
+STACK_SYNTHESIS_RE = re.compile(r"\b(?:stack\s+summary|together|combined|combines|synthesis)\b", re.IGNORECASE)
+STACK_COMPONENTS_RE = re.compile(r"\bprice\b.*\b(?:structure|backdrop)\b.*\b(?:timing|momentum|indicator)\b.*\bparticipation\b", re.IGNORECASE)
+UNTRANSLATED_LABEL_RE = re.compile(
+    r"\b(?:None\s+Inside|Quiet\s*/\s*Ignore|Compression\s+Coil|Crowded\s+Bearish\s*/\s*Broad|Flat\s*/\s*Transition|quality\s+score)\b",
+    re.IGNORECASE,
+)
+DATE_AMBIGUITY_RE = re.compile(r"\blatest\s+close\b(?!\s+(?:available|value))", re.IGNORECASE)
 
 
 def load_json(path: Path) -> Any:
@@ -65,13 +73,59 @@ def comparison_flags(candidate: dict[str, Any]) -> list[str]:
     cards = candidate.get("briefing_cards") or {}
     evidence = (cards.get("evidence") or {}).get("items") or candidate.get("evidence") or []
     participation = card_text(candidate, "participation_quality").lower()
+    visible_text = " ".join(
+        str(value or "")
+        for value in [
+            candidate.get("headline"),
+            candidate.get("summary"),
+            card_text(candidate, "what_seta_sees"),
+            card_text(candidate, "why_it_matters"),
+            card_text(candidate, "evidence"),
+            card_text(candidate, "participation_quality"),
+            candidate.get("watch_item"),
+        ]
+    )
     if 3 <= len(evidence) <= 5:
         flags.append("Evidence count is in range.")
+    if any(is_stack_synthesis_receipt(str(item or "")) for item in evidence):
+        flags.append("Evidence includes stack synthesis.")
     if "participation" in participation and any(token in participation for token in ["breadth", "authorship", "source"]):
         flags.append("Participation Quality includes breadth/source trust framing.")
+    if any(
+        token in participation
+        for token in [
+            "quiet",
+            "normal",
+            "elevated",
+            "extreme",
+            "broad",
+            "moderate",
+            "narrow",
+            "rising",
+            "increasing",
+            "cooling",
+            "falling",
+            "stable",
+            "broadening",
+            "narrowing",
+            "distributed",
+            "concentrated",
+        ]
+    ):
+        flags.append("Participation Quality describes level or direction.")
+    if not DATE_AMBIGUITY_RE.search(visible_text):
+        flags.append("Date/close wording avoids ambiguous latest-close phrasing.")
+    if not UNTRANSLATED_LABEL_RE.search(visible_text):
+        flags.append("No untranslated internal label from the review ban list.")
     if ((candidate.get("model_metadata") or {}).get("prompt_version") == "seta_briefing_prompt_v2"):
         flags.append("Candidate declares prompt v2.")
     return flags
+
+
+def is_stack_synthesis_receipt(text: str) -> bool:
+    if STACK_SYNTHESIS_RE.search(text):
+        return True
+    return bool(STACK_COMPONENTS_RE.search(" ".join(text.split())))
 
 
 def compare(sample_packet: dict[str, Any], candidate_dir: Path) -> dict[str, Any]:

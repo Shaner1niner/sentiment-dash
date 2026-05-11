@@ -36,11 +36,12 @@ def valid_output(briefing_input: dict) -> dict:
         "what_seta_sees": "The current setup is defined by the latest overlap, sentiment, and indicator context in the input.",
         "why_it_matters": "The evidence helps separate price behavior from attention context without turning the read into an instruction.",
         "evidence": [
-            f"Latest data date is {as_of}.",
+            "Stack summary: price, structure, timing, and participation are reviewed together for context.",
+            f"Reviewed payload date is {as_of}.",
             f"Source breadth is {breadth}.",
             "Attention is treated as context rather than validation by itself.",
         ],
-        "trust_check": f"Participation quality uses source breadth as a trust layer; breadth is {breadth}, so confidence should be calibrated to the input caveat.",
+        "trust_check": f"Participation is stable and uses source breadth as a trust layer; breadth is {breadth}, so confidence is calibrated to the input caveat.",
         "watch_item": "Watch for confirmation from structure and follow-through if the setup remains active.",
         "limitations": "This briefing uses only the structured SETA input and may be limited by source coverage.",
         "public_safe_disclaimer": "Educational market context only; not investment advice.",
@@ -146,10 +147,35 @@ def main() -> int:
     assert_true(any("internal" in error or "debug" in error for error in internal_errors), "internal/debug language fails quality gates")
 
     metric_heavy = dict(good)
-    metric_heavy["evidence"] = ["RSI 52, sentiment 61, attention 72, dispersion 18.", "Breadth is broad.", "Context is mixed."]
+    metric_heavy["evidence"] = [
+        "Stack summary: price, structure, timing, and participation are reviewed together for context.",
+        "RSI 52, sentiment 61, attention 72, dispersion 18.",
+        "Breadth is broad.",
+    ]
     metric_gate = check_briefing_quality_gates(metric_heavy, btc, max_visible_metrics=3)
     assert_true(bool(metric_gate["warnings"]), "metric-heavy briefing receives a quality warning")
-    assert_true(count_visible_metrics(metric_heavy["evidence"][0]) == 4, "visible metric counter catches numeric receipts")
+    assert_true(count_visible_metrics(metric_heavy["evidence"][1]) == 4, "visible metric counter catches numeric receipts")
+
+    date_bad = dict(good)
+    date_bad["evidence"] = list(good["evidence"])
+    date_bad["evidence"][1] = "Latest close: 100."
+    date_bad["briefing_cards"] = json.loads(json.dumps(good["briefing_cards"]))
+    date_bad["briefing_cards"]["evidence"]["items"] = date_bad["evidence"]
+    date_errors = validate_output(date_bad, btc)
+    assert_true(any("latest-close" in error for error in date_errors), "ambiguous latest-close wording fails quality gates")
+
+    label_bad = dict(good)
+    label_bad["what_seta_sees"] = "Primary read: None Inside and Compression Coil are present."
+    label_bad["briefing_cards"] = json.loads(json.dumps(good["briefing_cards"]))
+    label_bad["briefing_cards"]["what_seta_sees"]["copy"] = label_bad["what_seta_sees"]
+    label_errors = validate_output(label_bad, btc)
+    assert_true(any("untranslated" in error for error in label_errors), "untranslated internal SETA labels fail quality gates")
+
+    caveat_good = dict(good)
+    caveat_good["trust_check"] = "Participation is stable with broad source breadth, which supports a reliable read but is not proof of demand."
+    caveat_good["briefing_cards"] = json.loads(json.dumps(good["briefing_cards"]))
+    caveat_good["briefing_cards"]["participation_quality"]["copy"] = caveat_good["trust_check"]
+    assert_true(validate_output(caveat_good, btc) == [], "not-proof caveats are allowed in participation trust checks")
 
     with TemporaryDirectory() as tmp:
         out = Path(tmp) / "btc_input.json"

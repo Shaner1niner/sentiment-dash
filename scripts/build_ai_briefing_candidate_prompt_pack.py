@@ -29,15 +29,18 @@ TASK_PROMPT = """Given the SETA briefing input JSON, produce one JSON object mat
 Rules:
 - Use only facts present in the input.
 - Use public-facing labels, not raw field names. Never include snake_case tokens, underscores, internal key names, or score-column names in any user-visible text.
+- Translate internal SETA labels into plain-English consequences. Do not use opaque phrases such as None Inside, Quiet / Ignore, Compression Coil, Crowded Bearish / Broad, Flat / Transition, rejection tier, or quality score unless you translate the consequence instead of repeating the label.
 - Use asset, frequency, and as_of exactly as supplied by the input.
+- Treat as_of as the reviewed payload date. Do not write "latest close" by itself; use "latest available close" only for price_context.latest_close and "latest reviewed value" when candle status is uncertain.
 - Generate briefing_cards first.
-- what_seta_sees: interpretation of the current read.
-- why_it_matters: implication of the read, without advice or prediction.
-- evidence: factual receipts only, 3 to 5 items.
-- Evidence receipts must be terse facts. Do not use interpretive words such as confidence, should, watch, proves, validates, or this matters in evidence.
+- what_seta_sees: primary read plus the most important counter-signal or limiting condition.
+- why_it_matters: confidence implication of the read, without advice or prediction. Resolve conflicts rather than listing bullish, bearish, and mixed signals without hierarchy.
+- evidence: 3 to 5 items. The first item must be a one-sentence stack summary that synthesizes price, structure, timing, and participation. The remaining items should be terse factual receipts.
+- Evidence must not use should, watch, proves, validates, or this matters.
 - Use plain ASCII punctuation in every string.
-- participation_quality: participation movement plus authorship/source breadth as a trust layer.
+- participation_quality: dynamically state participation level, participation direction, authorship/source breadth direction or level, and the trust/confidence implication.
 - Never say breadth, authorship, attention, or participation proves anything.
+- Use watch_item for the watch condition: what would improve or weaken confidence, stated as context rather than prediction.
 - Mirror briefing_cards into the legacy top-level fields exactly:
   - what_seta_sees equals briefing_cards.what_seta_sees.copy.
   - why_it_matters equals briefing_cards.why_it_matters.copy.
@@ -131,7 +134,10 @@ def write_markdown_pack(path: Path, records: list[dict[str, Any]], sample_packet
         "- Output must be valid `ai_briefing_output_v1` JSON.",
         "- `briefing_cards` must be generated first and mirrored into legacy top-level fields.",
         "- Evidence must stay factual.",
+        "- Evidence must include one stack-summary synthesis receipt before supporting facts.",
         "- Participation Quality must include participation plus authorship/source breadth as a trust layer.",
+        "- Date wording must distinguish reviewed payload date from latest available price value.",
+        "- Internal SETA labels must be translated into public-facing consequences.",
         "- No advisory, predictive, or overconfident language.",
         "",
         "## Cases",

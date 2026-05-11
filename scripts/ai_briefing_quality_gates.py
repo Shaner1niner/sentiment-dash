@@ -50,6 +50,22 @@ INTERNAL_LANGUAGE_PATTERNS = [
     (r"\b(?:Route|Lens|TermCard|AnalystSourceCollision|SuppressedMatchedTerm)\s*=", "reply-engine debug label"),
 ]
 
+OPAQUE_LABEL_PATTERNS = [
+    (r"\bNone\s+Inside\b", "untranslated overlap label"),
+    (r"\bQuiet\s*/\s*Ignore\b", "untranslated attention label"),
+    (r"\bCompression\s+Coil\b", "untranslated compression label"),
+    (r"\bCrowded\s+Bearish\s*/\s*Broad\b", "untranslated breadth label"),
+    (r"\bFlat\s*/\s*Transition\b", "untranslated transition label"),
+    (r"\bRejection\s+tier\b", "untranslated event-quality label"),
+    (r"\bquality\s+score\b", "untranslated quality-score label"),
+]
+
+DATE_PRECISION_PATTERNS = [
+    (r"\blatest\s+close\b(?!\s+(?:available|value))", "ambiguous latest-close wording"),
+    (r"\bcurrent\s+close\b", "ambiguous current-close wording"),
+    (r"\bfinal\s+close\b", "unsupported final-close wording"),
+]
+
 ATTENTION_MISUSE_PATTERNS = [
     (r"\battention\b[^.]{0,60}\b(adoption|adopted)\b", "attention treated as adoption"),
     (r"\battention\s*=\s*adoption\b", "attention treated as adoption"),
@@ -73,6 +89,20 @@ HYPE_PATTERNS = [
 ]
 
 NUMERIC_METRIC_RE = re.compile(r"(?<![A-Za-z])[-+]?\d+(?:\.\d+)?\s*(?:%|x|/\d+)?")
+CONFLICT_RESOLUTION_RE = re.compile(
+    r"\b(?:but|while|although|mixed|contested|counter|conflict|limits?|caveat|not\s+clean|not\s+decisive|transition|measured|qualified)\b",
+    re.IGNORECASE,
+)
+PARTICIPATION_DIRECTION_RE = re.compile(
+    r"\b(?:quiet|normal|elevated|extreme|broad|moderate|narrow|rising|increasing|cooling|falling|stable|broadly\s+stable|broadening|narrowing|distributed|concentrated|source-limited|source\s+limited)\b",
+    re.IGNORECASE,
+)
+TRUST_IMPLICATION_RE = re.compile(
+    r"\b(?:trust|confidence|qualified|calibrated|reliable\s+(?:read|view)|usability|not\s+a\s+standalone|not\s+validation|source\s+coverage|measured\s+read)\b",
+    re.IGNORECASE,
+)
+STACK_SYNTHESIS_RE = re.compile(r"\b(?:stack\s+summary|together|combined|combines|synthesis)\b", re.IGNORECASE)
+STACK_COMPONENTS_RE = re.compile(r"\bprice\b.*\b(?:structure|backdrop)\b.*\b(?:timing|momentum|indicator)\b.*\bparticipation\b", re.IGNORECASE)
 
 
 @dataclass
@@ -144,6 +174,8 @@ def evaluate_public_briefing_text(output: dict[str, Any], *, max_visible_metrics
             ADVISORY_PATTERNS,
             PREDICTION_PATTERNS,
             INTERNAL_LANGUAGE_PATTERNS,
+            OPAQUE_LABEL_PATTERNS,
+            DATE_PRECISION_PATTERNS,
             ATTENTION_MISUSE_PATTERNS,
             BREADTH_MISUSE_PATTERNS,
             HYPE_PATTERNS,
@@ -170,7 +202,7 @@ def evaluate_structural_contract(output: dict[str, Any], briefing_input: dict[st
             result.add_error("source_breadth_used must be true when input breadth_trust is present.")
         if not trust_check.strip():
             result.add_error("trust_check is required when breadth_trust is present.")
-        if "proof" in trust_check.lower() or "proves" in trust_check.lower():
+        if _frames_breadth_as_proof(trust_check):
             result.add_error("trust_check must not frame breadth as proof.")
 
     why_it_matters = str(output.get("why_it_matters") or "")
@@ -183,7 +215,79 @@ def evaluate_structural_contract(output: dict[str, Any], briefing_input: dict[st
     if briefing_input and briefing_input.get("mode") == "public" and not limitations.strip():
         result.add_error("public outputs must include limitations.")
 
+    cards = output.get("briefing_cards") if isinstance(output.get("briefing_cards"), dict) else {}
+    evidence_card = cards.get("evidence") if isinstance(cards.get("evidence"), dict) else {}
+    evidence_items = evidence_card.get("items") if isinstance(evidence_card.get("items"), list) else output.get("evidence")
+    if isinstance(evidence_items, list) and evidence_items:
+        if not any(_is_stack_synthesis_receipt(str(item or "")) for item in evidence_items):
+            result.add_error("evidence must include one stack-summary/synthesis receipt, not only raw indicator facts.")
+
+    participation_copy = str(output.get("trust_check") or "")
+    if participation_copy:
+        if not PARTICIPATION_DIRECTION_RE.search(participation_copy):
+            result.add_error("trust_check must describe participation or breadth direction/level, not only boilerplate.")
+        if not TRUST_IMPLICATION_RE.search(participation_copy):
+            result.add_error("trust_check must state the trust/confidence implication of participation breadth.")
+
+    if briefing_input:
+        dominant = _dominant_input_direction(briefing_input)
+        if dominant:
+            interpretive_text = " ".join(
+                str(output.get(key) or "")
+                for key in ["headline", "summary", "what_seta_sees", "why_it_matters", "watch_item", "trust_check"]
+            )
+            lower = interpretive_text.lower()
+            opposite = "bearish" if dominant == "bullish" else "bullish"
+            if opposite in lower and not CONFLICT_RESOLUTION_RE.search(interpretive_text):
+                result.add_error(
+                    f"narrative mentions {opposite} against a {dominant} input context without resolving the conflict."
+                )
+
     return result
+
+
+def _dominant_input_direction(briefing_input: dict[str, Any]) -> str:
+    sources: list[str] = []
+    for section_name in ["overlap_context", "sentiment_context", "event_context"]:
+        section = briefing_input.get(section_name)
+        if isinstance(section, dict):
+            for key in [
+                "dashboard_summary_label",
+                "overlap_state",
+                "overlap_event_type",
+                "primary_archetype",
+                "secondary_archetype",
+                "latest_event_direction",
+                "latest_confirmed_event_direction",
+            ]:
+                value = section.get(key)
+                if value not in (None, ""):
+                    sources.append(str(value).lower())
+    text = " ".join(sources)
+    bullish = text.count("bullish")
+    bearish = text.count("bearish")
+    if bullish > bearish:
+        return "bullish"
+    if bearish > bullish:
+        return "bearish"
+    return ""
+
+
+def _is_stack_synthesis_receipt(text: str) -> bool:
+    if STACK_SYNTHESIS_RE.search(text):
+        return True
+    return bool(STACK_COMPONENTS_RE.search(" ".join(text.split())))
+
+
+def _frames_breadth_as_proof(text: str) -> bool:
+    lowered = " ".join(str(text or "").lower().split())
+    if re.search(r"\bproves?\b", lowered):
+        return True
+    proof_match = re.search(r"\bproof\b", lowered)
+    if not proof_match:
+        return False
+    prefix = lowered[max(0, proof_match.start() - 40) : proof_match.start()]
+    return not any(phrase in prefix for phrase in ["not ", "no ", "rather than ", "instead of ", "without "])
 
 
 def check_briefing_quality_gates(

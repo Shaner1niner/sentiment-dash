@@ -71,63 +71,60 @@
       "briefing_cards": {
         "evidence": {
           "items": [
-            "Latest available close: 293 (2026-05-08).",
-            "Shared zone: Inactive.",
-            "Structure: Bullish Expansion.",
-            "Timing: Bullish Confirmation; RSI Constructive.",
-            "Participation: Normal; volume is high volume."
+            "Price is rising within a bullish expansion backdrop, momentum indicators are constructive but extended, and participation and attention are elevated and spread across many sources.",
+            "The latest available close was 293.32 on 2026-05-08, up 4.705 percent over the displayed period with high trading volume, but the move is not flagged by the model as a strong standalone price-confirmation signal and the price data is slightly lagged versus the review date.",
+            "MACD is in a bullish confirmation state, while RSI at 76.43 and near-maximal stochastic RSI readings align with the model description of bullish expansion that carries RSI-based extension risk.",
+            "Participation is elevated and rising with broad, stable source coverage and elevated attention, and the screener highlights AAPL for improving MACD, low signal disagreement, and a bullish consensus direction in a window without flagged major events."
           ],
           "role": "Receipts"
         },
         "participation_quality": {
-          "copy": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
+          "copy": "Participation is elevated and rising, and activity appears broadly distributed across a wide, stable set of sources, which supports a moderate level of trust in the read while still treating participation as contextual support rather than proof of future outcomes.",
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Overextended / Exhaustion Risk. Price is not currently outside the shared price/sentiment zone. Structure reads Bullish Expansion, while timing context reads Bullish Confirmation; RSI Constructive.",
+          "copy": "SETA sees AAPL in a bullish expansion phase, with rising price, constructive momentum signals, and elevated, broadly distributed participation. At the same time, RSI and stochastic readings are stretched, creating overextension risk while the latest price data is slightly lagged and not a strong standalone confirmation.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because SETA is separating structure, timing, and participation before assigning confidence. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed.",
+          "copy": "The combination of a constructive trend and broad participation supports a bullish-leaning interpretation, but extended momentum readings, neutral attention conviction, and modest price confirmation keep overall confidence measured rather than high.",
           "role": "Implication"
         }
       },
       "display_range": "1Y",
       "evidence": [
-        "Latest available close: 293 (2026-05-08).",
-        "Shared zone: Inactive.",
-        "Structure: Bullish Expansion.",
-        "Timing: Bullish Confirmation; RSI Constructive.",
-        "Participation: Normal; volume is high volume."
+        "Price is rising within a bullish expansion backdrop, momentum indicators are constructive but extended, and participation and attention are elevated and spread across many sources.",
+        "The latest available close was 293.32 on 2026-05-08, up 4.705 percent over the displayed period with high trading volume, but the move is not flagged by the model as a strong standalone price-confirmation signal and the price data is slightly lagged versus the review date.",
+        "MACD is in a bullish confirmation state, while RSI at 76.43 and near-maximal stochastic RSI readings align with the model description of bullish expansion that carries RSI-based extension risk.",
+        "Participation is elevated and rising with broad, stable source coverage and elevated attention, and the screener highlights AAPL for improving MACD, low signal disagreement, and a bullish consensus direction in a window without flagged major events."
       ],
       "frequency": "W",
-      "headline": "AAPL SETA briefing: Overextended / Exhaustion Risk",
-      "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
+      "headline": "AAPL: Bullish expansion with elevated participation and extension risk",
+      "limitations": "This briefing reflects only SETA models using price, technical indicators, sentiment, and participation data over the displayed one-year window. It does not consider company fundamentals, valuation, macroeconomic factors, or individual circumstances, and the price inputs are slightly lagged relative to the review date.",
       "mode": "member",
       "model_metadata": {
-        "model": "deterministic_template_v2",
+        "model": "gpt-5.1",
         "prompt_version": "seta_briefing_prompt_v2",
-        "provider": "local"
+        "provider": "openai"
       },
       "payload_key": "member::aapl::w::1y::2026_05_11",
-      "public_safe_disclaimer": "Educational market context only; not investment advice.",
-      "reference_guidance_used": true,
+      "public_safe_disclaimer": "For educational use only. This summary is not investment advice, a recommendation, or a prediction of future performance. These model-based signals should be combined with independent research and, where appropriate, professional guidance before making any financial decisions.",
       "review_metadata": {
-        "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-05-11T09:13:44+00:00",
-        "reviewer": "local-deterministic-card-jobs-v2",
-        "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
-        "source_input_schema_version": "ai_briefing_input_v1",
-        "source_payload_key": "member::aapl::w::1y::2026_05_11"
+        "review_note": "Promoted from AI candidate pack after stricter narrative QA gates and local comparison review.",
+        "reviewed_at_utc": "2026-05-11T09:19:30+00:00",
+        "reviewer": "human-review-ai-candidate-pack",
+        "source_candidate_pack": "briefing_outputs/ai_candidate_pack_20260511_081127",
+        "source_draft_path": "briefing_outputs/ai_candidate_pack_20260511_081127/candidate_outputs/member_aapl_w_1y_candidate.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "AAPL shows the overextended / exhaustion risk setup with bullish expansion sentiment, normal attention, and broad source breadth.",
-      "trust_check": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
-      "watch_item": "Strength can persist, but signal freshness may be less clear after extension.",
-      "what_seta_sees": "Primary read: Overextended / Exhaustion Risk. Price is not currently outside the shared price/sentiment zone. Structure reads Bullish Expansion, while timing context reads Bullish Confirmation; RSI Constructive.",
-      "why_it_matters": "This matters because SETA is separating structure, timing, and participation before assigning confidence. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed."
+      "summary": "AAPL shows rising price and constructive momentum in a bullish expansion regime, with elevated, broadly distributed participation but RSI-based extension risk and slightly lagged price data.",
+      "trust_check": "Participation is elevated and rising, and activity appears broadly distributed across a wide, stable set of sources, which supports a moderate level of trust in the read while still treating participation as contextual support rather than proof of future outcomes.",
+      "watch_item": "Confidence in this read is most sensitive to whether fresher, non-lagged price and volume data begin to show clearer confirmation of the bullish structure without further stretching RSI, or instead whether persistent extension signals start to coincide with declining participation or a narrowing set of active sources.",
+      "what_seta_sees": "SETA sees AAPL in a bullish expansion phase, with rising price, constructive momentum signals, and elevated, broadly distributed participation. At the same time, RSI and stochastic readings are stretched, creating overextension risk while the latest price data is slightly lagged and not a strong standalone confirmation.",
+      "why_it_matters": "The combination of a constructive trend and broad participation supports a bullish-leaning interpretation, but extended momentum readings, neutral attention conviction, and modest price confirmation keep overall confidence measured rather than high."
     },
     "member::amd::d::6m::2026_05_11": {
       "as_of": "2026-05-11",
@@ -1223,63 +1220,62 @@
       "briefing_cards": {
         "evidence": {
           "items": [
-            "Latest close: 2,330 (2026-05-11).",
-            "Shared zone: Bullish Pressure Active. Latest event: Watch on 2026-05-11.",
-            "Structure: Bullish Expansion.",
-            "Timing: Positive Divergence / Sentiment Repair; RSI Constructive.",
-            "Participation: Normal; volume is normal volume."
+            "Across the 1-year view, ETH shows a rising price within a low-volatility bullish expansion structure, supported by constructive timing indicators and elevated, broadly distributed participation, while both price and events remain classified in early confirmation states.",
+            "The latest available close for ETH was 2324.66 on 2026-05-11, about 0.76 percent above the prior visible close, with normal trading volume and price confirmation still in an early review category.",
+            "Overlap and event signals place ETH in a bullish expansion state with bullish pressure active and low volatility, following a transition from a previously flat regime, while the most recent event is bullish but tagged at an early-tier level.",
+            "MACD is positive with a sentiment repair pattern ahead of price and a slightly negative histogram, while RSI around 52 and a moderately elevated stochastic RSI indicate constructive, not overextended, momentum that aligns with the active bullish pressure context.",
+            "Participation is elevated and rising, attention is elevated with mixed to neutral conviction, and authorship appears broad and stable across sources, which supports a measured interpretation of the bullish setup rather than an extreme one."
           ],
           "role": "Receipts"
         },
         "participation_quality": {
-          "copy": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
+          "copy": "Participation for ETH is elevated and rising, with activity appearing broadly distributed and source coverage broad and stable, which supports using the current signals with moderate confidence, while the mixed to neutral attention conviction argues against treating them as high-conviction on their own.",
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed Bullish Pressure. Price is outside the shared price/sentiment zone. Structure reads Bullish Expansion, while timing context reads Positive Divergence / Sentiment Repair; RSI Constructive.",
+          "copy": "ETH is in a low-volatility bullish expansion phase with constructive momentum and elevated, broadly distributed participation, but price and event confirmation are still early and attention conviction is mixed.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because price is outside the shared zone, so SETA treats the move as a potential price/sentiment dislocation. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed.",
+          "copy": "The alignment of bullish expansion signals with rising, distributed participation increases confidence in a constructive trend read, but the early confirmation state and mixed attention conviction limit certainty and keep conviction moderate rather than strong.",
           "role": "Implication"
         }
       },
       "display_range": "1Y",
       "evidence": [
-        "Latest close: 2,330 (2026-05-11).",
-        "Shared zone: Bullish Pressure Active. Latest event: Watch on 2026-05-11.",
-        "Structure: Bullish Expansion.",
-        "Timing: Positive Divergence / Sentiment Repair; RSI Constructive.",
-        "Participation: Normal; volume is normal volume."
+        "Across the 1-year view, ETH shows a rising price within a low-volatility bullish expansion structure, supported by constructive timing indicators and elevated, broadly distributed participation, while both price and events remain classified in early confirmation states.",
+        "The latest available close for ETH was 2324.66 on 2026-05-11, about 0.76 percent above the prior visible close, with normal trading volume and price confirmation still in an early review category.",
+        "Overlap and event signals place ETH in a bullish expansion state with bullish pressure active and low volatility, following a transition from a previously flat regime, while the most recent event is bullish but tagged at an early-tier level.",
+        "MACD is positive with a sentiment repair pattern ahead of price and a slightly negative histogram, while RSI around 52 and a moderately elevated stochastic RSI indicate constructive, not overextended, momentum that aligns with the active bullish pressure context.",
+        "Participation is elevated and rising, attention is elevated with mixed to neutral conviction, and authorship appears broad and stable across sources, which supports a measured interpretation of the bullish setup rather than an extreme one."
       ],
       "frequency": "W",
-      "headline": "ETH SETA briefing: Unconfirmed Bullish Pressure",
-      "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
+      "headline": "ETH: Broad bullish expansion with early-stage confirmation",
+      "limitations": "This briefing relies on model-derived technical, sentiment, and participation indicators that the reference guidance describes as interpretation aids rather than standalone predictions; attention reflects participation context but is not validation by itself, and traditional indicators here provide timing context rather than overriding the full SETA evidence stack.",
       "mode": "member",
       "model_metadata": {
-        "model": "deterministic_template_v2",
+        "model": "gpt-5.1",
         "prompt_version": "seta_briefing_prompt_v2",
-        "provider": "local"
+        "provider": "openai"
       },
       "payload_key": "member::eth::w::1y::2026_05_11",
-      "public_safe_disclaimer": "Educational market context only; not investment advice.",
-      "reference_guidance_used": true,
+      "public_safe_disclaimer": "This briefing is for educational purposes only, does not provide investment, trading, or financial advice, and does not assure any financial outcome.",
       "review_metadata": {
-        "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-05-11T09:13:44+00:00",
-        "reviewer": "local-deterministic-card-jobs-v2",
-        "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
-        "source_input_schema_version": "ai_briefing_input_v1",
-        "source_payload_key": "member::eth::w::1y::2026_05_11"
+        "review_note": "Promoted from AI candidate pack after stricter narrative QA gates and local comparison review.",
+        "reviewed_at_utc": "2026-05-11T09:19:30+00:00",
+        "reviewer": "human-review-ai-candidate-pack",
+        "source_candidate_pack": "briefing_outputs/ai_candidate_pack_20260511_081127",
+        "source_draft_path": "briefing_outputs/ai_candidate_pack_20260511_081127/candidate_outputs/member_eth_w_1y_candidate.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "ETH shows the unconfirmed bullish pressure setup with bullish expansion sentiment, normal attention, and broad source breadth.",
-      "trust_check": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
-      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
-      "what_seta_sees": "Primary read: Unconfirmed Bullish Pressure. Price is outside the shared price/sentiment zone. Structure reads Bullish Expansion, while timing context reads Positive Divergence / Sentiment Repair; RSI Constructive.",
-      "why_it_matters": "This matters because price is outside the shared zone, so SETA treats the move as a potential price/sentiment dislocation. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed."
+      "summary": "ETH shows a low-volatility bullish expansion with constructive timing and rising, broadly distributed participation, but price and event signals remain in an early review tier, so confidence is moderate rather than high.",
+      "trust_check": "Participation for ETH is elevated and rising, with activity appearing broadly distributed and source coverage broad and stable, which supports using the current signals with moderate confidence, while the mixed to neutral attention conviction argues against treating them as high-conviction on their own.",
+      "watch_item": "Confidence in this bullish expansion context would increase if price and event classifications moved from early confirmation into fully confirmed bullish states while low volatility and broadly distributed participation persisted, and would weaken if bullish pressure faded, participation retreated, or signals across families diverged.",
+      "what_seta_sees": "ETH is in a low-volatility bullish expansion phase with constructive momentum and elevated, broadly distributed participation, but price and event confirmation are still early and attention conviction is mixed.",
+      "why_it_matters": "The alignment of bullish expansion signals with rising, distributed participation increases confidence in a constructive trend read, but the early confirmation state and mixed attention conviction limit certainty and keep conviction moderate rather than strong."
     },
     "member::gld::d::6m::2026_05_11": {
       "as_of": "2026-05-11",
@@ -1543,63 +1539,62 @@
       "briefing_cards": {
         "evidence": {
           "items": [
-            "Latest close: 10.5 (2026-05-11).",
-            "Shared zone: Bullish Pressure Active. Latest event: Rejection on 2026-05-11.",
-            "Structure: Flat / Transition.",
-            "Timing: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
-            "Participation: Quiet; volume is normal volume."
+            "Price is drifting lower inside a sideways, low-volatility structure with active bullish pressure bands, while momentum and sentiment models flag early narrative deterioration amid quiet but broadly distributed participation.",
+            "The latest available close was 10.485 on 2026-05-11, down from 10.715784, with the recent direction labeled falling and the move tagged as a rejection on normal volume.",
+            "Event and overlap models show a prior confirmed bullish phase on 2026-05-01 followed by a more recent bearish rejection event dated 2026-05-11, while the combined state still reports bullish pressure as active in a low-volatility regime.",
+            "The sentiment framework assigns an archetype of narrative deterioration despite price strength with a bearish expansion ribbon and a flat, transitioning state, aligning with MACD negative divergence and a high stochastic RSI above 90.",
+            "Participation and attention metrics indicate quiet but rising activity, stable broad source coverage, mixed-to-neutral conviction, no visible attention spike, and a public note that available activity is not narrowly isolated."
           ],
           "role": "Receipts"
         },
         "participation_quality": {
-          "copy": "Measured / distributed. Participation is quiet and increasing. Authorship breadth is broad and broadly stable. No participation surge is visible, but available activity is not narrowly isolated. Participation quality is a trust layer, not a standalone demand signal.",
+          "copy": "Participation is quiet but rising, with broad and stable source coverage and normal attention, so the signals likely reflect distributed interest rather than a single noisy channel, though overall conviction from participation remains modest.",
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed Bullish Pressure. Price is outside the shared price/sentiment zone. Structure reads Flat / Transition, while timing context reads Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
+          "copy": "LINK's earlier bullish upswing is losing momentum: price is slipping within a low-volatility, sideways structure and the latest move is classified as a bearish rejection, with sentiment and MACD showing narrative deterioration, while Bollinger bands still show active bullish pressure and participation remains quiet but rising across broad sources.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because price is outside the shared zone, so SETA treats the move as a potential price/sentiment dislocation. Timing context shows whether indicators align or conflict with the setup. No participation surge is visible, but available activity is not narrowly isolated.",
+          "copy": "Because residual bullish pressure coexists with a fresh bearish rejection and weakening sentiment in a quiet-participation setting, the stack reads as a transitional, lower-conviction configuration rather than a clean bullish or bearish setup.",
           "role": "Implication"
         }
       },
       "display_range": "6M",
       "evidence": [
-        "Latest close: 10.5 (2026-05-11).",
-        "Shared zone: Bullish Pressure Active. Latest event: Rejection on 2026-05-11.",
-        "Structure: Flat / Transition.",
-        "Timing: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
-        "Participation: Quiet; volume is normal volume."
+        "Price is drifting lower inside a sideways, low-volatility structure with active bullish pressure bands, while momentum and sentiment models flag early narrative deterioration amid quiet but broadly distributed participation.",
+        "The latest available close was 10.485 on 2026-05-11, down from 10.715784, with the recent direction labeled falling and the move tagged as a rejection on normal volume.",
+        "Event and overlap models show a prior confirmed bullish phase on 2026-05-01 followed by a more recent bearish rejection event dated 2026-05-11, while the combined state still reports bullish pressure as active in a low-volatility regime.",
+        "The sentiment framework assigns an archetype of narrative deterioration despite price strength with a bearish expansion ribbon and a flat, transitioning state, aligning with MACD negative divergence and a high stochastic RSI above 90.",
+        "Participation and attention metrics indicate quiet but rising activity, stable broad source coverage, mixed-to-neutral conviction, no visible attention spike, and a public note that available activity is not narrowly isolated."
       ],
       "frequency": "D",
-      "headline": "LINK SETA briefing: Unconfirmed Bullish Pressure",
-      "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
+      "headline": "LINK: Bullish pressure meets bearish rejection in a quiet, low-vol regime",
+      "limitations": "This briefing is limited to the price, sentiment, event, indicator, and participation data supplied in this payload for the six-month display window ending 2026-05-11 and may omit fundamentals, on-chain information, order-book data, or developments after that date.",
       "mode": "member",
       "model_metadata": {
-        "model": "deterministic_template_v2",
+        "model": "gpt-5.1",
         "prompt_version": "seta_briefing_prompt_v2",
-        "provider": "local"
+        "provider": "openai"
       },
       "payload_key": "member::link::d::6m::2026_05_11",
-      "public_safe_disclaimer": "Educational market context only; not investment advice.",
-      "reference_guidance_used": true,
+      "public_safe_disclaimer": "This summary is for educational and informational purposes only, is not investment, trading, or financial advice, and does not provide any assurance about future performance or outcomes.",
       "review_metadata": {
-        "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-05-11T09:13:44+00:00",
-        "reviewer": "local-deterministic-card-jobs-v2",
-        "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
-        "source_input_schema_version": "ai_briefing_input_v1",
-        "source_payload_key": "member::link::d::6m::2026_05_11"
+        "review_note": "Promoted from AI candidate pack after stricter narrative QA gates and local comparison review.",
+        "reviewed_at_utc": "2026-05-11T09:19:30+00:00",
+        "reviewer": "human-review-ai-candidate-pack",
+        "source_candidate_pack": "briefing_outputs/ai_candidate_pack_20260511_081127",
+        "source_draft_path": "briefing_outputs/ai_candidate_pack_20260511_081127/candidate_outputs/member_link_d_6m_candidate.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "LINK shows the unconfirmed bullish pressure setup with flat / transition sentiment, quiet attention, and broad source breadth.",
-      "trust_check": "Measured / distributed. Participation is quiet and increasing. Authorship breadth is broad and broadly stable. No participation surge is visible, but available activity is not narrowly isolated. Participation quality is a trust layer, not a standalone demand signal.",
-      "watch_item": "This can be an early warning rather than an immediate breakdown signal.",
-      "what_seta_sees": "Primary read: Unconfirmed Bullish Pressure. Price is outside the shared price/sentiment zone. Structure reads Flat / Transition, while timing context reads Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
-      "why_it_matters": "This matters because price is outside the shared zone, so SETA treats the move as a potential price/sentiment dislocation. Timing context shows whether indicators align or conflict with the setup. No participation surge is visible, but available activity is not narrowly isolated."
+      "summary": "Earlier bullish conditions in LINK are now facing a bearish rejection and weakening sentiment in a low-volatility, sideways range, with quiet but rising participation and signals overall reading as transitional and low conviction.",
+      "trust_check": "Participation is quiet but rising, with broad and stable source coverage and normal attention, so the signals likely reflect distributed interest rather than a single noisy channel, though overall conviction from participation remains modest.",
+      "watch_item": "Signal confidence would improve if future price and event data moved out of the current low-volatility, sideways regime with confirmed moves that align consistently with either the active bullish pressure bands or the bearish rejection and sentiment deterioration, and would weaken if quiet participation shifted into highly concentrated activity.",
+      "what_seta_sees": "LINK's earlier bullish upswing is losing momentum: price is slipping within a low-volatility, sideways structure and the latest move is classified as a bearish rejection, with sentiment and MACD showing narrative deterioration, while Bollinger bands still show active bullish pressure and participation remains quiet but rising across broad sources.",
+      "why_it_matters": "Because residual bullish pressure coexists with a fresh bearish rejection and weakening sentiment in a quiet-participation setting, the stack reads as a transitional, lower-conviction configuration rather than a clean bullish or bearish setup."
     },
     "member::link::w::1y::2026_05_11": {
       "as_of": "2026-05-11",
@@ -1799,63 +1794,62 @@
       "briefing_cards": {
         "evidence": {
           "items": [
-            "Latest available close: 415 (2026-05-08).",
-            "Shared zone: Inactive.",
-            "Structure: Flat / Transition.",
-            "Timing: Positive Divergence / Sentiment Repair; RSI Mixed / Neutral.",
-            "Participation: Normal; volume is high volume."
+            "Price has slipped about 1.3 percent over the visible 6-month window with a falling short-term move, a largely sideways structure, early sentiment repair signals, and normal but rising, broadly distributed participation.",
+            "The latest available close was 415.12 on 2026-05-08, down from the previous visible close of 420.77, with recent direction flagged as falling, high volume, and price data marked as lagged versus the review date.",
+            "MACD is labeled as positive divergence or sentiment repair, RSI is labeled mixed and neutral around 53.6, and stochastic RSI values are in the low 20s, aligning with the sentiment repair ahead of price archetype.",
+            "Participation is described as normal and increasing, with authorship and source coverage broad and stable, and overall attention levels normal with mixed conviction.",
+            "No notable events are visible in the dataset, and the combined overlap model for structural setups is currently inactive, so there is no separate event-driven or structural catalyst in this stack."
           ],
           "role": "Receipts"
         },
         "participation_quality": {
-          "copy": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
+          "copy": "Participation is at normal levels and rising, with source coverage broad and stable across authors, which supports a measured but not high-conviction read because activity is spread across many contributors without an extreme surge in attention.",
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Sentiment Repair Ahead of Price. Price is not currently outside the shared price/sentiment zone. Structure reads Flat / Transition, while timing context reads Positive Divergence / Sentiment Repair; RSI Mixed / Neutral.",
+          "copy": "MSFT shows a range-bound but recently declining price backdrop where sentiment points to repair ahead of price and participation is normal, rising, and broadly sourced, but price confirmation and momentum timing signals are still mixed and the overlap model is inactive.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the setup is low-escalation: useful context, but not a strong participation-driven move. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed.",
+          "copy": "This setup reflects a potential early improvement in sentiment without strong price follow-through, so interpretations lean on model context rather than a confirmed trend and are best treated as tentative until price and momentum align more clearly.",
           "role": "Implication"
         }
       },
       "display_range": "6M",
       "evidence": [
-        "Latest available close: 415 (2026-05-08).",
-        "Shared zone: Inactive.",
-        "Structure: Flat / Transition.",
-        "Timing: Positive Divergence / Sentiment Repair; RSI Mixed / Neutral.",
-        "Participation: Normal; volume is high volume."
+        "Price has slipped about 1.3 percent over the visible 6-month window with a falling short-term move, a largely sideways structure, early sentiment repair signals, and normal but rising, broadly distributed participation.",
+        "The latest available close was 415.12 on 2026-05-08, down from the previous visible close of 420.77, with recent direction flagged as falling, high volume, and price data marked as lagged versus the review date.",
+        "MACD is labeled as positive divergence or sentiment repair, RSI is labeled mixed and neutral around 53.6, and stochastic RSI values are in the low 20s, aligning with the sentiment repair ahead of price archetype.",
+        "Participation is described as normal and increasing, with authorship and source coverage broad and stable, and overall attention levels normal with mixed conviction.",
+        "No notable events are visible in the dataset, and the combined overlap model for structural setups is currently inactive, so there is no separate event-driven or structural catalyst in this stack."
       ],
       "frequency": "D",
-      "headline": "MSFT SETA briefing: Sentiment Repair Ahead of Price",
-      "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
+      "headline": "MSFT: Early sentiment repair with falling price and broad participation",
+      "limitations": "This briefing uses price data last updated to 2026-05-08 and price is flagged as lagged relative to the review date; participation coverage is assessed from aggregate source data without channel-level detail; attention and indicator models provide context only and do not independently confirm outcomes, and the sentiment repair ahead of price archetype is historically less reliable until price momentum confirms, so early reads can fail.",
       "mode": "member",
       "model_metadata": {
-        "model": "deterministic_template_v2",
+        "model": "gpt-5.1",
         "prompt_version": "seta_briefing_prompt_v2",
-        "provider": "local"
+        "provider": "openai"
       },
       "payload_key": "member::msft::d::6m::2026_05_11",
-      "public_safe_disclaimer": "Educational market context only; not investment advice.",
-      "reference_guidance_used": true,
+      "public_safe_disclaimer": "All information here is for educational and informational purposes only, reflects model-based interpretations of the supplied data, and does not constitute investment advice, a recommendation, or a prediction of future performance.",
       "review_metadata": {
-        "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-05-11T09:13:44+00:00",
-        "reviewer": "local-deterministic-card-jobs-v2",
-        "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
-        "source_input_schema_version": "ai_briefing_input_v1",
-        "source_payload_key": "member::msft::d::6m::2026_05_11"
+        "review_note": "Promoted from AI candidate pack after stricter narrative QA gates and local comparison review.",
+        "reviewed_at_utc": "2026-05-11T09:19:30+00:00",
+        "reviewer": "human-review-ai-candidate-pack",
+        "source_candidate_pack": "briefing_outputs/ai_candidate_pack_20260511_081127",
+        "source_draft_path": "briefing_outputs/ai_candidate_pack_20260511_081127/candidate_outputs/member_msft_d_6m_candidate.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "MSFT shows the sentiment repair ahead of price setup with flat / transition sentiment, normal attention, and broad source breadth.",
-      "trust_check": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
-      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
-      "what_seta_sees": "Primary read: Sentiment Repair Ahead of Price. Price is not currently outside the shared price/sentiment zone. Structure reads Flat / Transition, while timing context reads Positive Divergence / Sentiment Repair; RSI Mixed / Neutral.",
-      "why_it_matters": "This matters because the setup is low-escalation: useful context, but not a strong participation-driven move. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed."
+      "summary": "MSFT shows a sideways structure with a recent pullback, early sentiment repair signals, and normal but rising, broadly distributed participation, while price confirmation and timing indicators remain mixed.",
+      "trust_check": "Participation is at normal levels and rising, with source coverage broad and stable across authors, which supports a measured but not high-conviction read because activity is spread across many contributors without an extreme surge in attention.",
+      "watch_item": "Confidence in the early repair read would be stronger if future price action and momentum indicators begin to confirm the sentiment repair while participation remains broadly distributed, and weaker if price continues to soften despite normal or rising activity.",
+      "what_seta_sees": "MSFT shows a range-bound but recently declining price backdrop where sentiment points to repair ahead of price and participation is normal, rising, and broadly sourced, but price confirmation and momentum timing signals are still mixed and the overlap model is inactive.",
+      "why_it_matters": "This setup reflects a potential early improvement in sentiment without strong price follow-through, so interpretations lean on model context rather than a confirmed trend and are best treated as tentative until price and momentum align more clearly."
     },
     "member::msft::w::1y::2026_05_11": {
       "as_of": "2026-05-11",
@@ -3591,63 +3585,62 @@
       "briefing_cards": {
         "evidence": {
           "items": [
-            "Latest close: 80,716 (2026-05-11).",
-            "Shared zone: Inactive. Latest event: Rejection on 2026-05-10.",
-            "Structure: Compression / Transition.",
-            "Timing: Negative Divergence / Narrative Weakening; RSI Constructive.",
-            "Participation: Normal; volume is normal volume."
+            "Across the stack, Bitcoin shows a mild price pullback within a low-volatility, mostly sideways structure, with mixed momentum timing signals and normal but rising, broadly distributed participation and attention.",
+            "Sentiment models describe a narrative deterioration despite price strength, with Bitcoin showing weakening sentiment momentum while price momentum is not yet fully broken and the overall state labeled as flat or in transition, while the dedicated overlap model currently marks this pattern as inactive.",
+            "In event terms, the last confirmed signal on 2026-05-03 is bullish with a bullish expansion summary, while a newer 2026-05-10 bearish event is classified as a rejection and is not the latest confirmed signal.",
+            "Indicator context shows MACD in a negative divergence or narrative weakening configuration, while RSI and stochastic RSI are mixed to neutral rather than strongly overbought or oversold.",
+            "Attention and participation are both in a normal regime with mixed or neutral conviction, participation scores rising from prior levels, and authorship and activity distributed broadly across sources according to the breadth notes."
           ],
           "role": "Receipts"
         },
         "participation_quality": {
-          "copy": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
+          "copy": "Participation is at a normal but rising level, with activity and authorship spread broadly and stably across sources, which supports a more reliable read on current narratives but does not by itself confirm demand or reduce risk. Attention and participation describe how widely the narrative is engaged with, not whether the signals are correct.",
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Narrative Deterioration Despite Price Strength. Price is not currently outside the shared price/sentiment zone. Structure reads Compression / Transition, while timing context reads Negative Divergence / Narrative Weakening; RSI Constructive.",
+          "copy": "SETA sees Bitcoin in a mild pullback versus the prior visible close within a low-volatility, mostly sideways structure, while sentiment and MACD-based momentum indicate narrative deterioration despite earlier price strength. Participation and attention are normal and broadly distributed, but conviction is mixed and the most recent bearish narrative event is classified as a rejection while the last confirmed signal remains bullish.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because SETA is separating structure, timing, and participation before assigning confidence. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed.",
+          "copy": "This mix of weakening narrative momentum and still-bullish confirmed structure points to a transition phase where direction is less clear, so these signals are better used for risk context than for strong directional conviction. Broad, rising participation improves the usability of the read, but low-volatility noise and limited sentiment confidence constrain overall conviction.",
           "role": "Implication"
         }
       },
       "display_range": "3M",
       "evidence": [
-        "Latest close: 80,716 (2026-05-11).",
-        "Shared zone: Inactive. Latest event: Rejection on 2026-05-10.",
-        "Structure: Compression / Transition.",
-        "Timing: Negative Divergence / Narrative Weakening; RSI Constructive.",
-        "Participation: Normal; volume is normal volume."
+        "Across the stack, Bitcoin shows a mild price pullback within a low-volatility, mostly sideways structure, with mixed momentum timing signals and normal but rising, broadly distributed participation and attention.",
+        "Sentiment models describe a narrative deterioration despite price strength, with Bitcoin showing weakening sentiment momentum while price momentum is not yet fully broken and the overall state labeled as flat or in transition, while the dedicated overlap model currently marks this pattern as inactive.",
+        "In event terms, the last confirmed signal on 2026-05-03 is bullish with a bullish expansion summary, while a newer 2026-05-10 bearish event is classified as a rejection and is not the latest confirmed signal.",
+        "Indicator context shows MACD in a negative divergence or narrative weakening configuration, while RSI and stochastic RSI are mixed to neutral rather than strongly overbought or oversold.",
+        "Attention and participation are both in a normal regime with mixed or neutral conviction, participation scores rising from prior levels, and authorship and activity distributed broadly across sources according to the breadth notes."
       ],
       "frequency": "D",
-      "headline": "BTC SETA briefing: Narrative Deterioration Despite Price Strength",
-      "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
+      "headline": "BTC: Narrative momentum softens as price pulls back with broad participation",
+      "limitations": "Signals in this briefing are model-derived interpretations of price, sentiment, participation, and event data available as of 2026-05-11 and are intended as contextual inputs for review rather than real-time trading instructions or guarantees of direction.",
       "mode": "public",
       "model_metadata": {
-        "model": "deterministic_template_v2",
+        "model": "gpt-5.1",
         "prompt_version": "seta_briefing_prompt_v2",
-        "provider": "local"
+        "provider": "openai"
       },
       "payload_key": "public::btc::d::3m::2026_05_11",
-      "public_safe_disclaimer": "Educational market context only; not investment advice.",
-      "reference_guidance_used": true,
+      "public_safe_disclaimer": "This briefing is for educational purposes only and does not constitute investment, trading, or financial advice or a prediction of future performance. Use it together with independent research, your objectives and risk tolerance, and, where appropriate, professional guidance.",
       "review_metadata": {
-        "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-05-11T09:13:44+00:00",
-        "reviewer": "local-deterministic-card-jobs-v2",
-        "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
-        "source_input_schema_version": "ai_briefing_input_v1",
-        "source_payload_key": "public::btc::d::3m::2026_05_11"
+        "review_note": "Promoted from AI candidate pack after stricter narrative QA gates and local comparison review.",
+        "reviewed_at_utc": "2026-05-11T09:19:30+00:00",
+        "reviewer": "human-review-ai-candidate-pack",
+        "source_candidate_pack": "briefing_outputs/ai_candidate_pack_20260511_081127",
+        "source_draft_path": "briefing_outputs/ai_candidate_pack_20260511_081127/candidate_outputs/public_btc_d_3m_candidate.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "BTC shows the narrative deterioration despite price strength setup with compression / transition sentiment, normal attention, and broad source breadth.",
-      "trust_check": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
-      "watch_item": "This can be an early warning rather than an immediate breakdown signal.",
-      "what_seta_sees": "Primary read: Narrative Deterioration Despite Price Strength. Price is not currently outside the shared price/sentiment zone. Structure reads Compression / Transition, while timing context reads Negative Divergence / Narrative Weakening; RSI Constructive.",
-      "why_it_matters": "This matters because SETA is separating structure, timing, and participation before assigning confidence. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed."
+      "summary": "Bitcoin shows a mild pullback in a low-volatility, sideways setup. Sentiment and momentum are weakening, but participation and attention remain normal and broad, keeping confidence moderate rather than extreme.",
+      "trust_check": "Participation is at a normal but rising level, with activity and authorship spread broadly and stably across sources, which supports a more reliable read on current narratives but does not by itself confirm demand or reduce risk. Attention and participation describe how widely the narrative is engaged with, not whether the signals are correct.",
+      "watch_item": "Confidence in this read would increase if future data showed price or sentiment moving decisively out of the current low-volatility, sideways context with alignment across MACD, RSI, and higher-quality events; it would decrease if additional bearish narrative events emerged while price kept falling under similarly broad participation.",
+      "what_seta_sees": "SETA sees Bitcoin in a mild pullback versus the prior visible close within a low-volatility, mostly sideways structure, while sentiment and MACD-based momentum indicate narrative deterioration despite earlier price strength. Participation and attention are normal and broadly distributed, but conviction is mixed and the most recent bearish narrative event is classified as a rejection while the last confirmed signal remains bullish.",
+      "why_it_matters": "This mix of weakening narrative momentum and still-bullish confirmed structure points to a transition phase where direction is less clear, so these signals are better used for risk context than for strong directional conviction. Broad, rising participation improves the usability of the read, but low-volatility noise and limited sentiment confidence constrain overall conviction."
     },
     "public::btc::w::1y::2026_05_11": {
       "as_of": "2026-05-11",
@@ -3975,63 +3968,62 @@
       "briefing_cards": {
         "evidence": {
           "items": [
-            "Latest available close: 434 (2026-05-08).",
-            "Shared zone: Inactive.",
-            "Structure: Mixed.",
-            "Timing: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
-            "Participation: Quiet; volume is normal volume."
+            "Across the 3-month window, GLD is roughly flat (up about 0.5 percent) with a recent rising bias, constructive momentum signals, a sideways-to-transitioning structure, and quiet but broadly distributed participation.",
+            "The latest available close on 2026-05-08 is 433.77, slightly above the prior visible close of 431.68, on normal volume and with the move flagged as low-importance for price confirmation, and price data are marked as slightly lagged.",
+            "MACD is in a bullish confirmation state (MACD -2.91 vs. signal -3.41 with a positive 0.50 histogram), indicating improving trend conditions within still-below-zero values.",
+            "RSI stands at 58.28 with a constructive label, and stochastic RSI is at 100 on both the main and signal readings.",
+            "The screener highlighted GLD mainly because its MACD family was improving and disagreement across signal families was low, yet the sentiment archetype still describes a quiet, mostly neutral state with low review priority and no visible combined-signal events."
           ],
           "role": "Receipts"
         },
         "participation_quality": {
-          "copy": "Measured / distributed. Participation is quiet and broadly stable. Authorship breadth is broad and broadly stable. No participation surge is visible, but available activity is not narrowly isolated. Participation quality is a trust layer, not a standalone demand signal.",
+          "copy": "Participation around GLD is quiet and stable, but the sources involved are broad and steady, so the signal comes from measured, non-concentrated activity; this supports a reasonable but not high level of confidence in the neutral, mixed technical and sentiment read.",
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Narrative Deterioration Despite Price Strength. Price is not currently outside the shared price/sentiment zone. Structure reads Mixed, while timing context reads Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
+          "copy": "Short-term momentum in GLD has turned constructive within a mostly sideways, neutral setup: price is slightly higher on normal volume, sentiment tools include a mildly bearish tilt, participation and attention are quiet but broadly distributed, and there are no recent combined-signal events.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the setup is low-escalation: useful context, but not a strong participation-driven move. Timing context shows whether indicators align or conflict with the setup. No participation surge is visible, but available activity is not narrowly isolated.",
+          "copy": "Because constructive momentum is developing inside an otherwise neutral, low-priority environment with quiet participation, the current evidence stack supports only moderate confidence and points to an early-stage, low-intensity setup rather than a strong, high-conviction one.",
           "role": "Implication"
         }
       },
       "display_range": "3M",
       "evidence": [
-        "Latest available close: 434 (2026-05-08).",
-        "Shared zone: Inactive.",
-        "Structure: Mixed.",
-        "Timing: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
-        "Participation: Quiet; volume is normal volume."
+        "Across the 3-month window, GLD is roughly flat (up about 0.5 percent) with a recent rising bias, constructive momentum signals, a sideways-to-transitioning structure, and quiet but broadly distributed participation.",
+        "The latest available close on 2026-05-08 is 433.77, slightly above the prior visible close of 431.68, on normal volume and with the move flagged as low-importance for price confirmation, and price data are marked as slightly lagged.",
+        "MACD is in a bullish confirmation state (MACD -2.91 vs. signal -3.41 with a positive 0.50 histogram), indicating improving trend conditions within still-below-zero values.",
+        "RSI stands at 58.28 with a constructive label, and stochastic RSI is at 100 on both the main and signal readings.",
+        "The screener highlighted GLD mainly because its MACD family was improving and disagreement across signal families was low, yet the sentiment archetype still describes a quiet, mostly neutral state with low review priority and no visible combined-signal events."
       ],
       "frequency": "D",
-      "headline": "GLD SETA briefing: Narrative Deterioration Despite Price Strength",
-      "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
+      "headline": "GLD: Constructive momentum inside a quiet, neutral backdrop (daily, 3M view)",
+      "limitations": "This briefing relies on model-derived technical and sentiment indicators over a limited 3-month window, with slightly lagged end-of-day price data; the tools provide context rather than predictions and do not include fundamentals, intraday activity, or personalized financial circumstances. Attention and participation context describe who is engaged, not validation of any single signal.",
       "mode": "public",
       "model_metadata": {
-        "model": "deterministic_template_v2",
+        "model": "gpt-5.1",
         "prompt_version": "seta_briefing_prompt_v2",
-        "provider": "local"
+        "provider": "openai"
       },
       "payload_key": "public::gld::d::3m::2026_05_11",
-      "public_safe_disclaimer": "Educational market context only; not investment advice.",
-      "reference_guidance_used": true,
+      "public_safe_disclaimer": "This summary is for educational information only, is not investment advice or a recommendation of any strategy, and should not be used as the sole basis for financial decisions.",
       "review_metadata": {
-        "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-05-11T09:13:44+00:00",
-        "reviewer": "local-deterministic-card-jobs-v2",
-        "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
-        "source_input_schema_version": "ai_briefing_input_v1",
-        "source_payload_key": "public::gld::d::3m::2026_05_11"
+        "review_note": "Promoted from AI candidate pack after stricter narrative QA gates and local comparison review.",
+        "reviewed_at_utc": "2026-05-11T09:19:30+00:00",
+        "reviewer": "human-review-ai-candidate-pack",
+        "source_candidate_pack": "briefing_outputs/ai_candidate_pack_20260511_081127",
+        "source_draft_path": "briefing_outputs/ai_candidate_pack_20260511_081127/candidate_outputs/public_gld_d_3m_candidate.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "GLD shows the narrative deterioration despite price strength setup with mixed sentiment, quiet attention, and broad source breadth.",
-      "trust_check": "Measured / distributed. Participation is quiet and broadly stable. Authorship breadth is broad and broadly stable. No participation surge is visible, but available activity is not narrowly isolated. Participation quality is a trust layer, not a standalone demand signal.",
-      "watch_item": "This can be an early warning rather than an immediate breakdown signal.",
-      "what_seta_sees": "Primary read: Narrative Deterioration Despite Price Strength. Price is not currently outside the shared price/sentiment zone. Structure reads Mixed, while timing context reads Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
-      "why_it_matters": "This matters because the setup is low-escalation: useful context, but not a strong participation-driven move. Timing context shows whether indicators align or conflict with the setup. No participation surge is visible, but available activity is not narrowly isolated."
+      "summary": "GLD shows modest price improvement and constructive MACD/RSI momentum inside a mostly neutral, sideways structure, with quiet but broadly distributed participation and no active multi-signal events, so overall confidence remains moderate rather than strong.",
+      "trust_check": "Participation around GLD is quiet and stable, but the sources involved are broad and steady, so the signal comes from measured, non-concentrated activity; this supports a reasonable but not high level of confidence in the neutral, mixed technical and sentiment read.",
+      "watch_item": "Confidence would improve if momentum and price either generated a clear combined-signal event or aligned more visibly with sentiment while participation moved from quiet toward more active, and confidence would weaken if technical momentum rolled over while the broader structure remained sideways.",
+      "what_seta_sees": "Short-term momentum in GLD has turned constructive within a mostly sideways, neutral setup: price is slightly higher on normal volume, sentiment tools include a mildly bearish tilt, participation and attention are quiet but broadly distributed, and there are no recent combined-signal events.",
+      "why_it_matters": "Because constructive momentum is developing inside an otherwise neutral, low-priority environment with quiet participation, the current evidence stack supports only moderate confidence and points to an early-stage, low-intensity setup rather than a strong, high-conviction one."
     },
     "public::gld::w::1y::2026_05_11": {
       "as_of": "2026-05-11",
@@ -4295,63 +4287,62 @@
       "briefing_cards": {
         "evidence": {
           "items": [
-            "Latest available close: 215 (2026-05-08).",
-            "Shared zone: Inactive.",
-            "Structure: Flat / Transition.",
-            "Timing: Positive Divergence / Sentiment Repair; RSI Constructive.",
-            "Participation: Normal; volume is normal volume."
+            "Across this weekly snapshot, NVDA shows a rising latest reviewed price with normal volume, constructive momentum and sentiment repair signals, a sideways to transition structural classification, and normal but increasing, broadly sourced participation.",
+            "The latest available close is 215.20 on 2026-05-08, up about 8.4 percent from the prior visible close of 198.45, with volume described as normal.",
+            "MACD and RSI models are in constructive territory (price MACD positive with a small negative histogram, RSI around 61, and stochastic RSI in the upper band), aligning with an internal sentiment pattern where repair appears ahead of full price momentum confirmation.",
+            "The structural layer that combines multiple signal families classifies the regime as sideways or transitioning with no active combined event, the event context shows no recent confirmed events in this snapshot, and internal guidance flags early sentiment-repair patterns as less reliable until price confirmation strengthens.",
+            "Participation is described as normal and rising with broadly distributed sources and stable author coverage, while attention levels and conviction are normal and mixed or neutral rather than extreme."
           ],
           "role": "Receipts"
         },
         "participation_quality": {
-          "copy": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
+          "copy": "Participation is at a normal level and rising, while source coverage is broad and stable, which supports a measured read rather than an extreme or thinly supported one. Because engagement is distributed across sources and not spiking, participation context adds support without implying certainty.",
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Sentiment Repair Ahead of Price. Price is not currently outside the shared price/sentiment zone. Structure reads Flat / Transition, while timing context reads Positive Divergence / Sentiment Repair; RSI Constructive.",
+          "copy": "SETA sees an early constructive lean in NVDA: sentiment and momentum indicators are improving and the latest reviewed price has been rising with normal volume. The broader setup remains sideways or transitioning with low sentiment confidence and quiet price confirmation, so this pattern is framed as early and less reliable than a fully confirmed trend.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because SETA is separating structure, timing, and participation before assigning confidence. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed.",
+          "copy": "This combination of rising price, constructive indicators, and low disagreement across model families points to an early positive setup with a measured level of confidence. Transitional structure, low sentiment confidence, and quiet price confirmation limit conviction, so subsequent price and participation behavior will shape how durable this read appears.",
           "role": "Implication"
         }
       },
       "display_range": "1Y",
       "evidence": [
-        "Latest available close: 215 (2026-05-08).",
-        "Shared zone: Inactive.",
-        "Structure: Flat / Transition.",
-        "Timing: Positive Divergence / Sentiment Repair; RSI Constructive.",
-        "Participation: Normal; volume is normal volume."
+        "Across this weekly snapshot, NVDA shows a rising latest reviewed price with normal volume, constructive momentum and sentiment repair signals, a sideways to transition structural classification, and normal but increasing, broadly sourced participation.",
+        "The latest available close is 215.20 on 2026-05-08, up about 8.4 percent from the prior visible close of 198.45, with volume described as normal.",
+        "MACD and RSI models are in constructive territory (price MACD positive with a small negative histogram, RSI around 61, and stochastic RSI in the upper band), aligning with an internal sentiment pattern where repair appears ahead of full price momentum confirmation.",
+        "The structural layer that combines multiple signal families classifies the regime as sideways or transitioning with no active combined event, the event context shows no recent confirmed events in this snapshot, and internal guidance flags early sentiment-repair patterns as less reliable until price confirmation strengthens.",
+        "Participation is described as normal and rising with broadly distributed sources and stable author coverage, while attention levels and conviction are normal and mixed or neutral rather than extreme."
       ],
       "frequency": "W",
-      "headline": "NVDA SETA briefing: Sentiment Repair Ahead of Price",
-      "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
+      "headline": "NVDA: Early constructive repair with rising price, structure still in transition",
+      "limitations": "This briefing relies only on the provided SETA snapshot, which uses model-derived technical, sentiment, attention, and participation indicators without incorporating company fundamentals or news, and it is based on daily data where the latest price information is slightly lagged relative to the as-of date. Attention and participation measures describe context and are not, by themselves, validation of any directional view.",
       "mode": "public",
       "model_metadata": {
-        "model": "deterministic_template_v2",
+        "model": "gpt-5.1",
         "prompt_version": "seta_briefing_prompt_v2",
-        "provider": "local"
+        "provider": "openai"
       },
       "payload_key": "public::nvda::w::1y::2026_05_11",
-      "public_safe_disclaimer": "Educational market context only; not investment advice.",
-      "reference_guidance_used": true,
+      "public_safe_disclaimer": "This summary is for educational and informational purposes only, is not investment advice or a recommendation, and does not consider your individual objectives, financial situation, or needs.",
       "review_metadata": {
-        "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-05-11T09:13:44+00:00",
-        "reviewer": "local-deterministic-card-jobs-v2",
-        "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
-        "source_input_schema_version": "ai_briefing_input_v1",
-        "source_payload_key": "public::nvda::w::1y::2026_05_11"
+        "review_note": "Promoted from AI candidate pack after stricter narrative QA gates and local comparison review.",
+        "reviewed_at_utc": "2026-05-11T09:19:30+00:00",
+        "reviewer": "human-review-ai-candidate-pack",
+        "source_candidate_pack": "briefing_outputs/ai_candidate_pack_20260511_081127",
+        "source_draft_path": "briefing_outputs/ai_candidate_pack_20260511_081127/candidate_outputs/public_nvda_w_1y_candidate.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "NVDA shows the sentiment repair ahead of price setup with flat / transition sentiment, normal attention, and broad source breadth.",
-      "trust_check": "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. Participation quality supports a measured read because available activity appears broadly distributed. Participation quality is a trust layer, not a standalone demand signal.",
-      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
-      "what_seta_sees": "Primary read: Sentiment Repair Ahead of Price. Price is not currently outside the shared price/sentiment zone. Structure reads Flat / Transition, while timing context reads Positive Divergence / Sentiment Repair; RSI Constructive.",
-      "why_it_matters": "This matters because SETA is separating structure, timing, and participation before assigning confidence. Timing context shows whether indicators align or conflict with the setup. Participation quality supports a measured read because available activity appears broadly distributed."
+      "summary": "Sentiment and momentum tools lean positive and price has been rising, but the model still treats NVDA as a sideways or transitioning setup with early, lower-confidence repair signals.",
+      "trust_check": "Participation is at a normal level and rising, while source coverage is broad and stable, which supports a measured read rather than an extreme or thinly supported one. Because engagement is distributed across sources and not spiking, participation context adds support without implying certainty.",
+      "watch_item": "Model confidence in this early constructive repair setup would be reinforced by stronger price confirmation signals alongside continued rising, broadly distributed participation, and would be reduced if price momentum fades, indicators roll over, or participation falls back toward lower and more concentrated levels.",
+      "what_seta_sees": "SETA sees an early constructive lean in NVDA: sentiment and momentum indicators are improving and the latest reviewed price has been rising with normal volume. The broader setup remains sideways or transitioning with low sentiment confidence and quiet price confirmation, so this pattern is framed as early and less reliable than a fully confirmed trend.",
+      "why_it_matters": "This combination of rising price, constructive indicators, and low disagreement across model families points to an early positive setup with a measured level of confidence. Transitional structure, low sentiment confidence, and quiet price confirmation limit conviction, so subsequent price and participation behavior will shape how durable this read appears."
     },
     "public::sol::d::3m::2026_05_11": {
       "as_of": "2026-05-11",
@@ -4359,63 +4350,62 @@
       "briefing_cards": {
         "evidence": {
           "items": [
-            "Latest close: 95.3 (2026-05-11).",
-            "Shared zone: Bullish Pressure Active. Latest event: Rejection on 2026-05-11.",
-            "Structure: Flat / Transition.",
-            "Timing: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
-            "Participation: Quiet; volume is normal volume."
+            "Stack summary: Over the last three months, SOL shows a modest price pullback within a low-volatility sideways transition, with a recent bullish reversal setup, mixed timing signals, normal but rising, broadly distributed participation, and attention at a normal level with neutral conviction.",
+            "Screener context highlights a fresh confirmed bullish overlap-style event on 2026-05-05, clustered recent overlap and watch-type activity, and relatively low disagreement across signal families at that time.",
+            "Since that event, the structure has shifted from expansion toward a more sideways phase while the latest unconfirmed state still flags bullish pressure, yet the most recent event on 2026-05-11 is bearish with rejection characteristics and a relatively low quality reading.",
+            "Price context shows the latest available close near 94.93 on 2026-05-11, slightly below the prior visible close and about 1.5 percent lower over the visible period, with falling recent direction and normal volume.",
+            "Timing and narrative indicators are conflicted: Bollinger context remains supportive, RSI is labeled mixed or neutral, stochastic RSI readings are in the 90s, MACD remains positive but carries a negative divergence and weakening narrative label, and sentiment shows a score in the low 60s with relatively low confidence."
           ],
           "role": "Receipts"
         },
         "participation_quality": {
-          "copy": "Measured / distributed. Participation is quiet and increasing. Authorship breadth is broad and broadly stable. No participation surge is visible, but available activity is not narrowly isolated. Participation quality is a trust layer, not a standalone demand signal.",
+          "copy": "Participation is at a normal but rising level, with activity spread across a broad and stable set of sources; this distributed pattern supports a measured, moderately reliable view of the current mixed signals but does not, by itself, create strong conviction.",
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Bullish Pressure, Bearish Watch. Price is outside the shared price/sentiment zone. Structure reads Flat / Transition, while timing context reads Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
+          "copy": "SETA currently sees SOL in a low-volatility, sideways transition after a fresh confirmed bullish event, with ongoing but unconfirmed bullish pressure now constrained by a recent bearish rejection and negative divergence in MACD-style indicators.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because price is outside the shared zone, so SETA treats the move as a potential price/sentiment dislocation. Timing context shows whether indicators align or conflict with the setup. No participation surge is visible, but available activity is not narrowly isolated.",
+          "copy": "This mix of a recent bullish reversal setup and a newer bearish rejection, alongside mixed timing and sentiment signals, points to a tentative and still-unresolved inflection rather than a high-conviction trend, so subsequent price action will be important for assessing the setup.",
           "role": "Implication"
         }
       },
       "display_range": "3M",
       "evidence": [
-        "Latest close: 95.3 (2026-05-11).",
-        "Shared zone: Bullish Pressure Active. Latest event: Rejection on 2026-05-11.",
-        "Structure: Flat / Transition.",
-        "Timing: Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
-        "Participation: Quiet; volume is normal volume."
+        "Stack summary: Over the last three months, SOL shows a modest price pullback within a low-volatility sideways transition, with a recent bullish reversal setup, mixed timing signals, normal but rising, broadly distributed participation, and attention at a normal level with neutral conviction.",
+        "Screener context highlights a fresh confirmed bullish overlap-style event on 2026-05-05, clustered recent overlap and watch-type activity, and relatively low disagreement across signal families at that time.",
+        "Since that event, the structure has shifted from expansion toward a more sideways phase while the latest unconfirmed state still flags bullish pressure, yet the most recent event on 2026-05-11 is bearish with rejection characteristics and a relatively low quality reading.",
+        "Price context shows the latest available close near 94.93 on 2026-05-11, slightly below the prior visible close and about 1.5 percent lower over the visible period, with falling recent direction and normal volume.",
+        "Timing and narrative indicators are conflicted: Bollinger context remains supportive, RSI is labeled mixed or neutral, stochastic RSI readings are in the 90s, MACD remains positive but carries a negative divergence and weakening narrative label, and sentiment shows a score in the low 60s with relatively low confidence."
       ],
       "frequency": "D",
-      "headline": "SOL SETA briefing: Bullish Pressure, Bearish Watch",
-      "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
+      "headline": "SOL: Fresh bullish reversal meets bearish rejection",
+      "limitations": "This briefing is based solely on the structured SETA inputs provided for SOL as of 2026-05-11 and does not incorporate separate news flow, fundamental analysis, or intraday data beyond that feed.",
       "mode": "public",
       "model_metadata": {
-        "model": "deterministic_template_v2",
+        "model": "gpt-5.1",
         "prompt_version": "seta_briefing_prompt_v2",
-        "provider": "local"
+        "provider": "openai"
       },
       "payload_key": "public::sol::d::3m::2026_05_11",
-      "public_safe_disclaimer": "Educational market context only; not investment advice.",
-      "reference_guidance_used": true,
+      "public_safe_disclaimer": "For educational purposes only. This summary is not investment advice, recommendation, or a forecast, and it does not account for your objectives, financial situation, or risk tolerance.",
       "review_metadata": {
-        "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-05-11T09:13:44+00:00",
-        "reviewer": "local-deterministic-card-jobs-v2",
-        "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
-        "source_input_schema_version": "ai_briefing_input_v1",
-        "source_payload_key": "public::sol::d::3m::2026_05_11"
+        "review_note": "Promoted from AI candidate pack after stricter narrative QA gates and local comparison review.",
+        "reviewed_at_utc": "2026-05-11T09:19:30+00:00",
+        "reviewer": "human-review-ai-candidate-pack",
+        "source_candidate_pack": "briefing_outputs/ai_candidate_pack_20260511_081127",
+        "source_draft_path": "briefing_outputs/ai_candidate_pack_20260511_081127/candidate_outputs/public_sol_d_3m_candidate.json",
+        "source_input_schema_version": "ai_briefing_input_v1"
       },
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "SOL shows the bullish pressure, bearish watch setup with flat / transition sentiment, quiet attention, and broad source breadth.",
-      "trust_check": "Measured / distributed. Participation is quiet and increasing. Authorship breadth is broad and broadly stable. No participation surge is visible, but available activity is not narrowly isolated. Participation quality is a trust layer, not a standalone demand signal.",
-      "watch_item": "Mean-reversion/reversal setups still need price follow-through after the confirmed event.",
-      "what_seta_sees": "Primary read: Bullish Pressure, Bearish Watch. Price is outside the shared price/sentiment zone. Structure reads Flat / Transition, while timing context reads Negative Divergence / Narrative Weakening; RSI Mixed / Neutral.",
-      "why_it_matters": "This matters because price is outside the shared zone, so SETA treats the move as a potential price/sentiment dislocation. Timing context shows whether indicators align or conflict with the setup. No participation surge is visible, but available activity is not narrowly isolated."
+      "summary": "SOL shows a fresh but unconfirmed bullish reversal within a low-volatility sideways phase, now meeting a recent bearish rejection and weakening MACD context, while attention is normal and participation is normal but rising and broadly distributed across sources.",
+      "trust_check": "Participation is at a normal but rising level, with activity spread across a broad and stable set of sources; this distributed pattern supports a measured, moderately reliable view of the current mixed signals but does not, by itself, create strong conviction.",
+      "watch_item": "Confidence in this read would improve if price and volume begin to move in the same direction as the earlier confirmed bullish event while participation stays broad, and would weaken if bearish rejection events continue while MACD divergence and neutral RSI conditions persist or intensify.",
+      "what_seta_sees": "SETA currently sees SOL in a low-volatility, sideways transition after a fresh confirmed bullish event, with ongoing but unconfirmed bullish pressure now constrained by a recent bearish rejection and negative divergence in MACD-style indicators.",
+      "why_it_matters": "This mix of a recent bullish reversal setup and a newer bearish rejection, alongside mixed timing and sentiment signals, points to a tentative and still-unresolved inflection rather than a high-conviction trend, so subsequent price action will be important for assessing the setup."
     },
     "public::sol::w::1y::2026_05_11": {
       "as_of": "2026-05-11",
@@ -4485,7 +4475,7 @@
   "generated_at_utc": "2026-05-09T09:37:33+00:00",
   "payload_note": "Expanded reviewed SETA briefing payload for public dashboard coverage. Dashboard falls back to deterministic Briefing Mode when no matching reviewed item is available.",
   "reviewed_payload_contract": "briefing_card_jobs_v2",
-  "reviewed_payload_generated_at_utc": "2026-05-11T09:13:44+00:00",
-  "reviewed_payload_generator": "scripts/regenerate_reviewed_briefings_v2.py",
+  "reviewed_payload_generated_at_utc": "2026-05-11T09:19:30+00:00",
+  "reviewed_payload_generator": "ai_candidate_pack_20260511_081127 merge promotion",
   "schema_version": "generated_briefings_reviewed_v1"
 }

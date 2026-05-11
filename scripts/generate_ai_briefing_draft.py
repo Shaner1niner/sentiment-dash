@@ -98,13 +98,43 @@ def timing_definition_sentence() -> str:
     return "Timing context means whether indicators confirm, weaken, or conflict with the setup."
 
 
+LABEL_TRANSLATIONS = [
+    (re.compile(r"\bNone\s+Inside\b", re.I), "no active inside-zone confirmation"),
+    (re.compile(r"\bQuiet\s*/\s*Ignore\b", re.I), "low-intensity movement that does not raise confidence by itself"),
+    (re.compile(r"\bCompression\s+Coil\b", re.I), "sentiment momentum is compressing rather than expanding"),
+    (re.compile(r"\bCrowded\s+Bearish\s*/\s*Broad\b", re.I), "bearish participation appears broad across available sources"),
+    (re.compile(r"\bFlat\s*/\s*Transition\b", re.I), "transitional rather than clearly directional"),
+    (re.compile(r"\bNegative\s+Divergence\s*/\s*Narrative\s+Weakening\b", re.I), "negative divergence or narrative weakening flagged by the timing model"),
+    (re.compile(r"\bPositive\s+Divergence\s*/\s*Sentiment\s+Repair\b", re.I), "positive divergence or sentiment repair flagged by the timing model"),
+    (re.compile(r"\bRSI\s+Mixed\s*/\s*Neutral\b", re.I), "RSI is mixed/neutral"),
+    (re.compile(r"\bRibbon\s+Neutral\s*/\s+Coiling\b", re.I), "sentiment ribbon is neutral and coiling"),
+    (re.compile(r"\bquality\s+score\b", re.I), "event quality read"),
+]
+
+
+def translate_label(value: Any, fallback: str = "unavailable") -> str:
+    text = clean_text(value, fallback)
+    for pattern, replacement in LABEL_TRANSLATIONS:
+        text = pattern.sub(replacement, text)
+    return text
+
+
+def volume_phrase(value: Any) -> str:
+    text = clean_text(value, "unavailable").lower()
+    if text == "normal volume":
+        return "normal"
+    if text == "high volume":
+        return "high"
+    return text
+
+
 def structure_label(overlap: dict[str, Any]) -> str:
-    return clean_text(overlap.get("structure_label"), "structure unavailable")
+    return translate_label(overlap.get("structure_label"), "structure unavailable")
 
 
 def timing_context_label(indicators: dict[str, Any]) -> str:
-    macd = clean_text(indicators.get("macd_label"), "")
-    rsi = clean_text(indicators.get("rsi_label"), "")
+    macd = translate_label(indicators.get("macd_label"), "")
+    rsi = translate_label(indicators.get("rsi_label"), "")
     parts = [part for part in [macd, rsi] if part and part != "unavailable"]
     if not parts:
         return "timing unavailable"
@@ -119,8 +149,8 @@ def build_summary(briefing_input: dict[str, Any]) -> str:
     breadth = briefing_input.get("breadth_trust") or {}
 
     return (
-        f"{asset} shows the {overlap_read_label(overlap).lower()} setup with "
-        f"{clean_text(sentiment.get('sentiment_state')).lower()} sentiment, "
+        f"{asset} shows the {translate_label(overlap_read_label(overlap)).lower()} setup with "
+        f"{translate_label(sentiment.get('sentiment_state')).lower()} sentiment, "
         f"{clean_text(attention.get('attention_label')).lower()} attention, and "
         f"{clean_text(breadth.get('source_breadth_label')).lower()} source breadth."
     )
@@ -129,7 +159,7 @@ def build_summary(briefing_input: dict[str, Any]) -> str:
 def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
     overlap = briefing_input.get("overlap_context") or {}
     indicators = briefing_input.get("indicator_context") or {}
-    primary = overlap_read_label(overlap)
+    primary = translate_label(overlap_read_label(overlap))
     structure = structure_label(overlap)
     timing = timing_context_label(indicators)
 
@@ -145,7 +175,7 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     indicators = briefing_input.get("indicator_context") or {}
     quality = briefing_input.get("participation_quality") or {}
 
-    primary = overlap_read_label(overlap)
+    primary = translate_label(overlap_read_label(overlap))
     zone = overlap_zone_sentence(overlap)
     structure = structure_label(overlap)
     timing = timing_context_label(indicators)
@@ -190,20 +220,24 @@ def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
     indicators = briefing_input.get("indicator_context") or {}
     event = briefing_input.get("event_context") or {}
 
-    close_label = "Latest available close" if price.get("price_data_lagged") else "Latest close"
+    zone = overlap_zone_sentence(overlap)
+    structure = structure_label(overlap)
+    timing = timing_context_label(indicators)
+    participation = clean_text(attention.get("attention_label"))
+    close_label = "Latest available close"
     close_date = clean_text(price.get("latest_close_date"), "")
     close_date_text = f" ({close_date})" if close_date else ""
 
     receipts = [
+        f"Stack summary: {zone} Structure is {structure}; timing is {timing}; participation is {participation.lower()}.",
         f"{close_label}: {compact_number(price.get('latest_close'))}{close_date_text}.",
-        f"Shared zone: {clean_text(overlap.get('overlap_state'))}.",
-        f"Structure: {clean_text(overlap.get('structure_label'))}.",
-        f"Timing: {clean_text(indicators.get('macd_label'))}; {clean_text(indicators.get('rsi_label'))}.",
-        f"Participation: {clean_text(attention.get('attention_label'))}; volume is {clean_text(price.get('volume_confirmation')).lower()}.",
+        f"Shared-zone receipt: {translate_label(overlap.get('overlap_state'))}.",
+        f"Timing receipt: {timing}.",
+        f"Participation receipt: {participation}; volume context is {volume_phrase(price.get('volume_confirmation'))}.",
     ]
 
     if event.get("latest_event_tier") or event.get("latest_confirmed_event_date"):
-        receipts[1] += f" Latest event: {clean_text(event.get('latest_event_tier'))} on {clean_text(event.get('latest_event_date'))}."
+        receipts[2] += f" Latest event: {translate_label(event.get('latest_event_tier'))} on {clean_text(event.get('latest_event_date'))}."
 
     return receipts[:5]
 
@@ -303,7 +337,7 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
         "asset": asset,
         "frequency": frequency,
         "as_of": as_of,
-        "headline": f"{asset} SETA briefing: {overlap_read_label(overlap)}"[:90],
+        "headline": f"{asset} SETA briefing: {translate_label(overlap_read_label(overlap))}"[:90],
         "summary": summary,
         "what_seta_sees": briefing_cards["what_seta_sees"]["copy"],
         "why_it_matters": briefing_cards["why_it_matters"]["copy"],

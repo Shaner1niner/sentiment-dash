@@ -45,7 +45,8 @@ EVIDENCE_INTERPRETATION_PATTERNS = [
     r"\bseta treats\b",
     r"\bwatch whether\b",
     r"\bshould\b",
-    r"\bconfidence\b",
+    r"\b(?:overall|directional)\s+confidence\b",
+    r"\bconfidence\s+(?:improves|weakens|rises|falls|is|should)\b",
 ]
 
 def load_json(path: Path) -> Any:
