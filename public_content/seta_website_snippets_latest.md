@@ -1,20 +1,8 @@
-# SETA Website Snippets — 2026-05-10
+# SETA Website Snippets — 2026-05-11
 
 Public-safe explanation copy for website/dashboard display.
 
 > SETA explains behavior beneath price. Interpretation context only; not predictions or trade signals.
-
-## GOOGL: decision-pressure watch
-
-GOOGL is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
-
-**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
-
-**SETA read:** decision pressure | rank 1 | negative skew | Permission without belief
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
 
 ## BNB: contested structure
 
@@ -28,33 +16,45 @@ BNB is active, and SETA reads the structure as contested rather than cleanly con
 
 ---
 
-## CVX: participation is broadening
+## TSLA: participation is broadening
 
-CVX is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+TSLA is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
 
 **Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
-**SETA read:** participation diffusion | rank 2 | positive skew | Permission without belief
+**SETA read:** participation diffusion | rank 1 | positive skew | Permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## ADA: repair watch
+## ETH: contested structure
 
-ADA looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+ETH is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Belief exceeds permission is the key tension.
 
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** repair watch | rank 2 | mixed skew | Belief exceeds permission
+**SETA read:** contested structure | rank 2 | mixed skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## NVDA: participation is broadening
+## MSFT: participation is broadening
 
-NVDA is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+MSFT is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
+
+**SETA read:** participation diffusion | rank 2 | positive skew | Belief exceeds permission
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## GME: participation is broadening
+
+GME is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
 
 **Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
@@ -64,13 +64,13 @@ NVDA is showing broader participation. That is constructive for the equity tape,
 
 ---
 
-## SOL: contested structure
+## XRP: participation is broadening
 
-SOL is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Belief exceeds permission is the key tension.
+XRP is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** contested structure | rank 3 | negative skew | Belief exceeds permission
+**SETA read:** participation diffusion | rank 3 | positive skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -88,25 +88,49 @@ AMZN looks more like repair than confirmation. The useful read is whether sponso
 
 ---
 
-## XRP: participation is broadening
+## SUI: contested structure
 
-XRP is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+SUI is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Rejection / decay is the key tension.
 
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** participation diffusion | rank 4 | positive skew | Rejection / decay
+**SETA read:** contested structure | rank 4 | negative skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## AAPL: participation is broadening
+## GOOGL: SETA context
 
-AAPL is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+GOOGL sits in a elevated decision-pressure zone in the equity tape.
 
-**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
+**Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** participation diffusion | rank 5 | positive skew | Permission without belief
+**SETA read:** seta context | rank 5 | negative skew | Confirmed / accepted
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## SOL: contested structure
+
+SOL is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Rejection / decay is the key tension.
+
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+
+**SETA read:** contested structure | rank 5 | negative skew | Rejection / decay
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## DIS: repair watch
+
+DIS looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+
+**SETA read:** repair watch | rank 6 | mixed skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -115,30 +139,6 @@ AAPL is showing broader participation. That is constructive for the equity tape,
 ## BTC: participation is broadening
 
 BTC is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
-
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
-
-**SETA read:** participation diffusion | rank 5 | positive skew | Belief exceeds permission
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## GME: participation is broadening
-
-GME is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
-
-**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
-
-**SETA read:** participation diffusion | rank 6 | positive skew | permission without belief
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## DOGE: participation is broadening
-
-DOGE is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
