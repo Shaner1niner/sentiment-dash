@@ -196,7 +196,86 @@ Production rule: Participation Quality should be allowed to become a first-class
 
 ## Card-specific narrative rules
 
-TODO.
+Each card has a different job. The semantic tree should prevent the cards from repeating the same generic summary.
+
+### What SETA Sees
+
+Purpose: expert interpretation.
+
+This card should include:
+
+- primary state
+- shared-zone / pressure state
+- latest event or counter-signal
+- timing stack
+- sentiment ribbon
+- participation context
+
+Target style:
+
+```text
+Primary read: Unconfirmed bullish pressure with bearish rejection risk. Price is outside the shared price/sentiment zone with unconfirmed bullish pressure, while bearish rejection remains a counter-signal. The timing stack shows negative divergence with constructive RSI and stretched Stoch RSI, while participation is quiet but rising.
+```
+
+### Why It Matters
+
+Purpose: implication and confidence.
+
+This card should answer:
+
+- Why does this setup deserve attention?
+- What confirms it?
+- What limits it?
+- What remains unresolved?
+
+Target style:
+
+```text
+This matters because price and sentiment are no longer moving inside the same shared zone, but the latest rejection and quiet participation keep confirmation qualified rather than decisive.
+```
+
+### Evidence
+
+Purpose: receipts.
+
+Evidence should be factual and terse. It should not carry the full interpretation.
+
+Good evidence atoms:
+
+- Latest available close: 10.6.
+- Shared-zone receipt: Bullish Pressure Active.
+- Latest event: Bearish Rejection on 2026-05-11.
+- Timing receipt: negative divergence; RSI constructive; Stoch RSI stretched high.
+- Participation receipt: quiet and increasing; volume context high.
+
+Avoid in Evidence unless a validator explicitly permits it:
+
+- this matters
+- SETA treats
+- should
+- proves
+- confidence improves
+- prediction or advice language
+
+### Participation Quality
+
+Purpose: trust and participation interpretation.
+
+Default target structure:
+
+```text
+Participation is quiet but increasing. Authorship breadth is broad and stable. This keeps confidence calibrated to participation breadth and source coverage.
+```
+
+Attention-spike target structure:
+
+```text
+Bearish attention is elevated while price is extended. That makes participation a warning context rather than a validation signal; breadth determines whether the warning is broadly sourced or narrowly concentrated.
+```
+
+### Limitations and disclaimers
+
+Implementation caveats and educational disclaimers should stay in dedicated limitation/disclaimer fields where possible. They should not make the premium card copy sound defensive unless the data itself is stale, sparse, or incomplete.
 
 ## Verification strategy
 
