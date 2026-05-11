@@ -362,11 +362,113 @@ The V1 verification layer is ready when the repo can run a semantic smoke test t
 
 ## Initial implementation plan
 
-TODO.
+### PR 1 - Semantic tree spec
+
+Files:
+
+- `docs/SETA_SEMANTIC_BRIEFING_TREE_V1.md`
+
+Scope:
+
+- taxonomy
+- precedence
+- conflict rules
+- participation role matrix
+- verification strategy
+- Pro-mode review prompt
+
+No runtime code.
+
+### PR 2 - Local semantic-state helper
+
+Files:
+
+- `scripts/build_ai_briefing_semantic_state.py`
+
+Scope:
+
+- read one `ai_briefing_input_v1`
+- output `seta_semantic_briefing_state_v1`
+- no dashboard changes
+- no reviewed payload changes
+- include semantic trace fields for QA
+
+### PR 3 - Golden-case semantic tests
+
+Files:
+
+- `scripts/smoke_ai_briefing_semantic_state.py`
+
+Scope:
+
+- assert state precedence
+- assert participation role
+- assert confidence modifiers
+- include BTC, NVDA, LINK, MSFT and synthetic conflict cases
+
+### PR 4 - Generator consumes semantic state
+
+Files:
+
+- `scripts/generate_ai_briefing_draft.py`
+- optional prompt-pack guidance updates
+
+Scope:
+
+- replace ad hoc primary-read logic with semantic-state object
+- keep output schema stable
+- regenerate four sample drafts only
+
+### PR 5 - Reviewed sample promotion
+
+Scope:
+
+- promote only BTC, NVDA, LINK, MSFT after human review
+- no full 70-case rollout yet
+
+### PR 6 - Broader dashboard-scheduled rollout
+
+Scope:
+
+- regenerate only dashboard-scheduled assets and timeframes
+- avoid upstream-tracked-but-not-displayed assets unless they are added to the dashboard schedule
+- require semantic-state smoke gates before reviewed payload promotion
 
 ## Pro-mode review prompt
 
-TODO.
+Use this after the V1 design spec exists and before implementation:
+
+```text
+Given this SETA semantic framework, identify missing states, precedence conflicts, and better narrative atoms.
+
+Context:
+SETA converts structured market, sentiment, attention, source breadth, and technical-indicator data into educational market briefings. It must not provide financial advice, price targets, guarantees, or buy/sell instructions.
+
+Goal:
+Improve the semantic state tree before implementation.
+
+Please review:
+1. Input dimensions
+2. Primary-state precedence
+3. Conflict rules
+4. Participation Quality role matrix
+5. Card-specific narrative rules
+6. Verification strategy
+7. Implementation plan
+
+Please return:
+- missing states
+- precedence conflicts
+- cases likely to produce contradictory prose
+- better primary-state labels
+- better counter-signal labels
+- better participation/attention spike atoms
+- suggested golden fixtures
+- suggested adversarial fixtures
+- any safety or product risks
+```
+
+The desired output is a design critique, not final code. The semantic tree should make the judgment; an AI layer can later polish wording within strict factual and safety constraints.
 
 ## Open questions
 
