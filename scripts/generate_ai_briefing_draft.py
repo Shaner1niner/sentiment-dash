@@ -242,8 +242,6 @@ def primary_read_label(briefing_input: dict[str, Any]) -> str:
 
     asset = clean_text(briefing_input.get("asset"), "")
     context = combined_context_text(briefing_input)
-    if "weakening sentiment momentum" in context and "price momentum is not yet fully broken" in context:
-        return "Weakening sentiment momentum with price resilience"
 
     def polish(value: Any) -> str:
         text = translate_label(value, "")
@@ -277,6 +275,8 @@ def primary_read_label(briefing_input: dict[str, Any]) -> str:
         return "Bearish pressure"
     if "bullish pressure" in context:
         return "Bullish pressure"
+    if "weakening sentiment momentum" in context and "price momentum is not yet fully broken" in context:
+        return "Weakening sentiment momentum with price resilience"
 
     macd = clean_text(indicators.get("macd_label"), "").lower()
     if "bearish" in macd or "bearish" in context:
