@@ -279,7 +279,86 @@ Implementation caveats and educational disclaimers should stay in dedicated limi
 
 ## Verification strategy
 
-TODO.
+Expert-level analysis cannot be verified only by passing safety checks. Safety gates catch forbidden language; they do not prove analytical quality.
+
+A production-grade system needs layered verification.
+
+### Golden-case fixtures
+
+Create a small set of hand-reviewed canonical examples:
+
+| Fixture | Expected state |
+| --- | --- |
+| BTC public D 3M | Weakening sentiment momentum with price resilience OR bearish timing pressure with constructive RSI |
+| NVDA public D 3M | Weakening sentiment momentum with price resilience |
+| LINK member D 6M | Unconfirmed bullish pressure with bearish rejection risk |
+| MSFT member D 6M | Bearish timing pressure with mixed RSI |
+| Bearish attention spike + price extended | Exhaustion warning / bearish attention spike warning |
+| Bullish attention spike + washed-out structure | Repair attempt with incomplete confirmation |
+| Strong Bearish score + inactive overlap | Bearish regime with inactive overlap confirmation |
+| Strong Bullish score + quiet participation | Bullish regime with participation not yet confirming |
+
+### Adversarial conflict cases
+
+Construct synthetic or captured cases where signals intentionally disagree:
+
+- bullish pressure plus bearish rejection
+- bearish pressure plus bullish repair
+- positive histogram plus negative divergence
+- constructive RSI plus bearish MACD
+- strong SETA score plus inactive overlap
+- elevated attention plus narrow authorship
+- quiet attention plus broad authorship
+- high volume plus rejection event
+- bearish attention spike plus strong/extended price
+- bullish attention spike plus washed-out timing
+
+### Precedence assertions
+
+Tests should assert semantic outcomes directly:
+
+```text
+if pressure_state is active, generic archetype must not become primary_state
+if latest rejection conflicts with pressure, counter_signal must be present
+if participation is elevated and bearish while price is extended, participation_role should be warning_context
+if participation is elevated but authorship is narrow, confidence_state should be qualified
+if evidence includes interpretive language, evidence validation should warn or fail
+```
+
+### Narrative acceptance checks
+
+Generated copy should be checked for:
+
+- no contradiction between primary read and shared-zone language
+- no generic label outranking active pressure
+- no attention/breadth/proof misuse
+- confidence qualifier present when confirmation is incomplete
+- evidence remains factual
+- participation role is context-specific
+- card copy does not repeat the same sentence across all cards
+- no buy/sell/hold language, price targets, guarantees, or personalized financial advice
+
+### Human review panel
+
+Before scaling any semantic-tree change, review:
+
+```text
+BTC, NVDA, LINK, MSFT + 4 synthetic/adversarial conflict cases
+```
+
+A narrative change should not be scaled to all reviewed payloads until the panel passes.
+
+### Done signal for verification V1
+
+The V1 verification layer is ready when the repo can run a semantic smoke test that asserts:
+
+- expected primary_state
+- expected primary_label
+- expected counter_signal where applicable
+- expected participation_role
+- expected confidence_state
+- factual evidence atoms only
+
 
 ## Initial implementation plan
 
