@@ -109,7 +109,42 @@ The important production rule is that every narrative claim should trace back to
 
 ## Primary-state precedence
 
-TODO.
+Initial precedence order:
+
+1. Strong SETA score / dashboard regime when extreme or decisive.
+2. Confirmed pressure state.
+3. Unconfirmed pressure state with direction.
+4. Latest rejection / repair / confirmation event.
+5. MACD direction plus histogram behavior.
+6. RSI and Stoch RSI posture.
+7. Sentiment ribbon structure.
+8. Attention / engagement level, direction, and polarity.
+9. Volume confirmation.
+10. Source breadth / authorship quality.
+11. Generic archetype summary.
+
+Key rule:
+
+```text
+Specific active states outrank generic narrative labels.
+```
+
+The primary read should not flatten a specific pressure/rejection setup into a broad archetype label. Generic labels are useful only after the tree confirms that no stronger pressure, regime, event, or timing state should dominate.
+
+Examples:
+
+| Situation | Preferred primary read |
+| --- | --- |
+| Bullish pressure + bearish rejection | Unconfirmed bullish pressure with bearish rejection risk |
+| Bearish pressure + bullish repair | Unconfirmed bearish pressure with bullish counter-pressure risk |
+| Inactive overlap + bearish MACD + mixed RSI | Bearish timing pressure with mixed RSI |
+| Inactive overlap + weakening sentiment + resilient price | Weakening sentiment momentum with price resilience |
+| Strong Bearish score + inactive overlap | Strong Bearish SETA risk state; overlap confirmation inactive |
+| Strong Bullish score + quiet participation | Strong Bullish SETA opportunity state; participation not yet confirming |
+| Bearish attention spike + price extension | Bearish attention spike / possible exhaustion warning |
+| Bullish attention spike + washed-out timing | Bullish repair attempt with incomplete confirmation |
+
+Open design question: confirmed pressure and extreme SETA score may both be high-precedence states. V1 should explicitly test which one becomes primary and which one becomes a modifier so that strong score and overlap confirmation do not fight each other in prose.
 
 ## Conflict rules
 
