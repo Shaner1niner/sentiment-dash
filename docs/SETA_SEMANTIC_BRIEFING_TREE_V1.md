@@ -28,7 +28,42 @@ More available data is useful only when it improves interpretation or confidence
 
 ## Input dimensions
 
-TODO.
+The initial production candidate dimensions are:
+
+| Family | Narrative purpose |
+| --- | --- |
+| SETA score / score band | Establish broad regime before fine-grained timing. |
+| Market tape family / archetype | Explain whether the asset is in pressure, repair, deterioration, compression, or validation mode. |
+| Asset family | Adjust tone and thresholds for crypto, equities, ETFs, high-beta tech, or macro proxies. |
+| Mode and timeframe | Avoid speaking about short-term and structural reads the same way. |
+| Shared zone / overlap | Explain price/sentiment agreement, dislocation, or inactive confirmation. |
+| Pressure direction | Identify bullish pressure, bearish pressure, reversion context, or exhaustion context. |
+| Confirmation status | Separate confirmed, unconfirmed, watch, and inactive states. |
+| Latest event | Add recency through rejection, repair, confirmation, watch, or no visible event. |
+| MACD label | Establish directional timing. |
+| MACD histogram | Capture acceleration, deceleration, or loss of momentum. |
+| RSI | Identify momentum health, weakness, constructive posture, or exhaustion. |
+| Stoch RSI | Add short-cycle stretched/washout context. |
+| Sentiment MA ribbon | Explain sentiment structure, compression, expansion, or deterioration. |
+| Attention / engagement level | Explain whether participation is quiet, normal, elevated, crowded, or extreme. |
+| Attention direction | Explain whether attention is rising, falling, or stable. |
+| Attention polarity | Identify bullish attention spikes, bearish attention spikes, or mixed attention. |
+| Volume confirmation | Separate moves supported by volume from moves lacking volume confirmation. |
+| Source breadth / authorship | Calibrate whether the read is broad, narrow, stable, broadening, or concentrated. |
+| Participation quality | Explain whether participation confirms, warns, broadens, concentrates, or limits confidence. |
+| Data quality / freshness | Prevent overconfident copy when context is stale, sparse, or missing. |
+
+Inputs should answer at least one of these questions:
+
+- What is the broad regime?
+- Is price/sentiment alignment or dislocation active?
+- Is the pressure confirmed, unconfirmed, or only a watch condition?
+- Does timing support or conflict with the pressure?
+- Does participation confirm, warn, broaden, concentrate, or weaken confidence?
+- Is the read supported by broad sources or narrowly concentrated activity?
+- Is this a short-cycle move, structural move, or mixed-timeframe conflict?
+
+Production note: more available data is useful only when it maps to a semantic role. Fields that do not change state, confidence, participation role, or evidence quality should stay out of the V1 tree until their role is clear.
 
 ## Semantic output object
 
