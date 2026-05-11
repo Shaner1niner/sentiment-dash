@@ -67,7 +67,45 @@ Production note: more available data is useful only when it maps to a semantic r
 
 ## Semantic output object
 
-TODO.
+The tree should produce a structured semantic object before any prose is written. This object is the bridge between raw dashboard payloads and user-facing narrative cards.
+
+Example:
+
+```json
+{
+  "schema_version": "seta_semantic_briefing_state_v1",
+  "asset": "LINK",
+  "mode": "member",
+  "frequency": "D",
+  "display_range": "6M",
+  "primary_state": "unconfirmed_bullish_pressure",
+  "primary_label": "Unconfirmed bullish pressure with bearish rejection risk",
+  "secondary_state": "bearish_rejection_counter_signal",
+  "timing_state": "negative_divergence_with_constructive_rsi",
+  "ribbon_state": "bearish_expansion",
+  "participation_state": "quiet_increasing",
+  "breadth_state": "broad_stable",
+  "confidence_state": "qualified_confirmation",
+  "participation_role": "confidence_limiter",
+  "evidence_atoms": [
+    "outside_shared_zone",
+    "bullish_pressure_unconfirmed",
+    "bearish_rejection_present",
+    "quiet_participation",
+    "broad_source_breadth"
+  ],
+  "semantic_trace": {
+    "precedence_rule": "pressure_state_over_generic_archetype",
+    "primary_state_source": ["overlap_context", "event_context"],
+    "counter_signal_source": ["latest_event"],
+    "confidence_limiter": "quiet_participation"
+  }
+}
+```
+
+The dashboard does not need to expose this object initially. It should be used for local draft generation, QA, prompt packs, and reviewed-payload promotion.
+
+The important production rule is that every narrative claim should trace back to one or more semantic fields. If the prose says confirmation is limited, the semantic object should contain a confidence limiter. If the prose says participation is a warning context, the semantic object should contain a participation role that supports that wording.
 
 ## Primary-state precedence
 
