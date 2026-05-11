@@ -172,6 +172,7 @@ Start here:
 - `docs/UX_BRIEFING_MODE_V1.md`
 - `docs/AI_BRIEFING_SCHEMA_V1.md`
 - `docs/AI_BRIEFING_IMPLEMENTATION_PLAN_V1.md`
+- `docs/AI_BRIEFING_SCALE_ROLLOUT_V1.md`
 - `docs/SAAS_ARCHITECTURE_V1.md`
 - `docs/DEMO_SCRIPT_V1.md`
 - `docs/MONETIZATION_STRUCTURE_V1.md`
@@ -180,6 +181,6 @@ Start here:
 - `docs/DASHBOARD_V2_COMPLETION_LEDGER.md`
 - `docs/GITHUB_PAGES_LIVE_HEALTH_CHECK.md`
 
-These docs define the Dashboard v2 operating plan, SETA methodology, Briefing Mode direction, AI briefing schema and implementation path, SaaS migration path, demo narrative, monetization posture, and current repository structure.
+These docs define the Dashboard v2 operating plan, SETA methodology, Briefing Mode direction, AI briefing schema and implementation path, large-population AI briefing rollout path, SaaS migration path, demo narrative, monetization posture, and current repository structure.
 
 - [Dashboard v2 RC Baseline - 2026-05-02](docs/DASHBOARD_V2_RC_BASELINE_2026-05-02.md)
