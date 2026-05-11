@@ -148,11 +148,51 @@ Open design question: confirmed pressure and extreme SETA score may both be high
 
 ## Conflict rules
 
-TODO.
+Conflict rules are the heart of the expert layer. They prevent the system from listing mixed facts without judgment.
+
+| Conflict | Interpretation pattern |
+| --- | --- |
+| Bullish pressure + bearish rejection | Pressure exists, but rejection limits confirmation. |
+| Bearish pressure + bullish counter-pressure | Exhaustion pressure exists, but counter-pressure limits confidence. |
+| Bearish MACD + constructive RSI | Trend/timing is bearish, but RSI is not capitulating. |
+| Positive MACD histogram + negative divergence | Price momentum is not fully broken, but sentiment timing is weakening. |
+| Strong price + bearish attention spike | Attention may be warning of exhaustion rather than validating strength. |
+| Weak price + bullish attention spike | Participation may be probing repair, but confirmation must come from structure/timing. |
+| Quiet participation + broad authorship | The read is not narrowly sourced, but it lacks a participation surge. |
+| Elevated participation + narrow authorship | Attention is active, but concentration risk lowers confidence. |
+| High volume + bearish rejection | Participation may confirm the rejection event. |
+| High volume + bullish pressure | Participation may increase the importance of reversion pressure, but it is not proof. |
+| Weekly constructive + daily bearish | Structural context is better than short-term timing. |
+| Daily constructive + weekly bearish | Short-term repair is occurring inside weaker structure. |
+
+Verification note: conflict rules should become testable assertions. A future semantic-state smoke test should assert the resolved state, counter-signal, and confidence modifier for each major conflict case.
 
 ## Participation Quality as a dynamic modifier
 
-TODO.
+Participation Quality is not a boilerplate trust check. It can change the meaning of the setup.
+
+The same participation state can matter differently depending on regime:
+
+| Participation context | Semantic implication |
+| --- | --- |
+| Bearish attention spike + price overextension + Stoch RSI stretched high | Possible exhaustion warning even if price remains strong. |
+| Bullish attention spike + washed-out Stoch RSI + weak price | Possible repair attempt, but confirmation depends on timing/overlap. |
+| Elevated attention + narrow authorship | Concentrated attention; confidence should be qualified. |
+| Quiet attention + broad authorship | Distributed but low-intensity read; useful context, not escalation. |
+| Rising participation + confirmed pressure | Participation increases confidence in the pressure event. |
+| Falling participation + active pressure | Pressure may be technically visible but less participation-supported. |
+| Broadening authorship + stable attention | Reliability improves without necessarily implying demand. |
+| Crowded bearish attention + strong price | Potential contrarian/exhaustion context, not a standalone signal. |
+
+Participation Quality should answer:
+
+```text
+Does participation confirm, warn, broaden, concentrate, or limit confidence?
+```
+
+It should not say that attention, breadth, or participation proves demand.
+
+Production rule: Participation Quality should be allowed to become a first-class modifier when attention is extreme, directional, or sharply changing. In quieter regimes, it can remain a confidence/trust layer.
 
 ## Card-specific narrative rules
 
