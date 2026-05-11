@@ -396,6 +396,8 @@ Current local harness files:
 - `scripts/promote_ai_briefing_reviewed.py` promotes validated local drafts into a `generated_briefings_reviewed_v1` static payload.
 - `scripts/check_ai_briefing_output.py` validates generated `ai_briefing_output_v1` JSON before review or publication.
 - `scripts/build_ai_briefing_sample_packet.py` creates a local sample review packet with representative inputs, validated v2 drafts, and a Markdown human-review artifact.
+- `scripts/build_ai_briefing_candidate_prompt_pack.py` turns a sample packet into provider-neutral candidate prompts without calling an AI API.
+- `scripts/compare_ai_briefing_candidates.py` validates candidate JSON outputs and writes a baseline-vs-candidate review packet.
 - `scripts/smoke_ai_briefing_contract.py` smoke-tests the input normalizer and safety checker.
 
 The briefing quality gates intentionally borrow the reply-engine guardrail philosophy: no trade calls, no price predictions, no internal labels or raw column names, no attention-as-adoption framing, and no claim that breadth proves organic demand.
@@ -433,6 +435,25 @@ with representative inputs, validated draft outputs, and
 `sample_review_packet.md` for human language review. The packet is the preferred
 next checkpoint before asking an AI provider to generate alternative prose for
 the same structured inputs.
+
+Example candidate prompt pack:
+
+```powershell
+python scripts/build_ai_briefing_candidate_prompt_pack.py --sample-packet briefing_outputs/sample_review_<UTC stamp>/sample_review_packet.json
+```
+
+This writes provider-neutral JSONL prompts and a `candidate_outputs/` folder.
+The script does not call an AI provider or require an API key.
+
+Example candidate comparison:
+
+```powershell
+python scripts/compare_ai_briefing_candidates.py --sample-packet briefing_outputs/sample_review_<UTC stamp>/sample_review_packet.json --candidate-dir briefing_outputs/ai_candidate_pack_<UTC stamp>/candidate_outputs
+```
+
+Candidates must pass the same schema and quality gates as deterministic drafts.
+The comparison packet is for human review; passing validation does not mean a
+candidate is ready for publication.
 
 Example reviewed payload promotion:
 
