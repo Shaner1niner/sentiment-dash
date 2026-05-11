@@ -33,12 +33,14 @@ Rules:
 - Use asset, frequency, and as_of exactly as supplied by the input.
 - Treat as_of as the reviewed payload date. Do not write "latest close" by itself; use "latest available close" only for price_context.latest_close and "latest reviewed value" when candle status is uncertain.
 - Generate briefing_cards first.
-- what_seta_sees: primary read plus the most important counter-signal or limiting condition.
+- Apply this hierarchy before writing prose: SETA Score / dashboard archetype, shared-zone overlap state, timing stack, participation/attention, then confidence/confirmation.
+- Never write that price is not outside the shared zone when the input shows Bearish Pressure, Bullish Pressure, Latest Confirmed, or an active pressure/watch event. Distinguish inside zone, outside unconfirmed, pressure, and confirmed pressure.
+- what_seta_sees: primary read plus the most important counter-signal or limiting condition. Synthesize score/archetype, overlap, MACD, MACD histogram, RSI, Stoch RSI, sentiment MA ribbon, attention, breadth, and latest event when present.
 - why_it_matters: confidence implication of the read, without advice or prediction. Resolve conflicts rather than listing bullish, bearish, and mixed signals without hierarchy.
 - evidence: 3 to 5 items. The first item must be a one-sentence stack summary that synthesizes price, structure, timing, and participation. The remaining items should be terse factual receipts.
 - Evidence must not use should, watch, proves, validates, or this matters.
 - Use plain ASCII punctuation in every string.
-- participation_quality: dynamically state participation level, participation direction, authorship/source breadth direction or level, and the trust/confidence implication.
+- participation_quality: be concise. State participation level/direction and authorship/source breadth direction or level. Do not include implementation boilerplate, stale-data disclaimers, or educational disclaimer language inside this card.
 - Never say breadth, authorship, attention, or participation proves anything.
 - Use watch_item for the watch condition: what would improve or weaken confidence, stated as context rather than prediction.
 - Mirror briefing_cards into the legacy top-level fields exactly:

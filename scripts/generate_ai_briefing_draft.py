@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 """Generate a local draft SETA AI briefing output from structured input.
 
 This is intentionally deterministic. It exercises the AI briefing workflow and
@@ -75,19 +75,69 @@ def overlap_read_label(overlap: dict[str, Any]) -> str:
     return event_type
 
 
-def overlap_zone_sentence(overlap: dict[str, Any]) -> str:
-    """Translate internal overlap state into public shared-zone language."""
-    state = clean_text(overlap.get("overlap_state"), "")
-    label = overlap_read_label(overlap)
-    combined = f"{state} {label}".lower()
+def combined_context_text(briefing_input: dict[str, Any]) -> str:
+    overlap = briefing_input.get("overlap_context") or {}
+    sentiment = briefing_input.get("sentiment_context") or {}
+    indicators = briefing_input.get("indicator_context") or {}
+    event = briefing_input.get("event_context") or {}
+    parts = [
+        overlap.get("dashboard_summary_label"),
+        overlap.get("overlap_state"),
+        overlap.get("overlap_event_type"),
+        (overlap.get("latest_confirmed") or {}).get("summary") if isinstance(overlap.get("latest_confirmed"), dict) else None,
+        (overlap.get("latest_confirmed") or {}).get("direction") if isinstance(overlap.get("latest_confirmed"), dict) else None,
+        indicators.get("bollinger_label"),
+        sentiment.get("primary_archetype"),
+        sentiment.get("secondary_archetype"),
+        sentiment.get("archetype_summary"),
+        event.get("latest_event_tier"),
+        event.get("latest_event_direction"),
+        event.get("latest_confirmed_event_direction"),
+        event.get("screener_reason_summary"),
+    ]
+    return " ".join(clean_text(part, "") for part in parts if part not in (None, "")).lower()
 
-    if "inactive" in combined:
-        return "Price is not currently outside the shared price/sentiment zone."
-    if "pressure active" in combined:
-        return "Price is outside the shared price/sentiment zone."
+
+
+def overlap_zone_sentence_from_input(briefing_input: dict[str, Any]) -> str:
+    """Translate dashboard-facing overlap/pressure state into public shared-zone language."""
+    combined = combined_context_text(briefing_input)
+
+    has_confirmed = bool(re.search(r"\bconfirmed\b", combined)) and not bool(re.search(r"\bunconfirmed\b", combined))
+    has_bullish_pressure = "bullish pressure" in combined
+    has_bearish_pressure = "bearish pressure" in combined
+    has_rejection = "rejection" in combined
+    has_bearish_context = bool(re.search(r"\bbearish\b", combined))
+    has_bullish_context = bool(re.search(r"\bbullish\b", combined))
+
+    if has_bullish_pressure and has_bearish_context and not has_confirmed:
+        return "Price is outside the shared price/sentiment zone with unconfirmed bullish pressure, while bearish rejection remains a counter-signal."
+    if has_bearish_pressure and has_bullish_context and not has_confirmed:
+        return "Price is outside the shared price/sentiment zone with unconfirmed bearish pressure, while bullish counter-pressure remains a counter-signal."
+
+    if has_confirmed and has_bearish_pressure:
+        return "Price is above the shared price/sentiment zone, creating confirmed bearish pressure."
+    if has_confirmed and has_bullish_pressure:
+        return "Price is below the shared price/sentiment zone, creating confirmed bullish pressure."
+
+    if has_bearish_pressure:
+        return "Price is above the shared price/sentiment zone, creating bearish pressure / exhaustion context."
+    if has_bullish_pressure:
+        return "Price is below the shared price/sentiment zone, creating bullish pressure / reversion context."
+
+    if "outside" in combined or "pressure active" in combined:
+        return "Price is outside the shared price/sentiment zone, but confirmation is incomplete."
+    if has_rejection:
+        return "Shared-zone confirmation is not cleanly active, but the latest rejection context keeps pressure in focus."
     if "watch" in combined:
-        return "SETA is watching whether price remains outside or returns toward the shared price/sentiment zone."
+        return "Price is near a shared-zone decision point, but confirmation is incomplete."
+    if "inactive" in combined:
+        return "Shared-zone confirmation is inactive; timing evidence carries more weight than overlap confirmation."
     return "SETA compares price behavior against the shared price/sentiment zone."
+
+def overlap_zone_sentence(overlap: dict[str, Any]) -> str:
+    """Backward-compatible wrapper for older callers."""
+    return overlap_zone_sentence_from_input({"overlap_context": overlap})
 
 
 def overlap_definition_sentence() -> str:
@@ -119,6 +169,21 @@ def translate_label(value: Any, fallback: str = "unavailable") -> str:
     return text
 
 
+
+def display_label(value: Any) -> str:
+    text = clean_text(value, "")
+    text = re.sub(r"\brsi\b", "RSI", text, flags=re.I)
+    text = re.sub(r"\bmacd\b", "MACD", text, flags=re.I)
+    text = re.sub(r"\bseta\b", "SETA", text, flags=re.I)
+    return text
+
+
+def lower_first_label(value: Any) -> str:
+    text = display_label(value)
+    if not text:
+        return text
+    return text[:1].lower() + text[1:]
+
 def volume_phrase(value: Any) -> str:
     text = clean_text(value, "unavailable").lower()
     if text == "normal volume":
@@ -135,39 +200,138 @@ def structure_label(overlap: dict[str, Any]) -> str:
 def timing_context_label(indicators: dict[str, Any]) -> str:
     macd = translate_label(indicators.get("macd_label"), "")
     rsi = translate_label(indicators.get("rsi_label"), "")
+    stoch = indicators.get("stoch_rsi")
+    hist = indicators.get("macd_histogram")
     parts = [part for part in [macd, rsi] if part and part != "unavailable"]
+
+    hist_n = None
+    try:
+        hist_n = float(hist)
+    except (TypeError, ValueError):
+        pass
+    if hist_n is not None:
+        if hist_n > 0:
+            parts.append("MACD histogram is positive")
+        elif hist_n < 0:
+            parts.append("MACD histogram is negative")
+
+    stoch_n = None
+    try:
+        stoch_n = float(stoch)
+    except (TypeError, ValueError):
+        pass
+    if stoch_n is not None:
+        if stoch_n >= 80:
+            parts.append("Stoch RSI is stretched high")
+        elif stoch_n <= 20:
+            parts.append("Stoch RSI is washed out")
+        else:
+            parts.append("Stoch RSI is mid-range")
+
     if not parts:
         return "timing unavailable"
     return "; ".join(parts)
 
 
+
+def primary_read_label(briefing_input: dict[str, Any]) -> str:
+    overlap = briefing_input.get("overlap_context") or {}
+    sentiment = briefing_input.get("sentiment_context") or {}
+    indicators = briefing_input.get("indicator_context") or {}
+    event = briefing_input.get("event_context") or {}
+
+    asset = clean_text(briefing_input.get("asset"), "")
+    context = combined_context_text(briefing_input)
+    if "weakening sentiment momentum" in context and "price momentum is not yet fully broken" in context:
+        return "Weakening sentiment momentum with price resilience"
+
+    def polish(value: Any) -> str:
+        text = translate_label(value, "")
+        text = re.sub(r"^\s*" + re.escape(asset) + r"\s+shows\s+", "", text, flags=re.I).strip()
+        text = re.sub(r"\s+", " ", text).strip(" .")
+        text = re.sub(r"\brsi\b", "RSI", text, flags=re.I)
+        text = re.sub(r"\bmacd\b", "MACD", text, flags=re.I)
+        text = re.sub(r"\bseta\b", "SETA", text, flags=re.I)
+        return text
+
+    def rsi_phrase() -> str:
+        rsi = clean_text(indicators.get("rsi_label"), "").lower()
+        if "constructive" in rsi or "strong" in rsi:
+            return "constructive RSI"
+        if "weak" in rsi:
+            return "weak RSI"
+        if "mixed" in rsi or "neutral" in rsi:
+            return "mixed RSI"
+        return "mixed confirmation"
+
+    if "strong bearish" in context:
+        return "Strong Bearish SETA risk state"
+    if "strong bullish" in context:
+        return "Strong Bullish SETA opportunity state"
+
+    if "bullish pressure" in context and ("bearish" in context or "rejection" in context):
+        return "Unconfirmed bullish pressure with bearish rejection risk"
+    if "bearish pressure" in context and ("bullish" in context or "rejection" in context):
+        return "Unconfirmed bearish pressure with counter-pressure risk"
+    if "bearish pressure" in context:
+        return "Bearish pressure"
+    if "bullish pressure" in context:
+        return "Bullish pressure"
+
+    macd = clean_text(indicators.get("macd_label"), "").lower()
+    if "bearish" in macd or "bearish" in context:
+        return f"Bearish timing pressure with {rsi_phrase()}"
+    if "bullish" in macd or "bullish" in context:
+        return f"Bullish timing pressure with {rsi_phrase()}"
+
+    for value in [
+        sentiment.get("archetype_summary"),
+        event.get("screener_reason_summary"),
+        sentiment.get("primary_archetype"),
+        overlap_read_label(overlap),
+    ]:
+        text = polish(value)
+        if text:
+            return text
+    return "Layered SETA context"
+
+
 def build_summary(briefing_input: dict[str, Any]) -> str:
     asset = briefing_input["asset"]
-    overlap = briefing_input.get("overlap_context") or {}
     sentiment = briefing_input.get("sentiment_context") or {}
     attention = briefing_input.get("attention_context") or {}
     breadth = briefing_input.get("breadth_trust") or {}
+    primary = lower_first_label(primary_read_label(briefing_input))
+    sentiment_label = translate_label(sentiment.get("sentiment_state")).lower()
+    attention_label = clean_text(attention.get("attention_label")).lower()
+    breadth_label = clean_text(breadth.get("source_breadth_label")).lower()
 
     return (
-        f"{asset} shows the {translate_label(overlap_read_label(overlap)).lower()} setup with "
-        f"{translate_label(sentiment.get('sentiment_state')).lower()} sentiment, "
-        f"{clean_text(attention.get('attention_label')).lower()} attention, and "
-        f"{clean_text(breadth.get('source_breadth_label')).lower()} source breadth."
+        f"{asset} shows {primary}. "
+        f"Sentiment is {sentiment_label}, attention is {attention_label}, "
+        f"and source breadth is {breadth_label}."
     )
-
 
 def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
-    overlap = briefing_input.get("overlap_context") or {}
     indicators = briefing_input.get("indicator_context") or {}
-    primary = translate_label(overlap_read_label(overlap))
-    structure = structure_label(overlap)
-    timing = timing_context_label(indicators)
+    sentiment = briefing_input.get("sentiment_context") or {}
+    attention = briefing_input.get("attention_context") or {}
+    event = briefing_input.get("event_context") or {}
 
+    primary = primary_read_label(briefing_input)
+    zone = overlap_zone_sentence_from_input(briefing_input)
+    timing = timing_context_label(indicators)
+    ribbon = translate_label(sentiment.get("ribbon_label") or sentiment.get("sentiment_state"), "ribbon unavailable")
+    attention_label = clean_text(attention.get("attention_label"), "attention unavailable").lower()
+    event_note = translate_label(event.get("latest_event_tier") or event.get("latest_confirmed_event_direction"), "")
+
+    event_clause = f" Latest event context is {event_note}." if event_note else ""
     return (
         f"Primary read: {primary}. "
-        f"{overlap_zone_sentence(overlap)} "
-        f"Structure reads {structure}, while timing context reads {timing}."
+        f"{zone} "
+        f"The timing stack reads {timing}, with {ribbon.lower()} ribbon context and {attention_label} participation.{event_clause}"
     )
+
 
 
 def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
@@ -175,28 +339,27 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     indicators = briefing_input.get("indicator_context") or {}
     quality = briefing_input.get("participation_quality") or {}
 
-    primary = translate_label(overlap_read_label(overlap))
-    zone = overlap_zone_sentence(overlap)
+    primary = primary_read_label(briefing_input)
+    zone = overlap_zone_sentence_from_input(briefing_input)
     structure = structure_label(overlap)
     timing = timing_context_label(indicators)
     implication = read_implication_label(primary, zone, structure, timing)
     quality_note = clean_text(quality.get("public_note"), "")
 
     if implication == "outside-zone condition":
-        base = "This matters because price is outside the shared zone, so SETA treats the move as a potential price/sentiment dislocation."
+        base = "This matters because price and sentiment are no longer moving inside the same shared zone, so confidence depends on whether timing and participation confirm the pressure."
     elif implication == "watch condition":
-        base = "This matters because SETA is watching whether the move returns inside the shared zone or develops stronger confirmation."
+        base = "This matters because the setup is still a watch condition: pressure is visible, but confirmation is incomplete."
     elif implication == "mixed constructive structure":
         base = "This matters because structure is constructive, but timing has not confirmed it, keeping the read mixed rather than decisive."
     elif implication == "mixed defensive structure":
         base = "This matters because timing is improving against a weaker structure, so confirmation still needs more support."
     elif implication == "low-escalation context":
-        base = "This matters because the setup is low-escalation: useful context, but not a strong participation-driven move."
+        base = "This matters because the broad read is present, but participation has not escalated enough to raise confidence by itself."
     else:
-        base = "This matters because SETA is separating structure, timing, and participation before assigning confidence."
+        base = "This matters because SETA is separating broad regime, shared-zone pressure, timing, and participation before assigning confidence."
 
-    return " ".join(part for part in [base, "Timing context shows whether indicators align or conflict with the setup.", quality_note] if part)
-
+    return " ".join(part for part in [base, f"The primary read is {lower_first_label(primary)}, while timing reads {timing}.", quality_note] if part)
 
 def read_implication_label(primary: str, zone: str, structure: str, timing: str) -> str:
     combined = f"{primary} {zone} {structure} {timing}".lower()
@@ -220,18 +383,20 @@ def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
     indicators = briefing_input.get("indicator_context") or {}
     event = briefing_input.get("event_context") or {}
 
-    zone = overlap_zone_sentence(overlap)
+    zone = overlap_zone_sentence_from_input(briefing_input)
+    primary = primary_read_label(briefing_input)
     structure = structure_label(overlap)
     timing = timing_context_label(indicators)
     participation = clean_text(attention.get("attention_label"))
     close_label = "Latest available close"
     close_date = clean_text(price.get("latest_close_date"), "")
     close_date_text = f" ({close_date})" if close_date else ""
+    shared_receipt = translate_label(overlap.get("dashboard_summary_label") or overlap.get("overlap_state"))
 
     receipts = [
-        f"Stack summary: {zone} Structure is {structure}; timing is {timing}; participation is {participation.lower()}.",
+        f"Stack summary: {primary}; {zone} Structure is {structure}; timing is {timing}; participation is {participation.lower()}.",
         f"{close_label}: {compact_number(price.get('latest_close'))}{close_date_text}.",
-        f"Shared-zone receipt: {translate_label(overlap.get('overlap_state'))}.",
+        f"Shared-zone receipt: {shared_receipt}.",
         f"Timing receipt: {timing}.",
         f"Participation receipt: {participation}; volume context is {volume_phrase(price.get('volume_confirmation'))}.",
     ]
@@ -268,7 +433,6 @@ def build_trust_check(briefing_input: dict[str, Any]) -> str:
 
     participation_note = clean_text(participation.get("public_note"), "")
     breadth_note = clean_text(breadth_trend.get("public_note") or breadth.get("source_breadth_public_note"), "")
-    quality_note = clean_text(quality.get("public_note"), "")
     quality_label = clean_text(quality.get("label"), "Participation quality")
 
     return " ".join(
@@ -277,8 +441,7 @@ def build_trust_check(briefing_input: dict[str, Any]) -> str:
             f"{quality_label}.",
             participation_note,
             breadth_note,
-            quality_note,
-            "Participation quality is a trust layer, not a standalone demand signal.",
+            "This keeps confidence calibrated to participation breadth and source coverage.",
         ]
         if part
     )
@@ -337,7 +500,7 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
         "asset": asset,
         "frequency": frequency,
         "as_of": as_of,
-        "headline": f"{asset} SETA briefing: {translate_label(overlap_read_label(overlap))}"[:90],
+        "headline": f"{asset} SETA briefing: {primary_read_label(briefing_input)}"[:90],
         "summary": summary,
         "what_seta_sees": briefing_cards["what_seta_sees"]["copy"],
         "why_it_matters": briefing_cards["why_it_matters"]["copy"],
@@ -400,4 +563,8 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+
+
 
