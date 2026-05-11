@@ -28,15 +28,27 @@ TASK_PROMPT = """Given the SETA briefing input JSON, produce one JSON object mat
 
 Rules:
 - Use only facts present in the input.
+- Use public-facing labels, not raw field names. Never include snake_case tokens, underscores, internal key names, or score-column names in any user-visible text.
+- Use asset, frequency, and as_of exactly as supplied by the input.
 - Generate briefing_cards first.
 - what_seta_sees: interpretation of the current read.
 - why_it_matters: implication of the read, without advice or prediction.
 - evidence: factual receipts only, 3 to 5 items.
+- Evidence receipts must be terse facts. Do not use interpretive words such as confidence, should, watch, proves, validates, or this matters in evidence.
+- Use plain ASCII punctuation in every string.
 - participation_quality: participation movement plus authorship/source breadth as a trust layer.
-- Mirror briefing_cards into the legacy top-level fields.
+- Never say breadth, authorship, attention, or participation proves anything.
+- Mirror briefing_cards into the legacy top-level fields exactly:
+  - what_seta_sees equals briefing_cards.what_seta_sees.copy.
+  - why_it_matters equals briefing_cards.why_it_matters.copy.
+  - evidence equals briefing_cards.evidence.items.
+  - trust_check equals briefing_cards.participation_quality.copy.
 - Keep the headline under 90 characters.
 - Keep the summary under 45 words.
 - Include limitations and public_safe_disclaimer.
+- Set source_breadth_used to true when breadth_trust is present.
+- Set review_status to draft.
+- Set model_metadata.provider to openai, model to the selected model, and prompt_version to seta_briefing_prompt_v2.
 - Return JSON only.
 """
 

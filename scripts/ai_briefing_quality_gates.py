@@ -42,6 +42,7 @@ INTERNAL_LANGUAGE_PATTERNS = [
     (r"\bp[- ]?values?\b", "internal statistics language"),
     (r"\braw column\b", "raw column language"),
     (r"\bscore internals?\b", "score-internal language"),
+    (r"\b[a-z]+_[a-z0-9_]+\b", "raw snake_case field name"),
     (r"\bentropy_norm\b", "internal column name"),
     (r"\bdominance_gap\b", "internal column name"),
     (r"\bflag_[a-z0-9_]+\b", "internal flag name"),
@@ -111,7 +112,7 @@ def count_visible_metrics(text: str) -> int:
 def briefing_text_fields(output: dict[str, Any]) -> list[tuple[str, str]]:
     fields: list[tuple[str, str]] = []
     for key, value in output.items():
-        if key in {"public_safe_disclaimer", "model_metadata"}:
+        if key in {"schema_version", "asset", "frequency", "as_of", "review_status", "public_safe_disclaimer", "model_metadata"}:
             continue
         if isinstance(value, str):
             fields.append((key, value))

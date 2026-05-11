@@ -397,6 +397,7 @@ Current local harness files:
 - `scripts/check_ai_briefing_output.py` validates generated `ai_briefing_output_v1` JSON before review or publication.
 - `scripts/build_ai_briefing_sample_packet.py` creates a local sample review packet with representative inputs, validated v2 drafts, and a Markdown human-review artifact.
 - `scripts/build_ai_briefing_candidate_prompt_pack.py` turns a sample packet into provider-neutral candidate prompts without calling an AI API.
+- `scripts/generate_ai_briefing_candidates_openai.py` optionally generates local candidate JSON files from a prompt pack using `OPENAI_API_KEY`.
 - `scripts/compare_ai_briefing_candidates.py` validates candidate JSON outputs and writes a baseline-vs-candidate review packet.
 - `scripts/smoke_ai_briefing_contract.py` smoke-tests the input normalizer and safety checker.
 
@@ -444,6 +445,15 @@ python scripts/build_ai_briefing_candidate_prompt_pack.py --sample-packet briefi
 
 This writes provider-neutral JSONL prompts and a `candidate_outputs/` folder.
 The script does not call an AI provider or require an API key.
+
+Example local OpenAI candidate generation:
+
+```powershell
+python scripts/generate_ai_briefing_candidates_openai.py --prompt-jsonl briefing_outputs/ai_candidate_pack_<UTC stamp>/ai_candidate_prompts.jsonl --reasoning-effort high
+```
+
+This requires `OPENAI_API_KEY` in the local environment. It writes only local
+candidate JSON files and a run report under the ignored briefing output folder.
 
 Example candidate comparison:
 
