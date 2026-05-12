@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from build_ai_briefing_input import build_input
+from build_ai_briefing_semantic_state import build_semantic_state
 from check_ai_briefing_output import validate_output
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -96,6 +97,63 @@ def combined_context_text(briefing_input: dict[str, Any]) -> str:
         event.get("screener_reason_summary"),
     ]
     return " ".join(clean_text(part, "") for part in parts if part not in (None, "")).lower()
+
+
+
+def semantic_state_for(briefing_input: dict[str, Any]) -> dict[str, Any]:
+    # Return cached SETA semantic state for this briefing input.
+    # The semantic helper is deterministic/local and owns the primary market-state
+    # judgment. The generator consumes it for prose without changing the output
+    # schema.
+    cached = briefing_input.get("_semantic_state")
+    if isinstance(cached, dict):
+        return cached
+    semantic = build_semantic_state(briefing_input)
+    briefing_input["_semantic_state"] = semantic
+    return semantic
+
+
+def semantic_decision_for(briefing_input: dict[str, Any]) -> dict[str, Any]:
+    return semantic_state_for(briefing_input).get("semantic_decision") or {}
+
+
+def semantic_participation_for(briefing_input: dict[str, Any]) -> dict[str, Any]:
+    return semantic_state_for(briefing_input).get("participation") or {}
+
+
+def semantic_timing_for(briefing_input: dict[str, Any]) -> dict[str, Any]:
+    return semantic_state_for(briefing_input).get("timing") or {}
+
+
+def human_counter_signal(value: Any) -> str:
+    text = clean_text(value, "")
+    mapping = {
+        "bearish_rejection_counter_signal": "bearish rejection remains a counter-signal",
+        "bullish_repair_counter_signal": "bullish repair remains a counter-signal",
+        "inactive_overlap_limiter": "shared-zone confirmation is inactive",
+        "latest_rejection_context": "latest rejection context remains relevant",
+        "constructive_rsi_counter_signal": "constructive RSI tempers the bearish read",
+        "weak_structure_counter_signal": "weaker structure keeps confirmation incomplete",
+        "price_strength_or_extension": "price strength and extension keep exhaustion risk contextual",
+        "data_quality_limiter": "data quality limits confidence",
+    }
+    return mapping.get(text, text.replace("_", " ") if text else "")
+
+
+def confidence_phrase(value: Any) -> str:
+    text = clean_text(value, "").lower()
+    mapping = {
+        "qualified_confirmation": "confirmation is qualified rather than decisive",
+        "participation_supported": "participation adds support, but does not prove the setup",
+        "warning_context": "the setup is best treated as a warning context",
+        "watch_condition": "the setup remains a watch condition",
+        "timing_led": "timing evidence carries more weight than overlap confirmation",
+        "measured": "confidence remains measured",
+        "source_qualified": "source concentration keeps confidence qualified",
+        "data_limited": "data limits confidence",
+        "qualified": "confidence remains qualified",
+    }
+    return mapping.get(text, "confidence remains measured")
 
 
 
@@ -234,7 +292,14 @@ def timing_context_label(indicators: dict[str, Any]) -> str:
 
 
 
+
 def primary_read_label(briefing_input: dict[str, Any]) -> str:
+    semantic_label = clean_text(semantic_decision_for(briefing_input).get("primary_label"), "")
+    if semantic_label:
+        return semantic_label
+
+    # Fallback path retained for defensive compatibility if semantic state is
+    # unavailable or intentionally disabled in a future local test.
     overlap = briefing_input.get("overlap_context") or {}
     sentiment = briefing_input.get("sentiment_context") or {}
     indicators = briefing_input.get("indicator_context") or {}
@@ -245,11 +310,12 @@ def primary_read_label(briefing_input: dict[str, Any]) -> str:
 
     def polish(value: Any) -> str:
         text = translate_label(value, "")
-        text = re.sub(r"^\s*" + re.escape(asset) + r"\s+shows\s+", "", text, flags=re.I).strip()
         text = re.sub(r"\s+", " ", text).strip(" .")
         text = re.sub(r"\brsi\b", "RSI", text, flags=re.I)
         text = re.sub(r"\bmacd\b", "MACD", text, flags=re.I)
         text = re.sub(r"\bseta\b", "SETA", text, flags=re.I)
+        if asset:
+            text = re.sub(r"^" + re.escape(asset) + r"\s+shows\s+", "", text, flags=re.I).strip()
         return text
 
     def rsi_phrase() -> str:
@@ -295,7 +361,6 @@ def primary_read_label(briefing_input: dict[str, Any]) -> str:
             return text
     return "Layered SETA context"
 
-
 def build_summary(briefing_input: dict[str, Any]) -> str:
     asset = briefing_input["asset"]
     sentiment = briefing_input.get("sentiment_context") or {}
@@ -312,54 +377,81 @@ def build_summary(briefing_input: dict[str, Any]) -> str:
         f"and source breadth is {breadth_label}."
     )
 
+
 def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
-    indicators = briefing_input.get("indicator_context") or {}
     sentiment = briefing_input.get("sentiment_context") or {}
-    attention = briefing_input.get("attention_context") or {}
-    event = briefing_input.get("event_context") or {}
+    semantic = semantic_state_for(briefing_input)
+    decision = semantic.get("semantic_decision") or {}
+    timing_state = semantic.get("timing") or {}
+    participation = semantic.get("participation") or {}
+    event_state = semantic.get("event") or {}
 
-    primary = primary_read_label(briefing_input)
+    primary = clean_text(decision.get("primary_label"), primary_read_label(briefing_input))
     zone = overlap_zone_sentence_from_input(briefing_input)
-    timing = timing_context_label(indicators)
-    ribbon = translate_label(sentiment.get("ribbon_label") or sentiment.get("sentiment_state"), "ribbon unavailable")
-    attention_label = clean_text(attention.get("attention_label"), "attention unavailable").lower()
-    event_note = translate_label(event.get("latest_event_tier") or event.get("latest_confirmed_event_direction"), "")
+    timing = clean_text(timing_state.get("label"), timing_context_label(briefing_input.get("indicator_context") or {}))
+    ribbon = clean_text(
+        (semantic.get("ribbon") or {}).get("label"),
+        translate_label(sentiment.get("ribbon_label") or sentiment.get("sentiment_state"), "ribbon unavailable"),
+    )
+    participation_role = clean_text(
+        participation.get("role_label"),
+        clean_text(participation.get("attention_level"), "participation context").lower(),
+    )
+    counter_signal = human_counter_signal(decision.get("counter_signal"))
+    event_note = clean_text(event_state.get("label"), "")
 
-    event_clause = f" Latest event context is {event_note}." if event_note else ""
+    counter_clause = f" {counter_signal[:1].upper() + counter_signal[1:]}." if counter_signal else ""
+    event_clause = (
+        f" Latest event context is {event_note}."
+        if event_note and event_state.get("state") not in {"none", "event_unknown"}
+        else ""
+    )
     return (
         f"Primary read: {primary}. "
-        f"{zone} "
-        f"The timing stack reads {timing}, with {ribbon.lower()} ribbon context and {attention_label} participation.{event_clause}"
+        f"{zone}{counter_clause} "
+        f"The timing stack reads {timing}, with {ribbon.lower()} ribbon context and {participation_role}.{event_clause}"
     )
 
 
-
 def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
-    overlap = briefing_input.get("overlap_context") or {}
-    indicators = briefing_input.get("indicator_context") or {}
     quality = briefing_input.get("participation_quality") or {}
+    semantic = semantic_state_for(briefing_input)
+    decision = semantic.get("semantic_decision") or {}
+    pressure = semantic.get("pressure") or {}
+    timing_state = semantic.get("timing") or {}
+    participation = semantic.get("participation") or {}
 
-    primary = primary_read_label(briefing_input)
-    zone = overlap_zone_sentence_from_input(briefing_input)
-    structure = structure_label(overlap)
-    timing = timing_context_label(indicators)
-    implication = read_implication_label(primary, zone, structure, timing)
+    primary = clean_text(decision.get("primary_label"), primary_read_label(briefing_input))
+    timing = clean_text(timing_state.get("label"), timing_context_label(briefing_input.get("indicator_context") or {}))
+    confidence = confidence_phrase(decision.get("confidence_state"))
+    participation_role = clean_text(participation.get("role_label"), "participation remains contextual")
+    counter_signal = human_counter_signal(decision.get("counter_signal"))
     quality_note = clean_text(quality.get("public_note"), "")
 
-    if implication == "outside-zone condition":
-        base = "This matters because price and sentiment are no longer moving inside the same shared zone, so confidence depends on whether timing and participation confirm the pressure."
-    elif implication == "watch condition":
-        base = "This matters because the setup is still a watch condition: pressure is visible, but confirmation is incomplete."
-    elif implication == "mixed constructive structure":
-        base = "This matters because structure is constructive, but timing has not confirmed it, keeping the read mixed rather than decisive."
-    elif implication == "mixed defensive structure":
-        base = "This matters because timing is improving against a weaker structure, so confirmation still needs more support."
-    elif implication == "low-escalation context":
-        base = "This matters because the broad read is present, but participation has not escalated enough to raise confidence by itself."
+    pressure_state = clean_text(pressure.get("state"), "")
+    if pressure_state.startswith("confirmed"):
+        base = "This matters because the shared-zone pressure state is confirmed, so the next question is whether timing and participation support the same read."
+    elif pressure_state.startswith("unconfirmed"):
+        base = "This matters because price and sentiment are no longer moving cleanly inside the same shared zone, but confirmation is still incomplete."
+    elif decision.get("confidence_state") == "warning_context":
+        base = "This matters because attention is acting more like a warning context than a validation signal."
+    elif decision.get("confidence_state") == "timing_led":
+        base = "This matters because overlap confirmation is inactive, so timing evidence carries more weight."
     else:
-        base = "This matters because SETA is separating broad regime, shared-zone pressure, timing, and participation before assigning confidence."
+        base = "This matters because SETA is separating regime, shared-zone pressure, timing, and participation before assigning confidence."
 
-    return " ".join(part for part in [base, f"The primary read is {lower_first_label(primary)}, while timing reads {timing}.", quality_note] if part)
+    counter_clause = f" {counter_signal[:1].upper() + counter_signal[1:]}." if counter_signal else ""
+    return " ".join(
+        part
+        for part in [
+            base,
+            f"The primary read is {lower_first_label(primary)}, while timing reads {timing}.",
+            f"{confidence[:1].upper() + confidence[1:]}; {participation_role}.",
+            counter_clause.strip(),
+            quality_note,
+        ]
+        if part
+    )
 
 def read_implication_label(primary: str, zone: str, structure: str, timing: str) -> str:
     combined = f"{primary} {zone} {structure} {timing}".lower()
@@ -425,15 +517,34 @@ def public_breadth_caveat(breadth: dict[str, Any]) -> str:
     return ""
 
 
+
 def build_trust_check(briefing_input: dict[str, Any]) -> str:
-    participation = briefing_input.get("participation_trend") or {}
+    participation_trend = briefing_input.get("participation_trend") or {}
     breadth_trend = briefing_input.get("authorship_breadth_trend") or {}
     quality = briefing_input.get("participation_quality") or {}
     breadth = briefing_input.get("breadth_trust") or {}
+    semantic_participation = semantic_participation_for(briefing_input)
 
-    participation_note = clean_text(participation.get("public_note"), "")
+    participation_note = clean_text(participation_trend.get("public_note"), "")
     breadth_note = clean_text(breadth_trend.get("public_note") or breadth.get("source_breadth_public_note"), "")
     quality_label = clean_text(quality.get("label"), "Participation quality")
+    role = clean_text(semantic_participation.get("role"), "")
+    role_label = clean_text(semantic_participation.get("role_label"), "")
+
+    if role == "warning_context":
+        semantic_note = "Participation is acting as a warning context rather than a validation signal."
+    elif role == "early_repair_probe":
+        semantic_note = "Participation is probing a repair attempt, but confirmation remains incomplete."
+    elif role == "narrow_source_risk":
+        semantic_note = "Participation is visible but concentrated, so source breadth limits confidence."
+    elif role == "confidence_limiter":
+        semantic_note = "Quiet participation limits confirmation."
+    elif role == "confirmer":
+        semantic_note = "Participation supports the pressure context, but it is not proof by itself."
+    elif role == "source_breadth_stabilizer":
+        semantic_note = "Broad authorship helps stabilize the read without implying demand by itself."
+    else:
+        semantic_note = role_label
 
     return " ".join(
         part
@@ -441,11 +552,11 @@ def build_trust_check(briefing_input: dict[str, Any]) -> str:
             f"{quality_label}.",
             participation_note,
             breadth_note,
+            semantic_note,
             "This keeps confidence calibrated to participation breadth and source coverage.",
         ]
         if part
     )
-
 
 def build_briefing_cards(briefing_input: dict[str, Any]) -> dict[str, Any]:
     """Build the canonical briefing-card contract.
@@ -517,8 +628,8 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
         "review_status": "draft",
         "model_metadata": {
             "provider": "local",
-            "model": "deterministic_template_v2",
-            "prompt_version": "seta_briefing_prompt_v2",
+            "model": "deterministic_template_v3_semantic_state",
+            "prompt_version": "seta_briefing_prompt_v3_semantic_state",
         },
         "reference_guidance_used": bool((briefing_input.get("reference_guidance") or {}).get("definitions")),
     }
