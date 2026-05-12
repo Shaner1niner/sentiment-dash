@@ -179,6 +179,7 @@ def sentence_once(parts: list[str]) -> str:
     return " ".join(out)
 
 
+
 def contains_meaning(haystack: str, phrase: str) -> bool:
     h = lower_phrase(haystack)
     p = lower_phrase(phrase).strip(" .")
@@ -186,16 +187,31 @@ def contains_meaning(haystack: str, phrase: str) -> bool:
         return True
     if p in h:
         return True
-    # Handle the common duplicate where one sentence says "inactive" and
-    # another says "shared-zone confirmation is inactive".
-    if "shared-zone confirmation is inactive" in p and "shared-zone confirmation is inactive" in h:
+
+    inactive_tokens = [
+        "shared-zone confirmation is inactive",
+        "shared-zone confirmation remains inactive",
+        "overlap confirmation is inactive",
+        "overlap confirmation remains inactive",
+    ]
+    if any(token in p for token in inactive_tokens) and any(token in h for token in inactive_tokens):
+        return True
+
+    technical_led_tokens = [
+        "read is coming from the technical stack",
+        "read is led by the technical stack",
+        "technical-stack led",
+    ]
+    if any(token in p for token in technical_led_tokens) and any(token in h for token in technical_led_tokens):
+        return True
+
+    if "recent range return" in p and "range return" in h:
         return True
     if "bearish rejection" in p and "bearish rejection" in h:
         return True
     if "latest rejection" in p and "rejection" in h:
         return True
     return False
-
 
 def participation_market_phrase(participation: dict[str, Any]) -> str:
     role = clean_text(participation.get("role"), "")
@@ -406,6 +422,48 @@ def volume_phrase(value: Any) -> str:
     return text
 
 
+
+def receipt_public_label(value: Any, fallback: str = "") -> str:
+    text = translate_label(value, fallback)
+    replacements = {
+        "High Noise / Broad": "high-noise, broad-source context",
+        "Normal / Broad": "normal, broad-source context",
+        "Confirmed Bullish": "confirmed bullish context",
+        "Confirmed Bearish": "confirmed bearish context",
+        "Monitor": "monitor context",
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    return clean_text(text, fallback)
+
+
+def receipt_key(value: Any) -> str:
+    text = clean_text(value, "").lower()
+    text = text.replace("structure is ", "")
+    text = text.replace("state is ", "")
+    text = text.replace("context is ", "")
+    text = text.strip(" .;")
+    return text
+
+
+def receipt_parts_once(parts: list[Any]) -> str:
+    seen: set[str] = set()
+    out: list[str] = []
+    for part in parts:
+        raw = clean_text(part, "")
+        if not raw:
+            continue
+        for piece in raw.split(";"):
+            item = clean_text(piece, "").strip(" .;")
+            if not item:
+                continue
+            key = receipt_key(item)
+            if not key or key in seen:
+                continue
+            seen.add(key)
+            out.append(item)
+    return "; ".join(out)
+
 def structure_label(overlap: dict[str, Any]) -> str:
     return translate_label(overlap.get("structure_label"), "structure unavailable")
 
@@ -540,6 +598,7 @@ def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
     return sentence_once(parts)
 
 
+
 def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     quality = briefing_input.get("participation_quality") or {}
     semantic = semantic_state_for(briefing_input)
@@ -574,12 +633,26 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     parts = [
         base,
         f"The primary read is {lower_first_label(primary)}, while the technical stack shows {technical}",
-        f"{first_upper(confidence)}; {participation_phrase}",
     ]
+
+    if contains_meaning(" ".join(parts), confidence):
+        parts.append(first_upper(participation_phrase))
+    else:
+        parts.append(f"{first_upper(confidence)}; {participation_phrase}")
+
     if counter_signal and not contains_meaning(" ".join(parts), counter_signal):
         parts.append(first_upper(counter_signal))
-    if quality_note and "No participation surge is visible" not in quality_note:
+
+    # Avoid repeating the same broad-participation boilerplate already stated
+    # in the Participation Quality card.
+    if (
+        quality_note
+        and "No participation surge is visible" not in quality_note
+        and "available activity appears broadly distributed" not in quality_note
+        and not contains_meaning(" ".join(parts), quality_note)
+    ):
         parts.append(quality_note)
+
     return sentence_once(parts)
 
 def read_implication_label(primary: str, zone: str, structure: str, timing: str) -> str:
@@ -598,6 +671,7 @@ def read_implication_label(primary: str, zone: str, structure: str, timing: str)
 
 
 
+
 def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
     # Build factual receipt lines for the Evidence card.
     #
@@ -609,51 +683,40 @@ def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
     breadth = briefing_input.get("breadth_trust") or {}
     attention = briefing_input.get("attention_context") or {}
     indicators = briefing_input.get("indicator_context") or {}
-    event = briefing_input.get("event_context") or {}
 
     close_date = clean_text(price.get("latest_close_date"), "")
     close_date_text = f" ({close_date})" if close_date else ""
 
-    shared_state = translate_label(overlap.get("dashboard_summary_label") or overlap.get("overlap_state"))
-    structure = structure_label(overlap)
-    overlap_event = translate_label(overlap.get("overlap_event_type"), "")
-    event_bits: list[str] = []
-    if overlap_event:
-        event_bits.append(f"overlap event is {overlap_event}")
+    shared_state = receipt_public_label(overlap.get("dashboard_summary_label") or overlap.get("overlap_state"))
+    structure = receipt_public_label(overlap.get("structure_label"), "")
+    overlap_event = receipt_public_label(overlap.get("overlap_event_type"), "")
     latest_confirmed = overlap.get("latest_confirmed")
+
+    shared_parts: list[Any] = [shared_state]
+    if structure and receipt_key(structure) not in receipt_key(shared_state):
+        shared_parts.append(f"structure is {structure}")
+    if overlap_event:
+        shared_parts.append(f"overlap event is {overlap_event}")
     if isinstance(latest_confirmed, dict):
-        confirmed_summary = clean_text(latest_confirmed.get("summary"), "")
+        confirmed_summary = receipt_public_label(latest_confirmed.get("summary"), "")
         confirmed_date = clean_text(latest_confirmed.get("date"), "")
         if confirmed_summary:
             if confirmed_date:
-                event_bits.append(f"latest confirmed context is {confirmed_summary} on {confirmed_date}")
+                shared_parts.append(f"latest confirmed context is {confirmed_summary} on {confirmed_date}")
             else:
-                event_bits.append(f"latest confirmed context is {confirmed_summary}")
-    event_clause = "; " + "; ".join(event_bits) if event_bits else ""
+                shared_parts.append(f"latest confirmed context is {confirmed_summary}")
 
     participation = clean_text(attention.get("attention_label"))
     breadth_label = clean_text(breadth.get("source_breadth_label"), "unavailable")
-    timing = timing_context_label(indicators)
+    technical = timing_context_label(indicators)
 
-    receipts = [
+    return [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         f"Latest available close: {compact_number(price.get('latest_close'))}{close_date_text}.",
-        f"Shared-zone receipt: {shared_state}; structure is {structure}{event_clause}.",
-        f"Technical receipt: {timing}.",
+        f"Shared-zone receipt: {receipt_parts_once(shared_parts)}.",
+        f"Technical receipt: {technical}.",
         f"Participation receipt: attention is {participation.lower()}; source breadth is {breadth_label}; volume context is {volume_phrase(price.get('volume_confirmation'))}.",
     ]
-
-    if event.get("latest_event_tier") or event.get("latest_confirmed_event_date"):
-        event_tier = translate_label(event.get("latest_event_tier"), "event unavailable")
-        event_direction = translate_label(event.get("latest_event_direction"), "")
-        event_date = clean_text(event.get("latest_event_date"), "")
-        direction_text = f" {event_direction}" if event_direction else ""
-        date_text = f" on {event_date}" if event_date else ""
-        receipts.append(f"Event receipt: latest visible event is {event_tier}{direction_text}{date_text}.")
-    else:
-        receipts.append("Event receipt: no fresh event in view.")
-
-    return receipts[:5]
 
 def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
     return build_evidence_receipts(briefing_input)
@@ -804,6 +867,9 @@ def public_briefing_text(value: Any) -> Any:
         "mixed RSI": "mixed internal strength",
         "constructive RSI": "constructive internal strength",
         "technical stack is trend-momentum is": "technical stack shows trend-momentum is",
+        "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. The read is distributed rather than isolated, but breadth alone does not imply demand. This keeps confidence tied to participation breadth and source coverage.": "Distributed participation. Activity is normal and improving, with broad and stable authorship. That makes the read less isolated, while keeping confidence tied to source coverage rather than treating breadth as demand.",
+        "Measured / distributed. Participation is quiet and increasing. Authorship breadth is broad and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.": "Measured / distributed. Participation is quiet but improving, with broad and stable authorship. The pressure state is visible, but quiet participation keeps the read measured rather than forceful.",
+        "The next quality check is whether the confirmed pressure state gains broader participation, or remains technically confirmed but lightly sponsored.": "The next quality check is whether the confirmed pressure state gains broader participation, or remains technically confirmed but lightly sponsored.",
     }
     for old, new in leak_replacements.items():
         text = text.replace(old, new)
