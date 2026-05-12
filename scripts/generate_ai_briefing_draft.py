@@ -241,7 +241,7 @@ def participation_market_phrase(participation: dict[str, Any]) -> str:
     if role == "narrow_source_risk":
         return "participation is visible but concentrated"
     if role == "confidence_limiter":
-        return "quiet participation keeps confirmation limited"
+        return "quiet participation keeps confidence measured"
     if role == "confirmer":
         return "participation supports the pressure context without proving it"
     if role == "source_breadth_stabilizer":
@@ -437,19 +437,25 @@ def volume_phrase(value: Any) -> str:
 
 
 
+
 def receipt_public_label(value: Any, fallback: str = "") -> str:
     text = translate_label(value, fallback)
     replacements = {
+        "Confirmed Bullish Pressure": "confirmed bullish pressure",
+        "Confirmed Bearish Pressure": "confirmed bearish pressure",
+        "confirmed bullish context Pressure": "confirmed bullish pressure",
+        "confirmed bearish context Pressure": "confirmed bearish pressure",
         "High Noise / Broad": "high-noise, broad-source context",
         "Normal / Broad": "normal, broad-source context",
-        "Confirmed Bullish": "confirmed bullish context",
-        "Confirmed Bearish": "confirmed bearish context",
+        "Confirmed Bullish": "confirmed bullish",
+        "Confirmed Bearish": "confirmed bearish",
+        "confirmed bullish context": "confirmed bullish",
+        "confirmed bearish context": "confirmed bearish",
         "Monitor": "monitor context",
     }
     for old, new in replacements.items():
         text = text.replace(old, new)
     return clean_text(text, fallback)
-
 
 def receipt_key(value: Any) -> str:
     text = clean_text(value, "").lower()
@@ -686,6 +692,7 @@ def read_implication_label(primary: str, zone: str, structure: str, timing: str)
 
 
 
+
 def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
     # Build factual receipt lines for the Evidence card.
     #
@@ -702,23 +709,52 @@ def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
     close_date_text = f" ({close_date})" if close_date else ""
 
     shared_state = receipt_public_label(overlap.get("dashboard_summary_label") or overlap.get("overlap_state"))
-    structure = receipt_public_label(overlap.get("structure_label"), "")
     overlap_event = receipt_public_label(overlap.get("overlap_event_type"), "")
     latest_confirmed = overlap.get("latest_confirmed")
 
+    # If the overlap event itself is a confirmed pressure event, avoid repeating
+    # the generic "confirmed bullish/bearish" fragment from the broader state.
+    if "confirmed bullish pressure" in overlap_event.lower():
+        shared_state = re.sub(r";?\s*confirmed bullish(?: context)?\b", "", shared_state, flags=re.I).strip(" ;")
+    if "confirmed bearish pressure" in overlap_event.lower():
+        shared_state = re.sub(r";?\s*confirmed bearish(?: context)?\b", "", shared_state, flags=re.I).strip(" ;")
+
     shared_parts: list[Any] = [shared_state]
-    if structure and receipt_key(structure) not in receipt_key(shared_state):
-        shared_parts.append(f"structure is {structure}")
+
     if overlap_event:
-        shared_parts.append(f"overlap event is {overlap_event}")
+        latest_date = ""
+        if isinstance(latest_confirmed, dict):
+            latest_date = clean_text(latest_confirmed.get("date"), "")
+        if "confirmed bullish pressure" in overlap_event.lower() or "confirmed bearish pressure" in overlap_event.lower():
+            date_text = f" on {latest_date}" if latest_date else ""
+            shared_parts.append(f"{overlap_event}{date_text}")
+        else:
+            shared_parts.append(f"overlap event is {overlap_event}")
+
     if isinstance(latest_confirmed, dict):
-        confirmed_summary = receipt_public_label(latest_confirmed.get("summary"), "")
         confirmed_date = clean_text(latest_confirmed.get("date"), "")
-        if confirmed_summary:
-            if confirmed_date:
-                shared_parts.append(f"latest confirmed context is {confirmed_summary} on {confirmed_date}")
-            else:
-                shared_parts.append(f"latest confirmed context is {confirmed_summary}")
+        confirmed_direction = receipt_public_label(latest_confirmed.get("direction"), "")
+        confirmed_summary = receipt_public_label(latest_confirmed.get("summary"), "")
+
+        # Do not repeat the same confirmed pressure event twice.
+        event_lower = overlap_event.lower()
+        should_include_latest = not (
+            confirmed_date
+            and (
+                "confirmed bullish pressure" in event_lower
+                or "confirmed bearish pressure" in event_lower
+            )
+        )
+
+        if should_include_latest and confirmed_date:
+            if "bullish" in confirmed_direction.lower() or "bullish" in confirmed_summary.lower():
+                shared_parts.append(f"latest confirmed bullish context was {confirmed_date}")
+            elif "bearish" in confirmed_direction.lower() or "bearish" in confirmed_summary.lower():
+                shared_parts.append(f"latest confirmed bearish context was {confirmed_date}")
+            elif confirmed_summary:
+                shared_parts.append(f"latest confirmed context was {confirmed_date}")
+        elif should_include_latest and confirmed_summary:
+            shared_parts.append(f"latest confirmed context is {confirmed_summary}")
 
     participation = clean_text(attention.get("attention_label"))
     breadth_label = clean_text(breadth.get("source_breadth_label"), "unavailable")
@@ -881,6 +917,9 @@ def public_briefing_text(value: Any) -> Any:
         "mixed RSI": "mixed internal strength",
         "constructive RSI": "constructive internal strength",
         "technical stack is trend-momentum is": "technical stack shows trend-momentum is",
+        "confirmed bullish context Pressure": "confirmed bullish pressure",
+        "confirmed bearish context Pressure": "confirmed bearish pressure",
+        "quiet participation keeps confirmation limited": "quiet participation keeps confidence measured",
         "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. The read is distributed rather than isolated, but breadth alone does not imply demand. This keeps confidence tied to participation breadth and source coverage.": "Distributed participation. Activity is normal and improving, with broad and stable authorship. That makes the read less isolated, while keeping confidence tied to source coverage rather than treating breadth as demand.",
         "Measured / distributed. Participation is quiet and increasing. Authorship breadth is broad and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.": "Measured / distributed. Participation is quiet but improving, with broad and stable authorship. The pressure state is visible, but quiet participation keeps the read measured rather than forceful. Confidence remains tied to participation breadth and source coverage.",
         "The next quality check is whether the confirmed pressure state gains broader participation, or remains technically confirmed but lightly sponsored.": "The next quality check is whether the confirmed pressure state gains broader participation, or remains technically confirmed but lightly sponsored.",
