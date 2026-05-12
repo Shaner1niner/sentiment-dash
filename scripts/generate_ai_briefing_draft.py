@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+﻿#!/usr/bin/env python
 """Generate a local draft SETA AI briefing output from structured input.
 
 This is intentionally deterministic. It exercises the AI briefing workflow and
@@ -628,8 +628,8 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
         "review_status": "draft",
         "model_metadata": {
             "provider": "local",
-            "model": "deterministic_template_v3_semantic_state",
-            "prompt_version": "seta_briefing_prompt_v3_semantic_state",
+            "model": "deterministic_template_v2",
+            "prompt_version": "seta_briefing_prompt_v2",
         },
         "reference_guidance_used": bool((briefing_input.get("reference_guidance") or {}).get("definitions")),
     }
@@ -674,6 +674,7 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
 
 
 
