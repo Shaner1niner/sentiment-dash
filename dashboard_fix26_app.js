@@ -166403,3 +166403,139 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
   window.SETA_ASSET_SWITCH_GUARD = {currentContext:currentContext, showLoading:showLoading, clearLoading:clearLoading, patchRenderFunctions:patchRenderFunctions};
 })();
 // END phase_seta_asset_switch_render_guard_v1
+
+// BEGIN phase_seta_reviewed_context_strictness_v1
+(function phase_seta_reviewed_context_strictness_v1(){
+  if(window.__phase_seta_reviewed_context_strictness_v1) return;
+  window.__phase_seta_reviewed_context_strictness_v1 = true;
+
+  function norm(value){
+    return String(value == null ? "" : value).trim().toLowerCase().replace(/-/g, "_");
+  }
+
+  function normRange(value){
+    return norm(value).replace(/\s+/g, "");
+  }
+
+  function candidateRange(item){
+    if(!item || typeof item !== "object") return "";
+    if(item.display_range) return item.display_range;
+    if(item.displayRange) return item.displayRange;
+    if(item.rangePreset) return item.rangePreset;
+    if(item.reviewed_display_range) return item.reviewed_display_range;
+    if(item.reviewed_source_range) return item.reviewed_source_range;
+    if(item.source_range) return item.source_range;
+    if(item.payload_key){
+      const parts = String(item.payload_key).split("::");
+      if(parts.length >= 4) return parts[3];
+    }
+    return "";
+  }
+
+  function candidateAsset(item){
+    if(!item || typeof item !== "object") return "";
+    if(item.asset) return item.asset;
+    if(item.term) return item.term;
+    if(item.ticker) return item.ticker;
+    if(item.payload_key){
+      const parts = String(item.payload_key).split("::");
+      if(parts.length >= 2) return parts[1];
+    }
+    return "";
+  }
+
+  function candidateFrequency(item){
+    if(!item || typeof item !== "object") return "";
+    if(item.frequency) return item.frequency;
+    if(item.freq) return item.freq;
+    if(item.payload_key){
+      const parts = String(item.payload_key).split("::");
+      if(parts.length >= 3) return parts[2];
+    }
+    return "";
+  }
+
+  function isFallbackCandidate(item, requestedRange){
+    if(!item || typeof item !== "object") return false;
+    if(item.reviewed_range_fallback === true) return true;
+    if(item.range_fallback === true) return true;
+    if(item.reviewedRangeFallback === true) return true;
+    if(item.using_reviewed_fallback === true) return true;
+    if(item.source_range && normRange(item.source_range) !== normRange(requestedRange)) return true;
+    if(item.reviewed_source_range && normRange(item.reviewed_source_range) !== normRange(requestedRange)) return true;
+    return false;
+  }
+
+  function exactReviewedContext(item, term, freq, rangePreset){
+    if(!item || typeof item !== "object") return false;
+
+    const requestedAsset = norm(term);
+    const requestedFreq = norm(freq);
+    const requestedRange = normRange(rangePreset);
+
+    const itemAsset = norm(candidateAsset(item));
+    const itemFreq = norm(candidateFrequency(item));
+    const itemRange = normRange(candidateRange(item));
+
+    if(isFallbackCandidate(item, rangePreset)) return false;
+    if(requestedAsset && itemAsset && requestedAsset !== itemAsset) return false;
+    if(requestedFreq && itemFreq && requestedFreq !== itemFreq) return false;
+    if(requestedRange && itemRange && requestedRange !== itemRange) return false;
+
+    return true;
+  }
+
+  function wrapReviewedBriefingFor(){
+    const original = window.reviewedBriefingFor;
+    if(typeof original !== "function") return false;
+    if(original.__setaReviewedContextStrictWrapped) return true;
+
+    const wrapped = function(term, freq, rangePreset, row){
+      const item = original.apply(this, arguments);
+      if(!item) return item;
+
+      if(exactReviewedContext(item, term, freq, rangePreset)) return item;
+
+      try{
+        console.debug("[SETA reviewed strictness] skipped reviewed fallback for active context", {
+          requested:{term, freq, rangePreset},
+          candidate:{
+            asset:candidateAsset(item),
+            frequency:candidateFrequency(item),
+            display_range:candidateRange(item),
+            payload_key:item && item.payload_key,
+            reviewed_range_fallback:item && item.reviewed_range_fallback
+          }
+        });
+      }catch(_){}
+
+      return null;
+    };
+
+    wrapped.__setaReviewedContextStrictWrapped = true;
+    wrapped.__setaOriginal = original;
+    window.reviewedBriefingFor = wrapped;
+    return true;
+  }
+
+  function boot(){
+    let tries = 0;
+    const timer = setInterval(function(){
+      tries += 1;
+      if(wrapReviewedBriefingFor() || tries > 80) clearInterval(timer);
+    }, 50);
+    wrapReviewedBriefingFor();
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", boot, {once:true});
+  }else{
+    boot();
+  }
+
+  window.SETA_REVIEWED_CONTEXT_STRICTNESS = {
+    exactReviewedContext,
+    wrapReviewedBriefingFor
+  };
+})();
+// END phase_seta_reviewed_context_strictness_v1

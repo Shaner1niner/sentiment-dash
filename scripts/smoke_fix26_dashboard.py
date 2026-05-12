@@ -258,6 +258,9 @@ def check_dashboard_js() -> None:
         "using reviewed ${escapeHTML(sourceRange)} context",
         "function renderReviewedBriefingPanel(panel, briefing, term, freq, rangePreset)",
         "using deterministic Briefing Mode",
+        "phase_seta_reviewed_context_strictness_v1",
+        "SETA_REVIEWED_CONTEXT_STRICTNESS",
+        "skipped reviewed fallback for active context",
     ]
     for token in reviewed_briefing_tokens:
         if token in text:
