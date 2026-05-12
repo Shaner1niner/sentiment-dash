@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 """Generate a local draft SETA AI briefing output from structured input.
 
 This is intentionally deterministic. It exercises the AI briefing workflow and
@@ -128,11 +128,11 @@ def semantic_timing_for(briefing_input: dict[str, Any]) -> dict[str, Any]:
 def human_counter_signal(value: Any) -> str:
     text = clean_text(value, "")
     mapping = {
-        "bearish_rejection_counter_signal": "bearish rejection remains a counter-signal",
-        "bullish_repair_counter_signal": "bullish repair remains a counter-signal",
+        "bearish_rejection_counter_signal": "the outside-zone extension did not persist",
+        "bullish_repair_counter_signal": "the opposite-side pressure response keeps confirmation qualified",
         "inactive_overlap_limiter": "shared-zone confirmation is inactive",
-        "latest_rejection_context": "latest rejection context remains relevant",
-        "constructive_rsi_counter_signal": "constructive RSI tempers the bearish read",
+        "latest_rejection_context": "recent zone return keeps confirmation qualified",
+        "constructive_rsi_counter_signal": "constructive internal strength tempers the bearish read",
         "weak_structure_counter_signal": "weaker structure keeps confirmation incomplete",
         "price_strength_or_extension": "price strength and extension keep exhaustion risk contextual",
         "data_quality_limiter": "data quality limits confidence",
@@ -140,38 +140,206 @@ def human_counter_signal(value: Any) -> str:
     return mapping.get(text, text.replace("_", " ") if text else "")
 
 
+
+
+
 def confidence_phrase(value: Any) -> str:
     text = clean_text(value, "").lower()
     mapping = {
-        "qualified_confirmation": "confirmation is qualified rather than decisive",
-        "participation_supported": "participation adds support, but does not prove the setup",
-        "warning_context": "the setup is best treated as a warning context",
-        "watch_condition": "the setup remains a watch condition",
-        "timing_led": "timing evidence carries more weight than overlap confirmation",
+        "qualified_confirmation": "the read stays qualified rather than decisive",
+        "participation_supported": "participation supports the setup, but does not prove it",
+        "warning_context": "the setup is better treated as warning context than validation",
+        "watch_condition": "the setup remains in watch mode",
+        "timing_led": "the read is led by the technical stack because overlap confirmation is inactive",
         "measured": "confidence remains measured",
         "source_qualified": "source concentration keeps confidence qualified",
-        "data_limited": "data limits confidence",
+        "data_limited": "data quality limits confidence",
         "qualified": "confidence remains qualified",
     }
     return mapping.get(text, "confidence remains measured")
 
+def first_upper(value: Any) -> str:
+    text = clean_text(value, "")
+    return text[:1].upper() + text[1:] if text else ""
+
+
+def lower_phrase(value: Any) -> str:
+    return clean_text(value, "").strip().lower()
+
+
+def sentence_once(parts: list[str]) -> str:
+    seen: set[str] = set()
+    out: list[str] = []
+    for part in parts:
+        item = clean_text(part, "")
+        if not item:
+            continue
+        key = lower_phrase(item).strip(" .")
+        if key in seen:
+            continue
+        seen.add(key)
+        if item[-1:] not in ".!?":
+            item += "."
+        out.append(item)
+    return " ".join(out)
+
+
+def contains_meaning(haystack: str, phrase: str) -> bool:
+    h = lower_phrase(haystack)
+    p = lower_phrase(phrase).strip(" .")
+    if not p:
+        return True
+    if p in h:
+        return True
+    # Handle the common duplicate where one sentence says "inactive" and
+    # another says "shared-zone confirmation is inactive".
+    if "shared-zone confirmation is inactive" in p and "shared-zone confirmation is inactive" in h:
+        return True
+    if "bearish rejection" in p and "bearish rejection" in h:
+        return True
+    if "latest rejection" in p and "rejection" in h:
+        return True
+    return False
+
+
+def participation_market_phrase(participation: dict[str, Any]) -> str:
+    role = clean_text(participation.get("role"), "")
+    role_label = clean_text(participation.get("role_label"), "")
+    state = clean_text(participation.get("state"), "")
+    breadth = clean_text(participation.get("breadth_state"), "")
+    attention = clean_text(participation.get("attention_level"), "")
+
+    if role == "warning_context":
+        return "participation is acting as a warning context rather than validation"
+    if role == "early_repair_probe":
+        return "participation is probing repair, but confirmation is still incomplete"
+    if role == "narrow_source_risk":
+        return "participation is visible but concentrated"
+    if role == "confidence_limiter":
+        return "quiet participation keeps confirmation limited"
+    if role == "confirmer":
+        return "participation supports the pressure context without proving it"
+    if role == "source_breadth_stabilizer":
+        if "quiet" in state.lower() or attention.lower() == "quiet":
+            return "participation is quiet but broadly sourced"
+        return "participation is broadly sourced"
+    if role_label:
+        return role_label
+    if breadth == "broad_stable":
+        return "participation is broadly sourced"
+    return "participation remains contextual"
+
+
+def public_primary_label(value: Any) -> str:
+    # Translate internal semantic labels into clearer public-facing TA language.
+    text = display_label(value)
+    replacements = [
+        ("Price briefly extended outside the shared price/sentiment range, then rotated back into that range.", "Price briefly extended outside the shared price/sentiment range, then rotated back into that range."),
+        ("Price briefly extended outside the shared price/sentiment range, then rotated back into that range", "Price briefly extended outside the shared price/sentiment range, then rotated back into that range"),
+        ("the outside-zone extension did not persist", "the outside-zone extension did not persist"),
+        ("The outside-zone extension did not persist", "The outside-zone extension did not persist"),
+        ("recent zone return keeps the failed-extension context in focus", "recent zone return keeps the failed-extension context in focus"),
+        ("Recent zone return keeps the failed-extension context in focus", "Recent zone return keeps the failed-extension context in focus"),
+        ("Recent zone return keeps confirmation qualified", "Recent zone return keeps confirmation qualified"),
+        ("recent zone return keeps confirmation qualified", "recent zone return keeps confirmation qualified"),
+        ("Bearish technical pressure with mixed internal strength", "Bearish technical pressure with mixed internal strength"),
+        ("Bearish technical pressure with constructive internal strength", "Bearish technical pressure with constructive internal strength"),
+        ("Bearish technical pressure with weak internal strength", "Bearish technical pressure with weak internal strength"),
+        ("Bullish technical pressure with mixed internal strength", "Bullish technical pressure with mixed internal strength"),
+        ("Bullish technical pressure with constructive internal strength", "Bullish technical pressure with constructive internal strength"),
+        ("Bullish technical pressure with weak internal strength", "Bullish technical pressure with weak internal strength"),
+        ("bearish technical pressure with mixed internal strength", "bearish technical pressure with mixed internal strength"),
+        ("bearish technical pressure with constructive internal strength", "bearish technical pressure with constructive internal strength"),
+        ("bullish technical pressure with mixed internal strength", "bullish technical pressure with mixed internal strength"),
+        ("bullish technical pressure with constructive internal strength", "bullish technical pressure with constructive internal strength"),
+    ]
+    for old, new in replacements:
+        text = text.replace(old, new)
+    text = text.replace("technical pressure", "technical pressure")
+    text = text.replace("Technical pressure", "Technical pressure")
+    text = text.replace("mixed internal strength", "mixed internal strength")
+    text = text.replace("constructive internal strength", "constructive internal strength")
+    text = text.replace("weak internal strength", "weak internal strength")
+    return text
+
+
+def technical_stack_label(indicators: dict[str, Any]) -> str:
+    # Summarize MACD, RSI, histogram, and Stoch RSI in expert public language.
+    macd_raw = clean_text(indicators.get("macd_label"), "").lower()
+    rsi_raw = clean_text(indicators.get("rsi_label"), "").lower()
+    hist = indicators.get("macd_histogram")
+    stoch = indicators.get("stoch_rsi")
+    parts: list[str] = []
+
+    if "negative divergence" in macd_raw or "narrative weakening" in macd_raw:
+        parts.append("trend-momentum is weakening")
+    elif "positive divergence" in macd_raw or "sentiment repair" in macd_raw:
+        parts.append("trend-momentum is repairing")
+    elif "bearish" in macd_raw:
+        parts.append("trend-momentum is bearish")
+    elif "bullish" in macd_raw:
+        parts.append("trend-momentum is constructive")
+    elif macd_raw:
+        parts.append(translate_label(indicators.get("macd_label"), ""))
+
+    if "constructive" in rsi_raw or "strong" in rsi_raw:
+        parts.append("internal strength remains constructive")
+    elif "mixed" in rsi_raw or "neutral" in rsi_raw:
+        parts.append("internal strength is mixed")
+    elif "weak" in rsi_raw:
+        parts.append("internal strength is weak")
+    elif rsi_raw:
+        parts.append(translate_label(indicators.get("rsi_label"), ""))
+
+    hist_n = None
+    try:
+        hist_n = float(hist)
+    except (TypeError, ValueError):
+        pass
+    if hist_n is not None:
+        if hist_n > 0:
+            parts.append("MACD impulse is positive")
+        elif hist_n < 0:
+            parts.append("MACD impulse is negative")
+
+    stoch_n = None
+    try:
+        stoch_n = float(stoch)
+    except (TypeError, ValueError):
+        pass
+    if stoch_n is not None:
+        if stoch_n >= 80:
+            parts.append("short-term extension is elevated")
+        elif stoch_n <= 20:
+            parts.append("short-term momentum is washed out")
+        else:
+            parts.append("short-term extension is mid-range")
+
+    if not parts:
+        return "technical context unavailable"
+    return "; ".join(parts)
 
 
 def overlap_zone_sentence_from_input(briefing_input: dict[str, Any]) -> str:
-    """Translate dashboard-facing overlap/pressure state into public shared-zone language."""
+    # Translate dashboard overlap/pressure state into public shared-zone language.
+    # This treats failed outside-zone extensions symmetrically:
+    # - bullish pressure + bearish rejection/counter-context
+    # - bearish pressure + bullish repair/counter-context
+    # The exact direction stays in the primary label and receipts.
     combined = combined_context_text(briefing_input)
 
-    has_confirmed = bool(re.search(r"\bconfirmed\b", combined)) and not bool(re.search(r"\bunconfirmed\b", combined))
+    has_confirmed = bool(re.search(r"confirmed", combined)) and not bool(re.search(r"unconfirmed", combined))
     has_bullish_pressure = "bullish pressure" in combined
     has_bearish_pressure = "bearish pressure" in combined
     has_rejection = "rejection" in combined
-    has_bearish_context = bool(re.search(r"\bbearish\b", combined))
-    has_bullish_context = bool(re.search(r"\bbullish\b", combined))
+    has_repair = "repair" in combined
+    has_bearish_context = bool(re.search(r"bearish", combined))
+    has_bullish_context = bool(re.search(r"bullish", combined))
 
     if has_bullish_pressure and has_bearish_context and not has_confirmed:
-        return "Price is outside the shared price/sentiment zone with unconfirmed bullish pressure, while bearish rejection remains a counter-signal."
+        return "Price briefly moved outside the shared price/sentiment range, then rotated back toward that range; bullish pressure remains unconfirmed."
     if has_bearish_pressure and has_bullish_context and not has_confirmed:
-        return "Price is outside the shared price/sentiment zone with unconfirmed bearish pressure, while bullish counter-pressure remains a counter-signal."
+        return "Price briefly moved outside the shared price/sentiment range, then rotated back toward that range; bearish pressure remains unconfirmed."
 
     if has_confirmed and has_bearish_pressure:
         return "Price is above the shared price/sentiment zone, creating confirmed bearish pressure."
@@ -185,12 +353,12 @@ def overlap_zone_sentence_from_input(briefing_input: dict[str, Any]) -> str:
 
     if "outside" in combined or "pressure active" in combined:
         return "Price is outside the shared price/sentiment zone, but confirmation is incomplete."
-    if has_rejection:
-        return "Shared-zone confirmation is not cleanly active, but the latest rejection context keeps pressure in focus."
+    if has_rejection or has_repair:
+        return "Shared-zone confirmation is not cleanly active; recent range return keeps confirmation qualified."
     if "watch" in combined:
         return "Price is near a shared-zone decision point, but confirmation is incomplete."
     if "inactive" in combined:
-        return "Shared-zone confirmation is inactive; timing evidence carries more weight than overlap confirmation."
+        return "Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation."
     return "SETA compares price behavior against the shared price/sentiment zone."
 
 def overlap_zone_sentence(overlap: dict[str, Any]) -> str:
@@ -202,8 +370,10 @@ def overlap_definition_sentence() -> str:
     return "Overlap is the shared zone where price bands and sentiment bands agree."
 
 
+
 def timing_definition_sentence() -> str:
-    return "Timing context means whether indicators confirm, weaken, or conflict with the setup."
+    return "Technical context means whether MACD, RSI, Stoch RSI, and related indicators confirm, weaken, or conflict with the setup."
+
 
 
 LABEL_TRANSLATIONS = [
@@ -212,14 +382,12 @@ LABEL_TRANSLATIONS = [
     (re.compile(r"\bCompression\s+Coil\b", re.I), "sentiment momentum is compressing rather than expanding"),
     (re.compile(r"\bCrowded\s+Bearish\s*/\s*Broad\b", re.I), "bearish participation appears broad across available sources"),
     (re.compile(r"\bFlat\s*/\s*Transition\b", re.I), "transitional rather than clearly directional"),
-    (re.compile(r"\bNegative\s+Divergence\s*/\s*Narrative\s+Weakening\b", re.I), "negative divergence or narrative weakening flagged by the timing model"),
-    (re.compile(r"\bPositive\s+Divergence\s*/\s*Sentiment\s+Repair\b", re.I), "positive divergence or sentiment repair flagged by the timing model"),
+    (re.compile(r"\bNegative\s+Divergence\s*/\s*Narrative\s+Weakening\b", re.I), "negative divergence or narrative weakening flagged by the technical model"),
+    (re.compile(r"\bPositive\s+Divergence\s*/\s*Sentiment\s+Repair\b", re.I), "positive divergence or sentiment repair flagged by the technical model"),
     (re.compile(r"\bRSI\s+Mixed\s*/\s*Neutral\b", re.I), "RSI is mixed/neutral"),
     (re.compile(r"\bRibbon\s+Neutral\s*/\s+Coiling\b", re.I), "sentiment ribbon is neutral and coiling"),
     (re.compile(r"\bquality\s+score\b", re.I), "event quality read"),
 ]
-
-
 def translate_label(value: Any, fallback: str = "unavailable") -> str:
     text = clean_text(value, fallback)
     for pattern, replacement in LABEL_TRANSLATIONS:
@@ -255,48 +423,14 @@ def structure_label(overlap: dict[str, Any]) -> str:
     return translate_label(overlap.get("structure_label"), "structure unavailable")
 
 
+
 def timing_context_label(indicators: dict[str, Any]) -> str:
-    macd = translate_label(indicators.get("macd_label"), "")
-    rsi = translate_label(indicators.get("rsi_label"), "")
-    stoch = indicators.get("stoch_rsi")
-    hist = indicators.get("macd_histogram")
-    parts = [part for part in [macd, rsi] if part and part != "unavailable"]
-
-    hist_n = None
-    try:
-        hist_n = float(hist)
-    except (TypeError, ValueError):
-        pass
-    if hist_n is not None:
-        if hist_n > 0:
-            parts.append("MACD histogram is positive")
-        elif hist_n < 0:
-            parts.append("MACD histogram is negative")
-
-    stoch_n = None
-    try:
-        stoch_n = float(stoch)
-    except (TypeError, ValueError):
-        pass
-    if stoch_n is not None:
-        if stoch_n >= 80:
-            parts.append("Stoch RSI is stretched high")
-        elif stoch_n <= 20:
-            parts.append("Stoch RSI is washed out")
-        else:
-            parts.append("Stoch RSI is mid-range")
-
-    if not parts:
-        return "timing unavailable"
-    return "; ".join(parts)
-
-
-
+    return technical_stack_label(indicators)
 
 def primary_read_label(briefing_input: dict[str, Any]) -> str:
-    semantic_label = clean_text(semantic_decision_for(briefing_input).get("primary_label"), "")
+    semantic_label = public_primary_label(semantic_decision_for(briefing_input).get("primary_label"))
     if semantic_label:
-        return semantic_label
+        return public_primary_label(semantic_label)
 
     # Fallback path retained for defensive compatibility if semantic state is
     # unavailable or intentionally disabled in a future local test.
@@ -321,11 +455,11 @@ def primary_read_label(briefing_input: dict[str, Any]) -> str:
     def rsi_phrase() -> str:
         rsi = clean_text(indicators.get("rsi_label"), "").lower()
         if "constructive" in rsi or "strong" in rsi:
-            return "constructive RSI"
+            return "constructive internal strength"
         if "weak" in rsi:
-            return "weak RSI"
+            return "weak internal strength"
         if "mixed" in rsi or "neutral" in rsi:
-            return "mixed RSI"
+            return "mixed internal strength"
         return "mixed confirmation"
 
     if "strong bearish" in context:
@@ -346,9 +480,9 @@ def primary_read_label(briefing_input: dict[str, Any]) -> str:
 
     macd = clean_text(indicators.get("macd_label"), "").lower()
     if "bearish" in macd or "bearish" in context:
-        return f"Bearish timing pressure with {rsi_phrase()}"
+        return f"Bearish technical pressure with {rsi_phrase()}"
     if "bullish" in macd or "bullish" in context:
-        return f"Bullish timing pressure with {rsi_phrase()}"
+        return f"Bullish technical pressure with {rsi_phrase()}"
 
     for value in [
         sentiment.get("archetype_summary"),
@@ -366,7 +500,7 @@ def build_summary(briefing_input: dict[str, Any]) -> str:
     sentiment = briefing_input.get("sentiment_context") or {}
     attention = briefing_input.get("attention_context") or {}
     breadth = briefing_input.get("breadth_trust") or {}
-    primary = lower_first_label(primary_read_label(briefing_input))
+    primary = lower_first_label(public_primary_label(primary_read_label(briefing_input)))
     sentiment_label = translate_label(sentiment.get("sentiment_state")).lower()
     attention_label = clean_text(attention.get("attention_label")).lower()
     breadth_label = clean_text(breadth.get("source_breadth_label")).lower()
@@ -378,6 +512,8 @@ def build_summary(briefing_input: dict[str, Any]) -> str:
     )
 
 
+
+
 def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
     sentiment = briefing_input.get("sentiment_context") or {}
     semantic = semantic_state_for(briefing_input)
@@ -386,31 +522,34 @@ def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
     participation = semantic.get("participation") or {}
     event_state = semantic.get("event") or {}
 
-    primary = clean_text(decision.get("primary_label"), primary_read_label(briefing_input))
+    primary = public_primary_label(clean_text(decision.get("primary_label"), primary_read_label(briefing_input)))
+    primary_state = clean_text(decision.get("primary_state"), "")
     zone = overlap_zone_sentence_from_input(briefing_input)
-    timing = clean_text(timing_state.get("label"), timing_context_label(briefing_input.get("indicator_context") or {}))
+    timing = timing_context_label(briefing_input.get("indicator_context") or {})
     ribbon = clean_text(
         (semantic.get("ribbon") or {}).get("label"),
         translate_label(sentiment.get("ribbon_label") or sentiment.get("sentiment_state"), "ribbon unavailable"),
     )
-    participation_role = clean_text(
-        participation.get("role_label"),
-        clean_text(participation.get("attention_level"), "participation context").lower(),
-    )
+    participation_phrase = participation_market_phrase(participation)
     counter_signal = human_counter_signal(decision.get("counter_signal"))
     event_note = clean_text(event_state.get("label"), "")
 
-    counter_clause = f" {counter_signal[:1].upper() + counter_signal[1:]}." if counter_signal else ""
-    event_clause = (
-        f" Latest event context is {event_note}."
-        if event_note and event_state.get("state") not in {"none", "event_unknown"}
-        else ""
-    )
-    return (
-        f"Primary read: {primary}. "
-        f"{zone}{counter_clause} "
-        f"The timing stack reads {timing}, with {ribbon.lower()} ribbon context and {participation_role}.{event_clause}"
-    )
+    if primary_state == "weakening_sentiment_price_resilience":
+        opener = f"Primary read: {primary}. Price is holding up better than the sentiment/technical stack is confirming."
+    elif primary_state.startswith("unconfirmed_"):
+        opener = f"Primary read: {primary}. The pressure is visible, but the confirmation stack is still conflicted."
+    elif primary_state.startswith("bearish_timing"):
+        opener = f"Primary read: {primary}. The bearish read is technical-stack led rather than overlap-confirmed."
+    else:
+        opener = f"Primary read: {primary}."
+
+    parts = [opener, zone]
+    if counter_signal and not contains_meaning(" ".join(parts), counter_signal):
+        parts.append(first_upper(counter_signal))
+    parts.append(f"The technical stack shows {timing}, with {ribbon.lower()} ribbon context, and {participation_phrase}")
+    if event_note and event_state.get("state") not in {"none", "event_unknown"} and not contains_meaning(" ".join(parts), event_note):
+        parts.append(f"Latest event context is {event_note}")
+    return sentence_once(parts)
 
 
 def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
@@ -421,37 +560,40 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     timing_state = semantic.get("timing") or {}
     participation = semantic.get("participation") or {}
 
-    primary = clean_text(decision.get("primary_label"), primary_read_label(briefing_input))
-    timing = clean_text(timing_state.get("label"), timing_context_label(briefing_input.get("indicator_context") or {}))
+    primary = public_primary_label(clean_text(decision.get("primary_label"), primary_read_label(briefing_input)))
+    primary_state = clean_text(decision.get("primary_state"), "")
+    timing = timing_context_label(briefing_input.get("indicator_context") or {})
     confidence = confidence_phrase(decision.get("confidence_state"))
-    participation_role = clean_text(participation.get("role_label"), "participation remains contextual")
+    participation_phrase = participation_market_phrase(participation)
     counter_signal = human_counter_signal(decision.get("counter_signal"))
     quality_note = clean_text(quality.get("public_note"), "")
 
     pressure_state = clean_text(pressure.get("state"), "")
-    if pressure_state.startswith("confirmed"):
-        base = "This matters because the shared-zone pressure state is confirmed, so the next question is whether timing and participation support the same read."
+    if primary_state == "weakening_sentiment_price_resilience":
+        base = "This matters because price strength and sentiment confirmation are not moving with equal force."
+    elif pressure_state.startswith("confirmed"):
+        base = "This matters because shared-zone pressure is confirmed, so the quality of timing and participation becomes the key confidence check."
     elif pressure_state.startswith("unconfirmed"):
-        base = "This matters because price and sentiment are no longer moving cleanly inside the same shared zone, but confirmation is still incomplete."
+        base = "This matters because pressure is visible, but the setup has not earned clean confirmation."
     elif decision.get("confidence_state") == "warning_context":
-        base = "This matters because attention is acting more like a warning context than a validation signal."
+        base = "This matters because attention is functioning as a warning context, not as validation by itself."
     elif decision.get("confidence_state") == "timing_led":
-        base = "This matters because overlap confirmation is inactive, so timing evidence carries more weight."
+        base = "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive."
+    elif primary_state.startswith("bearish_timing"):
+        base = "This matters because the bearish read is coming from technical pressure, not from a fully confirmed shared-zone break."
     else:
-        base = "This matters because SETA is separating regime, shared-zone pressure, timing, and participation before assigning confidence."
+        base = "This matters because the asset is not giving a clean one-direction read across price, sentiment, timing, and participation."
 
-    counter_clause = f" {counter_signal[:1].upper() + counter_signal[1:]}." if counter_signal else ""
-    return " ".join(
-        part
-        for part in [
-            base,
-            f"The primary read is {lower_first_label(primary)}, while timing reads {timing}.",
-            f"{confidence[:1].upper() + confidence[1:]}; {participation_role}.",
-            counter_clause.strip(),
-            quality_note,
-        ]
-        if part
-    )
+    parts = [
+        base,
+        f"The primary read is {lower_first_label(primary)}, while the technical stack shows {timing}",
+        f"{first_upper(confidence)}; {participation_phrase}",
+    ]
+    if counter_signal and not contains_meaning(" ".join(parts), counter_signal):
+        parts.append(first_upper(counter_signal))
+    if quality_note and "No participation surge is visible" not in quality_note:
+        parts.append(quality_note)
+    return sentence_once(parts)
 
 def read_implication_label(primary: str, zone: str, structure: str, timing: str) -> str:
     combined = f"{primary} {zone} {structure} {timing}".lower()
@@ -486,10 +628,10 @@ def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
     shared_receipt = translate_label(overlap.get("dashboard_summary_label") or overlap.get("overlap_state"))
 
     receipts = [
-        f"Stack summary: {primary}; {zone} Structure is {structure}; timing is {timing}; participation is {participation.lower()}.",
+        f"Stack summary: {primary}; {zone} Structure is {structure}; technical stack is {timing}; participation is {participation.lower()}.",
         f"{close_label}: {compact_number(price.get('latest_close'))}{close_date_text}.",
         f"Shared-zone receipt: {shared_receipt}.",
-        f"Timing receipt: {timing}.",
+        f"Technical receipt: {timing}.",
         f"Participation receipt: {participation}; volume context is {volume_phrase(price.get('volume_confirmation'))}.",
     ]
 
@@ -518,6 +660,8 @@ def public_breadth_caveat(breadth: dict[str, Any]) -> str:
 
 
 
+
+
 def build_trust_check(briefing_input: dict[str, Any]) -> str:
     participation_trend = briefing_input.get("participation_trend") or {}
     breadth_trend = briefing_input.get("authorship_breadth_trend") or {}
@@ -529,34 +673,29 @@ def build_trust_check(briefing_input: dict[str, Any]) -> str:
     breadth_note = clean_text(breadth_trend.get("public_note") or breadth.get("source_breadth_public_note"), "")
     quality_label = clean_text(quality.get("label"), "Participation quality")
     role = clean_text(semantic_participation.get("role"), "")
-    role_label = clean_text(semantic_participation.get("role_label"), "")
 
     if role == "warning_context":
-        semantic_note = "Participation is acting as a warning context rather than a validation signal."
+        semantic_note = "Attention is useful as a warning layer here, not as proof of validation."
     elif role == "early_repair_probe":
-        semantic_note = "Participation is probing a repair attempt, but confirmation remains incomplete."
+        semantic_note = "Participation is probing repair, but the setup still needs confirmation from structure or timing."
     elif role == "narrow_source_risk":
-        semantic_note = "Participation is visible but concentrated, so source breadth limits confidence."
+        semantic_note = "Visible participation is concentrated, so source breadth keeps confidence qualified."
     elif role == "confidence_limiter":
-        semantic_note = "Quiet participation limits confirmation."
+        semantic_note = "Participation is not forceful enough to confirm the pressure state."
     elif role == "confirmer":
-        semantic_note = "Participation supports the pressure context, but it is not proof by itself."
+        semantic_note = "Participation supports the pressure context, while still falling short of proof."
     elif role == "source_breadth_stabilizer":
-        semantic_note = "Broad authorship helps stabilize the read without implying demand by itself."
+        semantic_note = "The read is distributed rather than isolated, but breadth alone does not imply demand."
     else:
-        semantic_note = role_label
+        semantic_note = participation_market_phrase(semantic_participation)
 
-    return " ".join(
-        part
-        for part in [
-            f"{quality_label}.",
-            participation_note,
-            breadth_note,
-            semantic_note,
-            "This keeps confidence calibrated to participation breadth and source coverage.",
-        ]
-        if part
-    )
+    return sentence_once([
+        f"{quality_label}.",
+        participation_note,
+        breadth_note,
+        semantic_note,
+        "This keeps confidence tied to participation breadth and source coverage.",
+    ])
 
 def build_briefing_cards(briefing_input: dict[str, Any]) -> dict[str, Any]:
     """Build the canonical briefing-card contract.
@@ -583,10 +722,31 @@ def build_briefing_cards(briefing_input: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+
+
 def build_watch_item(briefing_input: dict[str, Any]) -> str:
     event = briefing_input.get("event_context") or {}
     sentiment = briefing_input.get("sentiment_context") or {}
     price = briefing_input.get("price_context") or {}
+    semantic = semantic_state_for(briefing_input)
+    decision = semantic.get("semantic_decision") or {}
+    timing = semantic.get("timing") or {}
+    pressure = semantic.get("pressure") or {}
+
+    primary_state = clean_text(decision.get("primary_state"), "")
+    counter_signal = clean_text(decision.get("counter_signal"), "")
+    pressure_state = clean_text(pressure.get("state"), "")
+    timing_state = clean_text(timing.get("state"), "")
+
+    if "bearish_rejection" in counter_signal or (event.get("latest_event_tier") and "rejection" in clean_text(event.get("latest_event_tier"), "").lower()):
+        return "Watch whether the range return becomes confirmed shared-zone pressure, or fades while the technical stack remains mixed."
+    if pressure_state.startswith("unconfirmed"):
+        return "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition."
+    if primary_state == "weakening_sentiment_price_resilience":
+        return "Watch whether price resilience persists while sentiment momentum weakens, or whether participation starts confirming the divergence."
+    if primary_state.startswith("bearish_timing") or "bearish" in timing_state:
+        return "Watch whether bearish technical pressure broadens into shared-zone confirmation, or fades while internal strength remains mixed."
+
     risk = sentiment.get("archetype_risk_note")
     if risk:
         return public_safe_sentence(risk)
@@ -598,6 +758,74 @@ def build_watch_item(briefing_input: dict[str, Any]) -> str:
     return "Watch for confirmation from structure, volume, and follow-through."
 
 
+
+def public_briefing_text(value: Any) -> Any:
+    # Final public-language cleanup for generated briefing text.
+    # This runs before validation so public copy and structured card copies
+    # stay aligned with the briefing contract.
+    if isinstance(value, dict):
+        return {k: public_briefing_text(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [public_briefing_text(v) for v in value]
+    if not isinstance(value, str):
+        return value
+
+    text = value
+
+    replacements = [
+        ("Shared-zone confirmation is not cleanly active; recent range return keeps confirmation qualified. Recent zone return keeps confirmation qualified.", "Shared-zone confirmation is not cleanly active; recent range return keeps confirmation qualified."),
+        ("Recent zone return keeps confirmation qualified. ", ""),
+        (" Recent zone return keeps confirmation qualified.", ""),
+        ("Recent zone return keeps confirmation qualified.", ""),
+        ("recent zone return keeps confirmation qualified. ", ""),
+        (" recent zone return keeps confirmation qualified.", ""),
+        ("recent zone return keeps confirmation qualified.", ""),
+        (", with ribbon context unavailable ribbon context, and ", ", and "),
+        ("with ribbon context unavailable ribbon context, and ", ""),
+        ("ribbon context unavailable ribbon context", ""),
+        ("Latest event context is Bearish rejection.", "Price briefly moved outside the shared price/sentiment range, then rotated back toward that range."),
+        ("Latest event context is Bearish rejection", "Price briefly moved outside the shared price/sentiment range, then rotated back toward that range"),
+        ("latest rejection context keeps pressure in focus", "recent range return keeps confirmation qualified"),
+        ("Latest rejection context keeps pressure in focus", "Recent range return keeps confirmation qualified"),
+        ("latest rejection context remains relevant", "recent range return keeps confirmation qualified"),
+        ("Latest rejection context remains relevant", "Recent range return keeps confirmation qualified"),
+        ("bearish rejection remains a counter-signal", "the outside-zone extension did not persist"),
+        ("Bearish rejection remains a counter-signal", "The outside-zone extension did not persist"),
+        ("bullish counter-pressure remains a counter-signal", "the opposite-side pressure response keeps confirmation qualified"),
+        ("range re-entry", "range return"),
+        ("Range re-entry", "Range return"),
+        ("re-entry", "return"),
+        ("Re-entry", "Return"),
+        ("Bearish timing pressure with mixed RSI", "Bearish technical pressure with mixed internal strength"),
+        ("bearish timing pressure with mixed RSI", "bearish technical pressure with mixed internal strength"),
+        ("bearish timing with mixed RSI", "bearish technical pressure with mixed internal strength"),
+        ("negative divergence with constructive RSI", "trend-momentum is weakening while internal strength remains constructive"),
+        ("negative divergence / narrative weakening", "trend-momentum is weakening"),
+        ("technical stack is trend-momentum is", "technical stack shows trend-momentum is"),
+        ("Technical stack is trend-momentum is", "Technical stack shows trend-momentum is"),
+        ("timing pressure", "technical pressure"),
+        ("Timing pressure", "Technical pressure"),
+        ("timing evidence", "technical evidence"),
+        ("Timing evidence", "Technical evidence"),
+        ("timing stack", "technical stack"),
+        ("Timing stack", "Technical stack"),
+        ("timing-led", "technical-stack led"),
+        ("Timing-led", "Technical-stack led"),
+        ("mixed RSI", "mixed internal strength"),
+        ("constructive RSI", "constructive internal strength"),
+    ]
+
+    for old, new in replacements:
+        text = text.replace(old, new)
+
+    # Clean punctuation left behind by optional-context removal.
+    text = re.sub(r",\s*,", ",", text)
+    text = re.sub(r"\s+,", ",", text)
+    text = re.sub(r",\s+and\s+\.", ".", text)
+    text = re.sub(r"\s{2,}", " ", text)
+    text = text.replace(" ,", ",").replace(" .", ".").strip()
+    return text
+
 def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
     asset = briefing_input["asset"]
     frequency = briefing_input["frequency"]
@@ -606,12 +834,12 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
     summary = build_summary(briefing_input)
     briefing_cards = build_briefing_cards(briefing_input)
 
-    return {
+    draft = {
         "schema_version": "ai_briefing_output_v1",
         "asset": asset,
         "frequency": frequency,
         "as_of": as_of,
-        "headline": f"{asset} SETA briefing: {primary_read_label(briefing_input)}"[:90],
+        "headline": f"{asset} SETA briefing: {public_primary_label(primary_read_label(briefing_input))}"[:90],
         "summary": summary,
         "what_seta_sees": briefing_cards["what_seta_sees"]["copy"],
         "why_it_matters": briefing_cards["why_it_matters"]["copy"],
@@ -633,6 +861,7 @@ def generate_draft(briefing_input: dict[str, Any]) -> dict[str, Any]:
         },
         "reference_guidance_used": bool((briefing_input.get("reference_guidance") or {}).get("definitions")),
     }
+    return draft
 
 
 def load_input(args: argparse.Namespace) -> dict[str, Any]:
@@ -660,6 +889,7 @@ def main() -> int:
     args = parse_args()
     briefing_input = load_input(args)
     draft = generate_draft(briefing_input)
+    draft = public_briefing_text(draft)
     errors = validate_output(draft, briefing_input)
     if errors:
         for error in errors:
