@@ -41,7 +41,6 @@ def public_safe_sentence(value: Any, fallback: str = "Context is unavailable.") 
     return text
 
 
-
 def public_watch_item_text(value: Any) -> str:
     text = public_safe_sentence(value, "No single setup family dominates the current profile.")
     replacements = {
@@ -191,7 +190,6 @@ def sentence_once(parts: list[str]) -> str:
             item += "."
         out.append(item)
     return " ".join(out)
-
 
 
 def contains_meaning(haystack: str, phrase: str) -> bool:
@@ -367,7 +365,6 @@ def technical_stack_label(indicators: dict[str, Any]) -> str:
     return "; ".join(parts)
 
 
-
 def overlap_zone_sentence_from_input(briefing_input: dict[str, Any]) -> str:
     # Translate overlap/pressure state into public shared-zone language.
     semantic = semantic_state_for(briefing_input)
@@ -457,6 +454,32 @@ def lower_first_label(value: Any) -> str:
         return text
     return text[:1].lower() + text[1:]
 
+def primary_read_phrase_for_sentence(briefing_input: dict[str, Any], value: Any) -> str:
+    """Normalize primary-read copy when used inside sentence prose."""
+    asset = clean_text(briefing_input.get("asset"), "")
+    text = public_primary_label(value)
+    text = re.sub(r"\s+", " ", text).strip(" .")
+
+    if asset:
+        asset_re = re.escape(asset)
+        text = re.sub(rf"^{asset_re}\s+shows\s+", "", text, flags=re.I).strip()
+        text = re.sub(rf"^{asset_re}\s+has\s+", "", text, flags=re.I).strip()
+        text = re.sub(rf"^the\s+primary\s+read\s+is\s+{asset_re}\s+has\s+", "the primary read is ", text, flags=re.I).strip()
+
+    text = re.sub(r"\s+([,.;:])", r"\1", text)
+    text = re.sub(r"\.{2,}$", ".", text)
+    return text.strip(" .")
+
+
+def primary_read_fragment(briefing_input: dict[str, Any], value: Any) -> str:
+    """Lowercase readable primary-read fragments without breaking ticker acronyms."""
+    text = primary_read_phrase_for_sentence(briefing_input, value)
+    if not text:
+        return text
+    if len(text) >= 2 and text[:2].isupper():
+        return text
+    return text[:1].lower() + text[1:]
+
 def volume_phrase(value: Any) -> str:
     text = clean_text(value, "unavailable").lower()
     if text == "normal volume":
@@ -464,8 +487,6 @@ def volume_phrase(value: Any) -> str:
     if text == "high volume":
         return "high"
     return text
-
-
 
 
 def receipt_public_label(value: Any, fallback: str = "") -> str:
@@ -593,7 +614,7 @@ def build_summary(briefing_input: dict[str, Any]) -> str:
     sentiment = briefing_input.get("sentiment_context") or {}
     attention = briefing_input.get("attention_context") or {}
     breadth = briefing_input.get("breadth_trust") or {}
-    primary = lower_first_label(public_primary_label(primary_read_label(briefing_input)))
+    primary = primary_read_fragment(briefing_input, primary_read_label(briefing_input))
     sentiment_label = translate_label(sentiment.get("sentiment_state")).lower()
     attention_label = clean_text(attention.get("attention_label")).lower()
     breadth_label = clean_text(breadth.get("source_breadth_label")).lower()
@@ -613,6 +634,7 @@ def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
     event_state = semantic.get("event") or {}
 
     primary = public_primary_label(clean_text(decision.get("primary_label"), primary_read_label(briefing_input)))
+    primary = primary_read_phrase_for_sentence(briefing_input, primary)
     primary_state = clean_text(decision.get("primary_state"), "")
     zone = overlap_zone_sentence_from_input(briefing_input)
     technical = timing_context_label(briefing_input.get("indicator_context") or {})
@@ -652,7 +674,6 @@ def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
     return sentence_once(parts)
 
 
-
 def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     quality = briefing_input.get("participation_quality") or {}
     semantic = semantic_state_for(briefing_input)
@@ -662,6 +683,7 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     participation = semantic.get("participation") or {}
 
     primary = public_primary_label(clean_text(decision.get("primary_label"), primary_read_label(briefing_input)))
+    primary = primary_read_phrase_for_sentence(briefing_input, primary)
     primary_state = clean_text(decision.get("primary_state"), "")
     technical = timing_context_label(briefing_input.get("indicator_context") or {})
     confidence = confidence_phrase(decision.get("confidence_state"))
@@ -727,9 +749,6 @@ def read_implication_label(primary: str, zone: str, structure: str, timing: str)
     if "quiet" in combined or "neutral" in combined:
         return "low-escalation context"
     return "layered SETA context"
-
-
-
 
 
 def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
