@@ -84726,7 +84726,7 @@ async function buildFigure(){
     return;
   }
 
-  if(document.getElementById('asset')?.value !== term) return scheduleBuildFigure();
+  if(currentDashboardControlKey() !== renderKey) return scheduleBuildFigure();
 
   const rows=cloneRows(STORE[freq][term]||[]); if(!rows.length) return;
 
@@ -84825,6 +84825,9 @@ async function buildFigure(){
 
 
   const visibleMask=rows.map(r=>r.dateObj>=visStart&&r.dateObj<=visEnd);
+
+  const plotRows=rows.filter((r,i)=>visibleMask[i]);
+  const plotXs=plotRows.map(r=>r.dateObj);
 
 
 
@@ -85661,7 +85664,7 @@ async function buildFigure(){
 
 
 
-  if(priceDisplay==='candles') priceCandlestickTraces(xs, rows, freq).forEach(t=>data.push(t));
+  if(priceDisplay==='candles') priceCandlestickTraces(plotXs, plotRows, freq).forEach(t=>data.push(t));
 
 
 
@@ -92735,7 +92738,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-    xaxis:{domain:[0,1],anchor:'y',range:[visStart,visEndPad],showgrid:true,gridcolor:COLORS.grid,rangeslider:{visible:false},showticklabels:false,rangebreaks:rb},
+    xaxis:{domain:[0,1],anchor:'y',range:[visStart,visEndPad],autorange:false,showgrid:true,gridcolor:COLORS.grid,rangeslider:{visible:false},showticklabels:false,rangebreaks:rb},
 
 
 
@@ -92831,7 +92834,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      xaxis2:{domain:[0,1],anchor:'y2',matches:'x',showgrid:true,gridcolor:COLORS.grid,showticklabels:false,rangebreaks:rb},
+      xaxis2:{domain:[0,1],anchor:'y2',matches:'x',range:[visStart,visEndPad],autorange:false,showgrid:true,gridcolor:COLORS.grid,showticklabels:false,rangebreaks:rb},
 
 
 
@@ -92895,7 +92898,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      xaxis3:{domain:[0,1],anchor:'y3',matches:'x',showgrid:true,gridcolor:COLORS.grid,showticklabels:false,rangebreaks:rb},
+      xaxis3:{domain:[0,1],anchor:'y3',matches:'x',range:[visStart,visEndPad],autorange:false,showgrid:true,gridcolor:COLORS.grid,showticklabels:false,rangebreaks:rb},
 
 
 
@@ -92959,7 +92962,7 @@ document.getElementById('summaryLead').innerHTML = `<span class="summaryCard"><b
 
 
 
-      xaxis4:{domain:[0,1],anchor:'y4',matches:'x',showgrid:true,gridcolor:COLORS.grid,tickformat:freq==='W'?'%b %Y':'%b %d\n%Y',rangebreaks:rb},
+      xaxis4:{domain:[0,1],anchor:'y4',matches:'x',range:[visStart,visEndPad],autorange:false,showgrid:true,gridcolor:COLORS.grid,tickformat:freq==='W'?'%b %Y':'%b %d\n%Y',rangebreaks:rb},
 
 
 
