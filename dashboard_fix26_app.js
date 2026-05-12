@@ -166233,3 +166233,173 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 // END phase_seta_score_history_tooltip_v11
+
+// BEGIN phase_seta_asset_switch_render_guard_v1
+(function phase_seta_asset_switch_render_guard_v1(){
+  if(window.__phase_seta_asset_switch_render_guard_v1) return;
+  window.__phase_seta_asset_switch_render_guard_v1 = true;
+
+  var ASSETS = {BTC:1, ETH:1, SOL:1, LINK:1, XRP:1, BNB:1, AVAX:1, MSFT:1, NVDA:1, META:1, AAPL:1, TSLA:1, SPY:1};
+  var state = {seq:0, clearTimer:null};
+
+  function trim(v){ return String(v == null ? "" : v).replace(/^\s+|\s+$/g, ""); }
+  function upper(v){ return trim(v).toUpperCase(); }
+
+  function selectValue(select){
+    if(!select) return "";
+    var option = select.options && select.selectedIndex >= 0 ? select.options[select.selectedIndex] : null;
+    return trim((option && (option.value || option.textContent)) || select.value || "");
+  }
+
+  function findSelect(kind){
+    var selects = Array.prototype.slice.call(document.querySelectorAll("select"));
+    for(var i=0; i<selects.length; i++){
+      var el = selects[i];
+      var label = [el.id, el.name, el.getAttribute("aria-label"), el.getAttribute("data-role"), el.getAttribute("data-control")].filter(Boolean).join(" ");
+      var opts = Array.prototype.slice.call(el.options || []).map(function(opt){ return upper(opt.value || opt.textContent); });
+
+      if(kind === "asset" && (/asset|term|ticker/i.test(label) || opts.some(function(v){ return !!ASSETS[v]; }))) return el;
+      if(kind === "frequency" && (/freq|frequency/i.test(label) || opts.some(function(v){ return /^(D|W|DAILY|WEEKLY)$/.test(v); }))) return el;
+      if(kind === "range" && (/range|display/i.test(label) || opts.some(function(v){ return /^(3M|6M|1Y|2Y|MAX)$/.test(v); }))) return el;
+    }
+    return null;
+  }
+
+  function currentContext(){
+    var asset = upper(selectValue(findSelect("asset")));
+    var frequency = selectValue(findSelect("frequency"));
+    var range = upper(selectValue(findSelect("range")));
+    if(/^daily$/i.test(frequency)) frequency = "D";
+    if(/^weekly$/i.test(frequency)) frequency = "W";
+    return {asset: asset, frequency: upper(frequency), range: range};
+  }
+
+  function ensureStyle(){
+    if(document.getElementById("phase_seta_asset_switch_render_guard_v1_style")) return;
+    var style = document.createElement("style");
+    style.id = "phase_seta_asset_switch_render_guard_v1_style";
+    style.textContent = [
+      "body.seta-asset-switching .briefing-panel,",
+      "body.seta-asset-switching .reviewed-briefing-panel,",
+      "body.seta-asset-switching .briefing-grid,",
+      "body.seta-asset-switching #briefingPanel,",
+      "body.seta-asset-switching #aiBriefingPanel,",
+      "body.seta-asset-switching #chart,",
+      "body.seta-asset-switching .js-plotly-plot{opacity:.38!important;pointer-events:none!important;transition:opacity .12s ease;}",
+      "#setaAssetSwitchGuardBanner strong{color:#fff;}",
+      "#setaAssetSwitchGuardBanner .muted{color:#8fb4c1;}"
+    ].join("\n");
+    document.head.appendChild(style);
+  }
+
+  function banner(){
+    var el = document.getElementById("setaAssetSwitchGuardBanner");
+    if(el) return el;
+    el = document.createElement("div");
+    el.id = "setaAssetSwitchGuardBanner";
+    el.setAttribute("role", "status");
+    el.setAttribute("aria-live", "polite");
+    el.style.cssText = [
+      "position:fixed", "right:18px", "top:72px", "z-index:2147482500", "max-width:360px",
+      "border:1px solid rgba(83,190,255,.55)", "border-radius:12px", "background:rgba(5,9,13,.92)",
+      "color:#d7f6ff", "font:12px/1.35 system-ui,-apple-system,Segoe UI,sans-serif",
+      "box-shadow:0 12px 28px rgba(0,0,0,.38)", "padding:10px 12px", "display:none", "pointer-events:none"
+    ].join(";");
+    document.body.appendChild(el);
+    return el;
+  }
+
+  function showLoading(reason){
+    var ctx = currentContext();
+    if(!ctx.asset) return;
+    state.seq += 1;
+    ensureStyle();
+    document.body.classList.add("seta-asset-switching");
+
+    var el = banner();
+    el.innerHTML = "<strong>Loading " + ctx.asset + " dashboard data...</strong><br><span class=\"muted\">" +
+      (ctx.frequency || "?") + " · " + (ctx.range || "?") + (reason ? " · " + reason : "") + "</span>";
+    el.style.display = "block";
+
+    clearTimeout(state.clearTimer);
+    state.clearTimer = setTimeout(clearLoading, 4800);
+  }
+
+  function clearLoading(){
+    document.body.classList.remove("seta-asset-switching");
+    var el = document.getElementById("setaAssetSwitchGuardBanner");
+    if(el) el.style.display = "none";
+  }
+
+  function staleAsset(term){
+    var ctx = currentContext();
+    var asset = upper(term);
+    return !!(ctx.asset && asset && ctx.asset !== asset);
+  }
+
+  function skipStaleRender(name, term){
+    if(!staleAsset(term)) return false;
+    try{ console.debug("[SETA asset guard] skipped stale render", {fn:name, renderAsset:upper(term), current:currentContext()}); }catch(_){}
+    return true;
+  }
+
+  function assetFromBriefing(briefing){
+    if(!briefing || typeof briefing !== "object") return "";
+    return upper(briefing.asset || briefing.term || briefing.ticker || "");
+  }
+
+  function wrap(name, resolver, staleReturn){
+    var fn = window[name];
+    if(typeof fn !== "function" || fn.__setaAssetGuardWrapped) return false;
+    var wrapped = function(){
+      var args = Array.prototype.slice.call(arguments);
+      var term = resolver(args);
+      if(skipStaleRender(name, term)) return staleReturn;
+      var out = fn.apply(this, arguments);
+      if(term && !staleAsset(term)) setTimeout(clearLoading, 150);
+      return out;
+    };
+    wrapped.__setaAssetGuardWrapped = true;
+    wrapped.__setaOriginal = fn;
+    window[name] = wrapped;
+    return true;
+  }
+
+  function patchRenderFunctions(){
+    wrap("reviewedBriefingFor", function(args){ return args[0]; }, null);
+    wrap("renderBriefingPanel", function(args){ return args[0]; }, undefined);
+    wrap("renderReviewedBriefingPanel", function(args){ return assetFromBriefing(args[1]) || args[2] || args[0]; }, undefined);
+    wrap("renderDashboardChart", function(args){ return args[0]; }, undefined);
+    wrap("renderChart", function(args){ return args[0]; }, undefined);
+  }
+
+  var changeTimer = null;
+  function onSelectionChanged(){
+    clearTimeout(changeTimer);
+    changeTimer = setTimeout(function(){
+      patchRenderFunctions();
+      showLoading("selection changed");
+    }, 20);
+  }
+
+  document.addEventListener("change", function(event){
+    if(event && event.target && event.target.tagName === "SELECT") onSelectionChanged();
+  }, true);
+
+  document.addEventListener("input", function(event){
+    if(event && event.target && event.target.tagName === "SELECT") onSelectionChanged();
+  }, true);
+
+  function boot(){
+    patchRenderFunctions();
+    setTimeout(patchRenderFunctions, 250);
+    setTimeout(patchRenderFunctions, 1000);
+    setTimeout(patchRenderFunctions, 2500);
+  }
+
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot, {once:true});
+  else boot();
+
+  window.SETA_ASSET_SWITCH_GUARD = {currentContext:currentContext, showLoading:showLoading, clearLoading:clearLoading, patchRenderFunctions:patchRenderFunctions};
+})();
+// END phase_seta_asset_switch_render_guard_v1
