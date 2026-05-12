@@ -525,16 +525,16 @@ def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
     else:
         opener = f"Primary read: {primary}."
 
-    technical_parts = [f"The technical stack shows {technical}"]
     ribbon_phrase = optional_ribbon_phrase(ribbon)
+    technical_sentence = f"The technical stack shows {technical}"
     if ribbon_phrase:
-        technical_parts.append(ribbon_phrase)
-    technical_parts.append(participation_phrase)
+        technical_sentence += f", {ribbon_phrase}"
+    technical_sentence += f", and {participation_phrase}"
 
     parts = [opener, zone]
     if counter_signal and not contains_meaning(" ".join(parts), counter_signal):
         parts.append(first_upper(counter_signal))
-    parts.append(", and ".join(technical_parts))
+    parts.append(technical_sentence)
     if event_note and event_state.get("state") not in {"none", "event_unknown"} and not contains_meaning(" ".join(parts), event_note):
         parts.append(f"Latest event context is {event_note}")
     return sentence_once(parts)
