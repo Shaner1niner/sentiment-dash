@@ -41,6 +41,20 @@ def public_safe_sentence(value: Any, fallback: str = "Context is unavailable.") 
     return text
 
 
+
+def public_watch_item_text(value: Any) -> str:
+    text = public_safe_sentence(value, "No single setup family dominates the current profile.")
+    replacements = {
+        "Mean-reversion/reversal setups still need price follow-through after the confirmed event.": (
+            "The next quality check is whether the confirmed pressure state gains broader participation, "
+            "or remains technically confirmed but lightly sponsored."
+        ),
+    }
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+    return text
+
+
 def compact_number(value: Any) -> str:
     try:
         n = float(value)
@@ -821,7 +835,7 @@ def build_watch_item(briefing_input: dict[str, Any]) -> str:
 
     risk = sentiment.get("archetype_risk_note")
     if risk:
-        return public_safe_sentence(risk)
+        return public_watch_item_text(risk)
     confirmation = price.get("price_confirmation")
     if confirmation:
         return f"Watch whether {clean_text(confirmation).lower()} context gains structure and follow-through."
