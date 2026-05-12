@@ -36,10 +36,10 @@ def valid_output(briefing_input: dict) -> dict:
         "what_seta_sees": "The current setup is defined by the latest overlap, sentiment, and indicator context in the input.",
         "why_it_matters": "The evidence helps separate price behavior from attention context without turning the read into an instruction.",
         "evidence": [
-            "Stack summary: price, structure, timing, and participation are reviewed together for context.",
             f"Reviewed payload date is {as_of}.",
             f"Source breadth is {breadth}.",
             "Attention is treated as context rather than validation by itself.",
+            "Technical and participation receipts are reviewed together for context.",
         ],
         "trust_check": f"Participation is stable and uses source breadth as a trust layer; breadth is {breadth}, so confidence is calibrated to the input caveat.",
         "watch_item": "Watch for confirmation from structure and follow-through if the setup remains active.",
@@ -97,6 +97,22 @@ def main() -> int:
     assert_true(set(cards) >= {"what_seta_sees", "why_it_matters", "evidence", "participation_quality"}, "deterministic generated draft includes structured briefing cards")
     assert_true(cards["what_seta_sees"]["copy"] == generated["what_seta_sees"], "structured interpretation card matches legacy field")
     assert_true(cards["evidence"]["items"] == generated["evidence"], "structured evidence card matches legacy receipts")
+    assert_true(
+        all(not item.lower().startswith("stack summary:") for item in generated["evidence"]),
+        "deterministic generated evidence uses factual receipts only",
+    )
+    assert_true(
+        any(item.lower().startswith("shared-zone receipt:") for item in generated["evidence"]),
+        "deterministic generated evidence includes shared-zone receipt",
+    )
+    assert_true(
+        any(item.lower().startswith("technical receipt:") for item in generated["evidence"]),
+        "deterministic generated evidence includes technical receipt",
+    )
+    assert_true(
+        any(item.lower().startswith("participation receipt:") for item in generated["evidence"]),
+        "deterministic generated evidence includes participation receipt",
+    )
     assert_true(cards["participation_quality"]["copy"] == generated["trust_check"], "structured participation card matches trust field")
     missing_cards = dict(good)
     del missing_cards["briefing_cards"]
@@ -148,7 +164,7 @@ def main() -> int:
 
     metric_heavy = dict(good)
     metric_heavy["evidence"] = [
-        "Stack summary: price, structure, timing, and participation are reviewed together for context.",
+        "Technical and participation receipts are reviewed together for context.",
         "RSI 52, sentiment 61, attention 72, dispersion 18.",
         "Breadth is broad.",
     ]

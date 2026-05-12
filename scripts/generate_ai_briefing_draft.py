@@ -597,36 +597,62 @@ def read_implication_label(primary: str, zone: str, structure: str, timing: str)
     return "layered SETA context"
 
 
+
 def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
+    # Build factual receipt lines for the Evidence card.
+    #
+    # The Evidence card should not carry the narrative thesis. Interpretation
+    # belongs in What SETA Sees and Why It Matters; this card should show the
+    # underlying receipts that produced the read.
     price = briefing_input.get("price_context") or {}
     overlap = briefing_input.get("overlap_context") or {}
+    breadth = briefing_input.get("breadth_trust") or {}
     attention = briefing_input.get("attention_context") or {}
     indicators = briefing_input.get("indicator_context") or {}
     event = briefing_input.get("event_context") or {}
 
-    zone = overlap_zone_sentence_from_input(briefing_input)
-    primary = primary_read_label(briefing_input)
-    structure = structure_label(overlap)
-    timing = timing_context_label(indicators)
-    participation = clean_text(attention.get("attention_label"))
-    close_label = "Latest available close"
     close_date = clean_text(price.get("latest_close_date"), "")
     close_date_text = f" ({close_date})" if close_date else ""
-    shared_receipt = translate_label(overlap.get("dashboard_summary_label") or overlap.get("overlap_state"))
+
+    shared_state = translate_label(overlap.get("dashboard_summary_label") or overlap.get("overlap_state"))
+    structure = structure_label(overlap)
+    overlap_event = translate_label(overlap.get("overlap_event_type"), "")
+    event_bits: list[str] = []
+    if overlap_event:
+        event_bits.append(f"overlap event is {overlap_event}")
+    latest_confirmed = overlap.get("latest_confirmed")
+    if isinstance(latest_confirmed, dict):
+        confirmed_summary = clean_text(latest_confirmed.get("summary"), "")
+        confirmed_date = clean_text(latest_confirmed.get("date"), "")
+        if confirmed_summary:
+            if confirmed_date:
+                event_bits.append(f"latest confirmed context is {confirmed_summary} on {confirmed_date}")
+            else:
+                event_bits.append(f"latest confirmed context is {confirmed_summary}")
+    event_clause = "; " + "; ".join(event_bits) if event_bits else ""
+
+    participation = clean_text(attention.get("attention_label"))
+    breadth_label = clean_text(breadth.get("source_breadth_label"), "unavailable")
+    timing = timing_context_label(indicators)
 
     receipts = [
-        f"Stack summary: {primary}; {zone} Structure is {structure}; technical stack is {timing}; participation is {participation.lower()}.",
-        f"{close_label}: {compact_number(price.get('latest_close'))}{close_date_text}.",
-        f"Shared-zone receipt: {shared_receipt}.",
+        f"Latest available close: {compact_number(price.get('latest_close'))}{close_date_text}.",
+        f"Shared-zone receipt: {shared_state}; structure is {structure}{event_clause}.",
         f"Technical receipt: {timing}.",
-        f"Participation receipt: {participation}; volume context is {volume_phrase(price.get('volume_confirmation'))}.",
+        f"Participation receipt: attention is {participation.lower()}; source breadth is {breadth_label}; volume context is {volume_phrase(price.get('volume_confirmation'))}.",
     ]
 
     if event.get("latest_event_tier") or event.get("latest_confirmed_event_date"):
-        receipts[2] += f" Latest event: {translate_label(event.get('latest_event_tier'))} on {clean_text(event.get('latest_event_date'))}."
+        event_tier = translate_label(event.get("latest_event_tier"), "event unavailable")
+        event_direction = translate_label(event.get("latest_event_direction"), "")
+        event_date = clean_text(event.get("latest_event_date"), "")
+        direction_text = f" {event_direction}" if event_direction else ""
+        date_text = f" on {event_date}" if event_date else ""
+        receipts.append(f"Event receipt: latest visible event is {event_tier}{direction_text}{date_text}.")
+    else:
+        receipts.append("Event receipt: no fresh event in view.")
 
     return receipts[:5]
-
 
 def build_evidence(briefing_input: dict[str, Any]) -> list[str]:
     return build_evidence_receipts(briefing_input)
