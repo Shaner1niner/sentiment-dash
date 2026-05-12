@@ -344,17 +344,24 @@ def technical_stack_label(indicators: dict[str, Any]) -> str:
     return "; ".join(parts)
 
 
+
 def overlap_zone_sentence_from_input(briefing_input: dict[str, Any]) -> str:
     # Translate overlap/pressure state into public shared-zone language.
+    semantic = semantic_state_for(briefing_input)
+    matrix = semantic.get("shared_zone_matrix") or {}
+    public_sentence = clean_text(matrix.get("public_sentence"), "")
+    if public_sentence:
+        return public_sentence
+
     combined = combined_context_text(briefing_input)
 
-    has_confirmed = bool(re.search(r"\bconfirmed\b", combined)) and not bool(re.search(r"\bunconfirmed\b", combined))
+    has_confirmed = bool(re.search(r"\\bconfirmed\\b", combined)) and not bool(re.search(r"\\bunconfirmed\\b", combined))
     has_bullish_pressure = "bullish pressure" in combined
     has_bearish_pressure = "bearish pressure" in combined
     has_rejection = "rejection" in combined
     has_repair = "repair" in combined
-    has_bearish_context = bool(re.search(r"\bbearish\b", combined))
-    has_bullish_context = bool(re.search(r"\bbullish\b", combined))
+    has_bearish_context = bool(re.search(r"\\bbearish\\b", combined))
+    has_bullish_context = bool(re.search(r"\\bbullish\\b", combined))
 
     if has_bullish_pressure and has_bearish_context and not has_confirmed:
         return "Price briefly moved outside the shared price/sentiment range, then rotated back toward that range; bullish pressure remains unconfirmed."
@@ -362,9 +369,9 @@ def overlap_zone_sentence_from_input(briefing_input: dict[str, Any]) -> str:
         return "Price briefly moved outside the shared price/sentiment range, then rotated back toward that range; bearish pressure remains unconfirmed."
 
     if has_confirmed and has_bearish_pressure:
-        return "Price is above the shared price/sentiment zone, creating confirmed bearish pressure."
+        return "Price remains above the shared price/sentiment zone after a confirmed bearish pressure event."
     if has_confirmed and has_bullish_pressure:
-        return "Price is below the shared price/sentiment zone, creating confirmed bullish pressure."
+        return "Price remains below the shared price/sentiment zone after a confirmed bullish pressure event."
 
     if has_bearish_pressure:
         return "Price is above the shared price/sentiment zone, creating bearish pressure / exhaustion context."
@@ -596,6 +603,10 @@ def build_what_seta_sees(briefing_input: dict[str, Any]) -> str:
 
     if primary_state == "weakening_sentiment_price_resilience":
         opener = f"Primary read: {primary}. Price is holding up better than the sentiment/technical stack is confirming."
+    elif primary_state == "confirmed_bearish_pressure":
+        opener = "Primary read: Confirmed bearish shared-zone pressure."
+    elif primary_state == "confirmed_bullish_pressure":
+        opener = "Primary read: Confirmed bullish shared-zone pressure."
     elif primary_state.startswith("unconfirmed_"):
         opener = f"Primary read: {primary}. The pressure is visible, but the confirmation stack is still conflicted."
     elif primary_state.startswith("bearish_timing"):
@@ -624,6 +635,7 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     semantic = semantic_state_for(briefing_input)
     decision = semantic.get("semantic_decision") or {}
     pressure = semantic.get("pressure") or {}
+    shared_zone = semantic.get("shared_zone_matrix") or {}
     participation = semantic.get("participation") or {}
 
     primary = public_primary_label(clean_text(decision.get("primary_label"), primary_read_label(briefing_input)))
@@ -637,6 +649,10 @@ def build_why_it_matters(briefing_input: dict[str, Any]) -> str:
     pressure_state = clean_text(pressure.get("state"), "")
     if primary_state == "weakening_sentiment_price_resilience":
         base = "This matters because price strength and sentiment confirmation are not moving with equal force."
+    elif pressure_state == "confirmed_bearish_pressure" and shared_zone.get("transition") == "active_outside_zone":
+        base = "This matters because price remains above the shared price/sentiment zone after a confirmed bearish pressure event; technical confirmation and participation quality become the key confidence checks."
+    elif pressure_state == "confirmed_bullish_pressure" and shared_zone.get("transition") == "active_outside_zone":
+        base = "This matters because price remains below the shared price/sentiment zone after a confirmed bullish pressure event; technical confirmation and participation quality become the key confidence checks."
     elif pressure_state.startswith("confirmed"):
         base = "This matters because shared-zone pressure is confirmed, so technical confirmation and participation quality become the key confidence checks."
     elif pressure_state.startswith("unconfirmed"):

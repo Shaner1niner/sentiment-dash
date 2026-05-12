@@ -7,10 +7,10 @@
       "expected": {
         "confidence_state": "qualified_confirmation",
         "counter_signal": "latest_rejection_context",
-        "min_evidence_atoms": 1,
+        "min_evidence_atoms": 3,
         "participation_role": "source_breadth_stabilizer",
-        "precedence_rule": "specific_archetype_after_pressure_checks",
-        "pressure_state": "inactive_overlap",
+        "precedence_rule": "range_return_after_active_pressure",
+        "pressure_state": "range_return_qualified",
         "primary_label": "Weakening sentiment momentum with price resilience",
         "primary_state": "weakening_sentiment_price_resilience",
         "schema_version": "seta_semantic_briefing_state_v1"
@@ -271,7 +271,7 @@
       "expected": {
         "confidence_state": "timing_led",
         "counter_signal": "inactive_overlap_limiter",
-        "min_evidence_atoms": 1,
+        "min_evidence_atoms": 3,
         "participation_role": "source_breadth_stabilizer",
         "precedence_rule": "specific_archetype_after_pressure_checks",
         "pressure_state": "inactive_overlap",
@@ -536,9 +536,9 @@
       "expected": {
         "confidence_state": "qualified_confirmation",
         "counter_signal": "",
-        "min_evidence_atoms": 1,
+        "min_evidence_atoms": 3,
         "participation_role": "confidence_limiter",
-        "precedence_rule": "confirmed_pressure_over_timing",
+        "precedence_rule": "active_confirmed_pressure_over_archetype",
         "pressure_state": "confirmed_bullish_pressure",
         "primary_label": "Confirmed bullish pressure",
         "primary_state": "confirmed_bullish_pressure",
@@ -800,7 +800,7 @@
       "expected": {
         "confidence_state": "timing_led",
         "counter_signal": "inactive_overlap_limiter",
-        "min_evidence_atoms": 1,
+        "min_evidence_atoms": 3,
         "participation_role": "source_breadth_stabilizer",
         "precedence_rule": "timing_over_generic_context",
         "pressure_state": "inactive_overlap",

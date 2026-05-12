@@ -103,28 +103,168 @@ def classify_regime(briefing_input: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def classify_pressure(briefing_input: dict[str, Any]) -> dict[str, Any]:
-    text = section_text(briefing_input, "overlap_context", "indicator_context", "event_context", "sentiment_context")
-    has_confirmed = bool(re.search(r"\bconfirmed\b", text)) and not bool(re.search(r"\bunconfirmed\b", text))
-    bullish = "bullish pressure" in text
-    bearish = "bearish pressure" in text
 
-    if bullish:
-        direction = "bullish"
-        state = "confirmed_bullish_pressure" if has_confirmed else "unconfirmed_bullish_pressure"
-        label = "Confirmed bullish pressure" if has_confirmed else "Unconfirmed bullish pressure"
-    elif bearish:
-        direction = "bearish"
-        state = "confirmed_bearish_pressure" if has_confirmed else "unconfirmed_bearish_pressure"
-        label = "Confirmed bearish pressure" if has_confirmed else "Unconfirmed bearish pressure"
-    elif "watch" in text:
+
+def classify_shared_zone_matrix(briefing_input: dict[str, Any]) -> dict[str, Any]:
+    # Classify current shared-zone behavior before prose generation.
+    #
+    # Current overlap state gets priority over older/latest-confirmed fragments
+    # so a prior opposite-direction event does not override the active zone state.
+    overlap = briefing_input.get("overlap_context") or {}
+    event = briefing_input.get("event_context") or {}
+
+    latest_confirmed = overlap.get("latest_confirmed") if isinstance(overlap.get("latest_confirmed"), dict) else {}
+
+    current_fields = {
+        "dashboard_summary_label": overlap.get("dashboard_summary_label"),
+        "overlap_state": overlap.get("overlap_state"),
+        "overlap_event_type": overlap.get("overlap_event_type"),
+        "structure_label": overlap.get("structure_label"),
+    }
+    current_text = text_blob(current_fields)
+    event_text = text_blob(event)
+    latest_text = text_blob(latest_confirmed)
+    all_text = " ".join([current_text, event_text, latest_text])
+
+    current_bearish = "bearish pressure" in current_text
+    current_bullish = "bullish pressure" in current_text
+
+    explicit_unconfirmed = bool(re.search(r"\bunconfirmed\b", current_text))
+    explicit_confirmed = bool(re.search(r"\bconfirmed\b", current_text)) and not explicit_unconfirmed
+
+    latest_direction = clean_text(latest_confirmed.get("direction"), "").lower() if isinstance(latest_confirmed, dict) else ""
+    latest_summary = clean_text(latest_confirmed.get("summary"), "").lower() if isinstance(latest_confirmed, dict) else ""
+    latest_date = clean_text(latest_confirmed.get("date"), "") if isinstance(latest_confirmed, dict) else ""
+
+    latest_bearish_confirmed = (
+        ("bearish" in latest_direction or "bearish pressure" in latest_summary)
+        and bool(latest_date or "confirmed" in latest_summary)
+    )
+    latest_bullish_confirmed = (
+        ("bullish" in latest_direction or "bullish pressure" in latest_summary)
+        and bool(latest_date or "confirmed" in latest_summary)
+    )
+
+    range_return = any(
+        token in all_text
+        for token in [
+            "range return",
+            "rotated back",
+            "returned inside",
+            "re-entered",
+            "reentry",
+            "re-entry",
+        ]
+    )
+    rejection_or_repair = "rejection" in all_text or "repair" in all_text
+
+    if current_bearish:
+        confirmed = not explicit_unconfirmed and (explicit_confirmed or latest_bearish_confirmed)
+        return {
+            "state": "confirmed_bearish_pressure" if confirmed else "unconfirmed_bearish_pressure",
+            "direction": "bearish",
+            "confirmation": "confirmed" if confirmed else "unconfirmed",
+            "zone_position": "above_shared_range",
+            "transition": "active_outside_zone",
+            "latest_confirmed_date": latest_date if latest_bearish_confirmed else "",
+            "label": "Confirmed bearish pressure" if confirmed else "Unconfirmed bearish pressure",
+            "public_sentence": (
+                "Price remains above the shared price/sentiment zone after a confirmed bearish pressure event."
+                if confirmed
+                else "Price is above the shared price/sentiment zone, but bearish pressure is not fully confirmed."
+            ),
+        }
+
+    if current_bullish:
+        confirmed = not explicit_unconfirmed and (explicit_confirmed or latest_bullish_confirmed)
+        return {
+            "state": "confirmed_bullish_pressure" if confirmed else "unconfirmed_bullish_pressure",
+            "direction": "bullish",
+            "confirmation": "confirmed" if confirmed else "unconfirmed",
+            "zone_position": "below_shared_range",
+            "transition": "active_outside_zone",
+            "latest_confirmed_date": latest_date if latest_bullish_confirmed else "",
+            "label": "Confirmed bullish pressure" if confirmed else "Unconfirmed bullish pressure",
+            "public_sentence": (
+                "Price remains below the shared price/sentiment zone after a confirmed bullish pressure event."
+                if confirmed
+                else "Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed."
+            ),
+        }
+
+    if range_return or rejection_or_repair:
+        direction = "bearish" if "bearish" in all_text else ("bullish" if "bullish" in all_text else "mixed")
+        return {
+            "state": "range_return_qualified",
+            "direction": direction,
+            "confirmation": "qualified",
+            "zone_position": "returned_inside_or_toward_range",
+            "transition": "range_return",
+            "latest_confirmed_date": latest_date,
+            "label": "Range return / failed extension",
+            "public_sentence": "Price briefly moved outside the shared price/sentiment range, then rotated back toward that range.",
+        }
+
+    if "inactive" in all_text or "no active inside-zone confirmation" in all_text:
+        return {
+            "state": "inactive_overlap",
+            "direction": "none",
+            "confirmation": "inactive",
+            "zone_position": "inside_or_inactive",
+            "transition": "inactive",
+            "latest_confirmed_date": latest_date,
+            "label": "Shared-zone confirmation inactive",
+            "public_sentence": "Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation.",
+        }
+
+    return {
+        "state": "no_active_pressure",
+        "direction": "none",
+        "confirmation": "none",
+        "zone_position": "unknown",
+        "transition": "unknown",
+        "latest_confirmed_date": latest_date,
+        "label": "No active shared-zone pressure",
+        "public_sentence": "SETA compares price behavior against the shared price/sentiment zone.",
+    }
+
+def classify_pressure(briefing_input: dict[str, Any]) -> dict[str, Any]:
+    matrix = classify_shared_zone_matrix(briefing_input)
+    state = clean_text(matrix.get("state"), "no_active_pressure")
+
+    if state in {
+        "confirmed_bullish_pressure",
+        "confirmed_bearish_pressure",
+        "unconfirmed_bullish_pressure",
+        "unconfirmed_bearish_pressure",
+        "inactive_overlap",
+    }:
+        return {
+            "state": state,
+            "direction": matrix.get("direction"),
+            "confirmation": matrix.get("confirmation"),
+            "label": matrix.get("label"),
+            "zone_position": matrix.get("zone_position"),
+            "transition": matrix.get("transition"),
+            "latest_confirmed_date": matrix.get("latest_confirmed_date"),
+        }
+
+    if state == "range_return_qualified":
+        return {
+            "state": "range_return_qualified",
+            "direction": matrix.get("direction"),
+            "confirmation": "qualified",
+            "label": "Range return / failed extension",
+            "zone_position": matrix.get("zone_position"),
+            "transition": "range_return",
+            "latest_confirmed_date": matrix.get("latest_confirmed_date"),
+        }
+
+    text = section_text(briefing_input, "overlap_context", "indicator_context", "event_context", "sentiment_context")
+    if "watch" in text:
         direction = "mixed"
         state = "watch_condition"
         label = "Shared-zone watch condition"
-    elif "inactive" in text or "no active inside-zone confirmation" in text:
-        direction = "none"
-        state = "inactive_overlap"
-        label = "Shared-zone confirmation inactive"
     else:
         direction = "none"
         state = "no_active_pressure"
@@ -133,10 +273,12 @@ def classify_pressure(briefing_input: dict[str, Any]) -> dict[str, Any]:
     return {
         "state": state,
         "direction": direction,
-        "confirmation": "confirmed" if state.startswith("confirmed") else ("unconfirmed" if state.startswith("unconfirmed") else state),
+        "confirmation": state,
         "label": label,
+        "zone_position": matrix.get("zone_position"),
+        "transition": matrix.get("transition"),
+        "latest_confirmed_date": matrix.get("latest_confirmed_date"),
     }
-
 
 def classify_event(briefing_input: dict[str, Any]) -> dict[str, Any]:
     text = section_text(briefing_input, "event_context", "overlap_context", "sentiment_context")
@@ -350,6 +492,7 @@ def classify_participation(briefing_input: dict[str, Any], pressure: dict[str, A
     }
 
 
+
 def decide_semantic_state(
     briefing_input: dict[str, Any],
     data_quality: dict[str, Any],
@@ -359,7 +502,6 @@ def decide_semantic_state(
     timing: dict[str, Any],
     participation: dict[str, Any],
 ) -> dict[str, Any]:
-    text = section_text(briefing_input, "sentiment_context", "overlap_context", "event_context", "indicator_context")
     primary_state = "layered_seta_context"
     primary_label = "Layered SETA context"
     counter_signal = ""
@@ -372,11 +514,11 @@ def decide_semantic_state(
     if pressure["state"] == "confirmed_bullish_pressure":
         primary_state = pressure["state"]
         primary_label = "Confirmed bullish pressure"
-        precedence_rule = "confirmed_pressure_over_timing"
+        precedence_rule = "active_confirmed_pressure_over_archetype"
     elif pressure["state"] == "confirmed_bearish_pressure":
         primary_state = pressure["state"]
         primary_label = "Confirmed bearish pressure"
-        precedence_rule = "confirmed_pressure_over_timing"
+        precedence_rule = "active_confirmed_pressure_over_archetype"
     elif pressure["state"] == "unconfirmed_bullish_pressure":
         primary_state = pressure["state"]
         if event["state"] == "bearish_rejection":
@@ -385,7 +527,7 @@ def decide_semantic_state(
             confidence_state = "qualified_confirmation"
         else:
             primary_label = "Unconfirmed bullish pressure"
-        precedence_rule = "pressure_state_over_generic_archetype"
+        precedence_rule = "active_unconfirmed_pressure_over_generic_archetype"
     elif pressure["state"] == "unconfirmed_bearish_pressure":
         primary_state = pressure["state"]
         if event["state"] == "bullish_repair":
@@ -394,7 +536,13 @@ def decide_semantic_state(
             confidence_state = "qualified_confirmation"
         else:
             primary_label = "Unconfirmed bearish pressure"
-        precedence_rule = "pressure_state_over_generic_archetype"
+        precedence_rule = "active_unconfirmed_pressure_over_generic_archetype"
+    elif pressure["state"] == "range_return_qualified":
+        primary_state = regime["state"] if regime["state"] != "regime_unknown" else "range_return_qualified"
+        primary_label = regime["label"] if regime["state"] != "regime_unknown" else "Range return with qualified confirmation"
+        counter_signal = "latest_rejection_context"
+        confidence_state = "qualified_confirmation"
+        precedence_rule = "range_return_after_active_pressure"
     elif participation["role"] == "warning_context":
         primary_state = "bearish_attention_spike_exhaustion_watch"
         primary_label = "Bearish attention spike with exhaustion risk"
@@ -454,7 +602,6 @@ def decide_semantic_state(
         "confidence_state": confidence_state,
         "precedence_rule": precedence_rule,
     }
-
 
 def evidence_atoms_for(
     pressure: dict[str, Any],
@@ -520,6 +667,7 @@ def narrative_atoms_for(decision: dict[str, Any], pressure: dict[str, Any], even
 def build_semantic_state(briefing_input: dict[str, Any]) -> dict[str, Any]:
     data_quality = classify_data_quality(briefing_input)
     regime = classify_regime(briefing_input)
+    shared_zone = classify_shared_zone_matrix(briefing_input)
     pressure = classify_pressure(briefing_input)
     event = classify_event(briefing_input)
     timing = classify_timing(briefing_input)
@@ -539,6 +687,7 @@ def build_semantic_state(briefing_input: dict[str, Any]) -> dict[str, Any]:
         "data_quality": data_quality,
         "regime": regime,
         "pressure": pressure,
+        "shared_zone_matrix": shared_zone,
         "event": event,
         "timing": timing,
         "ribbon": ribbon,
@@ -569,7 +718,13 @@ def asset_family_for(briefing_input: dict[str, Any]) -> str:
 
 def primary_source_for(decision: dict[str, Any]) -> list[str]:
     rule = decision.get("precedence_rule")
-    if rule in {"pressure_state_over_generic_archetype", "confirmed_pressure_over_timing"}:
+    if rule in {
+        "pressure_state_over_generic_archetype",
+        "confirmed_pressure_over_timing",
+        "active_confirmed_pressure_over_archetype",
+        "active_unconfirmed_pressure_over_generic_archetype",
+        "range_return_after_active_pressure",
+    }:
         return ["overlap_context", "event_context"]
     if rule in {"attention_warning_over_generic_timing", "attention_repair_probe_over_generic_timing"}:
         return ["attention_context", "indicator_context", "price_context"]

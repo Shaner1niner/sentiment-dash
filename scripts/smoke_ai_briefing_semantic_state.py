@@ -113,6 +113,51 @@ def synthetic_quiet_broad_participation() -> dict[str, Any]:
 
 
 
+
+def synthetic_active_confirmed_bearish_pressure_with_price_resilience() -> dict[str, Any]:
+    data = base_case()
+    data["sentiment_context"]["archetype_summary"] = (
+        "TEST shows weakening sentiment momentum while price momentum is not yet fully broken."
+    )
+    data["overlap_context"].update(
+        {
+            "dashboard_summary_label": "Bearish Pressure",
+            "overlap_state": "Bearish Pressure",
+            "overlap_event_type": "Monitor",
+            "latest_confirmed": {
+                "summary": "Confirmed Bearish Pressure",
+                "direction": "Bearish",
+                "date": "2026-05-11",
+            },
+        }
+    )
+    return data
+
+
+def synthetic_range_return_after_bearish_pressure() -> dict[str, Any]:
+    data = base_case()
+    data["overlap_context"].update(
+        {
+            "dashboard_summary_label": "Transitional",
+            "overlap_state": "Inactive",
+            "overlap_event_type": "Bearish Rejection",
+            "latest_confirmed": {
+                "summary": "Confirmed Bearish Pressure",
+                "direction": "Bearish",
+                "date": "2026-05-10",
+            },
+        }
+    )
+    data["event_context"].update(
+        {
+            "no_visible_events": False,
+            "latest_event_tier": "Rejection",
+            "latest_event_direction": "Bearish",
+            "latest_event_date": "2026-05-11",
+        }
+    )
+    return data
+
 def run_real_case_checks() -> None:
     # Live market-data cases are intentionally schema/no-crash checks only.
     # Exact semantic expectations belong in frozen fixture checks below,
@@ -202,6 +247,34 @@ def run_synthetic_checks() -> None:
     assert_true(
         "demand" not in " ".join(quiet["narrative_atoms"]["participation_quality"]).lower(),
         "quiet broad participation is not called demand",
+    )
+
+    active_pressure = build_semantic_state(synthetic_active_confirmed_bearish_pressure_with_price_resilience())
+    assert_equal(
+        active_pressure["semantic_decision"]["primary_state"],
+        "confirmed_bearish_pressure",
+        "active confirmed bearish pressure outranks price-resilience archetype",
+    )
+    assert_equal(
+        active_pressure["semantic_trace"]["precedence_rule"],
+        "active_confirmed_pressure_over_archetype",
+        "active confirmed pressure records matrix precedence",
+    )
+    assert_equal(
+        active_pressure["shared_zone_matrix"]["transition"],
+        "active_outside_zone",
+        "active confirmed pressure remains outside shared zone",
+    )
+
+    range_return = build_semantic_state(synthetic_range_return_after_bearish_pressure())
+    assert_equal(
+        range_return["shared_zone_matrix"]["transition"],
+        "range_return",
+        "range return is distinct from active confirmed pressure",
+    )
+    assert_true(
+        range_return["semantic_decision"]["primary_state"] != "confirmed_bearish_pressure",
+        "range return does not claim active confirmed bearish pressure",
     )
 
     evidence_text = " ".join(pressure["evidence_atoms"]).lower()
