@@ -636,6 +636,7 @@ def build_evidence_receipts(briefing_input: dict[str, Any]) -> list[str]:
     timing = timing_context_label(indicators)
 
     receipts = [
+        "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         f"Latest available close: {compact_number(price.get('latest_close'))}{close_date_text}.",
         f"Shared-zone receipt: {shared_state}; structure is {structure}{event_clause}.",
         f"Technical receipt: {timing}.",

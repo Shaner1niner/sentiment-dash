@@ -102,6 +102,10 @@ def main() -> int:
         "deterministic generated evidence uses factual receipts only",
     )
     assert_true(
+        any(item.lower().startswith("synthesis receipt:") for item in generated["evidence"]),
+        "deterministic generated evidence includes synthesis receipt",
+    )
+    assert_true(
         any(item.lower().startswith("shared-zone receipt:") for item in generated["evidence"]),
         "deterministic generated evidence includes shared-zone receipt",
     )
