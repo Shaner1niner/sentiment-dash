@@ -869,7 +869,7 @@ def public_briefing_text(value: Any) -> Any:
         "technical stack is trend-momentum is": "technical stack shows trend-momentum is",
         "Distributed participation. Participation is normal and increasing. Authorship breadth is broad and broadly stable. The read is distributed rather than isolated, but breadth alone does not imply demand. This keeps confidence tied to participation breadth and source coverage.": "Distributed participation. Activity is normal and improving, with broad and stable authorship. That makes the read less isolated, while keeping confidence tied to source coverage rather than treating breadth as demand.",
         "Measured / distributed. Participation is quiet and increasing. Authorship breadth is broad and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.": "Measured / distributed. Participation is quiet but improving, with broad and stable authorship. The pressure state is visible, but quiet participation keeps the read measured rather than forceful.",
-        "Mean-reversion/reversal setups still need price follow-through after the confirmed event.": "The next quality check is whether the confirmed pressure state gains broader participation, or remains technically confirmed but lightly sponsored.",
+        "The next quality check is whether the confirmed pressure state gains broader participation, or remains technically confirmed but lightly sponsored.": "The next quality check is whether the confirmed pressure state gains broader participation, or remains technically confirmed but lightly sponsored.",
     }
     for old, new in leak_replacements.items():
         text = text.replace(old, new)
