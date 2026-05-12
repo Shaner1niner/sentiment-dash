@@ -314,7 +314,8 @@ def check_dashboard_js() -> None:
         "const bodyWidthMs = weeklyCandleBodyWidthMs(xs)",
         "type:'bar'",
         "width:bodyWidthMs",
-        "priceCandlestickTraces(xs, rows, freq).forEach(t=>data.push(t))",
+        "priceCandlestickTraces(plotXs, plotRows, freq).forEach(t=>data.push(t))",
+        "currentDashboardControlKey() !== renderKey",
     ]
     for token in weekly_candle_tokens:
         if token in text:
