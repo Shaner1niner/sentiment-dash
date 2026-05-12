@@ -1,0 +1,1064 @@
+{
+  "cases": [
+    {
+      "asset": "BTC",
+      "case_id": "btc_public_d_3m",
+      "display_range": "3M",
+      "expected": {
+        "confidence_state": "qualified_confirmation",
+        "counter_signal": "latest_rejection_context",
+        "min_evidence_atoms": 1,
+        "participation_role": "source_breadth_stabilizer",
+        "precedence_rule": "specific_archetype_after_pressure_checks",
+        "pressure_state": "inactive_overlap",
+        "primary_label": "Weakening sentiment momentum with price resilience",
+        "primary_state": "weakening_sentiment_price_resilience",
+        "schema_version": "seta_semantic_briefing_state_v1"
+      },
+      "frequency": "D",
+      "input": {
+        "as_of": "2026-05-12",
+        "asset": "BTC",
+        "attention_context": {
+          "attention_caveat": "Attention describes participation context; it is not validation by itself.",
+          "attention_conviction_label": "Mixed / Neutral",
+          "attention_label": "Normal",
+          "attention_regime_label": "Normal Regime",
+          "attention_score": 54.28,
+          "attention_spike_score": 19.06,
+          "material_enough_to_mention": true
+        },
+        "authorship_breadth_trend": {
+          "channel_quality": "aggregate_only",
+          "current_label": "Broad",
+          "current_score": 100.0,
+          "delta": 0.0,
+          "direction": "Stable",
+          "prior_score": 100.0,
+          "public_note": "Authorship breadth is broad and broadly stable."
+        },
+        "breadth_trust": {
+          "interpretation": "Participation appears distributed across a broader source base.",
+          "mention_in_public_copy": true,
+          "source_breadth_channel_mix": {},
+          "source_breadth_channel_quality": "aggregate_only",
+          "source_breadth_confidence": "usable",
+          "source_breadth_internal_note": "No channel-level breadth mix was available; public copy uses aggregate breadth only.",
+          "source_breadth_label": "Broad",
+          "source_breadth_public_note": "Participation appears distributed across a broader source base.",
+          "source_breadth_score": 100.0,
+          "source_caveat": ""
+        },
+        "display_range": "3M",
+        "event_context": {
+          "confirmed_count_visible_proxy": 57.0,
+          "latest_confirmed_event_date": "2026-05-03",
+          "latest_confirmed_event_direction": "Bullish",
+          "latest_event_date": "2026-05-10",
+          "latest_event_direction": "Bearish",
+          "latest_event_quality_score": 26.0,
+          "latest_event_tier": "Rejection",
+          "no_visible_events": false,
+          "screener_reason_summary": "BTC ranked high because: low dispersion.",
+          "watch_count_visible_proxy": 123.0
+        },
+        "frequency": "D",
+        "indicator_context": {
+          "bollinger_label": "Inactive",
+          "macd": 1918.5976,
+          "macd_histogram": 40.5737,
+          "macd_label": "Negative Divergence / Narrative Weakening",
+          "macd_signal": 1878.0239,
+          "rsi": 63.14,
+          "rsi_label": "RSI Mixed / Neutral",
+          "stoch_rsi": 77.75,
+          "stoch_rsi_d": 76.65,
+          "timing_caveat": "Traditional indicators provide timing context and should not override the full SETA evidence stack."
+        },
+        "mode": "public",
+        "overlap_context": {
+          "dashboard_summary_label": "Flat / Transition; High Noise / Broad; None Inside",
+          "latest_confirmed": {
+            "date": "2026-05-03",
+            "direction": "Bullish",
+            "summary": "Bullish Expansion; Normal / Broad; Confirmed Bullish"
+          },
+          "latest_transition": "Compression / Transition -> Flat / Transition",
+          "overlap_event_type": "Narrative Deterioration Despite Price Strength",
+          "overlap_source": "Combined Overlap",
+          "overlap_state": "Inactive",
+          "structure_label": "Flat / Transition",
+          "volatility_label": "Low"
+        },
+        "participation_quality": {
+          "breadth_direction": "Stable",
+          "breadth_label": "Broad",
+          "label": "Distributed participation",
+          "participation_direction": "Rising",
+          "participation_label": "Normal",
+          "public_note": "Participation quality supports a measured read because available activity appears broadly distributed."
+        },
+        "participation_trend": {
+          "current_label": "Normal",
+          "current_score": 54.28,
+          "delta": 41.79,
+          "direction": "Rising",
+          "prior_score": 12.49,
+          "public_note": "Participation is normal and increasing."
+        },
+        "price_context": {
+          "latest_close": 81259.000129,
+          "latest_close_date": "2026-05-12",
+          "latest_volume": 1416.0,
+          "previous_visible_close": 81725.491021,
+          "price_confirmation": "Rejection",
+          "price_data_lagged": false,
+          "recent_direction_label": "Falling",
+          "visible_period_change_pct": -0.571,
+          "volume_confirmation": "Normal Volume"
+        },
+        "reference_guidance": {
+          "cautions": [
+            "attention_level_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "attention_regime_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "signal_dispersion_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "screener_attention_priority_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "Attention priority score: Always pair with signal_consensus_direction_label.",
+            "Dispersion score: High priority plus high dispersion may still be worth review, but needs caution.",
+            "Narrative Deterioration Despite Price Strength: May persist during strong price trends."
+          ],
+          "definitions": [
+            {
+              "category": "Attention Score",
+              "caution": "",
+              "definition": "0 to 100 breadth score for attention coverage across sources. Higher values mean attention is showing up across more source families rather than being concentrated in just one source.",
+              "name": "attention_source_breadth_score",
+              "recommended_use": "",
+              "type": "column"
+            },
+            {
+              "category": "Attention / Engagement",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Score field for attention level score.",
+              "name": "attention_level_score",
+              "recommended_use": "Use to identify whether participation is elevated and whether attention confirms the signal.",
+              "type": "column"
+            },
+            {
+              "category": "Attention / Engagement",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Score field for attention regime score.",
+              "name": "attention_regime_score",
+              "recommended_use": "Use to identify whether participation is elevated and whether attention confirms the signal.",
+              "type": "column"
+            },
+            {
+              "category": "Signal Consensus",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "How much the signal families disagree.",
+              "name": "signal_dispersion_score",
+              "recommended_use": "Use to separate clean setups from noisy or conflicted ones.",
+              "type": "column"
+            },
+            {
+              "category": "Screener / Narrative",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Top-level triage score indicating how urgently an asset deserves review.",
+              "name": "screener_attention_priority_score",
+              "recommended_use": "Use to sort the workbook and decide which assets to review first.",
+              "type": "column"
+            },
+            {
+              "caution": "Always pair with signal_consensus_direction_label.",
+              "definition": "A triage score for review urgency, not directional bullishness.",
+              "name": "Attention priority score",
+              "reply_guidance": "Explain this as signal context. Do not present it as a standalone prediction or investment recommendation.",
+              "type": "score",
+              "where_used": "Used to rank assets in the screener."
+            },
+            {
+              "caution": "High priority plus high dispersion may still be worth review, but needs caution.",
+              "definition": "A disagreement measure across signal families.",
+              "name": "Dispersion score",
+              "reply_guidance": "Explain this as signal context. Do not present it as a standalone prediction or investment recommendation.",
+              "type": "score",
+              "where_used": "Low dispersion means families agree; high dispersion means conflict."
+            },
+            {
+              "definition": "Combines families into direction, confidence, dispersion, archetypes and priority.",
+              "interpretation_notes": "Priority is review urgency, not bullishness.",
+              "name": "Summary / Consensus",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            },
+            {
+              "definition": "Sentiment-enhanced MACD model combining classical price MACD and sentiment MACD relationship logic.",
+              "interpretation_notes": "Raw price MACD stays public-comparable; relationship scores are SETA-specific.",
+              "name": "MACD",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            },
+            {
+              "definition": "State/timing model using price RSI, sentiment RSI, their relationship and stochastic timing.",
+              "interpretation_notes": "Separates direction/repair/exhaustion rather than one simplistic RSI score.",
+              "name": "RSI / Stoch RSI",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            }
+          ],
+          "disallowed_phrases": [
+            "guaranteed",
+            "sure thing",
+            "risk-free",
+            "must buy",
+            "must sell",
+            "cannot lose"
+          ],
+          "missing_files": [],
+          "policy_avoid": [
+            "Do not say an asset will definitely go up or down.",
+            "Do not use buy/sell/hold instructions as advice.",
+            "Do not imply the model knows the future.",
+            "Do not overstate weak or mixed scores as strong conviction.",
+            "Do not ignore risk, dispersion, missing fields, or contradictory families."
+          ],
+          "reference_manifest_version": "1.0.0",
+          "schema_version": "ai_briefing_reference_guidance_v1"
+        },
+        "safety_constraints": {
+          "allowed_tone": "concise, explanatory, non-advisory",
+          "disallowed_phrases": [
+            "buy",
+            "sell",
+            "strong buy",
+            "price target",
+            "guaranteed",
+            "will rally",
+            "will crash",
+            "should enter",
+            "should exit"
+          ],
+          "educational_only": true,
+          "financial_advice_prohibited": true,
+          "max_headline_chars": 90,
+          "max_summary_words": 45,
+          "public_safe_required": true
+        },
+        "schema_version": "ai_briefing_input_v1",
+        "sentiment_context": {
+          "archetype_risk_note": "This can be an early warning rather than an immediate breakdown signal.",
+          "archetype_summary": "BTC shows weakening sentiment momentum while price momentum is not yet fully broken.",
+          "primary_archetype": "Narrative Deterioration Despite Price Strength",
+          "ribbon_label": "Neutral / Coiling",
+          "secondary_archetype": "Compression Coil / Transition Risk",
+          "sentiment_confidence": 14.33,
+          "sentiment_score": 52.63,
+          "sentiment_state": "Flat / Transition"
+        },
+        "source_metadata": {
+          "builder": "build_fix26_chart_store_payloads.py",
+          "payload_generated_at_utc": "2026-05-12T07:13:21Z",
+          "row_count_visible": 94,
+          "screener_generated_at_utc": "2026-05-12T07:13:19.599863+00:00"
+        }
+      },
+      "mode": "public"
+    },
+    {
+      "asset": "NVDA",
+      "case_id": "nvda_public_d_3m",
+      "display_range": "3M",
+      "expected": {
+        "confidence_state": "timing_led",
+        "counter_signal": "inactive_overlap_limiter",
+        "min_evidence_atoms": 1,
+        "participation_role": "source_breadth_stabilizer",
+        "precedence_rule": "specific_archetype_after_pressure_checks",
+        "pressure_state": "inactive_overlap",
+        "primary_label": "Weakening sentiment momentum with price resilience",
+        "primary_state": "weakening_sentiment_price_resilience",
+        "schema_version": "seta_semantic_briefing_state_v1"
+      },
+      "frequency": "D",
+      "input": {
+        "as_of": "2026-05-12",
+        "asset": "NVDA",
+        "attention_context": {
+          "attention_caveat": "Attention describes participation context; it is not validation by itself.",
+          "attention_conviction_label": "Mixed / Neutral",
+          "attention_label": "Normal",
+          "attention_regime_label": "Normal Regime",
+          "attention_score": 50.22,
+          "attention_spike_score": 17.81,
+          "material_enough_to_mention": true
+        },
+        "authorship_breadth_trend": {
+          "channel_quality": "aggregate_only",
+          "current_label": "Broad",
+          "current_score": 100.0,
+          "delta": 0.0,
+          "direction": "Stable",
+          "prior_score": 100.0,
+          "public_note": "Authorship breadth is broad and broadly stable."
+        },
+        "breadth_trust": {
+          "interpretation": "Participation appears distributed across a broader source base.",
+          "mention_in_public_copy": true,
+          "source_breadth_channel_mix": {},
+          "source_breadth_channel_quality": "aggregate_only",
+          "source_breadth_confidence": "usable",
+          "source_breadth_internal_note": "No channel-level breadth mix was available; public copy uses aggregate breadth only.",
+          "source_breadth_label": "Broad",
+          "source_breadth_public_note": "Participation appears distributed across a broader source base.",
+          "source_breadth_score": 100.0,
+          "source_caveat": ""
+        },
+        "display_range": "3M",
+        "event_context": {
+          "confirmed_count_visible_proxy": 0.0,
+          "latest_confirmed_event_date": null,
+          "latest_confirmed_event_direction": null,
+          "latest_event_date": null,
+          "latest_event_direction": null,
+          "latest_event_quality_score": null,
+          "latest_event_tier": null,
+          "no_visible_events": true,
+          "screener_reason_summary": "NVDA ranked high because: low dispersion.",
+          "watch_count_visible_proxy": 0.0
+        },
+        "frequency": "D",
+        "indicator_context": {
+          "bollinger_label": "Inactive",
+          "macd": 6.9658,
+          "macd_histogram": 0.734,
+          "macd_label": "Negative Divergence / Narrative Weakening",
+          "macd_signal": 6.2319,
+          "rsi": 60.94,
+          "rsi_label": "RSI Mixed / Neutral",
+          "stoch_rsi": 85.22,
+          "stoch_rsi_d": 75.48,
+          "timing_caveat": "Traditional indicators provide timing context and should not override the full SETA evidence stack."
+        },
+        "mode": "public",
+        "overlap_context": {
+          "dashboard_summary_label": "Bullish Expansion; High Noise / Broad; None Inside",
+          "latest_confirmed": {
+            "date": null,
+            "direction": null,
+            "summary": null
+          },
+          "latest_transition": null,
+          "overlap_event_type": "Narrative Deterioration Despite Price Strength",
+          "overlap_source": "Combined Overlap",
+          "overlap_state": "Inactive",
+          "structure_label": "Bullish Expansion",
+          "volatility_label": null
+        },
+        "participation_quality": {
+          "breadth_direction": "Stable",
+          "breadth_label": "Broad",
+          "label": "Distributed participation",
+          "participation_direction": "Rising",
+          "participation_label": "Normal",
+          "public_note": "Participation quality supports a measured read because available activity appears broadly distributed."
+        },
+        "participation_trend": {
+          "current_label": "Normal",
+          "current_score": 50.22,
+          "delta": 18.58,
+          "direction": "Rising",
+          "prior_score": 31.64,
+          "public_note": "Participation is normal and increasing."
+        },
+        "price_context": {
+          "latest_close": 219.44,
+          "latest_close_date": "2026-05-11",
+          "latest_volume": 160685774.0,
+          "previous_visible_close": null,
+          "price_confirmation": "Quiet / Ignore",
+          "price_data_lagged": true,
+          "recent_direction_label": "Flat",
+          "visible_period_change_pct": null,
+          "volume_confirmation": "High Volume"
+        },
+        "reference_guidance": {
+          "cautions": [
+            "attention_level_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "attention_regime_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "signal_dispersion_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "screener_attention_priority_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "Attention priority score: Always pair with signal_consensus_direction_label.",
+            "Dispersion score: High priority plus high dispersion may still be worth review, but needs caution.",
+            "Narrative Deterioration Despite Price Strength: May persist during strong price trends.",
+            "Quiet Neutral: May miss slow-building setups with low attention."
+          ],
+          "definitions": [
+            {
+              "category": "Attention Score",
+              "caution": "",
+              "definition": "0 to 100 breadth score for attention coverage across sources. Higher values mean attention is showing up across more source families rather than being concentrated in just one source.",
+              "name": "attention_source_breadth_score",
+              "recommended_use": "",
+              "type": "column"
+            },
+            {
+              "category": "Attention / Engagement",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Score field for attention level score.",
+              "name": "attention_level_score",
+              "recommended_use": "Use to identify whether participation is elevated and whether attention confirms the signal.",
+              "type": "column"
+            },
+            {
+              "category": "Attention / Engagement",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Score field for attention regime score.",
+              "name": "attention_regime_score",
+              "recommended_use": "Use to identify whether participation is elevated and whether attention confirms the signal.",
+              "type": "column"
+            },
+            {
+              "category": "Signal Consensus",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "How much the signal families disagree.",
+              "name": "signal_dispersion_score",
+              "recommended_use": "Use to separate clean setups from noisy or conflicted ones.",
+              "type": "column"
+            },
+            {
+              "category": "Screener / Narrative",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Top-level triage score indicating how urgently an asset deserves review.",
+              "name": "screener_attention_priority_score",
+              "recommended_use": "Use to sort the workbook and decide which assets to review first.",
+              "type": "column"
+            },
+            {
+              "caution": "Always pair with signal_consensus_direction_label.",
+              "definition": "A triage score for review urgency, not directional bullishness.",
+              "name": "Attention priority score",
+              "reply_guidance": "Explain this as signal context. Do not present it as a standalone prediction or investment recommendation.",
+              "type": "score",
+              "where_used": "Used to rank assets in the screener."
+            },
+            {
+              "caution": "High priority plus high dispersion may still be worth review, but needs caution.",
+              "definition": "A disagreement measure across signal families.",
+              "name": "Dispersion score",
+              "reply_guidance": "Explain this as signal context. Do not present it as a standalone prediction or investment recommendation.",
+              "type": "score",
+              "where_used": "Low dispersion means families agree; high dispersion means conflict."
+            },
+            {
+              "definition": "Combines families into direction, confidence, dispersion, archetypes and priority.",
+              "interpretation_notes": "Priority is review urgency, not bullishness.",
+              "name": "Summary / Consensus",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            },
+            {
+              "definition": "Sentiment-enhanced MACD model combining classical price MACD and sentiment MACD relationship logic.",
+              "interpretation_notes": "Raw price MACD stays public-comparable; relationship scores are SETA-specific.",
+              "name": "MACD",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            },
+            {
+              "definition": "State/timing model using price RSI, sentiment RSI, their relationship and stochastic timing.",
+              "interpretation_notes": "Separates direction/repair/exhaustion rather than one simplistic RSI score.",
+              "name": "RSI / Stoch RSI",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            }
+          ],
+          "disallowed_phrases": [
+            "guaranteed",
+            "sure thing",
+            "risk-free",
+            "must buy",
+            "must sell",
+            "cannot lose"
+          ],
+          "missing_files": [],
+          "policy_avoid": [
+            "Do not say an asset will definitely go up or down.",
+            "Do not use buy/sell/hold instructions as advice.",
+            "Do not imply the model knows the future.",
+            "Do not overstate weak or mixed scores as strong conviction.",
+            "Do not ignore risk, dispersion, missing fields, or contradictory families."
+          ],
+          "reference_manifest_version": "1.0.0",
+          "schema_version": "ai_briefing_reference_guidance_v1"
+        },
+        "safety_constraints": {
+          "allowed_tone": "concise, explanatory, non-advisory",
+          "disallowed_phrases": [
+            "buy",
+            "sell",
+            "strong buy",
+            "price target",
+            "guaranteed",
+            "will rally",
+            "will crash",
+            "should enter",
+            "should exit"
+          ],
+          "educational_only": true,
+          "financial_advice_prohibited": true,
+          "max_headline_chars": 90,
+          "max_summary_words": 45,
+          "public_safe_required": true
+        },
+        "schema_version": "ai_briefing_input_v1",
+        "sentiment_context": {
+          "archetype_risk_note": "This can be an early warning rather than an immediate breakdown signal.",
+          "archetype_summary": "NVDA shows weakening sentiment momentum while price momentum is not yet fully broken.",
+          "primary_archetype": "Narrative Deterioration Despite Price Strength",
+          "ribbon_label": "Mixed / Neutral",
+          "secondary_archetype": "Quiet Neutral",
+          "sentiment_confidence": 26.49,
+          "sentiment_score": 63.41,
+          "sentiment_state": "Bullish Expansion"
+        },
+        "source_metadata": {
+          "builder": "build_fix26_chart_store_payloads.py",
+          "payload_generated_at_utc": "2026-05-12T07:13:21Z",
+          "row_count_visible": 94,
+          "screener_generated_at_utc": "2026-05-12T07:13:19.599863+00:00"
+        }
+      },
+      "mode": "public"
+    },
+    {
+      "asset": "LINK",
+      "case_id": "link_member_d_6m",
+      "display_range": "6M",
+      "expected": {
+        "confidence_state": "qualified_confirmation",
+        "counter_signal": "",
+        "min_evidence_atoms": 1,
+        "participation_role": "confidence_limiter",
+        "precedence_rule": "confirmed_pressure_over_timing",
+        "pressure_state": "confirmed_bullish_pressure",
+        "primary_label": "Confirmed bullish pressure",
+        "primary_state": "confirmed_bullish_pressure",
+        "schema_version": "seta_semantic_briefing_state_v1"
+      },
+      "frequency": "D",
+      "input": {
+        "as_of": "2026-05-12",
+        "asset": "LINK",
+        "attention_context": {
+          "attention_caveat": "Attention describes participation context; it is not validation by itself.",
+          "attention_conviction_label": "Mixed / Neutral",
+          "attention_label": "Quiet",
+          "attention_regime_label": "Normal Regime",
+          "attention_score": 39.15,
+          "attention_spike_score": 7.5,
+          "material_enough_to_mention": true
+        },
+        "authorship_breadth_trend": {
+          "channel_quality": "aggregate_only",
+          "current_label": "Broad",
+          "current_score": 100.0,
+          "delta": 0.0,
+          "direction": "Stable",
+          "prior_score": 100.0,
+          "public_note": "Authorship breadth is broad and broadly stable."
+        },
+        "breadth_trust": {
+          "interpretation": "Participation appears distributed across a broader source base.",
+          "mention_in_public_copy": true,
+          "source_breadth_channel_mix": {},
+          "source_breadth_channel_quality": "aggregate_only",
+          "source_breadth_confidence": "usable",
+          "source_breadth_internal_note": "No channel-level breadth mix was available; public copy uses aggregate breadth only.",
+          "source_breadth_label": "Broad",
+          "source_breadth_public_note": "Participation appears distributed across a broader source base.",
+          "source_breadth_score": 100.0,
+          "source_caveat": ""
+        },
+        "display_range": "6M",
+        "event_context": {
+          "confirmed_count_visible_proxy": 62.0,
+          "latest_confirmed_event_date": "2026-05-12",
+          "latest_confirmed_event_direction": "Bullish",
+          "latest_event_date": "2026-05-12",
+          "latest_event_direction": "Bullish",
+          "latest_event_quality_score": 43.81,
+          "latest_event_tier": "Confirmed",
+          "no_visible_events": false,
+          "screener_reason_summary": "LINK ranked high because: fresh confirmed bullish overlap event; clustered recent overlap/watch activity; MACD family improving; low dispersion; consensus direction bullish.",
+          "watch_count_visible_proxy": 137.0
+        },
+        "frequency": "D",
+        "indicator_context": {
+          "bollinger_label": "Bullish Pressure Active",
+          "macd": 0.3576,
+          "macd_histogram": 0.1219,
+          "macd_label": "Bullish Confirmation",
+          "macd_signal": 0.2357,
+          "rsi": 67.34,
+          "rsi_label": "RSI Constructive",
+          "stoch_rsi": 87.47,
+          "stoch_rsi_d": 94.31,
+          "timing_caveat": "Traditional indicators provide timing context and should not override the full SETA evidence stack."
+        },
+        "mode": "member",
+        "overlap_context": {
+          "dashboard_summary_label": "Bullish Expansion; Normal / Broad; Confirmed Bullish",
+          "latest_confirmed": {
+            "date": "2026-05-12",
+            "direction": "Bullish",
+            "summary": "Bullish Expansion; Normal / Broad; Confirmed Bullish"
+          },
+          "latest_transition": "Flat / Transition -> Bullish Expansion",
+          "overlap_event_type": "Confirmed Bullish Pressure",
+          "overlap_source": "Combined Overlap",
+          "overlap_state": "Bullish Pressure Active",
+          "structure_label": "Bullish Expansion",
+          "volatility_label": "High"
+        },
+        "participation_quality": {
+          "breadth_direction": "Stable",
+          "breadth_label": "Broad",
+          "label": "Measured / distributed",
+          "participation_direction": "Rising",
+          "participation_label": "Quiet",
+          "public_note": "No participation surge is visible, but available activity is not narrowly isolated."
+        },
+        "participation_trend": {
+          "current_label": "Quiet",
+          "current_score": 39.15,
+          "delta": 12.45,
+          "direction": "Rising",
+          "prior_score": 26.71,
+          "public_note": "Participation is quiet and increasing."
+        },
+        "price_context": {
+          "latest_close": 10.495414,
+          "latest_close_date": "2026-05-12",
+          "latest_volume": 337593.0,
+          "previous_visible_close": 10.591,
+          "price_confirmation": "Confirmed",
+          "price_data_lagged": false,
+          "recent_direction_label": "Falling",
+          "visible_period_change_pct": -0.903,
+          "volume_confirmation": "Normal Volume"
+        },
+        "reference_guidance": {
+          "cautions": [
+            "attention_level_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "attention_regime_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "signal_dispersion_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "screener_attention_priority_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "Attention priority score: Always pair with signal_consensus_direction_label.",
+            "Dispersion score: High priority plus high dispersion may still be worth review, but needs caution.",
+            "Fresh Bullish Reversal: Needs price follow-through and should be checked against trend context."
+          ],
+          "definitions": [
+            {
+              "category": "Attention Score",
+              "caution": "",
+              "definition": "0 to 100 breadth score for attention coverage across sources. Higher values mean attention is showing up across more source families rather than being concentrated in just one source.",
+              "name": "attention_source_breadth_score",
+              "recommended_use": "",
+              "type": "column"
+            },
+            {
+              "category": "Attention / Engagement",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Score field for attention level score.",
+              "name": "attention_level_score",
+              "recommended_use": "Use to identify whether participation is elevated and whether attention confirms the signal.",
+              "type": "column"
+            },
+            {
+              "category": "Attention / Engagement",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Score field for attention regime score.",
+              "name": "attention_regime_score",
+              "recommended_use": "Use to identify whether participation is elevated and whether attention confirms the signal.",
+              "type": "column"
+            },
+            {
+              "category": "Signal Consensus",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "How much the signal families disagree.",
+              "name": "signal_dispersion_score",
+              "recommended_use": "Use to separate clean setups from noisy or conflicted ones.",
+              "type": "column"
+            },
+            {
+              "category": "Screener / Narrative",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Top-level triage score indicating how urgently an asset deserves review.",
+              "name": "screener_attention_priority_score",
+              "recommended_use": "Use to sort the workbook and decide which assets to review first.",
+              "type": "column"
+            },
+            {
+              "caution": "Always pair with signal_consensus_direction_label.",
+              "definition": "A triage score for review urgency, not directional bullishness.",
+              "name": "Attention priority score",
+              "reply_guidance": "Explain this as signal context. Do not present it as a standalone prediction or investment recommendation.",
+              "type": "score",
+              "where_used": "Used to rank assets in the screener."
+            },
+            {
+              "caution": "High priority plus high dispersion may still be worth review, but needs caution.",
+              "definition": "A disagreement measure across signal families.",
+              "name": "Dispersion score",
+              "reply_guidance": "Explain this as signal context. Do not present it as a standalone prediction or investment recommendation.",
+              "type": "score",
+              "where_used": "Low dispersion means families agree; high dispersion means conflict."
+            },
+            {
+              "definition": "Combines families into direction, confidence, dispersion, archetypes and priority.",
+              "interpretation_notes": "Priority is review urgency, not bullishness.",
+              "name": "Summary / Consensus",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            },
+            {
+              "definition": "Sentiment-enhanced MACD model combining classical price MACD and sentiment MACD relationship logic.",
+              "interpretation_notes": "Raw price MACD stays public-comparable; relationship scores are SETA-specific.",
+              "name": "MACD",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            },
+            {
+              "definition": "State/timing model using price RSI, sentiment RSI, their relationship and stochastic timing.",
+              "interpretation_notes": "Separates direction/repair/exhaustion rather than one simplistic RSI score.",
+              "name": "RSI / Stoch RSI",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            }
+          ],
+          "disallowed_phrases": [
+            "guaranteed",
+            "sure thing",
+            "risk-free",
+            "must buy",
+            "must sell",
+            "cannot lose"
+          ],
+          "missing_files": [],
+          "policy_avoid": [
+            "Do not say an asset will definitely go up or down.",
+            "Do not use buy/sell/hold instructions as advice.",
+            "Do not imply the model knows the future.",
+            "Do not overstate weak or mixed scores as strong conviction.",
+            "Do not ignore risk, dispersion, missing fields, or contradictory families."
+          ],
+          "reference_manifest_version": "1.0.0",
+          "schema_version": "ai_briefing_reference_guidance_v1"
+        },
+        "safety_constraints": {
+          "allowed_tone": "concise, explanatory, non-advisory",
+          "disallowed_phrases": [
+            "buy",
+            "sell",
+            "strong buy",
+            "price target",
+            "guaranteed",
+            "will rally",
+            "will crash",
+            "should enter",
+            "should exit"
+          ],
+          "educational_only": true,
+          "financial_advice_prohibited": true,
+          "max_headline_chars": 90,
+          "max_summary_words": 45,
+          "public_safe_required": true
+        },
+        "schema_version": "ai_briefing_input_v1",
+        "sentiment_context": {
+          "archetype_risk_note": "Mean-reversion/reversal setups still need price follow-through after the confirmed event.",
+          "archetype_summary": "LINK has a fresh confirmed bullish overlap event with supportive Bollinger pressure.",
+          "primary_archetype": "Fresh Bullish Reversal",
+          "ribbon_label": "Bullish Expansion",
+          "secondary_archetype": null,
+          "sentiment_confidence": 64.44,
+          "sentiment_score": 84.75,
+          "sentiment_state": "Bullish Expansion"
+        },
+        "source_metadata": {
+          "builder": "build_fix26_chart_store_payloads.py",
+          "payload_generated_at_utc": "2026-05-12T07:13:27Z",
+          "row_count_visible": 187,
+          "screener_generated_at_utc": "2026-05-12T07:13:19.599863+00:00"
+        }
+      },
+      "mode": "member"
+    },
+    {
+      "asset": "MSFT",
+      "case_id": "msft_member_d_6m",
+      "display_range": "6M",
+      "expected": {
+        "confidence_state": "timing_led",
+        "counter_signal": "inactive_overlap_limiter",
+        "min_evidence_atoms": 1,
+        "participation_role": "source_breadth_stabilizer",
+        "precedence_rule": "timing_over_generic_context",
+        "pressure_state": "inactive_overlap",
+        "primary_label": "Bearish timing pressure with mixed RSI",
+        "primary_state": "bearish_timing_pressure_mixed_rsi",
+        "schema_version": "seta_semantic_briefing_state_v1"
+      },
+      "frequency": "D",
+      "input": {
+        "as_of": "2026-05-12",
+        "asset": "MSFT",
+        "attention_context": {
+          "attention_caveat": "Attention describes participation context; it is not validation by itself.",
+          "attention_conviction_label": "Mixed / Neutral",
+          "attention_label": "Normal",
+          "attention_regime_label": "Normal Regime",
+          "attention_score": 42.25,
+          "attention_spike_score": 5.0,
+          "material_enough_to_mention": true
+        },
+        "authorship_breadth_trend": {
+          "channel_quality": "aggregate_only",
+          "current_label": "Broad",
+          "current_score": 100.0,
+          "delta": 0.0,
+          "direction": "Stable",
+          "prior_score": 100.0,
+          "public_note": "Authorship breadth is broad and broadly stable."
+        },
+        "breadth_trust": {
+          "interpretation": "Participation appears distributed across a broader source base.",
+          "mention_in_public_copy": true,
+          "source_breadth_channel_mix": {},
+          "source_breadth_channel_quality": "aggregate_only",
+          "source_breadth_confidence": "usable",
+          "source_breadth_internal_note": "No channel-level breadth mix was available; public copy uses aggregate breadth only.",
+          "source_breadth_label": "Broad",
+          "source_breadth_public_note": "Participation appears distributed across a broader source base.",
+          "source_breadth_score": 100.0,
+          "source_caveat": ""
+        },
+        "display_range": "6M",
+        "event_context": {
+          "confirmed_count_visible_proxy": 0.0,
+          "latest_confirmed_event_date": null,
+          "latest_confirmed_event_direction": null,
+          "latest_event_date": null,
+          "latest_event_direction": null,
+          "latest_event_quality_score": null,
+          "latest_event_tier": null,
+          "no_visible_events": true,
+          "screener_reason_summary": "MSFT ranked high because: MACD family deteriorating; low dispersion; consensus direction bearish.",
+          "watch_count_visible_proxy": 0.0
+        },
+        "frequency": "D",
+        "indicator_context": {
+          "bollinger_label": "Inactive",
+          "macd": 5.0803,
+          "macd_histogram": -1.1577,
+          "macd_label": "Bearish Confirmation",
+          "macd_signal": 6.238,
+          "rsi": 53.59,
+          "rsi_label": "RSI Mixed / Neutral",
+          "stoch_rsi": 24.49,
+          "stoch_rsi_d": 22.84,
+          "timing_caveat": "Traditional indicators provide timing context and should not override the full SETA evidence stack."
+        },
+        "mode": "member",
+        "overlap_context": {
+          "dashboard_summary_label": "Bearish Expansion; Normal / Broad; None Inside",
+          "latest_confirmed": {
+            "date": null,
+            "direction": null,
+            "summary": null
+          },
+          "latest_transition": null,
+          "overlap_event_type": "Monitor",
+          "overlap_source": "Combined Overlap",
+          "overlap_state": "Inactive",
+          "structure_label": "Bearish Expansion",
+          "volatility_label": null
+        },
+        "participation_quality": {
+          "breadth_direction": "Stable",
+          "breadth_label": "Broad",
+          "label": "Distributed participation",
+          "participation_direction": "Rising",
+          "participation_label": "Normal",
+          "public_note": "Participation quality supports a measured read because available activity appears broadly distributed."
+        },
+        "participation_trend": {
+          "current_label": "Normal",
+          "current_score": 42.25,
+          "delta": 22.65,
+          "direction": "Rising",
+          "prior_score": 19.59,
+          "public_note": "Participation is normal and increasing."
+        },
+        "price_context": {
+          "latest_close": 412.66,
+          "latest_close_date": "2026-05-11",
+          "latest_volume": 35657943.0,
+          "previous_visible_close": null,
+          "price_confirmation": "Quiet / Ignore",
+          "price_data_lagged": true,
+          "recent_direction_label": "Flat",
+          "visible_period_change_pct": null,
+          "volume_confirmation": "High Volume"
+        },
+        "reference_guidance": {
+          "cautions": [
+            "attention_level_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "attention_regime_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "signal_dispersion_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "screener_attention_priority_score: Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+            "Attention priority score: Always pair with signal_consensus_direction_label.",
+            "Dispersion score: High priority plus high dispersion may still be worth review, but needs caution.",
+            "Monitor: Review missing_confirmations before acting."
+          ],
+          "definitions": [
+            {
+              "category": "Attention Score",
+              "caution": "",
+              "definition": "0 to 100 breadth score for attention coverage across sources. Higher values mean attention is showing up across more source families rather than being concentrated in just one source.",
+              "name": "attention_source_breadth_score",
+              "recommended_use": "",
+              "type": "column"
+            },
+            {
+              "category": "Attention / Engagement",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Score field for attention level score.",
+              "name": "attention_level_score",
+              "recommended_use": "Use to identify whether participation is elevated and whether attention confirms the signal.",
+              "type": "column"
+            },
+            {
+              "category": "Attention / Engagement",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Score field for attention regime score.",
+              "name": "attention_regime_score",
+              "recommended_use": "Use to identify whether participation is elevated and whether attention confirms the signal.",
+              "type": "column"
+            },
+            {
+              "category": "Signal Consensus",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "How much the signal families disagree.",
+              "name": "signal_dispersion_score",
+              "recommended_use": "Use to separate clean setups from noisy or conflicted ones.",
+              "type": "column"
+            },
+            {
+              "category": "Screener / Narrative",
+              "caution": "Scores are model-derived interpretation aids; inspect raw values and reasons for context.",
+              "definition": "Top-level triage score indicating how urgently an asset deserves review.",
+              "name": "screener_attention_priority_score",
+              "recommended_use": "Use to sort the workbook and decide which assets to review first.",
+              "type": "column"
+            },
+            {
+              "caution": "Always pair with signal_consensus_direction_label.",
+              "definition": "A triage score for review urgency, not directional bullishness.",
+              "name": "Attention priority score",
+              "reply_guidance": "Explain this as signal context. Do not present it as a standalone prediction or investment recommendation.",
+              "type": "score",
+              "where_used": "Used to rank assets in the screener."
+            },
+            {
+              "caution": "High priority plus high dispersion may still be worth review, but needs caution.",
+              "definition": "A disagreement measure across signal families.",
+              "name": "Dispersion score",
+              "reply_guidance": "Explain this as signal context. Do not present it as a standalone prediction or investment recommendation.",
+              "type": "score",
+              "where_used": "Low dispersion means families agree; high dispersion means conflict."
+            },
+            {
+              "definition": "Combines families into direction, confidence, dispersion, archetypes and priority.",
+              "interpretation_notes": "Priority is review urgency, not bullishness.",
+              "name": "Summary / Consensus",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            },
+            {
+              "definition": "Sentiment-enhanced MACD model combining classical price MACD and sentiment MACD relationship logic.",
+              "interpretation_notes": "Raw price MACD stays public-comparable; relationship scores are SETA-specific.",
+              "name": "MACD",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            },
+            {
+              "definition": "State/timing model using price RSI, sentiment RSI, their relationship and stochastic timing.",
+              "interpretation_notes": "Separates direction/repair/exhaustion rather than one simplistic RSI score.",
+              "name": "RSI / Stoch RSI",
+              "reply_guidance": "Use this family as one contributor to the setup. Mention agreement, divergence, or missing confirmation when relevant.",
+              "type": "family"
+            }
+          ],
+          "disallowed_phrases": [
+            "guaranteed",
+            "sure thing",
+            "risk-free",
+            "must buy",
+            "must sell",
+            "cannot lose"
+          ],
+          "missing_files": [],
+          "policy_avoid": [
+            "Do not say an asset will definitely go up or down.",
+            "Do not use buy/sell/hold instructions as advice.",
+            "Do not imply the model knows the future.",
+            "Do not overstate weak or mixed scores as strong conviction.",
+            "Do not ignore risk, dispersion, missing fields, or contradictory families."
+          ],
+          "reference_manifest_version": "1.0.0",
+          "schema_version": "ai_briefing_reference_guidance_v1"
+        },
+        "safety_constraints": {
+          "allowed_tone": "concise, explanatory, non-advisory",
+          "disallowed_phrases": [
+            "buy",
+            "sell",
+            "strong buy",
+            "price target",
+            "guaranteed",
+            "will rally",
+            "will crash",
+            "should enter",
+            "should exit"
+          ],
+          "educational_only": true,
+          "financial_advice_prohibited": true,
+          "max_headline_chars": 90,
+          "max_summary_words": 45,
+          "public_safe_required": true
+        },
+        "schema_version": "ai_briefing_input_v1",
+        "sentiment_context": {
+          "archetype_risk_note": "No single setup family dominates the current profile.",
+          "archetype_summary": "MSFT does not match a high-conviction archetype; monitor current signal family scores.",
+          "primary_archetype": "Monitor",
+          "ribbon_label": "Bearish Expansion",
+          "secondary_archetype": null,
+          "sentiment_confidence": 40.65,
+          "sentiment_score": 26.28,
+          "sentiment_state": "Bearish Expansion"
+        },
+        "source_metadata": {
+          "builder": "build_fix26_chart_store_payloads.py",
+          "payload_generated_at_utc": "2026-05-12T07:13:27Z",
+          "row_count_visible": 187,
+          "screener_generated_at_utc": "2026-05-12T07:13:19.599863+00:00"
+        }
+      },
+      "mode": "member"
+    }
+  ],
+  "created_from": "build_ai_briefing_input + build_ai_briefing_semantic_state",
+  "purpose": "Frozen real-case semantic fixtures. Exact semantic expectations are asserted here, while live cases only verify schema/no-crash behavior.",
+  "schema_version": "seta_semantic_fixture_pack_v1"
+}

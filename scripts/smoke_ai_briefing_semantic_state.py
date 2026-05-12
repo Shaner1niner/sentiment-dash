@@ -112,29 +112,60 @@ def synthetic_quiet_broad_participation() -> dict[str, Any]:
     return data
 
 
+
 def run_real_case_checks() -> None:
+    # Live market-data cases are intentionally schema/no-crash checks only.
+    # Exact semantic expectations belong in frozen fixture checks below,
+    # because refreshed market data can legitimately move an asset from one
+    # semantic state to another.
     cases = [
-        ("BTC", "public", "D", "3M", {"Weakening sentiment momentum with price resilience", "Bearish timing pressure with constructive RSI"}),
-        ("NVDA", "public", "D", "3M", {"Weakening sentiment momentum with price resilience"}),
-        ("LINK", "member", "D", "6M", {"Unconfirmed bullish pressure with bearish rejection risk"}),
-        ("MSFT", "member", "D", "6M", {"Bearish timing pressure with mixed RSI"}),
+        ("BTC", "public", "D", "3M"),
+        ("NVDA", "public", "D", "3M"),
+        ("LINK", "member", "D", "6M"),
+        ("MSFT", "member", "D", "6M"),
     ]
 
-    for asset, mode, freq, display_range, expected_labels in cases:
+    for asset, mode, freq, display_range in cases:
         semantic = build_semantic_state(build_input(mode, asset, freq, display_range))
-        assert_equal(semantic["schema_version"], "seta_semantic_briefing_state_v1", f"{asset} semantic schema version")
-        assert_true(semantic["semantic_decision"]["primary_label"] in expected_labels, f"{asset} primary label is expected")
-        assert_true(bool(semantic["evidence_atoms"]), f"{asset} has evidence atoms")
-        assert_true(bool(semantic["semantic_trace"]["precedence_rule"]), f"{asset} records precedence rule")
+        assert_equal(semantic["schema_version"], "seta_semantic_briefing_state_v1", f"{asset} live semantic schema version")
+        assert_true(bool(semantic["semantic_decision"]["primary_label"]), f"{asset} live primary label is populated")
+        assert_true(bool(semantic["semantic_decision"]["primary_state"]), f"{asset} live primary state is populated")
+        assert_true(bool(semantic["evidence_atoms"]), f"{asset} live case has evidence atoms")
+        assert_true(bool(semantic["semantic_trace"]["precedence_rule"]), f"{asset} live case records precedence rule")
 
-    link = build_semantic_state(build_input("member", "LINK", "D", "6M"))
-    assert_equal(link["pressure"]["state"], "unconfirmed_bullish_pressure", "LINK pressure state is unconfirmed bullish")
-    assert_equal(link["semantic_decision"]["counter_signal"], "bearish_rejection_counter_signal", "LINK has bearish rejection counter-signal")
-    assert_equal(link["semantic_decision"]["confidence_state"], "qualified_confirmation", "LINK confidence is qualified")
-    assert_true(
-        link["participation"]["role"] in {"confidence_limiter", "source_breadth_stabilizer", "confirmer"},
-        "LINK participation role is classified",
-    )
+
+def semantic_fixture_path() -> Path:
+    return Path(__file__).resolve().parents[1] / "fixtures" / "semantic_briefing_state" / "real_cases_2026_05_12.json"
+
+
+def run_frozen_real_fixture_checks() -> None:
+    fixture_path = semantic_fixture_path()
+    assert_true(fixture_path.exists(), "frozen semantic real-case fixture exists")
+
+    fixture = json.loads(fixture_path.read_text(encoding="utf-8"))
+    assert_equal(fixture.get("schema_version"), "seta_semantic_fixture_pack_v1", "frozen semantic fixture schema version")
+
+    cases = fixture.get("cases") or []
+    assert_true(bool(cases), "frozen semantic fixture contains cases")
+
+    for case in cases:
+        case_id = case.get("case_id") or case.get("asset") or "unknown"
+        semantic = build_semantic_state(case["input"])
+        decision = semantic.get("semantic_decision") or {}
+        trace = semantic.get("semantic_trace") or {}
+        pressure = semantic.get("pressure") or {}
+        participation = semantic.get("participation") or {}
+        expected = case.get("expected") or {}
+
+        assert_equal(semantic.get("schema_version"), expected.get("schema_version"), f"{case_id} frozen schema version")
+        assert_equal(decision.get("primary_state"), expected.get("primary_state"), f"{case_id} frozen primary state")
+        assert_equal(decision.get("primary_label"), expected.get("primary_label"), f"{case_id} frozen primary label")
+        assert_equal(decision.get("counter_signal"), expected.get("counter_signal"), f"{case_id} frozen counter-signal")
+        assert_equal(decision.get("confidence_state"), expected.get("confidence_state"), f"{case_id} frozen confidence state")
+        assert_equal(trace.get("precedence_rule"), expected.get("precedence_rule"), f"{case_id} frozen precedence rule")
+        assert_equal(pressure.get("state"), expected.get("pressure_state"), f"{case_id} frozen pressure state")
+        assert_equal(participation.get("role"), expected.get("participation_role"), f"{case_id} frozen participation role")
+        assert_true(len(semantic.get("evidence_atoms") or []) >= int(expected.get("min_evidence_atoms", 1)), f"{case_id} frozen evidence atoms are present")
 
 
 def run_synthetic_checks() -> None:
@@ -179,6 +210,7 @@ def run_synthetic_checks() -> None:
 
 def main() -> int:
     run_real_case_checks()
+    run_frozen_real_fixture_checks()
     run_synthetic_checks()
     print("SETA semantic briefing state smoke test PASSED")
     return 0
