@@ -219,8 +219,31 @@ def contains_meaning(haystack: str, phrase: str) -> bool:
     if any(token in p for token in technical_led_tokens) and any(token in h for token in technical_led_tokens):
         return True
 
-    if "recent range return" in p and "range return" in h:
+    range_return_tokens = [
+        "recent range return",
+        "range return",
+        "briefly moved outside",
+        "rotated back toward that range",
+        "outside-zone extension did not persist",
+        "failed extension",
+    ]
+    if any(token in p for token in range_return_tokens) and any(token in h for token in range_return_tokens):
         return True
+    if "recent range return" in p and ("briefly moved outside" in h or "rotated back" in h):
+        return True
+    if "shared price/sentiment range" in p and "rotated back" in p and "shared price/sentiment range" in h and "rotated back" in h:
+        return True
+    if "bearish rejection" in p and any(token in h for token in range_return_tokens):
+        return True
+    if "bullish repair" in p and any(token in h for token in range_return_tokens):
+        return True
+    if "latest rejection" in p and any(token in h for token in range_return_tokens):
+        return True
+    if "rejection" in p and "rotated back" in h:
+        return True
+    if "repair" in p and "rotated back" in h:
+        return True
+
     if "bearish rejection" in p and "bearish rejection" in h:
         return True
     if "latest rejection" in p and "rejection" in h:
