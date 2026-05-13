@@ -1,4 +1,10 @@
-import { Store } from '../Store.js';
+import os
+import subprocess
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent
+
+CONTROLS_JS = '''import { Store } from '../Store.js';
 
 export const Controls = {
     async init() {
@@ -62,3 +68,15 @@ export const Controls = {
         }
     }
 };
+'''
+
+def apply():
+    print("Patching V2 Controls module to auto-populate dropdowns...")
+    (REPO_ROOT / "src" / "features" / "Controls.js").write_text(CONTROLS_JS, encoding="utf-8")
+    
+    subprocess.run(["git", "add", "."])
+    subprocess.run(["git", "commit", "-m", "Fix: Add dynamic dropdown population to Controls.js"])
+    print("Fix applied! Dropdowns will now populate on load.")
+
+if __name__ == "__main__":
+    apply()
