@@ -33,6 +33,8 @@ export const Store = {
         assetStoreIndex: null,
         screenerStore: null,
         reviewedBriefings: null,
+        currentAssetPayload: null,
+        assetPayloadMeta: null,
         ...DEFAULT_CONTROL_STATE
     },
 
@@ -55,6 +57,22 @@ export const Store = {
     setReviewedBriefings(data) {
         this.state.reviewedBriefings = data;
         this.emit('reviewedBriefingsUpdated', data);
+    },
+
+    setCurrentAssetPayload(payload, meta = {}) {
+        this.state.currentAssetPayload = payload;
+        this.state.assetPayloadMeta = {
+            asset: meta.asset || this.state.currentAsset,
+            mode: meta.mode || null,
+            url: meta.url || null,
+            fromCache: !!meta.fromCache,
+            loadedAt: new Date().toISOString()
+        };
+        this.emit('assetPayloadUpdated', {
+            payload,
+            meta: this.state.assetPayloadMeta,
+            state: this.snapshot()
+        });
     },
 
     setAsset(assetTicker) {
