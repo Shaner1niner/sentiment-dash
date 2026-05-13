@@ -212,10 +212,30 @@ def audit() -> dict[str, Any]:
     for embed in ["interactive_dashboard_fix24_public_embed.html", "interactive_dashboard_fix24_member_embed.html"]:
         path = ROOT / embed
         text = path.read_text(encoding="utf-8-sig", errors="ignore") if path.exists() else ""
-        match = re.search(r"dashboard_fix26_app\.js\?v=([^\"']+)", text)
-        embed_tokens[embed] = match.group(1) if match else None
-        if not match:
-            findings.append(Finding("warning", "embed_cache", f"No dashboard cache token found in {embed}"))
+
+        legacy_app_match = re.search(r"dashboard_fix26_app\.js\?v=([^\"']+)", text)
+        module_entry_present = re.search(r"<script\b[^>]*src=[\"'](?:\./)?src/dashboard_main\.js[\"'][^>]*>", text) is not None
+        manifest_match = re.search(r"DASH_MANIFEST_URL\s*=\s*[\"']dashboard_fix26_mode_manifest\.json\?v=([^\"']+)[\"']", text)
+
+        if legacy_app_match:
+            embed_tokens[embed] = {
+                "entry_type": "legacy_app",
+                "entry_token": legacy_app_match.group(1),
+                "manifest_token": manifest_match.group(1) if manifest_match else None,
+            }
+        elif module_entry_present:
+            embed_tokens[embed] = {
+                "entry_type": "module_entry",
+                "entry_token": "src/dashboard_main.js",
+                "manifest_token": manifest_match.group(1) if manifest_match else None,
+            }
+        else:
+            embed_tokens[embed] = {
+                "entry_type": None,
+                "entry_token": None,
+                "manifest_token": manifest_match.group(1) if manifest_match else None,
+            }
+            findings.append(Finding("warning", "embed_cache", f"No recognized dashboard entry script found in {embed}"))
 
     reviewed_payloads = {name: read_json(ROOT / name, {}) for name in ["generated_briefings_reviewed.json", "generated_briefings_reviewed_v2.json"]}
     reviewed_reports: dict[str, Any] = {}
@@ -346,7 +366,14 @@ def write_markdown(report: dict[str, Any], path: Path) -> None:
         "",
     ]
     for name, token in s["embed_tokens"].items():
-        lines.append(f"- `{name}`: `{token}`")
+        if isinstance(token, dict):
+            lines.append(
+                f"- `{name}`: entry=`{token.get('entry_type')}`, "
+                f"entry token=`{token.get('entry_token')}`, "
+                f"manifest token=`{token.get('manifest_token')}`"
+            )
+        else:
+            lines.append(f"- `{name}`: `{token}`")
     lines.extend(["", "## Reviewed payload copy artifacts", ""])
     for payload_name, rr in report["reviewed_reports"].items():
         lines.append(f"- `{payload_name}`: `{rr['copy_artifact_hit_count']}` exact artifact hit(s), `{rr['briefing_count']}` briefing(s)")
