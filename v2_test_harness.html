@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SETA Dashboard V2 Test Harness</title>
+    <link rel="stylesheet" href="dashboard_fix26_base.css">
+    <style>
+        body { background-color: #0d1117; color: #c9d1d9; font-family: -apple-system, sans-serif; padding: 2rem; }
+        .test-panel { border: 1px solid #30363d; padding: 1rem; border-radius: 8px; background: #161b22; }
+        button { padding: 8px 16px; background: #238636; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        button:hover { background: #2ea043; }
+    </style>
+</head>
+<body>
+    <h1>V2 Architecture Test Harness</h1>
+    <div class="test-panel">
+        <p>1. Open your browser's Developer Tools (Press <strong>F12</strong> or <strong>Ctrl+Shift+I</strong>) and check the <strong>Console</strong> tab.</p>
+        <p>2. You should immediately see: <em>"SETA Dashboard V2 Modules Initialized"</em></p>
+        <br>
+        <button id="test-asset-btn">Test State Manager (Change Asset to ETH)</button>
+    </div>
+
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+    
+    <script type="module" src="./src/dashboard_main.js"></script>
+    
+    <script type="module">
+        import { Store } from './src/Store.js';
+        document.getElementById('test-asset-btn').addEventListener('click', () => {
+            console.log("Button clicked. Instructing Store to update asset...");
+            Store.setAsset('ETH');
+        });
+    </script>
+</body>
+</html>
