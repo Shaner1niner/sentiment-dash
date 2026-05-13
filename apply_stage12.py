@@ -1,4 +1,10 @@
-import { Store } from '../Store.js';
+import os
+import subprocess
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent
+
+CONTROLS_JS = '''import { Store } from '../Store.js';
 
 export const Controls = {
     async init() {
@@ -62,3 +68,18 @@ export const Controls = {
         }
     }
 };
+'''
+
+def apply():
+    print("Applying Stage 12: Reverting to native <select> elements leveraging dashboard_fix26_base.css...")
+    (REPO_ROOT / "src" / "features" / "Controls.js").write_text(CONTROLS_JS, encoding="utf-8")
+    
+    # We also need to make sure the hotfix CSS injected in Stage 11 is removed
+    # This is handled by the complete overwrite of Controls.js above.
+
+    subprocess.run(["git", "add", "."])
+    subprocess.run(["git", "commit", "-m", "Refactor: Revert to native <select> elements to inherit base CSS styles"])
+    print("Stage 12 applied! Dropdowns should now inherit the correct dark theme from your CSS file.")
+
+if __name__ == "__main__":
+    apply()
