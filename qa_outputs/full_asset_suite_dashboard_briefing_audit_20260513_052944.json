@@ -1,0 +1,3670 @@
+{
+  "dashboard_token_report": {
+    "SETA_REVIEWED_CONTEXT_COMPATIBILITY": true,
+    "accepted compatible reviewed fallback": true,
+    "const plotRows=rows.filter((r,i)=>visibleMask[i])": true,
+    "const plotXs=plotRows.map(r=>r.dateObj)": true,
+    "currentDashboardControlKey() !== renderKey": true,
+    "priceCandlestickTraces(plotXs, plotRows, freq)": true,
+    "skipped incompatible reviewed fallback for active context": true
+  },
+  "findings": [
+    {
+      "area": "embed_cache",
+      "asset": null,
+      "detail": null,
+      "message": "No dashboard cache token found in interactive_dashboard_fix24_public_embed.html",
+      "mode": null,
+      "severity": "warning"
+    },
+    {
+      "area": "embed_cache",
+      "asset": null,
+      "detail": null,
+      "message": "No dashboard cache token found in interactive_dashboard_fix24_member_embed.html",
+      "mode": null,
+      "severity": "warning"
+    },
+    {
+      "area": "manifest_coverage",
+      "asset": null,
+      "detail": null,
+      "message": "Configured assets missing from public index: SPY",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AAPL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::aapl::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AAPL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::aapl::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AAPL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::aapl::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AAPL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::aapl::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BTC",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::btc::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BTC",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::btc::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BTC",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::btc::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BTC",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::btc::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "COIN",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::coin::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "COIN",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::coin::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "COIN",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::coin::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "COIN",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::coin::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "ETH",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::eth::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "ETH",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::eth::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "ETH",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::eth::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "ETH",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::eth::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GLD",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::gld::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GLD",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::gld::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GLD",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::gld::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GLD",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::gld::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSFT",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::msft::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSFT",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::msft::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSFT",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::msft::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSFT",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::msft::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NVDA",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::nvda::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NVDA",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::nvda::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NVDA",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::nvda::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NVDA",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::nvda::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SOL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::sol::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SOL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::sol::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SOL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for public::sol::d::3m::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SOL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for public::sol::w::1y::2026_05_13",
+      "mode": "public",
+      "severity": "warning"
+    },
+    {
+      "area": "manifest_coverage",
+      "asset": null,
+      "detail": null,
+      "message": "Configured assets missing from member index: SPY",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AAPL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::aapl::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AAPL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::aapl::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AAPL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::aapl::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AAPL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::aapl::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AMD",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::amd::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AMD",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::amd::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AMD",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::amd::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AMD",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::amd::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AMZN",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::amzn::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AMZN",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::amzn::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AMZN",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::amzn::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AMZN",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::amzn::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AVAX",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::avax::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AVAX",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::avax::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AVAX",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::avax::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "AVAX",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::avax::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BNB",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::bnb::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BNB",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::bnb::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BNB",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::bnb::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BNB",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::bnb::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BTC",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::btc::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BTC",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::btc::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BTC",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::btc::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "BTC",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::btc::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "COIN",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::coin::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "COIN",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::coin::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "COIN",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::coin::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "COIN",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::coin::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "DOGE",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::doge::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "DOGE",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::doge::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "DOGE",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::doge::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "DOGE",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::doge::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "DXY",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::dxy::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "DXY",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::dxy::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "DXY",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::dxy::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "DXY",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::dxy::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "ETH",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::eth::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "ETH",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::eth::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "ETH",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::eth::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "ETH",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::eth::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GLD",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::gld::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GLD",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::gld::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GLD",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::gld::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GLD",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::gld::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GOOGL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::googl::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GOOGL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::googl::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GOOGL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::googl::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "GOOGL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::googl::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "LINK",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::link::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "LINK",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::link::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "LINK",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::link::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "LINK",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::link::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "META",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::meta::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "META",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::meta::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "META",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::meta::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "META",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::meta::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSFT",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::msft::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSFT",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::msft::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSFT",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::msft::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSFT",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::msft::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSTR",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::mstr::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSTR",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::mstr::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSTR",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::mstr::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "MSTR",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::mstr::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NFLX",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::nflx::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NFLX",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::nflx::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NFLX",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::nflx::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NFLX",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::nflx::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NVDA",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::nvda::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NVDA",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::nvda::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NVDA",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::nvda::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "NVDA",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::nvda::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "PLTR",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::pltr::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "PLTR",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::pltr::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "PLTR",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::pltr::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "PLTR",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::pltr::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "QQQ",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::qqq::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "QQQ",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::qqq::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "QQQ",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::qqq::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "QQQ",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::qqq::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SHOP",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::shop::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SHOP",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::shop::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SHOP",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::shop::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SHOP",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::shop::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SMCI",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::smci::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SMCI",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::smci::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SMCI",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::smci::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SMCI",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::smci::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SOL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::sol::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SOL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::sol::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SOL",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::sol::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "SOL",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::sol::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "TLT",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::tlt::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "TLT",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::tlt::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "TLT",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::tlt::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "TLT",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::tlt::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "TSLA",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::tsla::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "TSLA",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::tsla::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "TSLA",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::tsla::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "TSLA",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::tsla::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "XLE",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::xle::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "XLE",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::xle::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "XLE",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::xle::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "XLE",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::xle::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "XRP",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::xrp::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "XRP",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::xrp::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "XRP",
+      "detail": null,
+      "message": "No direct reviewed daily default briefing for member::xrp::d::6m::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    },
+    {
+      "area": "reviewed_coverage",
+      "asset": "XRP",
+      "detail": null,
+      "message": "No direct reviewed weekly default briefing for member::xrp::w::1y::2026_05_13",
+      "mode": "member",
+      "severity": "warning"
+    }
+  ],
+  "mode_reports": {
+    "member": {
+      "asset_count": 27,
+      "asset_reports": {
+        "AAPL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Crowded Bearish / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::aapl::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::aapl::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::aapl::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::aapl::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Crowded Bearish / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "AMD": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-09-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 240
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::amd::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::amd::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::amd::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::amd::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 236,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 35,
+              "visible_first": "2025-09-19",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-09-19",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 35
+          }
+        },
+        "AMZN": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::amzn::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::amzn::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::amzn::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::amzn::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "AVAX": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::avax::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::avax::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::avax::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::avax::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "BNB": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-06-11",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 320
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::bnb::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::bnb::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::bnb::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::bnb::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 336,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 48,
+              "visible_first": "2025-06-11",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-06-11",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 48
+          }
+        },
+        "BTC": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::btc::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::btc::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::btc::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::btc::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "COIN": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::coin::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::coin::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::coin::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::coin::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "DOGE": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::doge::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::doge::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::doge::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::doge::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "DXY": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 163
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 162,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 163,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::dxy::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::dxy::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::dxy::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::dxy::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 159,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "ETH": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::eth::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::eth::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::eth::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::eth::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "GLD": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-11-20",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 175
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 174,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 175,
+              "visible_first": "2025-11-20",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::gld::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::gld::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::gld::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::gld::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 173,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 26,
+              "visible_first": "2025-11-21",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-11-21",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 26
+          }
+        },
+        "GOOGL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::googl::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::googl::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::googl::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::googl::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "LINK": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::link::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::link::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::link::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::link::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "META": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-06-12",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 310
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::meta::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::meta::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::meta::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::meta::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 335,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 49,
+              "visible_first": "2025-06-12",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-06-12",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 49
+          }
+        },
+        "MSFT": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::msft::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::msft::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::msft::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::msft::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "MSTR": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-11-20",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 175
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 174,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 175,
+              "visible_first": "2025-11-20",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::mstr::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::mstr::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::mstr::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::mstr::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 173,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 26,
+              "visible_first": "2025-11-21",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-11-21",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 26
+          }
+        },
+        "NFLX": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Crowded Bearish / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::nflx::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::nflx::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::nflx::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::nflx::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Crowded Bearish / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "NVDA": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::nvda::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::nvda::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::nvda::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::nvda::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "PLTR": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-08-06",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Crowded Bullish / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 279
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::pltr::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::pltr::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::pltr::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::pltr::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 278,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 41,
+              "visible_first": "2025-08-08",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-08-08",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Crowded Bullish / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 41
+          }
+        },
+        "QQQ": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-11-20",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 175
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 174,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 175,
+              "visible_first": "2025-11-20",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::qqq::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::qqq::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::qqq::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::qqq::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 173,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 26,
+              "visible_first": "2025-11-21",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-11-21",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 26
+          }
+        },
+        "SHOP": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 163
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 162,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 163,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::shop::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::shop::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::shop::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::shop::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 159,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "SMCI": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 163
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 162,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 163,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::smci::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::smci::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::smci::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::smci::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 159,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "SOL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::sol::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::sol::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::sol::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::sol::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "TLT": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 163
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 162,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 163,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::tlt::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::tlt::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::tlt::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::tlt::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 159,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "TSLA": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::tsla::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::tsla::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::tsla::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::tsla::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "XLE": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 163
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 162,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 163,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::xle::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::xle::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::xle::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::xle::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 159,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "XRP": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-06-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 332
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::xrp::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::xrp::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::xrp::d::6m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "member::xrp::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 334,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 49,
+              "visible_first": "2025-06-13",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-06-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 49
+          }
+        }
+      },
+      "assets": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "COIN",
+        "DOGE",
+        "DXY",
+        "ETH",
+        "GLD",
+        "GOOGL",
+        "LINK",
+        "META",
+        "MSFT",
+        "MSTR",
+        "NFLX",
+        "NVDA",
+        "PLTR",
+        "QQQ",
+        "SHOP",
+        "SMCI",
+        "SOL",
+        "TLT",
+        "TSLA",
+        "XLE",
+        "XRP"
+      ],
+      "configured_assets": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "COIN",
+        "DOGE",
+        "DXY",
+        "ETH",
+        "GLD",
+        "GOOGL",
+        "LINK",
+        "META",
+        "MSFT",
+        "MSTR",
+        "NFLX",
+        "NVDA",
+        "PLTR",
+        "QQQ",
+        "SHOP",
+        "SMCI",
+        "SOL",
+        "SPY",
+        "TLT",
+        "TSLA",
+        "XLE",
+        "XRP"
+      ]
+    },
+    "public": {
+      "asset_count": 8,
+      "asset_reports": {
+        "AAPL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Crowded Bearish / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::aapl::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::aapl::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::aapl::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::aapl::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Crowded Bearish / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "BTC": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::btc::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::btc::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::btc::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::btc::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "COIN": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::coin::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::coin::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::coin::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::coin::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "ETH": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::eth::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::eth::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::eth::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::eth::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "GLD": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-11-20",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 175
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 174,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 175,
+              "visible_first": "2025-11-20",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::gld::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::gld::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::gld::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::gld::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 173,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 26,
+              "visible_first": "2025-11-21",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-11-21",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 26
+          }
+        },
+        "MSFT": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::msft::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::msft::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::msft::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::msft::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; High Noise / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "NVDA": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::nvda::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::nvda::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::nvda::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::nvda::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "SOL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-13",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-13",
+              "start_expected": "2026-02-10",
+              "visible_count": 93,
+              "visible_first": "2026-02-10",
+              "visible_last": "2026-05-13"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-13",
+              "start_expected": "2025-11-10",
+              "visible_count": 185,
+              "visible_first": "2025-11-10",
+              "visible_last": "2026-05-13"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::sol::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::sol::w::1y::2026_05_13",
+              "weekly_default_present": false
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::sol::d::3m::2026_05_13",
+              "daily_default_present": false,
+              "weekly_default_key": "public::sol::w::1y::2026_05_13",
+              "weekly_default_present": false
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 362,
+              "end": "2026-05-13",
+              "start_expected": "2025-05-08",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-13"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-13",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        }
+      },
+      "assets": [
+        "AAPL",
+        "BTC",
+        "COIN",
+        "ETH",
+        "GLD",
+        "MSFT",
+        "NVDA",
+        "SOL"
+      ],
+      "configured_assets": [
+        "AAPL",
+        "BTC",
+        "COIN",
+        "ETH",
+        "GLD",
+        "MSFT",
+        "NVDA",
+        "SOL",
+        "SPY"
+      ]
+    }
+  },
+  "reviewed_reports": {
+    "generated_briefings_reviewed.json": {
+      "briefing_count": 70,
+      "copy_artifact_hit_count": 0,
+      "copy_artifact_hits": [],
+      "schema_version": "generated_briefings_reviewed_v1"
+    },
+    "generated_briefings_reviewed_v2.json": {
+      "briefing_count": 70,
+      "copy_artifact_hit_count": 0,
+      "copy_artifact_hits": [],
+      "schema_version": "generated_briefings_reviewed_v1"
+    }
+  },
+  "summary": {
+    "dashboard_tokens_ok": true,
+    "embed_tokens": {
+      "interactive_dashboard_fix24_member_embed.html": null,
+      "interactive_dashboard_fix24_public_embed.html": null
+    },
+    "error_count": 0,
+    "generated_at_utc": "2026-05-13T05:29:44+00:00",
+    "modes": {
+      "member": {
+        "asset_count": 27
+      },
+      "public": {
+        "asset_count": 8
+      }
+    },
+    "status": "passed",
+    "warning_count": 144
+  }
+}
