@@ -84512,6 +84512,48 @@ function scheduleBuildFigure(){
   else setTimeout(run, 0);
 }
 
+
+// BEGIN phase_seta_display_range_window_monolith_helper_v1
+function displayRangeDateValue(value){
+  if(value instanceof Date){
+    return Number.isFinite(value.getTime()) ? value : null;
+  }
+  if(value === null || value === undefined || value === '') return null;
+  const parsed = new Date(value);
+  return Number.isFinite(parsed.getTime()) ? parsed : null;
+}
+
+function displayRangeVisibleMaskFromBounds(rows, visStart, visEnd){
+  const source = Array.isArray(rows) ? rows : [];
+  const start = displayRangeDateValue(visStart);
+  const end = displayRangeDateValue(visEnd);
+
+  return source.map(row => {
+    const d = displayRangeDateValue(row && (row.dateObj || row.date || row.dt || row.timestamp));
+    if(!d || !start || !end) return false;
+    return d >= start && d <= end;
+  });
+}
+
+function displayRangeRowsFromMask(rows, visibleMask){
+  const source = Array.isArray(rows) ? rows : [];
+  const mask = Array.isArray(visibleMask) ? visibleMask : [];
+  return source.filter((_, i) => !!mask[i]);
+}
+
+function displayRangeXsFromRows(rows){
+  return (Array.isArray(rows) ? rows : []).map(row => row && row.dateObj).filter(Boolean);
+}
+
+window.SETA_DISPLAY_RANGE_WINDOW_MONOLITH_HELPER = {
+  version: 'phase_seta_display_range_window_monolith_helper_v1',
+  displayRangeDateValue,
+  displayRangeVisibleMaskFromBounds,
+  displayRangeRowsFromMask,
+  displayRangeXsFromRows
+};
+// END phase_seta_display_range_window_monolith_helper_v1
+
 function drawDashboardPlot(data, layout){
   const chart = document.getElementById('chart');
   if(!chart || typeof Plotly === 'undefined') return Promise.resolve();
@@ -84824,10 +84866,10 @@ async function buildFigure(){
 
 
 
-  const visibleMask=rows.map(r=>r.dateObj>=visStart&&r.dateObj<=visEnd);
+  const visibleMask=displayRangeVisibleMaskFromBounds(rows, visStart, visEnd);
 
-  const plotRows=rows.filter((r,i)=>visibleMask[i]);
-  const plotXs=plotRows.map(r=>r.dateObj);
+  const plotRows=displayRangeRowsFromMask(rows, visibleMask);
+  const plotXs=displayRangeXsFromRows(plotRows);
 
 
 
