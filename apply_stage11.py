@@ -1,4 +1,10 @@
-import { Store } from '../Store.js';
+import os
+import subprocess
+from pathlib import Path
+
+REPO_ROOT = Path(__file__).resolve().parent
+
+CONTROLS_JS = '''import { Store } from '../Store.js';
 
 export const Controls = {
     async init() {
@@ -120,3 +126,15 @@ export const Controls = {
         }
     }
 };
+'''
+
+def apply():
+    print("Applying Stage 11: Restoring Custom UI Dropdowns...")
+    (REPO_ROOT / "src" / "features" / "Controls.js").write_text(CONTROLS_JS, encoding="utf-8")
+    
+    subprocess.run(["git", "add", "."])
+    subprocess.run(["git", "commit", "-m", "Refactor: Restore custom dark-theme UI for dropdown controls"])
+    print("UI Restored! The dropdowns will now match production.")
+
+if __name__ == "__main__":
+    apply()
