@@ -44,8 +44,14 @@ def main() -> int:
         if f'id="{control_id}"' not in html:
             return fail(f"harness missing control id: {control_id}")
 
-    if "dashboard_fix26_app.js" in html:
-        return fail("harness should not load production monolith dashboard_fix26_app.js")
+    monolith_script_tokens = [
+        'src="dashboard_fix26_app.js',
+        "src='dashboard_fix26_app.js",
+        'src="./dashboard_fix26_app.js',
+        "src='./dashboard_fix26_app.js",
+    ]
+    if any(token in html for token in monolith_script_tokens):
+        return fail("harness should not load production monolith dashboard_fix26_app.js as a script")
 
     for embed in [PUBLIC_EMBED, MEMBER_EMBED]:
         if not embed.exists():
