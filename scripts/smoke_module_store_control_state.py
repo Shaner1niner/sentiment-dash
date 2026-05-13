@@ -61,6 +61,7 @@ def main() -> int:
         "fix26_chart_store_member_index.json",
         "bindStoreSync()",
         "syncControlElement(controlId, value)",
+        "normalizeControlValue(controlId, payload)",
         "Store.on('controlChanged'",
         "Store.on('assetChanged'",
         "Control element synced:",
@@ -69,6 +70,9 @@ def main() -> int:
     missing_controls = [token for token in control_tokens if token not in controls_text]
     if missing_controls:
         return fail(f"Controls.js missing token(s): {missing_controls}")
+
+    if "'[object Object]'" not in controls_text:
+        return fail("Controls.js does not guard against object-shaped control payload logs")
 
     if "Future implementation" in controls_text:
         return fail("Controls.js still contains future-implementation placeholder")
@@ -83,6 +87,7 @@ def main() -> int:
     print("[OK] Store module declares explicit dashboard control state")
     print("[OK] Controls module routes select changes into Store")
     print("[OK] Controls module syncs Store control changes back to select elements")
+    print("[OK] Controls module normalizes object-shaped sync payloads before logging")
     print("[OK] Controls module handles Market Tape asset clicks through Store assetChanged")
     print("[OK] module store/control state smoke passed")
     return 0
