@@ -25,12 +25,31 @@ function plainText(value, fallback = 'Reviewed briefing content is not available
     return String(value || fallback).trim();
 }
 
+function normalizeBriefingCard(card, fallbackTitle = '') {
+    if (!card || typeof card !== 'object') return null;
+    return {
+        title: card.title || card.heading || card.role || fallbackTitle,
+        role: card.role || fallbackTitle,
+        body: card.body || card.copy || card.text || card.summary || card.bullets || card.items || ''
+    };
+}
+
 function cardFromBriefingCards(item, desiredTitle) {
-    const cards = item && Array.isArray(item.briefing_cards) ? item.briefing_cards : [];
+    const cards = item && item.briefing_cards ? item.briefing_cards : null;
     const normalized = desiredTitle.toLowerCase();
 
-    return cards.find(card => {
-        const title = String(card.title || card.heading || card.role || '').toLowerCase();
+    let candidates = [];
+
+    if (Array.isArray(cards)) {
+        candidates = cards.map(card => normalizeBriefingCard(card)).filter(Boolean);
+    } else if (cards && typeof cards === 'object') {
+        candidates = Object.entries(cards)
+            .map(([key, card]) => normalizeBriefingCard(card, key))
+            .filter(Boolean);
+    }
+
+    return candidates.find(card => {
+        const title = String(card.title || card.role || '').toLowerCase();
         return title.includes(normalized) || normalized.includes(title);
     }) || null;
 }
@@ -48,6 +67,12 @@ function cardCopy(item, title, keys, fallback) {
 }
 
 function evidenceList(item) {
+    const card = cardFromBriefingCards(item, 'evidence');
+    const cardItems = card && Array.isArray(card.body) ? card.body : null;
+    if (cardItems && cardItems.length) {
+        return cardItems.map(v => `<li>${escapeHtml(plainText(v, ''))}</li>`).join('');
+    }
+
     const candidates = valueOf(item, ['evidence', 'receipts', 'briefing_evidence', 'evidence_list']);
     if (Array.isArray(candidates)) return candidates.map(v => `<li>${escapeHtml(plainText(v, ''))}</li>`).join('');
 

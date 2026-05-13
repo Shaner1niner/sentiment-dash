@@ -37,6 +37,7 @@ def main() -> int:
         "Store.setReviewedBriefings(this.payload)",
         "matchForState(state = Store.snapshot()",
         "flattenReviewedPayload(payload)",
+        "objectMapToItems(candidate)",
     ]
     missing_loader = [token for token in loader_tokens if token not in loader]
     if missing_loader:
@@ -50,6 +51,7 @@ def main() -> int:
         "Why It Matters",
         "Participation Quality",
         "ReviewedBriefingLoader.matchForState(state)",
+        "normalizeBriefingCard(card",
         "Store.on('controlChanged'",
     ]
     missing_panel = [token for token in panel_tokens if token not in panel]
@@ -80,7 +82,12 @@ def main() -> int:
         text = json.dumps(payload)[:500000]
         if "briefing_cards" not in text:
             return fail("reviewed briefing payload sample does not expose briefing_cards")
-        print("[OK] reviewed briefing payload present with briefing_cards")
+        briefings = payload.get("briefings")
+        if not isinstance(briefings, dict):
+            return fail("reviewed briefing payload should expose object-map briefings")
+        if not any(key.startswith("member::btc::d::6m::") for key in briefings):
+            return fail("reviewed briefing payload missing member BTC daily 6M key")
+        print("[OK] reviewed briefing payload present with object-map briefing_cards")
     else:
         print("[WARN] generated_briefings_reviewed_v2.json not present; skipped payload sample check")
 
