@@ -356,6 +356,145 @@ function normalizeMarketTapeItem(item, ticker, hint = {}) {
     };
 }
 
+function cleanDisplayText(value) {
+    return String(value ?? '').replace(/\s+/g, ' ').trim();
+}
+
+function isGenericMarketTapeCopy(value, ticker = '') {
+    const text = cleanDisplayText(value);
+    if (!text) return true;
+
+    const lower = text.toLowerCase();
+    const t = String(ticker || '').trim().toLowerCase();
+
+    if (['summary', 'monitor', 'candidate', 'watch', 'market tape candidate', 'none', 'n/a', 'null'].includes(lower)) {
+        return true;
+    }
+
+    if (t && lower === `${t} market tape candidate`) return true;
+    if (lower.endsWith(' market tape candidate')) return true;
+    if (/^#?\d*\s*[A-Z0-9]{1,8}$/.test(text)) return true;
+
+    return false;
+}
+
+function compactMarketTapeText(value, maxLength = 150) {
+    const text = cleanDisplayText(value);
+    if (!text || text.length <= maxLength) return text;
+
+    const sentence = text.split(/(?<=[.!?])\s+/)[0] || text;
+    if (sentence.length <= maxLength) return sentence;
+
+    return `${sentence.slice(0, maxLength - 3).trim()}...`;
+}
+
+function firstNonGenericMarketTapeText(candidates, ticker = '', maxLength = 150) {
+    for (const candidate of candidates) {
+        if (!candidate) continue;
+        const text = cleanDisplayText(candidate);
+        if (!text || isGenericMarketTapeCopy(text, ticker)) continue;
+        if (!isUsefulText(text) && text.length < 8) continue;
+        return compactMarketTapeText(text, maxLength);
+    }
+
+    return '';
+}
+
+function shortLabelFromCopy(copy, ticker = '') {
+    const text = firstNonGenericMarketTapeText([copy], ticker, 92);
+    if (!text) return '';
+
+    const withoutTicker = ticker
+        ? text.replace(new RegExp(`^${ticker}\\s*[:\\-–—•]*\\s*`, 'i'), '').trim()
+        : text;
+
+    return compactMarketTapeText(withoutTicker || text, 92);
+}
+
+function deriveTagsFromCopy(copy, ticker = '') {
+    const text = cleanDisplayText(copy);
+    const lower = text.toLowerCase();
+    const tags = [];
+
+    const add = (tag) => {
+        if (!tag || tags.includes(tag)) return;
+        tags.push(tag);
+    };
+
+    if (/bull|constructive|repair|rebound|resilien/.test(lower)) add('Bullish');
+    if (/bear|weak|deteriorat|reject|risk|pressure/.test(lower)) add('Bearish');
+    if (/momentum|macd|trend/.test(lower)) add('Momentum');
+    if (/repair|recover/.test(lower)) add('Repair');
+    if (/confirm/.test(lower)) add('Confirmation');
+    if (/watch|monitor/.test(lower)) add('Watch');
+    if (/participation|breadth|source/.test(lower)) add('Participation');
+    if (/sentiment/.test(lower)) add('Sentiment');
+    if (/conflict|mixed/.test(lower)) add('Conflict');
+    if (/quiet|low conviction|not match/.test(lower)) add('Quiet');
+    if (/high-conviction|high conviction|strong/.test(lower)) add('High Conviction');
+    if (/volume/.test(lower)) add('Volume');
+
+    return tags.slice(0, 4);
+}
+
+function displayCardCopy(row) {
+    const ticker = row?.ticker || '';
+    const source = row?.source || {};
+    const screener = source?.screener || source?.scorecard || source?.market_tape || {};
+    const archetype = source?.archetype || source?.market_tape_family || source?.family || {};
+    const indicators = source?.indicators || source?.indicator_payload || source?.indicator || {};
+
+    const candidates = [
+        row?.watchItem,
+        row?.label,
+        valueOf(source, ['watch_item', 'watchItem', 'watch', 'rationale', 'reason', 'description', 'summary'], null),
+        valueOf(screener, ['watch_item', 'watchItem', 'watch', 'rationale', 'reason', 'description', 'summary'], null),
+        valueOf(archetype, ['watch_item', 'watchItem', 'watch', 'rationale', 'reason', 'description', 'summary', 'label', 'family'], null),
+        valueOf(indicators, ['watch_item', 'watchItem', 'watch', 'rationale', 'reason', 'description', 'summary'], null),
+        deepFindText(screener, WATCH_KEY_RE),
+        deepFindText(archetype, WATCH_KEY_RE),
+        deepFindText(indicators, WATCH_KEY_RE),
+        deepFindText(source, WATCH_KEY_RE)
+    ];
+
+    const text = firstNonGenericMarketTapeText(candidates, ticker, 170);
+    if (text) return text;
+
+    return `${ticker || 'Asset'} remains on module Market Tape watch; monitor price, sentiment, and participation confirmation.`;
+}
+
+function displayCardHeadline(row) {
+    const ticker = row?.ticker || '';
+    const candidates = [
+        row?.label,
+        shortLabelFromCopy(row?.watchItem, ticker),
+        row?.watchItem,
+        valueOf(row?.source || {}, ['headline', 'setup_label', 'setupLabel', 'label', 'title', 'read', 'primary_read'], null)
+    ];
+
+    const text = firstNonGenericMarketTapeText(candidates, ticker, 92);
+    if (text) return text;
+
+    return 'Market tape watch';
+}
+
+function displayCardTags(row) {
+    const ticker = row?.ticker || '';
+    const explicitTags = (row?.tags || [])
+        .map(tag => cleanDisplayText(tag))
+        .filter(tag => tag && !isGenericMarketTapeCopy(tag, ticker));
+
+    const derivedTags = deriveTagsFromCopy(`${row?.label || ''} ${row?.watchItem || ''}`, ticker);
+    const tags = [];
+
+    [...explicitTags, ...derivedTags].forEach(tag => {
+        if (!tag || tags.includes(tag)) return;
+        tags.push(tag);
+    });
+
+    return tags.length ? tags.slice(0, 4) : ['Watch'];
+}
+
 function sortTapeRows(rows, activeAsset) {
     return [...rows].sort((a, b) => {
         if (a.ticker === activeAsset && b.ticker !== activeAsset) return -1;
@@ -499,9 +638,9 @@ export const MarketTape = {
 
         const itemCards = visibleRows.map(row => {
             const isActive = row.ticker === activeAsset;
-            const tags = row.tags.length
-                ? row.tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')
-                : '<span>Monitor</span>';
+            const tags = displayCardTags(row)
+                .map(tag => `<span>${escapeHtml(tag)}</span>`)
+                .join('');
 
             return `
               <button class="moduleMarketTapeItem ${isActive ? 'isActive' : ''}" data-ticker="${escapeHtml(row.ticker)}" type="button">
@@ -510,7 +649,7 @@ export const MarketTape = {
                   <em>${escapeHtml(formatScore(row.score))}</em>
                 </div>
                 <div class="moduleMarketTapeTags">${tags}</div>
-                <p>${escapeHtml(row.label)}</p>
+                <p>${escapeHtml(displayCardCopy(row))}</p>
               </button>
             `;
         }).join('');
@@ -520,8 +659,8 @@ export const MarketTape = {
             <header class="moduleMarketTapeHeader">
               <div>
                 <div class="moduleMarketTapeKicker">Module Market Tape - Active ${escapeHtml(activeAsset)}</div>
-                <h2>${escapeHtml(active ? `${rankLabel(active)}: ${active.label}` : 'Market tape')}</h2>
-                <p>${escapeHtml(active ? active.watchItem : 'Select a market tape item to update the module asset context.')}</p>
+                <h2>${escapeHtml(active ? `${rankLabel(active)}: ${displayCardHeadline(active)}` : 'Market tape')}</h2>
+                <p>${escapeHtml(active ? displayCardCopy(active) : 'Select a market tape item to update the module asset context.')}</p>
               </div>
               <span class="moduleMarketTapePill">${rows.length} assets</span>
             </header>
