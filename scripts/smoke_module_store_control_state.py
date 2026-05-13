@@ -59,6 +59,12 @@ def main() -> int:
         "document.addEventListener('change'",
         "CONTROL_STATE_KEYS[controlId]",
         "fix26_chart_store_member_index.json",
+        "bindStoreSync()",
+        "syncControlElement(controlId, value)",
+        "Store.on('controlChanged'",
+        "Store.on('assetChanged'",
+        "Control element synced:",
+        "document.createElement('option')",
     ]
     missing_controls = [token for token in control_tokens if token not in controls_text]
     if missing_controls:
@@ -76,6 +82,8 @@ def main() -> int:
 
     print("[OK] Store module declares explicit dashboard control state")
     print("[OK] Controls module routes select changes into Store")
+    print("[OK] Controls module syncs Store control changes back to select elements")
+    print("[OK] Controls module handles Market Tape asset clicks through Store assetChanged")
     print("[OK] module store/control state smoke passed")
     return 0
 

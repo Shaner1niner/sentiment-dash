@@ -2,12 +2,14 @@ import { Store, CONTROL_STATE_KEYS } from '../Store.js';
 
 export const Controls = {
     _bound: false,
+    _storeSyncBound: false,
 
     async init() {
         console.log("Controls Module Initialized (True Parity)");
         await this.populateNativeDropdowns();
         this.applyStoreStateToControls();
         this.bindEvents();
+        this.bindStoreSync();
     },
 
     bindEvents() {
@@ -31,13 +33,62 @@ export const Controls = {
         });
     },
 
+    bindStoreSync() {
+        if (this._storeSyncBound) return;
+        this._storeSyncBound = true;
+
+        Store.on('controlChanged', ({ controlId, value }) => {
+            this.syncControlElement(controlId, value);
+        });
+
+        Store.on('controlsBatchChanged', ({ changed = [], state = {} }) => {
+            changed.forEach(controlId => {
+                const stateKey = CONTROL_STATE_KEYS[controlId];
+                if (stateKey) this.syncControlElement(controlId, state[stateKey]);
+            });
+        });
+
+        Store.on('assetChanged', ticker => {
+            this.syncControlElement('asset', ticker);
+        });
+    },
+
+    syncControlElement(controlId, value) {
+        if (!controlId || !CONTROL_STATE_KEYS[controlId]) return false;
+
+        const el = document.getElementById(controlId);
+        if (!el || el.tagName.toLowerCase() !== 'select') return false;
+
+        const normalizedValue = controlId === 'asset'
+            ? String(value || '').trim().toUpperCase()
+            : String(value ?? '').trim();
+
+        if (!normalizedValue) return false;
+
+        const hasOption = Array.from(el.options || []).some(option => option.value === normalizedValue);
+
+        if (!hasOption && controlId === 'asset') {
+            const option = document.createElement('option');
+            option.value = normalizedValue;
+            option.textContent = normalizedValue;
+            el.appendChild(option);
+        } else if (!hasOption) {
+            return false;
+        }
+
+        if (el.value !== normalizedValue) {
+            el.value = normalizedValue;
+            console.log(`Control element synced: ${controlId} = ${normalizedValue}`);
+        }
+
+        return true;
+    },
+
     applyStoreStateToControls() {
         Object.entries(CONTROL_STATE_KEYS).forEach(([controlId, stateKey]) => {
-            const el = document.getElementById(controlId);
-            if (!el) return;
             const value = Store.state[stateKey];
             if (value !== undefined && value !== null && value !== '') {
-                el.value = value;
+                this.syncControlElement(controlId, value);
             }
         });
     },
@@ -62,7 +113,7 @@ export const Controls = {
             assetSelect.innerHTML = optionsHtml;
 
             if (Store.state.currentAsset) {
-                assetSelect.value = Store.state.currentAsset;
+                this.syncControlElement('asset', Store.state.currentAsset);
             }
 
             console.log(`Controls: Populated asset dropdown with ${assets.length} tickers.`);
