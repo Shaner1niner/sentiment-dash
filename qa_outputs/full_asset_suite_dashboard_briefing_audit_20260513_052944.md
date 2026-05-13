@@ -1,0 +1,166 @@
+# Full Asset Suite Dashboard + Briefing Audit
+
+- Generated UTC: `2026-05-13T05:29:44+00:00`
+- Status: **passed**
+- Errors: `0`
+- Warnings: `144`
+- Public assets: `8`
+- Member assets: `27`
+- Dashboard guard tokens OK: `True`
+
+## Embed cache tokens
+
+- `interactive_dashboard_fix24_public_embed.html`: `None`
+- `interactive_dashboard_fix24_member_embed.html`: `None`
+
+## Reviewed payload copy artifacts
+
+- `generated_briefings_reviewed.json`: `0` exact artifact hit(s), `70` briefing(s)
+- `generated_briefings_reviewed_v2.json`: `0` exact artifact hit(s), `70` briefing(s)
+
+## Findings
+
+- **WARNING** `embed_cache`: No dashboard cache token found in interactive_dashboard_fix24_public_embed.html
+- **WARNING** `embed_cache`: No dashboard cache token found in interactive_dashboard_fix24_member_embed.html
+- **WARNING** `manifest_coverage` mode=`public`: Configured assets missing from public index: SPY
+- **WARNING** `reviewed_coverage` mode=`public` asset=`AAPL`: No direct reviewed daily default briefing for public::aapl::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`AAPL`: No direct reviewed weekly default briefing for public::aapl::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`AAPL`: No direct reviewed daily default briefing for public::aapl::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`AAPL`: No direct reviewed weekly default briefing for public::aapl::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`BTC`: No direct reviewed daily default briefing for public::btc::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`BTC`: No direct reviewed weekly default briefing for public::btc::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`BTC`: No direct reviewed daily default briefing for public::btc::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`BTC`: No direct reviewed weekly default briefing for public::btc::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`COIN`: No direct reviewed daily default briefing for public::coin::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`COIN`: No direct reviewed weekly default briefing for public::coin::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`COIN`: No direct reviewed daily default briefing for public::coin::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`COIN`: No direct reviewed weekly default briefing for public::coin::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`ETH`: No direct reviewed daily default briefing for public::eth::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`ETH`: No direct reviewed weekly default briefing for public::eth::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`ETH`: No direct reviewed daily default briefing for public::eth::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`ETH`: No direct reviewed weekly default briefing for public::eth::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`GLD`: No direct reviewed daily default briefing for public::gld::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`GLD`: No direct reviewed weekly default briefing for public::gld::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`GLD`: No direct reviewed daily default briefing for public::gld::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`GLD`: No direct reviewed weekly default briefing for public::gld::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`MSFT`: No direct reviewed daily default briefing for public::msft::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`MSFT`: No direct reviewed weekly default briefing for public::msft::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`MSFT`: No direct reviewed daily default briefing for public::msft::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`MSFT`: No direct reviewed weekly default briefing for public::msft::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`NVDA`: No direct reviewed daily default briefing for public::nvda::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`NVDA`: No direct reviewed weekly default briefing for public::nvda::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`NVDA`: No direct reviewed daily default briefing for public::nvda::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`NVDA`: No direct reviewed weekly default briefing for public::nvda::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`SOL`: No direct reviewed daily default briefing for public::sol::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`SOL`: No direct reviewed weekly default briefing for public::sol::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`SOL`: No direct reviewed daily default briefing for public::sol::d::3m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`public` asset=`SOL`: No direct reviewed weekly default briefing for public::sol::w::1y::2026_05_13
+- **WARNING** `manifest_coverage` mode=`member`: Configured assets missing from member index: SPY
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AAPL`: No direct reviewed daily default briefing for member::aapl::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AAPL`: No direct reviewed weekly default briefing for member::aapl::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AAPL`: No direct reviewed daily default briefing for member::aapl::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AAPL`: No direct reviewed weekly default briefing for member::aapl::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AMD`: No direct reviewed daily default briefing for member::amd::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AMD`: No direct reviewed weekly default briefing for member::amd::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AMD`: No direct reviewed daily default briefing for member::amd::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AMD`: No direct reviewed weekly default briefing for member::amd::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AMZN`: No direct reviewed daily default briefing for member::amzn::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AMZN`: No direct reviewed weekly default briefing for member::amzn::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AMZN`: No direct reviewed daily default briefing for member::amzn::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AMZN`: No direct reviewed weekly default briefing for member::amzn::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AVAX`: No direct reviewed daily default briefing for member::avax::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AVAX`: No direct reviewed weekly default briefing for member::avax::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AVAX`: No direct reviewed daily default briefing for member::avax::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`AVAX`: No direct reviewed weekly default briefing for member::avax::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`BNB`: No direct reviewed daily default briefing for member::bnb::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`BNB`: No direct reviewed weekly default briefing for member::bnb::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`BNB`: No direct reviewed daily default briefing for member::bnb::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`BNB`: No direct reviewed weekly default briefing for member::bnb::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`BTC`: No direct reviewed daily default briefing for member::btc::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`BTC`: No direct reviewed weekly default briefing for member::btc::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`BTC`: No direct reviewed daily default briefing for member::btc::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`BTC`: No direct reviewed weekly default briefing for member::btc::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`COIN`: No direct reviewed daily default briefing for member::coin::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`COIN`: No direct reviewed weekly default briefing for member::coin::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`COIN`: No direct reviewed daily default briefing for member::coin::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`COIN`: No direct reviewed weekly default briefing for member::coin::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`DOGE`: No direct reviewed daily default briefing for member::doge::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`DOGE`: No direct reviewed weekly default briefing for member::doge::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`DOGE`: No direct reviewed daily default briefing for member::doge::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`DOGE`: No direct reviewed weekly default briefing for member::doge::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`DXY`: No direct reviewed daily default briefing for member::dxy::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`DXY`: No direct reviewed weekly default briefing for member::dxy::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`DXY`: No direct reviewed daily default briefing for member::dxy::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`DXY`: No direct reviewed weekly default briefing for member::dxy::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`ETH`: No direct reviewed daily default briefing for member::eth::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`ETH`: No direct reviewed weekly default briefing for member::eth::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`ETH`: No direct reviewed daily default briefing for member::eth::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`ETH`: No direct reviewed weekly default briefing for member::eth::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`GLD`: No direct reviewed daily default briefing for member::gld::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`GLD`: No direct reviewed weekly default briefing for member::gld::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`GLD`: No direct reviewed daily default briefing for member::gld::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`GLD`: No direct reviewed weekly default briefing for member::gld::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`GOOGL`: No direct reviewed daily default briefing for member::googl::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`GOOGL`: No direct reviewed weekly default briefing for member::googl::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`GOOGL`: No direct reviewed daily default briefing for member::googl::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`GOOGL`: No direct reviewed weekly default briefing for member::googl::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`LINK`: No direct reviewed daily default briefing for member::link::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`LINK`: No direct reviewed weekly default briefing for member::link::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`LINK`: No direct reviewed daily default briefing for member::link::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`LINK`: No direct reviewed weekly default briefing for member::link::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`META`: No direct reviewed daily default briefing for member::meta::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`META`: No direct reviewed weekly default briefing for member::meta::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`META`: No direct reviewed daily default briefing for member::meta::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`META`: No direct reviewed weekly default briefing for member::meta::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`MSFT`: No direct reviewed daily default briefing for member::msft::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`MSFT`: No direct reviewed weekly default briefing for member::msft::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`MSFT`: No direct reviewed daily default briefing for member::msft::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`MSFT`: No direct reviewed weekly default briefing for member::msft::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`MSTR`: No direct reviewed daily default briefing for member::mstr::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`MSTR`: No direct reviewed weekly default briefing for member::mstr::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`MSTR`: No direct reviewed daily default briefing for member::mstr::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`MSTR`: No direct reviewed weekly default briefing for member::mstr::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`NFLX`: No direct reviewed daily default briefing for member::nflx::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`NFLX`: No direct reviewed weekly default briefing for member::nflx::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`NFLX`: No direct reviewed daily default briefing for member::nflx::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`NFLX`: No direct reviewed weekly default briefing for member::nflx::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`NVDA`: No direct reviewed daily default briefing for member::nvda::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`NVDA`: No direct reviewed weekly default briefing for member::nvda::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`NVDA`: No direct reviewed daily default briefing for member::nvda::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`NVDA`: No direct reviewed weekly default briefing for member::nvda::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`PLTR`: No direct reviewed daily default briefing for member::pltr::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`PLTR`: No direct reviewed weekly default briefing for member::pltr::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`PLTR`: No direct reviewed daily default briefing for member::pltr::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`PLTR`: No direct reviewed weekly default briefing for member::pltr::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`QQQ`: No direct reviewed daily default briefing for member::qqq::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`QQQ`: No direct reviewed weekly default briefing for member::qqq::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`QQQ`: No direct reviewed daily default briefing for member::qqq::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`QQQ`: No direct reviewed weekly default briefing for member::qqq::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SHOP`: No direct reviewed daily default briefing for member::shop::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SHOP`: No direct reviewed weekly default briefing for member::shop::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SHOP`: No direct reviewed daily default briefing for member::shop::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SHOP`: No direct reviewed weekly default briefing for member::shop::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SMCI`: No direct reviewed daily default briefing for member::smci::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SMCI`: No direct reviewed weekly default briefing for member::smci::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SMCI`: No direct reviewed daily default briefing for member::smci::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SMCI`: No direct reviewed weekly default briefing for member::smci::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SOL`: No direct reviewed daily default briefing for member::sol::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SOL`: No direct reviewed weekly default briefing for member::sol::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SOL`: No direct reviewed daily default briefing for member::sol::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`SOL`: No direct reviewed weekly default briefing for member::sol::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`TLT`: No direct reviewed daily default briefing for member::tlt::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`TLT`: No direct reviewed weekly default briefing for member::tlt::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`TLT`: No direct reviewed daily default briefing for member::tlt::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`TLT`: No direct reviewed weekly default briefing for member::tlt::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`TSLA`: No direct reviewed daily default briefing for member::tsla::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`TSLA`: No direct reviewed weekly default briefing for member::tsla::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`TSLA`: No direct reviewed daily default briefing for member::tsla::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`TSLA`: No direct reviewed weekly default briefing for member::tsla::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`XLE`: No direct reviewed daily default briefing for member::xle::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`XLE`: No direct reviewed weekly default briefing for member::xle::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`XLE`: No direct reviewed daily default briefing for member::xle::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`XLE`: No direct reviewed weekly default briefing for member::xle::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`XRP`: No direct reviewed daily default briefing for member::xrp::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`XRP`: No direct reviewed weekly default briefing for member::xrp::w::1y::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`XRP`: No direct reviewed daily default briefing for member::xrp::d::6m::2026_05_13
+- **WARNING** `reviewed_coverage` mode=`member` asset=`XRP`: No direct reviewed weekly default briefing for member::xrp::w::1y::2026_05_13
