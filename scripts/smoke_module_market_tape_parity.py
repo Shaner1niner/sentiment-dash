@@ -79,12 +79,26 @@ def main() -> int:
         "deepFindNumber(source, keyRegex",
         "formatScore(score)",
         "rankLabel(row)",
+        "displayCardCopy(row)",
+        "displayCardHeadline(row)",
+        "displayCardTags(row)",
+        "deriveTagsFromCopy(copy, ticker = '')",
         "moduleMarketTapeItem",
         "Store.setAsset(ticker)",
     ]
     missing_market = [token for token in market_tokens if token not in market_tape]
     if missing_market:
         return fail(f"MarketTape.js missing token(s): {missing_market}")
+
+    forbidden_market = [
+        "<p>${escapeHtml(row.label)}</p>",
+        "'<span>Monitor</span>'",
+        "${active.label}` : 'Market tape'",
+        "active ? active.watchItem"
+    ]
+    present_forbidden = [token for token in forbidden_market if token in market_tape]
+    if present_forbidden:
+        return fail(f"MarketTape.js still uses generic card rendering fallback(s): {present_forbidden}")
 
     harness_tokens = [
         'id="module-market-tape"',
@@ -119,6 +133,7 @@ def main() -> int:
 
     print("[OK] MarketTape maps screener score/rank fields before fallback")
     print("[OK] MarketTape formats missing scores as dash instead of zero")
+    print("[OK] MarketTape renders richer card body/tag mapping through display helpers")
     print("[OK] MarketTape preserves click-to-asset behavior")
     print("[OK] module market tape score field mapping smoke passed")
     return 0
