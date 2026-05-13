@@ -104,7 +104,10 @@
       "showMacdAnnotation": true,
       "showRibbonAnnotation": true,
       "subtitle": "Combined Overlap remains primary, Engagement stays contextual, and member mode keeps the fuller analytical surface without losing price readability.",
-      "title": "SETA Research Dashboard"
+      "title": "SETA Research Dashboard",
+      "pendingAssetCoverage": [
+        "SPY"
+      ]
     },
     "public": {
       "assetIndexUrl": "fix26_chart_store_public_index.json",
@@ -161,7 +164,10 @@
       "showMacdAnnotation": false,
       "showRibbonAnnotation": false,
       "subtitle": "Combined Overlap leads. Engagement confirms. Traditional indicators remain visible for timing.",
-      "title": "SETA Market Dashboard"
+      "title": "SETA Market Dashboard",
+      "pendingAssetCoverage": [
+        "SPY"
+      ]
     }
   },
   "reviewedBriefingsUrl": "generated_briefings_reviewed_v2.json",
