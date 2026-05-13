@@ -53,16 +53,59 @@ export const Controls = {
         });
     },
 
+    normalizeControlValue(controlId, payload) {
+        if (!controlId || payload === undefined || payload === null) return '';
+
+        let value = payload;
+
+        if (typeof value === 'object') {
+            const stateKey = CONTROL_STATE_KEYS[controlId];
+            const candidates = controlId === 'asset'
+                ? [
+                    value.value,
+                    value.asset,
+                    value.ticker,
+                    value.term,
+                    value.symbol,
+                    value.db_term,
+                    value.currentAsset,
+                    value[stateKey],
+                    value.controlValue
+                ]
+                : [
+                    value.value,
+                    value[stateKey],
+                    value.controlValue
+                ];
+
+            value = candidates.find(candidate => (
+                candidate !== undefined
+                && candidate !== null
+                && typeof candidate !== 'object'
+                && String(candidate).trim() !== ''
+            ));
+
+            if (value === undefined || value === null) return '';
+        }
+
+        let normalizedValue = String(value ?? '').trim();
+
+        if (!normalizedValue || normalizedValue === '[object Object]') return '';
+
+        if (controlId === 'asset') {
+            normalizedValue = normalizedValue.toUpperCase();
+        }
+
+        return normalizedValue;
+    },
+
     syncControlElement(controlId, value) {
         if (!controlId || !CONTROL_STATE_KEYS[controlId]) return false;
 
         const el = document.getElementById(controlId);
         if (!el || el.tagName.toLowerCase() !== 'select') return false;
 
-        const normalizedValue = controlId === 'asset'
-            ? String(value || '').trim().toUpperCase()
-            : String(value ?? '').trim();
-
+        const normalizedValue = this.normalizeControlValue(controlId, value);
         if (!normalizedValue) return false;
 
         const hasOption = Array.from(el.options || []).some(option => option.value === normalizedValue);
