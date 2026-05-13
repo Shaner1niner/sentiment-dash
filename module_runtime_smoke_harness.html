@@ -47,6 +47,79 @@
       margin-left: 8px;
       font-weight: 700;
     }
+    .moduleBriefingPanel {
+      margin: 16px 0 14px;
+    }
+    .moduleBriefingCard {
+      border: 1px solid rgba(125, 211, 252, 0.22);
+      border-radius: 14px;
+      background: rgba(13, 17, 23, 0.84);
+      padding: 16px;
+    }
+    .moduleBriefingHeader {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .moduleBriefingHeader h2 {
+      margin: 4px 0 0;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+    .moduleBriefingKicker {
+      color: #7dd3fc;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .moduleBriefingSource {
+      border: 1px solid rgba(126, 231, 135, .4);
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: #7ee787;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .moduleBriefingGrid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .moduleBriefingGrid section {
+      border: 1px solid rgba(139, 148, 158, .25);
+      border-radius: 10px;
+      padding: 10px;
+      min-height: 110px;
+    }
+    .moduleBriefingGrid h3 {
+      margin: 0 0 8px;
+      color: #9bdcff;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .moduleBriefingGrid p,
+    .moduleBriefingGrid li {
+      color: #c9d1d9;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .moduleBriefingGrid ul {
+      margin: 0;
+      padding-left: 16px;
+    }
+    @media (max-width: 980px) {
+      .moduleBriefingGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 640px) {
+      .moduleBriefingGrid {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
 <body>
@@ -70,6 +143,8 @@
       <div class="control" data-control="bollinger"><label data-label-for="bollinger">BANDS</label><select id="bollinger"><option value="none" selected>None</option><option value="price">Price</option><option value="sentiment">Sentiment Envelope</option><option value="contextual">Combined Overlap</option><option value="overlap">Canonical Overlap</option><option value="both">All Bands</option></select></div>
       <div class="control" data-control="osc"><label data-label-for="osc">TIMING VIEW</label><select id="osc"><option value="price">Price Only</option><option value="both" selected>Price + Sentiment</option></select></div>
     </div>
+
+    <section id="module-briefing-panel" class="moduleBriefingPanel"></section>
 
     <div id="chart"></div>
 
