@@ -42,6 +42,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     Store.on('controlChanged', ({ controlId, state }) => {
         if (controlId === 'asset') return;
         console.log(`Module control changed: ${controlId}`, state);
+
+        if (targetId && Store.state.currentAssetPayload) {
+            renderCurrentPayload(targetId);
+        }
     });
 
     if (targetId) {
@@ -56,17 +60,26 @@ async function loadAndRenderAsset(ticker, targetId) {
     chartContainer.style.opacity = "0.5";
 
     try {
-        const payload = await AssetPayloadLoader.loadAsset(ticker);
-        const layout = payload.layout || {};
-
-        layout.paper_bgcolor = '#0d1117';
-        layout.plot_bgcolor = '#0d1117';
-        layout.font = { color: '#c9d1d9' };
-
-        await PlotlyRenderer.renderChart(targetId, payload.data, layout, payload.config || { responsive: true });
+        await AssetPayloadLoader.loadAsset(ticker);
+        await renderCurrentPayload(targetId);
         chartContainer.style.opacity = "1.0";
     } catch (error) {
         console.error("Chart load failed:", error);
         chartContainer.style.opacity = "1.0";
     }
+}
+
+async function renderCurrentPayload(targetId) {
+    const payload = Store.state.currentAssetPayload;
+    if (!payload) {
+        console.warn("Module renderer: no current asset payload available");
+        return;
+    }
+
+    await PlotlyRenderer.renderAssetPayload(
+        targetId,
+        payload,
+        Store.snapshot(),
+        payload.config || { responsive: true }
+    );
 }
