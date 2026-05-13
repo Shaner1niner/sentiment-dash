@@ -25,7 +25,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (containerEl && !containerEl.id) containerEl.id = 'seta-chart-v2-target';
     const targetId = containerEl ? containerEl.id : null;
 
-    Store.on('assetChanged', ({ value }) => {
+    Store.on('assetChanged', (event) => {
+        const value = typeof event === 'string'
+            ? event
+            : (event && event.value) || Store.state.currentAsset;
+
         const feedbackEl = document.getElementById('ui-feedback');
         if (feedbackEl) {
             feedbackEl.innerText = value;
