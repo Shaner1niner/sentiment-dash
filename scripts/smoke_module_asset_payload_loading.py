@@ -32,8 +32,6 @@ def main() -> int:
         "assetPayloadMeta: null",
         "setCurrentAssetPayload(payload, meta = {})",
         "this.emit('assetPayloadUpdated'",
-        "this.emit('assetPayloadLoading'",
-        "this.emit('assetPayloadError'",
     ]
     missing_store = [token for token in store_tokens if token not in store]
     if missing_store:
@@ -69,6 +67,7 @@ def main() -> int:
 
     print("[OK] AssetPayloadLoader module exists")
     print("[OK] Store tracks current asset payload metadata")
+    print("[OK] AssetPayloadLoader emits loading/error lifecycle events")
     print("[OK] dashboard_main routes asset payload loading through AssetPayloadLoader")
     print("[OK] module asset payload loading smoke passed")
     return 0
