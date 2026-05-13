@@ -125,6 +125,38 @@ def configured_manifest_assets(mode: str) -> list[str]:
     return []
 
 
+def pending_manifest_assets(mode: str) -> list[str]:
+    manifest = read_json(ROOT / "dashboard_fix26_mode_manifest.json", {})
+    candidates: list[Any] = []
+
+    if isinstance(manifest, dict):
+        mode_cfg = manifest.get(mode) or {}
+        if isinstance(mode_cfg, dict):
+            candidates.extend([
+                mode_cfg.get("pendingAssetCoverage"),
+                mode_cfg.get("pending_assets"),
+                mode_cfg.get("pendingAssetCoverageStatus"),
+            ])
+
+        modes = manifest.get("modes") or {}
+        if isinstance(modes, dict):
+            m = modes.get(mode) or {}
+            if isinstance(m, dict):
+                candidates.extend([
+                    m.get("pendingAssetCoverage"),
+                    m.get("pending_assets"),
+                    m.get("pendingAssetCoverageStatus"),
+                ])
+
+    found: set[str] = set()
+    for candidate in candidates:
+        if isinstance(candidate, list):
+            found.update(str(x).upper() for x in candidate if str(x).strip())
+        elif isinstance(candidate, dict):
+            found.update(str(k).upper() for k in candidate.keys() if str(k).strip())
+
+    return sorted(found)
+
 def extract_rows(payload: Any, freq: str, asset: str) -> list[dict[str, Any]]:
     if not isinstance(payload, dict):
         return []
@@ -267,12 +299,21 @@ def audit() -> dict[str, Any]:
     for mode, cfg in MODES.items():
         assets = asset_list_from_index(cfg["index"])
         configured = configured_manifest_assets(mode)
-        mode_report = {"asset_count": len(assets), "assets": assets, "configured_assets": configured, "asset_reports": {}}
+        pending_configured = pending_manifest_assets(mode)
+        active_configured = sorted(set(configured) - set(pending_configured))
+        mode_report = {
+            "asset_count": len(assets),
+            "assets": assets,
+            "configured_assets": configured,
+            "pending_configured_assets": pending_configured,
+            "active_configured_assets": active_configured,
+            "asset_reports": {},
+        }
         if not assets:
             findings.append(Finding("error", "asset_index", f"No assets found in {cfg['index'].name}", mode=mode))
-        missing_configured = sorted(set(configured) - set(assets))
+        missing_configured = sorted(set(active_configured) - set(assets))
         if missing_configured:
-            findings.append(Finding("warning", "manifest_coverage", f"Configured assets missing from {mode} index: {', '.join(missing_configured)}", mode=mode))
+            findings.append(Finding("warning", "manifest_coverage", f"Active configured assets missing from {mode} index: {', '.join(missing_configured)}", mode=mode))
 
         for asset in assets:
             asset_path = cfg["asset_dir"] / f"{asset}.json"

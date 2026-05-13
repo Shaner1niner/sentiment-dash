@@ -1,0 +1,2570 @@
+{
+  "dashboard_token_report": {
+    "SETA_REVIEWED_CONTEXT_COMPATIBILITY": true,
+    "accepted compatible reviewed fallback": true,
+    "const plotRows=rows.filter((r,i)=>visibleMask[i])": true,
+    "const plotXs=plotRows.map(r=>r.dateObj)": true,
+    "currentDashboardControlKey() !== renderKey": true,
+    "priceCandlestickTraces(plotXs, plotRows, freq)": true,
+    "skipped incompatible reviewed fallback for active context": true
+  },
+  "findings": [],
+  "mode_reports": {
+    "member": {
+      "active_configured_assets": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "COIN",
+        "DOGE",
+        "DXY",
+        "ETH",
+        "GLD",
+        "GOOGL",
+        "LINK",
+        "META",
+        "MSFT",
+        "MSTR",
+        "NFLX",
+        "NVDA",
+        "PLTR",
+        "QQQ",
+        "SHOP",
+        "SMCI",
+        "SOL",
+        "TLT",
+        "TSLA",
+        "XLE",
+        "XRP"
+      ],
+      "asset_count": 27,
+      "asset_reports": {
+        "AAPL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::aapl::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::aapl::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::aapl::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::aapl::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "AMD": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-09-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 239
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::amd::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::amd::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::amd::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::amd::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 235,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 35,
+              "visible_first": "2025-09-19",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-09-19",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 35
+          }
+        },
+        "AMZN": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::amzn::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::amzn::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::amzn::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::amzn::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "AVAX": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::avax::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::avax::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::avax::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::avax::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "BNB": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-06-11",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Rejection Bearish",
+            "missing_latest_fields": [],
+            "row_count": 319
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::bnb::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::bnb::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::bnb::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::bnb::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 335,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 48,
+              "visible_first": "2025-06-11",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-06-11",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Rejection Bearish",
+            "missing_latest_fields": [],
+            "row_count": 48
+          }
+        },
+        "BTC": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::btc::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::btc::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::btc::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::btc::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "COIN": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::coin::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::coin::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::coin::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::coin::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "DOGE": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::doge::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::doge::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::doge::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::doge::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "DXY": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 162
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 161,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 162,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::dxy::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::dxy::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::dxy::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::dxy::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 158,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "ETH": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::eth::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::eth::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::eth::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::eth::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "GLD": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-11-20",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 174
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 173,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 174,
+              "visible_first": "2025-11-20",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::gld::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::gld::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::gld::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::gld::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 172,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 26,
+              "visible_first": "2025-11-21",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-11-21",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 26
+          }
+        },
+        "GOOGL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::googl::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::googl::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::googl::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::googl::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "LINK": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::link::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::link::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::link::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::link::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "META": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-06-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 309
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::meta::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::meta::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::meta::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::meta::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 334,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 49,
+              "visible_first": "2025-06-12",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-06-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 49
+          }
+        },
+        "MSFT": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bearish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::msft::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::msft::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::msft::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::msft::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bearish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "MSTR": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-11-20",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bearish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 174
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 173,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 174,
+              "visible_first": "2025-11-20",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::mstr::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::mstr::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::mstr::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::mstr::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 172,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 26,
+              "visible_first": "2025-11-21",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-11-21",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bearish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 26
+          }
+        },
+        "NFLX": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::nflx::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::nflx::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::nflx::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::nflx::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "NVDA": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::nvda::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::nvda::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::nvda::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::nvda::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "PLTR": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-08-06",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 278
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::pltr::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::pltr::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::pltr::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::pltr::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 277,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 41,
+              "visible_first": "2025-08-08",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-08-08",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 41
+          }
+        },
+        "QQQ": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-11-20",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 174
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 173,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 174,
+              "visible_first": "2025-11-20",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::qqq::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::qqq::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::qqq::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::qqq::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 172,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 26,
+              "visible_first": "2025-11-21",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-11-21",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 26
+          }
+        },
+        "SHOP": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 162
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 161,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 162,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::shop::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::shop::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::shop::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::shop::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 158,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "SMCI": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 162
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 161,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 162,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::smci::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::smci::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::smci::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::smci::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 158,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "SOL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Rejection Bearish",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::sol::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::sol::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::sol::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::sol::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Rejection Bearish",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "TLT": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 162
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 161,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 162,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::tlt::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::tlt::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::tlt::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::tlt::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 158,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "TSLA": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::tsla::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::tsla::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::tsla::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::tsla::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Mixed; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "XLE": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-02",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 162
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 161,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 162,
+              "visible_first": "2025-12-02",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::xle::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::xle::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::xle::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::xle::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 158,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 24,
+              "visible_first": "2025-12-05",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-12-05",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 24
+          }
+        },
+        "XRP": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-06-13",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; Confirmed High Volume Bearish",
+            "missing_latest_fields": [],
+            "row_count": 331
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "member::xrp::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::xrp::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "member::xrp::d::6m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "member::xrp::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 333,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 49,
+              "visible_first": "2025-06-13",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-06-13",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; Confirmed High Volume Bearish",
+            "missing_latest_fields": [],
+            "row_count": 49
+          }
+        }
+      },
+      "assets": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "COIN",
+        "DOGE",
+        "DXY",
+        "ETH",
+        "GLD",
+        "GOOGL",
+        "LINK",
+        "META",
+        "MSFT",
+        "MSTR",
+        "NFLX",
+        "NVDA",
+        "PLTR",
+        "QQQ",
+        "SHOP",
+        "SMCI",
+        "SOL",
+        "TLT",
+        "TSLA",
+        "XLE",
+        "XRP"
+      ],
+      "configured_assets": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "COIN",
+        "DOGE",
+        "DXY",
+        "ETH",
+        "GLD",
+        "GOOGL",
+        "LINK",
+        "META",
+        "MSFT",
+        "MSTR",
+        "NFLX",
+        "NVDA",
+        "PLTR",
+        "QQQ",
+        "SHOP",
+        "SMCI",
+        "SOL",
+        "SPY",
+        "TLT",
+        "TSLA",
+        "XLE",
+        "XRP"
+      ],
+      "pending_configured_assets": [
+        "SPY"
+      ]
+    },
+    "public": {
+      "active_configured_assets": [
+        "AAPL",
+        "BTC",
+        "COIN",
+        "ETH",
+        "GLD",
+        "MSFT",
+        "NVDA",
+        "SOL"
+      ],
+      "asset_count": 8,
+      "asset_reports": {
+        "AAPL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::aapl::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::aapl::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::aapl::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::aapl::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "BTC": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::btc::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::btc::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::btc::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::btc::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "COIN": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::coin::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::coin::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::coin::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::coin::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Compression / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "ETH": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::eth::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::eth::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::eth::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::eth::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Watch Bullish",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "GLD": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-11-20",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 174
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 173,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 174,
+              "visible_first": "2025-11-20",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::gld::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::gld::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::gld::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::gld::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 172,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 26,
+              "visible_first": "2025-11-21",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-11-21",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 26
+          }
+        },
+        "MSFT": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bearish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::msft::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::msft::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::msft::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::msft::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bearish Expansion; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "NVDA": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::nvda::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::nvda::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::nvda::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::nvda::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Flat / Transition; Normal / Broad; None Inside",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        },
+        "SOL": {
+          "daily": {
+            "display_window": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-12",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Rejection Bearish",
+            "missing_latest_fields": [],
+            "row_count": 366
+          },
+          "display_windows": {
+            "3M": {
+              "calendar_span_days": 92,
+              "end": "2026-05-12",
+              "start_expected": "2026-02-09",
+              "visible_count": 93,
+              "visible_first": "2026-02-09",
+              "visible_last": "2026-05-12"
+            },
+            "6M": {
+              "calendar_span_days": 184,
+              "end": "2026-05-12",
+              "start_expected": "2025-11-09",
+              "visible_count": 185,
+              "visible_first": "2025-11-09",
+              "visible_last": "2026-05-12"
+            }
+          },
+          "exists": true,
+          "in_screener": true,
+          "reviewed": {
+            "generated_briefings_reviewed.json": {
+              "daily_default_key": "public::sol::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::sol::w::1y::2026_05_12",
+              "weekly_default_present": true
+            },
+            "generated_briefings_reviewed_v2.json": {
+              "daily_default_key": "public::sol::d::3m::2026_05_12",
+              "daily_default_present": true,
+              "weekly_default_key": "public::sol::w::1y::2026_05_12",
+              "weekly_default_present": true
+            }
+          },
+          "weekly": {
+            "display_window": {
+              "calendar_span_days": 361,
+              "end": "2026-05-12",
+              "start_expected": "2025-05-07",
+              "visible_count": 53,
+              "visible_first": "2025-05-16",
+              "visible_last": "2026-05-12"
+            },
+            "first_date": "2025-05-16",
+            "last_date": "2026-05-12",
+            "latest_calendar": "continuous",
+            "latest_summary_label": "Bullish Expansion; Normal / Broad; Rejection Bearish",
+            "missing_latest_fields": [],
+            "row_count": 53
+          }
+        }
+      },
+      "assets": [
+        "AAPL",
+        "BTC",
+        "COIN",
+        "ETH",
+        "GLD",
+        "MSFT",
+        "NVDA",
+        "SOL"
+      ],
+      "configured_assets": [
+        "AAPL",
+        "BTC",
+        "COIN",
+        "ETH",
+        "GLD",
+        "MSFT",
+        "NVDA",
+        "SOL",
+        "SPY"
+      ],
+      "pending_configured_assets": [
+        "SPY"
+      ]
+    }
+  },
+  "reviewed_reports": {
+    "generated_briefings_reviewed.json": {
+      "briefing_count": 70,
+      "copy_artifact_hit_count": 0,
+      "copy_artifact_hits": [],
+      "schema_version": "generated_briefings_reviewed_v1"
+    },
+    "generated_briefings_reviewed_v2.json": {
+      "briefing_count": 70,
+      "copy_artifact_hit_count": 0,
+      "copy_artifact_hits": [],
+      "schema_version": "generated_briefings_reviewed_v1"
+    }
+  },
+  "summary": {
+    "dashboard_tokens_ok": true,
+    "embed_tokens": {
+      "interactive_dashboard_fix24_member_embed.html": {
+        "entry_token": "src/dashboard_main.js",
+        "entry_type": "module_entry",
+        "manifest_token": "card_jobs_v2_003"
+      },
+      "interactive_dashboard_fix24_public_embed.html": {
+        "entry_token": "src/dashboard_main.js",
+        "entry_type": "module_entry",
+        "manifest_token": "card_jobs_v2_003"
+      }
+    },
+    "error_count": 0,
+    "generated_at_utc": "2026-05-13T06:00:15+00:00",
+    "modes": {
+      "member": {
+        "asset_count": 27
+      },
+      "public": {
+        "asset_count": 8
+      }
+    },
+    "status": "passed",
+    "warning_count": 0
+  }
+}

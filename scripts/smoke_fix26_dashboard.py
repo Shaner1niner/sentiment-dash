@@ -197,6 +197,21 @@ def check_manifest_payload_coverage() -> None:
             for asset in mode_cfg.get("assets", [])
             if str(asset).strip()
         }
+        pending_raw = (
+            mode_cfg.get("pendingAssetCoverage")
+            or mode_cfg.get("pending_assets")
+            or mode_cfg.get("pendingAssetCoverageStatus")
+            or []
+        )
+        if isinstance(pending_raw, dict):
+            pending_assets = {str(asset).upper() for asset in pending_raw.keys() if str(asset).strip()}
+        else:
+            pending_assets = {str(asset).upper() for asset in pending_raw if str(asset).strip()}
+
+        active_configured = configured - pending_assets
+
+        if pending_assets:
+            ok(f"manifest mode {mode_name} pending asset coverage declared: {', '.join(sorted(pending_assets))}")
         if not data_url:
             fail(f"manifest mode {mode_name} missing dataUrl")
             continue
@@ -210,13 +225,13 @@ def check_manifest_payload_coverage() -> None:
         included = chart_store_assets(payload)
         if asset_index_url:
             indexed = check_asset_index(str(asset_index_url))
-            missing_from_index = sorted(configured - indexed)
+            missing_from_index = sorted(active_configured - indexed)
             if missing_from_index:
                 warn(
                     f"manifest mode {mode_name} configured assets missing from asset index: "
                     f"{', '.join(missing_from_index)}; okay only while upstream coverage is absent"
                 )
-        missing = sorted(configured - included)
+        missing = sorted(active_configured - included)
         extras = sorted(included - configured)
         if missing:
             warn(
