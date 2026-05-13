@@ -591,32 +591,55 @@ def check_reviewed_briefing_payload() -> None:
 
 
 def check_embeds() -> None:
-    cache_tokens: dict[str, str] = {}
+    entry_tokens: dict[str, str] = {}
+
     for rel in ["interactive_dashboard_fix24_public_embed.html", "interactive_dashboard_fix24_member_embed.html"]:
         path = require_file(rel)
         if not path.exists():
             continue
+
         text = read_text(path)
+
         if 'data-control="briefingMode"' in text:
             ok(f"{rel} contains Briefing Mode control")
         else:
             fail(f"{rel} missing Briefing Mode control")
+
         if "dashboard_briefing_semantic_patch.js" in text:
             fail(f"{rel} still loads retired semantic briefing sidecar")
         else:
             ok(f"{rel} does not load retired semantic briefing sidecar")
-        match = re.search(r'dashboard_fix26_app\.js\?v=([^"\']+)', text)
-        if not match:
-            fail(f"{rel} does not reference dashboard_fix26_app.js with a cache token")
-            continue
-        cache = match.group(1)
-        cache_tokens[rel] = cache
-        ok(f"{rel} cache token={cache}")
-    unique_tokens = sorted(set(cache_tokens.values()))
+
+        legacy_app_match = re.search(r'dashboard_fix26_app\.js\?v=([^"\']+)', text)
+        module_entry_present = re.search(
+            r'<script\b[^>]*src=["\'](?:\./)?src/dashboard_main\.js["\'][^>]*>',
+            text,
+        ) is not None
+        manifest_match = re.search(
+            r'DASH_MANIFEST_URL\s*=\s*["\']dashboard_fix26_mode_manifest\.json\?v=([^"\']+)["\']',
+            text,
+        )
+
+        if legacy_app_match:
+            token = legacy_app_match.group(1)
+            entry_tokens[rel] = f"legacy_app:{token}"
+            ok(f"{rel} references legacy dashboard_fix26_app.js cache token={token}")
+        elif module_entry_present:
+            ok(f"{rel} references module dashboard entrypoint src/dashboard_main.js")
+            if manifest_match:
+                token = manifest_match.group(1)
+                entry_tokens[rel] = f"manifest:{token}"
+                ok(f"{rel} manifest cache token={token}")
+            else:
+                fail(f"{rel} module dashboard entrypoint missing DASH_MANIFEST_URL cache token")
+        else:
+            fail(f"{rel} does not reference a recognized dashboard entry script")
+
+    unique_tokens = sorted(set(entry_tokens.values()))
     if len(unique_tokens) > 1:
-        warn(f"embed cache tokens differ: {cache_tokens}")
+        warn(f"embed entry/cache tokens differ: {entry_tokens}")
     elif unique_tokens:
-        ok(f"embed cache token policy consistent: {unique_tokens[0]}")
+        ok(f"embed entry/cache token policy consistent: {unique_tokens[0]}")
 
 
 def main() -> int:
