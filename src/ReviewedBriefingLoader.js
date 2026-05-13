@@ -22,6 +22,15 @@ function normalizeRange(value) {
     return String(value || '').trim().toUpperCase();
 }
 
+function objectMapToItems(candidate) {
+    return Object.entries(candidate)
+        .filter(([, value]) => value && typeof value === 'object' && !Array.isArray(value))
+        .map(([payloadKey, value]) => ({
+            payload_key: value && value.payload_key ? value.payload_key : payloadKey,
+            ...(value || {})
+        }));
+}
+
 function flattenReviewedPayload(payload) {
     if (!payload) return [];
     if (Array.isArray(payload)) return payload;
@@ -33,37 +42,23 @@ function flattenReviewedPayload(payload) {
         payload.reviewed,
         payload.reviewed_briefings,
         payload.generated_briefings,
-    ];
-
-    for (const candidate of candidates) {
-        if (Array.isArray(candidate)) return candidate;
-    }
-
-    const mapCandidates = [
         payload.map,
         payload.by_key,
         payload.briefings_by_key,
         payload.payloads,
     ];
 
-    for (const candidate of mapCandidates) {
-        if (candidate && typeof candidate === 'object' && !Array.isArray(candidate)) {
-            return Object.entries(candidate).map(([payloadKey, value]) => ({
-                payload_key: value && value.payload_key ? value.payload_key : payloadKey,
-                ...(value || {})
-            }));
+    for (const candidate of candidates) {
+        if (Array.isArray(candidate)) return candidate;
+        if (candidate && typeof candidate === 'object') {
+            const items = objectMapToItems(candidate);
+            if (items.length) return items;
         }
     }
 
     if (typeof payload === 'object') {
-        const values = Object.entries(payload)
-            .filter(([, value]) => value && typeof value === 'object' && !Array.isArray(value))
-            .map(([payloadKey, value]) => ({
-                payload_key: value && value.payload_key ? value.payload_key : payloadKey,
-                ...value
-            }));
-
-        if (values.length) return values;
+        const items = objectMapToItems(payload);
+        if (items.length) return items;
     }
 
     return [];
