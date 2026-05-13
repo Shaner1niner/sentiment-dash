@@ -3,11 +3,13 @@ import { AssetPayloadLoader } from './AssetPayloadLoader.js';
 import { PlotlyRenderer } from './PlotlyRenderer.js';
 import { MarketTape } from './features/MarketTape.js';
 import { Controls } from './features/Controls.js';
+import { BriefingPanel } from './features/BriefingPanel.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log("SETA Dashboard V2 Modules Initialized");
     MarketTape.init();
     Controls.init();
+    await BriefingPanel.init();
 
     const btnBtc = document.getElementById('btn-btc');
     if (btnBtc) btnBtc.addEventListener('click', () => Store.setAsset('BTC'));
