@@ -1,43 +1,55 @@
-import { Store } from '../Store.js';
+import { Store, CONTROL_STATE_KEYS } from '../Store.js';
 
 export const Controls = {
+    _bound: false,
+
     async init() {
         console.log("Controls Module Initialized (True Parity)");
         await this.populateNativeDropdowns();
+        this.applyStoreStateToControls();
         this.bindEvents();
     },
-    
+
     bindEvents() {
-        // We revert back to native select event listeners, as we are
-        // relying on the browser/CSS to style the native <select> elements
-        // exactly as defined in dashboard_fix26_base.css
+        if (this._bound) return;
+        this._bound = true;
+
         document.addEventListener('change', (e) => {
-            if (e.target.tagName.toLowerCase() === 'select') {
-                const val = e.target.value;
-                if (val && val.length > 0 && !val.includes('Select')) {
-                    console.log(`Dropdown caught change for: ${val}`);
-                    
-                    // Route to Store based on the ID of the select element
-                    if (e.target.id === 'asset') {
-                        Store.setAsset(val);
-                    } else {
-                        // Future implementation: handle other control changes (range, freq, etc.)
-                        console.log(`Setting changed: ${e.target.id} = ${val}`);
-                    }
-                }
+            const target = e.target;
+            if (!target || target.tagName.toLowerCase() !== 'select') return;
+
+            const controlId = target.id;
+            const val = target.value;
+
+            if (!controlId || !CONTROL_STATE_KEYS[controlId]) return;
+            if (!val || val.length <= 0 || val.includes('Select')) return;
+
+            const changed = Store.setControl(controlId, val);
+            if (changed) {
+                console.log(`Control state changed: ${controlId} = ${val}`);
+            }
+        });
+    },
+
+    applyStoreStateToControls() {
+        Object.entries(CONTROL_STATE_KEYS).forEach(([controlId, stateKey]) => {
+            const el = document.getElementById(controlId);
+            if (!el) return;
+            const value = Store.state[stateKey];
+            if (value !== undefined && value !== null && value !== '') {
+                el.value = value;
             }
         });
     },
 
     async populateNativeDropdowns() {
-        // Target only the asset dropdown for dynamic population
         const assetSelect = document.getElementById('asset');
         if (!assetSelect) return;
 
         try {
             const response = await fetch('./fix26_chart_store_member_index.json');
             let assets = [];
-            
+
             if (response.ok) {
                 const data = await response.json();
                 assets = data && data.assets ? Object.keys(data.assets) : (!Array.isArray(data) ? Object.keys(data) : data);
@@ -46,11 +58,9 @@ export const Controls = {
                 assets = ["AAPL","AMD","AMZN","BTC","ETH","NVDA","SOL"];
             }
 
-            // Rebuild the <option> list for the asset dropdown
             const optionsHtml = assets.map(ticker => `<option value="${ticker}">${ticker}</option>`).join('');
             assetSelect.innerHTML = optionsHtml;
-            
-            // Set initial value to match Store if necessary
+
             if (Store.state.currentAsset) {
                 assetSelect.value = Store.state.currentAsset;
             }
