@@ -747,6 +747,178 @@ function renderMarketTapeDetailDeck(row) {
     `;
 }
 
+function eventSourceObjects(row) {
+    const source = row?.source || {};
+    const buckets = [
+        source,
+        source.screener || source.scorecard || source.market_tape || {},
+        source.archetype || source.market_tape_family || source.family || {},
+        source.indicators || source.indicator_payload || source.indicator || {}
+    ];
+
+    const candidates = [];
+
+    const collect = (value) => {
+        if (!value) return;
+        if (Array.isArray(value)) {
+            value.forEach(item => collect(item));
+            return;
+        }
+        if (typeof value === 'object') candidates.push(value);
+    };
+
+    buckets.forEach(bucket => {
+        [
+            'events',
+            'event_timeline',
+            'eventTimeline',
+            'latest_events',
+            'latestEvents',
+            'confirmations',
+            'confirmation_events',
+            'confirmationEvents',
+            'alerts',
+            'watch_events',
+            'watchEvents',
+            'catalysts',
+            'receipts'
+        ].forEach(key => collect(bucket[key]));
+
+        const latest = valueOf(bucket, [
+            'latest_event',
+            'latestEvent',
+            'latest_receipt',
+            'latestReceipt',
+            'recent_event',
+            'recentEvent',
+            'watch_event',
+            'watchEvent',
+            'confirmation',
+            'missing_confirmations',
+            'missingConfirmations'
+        ], null);
+
+        if (latest && typeof latest === 'object') collect(latest);
+        if (latest && typeof latest !== 'object') {
+            candidates.push({ label: String(latest), summary: String(latest), type: 'confirmation' });
+        }
+    });
+
+    return candidates;
+}
+
+function eventValue(item, keys, fallback = '') {
+    const direct = valueOf(item || {}, keys, null);
+    if (direct !== null && direct !== undefined && direct !== '') return direct;
+    return fallback;
+}
+
+function normalizeMarketTapeEvent(item, index = 0, row = null) {
+    const ticker = row?.ticker || '';
+    const source = item && typeof item === 'object' ? item : { label: item };
+    const label = firstNonGenericMarketTapeText([
+        eventValue(source, ['label', 'title', 'event', 'name', 'type', 'category'], ''),
+        eventValue(source, ['confirmation', 'missing_confirmations', 'missingConfirmations'], ''),
+        eventValue(source, ['headline', 'summary', 'description', 'note'], '')
+    ], ticker, 92) || `Event ${index + 1}`;
+
+    const detail = firstNonGenericMarketTapeText([
+        eventValue(source, ['summary', 'description', 'note', 'rationale', 'reason', 'detail', 'details'], ''),
+        eventValue(source, ['watch_item', 'watchItem', 'watch'], ''),
+        eventValue(source, ['confirmation', 'missing_confirmations', 'missingConfirmations'], '')
+    ], ticker, 150) || displayCardCopy(row);
+
+    const date = formatDeckValue(eventValue(source, ['date', 'as_of', 'asOf', 'timestamp', 'published_at', 'publishedAt'], ''), ticker, 40);
+    const status = formatDeckValue(eventValue(source, ['status', 'state', 'result', 'direction', 'tone', 'bias'], ''), ticker, 60);
+    const metaParts = [date, status].filter(Boolean);
+    const meta = metaParts.length ? metaParts.join(' / ') : 'watch context';
+
+    return {
+        label,
+        detail,
+        meta
+    };
+}
+
+function marketTapeTimelineItems(row) {
+    if (!row) return [];
+
+    const ticker = row.ticker || '';
+    const explicitEvents = eventSourceObjects(row)
+        .map((item, index) => normalizeMarketTapeEvent(item, index, row))
+        .filter(item => item.label && item.detail);
+
+    const seen = new Set();
+    const dedupe = (items) => items.filter(item => {
+        const key = `${item.label}:${item.detail}`.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+    });
+
+    const normalizedEvents = dedupe(explicitEvents);
+    if (normalizedEvents.length) return normalizedEvents.slice(0, 4);
+
+    const source = row.source || {};
+    const screener = source.screener || source.scorecard || source.market_tape || {};
+    const archetype = source.archetype || source.market_tape_family || source.family || {};
+    const indicators = source.indicators || source.indicator_payload || source.indicator || {};
+
+    const latestClose = formatDeckValue(valueOf(screener, ['latest_close', 'latestClose', 'close', 'price'], ''), ticker, 50);
+    const asOf = formatDeckValue(valueOf(screener, ['as_of', 'asOf', 'date', 'latest_date', 'latestDate'], ''), ticker, 50);
+    const missingConfirmations = firstNonGenericMarketTapeText([
+        valueOf(archetype, ['missing_confirmations', 'missingConfirmations', 'confirmation', 'confirmation_state', 'confirmationState'], null)
+    ], ticker, 150);
+    const indicatorContext = firstNonGenericMarketTapeText([
+        valueOf(indicators, ['indicator_family', 'indicatorFamily', 'family'], null),
+        valueOf(indicators, ['direction_label', 'directionLabel', 'strength_label', 'strengthLabel', 'confidence_label', 'confidenceLabel'], null)
+    ], ticker, 120);
+
+    return dedupe([
+        {
+            label: 'Setup read',
+            meta: 'selected asset',
+            detail: displayCardHeadline(row)
+        },
+        {
+            label: 'Confirmation watch',
+            meta: missingConfirmations ? 'confirmation gate' : 'watch item',
+            detail: missingConfirmations || displayCardCopy(row)
+        },
+        {
+            label: 'Receipt context',
+            meta: [latestClose ? `close ${latestClose}` : '', asOf].filter(Boolean).join(' / ') || detailSourceSummary(row),
+            detail: indicatorContext || `${ticker || 'Asset'} remains under screener / archetype / indicator review.`
+        }
+    ].filter(item => item.detail && !isGenericMarketTapeCopy(item.detail, ticker))).slice(0, 4);
+}
+
+function renderMarketTapeEventTimeline(row) {
+    const items = marketTapeTimelineItems(row);
+    if (!items.length) return '';
+
+    const timeline = items.map((item, index) => `
+        <li class="moduleMarketTapeTimelineItem">
+          <span class="moduleMarketTapeTimelineDot">${index + 1}</span>
+          <div>
+            <strong>${escapeHtml(item.label)}</strong>
+            <em>${escapeHtml(item.meta)}</em>
+            <p>${escapeHtml(item.detail)}</p>
+          </div>
+        </li>
+    `).join('');
+
+    return `
+      <section class="moduleMarketTapeEventTimeline" aria-label="Market Tape event timeline">
+        <div class="moduleMarketTapeTimelineHeader">
+          <span>Event / confirmation timeline</span>
+          <em>${escapeHtml(row?.ticker || 'Asset')}</em>
+        </div>
+        <ol>${timeline}</ol>
+      </section>
+    `;
+}
+
 function renderSelectedDetail(row) {
     if (!row) return '';
 
@@ -754,6 +926,7 @@ function renderSelectedDetail(row) {
     if (!detailItems.length) return '';
 
     const detailDeck = renderMarketTapeDetailDeck(row);
+    const eventTimeline = renderMarketTapeEventTimeline(row);
     const rows = detailItems.map(item => `
         <div class="moduleMarketTapeDetailItem">
           <span>${escapeHtml(item.label)}</span>
@@ -766,6 +939,7 @@ function renderSelectedDetail(row) {
         <div class="moduleMarketTapeDetailKicker">Selected Market Tape Detail</div>
         <div class="moduleMarketTapeDetailGrid">${rows}</div>
         ${detailDeck}
+        ${eventTimeline}
       </section>
     `;
 }
