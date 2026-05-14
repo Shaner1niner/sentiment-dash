@@ -24,6 +24,27 @@ function latestDate(rows) {
     return dates.length ? dates[dates.length - 1] : null;
 }
 
+function controlMode(value, fallback = '') {
+    return String(value ?? fallback)
+        .trim()
+        .toLowerCase()
+        .replace(/[\s-]+/g, '_');
+}
+
+function finiteSeries(rows, field) {
+    return rows.map(row => asNumber(row?.[field]));
+}
+
+function hasEnoughSeries(values, rows, ratio = 0.18, floor = 3) {
+    return compact(values).length >= Math.max(floor, Math.floor((rows || []).length * ratio));
+}
+
+function fieldLabel(field) {
+    return String(field || '')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, char => char.toUpperCase());
+}
+
 function selectYtdRows(rows) {
     const end = latestDate(rows);
     if (!end) return rows;
@@ -89,26 +110,84 @@ export class PlotlyRenderer {
         return selectedWindowRows(source, range, { dateAccessor: asDate });
     }
 
+    static shouldShowSentimentOverlay(state = {}) {
+        const timingView = controlMode(state.currentTimingView, 'both');
+        const ribbon = controlMode(state.currentRibbon, 'none');
+        const sentimentRibbon = controlMode(state.currentSentimentRibbon, 'curated');
+        const scaleMode = controlMode(state.currentScaleMode, 'price_overlays');
+
+        return timingView !== 'price'
+            || ribbon === 'sentiment'
+            || ribbon === 'both'
+            || sentimentRibbon === 'full'
+            || scaleMode === 'all_visible';
+    }
+
+    static shouldShowPriceBands(state = {}) {
+        const bands = controlMode(state.currentBands, 'none');
+        const ribbon = controlMode(state.currentRibbon, 'none');
+        const scaleMode = controlMode(state.currentScaleMode, 'price_overlays');
+
+        return (scaleMode !== 'price_only'
+            && ['price', 'contextual', 'overlap', 'combined_overlap', 'both'].includes(bands))
+            || ribbon === 'price'
+            || ribbon === 'both'
+            || scaleMode === 'price_overlays';
+    }
+
+    static shouldShowSentimentBands(state = {}) {
+        const bands = controlMode(state.currentBands, 'none');
+        const ribbon = controlMode(state.currentRibbon, 'none');
+        const scaleMode = controlMode(state.currentScaleMode, 'price_overlays');
+
+        return scaleMode !== 'price_only'
+            && (bands === 'sentiment' || bands === 'both' || ribbon === 'sentiment' || ribbon === 'both');
+    }
+
+    static shouldShowAttentionOverlay(state = {}) {
+        const attention = controlMode(state.currentAttention, 'context');
+        const scaleMode = controlMode(state.currentScaleMode, 'price_overlays');
+        return attention === 'overlay' || attention === 'overlay_marks' || scaleMode === 'all_visible';
+    }
+
+    static shouldShowRegimeMarkers(state = {}) {
+        return controlMode(state.currentRegimeLayer, 'on') !== 'off';
+    }
+
+    static buildControlModeSummary(state = {}) {
+        return {
+            chartType: controlMode(state.currentChartType, 'candles'),
+            scaleMode: controlMode(state.currentScaleMode, 'price_overlays'),
+            ribbon: controlMode(state.currentRibbon, 'none'),
+            sentimentRibbon: controlMode(state.currentSentimentRibbon, 'curated'),
+            regimeLayer: controlMode(state.currentRegimeLayer, 'on'),
+            attention: controlMode(state.currentAttention, 'context'),
+            bands: controlMode(state.currentBands, 'none'),
+            timingView: controlMode(state.currentTimingView, 'both')
+        };
+    }
+
     static buildPriceTraces(rows, state = {}) {
         const source = Array.isArray(rows) ? rows : [];
         if (!source.length) return [];
 
         const x = source.map(row => row.date);
-        const close = source.map(row => asNumber(row.close));
-        const open = source.map(row => asNumber(row.open));
-        const high = source.map(row => asNumber(row.high));
-        const low = source.map(row => asNumber(row.low));
+        const close = finiteSeries(source, 'close');
+        const open = finiteSeries(source, 'open');
+        const high = finiteSeries(source, 'high');
+        const low = finiteSeries(source, 'low');
 
-        const chartType = String(state.currentChartType || 'candles').toLowerCase();
+        const modes = this.buildControlModeSummary(state);
         const traces = [];
 
-        if (chartType === 'line') {
+        if (modes.chartType === 'line') {
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Price',
                 x,
                 y: close,
+                line: { width: 1.4 },
                 hovertemplate: '%{x}<br>Close: %{y:,.2f}<extra></extra>'
             });
         } else {
@@ -126,41 +205,148 @@ export class PlotlyRenderer {
             });
         }
 
-        const sentimentOverlay = source.map(row => asNumber(row.scaled_combined_compound_ma_21));
-        if (compact(sentimentOverlay).length >= Math.max(5, Math.floor(source.length * 0.25))) {
-            traces.push({
-                type: 'scatter',
-                mode: 'lines',
-                name: 'Sentiment MA',
-                x,
-                y: sentimentOverlay,
-                line: { width: 1 },
-                hovertemplate: '%{x}<br>Sentiment MA: %{y:,.2f}<extra></extra>'
+        if (this.shouldShowPriceBands(state)) {
+            const priceBandFields = modes.bands === 'price' || modes.ribbon === 'price' || modes.ribbon === 'both'
+                ? ['close_ma_21', 'close_ma_50']
+                : [];
+
+            priceBandFields.forEach(field => {
+                const y = finiteSeries(source, field);
+                if (hasEnoughSeries(y, source, 0.18, 5)) {
+                    traces.push({
+                        type: 'scatter',
+                        mode: 'lines',
+                        name: fieldLabel(field),
+                        x,
+                        y,
+                        line: { width: 1 },
+                        hovertemplate: `%{x}<br>${fieldLabel(field)}: %{y:,.2f}<extra></extra>`
+                    });
+                }
+            });
+
+            const upperBand = source.map(row => asNumber(row.boll_upper_overlap_band ?? row.boll_upper_overlap_advanced));
+            const lowerBand = source.map(row => asNumber(row.boll_lower_overlap_band ?? row.boll_lower_overlap_advanced));
+            if (hasEnoughSeries(upperBand, source, 0.10, 3) && hasEnoughSeries(lowerBand, source, 0.10, 3)) {
+                traces.push({
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Overlap Upper',
+                    x,
+                    y: upperBand,
+                    line: { width: 1 },
+                    hoverinfo: 'skip'
+                });
+                traces.push({
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Overlap Lower',
+                    x,
+                    y: lowerBand,
+                    line: { width: 1 },
+                    fill: 'tonexty',
+                    hoverinfo: 'skip'
+                });
+            }
+        }
+
+        if (this.shouldShowSentimentOverlay(state)) {
+            const sentimentFields = modes.sentimentRibbon === 'full'
+                ? ['scaled_combined_compound_ma_7', 'scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_50']
+                : ['scaled_combined_compound_ma_21'];
+
+            sentimentFields.forEach((field, index) => {
+                const y = finiteSeries(source, field);
+                if (hasEnoughSeries(y, source, 0.18, 5)) {
+                    traces.push({
+                        type: 'scatter',
+                        mode: 'lines',
+                        name: index === 0 && modes.sentimentRibbon !== 'full' ? 'Sentiment MA' : fieldLabel(field),
+                        x,
+                        y,
+                        line: { width: index === 0 ? 1.2 : 0.9 },
+                        hovertemplate: `%{x}<br>${fieldLabel(field)}: %{y:,.2f}<extra></extra>`
+                    });
+                }
             });
         }
 
-        const upperBand = source.map(row => asNumber(row.boll_upper_overlap_band ?? row.boll_upper_overlap_advanced));
-        const lowerBand = source.map(row => asNumber(row.boll_lower_overlap_band ?? row.boll_lower_overlap_advanced));
-        if (compact(upperBand).length && compact(lowerBand).length) {
-            traces.push({
-                type: 'scatter',
-                mode: 'lines',
-                name: 'Overlap Upper',
-                x,
-                y: upperBand,
-                line: { width: 1 },
-                hoverinfo: 'skip'
-            });
-            traces.push({
-                type: 'scatter',
-                mode: 'lines',
-                name: 'Overlap Lower',
-                x,
-                y: lowerBand,
-                line: { width: 1 },
-                fill: 'tonexty',
-                hoverinfo: 'skip'
-            });
+        if (this.shouldShowSentimentBands(state)) {
+            const upperSentiment = finiteSeries(source, 'sentiment_upper_band');
+            const lowerSentiment = finiteSeries(source, 'sentiment_lower_band');
+            if (hasEnoughSeries(upperSentiment, source, 0.10, 3) && hasEnoughSeries(lowerSentiment, source, 0.10, 3)) {
+                traces.push({
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Sentiment Upper',
+                    x,
+                    y: upperSentiment,
+                    line: { width: 1 },
+                    hoverinfo: 'skip'
+                });
+                traces.push({
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Sentiment Lower',
+                    x,
+                    y: lowerSentiment,
+                    line: { width: 1 },
+                    fill: 'tonexty',
+                    hoverinfo: 'skip'
+                });
+            }
+        }
+
+        if (this.shouldShowAttentionOverlay(state)) {
+            const attention = finiteSeries(source, 'attention_level_score');
+            if (hasEnoughSeries(attention, source, 0.18, 5)) {
+                traces.push({
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'Attention',
+                    x,
+                    y: attention,
+                    yaxis: 'y2',
+                    line: { width: 1, dash: 'dot' },
+                    hovertemplate: '%{x}<br>Attention: %{y:,.1f}<extra></extra>'
+                });
+            }
+        }
+
+        if (modes.scaleMode === 'all_visible') {
+            const dashboardScore = finiteSeries(source, 'seta_dashboard_summary_score');
+            if (hasEnoughSeries(dashboardScore, source, 0.18, 5)) {
+                traces.push({
+                    type: 'scatter',
+                    mode: 'lines',
+                    name: 'SETA Score',
+                    x,
+                    y: dashboardScore,
+                    yaxis: 'y2',
+                    line: { width: 1 },
+                    hovertemplate: '%{x}<br>SETA Score: %{y:,.1f}<extra></extra>'
+                });
+            }
+        }
+
+        if (this.shouldShowRegimeMarkers(state)) {
+            const markerRows = source.filter(row => (
+                asNumber(row.high_volume_20) === 1
+                || asNumber(row.sent_ribbon_transition_flag) === 1
+                || asNumber(row.boll_overlap_break_confirmed_high_volume) === 1
+            ));
+
+            if (markerRows.length) {
+                traces.push({
+                    type: 'scatter',
+                    mode: 'markers',
+                    name: 'Regime Marks',
+                    x: markerRows.map(row => row.date),
+                    y: markerRows.map(row => asNumber(row.close)),
+                    marker: { size: 7, symbol: 'circle-open' },
+                    hovertemplate: '%{x}<br>Regime / confirmation mark<extra></extra>'
+                });
+            }
         }
 
         return traces;
@@ -171,6 +357,8 @@ export class PlotlyRenderer {
         const freq = String(state.currentFrequency || 'D').trim().toUpperCase();
         const range = String(state.currentRange || '3M').trim().toUpperCase();
         const freqLabel = freq === 'W' ? 'Weekly' : 'Daily';
+        const modes = this.buildControlModeSummary(state);
+        const showSecondaryAxis = modes.scaleMode === 'all_visible' || modes.attention === 'overlay' || modes.attention === 'overlay_marks';
 
         return {
             ...this.withDarkDefaults(baseLayout, state),
@@ -188,15 +376,28 @@ export class PlotlyRenderer {
             yaxis: {
                 ...(baseLayout.yaxis || {}),
                 title: 'Price',
+                autorange: true,
+                fixedrange: false,
                 gridcolor: 'rgba(255,255,255,0.08)',
                 zerolinecolor: 'rgba(255,255,255,0.12)'
             },
+            yaxis2: showSecondaryAxis ? {
+                ...(baseLayout.yaxis2 || {}),
+                title: 'Context',
+                overlaying: 'y',
+                side: 'right',
+                showgrid: false,
+                zeroline: false,
+                rangemode: 'tozero'
+            } : baseLayout.yaxis2,
             showlegend: true,
-            margin: { l: 55, r: 25, t: 48, b: 40, ...(baseLayout.margin || {}) },
+            margin: { l: 55, r: showSecondaryAxis ? 55 : 25, t: 48, b: 40, ...(baseLayout.margin || {}) },
             annotations: [
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
                 {
-                    text: rows.length ? `Module renderer • ${rows.length} rows` : 'Module renderer • no rows found',
+                    text: rows.length
+                        ? `Module renderer • ${rows.length} rows • ${modes.chartType} / ${modes.scaleMode}`
+                        : 'Module renderer • no rows found',
                     xref: 'paper',
                     yref: 'paper',
                     x: 1,
@@ -208,6 +409,7 @@ export class PlotlyRenderer {
             ]
         };
     }
+
 
     static withDarkDefaults(layout = {}, state = {}) {
         return {
