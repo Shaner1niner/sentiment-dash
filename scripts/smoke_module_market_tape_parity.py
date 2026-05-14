@@ -88,6 +88,8 @@ def main() -> int:
         "marketTapeDetailDeckSections(row)",
         "renderMarketTapeEventTimeline(row)",
         "marketTapeTimelineItems(row)",
+        "timelineEventLabel(source, detail, index = 0, row = null)",
+        "timelineCompactList(parts, fallback = '')",
         "moduleMarketTapeSelectedDetail",
         "moduleMarketTapeDetailDeck",
         "moduleMarketTapeDeckCard",
@@ -154,6 +156,7 @@ def main() -> int:
     print("[OK] MarketTape renders filter chips for category filtering")
     print("[OK] MarketTape renders richer selected detail deck sections")
     print("[OK] MarketTape renders event timeline shell for selected asset")
+    print("[OK] MarketTape polishes timeline labels and fallback copy")
     print("[OK] MarketTape preserves click-to-asset behavior")
     print("[OK] module market tape score field mapping smoke passed")
     return 0
