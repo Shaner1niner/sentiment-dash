@@ -45,6 +45,12 @@ function fieldLabel(field) {
         .replace(/\b\w/g, char => char.toUpperCase());
 }
 
+function withoutUndefinedLayoutKeys(layout = {}) {
+    return Object.fromEntries(
+        Object.entries(layout || {}).filter(([, value]) => value !== undefined)
+    );
+}
+
 function selectYtdRows(rows) {
     const end = latestDate(rows);
     if (!end) return rows;
@@ -56,9 +62,27 @@ function selectYtdRows(rows) {
 }
 
 export class PlotlyRenderer {
+    static normalizeLayoutForPlotly(layout = {}) {
+        const source = layout && typeof layout === 'object' ? layout : {};
+        const next = withoutUndefinedLayoutKeys(source);
+
+        ['xaxis', 'yaxis', 'yaxis2'].forEach(axisKey => {
+            if (next[axisKey] && typeof next[axisKey] === 'object') {
+                next[axisKey] = withoutUndefinedLayoutKeys(next[axisKey]);
+            }
+        });
+
+        if (next.xaxis && !next.xaxis.anchor) next.xaxis.anchor = 'y';
+        if (next.yaxis && !next.yaxis.anchor) next.yaxis.anchor = 'x';
+        if (next.yaxis2 && !next.yaxis2.anchor) next.yaxis2.anchor = 'x';
+
+        return next;
+    }
+
     static async renderChart(containerId, data, layout = {}, config = {}) {
         const mutatedData = this.applyDataMutators(data);
-        await window.Plotly.newPlot(containerId, mutatedData, layout, config);
+        const safeLayout = this.normalizeLayoutForPlotly(layout);
+        await window.Plotly.newPlot(containerId, mutatedData, safeLayout, config);
         this.applyVisibleWindowOptimizer(containerId);
     }
 
@@ -369,6 +393,7 @@ export class PlotlyRenderer {
             xaxis: {
                 ...(baseLayout.xaxis || {}),
                 type: 'date',
+                anchor: 'y',
                 rangeslider: { visible: false },
                 gridcolor: 'rgba(255,255,255,0.08)',
                 zerolinecolor: 'rgba(255,255,255,0.12)'
@@ -376,20 +401,24 @@ export class PlotlyRenderer {
             yaxis: {
                 ...(baseLayout.yaxis || {}),
                 title: 'Price',
+                anchor: 'x',
                 autorange: true,
                 fixedrange: false,
                 gridcolor: 'rgba(255,255,255,0.08)',
                 zerolinecolor: 'rgba(255,255,255,0.12)'
             },
-            yaxis2: showSecondaryAxis ? {
-                ...(baseLayout.yaxis2 || {}),
-                title: 'Context',
-                overlaying: 'y',
-                side: 'right',
-                showgrid: false,
-                zeroline: false,
-                rangemode: 'tozero'
-            } : baseLayout.yaxis2,
+            ...(showSecondaryAxis ? {
+                yaxis2: {
+                    ...(baseLayout.yaxis2 || {}),
+                    title: 'Context',
+                    anchor: 'x',
+                    overlaying: 'y',
+                    side: 'right',
+                    showgrid: false,
+                    zeroline: false,
+                    rangemode: 'tozero'
+                }
+            } : {}),
             showlegend: true,
             margin: { l: 55, r: showSecondaryAxis ? 55 : 25, t: 48, b: 40, ...(baseLayout.margin || {}) },
             annotations: [

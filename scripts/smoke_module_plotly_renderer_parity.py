@@ -39,6 +39,11 @@ def main() -> int:
         "static shouldShowPriceBands(state = {})",
         "static shouldShowAttentionOverlay(state = {})",
         "static buildControlModeSummary(state = {})",
+        "function withoutUndefinedLayoutKeys(layout = {})",
+        "static normalizeLayoutForPlotly(layout = {})",
+        "const safeLayout = this.normalizeLayoutForPlotly(layout)",
+        "anchor: 'x'",
+        "anchor: 'y'",
         "currentScaleMode",
         "currentBands",
         "currentAttention",
@@ -83,6 +88,7 @@ def main() -> int:
 
     print("[OK] PlotlyRenderer can resolve chart-store asset rows")
     print("[OK] PlotlyRenderer respects module chart/control modes")
+    print("[OK] PlotlyRenderer sanitizes undefined axis layout keys")
     print("[OK] dashboard_main routes module payloads through renderAssetPayload")
     print("[OK] module Plotly renderer parity smoke passed")
     return 0
