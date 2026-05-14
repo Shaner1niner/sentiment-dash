@@ -84,7 +84,11 @@ def main() -> int:
         "displayCardTags(row)",
         "selectedDetailItems(row)",
         "renderSelectedDetail(row)",
+        "renderMarketTapeDetailDeck(row)",
+        "marketTapeDetailDeckSections(row)",
         "moduleMarketTapeSelectedDetail",
+        "moduleMarketTapeDetailDeck",
+        "moduleMarketTapeDeckCard",
         "filterRowsForChip(rows, filterKey = 'all')",
         "renderFilterChips(rows, activeFilter = 'all')",
         "data-market-tape-filter",
@@ -144,6 +148,7 @@ def main() -> int:
     print("[OK] MarketTape renders richer card body/tag mapping through display helpers")
     print("[OK] MarketTape renders selected detail panel for active item")
     print("[OK] MarketTape renders filter chips for category filtering")
+    print("[OK] MarketTape renders richer selected detail deck sections")
     print("[OK] MarketTape preserves click-to-asset behavior")
     print("[OK] module market tape score field mapping smoke passed")
     return 0
