@@ -288,6 +288,83 @@
       line-height: 1.35;
       font-weight: 600;
     }
+    .moduleMarketTapeDetailDeck {
+      margin-top: 12px;
+      border-top: 1px solid rgba(125, 211, 252, .14);
+      padding-top: 12px;
+    }
+    .moduleMarketTapeDeckHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      color: #7dd3fc;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .moduleMarketTapeDeckHeader em {
+      color: #8b949e;
+      font-style: normal;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .moduleMarketTapeDeckGrid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .moduleMarketTapeDeckCard {
+      border: 1px solid rgba(139, 148, 158, .18);
+      border-radius: 10px;
+      background: rgba(13, 17, 23, .42);
+      padding: 10px;
+      min-height: 140px;
+    }
+    .moduleMarketTapeDeckCard h3 {
+      margin: 0 0 3px;
+      color: #f0f6fc;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+    .moduleMarketTapeDeckCard em {
+      display: block;
+      color: #8b949e;
+      font-size: 10px;
+      font-style: normal;
+      margin-bottom: 8px;
+    }
+    .moduleMarketTapeDeckCard ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 6px;
+    }
+    .moduleMarketTapeDeckCard li {
+      border-top: 1px solid rgba(139, 148, 158, .12);
+      padding-top: 6px;
+    }
+    .moduleMarketTapeDeckCard li:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .moduleMarketTapeDeckCard li span {
+      display: block;
+      color: #8b949e;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 2px;
+    }
+    .moduleMarketTapeDeckCard li strong {
+      display: block;
+      color: #c9d1d9;
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
     @media (max-width: 980px) {
       .moduleMarketTapeGrid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -300,6 +377,11 @@
     }
     @media (max-width: 640px) {
       .moduleMarketTapeDetailGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 980px) {
+      .moduleMarketTapeDeckGrid {
         grid-template-columns: 1fr;
       }
     }

@@ -547,12 +547,213 @@ function selectedDetailItems(row) {
         .slice(0, 8);
 }
 
+function prettyDeckLabel(value) {
+    const text = cleanDisplayText(value)
+        .replace(/[_-]+/g, ' ')
+        .replace(/\b\w/g, char => char.toUpperCase());
+
+    return text || 'Context';
+}
+
+function formatDeckValue(value, ticker = '', maxLength = 185) {
+    if (value === null || value === undefined || value === '') return '';
+
+    if (typeof value === 'number') return formatScore(value);
+    if (typeof value === 'boolean') return value ? 'Yes' : 'No';
+
+    if (Array.isArray(value)) {
+        const text = value
+            .map(item => typeof item === 'object' ? '' : cleanDisplayText(item))
+            .filter(Boolean)
+            .join(' / ');
+        return text ? compactMarketTapeText(text, maxLength) : '';
+    }
+
+    if (typeof value === 'object') return '';
+
+    const text = cleanDisplayText(value);
+    if (!text || isGenericMarketTapeCopy(text, ticker)) return '';
+
+    return compactMarketTapeText(text, maxLength);
+}
+
+function deckFactFromKeys(source, label, keys, ticker = '') {
+    const value = valueOf(source || {}, keys, null);
+    const text = formatDeckValue(value, ticker);
+    if (!text) return null;
+
+    return { label, value: text };
+}
+
+function collectDeckFactsFromSource(source, ticker = '', preferredFacts = [], limit = 5) {
+    const facts = [];
+    const seen = new Set();
+
+    const addFact = (fact) => {
+        if (!fact || !fact.label || !fact.value) return;
+        const key = `${fact.label}:${fact.value}`.toLowerCase();
+        if (seen.has(key)) return;
+        seen.add(key);
+        facts.push(fact);
+    };
+
+    preferredFacts.forEach(([label, keys]) => addFact(deckFactFromKeys(source, label, keys, ticker)));
+
+    walkPrimitives(source, (key, value, path) => {
+        if (facts.length >= limit) return;
+        const keyText = String(key || '');
+        const pathText = path.join('.');
+
+        if (!/(read|setup|watch|signal|state|bias|tone|confidence|confirm|conflict|momentum|trend|macd|rsi|volume|participation|breadth|score|rank|receipt|context|label|family)/i.test(pathText)) {
+            return;
+        }
+
+        const text = formatDeckValue(value, ticker, 170);
+        if (!text) return;
+
+        addFact({
+            label: prettyDeckLabel(keyText),
+            value: text
+        });
+    });
+
+    return facts.slice(0, limit);
+}
+
+function deckSourceObject(row, primaryKeys) {
+    const source = row?.source || {};
+    for (const key of primaryKeys) {
+        const candidate = source[key];
+        if (candidate && typeof candidate === 'object' && Object.keys(candidate).length) return candidate;
+    }
+
+    return {};
+}
+
+function marketTapeDetailDeckSections(row) {
+    if (!row) return [];
+
+    const ticker = row.ticker || '';
+    const source = row.source || {};
+    const screener = deckSourceObject(row, ['screener', 'scorecard', 'market_tape']);
+    const archetype = deckSourceObject(row, ['archetype', 'market_tape_family', 'family']);
+    const indicators = deckSourceObject(row, ['indicators', 'indicator_payload', 'indicator']);
+
+    const screenerFacts = collectDeckFactsFromSource(
+        Object.keys(screener).length ? screener : source,
+        ticker,
+        [
+            ['Setup read', ['headline', 'setup_label', 'setupLabel', 'label', 'title', 'read', 'primary_read']],
+            ['Watch item', ['watch_item', 'watchItem', 'watch', 'rationale', 'reason']],
+            ['State', ['state', 'stance', 'bias', 'tone']],
+            ['Score', ['priority_score', 'priorityScore', 'seta_score', 'setaScore', 'market_tape_score', 'score']],
+            ['Rank', ['priority_rank', 'priorityRank', 'market_tape_rank', 'rank']]
+        ],
+        5
+    );
+
+    const archetypeFacts = collectDeckFactsFromSource(
+        archetype,
+        ticker,
+        [
+            ['Family', ['family', 'label', 'archetype', 'name']],
+            ['Confirmation', ['confirmation', 'confirmation_state', 'confirmationState']],
+            ['Conflict', ['conflict', 'conflict_label', 'conflictLabel']],
+            ['Confidence', ['confidence', 'conviction', 'quality']],
+            ['Context', ['context', 'summary', 'description']]
+        ],
+        5
+    );
+
+    const indicatorFacts = collectDeckFactsFromSource(
+        indicators,
+        ticker,
+        [
+            ['Trend momentum', ['trend_momentum', 'trendMomentum', 'momentum', 'trend']],
+            ['MACD impulse', ['macd_impulse', 'macdImpulse', 'macd', 'macd_state', 'macdState']],
+            ['RSI context', ['rsi', 'rsi_context', 'rsiContext']],
+            ['Volume context', ['volume_context', 'volumeContext', 'volume']],
+            ['Participation', ['participation', 'breadth', 'source_breadth', 'sourceBreadth']]
+        ],
+        5
+    );
+
+    const fallbackSetup = [
+        { label: 'Setup read', value: displayCardHeadline(row) },
+        { label: 'Watch item', value: displayCardCopy(row) },
+        { label: 'Tags', value: displayCardTags(row).join(' / ') }
+    ].filter(fact => fact.value && !isGenericMarketTapeCopy(fact.value, ticker));
+
+    const sections = [
+        {
+            title: 'Screener receipt',
+            subtitle: 'rank / score / setup',
+            facts: screenerFacts.length ? screenerFacts : fallbackSetup
+        },
+        {
+            title: 'Archetype read',
+            subtitle: 'family / confirmation',
+            facts: archetypeFacts.length ? archetypeFacts : [{ label: 'Tags', value: displayCardTags(row).join(' / ') }]
+        },
+        {
+            title: 'Indicator context',
+            subtitle: 'momentum / participation',
+            facts: indicatorFacts.length ? indicatorFacts : [{ label: 'Watch item', value: displayCardCopy(row) }]
+        }
+    ];
+
+    return sections
+        .map(section => ({
+            ...section,
+            facts: section.facts
+                .map(fact => ({ label: fact.label, value: formatDeckValue(fact.value, ticker, 190) }))
+                .filter(fact => fact.label && fact.value)
+                .slice(0, 5)
+        }))
+        .filter(section => section.facts.length);
+}
+
+function renderMarketTapeDetailDeck(row) {
+    const sections = marketTapeDetailDeckSections(row);
+    if (!sections.length) return '';
+
+    const cards = sections.map(section => {
+        const facts = section.facts.map(fact => `
+            <li>
+              <span>${escapeHtml(fact.label)}</span>
+              <strong>${escapeHtml(fact.value)}</strong>
+            </li>
+        `).join('');
+
+        return `
+          <article class="moduleMarketTapeDeckCard">
+            <div>
+              <h3>${escapeHtml(section.title)}</h3>
+              <em>${escapeHtml(section.subtitle)}</em>
+            </div>
+            <ul>${facts}</ul>
+          </article>
+        `;
+    }).join('');
+
+    return `
+      <section class="moduleMarketTapeDetailDeck" aria-label="Market Tape detail deck">
+        <div class="moduleMarketTapeDeckHeader">
+          <span>Detail deck</span>
+          <em>${escapeHtml(detailSourceSummary(row))}</em>
+        </div>
+        <div class="moduleMarketTapeDeckGrid">${cards}</div>
+      </section>
+    `;
+}
+
 function renderSelectedDetail(row) {
     if (!row) return '';
 
     const detailItems = selectedDetailItems(row);
     if (!detailItems.length) return '';
 
+    const detailDeck = renderMarketTapeDetailDeck(row);
     const rows = detailItems.map(item => `
         <div class="moduleMarketTapeDetailItem">
           <span>${escapeHtml(item.label)}</span>
@@ -564,6 +765,7 @@ function renderSelectedDetail(row) {
       <section class="moduleMarketTapeSelectedDetail" aria-label="Selected Market Tape detail">
         <div class="moduleMarketTapeDetailKicker">Selected Market Tape Detail</div>
         <div class="moduleMarketTapeDetailGrid">${rows}</div>
+        ${detailDeck}
       </section>
     `;
 }
