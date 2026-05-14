@@ -82,6 +82,9 @@ def main() -> int:
         "displayCardCopy(row)",
         "displayCardHeadline(row)",
         "displayCardTags(row)",
+        "selectedDetailItems(row)",
+        "renderSelectedDetail(row)",
+        "moduleMarketTapeSelectedDetail",
         "deriveTagsFromCopy(copy, ticker = '')",
         "moduleMarketTapeItem",
         "Store.setAsset(ticker)",
@@ -134,6 +137,7 @@ def main() -> int:
     print("[OK] MarketTape maps screener score/rank fields before fallback")
     print("[OK] MarketTape formats missing scores as dash instead of zero")
     print("[OK] MarketTape renders richer card body/tag mapping through display helpers")
+    print("[OK] MarketTape renders selected detail panel for active item")
     print("[OK] MarketTape preserves click-to-asset behavior")
     print("[OK] module market tape score field mapping smoke passed")
     return 0

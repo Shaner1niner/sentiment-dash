@@ -495,6 +495,79 @@ function displayCardTags(row) {
     return tags.length ? tags.slice(0, 4) : ['Watch'];
 }
 
+function detailCandidateValue(row, source, keys, ticker = '') {
+    const direct = valueOf(source || {}, keys, null);
+    if (direct && !isGenericMarketTapeCopy(direct, ticker)) return compactMarketTapeText(direct, 190);
+    return '';
+}
+
+function detailSourceSummary(row) {
+    const source = row?.source || {};
+    const sources = [];
+
+    if (source.screener || source.scorecard || source.market_tape) sources.push('screener');
+    if (source.archetype || source.market_tape_family || source.family) sources.push('archetype');
+    if (source.indicators || source.indicator_payload || source.indicator) sources.push('indicators');
+    if (!sources.length && Object.keys(source).length) sources.push('by_term');
+
+    return sources.length ? sources.join(' / ') : 'module row';
+}
+
+function selectedDetailItems(row) {
+    if (!row) return [];
+
+    const ticker = row.ticker || '';
+    const source = row.source || {};
+    const screener = source.screener || source.scorecard || source.market_tape || {};
+    const archetype = source.archetype || source.market_tape_family || source.family || {};
+    const indicators = source.indicators || source.indicator_payload || source.indicator || {};
+
+    const items = [
+        ['Rank / score', `${rankLabel(row)} • ${formatScore(row.score)}`],
+        ['Setup read', displayCardHeadline(row)],
+        ['Watch item', displayCardCopy(row)],
+        ['Tags', displayCardTags(row).join(' / ')],
+        ['Payload source', detailSourceSummary(row)],
+        ['Screener note', detailCandidateValue(row, screener, ['note', 'summary', 'description', 'rationale', 'reason'], ticker)],
+        ['Archetype', detailCandidateValue(row, archetype, ['family', 'label', 'headline', 'summary', 'description'], ticker)],
+        ['Indicator context', detailCandidateValue(row, indicators, ['summary', 'description', 'rationale', 'reason', 'watch_item', 'watchItem'], ticker)]
+    ];
+
+    const seen = new Set();
+
+    return items
+        .map(([label, value]) => ({ label, value: cleanDisplayText(value) }))
+        .filter(item => {
+            if (!item.value || isGenericMarketTapeCopy(item.value, ticker)) return false;
+            const key = `${item.label}:${item.value}`.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        })
+        .slice(0, 8);
+}
+
+function renderSelectedDetail(row) {
+    if (!row) return '';
+
+    const detailItems = selectedDetailItems(row);
+    if (!detailItems.length) return '';
+
+    const rows = detailItems.map(item => `
+        <div class="moduleMarketTapeDetailItem">
+          <span>${escapeHtml(item.label)}</span>
+          <strong>${escapeHtml(item.value)}</strong>
+        </div>
+    `).join('');
+
+    return `
+      <section class="moduleMarketTapeSelectedDetail" aria-label="Selected Market Tape detail">
+        <div class="moduleMarketTapeDetailKicker">Selected Market Tape Detail</div>
+        <div class="moduleMarketTapeDetailGrid">${rows}</div>
+      </section>
+    `;
+}
+
 function sortTapeRows(rows, activeAsset) {
     return [...rows].sort((a, b) => {
         if (a.ticker === activeAsset && b.ticker !== activeAsset) return -1;
@@ -620,6 +693,7 @@ export const MarketTape = {
         const rows = sortTapeRows(this.rows(), activeAsset);
         const visibleRows = rows.slice(0, 8);
         const active = rows.find(row => row.ticker === activeAsset) || visibleRows[0] || null;
+        const selectedDetail = active ? renderSelectedDetail(active) : '';
 
         if (!rows.length) {
             target.innerHTML = `
@@ -665,6 +739,7 @@ export const MarketTape = {
               <span class="moduleMarketTapePill">${rows.length} assets</span>
             </header>
             <div class="moduleMarketTapeGrid">${itemCards}</div>
+            ${selectedDetail}
           </article>
         `;
     }
