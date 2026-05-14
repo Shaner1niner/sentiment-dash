@@ -35,6 +35,17 @@ def main() -> int:
         "static selectRowsForState(rows, state = {})",
         "static buildPriceTraces(rows, state = {})",
         "static buildLayout(baseLayout = {}, state = {}, rows = [])",
+        "static shouldShowSentimentOverlay(state = {})",
+        "static shouldShowPriceBands(state = {})",
+        "static shouldShowAttentionOverlay(state = {})",
+        "static buildControlModeSummary(state = {})",
+        "currentScaleMode",
+        "currentBands",
+        "currentAttention",
+        "currentTimingView",
+        "currentRibbon",
+        "currentSentimentRibbon",
+        "yaxis2",
         "selectedWindowRows(source, range",
         "payload?.[freq]?.[asset]",
         "type: 'candlestick'",
@@ -71,6 +82,7 @@ def main() -> int:
         print("[WARN] BTC member asset payload not present; skipped sample payload check")
 
     print("[OK] PlotlyRenderer can resolve chart-store asset rows")
+    print("[OK] PlotlyRenderer respects module chart/control modes")
     print("[OK] dashboard_main routes module payloads through renderAssetPayload")
     print("[OK] module Plotly renderer parity smoke passed")
     return 0
