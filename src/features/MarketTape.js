@@ -568,6 +568,81 @@ function renderSelectedDetail(row) {
     `;
 }
 
+const MARKET_TAPE_FILTERS = [
+    { key: 'all', label: 'All' },
+    { key: 'bullish', label: 'Bullish' },
+    { key: 'bearish', label: 'Bearish' },
+    { key: 'momentum', label: 'Momentum' },
+    { key: 'watch', label: 'Watch' },
+    { key: 'confirmation', label: 'Confirmation' },
+    { key: 'high-conviction', label: 'High Conviction' },
+    { key: 'quiet', label: 'Quiet' }
+];
+
+function filterKeyForLabel(value) {
+    const key = cleanDisplayText(value)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+    return key || 'all';
+}
+
+function rowFilterKeySpace(row) {
+    const tags = displayCardTags(row);
+    const copy = `${displayCardHeadline(row)} ${displayCardCopy(row)} ${tags.join(' ')}`;
+    const lower = copy.toLowerCase();
+    const keys = new Set(tags.map(filterKeyForLabel));
+
+    if (/bull|constructive|repair|rebound|resilien/.test(lower)) keys.add('bullish');
+    if (/bear|weak|deteriorat|reject|risk|pressure/.test(lower)) keys.add('bearish');
+    if (/momentum|macd|trend/.test(lower)) keys.add('momentum');
+    if (/watch|monitor/.test(lower)) keys.add('watch');
+    if (/confirm/.test(lower)) keys.add('confirmation');
+    if (/high-conviction|high conviction|strong/.test(lower)) keys.add('high-conviction');
+    if (/quiet|low conviction|not match/.test(lower)) keys.add('quiet');
+
+    return keys;
+}
+
+function filterRowsForChip(rows, filterKey = 'all') {
+    const key = filterKeyForLabel(filterKey);
+    if (!key || key === 'all') return rows;
+
+    return rows.filter(row => rowFilterKeySpace(row).has(key));
+}
+
+function filterChipOptions(rows) {
+    return MARKET_TAPE_FILTERS.map(definition => ({
+        ...definition,
+        count: definition.key === 'all'
+            ? rows.length
+            : filterRowsForChip(rows, definition.key).length
+    })).filter(chip => chip.key === 'all' || chip.count > 0);
+}
+
+function renderFilterChips(rows, activeFilter = 'all') {
+    const activeKey = filterKeyForLabel(activeFilter);
+    const chips = filterChipOptions(rows);
+    if (chips.length <= 1) return '';
+
+    const buttons = chips.map(chip => {
+        const isActive = chip.key === activeKey || (chip.key === 'all' && activeKey === 'all');
+        return `
+          <button class="moduleMarketTapeFilterChip ${isActive ? 'isActive' : ''}" type="button" data-market-tape-filter="${escapeHtml(chip.key)}">
+            <span>${escapeHtml(chip.label)}</span>
+            <em>${escapeHtml(chip.count)}</em>
+          </button>
+        `;
+    }).join('');
+
+    return `
+      <nav class="moduleMarketTapeFilters" aria-label="Market Tape filters">
+        ${buttons}
+      </nav>
+    `;
+}
+
 function sortTapeRows(rows, activeAsset) {
     return [...rows].sort((a, b) => {
         if (a.ticker === activeAsset && b.ticker !== activeAsset) return -1;
@@ -600,6 +675,7 @@ function rankLabel(row) {
 export const MarketTape = {
     targetId: 'module-market-tape',
     payload: null,
+    filter: 'all',
     _bound: false,
 
     init(options = {}) {
@@ -656,6 +732,13 @@ export const MarketTape = {
         this._bound = true;
 
         document.addEventListener('click', (e) => {
+            const filterTarget = e.target.closest('[data-market-tape-filter]');
+            if (filterTarget) {
+                this.filter = filterTarget.getAttribute('data-market-tape-filter') || 'all';
+                this.render();
+                return;
+            }
+
             const target = e.target.closest('[data-ticker], .tape-item, .asset-row, .market-tape-item, .moduleMarketTapeItem');
             if (target) {
                 let ticker = target.getAttribute('data-ticker');
@@ -691,9 +774,13 @@ export const MarketTape = {
         const target = this.ensureTarget();
         const activeAsset = String(Store.state.currentAsset || 'BTC').trim().toUpperCase();
         const rows = sortTapeRows(this.rows(), activeAsset);
-        const visibleRows = rows.slice(0, 8);
-        const active = rows.find(row => row.ticker === activeAsset) || visibleRows[0] || null;
+        const activeFilter = this.filter || 'all';
+        const filteredRows = filterRowsForChip(rows, activeFilter);
+        const visibleRows = filteredRows.slice(0, 8);
+        const active = rows.find(row => row.ticker === activeAsset) || filteredRows[0] || rows[0] || null;
         const selectedDetail = active ? renderSelectedDetail(active) : '';
+        const filterChips = renderFilterChips(rows, activeFilter);
+        const emptyMessage = visibleRows.length ? '' : '<div class="moduleMarketTapeEmpty">No Market Tape cards match this filter.</div>';
 
         if (!rows.length) {
             target.innerHTML = `
@@ -738,7 +825,9 @@ export const MarketTape = {
               </div>
               <span class="moduleMarketTapePill">${rows.length} assets</span>
             </header>
+            ${filterChips}
             <div class="moduleMarketTapeGrid">${itemCards}</div>
+            ${emptyMessage}
             ${selectedDetail}
           </article>
         `;

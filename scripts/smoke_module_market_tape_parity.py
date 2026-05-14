@@ -85,6 +85,9 @@ def main() -> int:
         "selectedDetailItems(row)",
         "renderSelectedDetail(row)",
         "moduleMarketTapeSelectedDetail",
+        "filterRowsForChip(rows, filterKey = 'all')",
+        "renderFilterChips(rows, activeFilter = 'all')",
+        "data-market-tape-filter",
         "deriveTagsFromCopy(copy, ticker = '')",
         "moduleMarketTapeItem",
         "Store.setAsset(ticker)",
@@ -108,6 +111,8 @@ def main() -> int:
         "moduleMarketTapePanel",
         "moduleMarketTapeCard",
         "moduleMarketTapeGrid",
+        "moduleMarketTapeFilters",
+        "moduleMarketTapeFilterChip",
     ]
     missing_harness = [token for token in harness_tokens if token not in harness]
     if missing_harness:
@@ -138,6 +143,7 @@ def main() -> int:
     print("[OK] MarketTape formats missing scores as dash instead of zero")
     print("[OK] MarketTape renders richer card body/tag mapping through display helpers")
     print("[OK] MarketTape renders selected detail panel for active item")
+    print("[OK] MarketTape renders filter chips for category filtering")
     print("[OK] MarketTape preserves click-to-asset behavior")
     print("[OK] module market tape score field mapping smoke passed")
     return 0
