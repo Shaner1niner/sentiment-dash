@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import os
 import runpy
 import traceback
 import shutil
@@ -21,6 +22,14 @@ from typing import Any, Dict, List, Optional, Tuple
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUT_DIR = REPO_ROOT / "reply_agent" / "pipeline_runs"
 CLOUD_SYNC_DIR = REPO_ROOT / "cloud_sync_staging"  # Smart Dual Save target
+
+# ==============================================================================
+# 🚨 CRITICAL FIX: DYNAMIC DATE INJECTION
+# This forces all downstream scripts (like build_seta_daily_content_packet.py)
+# to use the current live date instead of the hardcoded 2026-05-11.
+# ==============================================================================
+# We set this to 2026-05-14 to perfectly match the CSV generation clock.
+os.environ["SETA_RUN_DATE"] = datetime.now(UTC).strftime("%Y-%m-%d")
 
 STEPS = [
     {
@@ -67,120 +76,154 @@ STEPS = [
     },
 ]
 
-def now_stamp() -> str:
+def now_ts() -> str:
     return datetime.now(UTC).strftime("%Y%m%d_%H%M%S")
 
 def now_iso() -> str:
     return datetime.now(UTC).isoformat(timespec="seconds")
 
-def read_json(path: Path) -> Dict[str, Any]:
-    if not path.exists(): return {}
+def load_expected_content_date() -> Optional[str]:
+    """Use the latest daily context date as the freshness source of truth."""
+    path = REPO_ROOT / "reply_agent" / "daily_context" / "seta_daily_context_latest.json"
+    if not path.exists():
+        return None
     try:
-        return json.loads(path.read_text(encoding="utf-8"))
+        payload = json.loads(path.read_text(encoding="utf-8"))
     except Exception:
-        return {}
+        return None
+    date_value = payload.get("date")
+    return str(date_value) if date_value else None
 
-def smart_dual_save(primary_path: Path, content: str) -> None:
-    """Writes to local disk and simultaneously mirrors to cloud sync staging."""
-    # 1. Local Write
-    primary_path.parent.mkdir(parents=True, exist_ok=True)
-    primary_path.write_text(content, encoding="utf-8")
-    
-    # 2. Cloud Mirror Write
-    relative_path = primary_path.relative_to(REPO_ROOT)
-    cloud_path = CLOUD_SYNC_DIR / relative_path
-    cloud_path.parent.mkdir(parents=True, exist_ok=True)
-    cloud_path.write_text(content, encoding="utf-8")
+def ensure_dir(d: Path) -> None:
+    if not d.exists():
+        d.mkdir(parents=True, exist_ok=True)
 
-def write_json(path: Path, obj: Any) -> None:
-    payload = json.dumps(obj, indent=2, ensure_ascii=False, allow_nan=False)
-    smart_dual_save(path, payload)
+def find_latest_file(glob_dir: Path, pattern: str) -> Optional[Path]:
+    if not glob_dir.exists():
+        return None
+    matches = list(glob_dir.glob(pattern))
+    if not matches:
+        return None
+    valid_matches = [f for f in matches if f.name != pattern.replace("*", "latest")]
+    if not valid_matches:
+        return None
+    return max(valid_matches, key=lambda p: p.stat().st_mtime)
 
-def newest(path: Path, pattern: str) -> Optional[Path]:
-    if not path.exists(): return None
-    matches = sorted(
-        [p for p in path.glob(pattern) if "_smoke" not in str(p).lower() and "latest" not in p.name.lower()],
-        key=lambda p: p.stat().st_mtime,
-        reverse=True,
-    )
-    return matches[0] if matches else None
-
-def resolve_output(step: Dict[str, Any]) -> Optional[Path]:
-    latest = Path(step["expected_latest"])
-    if latest.exists(): return latest
-    return newest(Path(step["fallback_glob"]), step["fallback_pattern"])
+def get_actual_output(step: Dict[str, Any]) -> Optional[Path]:
+    expected = step["expected_latest"]
+    if expected.exists():
+        return expected
+    fallback = find_latest_file(step["fallback_glob"], step["fallback_pattern"])
+    return fallback if fallback and fallback.exists() else None
 
 def validate_safety(path: Optional[Path]) -> Tuple[bool, List[str], Dict[str, Any]]:
-    # [Unchanged validation logic from v1]
-    messages: List[str] = []
-    payload: Dict[str, Any] = {}
+    messages = []
     if not path or not path.exists():
         messages.append("No JSON output found to validate.")
-        return False, messages, payload
+        return False, messages, {}
 
-    payload = read_json(path)
-    if not payload:
-        messages.append(f"Could not parse JSON output: {path}")
-        return False, messages, payload
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception as e:
+        messages.append(f"Failed to parse JSON output: {e}")
+        return False, messages, {}
 
-    ok = True
-    is_public_safe = payload.get("public_safe") is True
-
-    if is_public_safe:
-        messages.append("Top-level public_safe=true.")
-    elif payload.get("draft_only") is not True:
-        ok = False
-        messages.append("Top-level draft_only is not true.")
+    safety_ok = True
+    
+    if data.get("draft_only") is not True and data.get("public_safe") is not True:
+        safety_ok = False
+        messages.append("Top-level draft_only or public_safe is missing or false.")
     else:
-        messages.append("Top-level draft_only=true.")
+        if data.get("draft_only"):
+            messages.append("Top-level draft_only=true.")
+        if data.get("public_safe"):
+            messages.append("Top-level public_safe=true.")
 
-    if payload.get("posting_performed") is not False:
-        ok = False
-        messages.append("Top-level posting_performed is not false.")
+    if data.get("posting_performed") is not False:
+        safety_ok = False
+        messages.append("Top-level posting_performed is missing or true (EXPECTED FALSE IN DRAFT MODE).")
     else:
         messages.append("Top-level posting_performed=false.")
 
-    rows = payload.get("rows")
-    if isinstance(rows, list) and rows:
-        action_rows = [
-            r for r in rows
-            if isinstance(r, dict) and ("posting_performed" in r or "requires_human_review" in r or "status" in r or "draft_text" in r)
-        ]
-        if action_rows:
-            bad_posting = [r for r in action_rows if r.get("posting_performed") is not False]
-            bad_review = [r for r in action_rows if r.get("requires_human_review") is not True]
-            if bad_posting:
-                ok = False
-                messages.append(f"{len(bad_posting)} action row(s) have posting_performed not false.")
-            else:
-                messages.append("All action row-level posting_performed flags are false.")
-            if bad_review:
-                ok = False
-                messages.append(f"{len(bad_review)} action row(s) missing requires_human_review=true.")
-            else:
-                messages.append("All action row-level requires_human_review flags are true.")
-        else:
-            messages.append("Rows are informational; row-level action safety checks skipped.")
+    items = data.get("rows", data.get("snippets", []))
+    if not items:
+        messages.append("No rows/snippets found to validate.")
+        return safety_ok, messages, data
 
-    return ok, messages, payload
+    first_item = items[0]
+    if "requires_human_review" in first_item:
+        all_unposted = all(not item.get("posting_performed", True) for item in items)
+        all_reviewed = all(item.get("requires_human_review", False) for item in items)
+        if not all_unposted:
+            safety_ok = False
+            messages.append("One or more action rows report posting_performed=true.")
+        else:
+            messages.append("All action row-level posting_performed flags are false.")
+
+        if not all_reviewed:
+            safety_ok = False
+            messages.append("One or more action rows report requires_human_review=false.")
+        else:
+            messages.append("All action row-level requires_human_review flags are true.")
+    else:
+        messages.append("Rows are informational; row-level action safety checks skipped.")
+
+    return safety_ok, messages, data
+
+def summarize_payload(data: Dict[str, Any], step_name: str) -> Dict[str, Any]:
+    summary = {}
+    if "date" in data: summary["date"] = data["date"]
+    
+    items = data.get("rows", data.get("snippets", []))
+    if items:
+        if step_name == "daily_content_packet":
+            summary["rows"] = items
+        elif step_name == "website_snippets" or step_name == "public_website_content":
+            summary["snippets"] = items
+        else:
+            summary["rows"] = items
+            summary["counts"] = {"rows": len(items)}
+            if "platform" in items[0]:
+                platforms = [i.get("platform", "unknown") for i in items]
+                for p in set(platforms):
+                    summary["counts"][p] = platforms.count(p)
+
+    if "lead_asset" in data: summary["lead_asset"] = data["lead_asset"]
+    if "title" in data: summary["title"] = data["title"]
+    if "word_count_estimate" in data: summary["word_count_estimate"] = data["word_count_estimate"]
+    if "supporting_assets" in data: summary["supporting_assets"] = data["supporting_assets"]
+
+    return summary
+
+def normalize_system_exit_code(code: Any) -> int:
+    """Convert SystemExit.code into a process-style integer return code."""
+    if code is None:
+        return 0
+    if isinstance(code, int):
+        return code
+    if isinstance(code, str):
+        if not code.strip():
+            return 0
+        try:
+            return int(code.strip())
+        except ValueError:
+            return 1
+    return 1
 
 def run_step_direct(step: Dict[str, Any], dry_run: bool = False) -> Dict[str, Any]:
-    """Executes the builder script directly in the current memory space using runpy."""
-    name = step["name"]
-    script = Path(step["script"])
-    
-    result: Dict[str, Any] = {
-        "name": name,
-        "script": str(script),
+    script = step["script"]
+    result = {
+        "name": step["name"],
         "started_at_utc": now_iso(),
         "status": "pending",
         "returncode": None,
         "stdout_tail": "",
         "stderr_tail": "",
-        "output_json": None,
+        "output_path": None,
         "safety_ok": False,
         "safety_messages": [],
-        "summary": {}
+        "payload_summary": {}
     }
 
     if not script.exists():
@@ -191,73 +234,97 @@ def run_step_direct(step: Dict[str, Any], dry_run: bool = False) -> Dict[str, An
         result.update({"status": "passed", "finished_at_utc": now_iso(), "returncode": 0, "stdout_tail": "[DRY RUN] Direct memory execution skipped."})
         return result
 
+    original_argv = sys.argv[:]
     try:
-        # Override sys.argv to prevent argparse from reading the runner's arguments
-        original_argv = sys.argv
+        # Child scripts commonly use argparse and/or sys.exit(main()).
+        # Give each script a clean argv and treat SystemExit(0) as success
+        # instead of allowing it to terminate the entire runner after step 1.
         sys.argv = [str(script)]
-        
-        # Execute script directly in shared memory
-        runpy.run_path(str(script), run_name="__main__")
-        
-        # Restore arguments
-        sys.argv = original_argv
-        result["returncode"] = 0
-        
-    except Exception as e:
-        sys.argv = original_argv
+        try:
+            runpy.run_path(str(script), run_name="__main__")
+            exit_code = 0
+        except SystemExit as e:
+            exit_code = normalize_system_exit_code(e.code)
+
+        result["returncode"] = exit_code
+
+        if exit_code != 0:
+            result["status"] = "failed"
+            result["stderr_tail"] = f"Script exited with code {exit_code}"
+            result["finished_at_utc"] = now_iso()
+            return result
+
+    except Exception:
         result["returncode"] = 1
-        result["status"] = "failed"
         result["stderr_tail"] = traceback.format_exc()
+        result["status"] = "failed"
         result["finished_at_utc"] = now_iso()
         return result
+    finally:
+        sys.argv = original_argv
 
-    result["finished_at_utc"] = now_iso()
-    output = resolve_output(step)
-    result["output_json"] = str(output) if output else None
+    output = get_actual_output(step)
+    if not output:
+        result.update({"status": "failed", "finished_at_utc": now_iso(), "stderr_tail": f"Expected output not found for {step['name']}"})
+        return result
 
+    result["output_path"] = str(output)
     safety_ok, messages, payload = validate_safety(output)
+
+    expected_date = load_expected_content_date()
+    payload_date = payload.get("date") if isinstance(payload, dict) else None
+    if expected_date and payload_date:
+        if str(payload_date) != str(expected_date):
+            safety_ok = False
+            messages.append(
+                f"Freshness mismatch: output date={payload_date} but daily_context date={expected_date}."
+            )
+        else:
+            messages.append(f"Freshness OK: output date matches daily_context date {expected_date}.")
+
     result["safety_ok"] = safety_ok
     result["safety_messages"] = messages
-    
-    if not safety_ok:
-        result["status"] = "failed_safety_check"
-    else:
-        result["status"] = "passed"
 
+    if safety_ok:
+        result["status"] = "passed"
+        result["payload_summary"] = summarize_payload(payload, step["name"])
+    else:
+        result["status"] = "safety_violation"
+
+    result["finished_at_utc"] = now_iso()
     return result
 
-def markdown_summary(run: Dict[str, Any]) -> str:
-    lines = [f"# SETA Content Pipeline Run — {run.get('run_id')}", "", f"Started: {run.get('started_at_utc')}", f"Finished: {run.get('finished_at_utc')}", f"Status: {run.get('status')}", "", "> V2 Direct Execution Pipeline. Output mirrored via Smart Dual Save.", ""]
-    for step in run.get("steps", []):
-        lines.extend([f"### {step.get('name')} — {step.get('status')}", "", f"- Output JSON: {step.get('output_json')}", f"- Safety OK: {step.get('safety_ok')}"])
-        if step.get("stderr_tail"):
-            lines.extend(["", "```text", step.get("stderr_tail", ""), "```"])
-        lines.append("")
-    return "\n".join(lines)
-
 def collect_final_outputs() -> Dict[str, str]:
-    paths = {
-        "content_packet": REPO_ROOT / "reply_agent" / "content_packets" / "seta_daily_content_packet_latest.json",
-        "website_snippets": REPO_ROOT / "reply_agent" / "website_snippets" / "seta_website_snippets_latest.json",
-        "blog_draft": REPO_ROOT / "reply_agent" / "blog_drafts" / "seta_blog_draft_latest.json",
-        "public_website_content": REPO_ROOT / "public_content" / "seta_website_snippets_latest.json",
-    }
-    return {k: str(v) for k, v in paths.items() if v.exists()}
+    outputs = {}
+    for step in STEPS:
+        actual = get_actual_output(step)
+        if actual:
+            outputs[step["name"]] = str(actual)
+    return outputs
+
+def smart_dual_save_run(report_path: Path) -> None:
+    if not CLOUD_SYNC_DIR.exists():
+        CLOUD_SYNC_DIR.mkdir(parents=True, exist_ok=True)
+    
+    try:
+        cloud_target = CLOUD_SYNC_DIR / report_path.name
+        shutil.copy2(report_path, cloud_target)
+        print(f"[DUAL SAVE] Copied run report to {cloud_target}")
+    except Exception as e:
+        print(f"[DUAL SAVE ERROR] Could not sync run report: {e}")
 
 def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--out-dir", default=str(DEFAULT_OUT_DIR))
-    ap.add_argument("--dry-run", action="store_true")
-    ap.add_argument("--continue-on-error", action="store_true")
-    args = ap.parse_args()
+    parser = argparse.ArgumentParser(description="SETA Content Pipeline Runner V2 (Direct Execution)")
+    parser.add_argument("--dry-run", action="store_true", help="Skip execution, verify paths.")
+    parser.add_argument("--out-dir", type=str, default=str(DEFAULT_OUT_DIR), help="Directory for run reports.")
+    parser.add_argument("--continue-on-error", action="store_true", help="Run all steps even if one fails.")
+    args = parser.parse_args()
 
-    run_id = now_stamp()
     out_dir = Path(args.out_dir)
-    out_dir.mkdir(parents=True, exist_ok=True)
-    CLOUD_SYNC_DIR.mkdir(parents=True, exist_ok=True)
+    ensure_dir(out_dir)
 
-    run: Dict[str, Any] = {
-        "schema_version": "seta_content_pipeline_run_v2",
+    run_id = now_ts()
+    run = {
         "run_id": run_id,
         "started_at_utc": now_iso(),
         "finished_at_utc": None,
@@ -291,13 +358,69 @@ def main() -> int:
     json_path = out_dir / f"seta_content_pipeline_run_{run_id}.json"
     latest_json = out_dir / "seta_content_pipeline_run_latest.json"
     
-    write_json(json_path, run)
-    write_json(latest_json, run)
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(run, f, indent=2)
+    shutil.copy2(json_path, latest_json)
+
+    md_path = out_dir / f"seta_content_pipeline_run_{run_id}.md"
+    latest_md = out_dir / "seta_content_pipeline_run_latest.md"
     
-    summary = {"run_id": run_id, "status": run["status"], "steps": len(run["steps"])}
-    print("=" * 76); print("SETA content pipeline complete"); print(json.dumps(summary, indent=2))
+    md_lines = [
+        f"# SETA Content Pipeline Run — {run_id}\n",
+        f"Started: {run['started_at_utc']}",
+        f"Finished: {run['finished_at_utc']}",
+        f"Status: {run['status']}\n",
+        "> Draft-only pipeline. No posting is performed.\n",
+        "## Steps\n"
+    ]
+
+    for s in run["steps"]:
+        md_lines.append(f"### {s['name']} — {s['status']}\n")
+        if s['returncode'] is not None: md_lines.append(f"- Return code: {s['returncode']}")
+        if s['output_path']: md_lines.append(f"- Output JSON: {s['output_path']}")
+        md_lines.append(f"- Safety OK: {s['safety_ok']}")
+        for msg in s['safety_messages']: md_lines.append(f"  - {msg}")
+        if s['payload_summary']:
+            md_lines.append("- Summary:")
+            for k, v in s['payload_summary'].items():
+                md_lines.append(f"  - {k}: {v}")
+        if s['stderr_tail']:
+            md_lines.append("\n**Error Output:**")
+            md_lines.append("```text")
+            md_lines.append(s['stderr_tail'])
+            md_lines.append("```")
+        md_lines.append("\n")
+
+    md_lines.append("## Final outputs\n")
+    for name, path in run["final_outputs"].items():
+        md_lines.append(f"- {name}: {path}")
+    md_lines.append("\n")
+
+    md_content = "\n".join(md_lines)
+    with open(md_path, "w", encoding="utf-8") as f:
+        f.write(md_content)
+    shutil.copy2(md_path, latest_md)
+
+    print("=" * 76)
+    print("SETA content pipeline complete")
+    print(json.dumps({
+        "run_id": run_id,
+        "status": run["status"],
+        "json_path": str(json_path),
+        "markdown_path": str(md_path),
+        "latest_json": str(latest_json),
+        "latest_markdown": str(latest_md),
+        "steps": len(run["steps"]),
+        "draft_only": run["draft_only"],
+        "posting_performed": run["posting_performed"],
+        "final_outputs": run["final_outputs"],
+    }, indent=2))
+    print("=" * 76)
+
+    # Trigger Smart Dual Save for the run report
+    smart_dual_save_run(md_path)
 
     return 0 if overall_ok else 1
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
