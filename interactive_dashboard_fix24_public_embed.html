@@ -1,897 +1,574 @@
 <!doctype html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<html><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>SETA Market Dashboard</title>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script defer src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<link rel="stylesheet" href="dashboard_fix26_base.css?v=briefing_cards_v2_002"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</head><body>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="embedShell">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="header"><nav class="topNav" aria-label="SETA pages"><a href="index.html">Home</a><a href="interactive_dashboard_fix24_member_embed.html">Member Dashboard</a><a href="seta_public_context_cards.html?dashboard=interactive_dashboard_fix24_public_embed.html">Market Context</a></nav><div class="h1">SETA Market Dashboard</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="sub">Combined Overlap leads. Engagement confirms. Traditional indicators remain visible for timing.</div><div class="modeBadge" id="modeBadge">Public Mode</div><div class="freshnessStatus" id="freshnessStatus" aria-live="polite"></div></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="summaryLead" id="summaryLead"></div>
-
-<div class="briefingPanel" id="briefingPanel" hidden></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="controls">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="asset"><label data-label-for="asset">ASSET</label><select id="asset"></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="freq"><label data-label-for="freq">FREQUENCY</label><select id="freq"><option value="D">Daily</option><option value="W">Weekly</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="range"><label data-label-for="range">DISPLAY RANGE</label><select id="range"><option value="1M">1M</option><option value="3M" selected>3M</option><option value="6M">6M</option><option value="YTD">YTD</option><option value="1Y">1Y</option><option value="All">All</option></select></div>
-
-  <div class="control" data-control="briefingMode"><label data-label-for="briefingMode">VIEW</label><select id="briefingMode"><option value="briefing" selected>Briefing</option><option value="research">Research</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="priceDisplay"><label data-label-for="priceDisplay">CHART TYPE</label><select id="priceDisplay"><option value="candles">Candles</option><option value="line">Line</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="scaleMode"><label data-label-for="scaleMode">SCALE MODE</label><select id="scaleMode"><option value="price_overlays" selected>Price + Price Overlays</option><option value="price_only">Price Only</option><option value="all_visible">All Visible Traces</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="ribbon"><label data-label-for="ribbon">RIBBON</label><select id="ribbon"><option value="none">None</option><option value="price">Price</option><option value="sentiment">Sentiment</option><option value="both">Both</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="sentRibbon"><label data-label-for="sentRibbon">SENTIMENT RIBBON</label><select id="sentRibbon"><option value="curated">Curated</option><option value="full">Full</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="regimeLayer"><label data-label-for="regimeLayer">REGIME VISUALS</label><select id="regimeLayer"><option value="on">On</option><option value="off">Off</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="engagement"><label data-label-for="engagement">ATTENTION</label><select id="engagement"><option value="off">Off</option><option value="context" selected>Context</option><option value="overlay">Overlay Marks</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="bollinger"><label data-label-for="bollinger">BANDS</label><select id="bollinger"><option value="none">None</option><option value="price">Price</option><option value="sentiment">Sentiment Envelope</option><option value="contextual">Combined Overlap</option><option value="overlap">Canonical Overlap</option><option value="both">All Bands</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <div class="control" data-control="osc"><label data-label-for="osc">TIMING VIEW</label><select id="osc"><option value="price">Price Only</option><option value="both" selected>Price + Sentiment</option></select></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="meta"><div class="assetTitle" id="assetTitle">BTC Â· Daily</div><div class="helper" id="helperText">Daily view Â· Combined Overlap primary Â· Engagement contextual Â· Timing panes optional.</div></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="regimeBar" id="regimeBar"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id="chart"></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script>window.DASH_MODE_DEFAULT = "public";window.DASH_MANIFEST_URL = "dashboard_fix26_mode_manifest.json?v=restore_monolith_entry_001";</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script defer src="dashboard_fix26_app.js?v=restore_monolith_entry_001"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script defer src="dashboard_alert_events_v2_patch.js?v=alert_events_v2_008"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div></body></html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>SETA Public Dashboard</title>
+  <script defer src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <link rel="stylesheet" href="dashboard_fix26_base.css?v=module_runtime_public_route_001"/>
+  <style>
+    body {
+      margin: 0;
+      background: #05070a;
+      color: #c9d1d9;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .harnessShell {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .harnessBanner {
+      border: 1px solid rgba(125, 211, 252, 0.35);
+      background: rgba(13, 17, 23, 0.85);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-bottom: 18px;
+    }
+    .harnessBanner h1 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+    .harnessBanner p {
+      margin: 0;
+      color: #8b949e;
+      font-size: 13px;
+    }
+    #chart {
+      min-height: 720px;
+      border: 1px solid rgba(125, 211, 252, 0.22);
+      border-radius: 14px;
+      background: #0d1117;
+      margin-top: 14px;
+    }
+    #ui-feedback {
+      display: inline-block;
+      margin-left: 8px;
+      font-weight: 700;
+    }
+    .moduleBriefingPanel {
+      margin: 16px 0 14px;
+    }
+    .moduleBriefingCard {
+      border: 1px solid rgba(125, 211, 252, 0.22);
+      border-radius: 14px;
+      background: rgba(13, 17, 23, 0.84);
+      padding: 16px;
+    }
+    .moduleBriefingHeader {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .moduleBriefingHeader h2 {
+      margin: 4px 0 0;
+      font-size: 18px;
+      line-height: 1.25;
+    }
+    .moduleBriefingKicker {
+      color: #7dd3fc;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .moduleBriefingSource {
+      border: 1px solid rgba(126, 231, 135, .4);
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: #7ee787;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .moduleBriefingGrid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .moduleBriefingGrid section {
+      border: 1px solid rgba(139, 148, 158, .25);
+      border-radius: 10px;
+      padding: 10px;
+      min-height: 110px;
+    }
+    .moduleBriefingGrid h3 {
+      margin: 0 0 8px;
+      color: #9bdcff;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .moduleBriefingGrid p,
+    .moduleBriefingGrid li {
+      color: #c9d1d9;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .moduleBriefingGrid ul {
+      margin: 0;
+      padding-left: 16px;
+    }
+    @media (max-width: 980px) {
+      .moduleBriefingGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 640px) {
+      .moduleBriefingGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .moduleMarketTapePanel {
+      margin: 14px 0;
+    }
+    .moduleMarketTapeCard {
+      border: 1px solid rgba(125, 211, 252, 0.22);
+      border-radius: 14px;
+      background: rgba(13, 17, 23, 0.84);
+      padding: 14px;
+    }
+    .moduleMarketTapeHeader {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+    .moduleMarketTapeHeader h2 {
+      margin: 4px 0 6px;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+    .moduleMarketTapeHeader p {
+      margin: 0;
+      color: #c9d1d9;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+    .moduleMarketTapeKicker {
+      color: #7dd3fc;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .moduleMarketTapePill {
+      border: 1px solid rgba(126, 231, 135, .4);
+      border-radius: 999px;
+      padding: 4px 8px;
+      color: #7ee787;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+    .moduleMarketTapeFilters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 0 0 12px;
+    }
+    .moduleMarketTapeFilterChip {
+      appearance: none;
+      border: 1px solid rgba(125, 211, 252, .22);
+      border-radius: 999px;
+      background: rgba(5, 7, 10, .62);
+      color: #9bdcff;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 9px;
+      font-size: 11px;
+    }
+    .moduleMarketTapeFilterChip:hover,
+    .moduleMarketTapeFilterChip.isActive {
+      border-color: rgba(126, 231, 135, .55);
+      color: #7ee787;
+      box-shadow: 0 0 0 1px rgba(126, 231, 135, .12);
+    }
+    .moduleMarketTapeFilterChip em {
+      color: #f2cc60;
+      font-style: normal;
+      font-size: 10px;
+    }
+    .moduleMarketTapeEmpty {
+      border: 1px dashed rgba(139, 148, 158, .28);
+      border-radius: 10px;
+      color: #8b949e;
+      font-size: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .moduleMarketTapeGrid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .moduleMarketTapeItem {
+      appearance: none;
+      border: 1px solid rgba(139, 148, 158, .25);
+      border-radius: 10px;
+      background: rgba(5, 7, 10, .72);
+      color: #c9d1d9;
+      cursor: pointer;
+      padding: 10px;
+      text-align: left;
+      min-height: 128px;
+    }
+    .moduleMarketTapeItem:hover,
+    .moduleMarketTapeItem.isActive {
+      border-color: rgba(126, 231, 135, .55);
+      box-shadow: 0 0 0 1px rgba(126, 231, 135, .15);
+    }
+    .moduleMarketTapeItemTop {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: #f0f6fc;
+      margin-bottom: 8px;
+    }
+    .moduleMarketTapeItemTop em {
+      color: #f2cc60;
+      font-style: normal;
+    }
+    .moduleMarketTapeTags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+    .moduleMarketTapeTags span {
+      border: 1px solid rgba(125, 211, 252, .25);
+      border-radius: 999px;
+      color: #9bdcff;
+      font-size: 10px;
+      padding: 2px 6px;
+    }
+    .moduleMarketTapeItem p {
+      margin: 0;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+    .moduleMarketTapeSelectedDetail {
+      margin-top: 12px;
+      border: 1px solid rgba(125, 211, 252, .18);
+      border-radius: 12px;
+      background: rgba(5, 7, 10, .42);
+      padding: 12px;
+    }
+    .moduleMarketTapeDetailKicker {
+      color: #7dd3fc;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+    }
+    .moduleMarketTapeDetailGrid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .moduleMarketTapeDetailItem {
+      border: 1px solid rgba(139, 148, 158, .18);
+      border-radius: 10px;
+      padding: 8px;
+      min-height: 54px;
+    }
+    .moduleMarketTapeDetailItem span {
+      display: block;
+      color: #8b949e;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 4px;
+    }
+    .moduleMarketTapeDetailItem strong {
+      color: #f0f6fc;
+      font-size: 12px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+    .moduleMarketTapeDetailDeck {
+      margin-top: 12px;
+      border-top: 1px solid rgba(125, 211, 252, .14);
+      padding-top: 12px;
+    }
+    .moduleMarketTapeDeckHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      color: #7dd3fc;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .moduleMarketTapeDeckHeader em {
+      color: #8b949e;
+      font-style: normal;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .moduleMarketTapeDeckGrid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .moduleMarketTapeDeckCard {
+      border: 1px solid rgba(139, 148, 158, .18);
+      border-radius: 10px;
+      background: rgba(13, 17, 23, .42);
+      padding: 10px;
+      min-height: 140px;
+    }
+    .moduleMarketTapeDeckCard h3 {
+      margin: 0 0 3px;
+      color: #f0f6fc;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+    .moduleMarketTapeDeckCard em {
+      display: block;
+      color: #8b949e;
+      font-size: 10px;
+      font-style: normal;
+      margin-bottom: 8px;
+    }
+    .moduleMarketTapeDeckCard ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 6px;
+    }
+    .moduleMarketTapeDeckCard li {
+      border-top: 1px solid rgba(139, 148, 158, .12);
+      padding-top: 6px;
+    }
+    .moduleMarketTapeDeckCard li:first-child {
+      border-top: 0;
+      padding-top: 0;
+    }
+    .moduleMarketTapeDeckCard li span {
+      display: block;
+      color: #8b949e;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 2px;
+    }
+    .moduleMarketTapeDeckCard li strong {
+      display: block;
+      color: #c9d1d9;
+      font-size: 11px;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+    .moduleMarketTapeEventTimeline {
+      margin-top: 12px;
+      border-top: 1px solid rgba(125, 211, 252, .14);
+      padding-top: 12px;
+    }
+    .moduleMarketTapeTimelineHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+      color: #7dd3fc;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+    .moduleMarketTapeTimelineHeader em {
+      color: #8b949e;
+      font-style: normal;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .moduleMarketTapeEventTimeline ol {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 8px;
+    }
+    .moduleMarketTapeTimelineItem {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 8px;
+      align-items: start;
+      border: 1px solid rgba(139, 148, 158, .18);
+      border-radius: 10px;
+      background: rgba(13, 17, 23, .35);
+      padding: 9px;
+    }
+    .moduleMarketTapeTimelineDot {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(126, 231, 135, .55);
+      color: #7ee787;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+    .moduleMarketTapeTimelineItem strong {
+      display: block;
+      color: #f0f6fc;
+      font-size: 12px;
+      line-height: 1.25;
+      margin-bottom: 2px;
+    }
+    .moduleMarketTapeTimelineItem em {
+      display: block;
+      color: #8b949e;
+      font-size: 10px;
+      font-style: normal;
+      margin-bottom: 5px;
+    }
+    .moduleMarketTapeTimelineItem p {
+      margin: 0;
+      color: #c9d1d9;
+      font-size: 11px;
+      line-height: 1.35;
+    }
+
+    .moduleMarketTapeTimelineTitleRow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+    .moduleMarketTapeTimelineTitleRow span {
+      border: 1px solid rgba(125, 211, 252, .22);
+      border-radius: 999px;
+      color: #9bdcff;
+      font-size: 9px;
+      line-height: 1;
+      padding: 3px 6px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      white-space: nowrap;
+    }
+    .moduleMarketTapeTimelineFacts {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 6px;
+      margin: 8px 0 0;
+    }
+    .moduleMarketTapeTimelineFacts div {
+      border: 1px solid rgba(139, 148, 158, .14);
+      border-radius: 8px;
+      padding: 6px;
+      background: rgba(5, 7, 10, .38);
+    }
+    .moduleMarketTapeTimelineFacts dt {
+      color: #8b949e;
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 2px;
+    }
+    .moduleMarketTapeTimelineFacts dd {
+      margin: 0;
+      color: #f0f6fc;
+      font-size: 10px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+    .moduleMarketTapeTimelineEvidence {
+      margin: 8px 0 0;
+      padding-left: 16px;
+      display: grid;
+      gap: 4px;
+    }
+    .moduleMarketTapeTimelineEvidence li {
+      color: #c9d1d9;
+      font-size: 10px;
+      line-height: 1.35;
+    }
+    .moduleMarketTapeTimelineItem.is-confirmed {
+      border-color: rgba(126, 231, 135, .36);
+    }
+    .moduleMarketTapeTimelineItem.is-watch {
+      border-color: rgba(242, 204, 96, .34);
+    }
+    .moduleMarketTapeTimelineItem.is-debate {
+      border-color: rgba(248, 81, 73, .34);
+    }
+    .moduleMarketTapeTimelineItem.is-technical,
+    .moduleMarketTapeTimelineItem.is-participation {
+      border-color: rgba(125, 211, 252, .30);
+    }
+    @media (max-width: 980px) {
+      .moduleMarketTapeGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+    @media (max-width: 640px) {
+      .moduleMarketTapeGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 640px) {
+      .moduleMarketTapeDetailGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 980px) {
+      .moduleMarketTapeDeckGrid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+    <!--
+      Module runtime production public route.
+      Intentional safety posture:
+      - public/default route now uses the module runtime
+      - legacy public dashboard is preserved as interactive_dashboard_fix24_public_legacy_embed.html
+      - no generated payload regeneration
+      - rollback is reverting this PR
+    -->
+  <div class="harnessShell">
+    <div class="harnessBanner">
+      <h1>SETA Public Dashboard <span id="ui-feedback">BTC</span></h1>
+      <p>Production public module runtime surface. Legacy public dashboard remains available as a fallback route.</p>
+    </div>
+
+    <div class="controls">
+      <div class="control" data-control="asset"><label data-label-for="asset">ASSET</label><select id="asset"></select></div>
+      <div class="control" data-control="freq"><label data-label-for="freq">FREQUENCY</label><select id="freq"><option value="D">Daily</option><option value="W">Weekly</option></select></div>
+      <div class="control" data-control="range"><label data-label-for="range">DISPLAY RANGE</label><select id="range"><option value="1M">1M</option><option value="3M" selected>3M</option><option value="6M">6M</option><option value="YTD">YTD</option><option value="1Y">1Y</option><option value="All">All</option></select></div>
+      <div class="control" data-control="briefingMode"><label data-label-for="briefingMode">VIEW</label><select id="briefingMode"><option value="briefing" selected>Briefing</option><option value="research">Research</option></select></div>
+      <div class="control" data-control="priceDisplay"><label data-label-for="priceDisplay">CHART TYPE</label><select id="priceDisplay"><option value="candles" selected>Candles</option><option value="line">Line</option></select></div>
+      <div class="control" data-control="scaleMode"><label data-label-for="scaleMode">SCALE MODE</label><select id="scaleMode"><option value="price_overlays" selected>Price + Price Overlays</option><option value="price_only">Price Only</option><option value="all_visible">All Visible Traces</option></select></div>
+      <div class="control" data-control="ribbon"><label data-label-for="ribbon">RIBBON</label><select id="ribbon"><option value="none" selected>None</option><option value="price">Price</option><option value="sentiment">Sentiment</option><option value="both">Both</option></select></div>
+      <div class="control" data-control="sentRibbon"><label data-label-for="sentRibbon">SENTIMENT RIBBON</label><select id="sentRibbon"><option value="curated" selected>Curated</option><option value="full">Full</option></select></div>
+      <div class="control" data-control="regimeLayer"><label data-label-for="regimeLayer">REGIME VISUALS</label><select id="regimeLayer"><option value="on" selected>On</option><option value="off">Off</option></select></div>
+      <div class="control" data-control="engagement"><label data-label-for="engagement">ATTENTION</label><select id="engagement"><option value="off">Off</option><option value="context" selected>Context</option><option value="overlay">Overlay Marks</option></select></div>
+      <div class="control" data-control="bollinger"><label data-label-for="bollinger">BANDS</label><select id="bollinger"><option value="none" selected>None</option><option value="price">Price</option><option value="sentiment">Sentiment Envelope</option><option value="contextual">Combined Overlap</option><option value="overlap">Canonical Overlap</option><option value="both">All Bands</option></select></div>
+      <div class="control" data-control="osc"><label data-label-for="osc">TIMING VIEW</label><select id="osc"><option value="price">Price Only</option><option value="both" selected>Price + Sentiment</option></select></div>
+    </div>
+
+    <section id="module-briefing-panel" class="moduleBriefingPanel"></section>
+
+    <section id="module-market-tape" class="moduleMarketTapePanel"></section>
+
+    <div id="chart"></div>
+
+    <script>
+      window.DASH_MODE_DEFAULT = "public";
+      window.DASH_MANIFEST_URL = "dashboard_fix26_mode_manifest.json?v=module_runtime_public_route_001";
+    </script>
+    <script type="module" src="./src/dashboard_main.js?v=module_runtime_public_route_001"></script>
+  </div>
+</body>
+</html>
