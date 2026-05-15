@@ -45,6 +45,29 @@ function fieldLabel(field) {
         .replace(/\b\w/g, char => char.toUpperCase());
 }
 
+function firstSupportedField(rows, candidates = [], ratio = 0.18, floor = 3) {
+    const source = Array.isArray(rows) ? rows : [];
+    for (const field of candidates) {
+        const y = finiteSeries(source, field);
+        if (hasEnoughSeries(y, source, ratio, floor)) return field;
+    }
+    return null;
+}
+
+function seriesForFirstSupportedField(rows, candidates = [], ratio = 0.18, floor = 3) {
+    const field = firstSupportedField(rows, candidates, ratio, floor);
+    return field ? { field, y: finiteSeries(rows, field) } : null;
+}
+
+const MODULE_CHART_STACK_FIELDS = {
+    macd: ['macd', 'macd_line', 'macd_12_26_9', 'MACD', 'MACD_12_26_9', 'macd_value'],
+    macdSignal: ['macd_signal', 'macd_signal_9', 'macds', 'MACDs', 'MACDs_12_26_9', 'signal_macd'],
+    macdHist: ['macd_hist', 'macd_histogram', 'macdh', 'MACDh', 'MACDh_12_26_9', 'macd_diff', 'macd_delta'],
+    rsi: ['rsi', 'rsi_14', 'RSI', 'RSI_14', 'relative_strength_index', 'ta_rsi_14'],
+    stochRsi: ['stoch_rsi', 'stochrsi', 'stoch_rsi_k', 'stochrsi_k', 'stoch_rsi_fastk', 'STOCHRSIk_14_14_3_3'],
+    stochRsiSignal: ['stoch_rsi_d', 'stochrsi_d', 'stoch_rsi_fastd', 'STOCHRSId_14_14_3_3']
+};
+
 function withoutUndefinedLayoutKeys(layout = {}) {
     return Object.fromEntries(
         Object.entries(layout || {}).filter(([, value]) => value !== undefined)
@@ -66,7 +89,7 @@ export class PlotlyRenderer {
         const source = layout && typeof layout === 'object' ? layout : {};
         const next = withoutUndefinedLayoutKeys(source);
 
-        ['xaxis', 'yaxis', 'yaxis2'].forEach(axisKey => {
+        ['xaxis', 'yaxis', 'yaxis2', 'yaxis3', 'yaxis4', 'yaxis5'].forEach(axisKey => {
             if (next[axisKey] && typeof next[axisKey] === 'object') {
                 next[axisKey] = withoutUndefinedLayoutKeys(next[axisKey]);
             }
@@ -75,6 +98,9 @@ export class PlotlyRenderer {
         if (next.xaxis && !next.xaxis.anchor) next.xaxis.anchor = 'y';
         if (next.yaxis && !next.yaxis.anchor) next.yaxis.anchor = 'x';
         if (next.yaxis2 && !next.yaxis2.anchor) next.yaxis2.anchor = 'x';
+        if (next.yaxis3 && !next.yaxis3.anchor) next.yaxis3.anchor = 'x';
+        if (next.yaxis4 && !next.yaxis4.anchor) next.yaxis4.anchor = 'x';
+        if (next.yaxis5 && !next.yaxis5.anchor) next.yaxis5.anchor = 'x';
 
         return next;
     }
@@ -189,6 +215,109 @@ export class PlotlyRenderer {
             bands: controlMode(state.currentBands, 'none'),
             timingView: controlMode(state.currentTimingView, 'both')
         };
+    }
+
+    static hasChartStack(rows = []) {
+        const source = Array.isArray(rows) ? rows : [];
+        return Boolean(
+            seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macd, 0.12, 5)
+            || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macdHist, 0.12, 5)
+            || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.rsi, 0.12, 5)
+            || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.stochRsi, 0.12, 5)
+        );
+    }
+
+    static buildIndicatorStackTraces(rows, state = {}) {
+        const source = Array.isArray(rows) ? rows : [];
+        if (!source.length) return [];
+
+        const x = source.map(row => row.date);
+        const traces = [];
+
+        const macd = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macd, 0.12, 5);
+        const macdSignal = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macdSignal, 0.12, 5);
+        const macdHist = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macdHist, 0.12, 5);
+
+        if (macdHist) {
+            traces.push({
+                type: 'bar',
+                name: 'MACD Histogram',
+                x,
+                y: macdHist.y,
+                yaxis: 'y3',
+                marker: { opacity: 0.45 },
+                hovertemplate: `%{x}<br>${fieldLabel(macdHist.field)}: %{y:,.4f}<extra></extra>`
+            });
+        }
+
+        if (macd) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'MACD',
+                x,
+                y: macd.y,
+                yaxis: 'y3',
+                line: { width: 1 },
+                hovertemplate: `%{x}<br>${fieldLabel(macd.field)}: %{y:,.4f}<extra></extra>`
+            });
+        }
+
+        if (macdSignal) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'MACD Signal',
+                x,
+                y: macdSignal.y,
+                yaxis: 'y3',
+                line: { width: 1, dash: 'dot' },
+                hovertemplate: `%{x}<br>${fieldLabel(macdSignal.field)}: %{y:,.4f}<extra></extra>`
+            });
+        }
+
+        const rsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.rsi, 0.12, 5);
+        if (rsi) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'RSI',
+                x,
+                y: rsi.y,
+                yaxis: 'y4',
+                line: { width: 1 },
+                hovertemplate: `%{x}<br>${fieldLabel(rsi.field)}: %{y:,.1f}<extra></extra>`
+            });
+        }
+
+        const stochRsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.stochRsi, 0.12, 5);
+        const stochRsiSignal = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.stochRsiSignal, 0.12, 5);
+        if (stochRsi) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Stoch RSI',
+                x,
+                y: stochRsi.y,
+                yaxis: 'y5',
+                line: { width: 1 },
+                hovertemplate: `%{x}<br>${fieldLabel(stochRsi.field)}: %{y:,.1f}<extra></extra>`
+            });
+        }
+        if (stochRsiSignal) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Stoch RSI Signal',
+                x,
+                y: stochRsiSignal.y,
+                yaxis: 'y5',
+                line: { width: 1, dash: 'dot' },
+                hovertemplate: `%{x}<br>${fieldLabel(stochRsiSignal.field)}: %{y:,.1f}<extra></extra>`
+            });
+        }
+
+        return traces;
     }
 
     static buildPriceTraces(rows, state = {}) {
@@ -373,6 +502,8 @@ export class PlotlyRenderer {
             }
         }
 
+        this.buildIndicatorStackTraces(source, state).forEach(trace => traces.push(trace));
+
         return traces;
     }
 
@@ -383,6 +514,8 @@ export class PlotlyRenderer {
         const freqLabel = freq === 'W' ? 'Weekly' : 'Daily';
         const modes = this.buildControlModeSummary(state);
         const showSecondaryAxis = modes.scaleMode === 'all_visible' || modes.attention === 'overlay' || modes.attention === 'overlay_marks';
+        const showChartStack = this.hasChartStack(rows);
+        const priceDomain = showChartStack ? [0.42, 1] : [0, 1];
 
         return {
             ...this.withDarkDefaults(baseLayout, state),
@@ -402,6 +535,7 @@ export class PlotlyRenderer {
                 ...(baseLayout.yaxis || {}),
                 title: 'Price',
                 anchor: 'x',
+                domain: priceDomain,
                 autorange: true,
                 fixedrange: false,
                 gridcolor: 'rgba(255,255,255,0.08)',
@@ -416,16 +550,45 @@ export class PlotlyRenderer {
                     side: 'right',
                     showgrid: false,
                     zeroline: false,
-                    rangemode: 'tozero'
+                    rangemode: 'tozero',
+                    domain: priceDomain
+                }
+            } : {}),
+            ...(showChartStack ? {
+                yaxis3: {
+                    title: 'MACD',
+                    anchor: 'x',
+                    domain: [0.27, 0.39],
+                    zeroline: true,
+                    gridcolor: 'rgba(255,255,255,0.06)',
+                    zerolinecolor: 'rgba(255,255,255,0.16)'
+                },
+                yaxis4: {
+                    title: 'RSI',
+                    anchor: 'x',
+                    domain: [0.14, 0.25],
+                    range: [0, 100],
+                    tickvals: [30, 50, 70],
+                    gridcolor: 'rgba(255,255,255,0.06)',
+                    zeroline: false
+                },
+                yaxis5: {
+                    title: 'Stoch RSI',
+                    anchor: 'x',
+                    domain: [0, 0.12],
+                    range: [0, 100],
+                    tickvals: [20, 50, 80],
+                    gridcolor: 'rgba(255,255,255,0.06)',
+                    zeroline: false
                 }
             } : {}),
             showlegend: true,
-            margin: { l: 55, r: showSecondaryAxis ? 55 : 25, t: 48, b: 40, ...(baseLayout.margin || {}) },
+            margin: { l: 55, r: showSecondaryAxis ? 55 : 25, t: 48, b: showChartStack ? 58 : 40, ...(baseLayout.margin || {}) },
             annotations: [
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
                 {
                     text: rows.length
-                        ? `Module renderer • ${rows.length} rows • ${modes.chartType} / ${modes.scaleMode}`
+                        ? `Module renderer • ${rows.length} rows • ${modes.chartType} / ${modes.scaleMode}${showChartStack ? ' • chart stack' : ''}`
                         : 'Module renderer • no rows found',
                     xref: 'paper',
                     yref: 'paper',
