@@ -880,6 +880,113 @@ function timelineEventMeta(source, fallback = 'watch context') {
     return meta || fallback;
 }
 
+
+function timelineEventKind(source, detail = '') {
+    const sourceText = cleanDisplayText([
+        eventValue(source, ['status', 'state', 'result', 'direction', 'tone', 'bias'], ''),
+        eventValue(source, ['family', 'category', 'type'], ''),
+        eventValue(source, ['label', 'title', 'event', 'name'], ''),
+        detail
+    ].join(' ')).toLowerCase();
+
+    if (/confirmed|accepted|validated|complete|resolved/.test(sourceText)) return 'confirmed';
+    if (/debate|conflict|mixed|rejected|risk|bearish/.test(sourceText)) return 'debate';
+    if (/watch|missing|confirmation|gate|pending|monitor/.test(sourceText)) return 'watch';
+    if (/receipt|close|score|rank|priority|direction/.test(sourceText)) return 'receipt';
+    if (/momentum|macd|rsi|trend|technical/.test(sourceText)) return 'technical';
+    if (/participation|breadth|source|volume/.test(sourceText)) return 'participation';
+    if (/setup|read|archetype|conviction/.test(sourceText)) return 'setup';
+
+    return 'context';
+}
+
+function timelineFact(label, value, ticker = '', maxLength = 72) {
+    const text = formatDeckValue(value, ticker, maxLength);
+    if (!text) return null;
+    return { label, value: text };
+}
+
+function timelineEventFacts(source, row = null, detail = '') {
+    const ticker = row?.ticker || '';
+    const screener = row?.source?.screener || row?.source?.scorecard || row?.source?.market_tape || {};
+    const archetype = row?.source?.archetype || row?.source?.market_tape_family || row?.source?.family || {};
+    const indicators = row?.source?.indicators || row?.source?.indicator_payload || row?.source?.indicator || {};
+
+    const candidates = [
+        timelineFact('Date', eventValue(source, ['date', 'as_of', 'asOf', 'timestamp', 'published_at', 'publishedAt'], ''), ticker, 52),
+        timelineFact('Status', eventValue(source, ['status', 'state', 'result', 'direction', 'tone', 'bias'], ''), ticker, 58),
+        timelineFact('Family', eventValue(source, ['family', 'category', 'type'], ''), ticker, 58),
+        timelineFact('Close', eventValue(source, ['close', 'latest_close', 'latestClose', 'price'], valueOf(screener, ['latest_close', 'latestClose', 'close', 'price'], '')), ticker, 46),
+        timelineFact('Priority', eventValue(source, ['priority_score', 'priorityScore', 'score', 'attention_priority_score'], valueOf(screener, ['screener_attention_priority_score', 'attention_priority_score', 'priority_score', 'priorityScore', 'score'], '')), ticker, 46),
+        timelineFact('Direction', eventValue(source, ['direction_label', 'directionLabel', 'direction', 'bias'], valueOf(screener, ['signal_consensus_direction_label', 'direction_label', 'directionLabel'], '')), ticker, 62),
+        timelineFact('Confirmation', eventValue(source, ['confirmation', 'confirmation_state', 'confirmationState'], valueOf(archetype, ['missing_confirmations', 'missingConfirmations', 'confirmation', 'confirmation_state', 'confirmationState'], '')), ticker, 72),
+        timelineFact('Indicator', eventValue(source, ['indicator_family', 'indicatorFamily', 'indicator', 'technical'], valueOf(indicators, ['indicator_family', 'indicatorFamily', 'family'], '')), ticker, 62)
+    ].filter(Boolean);
+
+    const seen = new Set();
+    return candidates.filter(fact => {
+        const key = `${fact.label}:${fact.value}`.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+    }).slice(0, 5);
+}
+
+function timelineEventEvidence(source, row = null, detail = '') {
+    const ticker = row?.ticker || '';
+    const candidates = [
+        eventValue(source, ['evidence', 'receipt', 'receipts', 'context', 'context_note', 'contextNote'], ''),
+        eventValue(source, ['summary', 'description', 'note', 'rationale', 'reason', 'detail', 'details'], ''),
+        eventValue(source, ['watch_item', 'watchItem', 'watch'], ''),
+        detail
+    ];
+
+    const evidence = [];
+    candidates.forEach(candidate => {
+        collectTextValues(candidate, evidence, 0);
+    });
+
+    if (!evidence.length && detail) evidence.push(detail);
+
+    const seen = new Set();
+    return evidence
+        .map(value => timelineCopy(value, ticker, 130))
+        .filter(Boolean)
+        .filter(value => {
+            const key = value.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        })
+        .slice(0, 3);
+}
+
+function renderTimelineFacts(item) {
+    const facts = Array.isArray(item?.facts) ? item.facts : [];
+    if (!facts.length) return '';
+
+    return `
+            <dl class="moduleMarketTapeTimelineFacts">
+              ${facts.map(fact => `
+                <div>
+                  <dt>${escapeHtml(fact.label)}</dt>
+                  <dd>${escapeHtml(fact.value)}</dd>
+                </div>
+              `).join('')}
+            </dl>
+    `;
+}
+
+function renderTimelineEvidence(item) {
+    const evidence = Array.isArray(item?.evidence) ? item.evidence : [];
+    if (!evidence.length) return '';
+
+    return `
+            <ul class="moduleMarketTapeTimelineEvidence">
+              ${evidence.map(line => `<li>${escapeHtml(line)}</li>`).join('')}
+            </ul>
+    `;
+}
 function normalizeMarketTapeEvent(item, index = 0, row = null) {
     const ticker = row?.ticker || '';
     const source = item && typeof item === 'object' ? item : { label: item, summary: item };
@@ -894,7 +1001,10 @@ function normalizeMarketTapeEvent(item, index = 0, row = null) {
     return {
         label: timelineEventLabel(source, detail, index, row),
         detail,
-        meta: timelineEventMeta(source)
+        meta: timelineEventMeta(source),
+        kind: timelineEventKind(source, detail),
+        facts: timelineEventFacts(source, row, detail),
+        evidence: timelineEventEvidence(source, row, detail)
     };
 }
 
@@ -961,17 +1071,39 @@ function marketTapeTimelineItems(row) {
         {
             label: 'Setup read',
             meta: 'selected asset',
-            detail: setupDetail
+            detail: setupDetail,
+            kind: 'setup',
+            facts: [
+                priorityScore ? { label: 'Priority', value: priorityScore } : null,
+                directionLabel ? { label: 'Direction', value: directionLabel } : null,
+                indicatorFamily ? { label: 'Indicator', value: indicatorFamily } : null
+            ].filter(Boolean),
+            evidence: [setupRead, watchRead].filter(Boolean).slice(0, 2)
         },
         {
             label: 'Confirmation watch',
             meta: missingConfirmations ? 'confirmation gate' : 'watch item',
-            detail: missingConfirmations || watchRead
+            detail: missingConfirmations || watchRead,
+            kind: 'watch',
+            facts: [
+                missingConfirmations ? { label: 'Gate', value: missingConfirmations } : null,
+                strengthLabel ? { label: 'Strength', value: strengthLabel } : null,
+                directionScore ? { label: 'Direction score', value: directionScore } : null
+            ].filter(Boolean),
+            evidence: [missingConfirmations || watchRead].filter(Boolean)
         },
         {
             label: 'Receipt context',
             meta: [latestClose ? `close ${latestClose}` : '', asOf].filter(Boolean).join(' / ') || detailSourceSummary(row),
-            detail: receiptDetail
+            detail: receiptDetail,
+            kind: 'receipt',
+            facts: [
+                latestClose ? { label: 'Close', value: latestClose } : null,
+                asOf ? { label: 'As of', value: asOf } : null,
+                priorityScore ? { label: 'Priority', value: priorityScore } : null,
+                directionScore ? { label: 'Direction score', value: directionScore } : null
+            ].filter(Boolean),
+            evidence: [receiptDetail].filter(Boolean)
         }
     ];
 
@@ -986,12 +1118,17 @@ function renderMarketTapeEventTimeline(row) {
     if (!items.length) return '';
 
     const timeline = items.map((item, index) => `
-        <li class="moduleMarketTapeTimelineItem">
+        <li class="moduleMarketTapeTimelineItem is-${escapeHtml(item.kind || 'context')}">
           <span class="moduleMarketTapeTimelineDot">${index + 1}</span>
           <div>
-            <strong>${escapeHtml(item.label)}</strong>
+            <div class="moduleMarketTapeTimelineTitleRow">
+              <strong>${escapeHtml(item.label)}</strong>
+              <span>${escapeHtml(timelineReadableLabel(item.kind || 'context', 'Context'))}</span>
+            </div>
             <em>${escapeHtml(item.meta)}</em>
             <p>${escapeHtml(item.detail)}</p>
+            ${renderTimelineFacts(item)}
+            ${renderTimelineEvidence(item)}
           </div>
         </li>
     `).join('');
