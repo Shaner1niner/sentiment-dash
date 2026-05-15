@@ -64,8 +64,8 @@ const MODULE_CHART_STACK_FIELDS = {
     macdSignal: ['macd_signal', 'macd_signal_9', 'macds', 'MACDs', 'MACDs_12_26_9', 'signal_macd'],
     macdHist: ['macd_hist', 'macd_histogram', 'macdh', 'MACDh', 'MACDh_12_26_9', 'macd_diff', 'macd_delta'],
     rsi: ['rsi', 'rsi_14', 'RSI', 'RSI_14', 'relative_strength_index', 'ta_rsi_14'],
-    stochRsi: ['stoch_rsi', 'stochrsi', 'stoch_rsi_k', 'stochrsi_k', 'stoch_rsi_fastk', 'STOCHRSIk_14_14_3_3'],
-    stochRsiSignal: ['stoch_rsi_d', 'stochrsi_d', 'stoch_rsi_fastd', 'STOCHRSId_14_14_3_3']
+    stochRsi: ['stochastic_rsi', 'stochastic_rsi_k', 'stoch_rsi', 'stochrsi', 'stoch_rsi_k', 'stochrsi_k', 'stoch_rsi_fastk', 'STOCHRSIk_14_14_3_3'],
+    stochRsiSignal: ['stochastic_rsi_d', 'sentiment_stochastic_rsi_d', 'stochastic_rsi_signal', 'stoch_rsi_d', 'stochrsi_d', 'stoch_rsi_fastd', 'STOCHRSId_14_14_3_3']
 };
 
 function withoutUndefinedLayoutKeys(layout = {}) {

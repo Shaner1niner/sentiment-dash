@@ -45,6 +45,9 @@ def main() -> int:
         "MACD Histogram",
         "name: 'RSI'",
         "name: 'Stoch RSI'",
+        "stochastic_rsi",
+        "stochastic_rsi_d",
+        "sentiment_stochastic_rsi_d",
         "yaxis3",
         "yaxis4",
         "yaxis5",
@@ -100,6 +103,7 @@ def main() -> int:
     print("[OK] PlotlyRenderer respects module chart/control modes")
     print("[OK] PlotlyRenderer sanitizes undefined axis layout keys")
     print("[OK] PlotlyRenderer restores module chart stack panels where payload fields exist")
+    print("[OK] PlotlyRenderer recognizes canonical stochastic_rsi payload fields")
     print("[OK] dashboard_main routes module payloads through renderAssetPayload")
     print("[OK] module Plotly renderer parity smoke passed")
     return 0
