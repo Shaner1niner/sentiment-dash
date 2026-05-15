@@ -45,6 +45,88 @@ function fieldLabel(field) {
         .replace(/\b\w/g, char => char.toUpperCase());
 }
 
+
+function firstRowValue(row, fields = [], fallback = null) {
+    for (const field of fields) {
+        const value = row?.[field];
+        if (value !== null && value !== undefined && value !== '') return value;
+    }
+    return fallback;
+}
+
+function markerFlag(row, fields = []) {
+    return fields.some(field => {
+        const value = row?.[field];
+        if (value === true) return true;
+        const n = asNumber(value, null);
+        if (n !== null) return n === 1;
+        return String(value ?? '').trim().toLowerCase() === 'true';
+    });
+}
+
+function hoverNumber(label, value, precision = 2) {
+    const n = asNumber(value, null);
+    if (n === null) return '';
+    const formatted = Math.abs(n) >= 100 ? Math.round(n).toString() : n.toFixed(precision).replace(/\.0+$/, '');
+    return `${label}: ${formatted}`;
+}
+
+function hoverText(label, value, maxLength = 90) {
+    const text = String(value ?? '').replace(/\s+/g, ' ').trim();
+    if (!text || text.toLowerCase() === 'nan') return '';
+    const clipped = text.length > maxLength ? `${text.slice(0, maxLength - 3).trim()}...` : text;
+    return `${label}: ${clipped}`;
+}
+
+const MODULE_REGIME_MARKER_DEFINITIONS = [
+    {
+        key: 'confirmedOverlap',
+        name: 'Confirmed Overlap',
+        fields: ['boll_overlap_break_confirmed_high_volume', 'boll_overlap_break_confirmed', 'confirmed_overlap_event', 'confirmed_bollinger_overlap'],
+        symbol: 'diamond-open',
+        size: 9
+    },
+    {
+        key: 'ribbonTransition',
+        name: 'Ribbon Transition',
+        fields: ['sent_ribbon_transition_flag', 'sentiment_ribbon_transition_flag', 'ribbon_transition_flag', 'sentiment_ribbon_transition'],
+        symbol: 'triangle-up-open',
+        size: 8
+    },
+    {
+        key: 'highVolume',
+        name: 'High Volume',
+        fields: ['high_volume_20', 'high_volume_flag', 'volume_breakout_flag', 'volume_spike_flag'],
+        symbol: 'circle-open',
+        size: 7
+    },
+    {
+        key: 'outsideExpectedRange',
+        name: 'Outside Expected Range',
+        fields: ['outside_expected_range', 'outside_expected_range_flag', 'outside_range_flag', 'expected_range_break_flag'],
+        symbol: 'x-open',
+        size: 8
+    }
+];
+
+function rowMatchesRegimeMarker(row, definition) {
+    return markerFlag(row, definition.fields);
+}
+
+function regimeMarkerHoverText(row, definition) {
+    const parts = [
+        `Marker: ${definition.name}`,
+        hoverText('Date', firstRowValue(row, ['date', 'dt', 'timestamp']), 48),
+        hoverNumber('Close', firstRowValue(row, ['close', 'latest_close', 'price']), 2),
+        hoverText('Ribbon', firstRowValue(row, ['sentiment_ribbon_state', 'sent_ribbon_state', 'sentiment_ribbon', 'ribbon_state']), 72),
+        hoverText('Regime', firstRowValue(row, ['regime_label', 'regime', 'market_regime', 'context_regime']), 72),
+        hoverNumber('SETA score', firstRowValue(row, ['seta_dashboard_summary_score', 'seta_score', 'dashboard_score']), 1),
+        hoverNumber('Attention', firstRowValue(row, ['attention_level_score', 'attention_priority_score', 'screener_attention_priority_score']), 1),
+        hoverText('Direction', firstRowValue(row, ['signal_consensus_direction_label', 'direction_label', 'direction']), 72)
+    ].filter(Boolean);
+
+    return parts.join('<br>');
+}
 function firstSupportedField(rows, candidates = [], ratio = 0.18, floor = 3) {
     const source = Array.isArray(rows) ? rows : [];
     for (const field of candidates) {
@@ -225,6 +307,50 @@ export class PlotlyRenderer {
             || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.rsi, 0.12, 5)
             || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.stochRsi, 0.12, 5)
         );
+    }
+
+
+    static buildRegimeMarkerTraces(rows, state = {}) {
+        const source = Array.isArray(rows) ? rows : [];
+        if (!source.length || !this.shouldShowRegimeMarkers(state)) return [];
+
+        return MODULE_REGIME_MARKER_DEFINITIONS
+            .map(definition => {
+                const markerRows = source.filter(row => rowMatchesRegimeMarker(row, definition));
+                if (!markerRows.length) return null;
+
+                return {
+                    type: 'scatter',
+                    mode: 'markers',
+                    name: `Regime: ${definition.name}`,
+                    x: markerRows.map(row => row.date),
+                    y: markerRows.map(row => asNumber(row.close)),
+                    marker: {
+                        size: definition.size,
+                        symbol: definition.symbol,
+                        opacity: 0.95
+                    },
+                    text: markerRows.map(row => regimeMarkerHoverText(row, definition)),
+                    hovertemplate: '%{text}<extra></extra>'
+                };
+            })
+            .filter(Boolean);
+    }
+
+    static regimeMarkerSummary(rows = [], state = {}) {
+        const source = Array.isArray(rows) ? rows : [];
+        if (!source.length || !this.shouldShowRegimeMarkers(state)) return '';
+
+        const counts = MODULE_REGIME_MARKER_DEFINITIONS
+            .map(definition => ({
+                name: definition.name,
+                count: source.filter(row => rowMatchesRegimeMarker(row, definition)).length
+            }))
+            .filter(item => item.count > 0);
+
+        if (!counts.length) return '';
+
+        return `Markers: ${counts.map(item => `${item.name} ${item.count}`).join(' • ')}`;
     }
 
     static buildIndicatorStackTraces(rows, state = {}) {
@@ -482,25 +608,7 @@ export class PlotlyRenderer {
             }
         }
 
-        if (this.shouldShowRegimeMarkers(state)) {
-            const markerRows = source.filter(row => (
-                asNumber(row.high_volume_20) === 1
-                || asNumber(row.sent_ribbon_transition_flag) === 1
-                || asNumber(row.boll_overlap_break_confirmed_high_volume) === 1
-            ));
-
-            if (markerRows.length) {
-                traces.push({
-                    type: 'scatter',
-                    mode: 'markers',
-                    name: 'Regime Marks',
-                    x: markerRows.map(row => row.date),
-                    y: markerRows.map(row => asNumber(row.close)),
-                    marker: { size: 7, symbol: 'circle-open' },
-                    hovertemplate: '%{x}<br>Regime / confirmation mark<extra></extra>'
-                });
-            }
-        }
+        this.buildRegimeMarkerTraces(source, state).forEach(trace => traces.push(trace));
 
         this.buildIndicatorStackTraces(source, state).forEach(trace => traces.push(trace));
 
@@ -516,6 +624,7 @@ export class PlotlyRenderer {
         const showSecondaryAxis = modes.scaleMode === 'all_visible' || modes.attention === 'overlay' || modes.attention === 'overlay_marks';
         const showChartStack = this.hasChartStack(rows);
         const priceDomain = showChartStack ? [0.42, 1] : [0, 1];
+        const regimeSummary = this.regimeMarkerSummary(rows, state);
 
         return {
             ...this.withDarkDefaults(baseLayout, state),
@@ -586,9 +695,19 @@ export class PlotlyRenderer {
             margin: { l: 55, r: showSecondaryAxis ? 55 : 25, t: 48, b: showChartStack ? 58 : 40, ...(baseLayout.margin || {}) },
             annotations: [
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
+                ...(regimeSummary ? [{
+                    text: regimeSummary,
+                    xref: 'paper',
+                    yref: 'paper',
+                    x: 0,
+                    y: 1.08,
+                    showarrow: false,
+                    font: { color: '#9bdcff', size: 10 },
+                    align: 'left'
+                }] : []),
                 {
                     text: rows.length
-                        ? `Module renderer • ${rows.length} rows • ${modes.chartType} / ${modes.scaleMode}${showChartStack ? ' • chart stack' : ''}`
+                        ? `Module renderer • ${rows.length} rows • ${modes.chartType} / ${modes.scaleMode}${showChartStack ? ' • chart stack' : ''}${regimeSummary ? ' • regime markers' : ''}`
                         : 'Module renderer • no rows found',
                     xref: 'paper',
                     yref: 'paper',
