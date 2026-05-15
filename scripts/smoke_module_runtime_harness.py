@@ -6,6 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 HARNESS = ROOT / "module_runtime_smoke_harness.html"
 PUBLIC_EMBED = ROOT / "interactive_dashboard_fix24_public_embed.html"
+LEGACY_PUBLIC_EMBED = ROOT / "interactive_dashboard_fix24_public_legacy_embed.html"
 MEMBER_EMBED = ROOT / "interactive_dashboard_fix24_member_embed.html"
 
 
@@ -53,9 +54,17 @@ def main() -> int:
     if any(token in html for token in monolith_script_tokens):
         return fail("harness should not load production monolith dashboard_fix26_app.js as a script")
 
-    for embed in [PUBLIC_EMBED, MEMBER_EMBED]:
+    if not PUBLIC_EMBED.exists():
+        return fail(f"missing production public embed: {PUBLIC_EMBED.name}")
+    public_text = read(PUBLIC_EMBED)
+    if "src/dashboard_main.js" not in public_text:
+        return fail(f"{PUBLIC_EMBED.name} should load module runtime after public route cutover")
+    if "dashboard_fix26_app.js?v=restore_monolith_entry_001" in public_text:
+        return fail(f"{PUBLIC_EMBED.name} should not load legacy monolith after public route cutover")
+
+    for embed in [LEGACY_PUBLIC_EMBED, MEMBER_EMBED]:
         if not embed.exists():
-            return fail(f"missing production embed: {embed.name}")
+            return fail(f"missing legacy/member embed: {embed.name}")
         text = read(embed)
         if "dashboard_fix26_app.js?v=restore_monolith_entry_001" not in text:
             return fail(f"{embed.name} no longer references production monolith token")
@@ -65,7 +74,8 @@ def main() -> int:
     print("[OK] module runtime smoke harness exists")
     print("[OK] harness loads src/dashboard_main.js as a module")
     print("[OK] harness includes core dashboard controls and chart container")
-    print("[OK] production embeds remain pinned to dashboard_fix26_app.js")
+    print("[OK] public dashboard route loads module runtime")
+    print("[OK] legacy public/member embeds remain pinned to dashboard_fix26_app.js")
     print("[OK] module runtime harness smoke passed")
     return 0
 

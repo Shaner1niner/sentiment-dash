@@ -605,10 +605,28 @@ def check_reviewed_briefing_payload() -> None:
             check_reviewed_briefing_payload_file(str(reviewed_url))
 
 
+
+def check_homepage_routes() -> None:
+    path = require_file("index.html")
+    if not path.exists():
+        return
+    text = read_text(path)
+    expected_tokens = [
+        'href="interactive_dashboard_fix24_public_embed.html"',
+        'href="interactive_dashboard_fix24_public_legacy_embed.html"',
+        'href="seta_public_context_cards.html?dashboard=interactive_dashboard_fix24_public_embed.html"',
+        'href="interactive_dashboard_fix24_member_embed.html"',
+    ]
+    for token in expected_tokens:
+        if token in text:
+            ok(f"homepage route contains {token}")
+        else:
+            fail(f"homepage route missing {token}")
+
 def check_embeds() -> None:
     entry_tokens: dict[str, str] = {}
 
-    for rel in ["interactive_dashboard_fix24_public_embed.html", "interactive_dashboard_fix24_member_embed.html"]:
+    for rel in ["interactive_dashboard_fix24_public_embed.html", "interactive_dashboard_fix24_public_legacy_embed.html", "interactive_dashboard_fix24_member_embed.html"]:
         path = require_file(rel)
         if not path.exists():
             continue
@@ -627,7 +645,7 @@ def check_embeds() -> None:
 
         legacy_app_match = re.search(r'dashboard_fix26_app\.js\?v=([^"\']+)', text)
         module_entry_present = re.search(
-            r'<script\b[^>]*src=["\'](?:\./)?src/dashboard_main\.js["\'][^>]*>',
+            r'<script\b[^>]*src=["\'](?:\./)?src/dashboard_main\.js(?:\?v=[^"\']+)?["\'][^>]*>',
             text,
         ) is not None
         manifest_match = re.search(
@@ -669,6 +687,7 @@ def main() -> int:
     check_manifest_payload_coverage()
     check_dashboard_js()
     check_reviewed_briefing_payload()
+    check_homepage_routes()
     check_embeds()
 
     print("============================================================")
