@@ -38,6 +38,18 @@ def main() -> int:
         "static shouldShowSentimentOverlay(state = {})",
         "static shouldShowPriceBands(state = {})",
         "static shouldShowAttentionOverlay(state = {})",
+        "static shouldShowRegimeMarkers(state = {})",
+        "const MODULE_REGIME_MARKER_DEFINITIONS = [",
+        "static buildRegimeMarkerTraces(rows, state = {})",
+        "static regimeMarkerSummary(rows = [], state = {})",
+        "Regime: ${definition.name}",
+        "Confirmed Overlap",
+        "Ribbon Transition",
+        "High Volume",
+        "Outside Expected Range",
+        "hovertemplate: '%{text}<extra></extra>'",
+        "this.buildRegimeMarkerTraces(source, state).forEach",
+        "regimeSummary ? ' • regime markers' : ''",
         "static buildControlModeSummary(state = {})",
         "const MODULE_CHART_STACK_FIELDS = {",
         "static hasChartStack(rows = [])",
@@ -104,6 +116,7 @@ def main() -> int:
     print("[OK] PlotlyRenderer sanitizes undefined axis layout keys")
     print("[OK] PlotlyRenderer restores module chart stack panels where payload fields exist")
     print("[OK] PlotlyRenderer recognizes canonical stochastic_rsi payload fields")
+    print("[OK] PlotlyRenderer restores alert/ribbon/regime marker context where payload flags exist")
     print("[OK] dashboard_main routes module payloads through renderAssetPayload")
     print("[OK] module Plotly renderer parity smoke passed")
     return 0
