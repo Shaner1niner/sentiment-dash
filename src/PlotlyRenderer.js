@@ -2,6 +2,23 @@ import { selectedWindowRows } from './core/displayRangeWindow.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+const MODULE_CHART_VISUALS = {
+    paperBg: '#080c12',
+    plotBg: '#0a0f16',
+    primaryText: '#f0f6fc',
+    secondaryText: '#9aa8b8',
+    mutedText: '#7d8590',
+    grid: 'rgba(148,163,184,0.075)',
+    gridSubtle: 'rgba(148,163,184,0.055)',
+    zeroLine: 'rgba(148,163,184,0.18)',
+    axisLine: 'rgba(148,163,184,0.22)',
+    candleUpLine: '#d7dee8',
+    candleUpFill: 'rgba(215,222,232,0.82)',
+    candleDownLine: '#7d8590',
+    candleDownFill: 'rgba(125,133,144,0.58)',
+    priceLine: '#d7dee8'
+};
+
 function compact(values) {
     return values.filter(value => value !== null && value !== undefined && Number.isFinite(Number(value)));
 }
@@ -466,7 +483,7 @@ export class PlotlyRenderer {
                 name: 'Price',
                 x,
                 y: close,
-                line: { width: 1.4 },
+                line: { color: MODULE_CHART_VISUALS.priceLine, width: 1.8 },
                 hovertemplate: '%{x}<br>Close: %{y:,.2f}<extra></extra>'
             });
         } else {
@@ -478,8 +495,15 @@ export class PlotlyRenderer {
                 high,
                 low,
                 close,
-                increasing: { line: { color: '#c9d1d9' } },
-                decreasing: { line: { color: '#8b949e' } },
+                increasing: {
+                    line: { color: MODULE_CHART_VISUALS.candleUpLine, width: 1.15 },
+                    fillcolor: MODULE_CHART_VISUALS.candleUpFill
+                },
+                decreasing: {
+                    line: { color: MODULE_CHART_VISUALS.candleDownLine, width: 1.05 },
+                    fillcolor: MODULE_CHART_VISUALS.candleDownFill
+                },
+                whiskerwidth: 0.45,
                 hovertemplate: '%{x}<br>O: %{open:,.2f}<br>H: %{high:,.2f}<br>L: %{low:,.2f}<br>C: %{close:,.2f}<extra></extra>'
             });
         }
@@ -630,69 +654,93 @@ export class PlotlyRenderer {
             ...this.withDarkDefaults(baseLayout, state),
             title: {
                 text: `${asset} • ${freqLabel} • ${range}`,
-                font: { color: '#c9d1d9', size: 14 }
+                font: { color: MODULE_CHART_VISUALS.primaryText, size: 15 },
+                x: 0.5,
+                xanchor: 'center',
+                y: 0.985
             },
             xaxis: {
                 ...(baseLayout.xaxis || {}),
                 type: 'date',
                 anchor: 'y',
                 rangeslider: { visible: false },
-                gridcolor: 'rgba(255,255,255,0.08)',
-                zerolinecolor: 'rgba(255,255,255,0.12)'
+                gridcolor: MODULE_CHART_VISUALS.gridSubtle,
+                zeroline: false,
+                zerolinecolor: MODULE_CHART_VISUALS.zeroLine,
+                linecolor: MODULE_CHART_VISUALS.axisLine,
+                tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 },
+                showspikes: true,
+                spikemode: 'across',
+                spikecolor: 'rgba(155,220,255,0.18)',
+                spikethickness: 1
             },
             yaxis: {
                 ...(baseLayout.yaxis || {}),
-                title: 'Price',
+                title: { text: 'Price', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 11 } },
                 anchor: 'x',
                 domain: priceDomain,
                 autorange: true,
                 fixedrange: false,
-                gridcolor: 'rgba(255,255,255,0.08)',
-                zerolinecolor: 'rgba(255,255,255,0.12)'
+                gridcolor: MODULE_CHART_VISUALS.grid,
+                zerolinecolor: MODULE_CHART_VISUALS.zeroLine,
+                linecolor: MODULE_CHART_VISUALS.axisLine,
+                tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 },
+                tickformat: ',~s'
             },
             ...(showSecondaryAxis ? {
                 yaxis2: {
                     ...(baseLayout.yaxis2 || {}),
-                    title: 'Context',
+                    title: { text: 'Context', font: { color: MODULE_CHART_VISUALS.mutedText, size: 10 } },
                     anchor: 'x',
                     overlaying: 'y',
                     side: 'right',
                     showgrid: false,
                     zeroline: false,
                     rangemode: 'tozero',
-                    domain: priceDomain
+                    domain: priceDomain,
+                    tickfont: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
                 }
             } : {}),
             ...(showChartStack ? {
                 yaxis3: {
-                    title: 'MACD',
+                    title: { text: 'MACD', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
                     anchor: 'x',
                     domain: [0.27, 0.39],
                     zeroline: true,
-                    gridcolor: 'rgba(255,255,255,0.06)',
-                    zerolinecolor: 'rgba(255,255,255,0.16)'
+                    gridcolor: MODULE_CHART_VISUALS.gridSubtle,
+                    zerolinecolor: MODULE_CHART_VISUALS.zeroLine,
+                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 }
                 },
                 yaxis4: {
-                    title: 'RSI',
+                    title: { text: 'RSI', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
                     anchor: 'x',
                     domain: [0.14, 0.25],
                     range: [0, 100],
                     tickvals: [30, 50, 70],
-                    gridcolor: 'rgba(255,255,255,0.06)',
-                    zeroline: false
+                    gridcolor: MODULE_CHART_VISUALS.gridSubtle,
+                    zeroline: false,
+                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 }
                 },
                 yaxis5: {
-                    title: 'Stoch RSI',
+                    title: { text: 'Stoch RSI', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
                     anchor: 'x',
                     domain: [0, 0.12],
                     range: [0, 100],
                     tickvals: [20, 50, 80],
-                    gridcolor: 'rgba(255,255,255,0.06)',
-                    zeroline: false
+                    gridcolor: MODULE_CHART_VISUALS.gridSubtle,
+                    zeroline: false,
+                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 }
                 }
             } : {}),
             showlegend: true,
-            margin: { l: 55, r: showSecondaryAxis ? 55 : 25, t: 48, b: showChartStack ? 58 : 40, ...(baseLayout.margin || {}) },
+            legend: {
+                orientation: 'v',
+                bgcolor: 'rgba(8,12,18,0.35)',
+                bordercolor: 'rgba(148,163,184,0.16)',
+                borderwidth: 1,
+                font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 }
+            },
+            margin: { l: 60, r: showSecondaryAxis ? 64 : 34, t: 56, b: showChartStack ? 62 : 42, ...(baseLayout.margin || {}) },
             annotations: [
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
                 ...(regimeSummary ? [{
@@ -707,8 +755,8 @@ export class PlotlyRenderer {
                 }] : []),
                 {
                     text: rows.length
-                        ? `Module renderer • ${rows.length} rows • ${modes.chartType} / ${modes.scaleMode}${showChartStack ? ' • chart stack' : ''}${regimeSummary ? ' • regime markers' : ''}`
-                        : 'Module renderer • no rows found',
+                        ? `SETA chart context • ${rows.length} rows • ${modes.chartType} / ${modes.scaleMode}${showChartStack ? ' • chart stack' : ''}${regimeSummary ? ' • regime markers' : ''}`
+                        : 'SETA chart context • no rows found',
                     xref: 'paper',
                     yref: 'paper',
                     x: 1,
@@ -725,10 +773,15 @@ export class PlotlyRenderer {
     static withDarkDefaults(layout = {}, state = {}) {
         return {
             ...layout,
-            paper_bgcolor: layout.paper_bgcolor || '#0d1117',
-            plot_bgcolor: layout.plot_bgcolor || '#0d1117',
-            font: layout.font || { color: '#c9d1d9' },
-            dragmode: layout.dragmode || 'pan'
+            paper_bgcolor: layout.paper_bgcolor || MODULE_CHART_VISUALS.paperBg,
+            plot_bgcolor: layout.plot_bgcolor || MODULE_CHART_VISUALS.plotBg,
+            font: layout.font || { color: MODULE_CHART_VISUALS.primaryText },
+            dragmode: layout.dragmode || 'pan',
+            hoverlabel: layout.hoverlabel || {
+                bgcolor: 'rgba(8,12,18,0.96)',
+                bordercolor: 'rgba(155,220,255,0.22)',
+                font: { color: MODULE_CHART_VISUALS.primaryText, size: 11 }
+            }
         };
     }
 
