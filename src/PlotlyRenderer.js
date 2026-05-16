@@ -25,16 +25,24 @@ const MODULE_CHART_VISUALS = {
 
 const MODULE_TA_PANEL_VISUALS = {
     thresholdLine: 'rgba(155,220,255,0.20)',
-    midline: 'rgba(148,163,184,0.13)',
+    midline: 'rgba(148,163,184,0.035)',
     zeroLine: 'rgba(242,204,96,0.26)',
     panelBand: 'rgba(155,220,255,0.045)',
     macdBarOpacity: 0.52,
     macdLineWidth: 1.25,
     oscillatorLineWidth: 1.15,
     rsiPriceLine: 'rgba(190,150,255,0.92)',
+    rsiPriceGlowLine: 'rgba(190,150,255,0.13)',
+    rsiPriceGlowWidth: 4.5,
+    rsiUpperRail: 'rgba(242,204,96,0.22)',
+    rsiLowerRail: 'rgba(155,180,255,0.22)',
+    rsiMidRail: 'rgba(148,163,184,0.09)',
     rsiSentimentLine: 'rgba(242,204,96,0.42)',
     stochRsiLine: 'rgba(126,231,135,0.58)',
     stochRsiSignalLine: 'rgba(255,123,114,0.46)',
+    stochUpperRail: 'rgba(242,204,96,0.14)',
+    stochLowerRail: 'rgba(155,180,255,0.14)',
+    stochMidRail: 'rgba(148,163,184,0.07)',
     rsiUpperZoneFill: 'rgba(242,204,96,0.035)',
     rsiLowerZoneFill: 'rgba(155,220,255,0.035)',
     priceHighFill: 'rgba(242,204,96,0.135)',
@@ -330,6 +338,36 @@ function buildRsiZoneBackgroundShapes() {
             line: { color: 'rgba(0,0,0,0)', width: 0 },
             layer: 'below'
         }
+    ];
+}
+
+function horizontalRailShape(yref, y, color) {
+    return {
+        type: 'line',
+        xref: 'paper',
+        yref,
+        x0: 0,
+        x1: 1,
+        y0: y,
+        y1: y,
+        line: { color, width: 1 },
+        layer: 'below'
+    };
+}
+
+function buildRsiRailShapes() {
+    return [
+        horizontalRailShape('y4', 70, MODULE_TA_PANEL_VISUALS.rsiUpperRail),
+        horizontalRailShape('y4', 50, MODULE_TA_PANEL_VISUALS.rsiMidRail),
+        horizontalRailShape('y4', 30, MODULE_TA_PANEL_VISUALS.rsiLowerRail)
+    ];
+}
+
+function buildStochRsiRailShapes() {
+    return [
+        horizontalRailShape('y5', 80, MODULE_TA_PANEL_VISUALS.stochUpperRail),
+        horizontalRailShape('y5', 50, MODULE_TA_PANEL_VISUALS.stochMidRail),
+        horizontalRailShape('y5', 20, MODULE_TA_PANEL_VISUALS.stochLowerRail)
     ];
 }
 
@@ -765,13 +803,29 @@ export class PlotlyRenderer {
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
+                name: 'RSI glow',
+                x,
+                y: rsi.y,
+                yaxis: 'y4',
+                line: {
+                    color: MODULE_TA_PANEL_VISUALS.rsiPriceGlowLine,
+                    width: MODULE_TA_PANEL_VISUALS.rsiPriceGlowWidth
+                },
+                hoverinfo: 'skip',
+                showlegend: false,
+                connectgaps: false
+            });
+
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
                 name: 'RSI',
                 x,
                 y: rsi.y,
                 yaxis: 'y4',
                 line: {
                     color: MODULE_TA_PANEL_VISUALS.rsiPriceLine,
-                    width: 1.35
+                    width: 1.45
                 },
                 hovertemplate: `%{x}<br>${fieldLabel(rsi.field)}: %{y:,.1f}<extra></extra>`
             });
@@ -1002,6 +1056,8 @@ export class PlotlyRenderer {
         const regimeSummary = this.regimeMarkerSummary(rows, state);
         const overlapStatus = this.overlapBandStatus(rows, state);
         const rsiZoneBackgroundShapes = showChartStack ? buildRsiZoneBackgroundShapes() : [];
+        const rsiRailShapes = showChartStack ? buildRsiRailShapes() : [];
+        const stochRsiRailShapes = showChartStack ? buildStochRsiRailShapes() : [];
 
         return {
             ...this.withDarkDefaults(baseLayout, state),
@@ -1078,7 +1134,7 @@ export class PlotlyRenderer {
                     gridcolor: MODULE_TA_PANEL_VISUALS.midline,
                     linecolor: MODULE_CHART_VISUALS.axisLine,
                     zeroline: false,
-                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 },
+                    tickfont: { color: 'rgba(154,168,184,0.70)', size: 9 },
                     showline: true,
                     mirror: false
                 },
@@ -1092,7 +1148,7 @@ export class PlotlyRenderer {
                     gridcolor: MODULE_TA_PANEL_VISUALS.midline,
                     linecolor: MODULE_CHART_VISUALS.axisLine,
                     zeroline: false,
-                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 },
+                    tickfont: { color: 'rgba(154,168,184,0.64)', size: 9 },
                     showline: true,
                     mirror: false
                 }
@@ -1108,7 +1164,9 @@ export class PlotlyRenderer {
             margin: { l: 62, r: showSecondaryAxis ? 68 : 38, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
             shapes: [
                 ...((baseLayout && Array.isArray(baseLayout.shapes)) ? baseLayout.shapes : []),
-                ...rsiZoneBackgroundShapes
+                ...rsiZoneBackgroundShapes,
+                ...rsiRailShapes,
+                ...stochRsiRailShapes
             ],
             annotations: [
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
