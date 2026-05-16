@@ -16,13 +16,13 @@ AMZN looks more like repair than confirmation. The useful read is whether sponso
 
 ---
 
-## ADA: participation is broadening
+## ADA: repair watch
 
-ADA is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+ADA looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** participation diffusion | rank 1 | positive skew | Belief exceeds permission
+**SETA read:** repair watch | rank 1 | mixed skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -100,13 +100,13 @@ LINK is showing broader participation. That is constructive for the crypto tape,
 
 ---
 
-## GOOGL: repair watch
+## GOOGL: contested structure
 
-GOOGL looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+GOOGL is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.
 
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** repair watch | rank 5 | mixed skew | Permission without belief
+**SETA read:** contested structure | rank 5 | negative skew | Permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -136,13 +136,13 @@ TSMC sits in a elevated decision-pressure zone in the equity tape.
 
 ---
 
-## KAS: SETA context
+## KAS: contested structure
 
-KAS sits in a elevated decision-pressure zone in the crypto tape.
+KAS is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Belief exceeds permission is the key tension.
 
-**Watch condition:** Watch whether participation and narrative coherence improves.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** seta context | rank 6 | negative skew | Belief exceeds permission
+**SETA read:** contested structure | rank 6 | mixed skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
