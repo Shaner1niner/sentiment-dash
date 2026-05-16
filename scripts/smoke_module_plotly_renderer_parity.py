@@ -79,7 +79,13 @@ def main() -> int:
         "selectedWindowRows(source, range",
         "payload?.[freq]?.[asset]",
         "type: 'candlestick'",
-        "Module renderer",
+        "SETA chart context",
+        "static buildBandLayerPolicy(modes = {})",
+        "static resolveCombinedOverlapBandSeries(rows = [])",
+        "static overlapBandStatus(rows = [], state = {})",
+        "Combined overlap model: unavailable",
+        "Combined Overlap",
+        "Canonical Overlap",
     ]
     missing_plotly = [token for token in plotly_tokens if token not in plotly]
     if missing_plotly:
