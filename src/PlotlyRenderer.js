@@ -37,7 +37,7 @@ const MODULE_TA_PANEL_VISUALS = {
     rsiUpperRail: 'rgba(242,204,96,0.22)',
     rsiLowerRail: 'rgba(155,180,255,0.22)',
     rsiMidRail: 'rgba(148,163,184,0.09)',
-    rsiSentimentLine: 'rgba(242,204,96,0.42)',
+    rsiSentimentLine: 'rgba(242,204,96,0.36)',
     stochRsiLine: 'rgba(126,231,135,0.58)',
     stochRsiSignalLine: 'rgba(255,123,114,0.46)',
     stochUpperRail: 'rgba(242,204,96,0.14)',
@@ -53,6 +53,8 @@ const MODULE_TA_PANEL_VISUALS = {
     rsiLowSoftFill: 'rgba(155,220,255,0.045)',
     rsiLowMidFill: 'rgba(155,220,255,0.080)',
     rsiLowDeepFill: 'rgba(155,220,255,0.120)',
+    rsiSharedHighFill: 'rgba(242,204,96,0.135)',
+    rsiSharedLowFill: 'rgba(155,180,255,0.130)',
     sentimentHighFill: 'rgba(255,123,114,0.125)',
     sentimentLowFill: 'rgba(126,231,135,0.115)',
     combinedHighFill: 'rgba(255,214,102,0.260)',
@@ -465,6 +467,44 @@ function buildRsiZoneFillTraces(rows = [], x = [], rsi = null) {
     return traces;
 }
 
+function buildSharedRsiExtensionTraces(x = [], rsi = null, sentimentRsi = null) {
+    if (!rsi || !sentimentRsi || !Array.isArray(rsi.y) || !Array.isArray(sentimentRsi.y)) return [];
+
+    const sharedHigh = rsi.y.map((value, index) => {
+        const price = asNumber(value);
+        const sentiment = asNumber(sentimentRsi.y[index]);
+        if (price === null || sentiment === null) return null;
+        return price > 70 && sentiment > 70 ? Math.min(price, sentiment) : null;
+    });
+
+    const sharedLow = rsi.y.map((value, index) => {
+        const price = asNumber(value);
+        const sentiment = asNumber(sentimentRsi.y[index]);
+        if (price === null || sentiment === null) return null;
+        return price < 30 && sentiment < 30 ? Math.max(price, sentiment) : null;
+    });
+
+    const traces = [];
+    addRsiZoneFillTracePair(
+        traces,
+        x,
+        sharedHigh,
+        70,
+        MODULE_TA_PANEL_VISUALS.rsiSharedHighFill,
+        'Price + Sentiment RSI upper extension'
+    );
+    addRsiZoneFillTracePair(
+        traces,
+        x,
+        sharedLow,
+        30,
+        MODULE_TA_PANEL_VISUALS.rsiSharedLowFill,
+        'Price + Sentiment RSI lower extension'
+    );
+
+    return traces;
+}
+
 function withoutUndefinedLayoutKeys(layout = {}) {
     return Object.fromEntries(
         Object.entries(layout || {}).filter(([, value]) => value !== undefined)
@@ -780,6 +820,7 @@ export class PlotlyRenderer {
 
         if (rsi) {
             buildRsiZoneFillTraces(source, x, rsi).forEach(trace => traces.push(trace));
+            buildSharedRsiExtensionTraces(x, rsi, sentimentRsi).forEach(trace => traces.push(trace));
         }
 
         if (sentimentRsi && (!rsi || sentimentRsi.field !== rsi.field)) {
@@ -792,8 +833,7 @@ export class PlotlyRenderer {
                 yaxis: 'y4',
                 line: {
                     color: MODULE_TA_PANEL_VISUALS.rsiSentimentLine,
-                    width: 0.95,
-                    dash: 'dot'
+                    width: 0.9
                 },
                 hovertemplate: `%{x}<br>${fieldLabel(sentimentRsi.field)}: %{y:,.1f}<extra></extra>`
             });
@@ -853,7 +893,8 @@ export class PlotlyRenderer {
                 x,
                 y: stochRsiSignal.y,
                 yaxis: 'y5',
-                line: { color: MODULE_TA_PANEL_VISUALS.stochRsiSignalLine, width: 0.95, dash: 'dot' },
+                visible: 'legendonly',
+                line: { color: MODULE_TA_PANEL_VISUALS.stochRsiSignalLine, width: 0.9 },
                 hovertemplate: `%{x}<br>${fieldLabel(stochRsiSignal.field)}: %{y:,.1f}<extra></extra>`
             });
         }
