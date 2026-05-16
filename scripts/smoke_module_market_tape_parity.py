@@ -109,10 +109,11 @@ def main() -> int:
         "data-market-tape-filter",
         "deriveTagsFromCopy(copy, ticker = '')",
         "moduleMarketTapeItem",
-        "Store.setAsset(ticker)",
+        "Store.setAsset(normalizedTicker)",
         "chartCoveredTickerSet()",
         "filterRowsToChartCoverage(rows)",
         "Store.on('assetStoreIndexUpdated'",
+        "MarketTape: ignored unsupported public chart ticker",
     ]
     missing_market = [token for token in market_tokens if token not in market_tape]
     if missing_market:
@@ -122,7 +123,8 @@ def main() -> int:
         "<p>${escapeHtml(row.label)}</p>",
         "'<span>Monitor</span>'",
         "${active.label}` : 'Market tape'",
-        "active ? active.watchItem"
+        "active ? active.watchItem",
+        "setTimeout(() => Store.setAsset(activeAsset), 0)"
     ]
     present_forbidden = [token for token in forbidden_market if token in market_tape]
     if present_forbidden:

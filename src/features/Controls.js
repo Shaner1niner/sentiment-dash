@@ -12,6 +12,30 @@ export const Controls = {
         this.bindStoreSync();
     },
 
+    isPublicMode() {
+        return String(window.DASH_MODE_DEFAULT || 'member').trim().toLowerCase() === 'public';
+    },
+
+    chartCoveredAssetSet() {
+        const assets = Store.state.assetStoreIndex?.assets;
+        if (!assets || typeof assets !== 'object') return null;
+
+        const tickers = Object.keys(assets)
+            .map(ticker => String(ticker || '').trim().toUpperCase())
+            .filter(Boolean);
+
+        return tickers.length ? new Set(tickers) : null;
+    },
+
+    isPublicChartCoveredAsset(ticker) {
+        if (!this.isPublicMode()) return true;
+
+        const covered = this.chartCoveredAssetSet();
+        if (!covered || !covered.size) return true;
+
+        return covered.has(String(ticker || '').trim().toUpperCase());
+    },
+
     bindEvents() {
         if (this._bound) return;
         this._bound = true;
@@ -108,9 +132,14 @@ export const Controls = {
         const normalizedValue = this.normalizeControlValue(controlId, value);
         if (!normalizedValue) return false;
 
+        if (controlId === 'asset' && !this.isPublicChartCoveredAsset(normalizedValue)) {
+            console.warn(`Controls: refusing unsupported public asset option ${normalizedValue}`);
+            return false;
+        }
+
         const hasOption = Array.from(el.options || []).some(option => option.value === normalizedValue);
 
-        if (!hasOption && controlId === 'asset') {
+        if (!hasOption && controlId === 'asset' && !this.isPublicMode()) {
             const option = document.createElement('option');
             option.value = normalizedValue;
             option.textContent = normalizedValue;

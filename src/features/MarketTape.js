@@ -1367,8 +1367,16 @@ export const MarketTape = {
                 }
 
                 if (ticker && ticker.length > 0) {
-                    console.log(`Market Tape caught click for: ${ticker}`);
-                    Store.setAsset(ticker);
+                    const normalizedTicker = String(ticker || '').trim().toUpperCase();
+                    const covered = chartCoveredTickerSet();
+
+                    if (covered && covered.size && !covered.has(normalizedTicker)) {
+                        console.warn(`MarketTape: ignored unsupported public chart ticker ${normalizedTicker}`);
+                        return;
+                    }
+
+                    console.log(`Market Tape caught click for: ${normalizedTicker}`);
+                    Store.setAsset(normalizedTicker);
                 }
             }
         });
@@ -1397,7 +1405,6 @@ export const MarketTape = {
 
         if (baseRows.length && !baseRows.some(row => row.ticker === activeAsset)) {
             activeAsset = baseRows[0].ticker;
-            setTimeout(() => Store.setAsset(activeAsset), 0);
         }
 
         const rows = sortTapeRows(baseRows, activeAsset);
