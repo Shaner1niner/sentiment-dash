@@ -71393,7 +71393,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-      ? `SETA Then ${Math.round(scoreThen)}`
+      ? `Structure Then ${Math.round(scoreThen)}`
 
 
 
@@ -72321,7 +72321,13 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-    if(!why) why='Model context event detected.';
+    why=why
+      .replace(/\bQuality\s+n\/a\b/ig, '')
+      .replace(/\bQuality:\s*n\/a\b/ig, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+
+    if(!why) why='Structure context event detected.';
 
 
 
@@ -72449,7 +72455,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-      read='Bullish pressure was confirmed, with ribbon context providing the broader structure.';
+      read='Bullish structure pressure was confirmed, with ribbon context providing the broader setup.';
 
 
 
@@ -72513,7 +72519,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-      read='Bearish pressure was confirmed, with ribbon context providing the broader structure.';
+      read='Bearish structure pressure was confirmed, with ribbon context providing the broader setup.';
 
 
 
@@ -72577,7 +72583,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-      read='Bullish setup was visible, but confirmation was not complete.';
+      read='Bullish structure setup was visible, but confirmation was still developing.';
 
 
 
@@ -72641,7 +72647,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-      read='Bearish setup was visible, but confirmation was not complete.';
+      read='Bearish structure setup was visible, but confirmation was still developing.';
 
 
 
@@ -72705,7 +72711,7 @@ function renderAlertSidePanel(term, rows, overlap, visibleMask, markerPolicy='co
 
 
 
-      read='Context event detected; use the chart panes for structure and timing context.';
+      read='Structure context event detected; use the chart panes for timing and participation context.';
 
 
 
