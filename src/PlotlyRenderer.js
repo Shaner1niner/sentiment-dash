@@ -16,7 +16,11 @@ const MODULE_CHART_VISUALS = {
     candleUpFill: 'rgba(215,222,232,0.82)',
     candleDownLine: '#7d8590',
     candleDownFill: 'rgba(125,133,144,0.58)',
-    priceLine: '#d7dee8'
+    priceLine: '#d7dee8',
+    priceBandLine: 'rgba(155,220,255,0.62)',
+    overlapBandLine: 'rgba(242,204,96,0.86)',
+    overlapBandFill: 'rgba(242,204,96,0.13)',
+    unavailableText: '#f2cc60'
 };
 
 function compact(values) {
@@ -273,24 +277,17 @@ export class PlotlyRenderer {
     }
 
     static shouldShowPriceBands(state = {}) {
-        const bands = controlMode(state.currentBands, 'none');
-        const ribbon = controlMode(state.currentRibbon, 'none');
-        const scaleMode = controlMode(state.currentScaleMode, 'price_overlays');
-
-        return (scaleMode !== 'price_only'
-            && ['price', 'contextual', 'overlap', 'combined_overlap', 'both'].includes(bands))
-            || ribbon === 'price'
-            || ribbon === 'both'
-            || scaleMode === 'price_overlays';
+        const modes = this.buildControlModeSummary(state);
+        const policy = this.buildBandLayerPolicy(modes);
+        return modes.scaleMode !== 'price_only'
+            && (policy.priceBand || policy.overlapBand || policy.allBandDiagnostics);
     }
 
     static shouldShowSentimentBands(state = {}) {
-        const bands = controlMode(state.currentBands, 'none');
-        const ribbon = controlMode(state.currentRibbon, 'none');
-        const scaleMode = controlMode(state.currentScaleMode, 'price_overlays');
-
-        return scaleMode !== 'price_only'
-            && (bands === 'sentiment' || bands === 'both' || ribbon === 'sentiment' || ribbon === 'both');
+        const modes = this.buildControlModeSummary(state);
+        const policy = this.buildBandLayerPolicy(modes);
+        return modes.scaleMode !== 'price_only'
+            && (policy.sentimentEnvelope || policy.allBandDiagnostics);
     }
 
     static shouldShowAttentionOverlay(state = {}) {
@@ -313,6 +310,70 @@ export class PlotlyRenderer {
             attention: controlMode(state.currentAttention, 'context'),
             bands: controlMode(state.currentBands, 'none'),
             timingView: controlMode(state.currentTimingView, 'both')
+        };
+    }
+
+    static buildBandLayerPolicy(modes = {}) {
+        const bands = controlMode(modes.bands, 'none');
+        const ribbon = controlMode(modes.ribbon, 'none');
+        const scaleMode = controlMode(modes.scaleMode, 'price_overlays');
+        const allBandDiagnostics = bands === 'all' || bands === 'both' || scaleMode === 'all_visible';
+        const overlapBand = allBandDiagnostics
+            || ['contextual', 'combined_overlap', 'canonical_overlap', 'overlap'].includes(bands);
+
+        return {
+            mode: bands,
+            priceBand: allBandDiagnostics || bands === 'price' || ribbon === 'price' || ribbon === 'both',
+            sentimentEnvelope: allBandDiagnostics || bands === 'sentiment' || ribbon === 'sentiment' || ribbon === 'both',
+            overlapBand,
+            allBandDiagnostics
+        };
+    }
+
+    static overlapBandName(modes = {}) {
+        const bands = controlMode(modes.bands, 'none');
+        if (bands === 'contextual' || bands === 'combined_overlap') return 'Combined Overlap';
+        if (bands === 'overlap' || bands === 'canonical_overlap') return 'Canonical Overlap';
+        return 'Overlap';
+    }
+
+    static resolveCombinedOverlapBandSeries(rows = []) {
+        const source = Array.isArray(rows) ? rows : [];
+        const upper = seriesForFirstSupportedField(source, [
+            'boll_upper_overlap_band',
+            'boll_upper_overlap_advanced',
+            'combined_overlap_upper_band',
+            'combined_overlap_upper',
+            'contextual_overlap_upper_band',
+            'contextual_overlap_upper',
+            'overlap_upper_band',
+            'overlap_upper'
+        ], 0.10, 3);
+        const lower = seriesForFirstSupportedField(source, [
+            'boll_lower_overlap_band',
+            'boll_lower_overlap_advanced',
+            'combined_overlap_lower_band',
+            'combined_overlap_lower',
+            'contextual_overlap_lower_band',
+            'contextual_overlap_lower',
+            'overlap_lower_band',
+            'overlap_lower'
+        ], 0.10, 3);
+
+        return upper && lower ? { upper, lower } : null;
+    }
+
+    static overlapBandStatus(rows = [], state = {}) {
+        const modes = this.buildControlModeSummary(state);
+        const policy = this.buildBandLayerPolicy(modes);
+        if (!policy.overlapBand) return null;
+
+        const overlap = this.resolveCombinedOverlapBandSeries(rows);
+        if (overlap) return null;
+
+        return {
+            text: `${this.overlapBandName(modes)} model: unavailable for selected asset/range`,
+            color: MODULE_CHART_VISUALS.unavailableText
         };
     }
 
@@ -508,8 +569,10 @@ export class PlotlyRenderer {
             });
         }
 
+        const bandPolicy = this.buildBandLayerPolicy(modes);
+
         if (this.shouldShowPriceBands(state)) {
-            const priceBandFields = modes.bands === 'price' || modes.ribbon === 'price' || modes.ribbon === 'both'
+            const priceBandFields = bandPolicy.priceBand
                 ? ['close_ma_21', 'close_ma_50']
                 : [];
 
@@ -522,34 +585,39 @@ export class PlotlyRenderer {
                         name: fieldLabel(field),
                         x,
                         y,
-                        line: { width: 1 },
+                        line: { color: MODULE_CHART_VISUALS.priceBandLine, width: 1 },
                         hovertemplate: `%{x}<br>${fieldLabel(field)}: %{y:,.2f}<extra></extra>`
                     });
                 }
             });
 
-            const upperBand = source.map(row => asNumber(row.boll_upper_overlap_band ?? row.boll_upper_overlap_advanced));
-            const lowerBand = source.map(row => asNumber(row.boll_lower_overlap_band ?? row.boll_lower_overlap_advanced));
-            if (hasEnoughSeries(upperBand, source, 0.10, 3) && hasEnoughSeries(lowerBand, source, 0.10, 3)) {
-                traces.push({
-                    type: 'scatter',
-                    mode: 'lines',
-                    name: 'Overlap Upper',
-                    x,
-                    y: upperBand,
-                    line: { width: 1 },
-                    hoverinfo: 'skip'
-                });
-                traces.push({
-                    type: 'scatter',
-                    mode: 'lines',
-                    name: 'Overlap Lower',
-                    x,
-                    y: lowerBand,
-                    line: { width: 1 },
-                    fill: 'tonexty',
-                    hoverinfo: 'skip'
-                });
+            if (bandPolicy.overlapBand) {
+                const overlapBand = this.resolveCombinedOverlapBandSeries(source);
+                if (overlapBand) {
+                    const bandName = this.overlapBandName(modes);
+                    traces.push({
+                        type: 'scatter',
+                        mode: 'lines',
+                        name: `${bandName} Lower`,
+                        x,
+                        y: overlapBand.lower.y,
+                        line: { color: MODULE_CHART_VISUALS.overlapBandLine, width: 1 },
+                        legendgroup: 'combined-overlap',
+                        hovertemplate: `%{x}<br>${bandName} Lower: %{y:,.2f}<extra></extra>`
+                    });
+                    traces.push({
+                        type: 'scatter',
+                        mode: 'lines',
+                        name: `${bandName} Upper`,
+                        x,
+                        y: overlapBand.upper.y,
+                        line: { color: MODULE_CHART_VISUALS.overlapBandLine, width: 1 },
+                        fill: 'tonexty',
+                        fillcolor: MODULE_CHART_VISUALS.overlapBandFill,
+                        legendgroup: 'combined-overlap',
+                        hovertemplate: `%{x}<br>${bandName} Upper: %{y:,.2f}<extra></extra>`
+                    });
+                }
             }
         }
 
@@ -649,6 +717,7 @@ export class PlotlyRenderer {
         const showChartStack = this.hasChartStack(rows);
         const priceDomain = showChartStack ? [0.42, 1] : [0, 1];
         const regimeSummary = this.regimeMarkerSummary(rows, state);
+        const overlapStatus = this.overlapBandStatus(rows, state);
 
         return {
             ...this.withDarkDefaults(baseLayout, state),
@@ -751,6 +820,16 @@ export class PlotlyRenderer {
                     y: 1.08,
                     showarrow: false,
                     font: { color: '#9bdcff', size: 10 },
+                    align: 'left'
+                }] : []),
+                ...(overlapStatus ? [{
+                    text: overlapStatus.text,
+                    xref: 'paper',
+                    yref: 'paper',
+                    x: 0,
+                    y: 1.035,
+                    showarrow: false,
+                    font: { color: overlapStatus.color, size: 10 },
                     align: 'left'
                 }] : []),
                 {
