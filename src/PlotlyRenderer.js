@@ -23,6 +23,16 @@ const MODULE_CHART_VISUALS = {
     unavailableText: '#f2cc60'
 };
 
+const MODULE_TA_PANEL_VISUALS = {
+    thresholdLine: 'rgba(155,220,255,0.20)',
+    midline: 'rgba(148,163,184,0.13)',
+    zeroLine: 'rgba(242,204,96,0.26)',
+    panelBand: 'rgba(155,220,255,0.045)',
+    macdBarOpacity: 0.52,
+    macdLineWidth: 1.25,
+    oscillatorLineWidth: 1.15
+};
+
 function compact(values) {
     return values.filter(value => value !== null && value !== undefined && Number.isFinite(Number(value)));
 }
@@ -449,7 +459,7 @@ export class PlotlyRenderer {
                 x,
                 y: macdHist.y,
                 yaxis: 'y3',
-                marker: { opacity: 0.45 },
+                marker: { opacity: MODULE_TA_PANEL_VISUALS.macdBarOpacity },
                 hovertemplate: `%{x}<br>${fieldLabel(macdHist.field)}: %{y:,.4f}<extra></extra>`
             });
         }
@@ -462,7 +472,7 @@ export class PlotlyRenderer {
                 x,
                 y: macd.y,
                 yaxis: 'y3',
-                line: { width: 1 },
+                line: { width: MODULE_TA_PANEL_VISUALS.macdLineWidth },
                 hovertemplate: `%{x}<br>${fieldLabel(macd.field)}: %{y:,.4f}<extra></extra>`
             });
         }
@@ -489,7 +499,7 @@ export class PlotlyRenderer {
                 x,
                 y: rsi.y,
                 yaxis: 'y4',
-                line: { width: 1 },
+                line: { width: MODULE_TA_PANEL_VISUALS.oscillatorLineWidth },
                 hovertemplate: `%{x}<br>${fieldLabel(rsi.field)}: %{y:,.1f}<extra></extra>`
             });
         }
@@ -504,7 +514,7 @@ export class PlotlyRenderer {
                 x,
                 y: stochRsi.y,
                 yaxis: 'y5',
-                line: { width: 1 },
+                line: { width: MODULE_TA_PANEL_VISUALS.oscillatorLineWidth },
                 hovertemplate: `%{x}<br>${fieldLabel(stochRsi.field)}: %{y:,.1f}<extra></extra>`
             });
         }
@@ -774,31 +784,43 @@ export class PlotlyRenderer {
                 yaxis3: {
                     title: { text: 'MACD', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
                     anchor: 'x',
-                    domain: [0.27, 0.39],
+                    domain: [0.285, 0.405],
                     zeroline: true,
+                    zerolinecolor: MODULE_TA_PANEL_VISUALS.zeroLine,
+                    zerolinewidth: 1,
                     gridcolor: MODULE_CHART_VISUALS.gridSubtle,
-                    zerolinecolor: MODULE_CHART_VISUALS.zeroLine,
-                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 }
+                    linecolor: MODULE_CHART_VISUALS.axisLine,
+                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 },
+                    showline: true,
+                    mirror: false
                 },
                 yaxis4: {
-                    title: { text: 'RSI', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
+                    title: { text: 'RSI 30 / 70', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
                     anchor: 'x',
-                    domain: [0.14, 0.25],
+                    domain: [0.145, 0.265],
                     range: [0, 100],
                     tickvals: [30, 50, 70],
-                    gridcolor: MODULE_CHART_VISUALS.gridSubtle,
+                    ticktext: ['30', '50', '70'],
+                    gridcolor: MODULE_TA_PANEL_VISUALS.midline,
+                    linecolor: MODULE_CHART_VISUALS.axisLine,
                     zeroline: false,
-                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 }
+                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 },
+                    showline: true,
+                    mirror: false
                 },
                 yaxis5: {
-                    title: { text: 'Stoch RSI', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
+                    title: { text: 'Stoch RSI 20 / 80', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
                     anchor: 'x',
-                    domain: [0, 0.12],
+                    domain: [0, 0.125],
                     range: [0, 100],
                     tickvals: [20, 50, 80],
-                    gridcolor: MODULE_CHART_VISUALS.gridSubtle,
+                    ticktext: ['20', '50', '80'],
+                    gridcolor: MODULE_TA_PANEL_VISUALS.midline,
+                    linecolor: MODULE_CHART_VISUALS.axisLine,
                     zeroline: false,
-                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 }
+                    tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 },
+                    showline: true,
+                    mirror: false
                 }
             } : {}),
             showlegend: true,
@@ -809,9 +831,41 @@ export class PlotlyRenderer {
                 borderwidth: 1,
                 font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 }
             },
-            margin: { l: 60, r: showSecondaryAxis ? 64 : 34, t: 56, b: showChartStack ? 62 : 42, ...(baseLayout.margin || {}) },
+            margin: { l: 62, r: showSecondaryAxis ? 68 : 38, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
             annotations: [
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
+                ...(showChartStack ? [
+                    {
+                        text: 'MACD momentum',
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 0.995,
+                        y: 0.405,
+                        xanchor: 'right',
+                        showarrow: false,
+                        font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
+                    },
+                    {
+                        text: 'RSI structure zone',
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 0.995,
+                        y: 0.265,
+                        xanchor: 'right',
+                        showarrow: false,
+                        font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
+                    },
+                    {
+                        text: 'Stoch RSI timing zone',
+                        xref: 'paper',
+                        yref: 'paper',
+                        x: 0.995,
+                        y: 0.125,
+                        xanchor: 'right',
+                        showarrow: false,
+                        font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
+                    }
+                ] : []),
                 ...(regimeSummary ? [{
                     text: regimeSummary,
                     xref: 'paper',
