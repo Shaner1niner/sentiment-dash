@@ -53,7 +53,7 @@ def main() -> int:
         return fail(f"AssetPayloadLoader.js missing token(s): {missing_loader}")
 
     main_tokens = [
-        "import { AssetPayloadLoader } from './AssetPayloadLoader.js';",
+        "import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader_001';",
         "AssetPayloadLoader.loadAsset(ticker)",
         "loadAndRenderAsset(Store.state.currentAsset, targetId)",
         "document.getElementById('chart')",
@@ -64,6 +64,9 @@ def main() -> int:
 
     if "fetch(`./fix26_chart_store_assets/member/${ticker}.json`)" in main:
         return fail("dashboard_main.js still fetches payloads directly")
+
+    if "fix2/public" in loader or "fix2/member" in loader or "fix2/" in main:
+        return fail("module asset loader still references retired fix2 asset path")
 
     print("[OK] AssetPayloadLoader module exists")
     print("[OK] Store tracks current asset payload metadata")

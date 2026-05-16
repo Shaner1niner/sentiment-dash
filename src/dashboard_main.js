@@ -1,5 +1,5 @@
 import { Store } from './Store.js';
-import { AssetPayloadLoader } from './AssetPayloadLoader.js';
+import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader_001';
 import { PlotlyRenderer } from './PlotlyRenderer.js';
 import { MarketTape } from './features/MarketTape.js';
 import { Controls } from './features/Controls.js';
