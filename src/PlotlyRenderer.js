@@ -31,15 +31,32 @@ const MODULE_TA_PANEL_VISUALS = {
     macdBarOpacity: 0.52,
     macdLineWidth: 1.25,
     oscillatorLineWidth: 1.15,
+    rsiPriceLine: 'rgba(202,185,255,0.78)',
+    rsiSentimentLine: 'rgba(242,204,96,0.94)',
     rsiUpperZoneFill: 'rgba(242,204,96,0.055)',
     rsiLowerZoneFill: 'rgba(155,220,255,0.055)',
     priceHighFill: 'rgba(242,204,96,0.135)',
+    rsiHighSoftFill: 'rgba(242,204,96,0.070)',
+    rsiHighMidFill: 'rgba(242,204,96,0.125)',
+    rsiHighDeepFill: 'rgba(242,204,96,0.200)',
     priceLowFill: 'rgba(155,220,255,0.130)',
+    rsiLowSoftFill: 'rgba(155,220,255,0.070)',
+    rsiLowMidFill: 'rgba(155,220,255,0.125)',
+    rsiLowDeepFill: 'rgba(155,220,255,0.195)',
     sentimentHighFill: 'rgba(255,123,114,0.125)',
     sentimentLowFill: 'rgba(126,231,135,0.115)',
     combinedHighFill: 'rgba(255,214,102,0.260)',
+    rsiCombinedHighSoftFill: 'rgba(255,214,102,0.120)',
+    rsiCombinedHighMidFill: 'rgba(255,214,102,0.210)',
+    rsiCombinedHighDeepFill: 'rgba(255,214,102,0.330)',
     combinedLowFill: 'rgba(127,255,212,0.235)',
+    rsiCombinedLowSoftFill: 'rgba(127,255,212,0.105)',
+    rsiCombinedLowMidFill: 'rgba(127,255,212,0.190)',
+    rsiCombinedLowDeepFill: 'rgba(127,255,212,0.305)',
     combinedMixedFill: 'rgba(190,118,255,0.220)',
+    rsiMixedSoftFill: 'rgba(190,118,255,0.100)',
+    rsiMixedMidFill: 'rgba(190,118,255,0.175)',
+    rsiMixedDeepFill: 'rgba(190,118,255,0.285)',
     combinedLine: 'rgba(255,255,255,0.24)'
 };
 
@@ -187,7 +204,26 @@ const MODULE_CHART_STACK_FIELDS = {
     macdSignal: ['macd_signal', 'macd_signal_9', 'macds', 'MACDs', 'MACDs_12_26_9', 'signal_macd'],
     macdHist: ['macd_hist', 'macd_histogram', 'macdh', 'MACDh', 'MACDh_12_26_9', 'macd_diff', 'macd_delta'],
     rsi: ['rsi', 'rsi_14', 'RSI', 'RSI_14', 'relative_strength_index', 'ta_rsi_14'],
-    stochRsi: ['stochastic_rsi', 'stochastic_rsi_k', 'stoch_rsi', 'stochrsi', 'stoch_rsi_k', 'stochrsi_k', 'stoch_rsi_fastk', 'STOCHRSIk_14_14_3_3'],
+    sentimentRsi: [
+        'sentiment_rsi',
+        'sentiment_rsi_14',
+        'sent_rsi',
+        'sent_rsi_14',
+        'rsi_sentiment',
+        'rsi_sentiment_14',
+        'sentiment_relative_strength_index',
+        'combined_sentiment_rsi',
+        'combined_sentiment_rsi_14',
+        'combined_compound_rsi',
+        'combined_compound_rsi_14',
+        'scaled_combined_compound_rsi',
+        'scaled_combined_compound_rsi_14',
+        'compound_rsi',
+        'compound_rsi_14',
+        'snt_rsi',
+        'snt_rsi_14'
+    ],
+    stochRsi: ['stochastic_rsi', 'stochastic_rsi_k', 'sentiment_stochastic_rsi', 'sentiment_stochastic_rsi_k', 'stoch_rsi', 'stochrsi', 'stoch_rsi_k', 'stochrsi_k', 'stoch_rsi_fastk', 'STOCHRSIk_14_14_3_3'],
     stochRsiSignal: ['stochastic_rsi_d', 'sentiment_stochastic_rsi_d', 'stochastic_rsi_signal', 'stoch_rsi_d', 'stochrsi_d', 'stoch_rsi_fastd', 'STOCHRSId_14_14_3_3']
 };
 
@@ -328,6 +364,98 @@ function addRsiZoneFillTracePair(traces, x, y, baseline, fillcolor, name) {
     });
 }
 
+function rsiGradientFillColor(direction, layerName, sentimentState) {
+    const sameDirection = direction === 'high'
+        ? sentimentState === 'high'
+        : sentimentState === 'low';
+
+    const mixedDirection = direction === 'high'
+        ? sentimentState === 'low'
+        : sentimentState === 'high';
+
+    const colors = {
+        high: {
+            price: {
+                soft: MODULE_TA_PANEL_VISUALS.rsiHighSoftFill,
+                mid: MODULE_TA_PANEL_VISUALS.rsiHighMidFill,
+                deep: MODULE_TA_PANEL_VISUALS.rsiHighDeepFill
+            },
+            combined: {
+                soft: MODULE_TA_PANEL_VISUALS.rsiCombinedHighSoftFill,
+                mid: MODULE_TA_PANEL_VISUALS.rsiCombinedHighMidFill,
+                deep: MODULE_TA_PANEL_VISUALS.rsiCombinedHighDeepFill
+            }
+        },
+        low: {
+            price: {
+                soft: MODULE_TA_PANEL_VISUALS.rsiLowSoftFill,
+                mid: MODULE_TA_PANEL_VISUALS.rsiLowMidFill,
+                deep: MODULE_TA_PANEL_VISUALS.rsiLowDeepFill
+            },
+            combined: {
+                soft: MODULE_TA_PANEL_VISUALS.rsiCombinedLowSoftFill,
+                mid: MODULE_TA_PANEL_VISUALS.rsiCombinedLowMidFill,
+                deep: MODULE_TA_PANEL_VISUALS.rsiCombinedLowDeepFill
+            }
+        },
+        mixed: {
+            soft: MODULE_TA_PANEL_VISUALS.rsiMixedSoftFill,
+            mid: MODULE_TA_PANEL_VISUALS.rsiMixedMidFill,
+            deep: MODULE_TA_PANEL_VISUALS.rsiMixedDeepFill
+        }
+    };
+
+    if (mixedDirection) return colors.mixed[layerName];
+    if (sameDirection) return colors[direction].combined[layerName];
+    return colors[direction].price[layerName];
+}
+
+function buildRsiLayerValues(rsiValues = [], sentimentStates = [], spec = {}, stateMode = 'price') {
+    return rsiValues.map((value, index) => {
+        const n = asNumber(value);
+        if (n === null) return null;
+
+        const sentimentState = sentimentStates[index];
+        const sameDirection = spec.direction === 'high'
+            ? sentimentState === 'high'
+            : sentimentState === 'low';
+
+        const mixedDirection = spec.direction === 'high'
+            ? sentimentState === 'low'
+            : sentimentState === 'high';
+
+        if (stateMode === 'price' && sentimentState) return null;
+        if (stateMode === 'combined' && !sameDirection) return null;
+        if (stateMode === 'mixed' && !mixedDirection) return null;
+
+        if (spec.direction === 'high') {
+            if (n <= spec.baseline) return null;
+            return Math.min(n, spec.cap);
+        }
+
+        if (n >= spec.baseline) return null;
+        return Math.max(n, spec.cap);
+    });
+}
+
+function addRsiGradientLayer(traces, x, rsiValues, sentimentStates, spec) {
+    ['price', 'combined', 'mixed'].forEach(stateMode => {
+        const y = buildRsiLayerValues(rsiValues, sentimentStates, spec, stateMode);
+        const color = stateMode === 'price'
+            ? rsiGradientFillColor(spec.direction, spec.layerName, null)
+            : rsiGradientFillColor(spec.direction, spec.layerName, stateMode === 'combined' ? spec.direction : (spec.direction === 'high' ? 'low' : 'high'));
+
+        addRsiZoneFillTracePair(
+            traces,
+            x,
+            y,
+            spec.baseline,
+            color,
+            `${spec.name} ${stateMode}`
+        );
+    });
+}
+
 function buildRsiZoneFillTraces(rows = [], x = [], rsi = null) {
     const source = Array.isArray(rows) ? rows : [];
     if (!source.length || !rsi || !Array.isArray(rsi.y)) return [];
@@ -335,33 +463,14 @@ function buildRsiZoneFillTraces(rows = [], x = [], rsi = null) {
     const sentimentStates = rsiSentimentThresholdStates(source);
     const traces = [];
 
-    const highPrice = [];
-    const highCombined = [];
-    const highMixed = [];
-    const lowPrice = [];
-    const lowCombined = [];
-    const lowMixed = [];
-
-    rsi.y.forEach((value, index) => {
-        const rsiValue = asNumber(value);
-        const sentimentState = sentimentStates[index];
-
-        highPrice.push(rsiValue !== null && rsiValue > 70 && !sentimentState ? rsiValue : null);
-        highCombined.push(rsiValue !== null && rsiValue > 70 && sentimentState === 'high' ? rsiValue : null);
-        highMixed.push(rsiValue !== null && rsiValue > 70 && sentimentState === 'low' ? rsiValue : null);
-
-        lowPrice.push(rsiValue !== null && rsiValue < 30 && !sentimentState ? rsiValue : null);
-        lowCombined.push(rsiValue !== null && rsiValue < 30 && sentimentState === 'low' ? rsiValue : null);
-        lowMixed.push(rsiValue !== null && rsiValue < 30 && sentimentState === 'high' ? rsiValue : null);
-    });
-
-    addRsiZoneFillTracePair(traces, x, highPrice, 70, MODULE_TA_PANEL_VISUALS.priceHighFill, 'RSI upper-zone fill');
-    addRsiZoneFillTracePair(traces, x, highCombined, 70, MODULE_TA_PANEL_VISUALS.combinedHighFill, 'RSI + sentiment upper-zone fill');
-    addRsiZoneFillTracePair(traces, x, highMixed, 70, MODULE_TA_PANEL_VISUALS.combinedMixedFill, 'RSI upper / sentiment lower fill');
-
-    addRsiZoneFillTracePair(traces, x, lowPrice, 30, MODULE_TA_PANEL_VISUALS.priceLowFill, 'RSI lower-zone fill');
-    addRsiZoneFillTracePair(traces, x, lowCombined, 30, MODULE_TA_PANEL_VISUALS.combinedLowFill, 'RSI + sentiment lower-zone fill');
-    addRsiZoneFillTracePair(traces, x, lowMixed, 30, MODULE_TA_PANEL_VISUALS.combinedMixedFill, 'RSI lower / sentiment upper fill');
+    [
+        { direction: 'high', layerName: 'soft', baseline: 70, cap: 80, name: 'RSI 70-80 gradient fill' },
+        { direction: 'high', layerName: 'mid', baseline: 80, cap: 90, name: 'RSI 80-90 gradient fill' },
+        { direction: 'high', layerName: 'deep', baseline: 90, cap: 100, name: 'RSI 90-100 gradient fill' },
+        { direction: 'low', layerName: 'soft', baseline: 30, cap: 20, name: 'RSI 20-30 gradient fill' },
+        { direction: 'low', layerName: 'mid', baseline: 20, cap: 10, name: 'RSI 10-20 gradient fill' },
+        { direction: 'low', layerName: 'deep', baseline: 10, cap: 0, name: 'RSI 0-10 gradient fill' }
+    ].forEach(spec => addRsiGradientLayer(traces, x, rsi.y, sentimentStates, spec));
 
     return traces;
 }
@@ -578,6 +687,7 @@ export class PlotlyRenderer {
             seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macd, 0.12, 5)
             || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macdHist, 0.12, 5)
             || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.rsi, 0.12, 5)
+            || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentRsi, 0.08, 3)
             || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.stochRsi, 0.12, 5)
         );
     }
@@ -676,17 +786,39 @@ export class PlotlyRenderer {
         }
 
         const rsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.rsi, 0.12, 5);
+        const sentimentRsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentRsi, 0.08, 3);
+
         if (rsi) {
             buildRsiZoneFillTraces(source, x, rsi).forEach(trace => traces.push(trace));
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
-                name: 'RSI',
+                name: 'Price RSI',
                 x,
                 y: rsi.y,
                 yaxis: 'y4',
-                line: { width: MODULE_TA_PANEL_VISUALS.oscillatorLineWidth },
+                line: {
+                    color: MODULE_TA_PANEL_VISUALS.rsiPriceLine,
+                    width: MODULE_TA_PANEL_VISUALS.oscillatorLineWidth
+                },
                 hovertemplate: `%{x}<br>${fieldLabel(rsi.field)}: %{y:,.1f}<extra></extra>`
+            });
+        }
+
+        if (sentimentRsi && (!rsi || sentimentRsi.field !== rsi.field)) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Sentiment RSI',
+                x,
+                y: sentimentRsi.y,
+                yaxis: 'y4',
+                line: {
+                    color: MODULE_TA_PANEL_VISUALS.rsiSentimentLine,
+                    width: MODULE_TA_PANEL_VISUALS.oscillatorLineWidth,
+                    dash: 'dot'
+                },
+                hovertemplate: `%{x}<br>${fieldLabel(sentimentRsi.field)}: %{y:,.1f}<extra></extra>`
             });
         }
 
