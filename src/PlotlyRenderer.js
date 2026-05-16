@@ -31,14 +31,14 @@ const MODULE_TA_PANEL_VISUALS = {
     macdBarOpacity: 0.52,
     macdLineWidth: 1.25,
     oscillatorLineWidth: 1.15,
-    priceHighFill: 'rgba(242,204,96,0.090)',
-    priceLowFill: 'rgba(155,220,255,0.085)',
-    sentimentHighFill: 'rgba(255,123,114,0.080)',
-    sentimentLowFill: 'rgba(126,231,135,0.075)',
-    combinedHighFill: 'rgba(255,214,102,0.165)',
-    combinedLowFill: 'rgba(127,255,212,0.145)',
-    combinedMixedFill: 'rgba(190,118,255,0.135)',
-    combinedLine: 'rgba(255,255,255,0.16)'
+    priceHighFill: 'rgba(242,204,96,0.135)',
+    priceLowFill: 'rgba(155,220,255,0.130)',
+    sentimentHighFill: 'rgba(255,123,114,0.125)',
+    sentimentLowFill: 'rgba(126,231,135,0.115)',
+    combinedHighFill: 'rgba(255,214,102,0.260)',
+    combinedLowFill: 'rgba(127,255,212,0.235)',
+    combinedMixedFill: 'rgba(190,118,255,0.220)',
+    combinedLine: 'rgba(255,255,255,0.24)'
 };
 
 function compact(values) {
@@ -291,11 +291,11 @@ function buildThresholdStateBandShapes(rows = []) {
             shapes.push({
                 type: 'rect',
                 xref: 'x',
-                yref: 'paper',
+                yref: 'y4',
                 x0,
                 x1,
-                y0: 0.145,
-                y1: 0.265,
+                y0: 0,
+                y1: 100,
                 fillcolor: style.fillcolor,
                 line: { color: style.width ? MODULE_TA_PANEL_VISUALS.combinedLine : 'rgba(0,0,0,0)', width: style.width },
                 layer: 'below'
@@ -939,7 +939,7 @@ export class PlotlyRenderer {
                     mirror: false
                 },
                 yaxis4: {
-                    title: { text: 'RSI 30 / 70', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
+                    title: { text: 'RSI', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
                     anchor: 'x',
                     domain: [0.145, 0.265],
                     range: [0, 100],
@@ -953,7 +953,7 @@ export class PlotlyRenderer {
                     mirror: false
                 },
                 yaxis5: {
-                    title: { text: 'Stoch RSI 20 / 80', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
+                    title: { text: 'Stoch RSI', font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 } },
                     anchor: 'x',
                     domain: [0, 0.125],
                     range: [0, 100],
