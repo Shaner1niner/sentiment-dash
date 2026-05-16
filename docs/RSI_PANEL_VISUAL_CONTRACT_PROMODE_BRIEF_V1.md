@@ -228,6 +228,70 @@ Suggested treatment:
 
 Do not add glow to Stoch RSI before the RSI panel is locked.
 
+## Engineering guardrails for ProMode
+
+ProMode should refine the design contract and implementation plan. It should not produce a broad, multi-file patch.
+
+### Repo constraints
+
+- Renderer-first work only unless a future phase explicitly says otherwise.
+- Default implementation file: `src/PlotlyRenderer.js`.
+- Do not modify generated payload JSON.
+- Do not change RSI, sentiment RSI, Stoch RSI, score, signal, or threshold formulas.
+- Do not regenerate payloads.
+- Do not change routes, manifests, embeds, public/member coverage, or dashboard mode contracts.
+- Do not edit the monolith unless a later explicit branch requires it.
+- Keep each implementation PR narrow, reversible, and browser-QA-friendly.
+
+### Required validation gates
+
+Every renderer implementation phase should run:
+
+```powershell
+python scripts\smoke_module_plotly_renderer_parity.py
+python scripts\smoke_module_asset_payload_loading.py
+python scripts\smoke_fix26_dashboard.py
+```
+
+Expected warning that is not a blocker:
+
+```text
+embed entry/cache tokens differ
+```
+
+This warning is expected while the public route uses the module runtime and legacy/member routes remain pinned to the monolith.
+
+### Browser QA gates
+
+At minimum, validate visually on:
+
+- `AAPL • Daily • 3M` or `AAPL • Daily • 6M`
+- `BTC • Daily • 1Y`
+- `SOL • Daily • 1Y`
+- `ETH • Daily • 3M`
+
+Check:
+
+- Price RSI is the hero line.
+- Sentiment RSI is visible but subordinate.
+- 30/70/50 rails read as quiet structure, not noise.
+- Breach fill belongs to the RSI contour and does not become a regime block.
+- Stoch RSI stays visually secondary.
+- Legend is not crowded.
+- Panel remains readable at browser widths used by the current dashboard.
+
+### Output format requested from ProMode
+
+ProMode should return:
+
+1. Final visual contract.
+2. Token-level design constants: recommended rgba values, opacity ranges, line widths, dash styles, annotation text, and layering order.
+3. Plotly implementation notes: traces vs shapes, `layer`, `yref`, hover/legend behavior, and ordering.
+4. Phased branch plan with each phase limited to one focused change.
+5. Acceptance criteria per phase.
+6. Smoke-test and browser-QA checklist per phase.
+7. Explicit risks and what not to implement yet.
+
 ## What not to do
 
 Avoid:
@@ -240,6 +304,8 @@ Avoid:
 - too many legends or annotations
 - turning the RSI panel into a nightclub indicator
 - using Structure Score as an RSI threshold driver
+- asking ProMode for a single large code rewrite
+- accepting broad changes outside `src/PlotlyRenderer.js` without a separate explicit phase
 
 ## Recommended implementation phases
 
@@ -337,6 +403,27 @@ The RSI panel should feel like a dark glass instrument: quiet pressure zones, on
 Important source material:
 After this prompt, I am pasting detailed RSI designer specs. Treat those specs as the primary taste direction. Preserve the minimalist, premium, precision-gauge aesthetic, but refine it into an implementable visual contract.
 
+Engineering constraints:
+- Return a visual contract and phased implementation plan, not a broad code rewrite.
+- Default implementation file is `src/PlotlyRenderer.js`.
+- Keep implementation phases renderer-only unless explicitly justified.
+- Do not change formulas, payloads, routes, manifests, public/member coverage, or generated JSON.
+- Do not use Structure Score as an RSI threshold driver.
+- Keep Price RSI as the primary visual line and Sentiment RSI as context.
+- Keep RSI breach fill price-RSI driven unless you explicitly argue for a later sentiment accent phase.
+- Keep each PR narrow, reversible, and browser-QA-friendly.
+
+Validation gates each implementation phase must preserve:
+- `python scripts\\smoke_module_plotly_renderer_parity.py`
+- `python scripts\\smoke_module_asset_payload_loading.py`
+- `python scripts\\smoke_fix26_dashboard.py`
+
+Browser QA targets:
+- `AAPL • Daily • 3M` or `AAPL • Daily • 6M`
+- `BTC • Daily • 1Y`
+- `SOL • Daily • 1Y`
+- `ETH • Daily • 3M`
+
 Please define an implementable visual design contract for this RSI panel, including:
 
 1. Visual hierarchy.
@@ -350,6 +437,8 @@ Please define an implementable visual design contract for this RSI panel, includ
 9. Dynamic caption treatment for states such as RSI neutral, RSI upper stretch, RSI lower reset, RSI + sentiment aligned, and RSI / sentiment diverging.
 10. What not to do.
 11. A phased Plotly implementation plan that minimizes risk and keeps each PR renderer-only.
+12. Recommended smoke-test and browser-QA gates per phase.
+13. Output a concise implementation checklist for Phase 1.
 
 Keep the design restrained, elegant, and product-grade. Favor subtle hierarchy, depth, and clarity over flashy effects.
 ```
@@ -555,6 +644,7 @@ The biggest immediate upgrade would be RSI micro-glow + better threshold rails. 
 - ProMode prompt exists in repo docs.
 - Prompt includes the strongest specs already developed in chat.
 - Source RSI specs are preserved as a copy/paste appendix for ProMode.
+- ProMode prompt includes implementation constraints, validation gates, and browser QA targets.
 - No runtime files are changed.
 - No payload files are changed.
 - No formulas are changed.
