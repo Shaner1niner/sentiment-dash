@@ -293,6 +293,12 @@ Scope:
 - do not repaint the fill
 - possibly brighten sentiment ghost line or add tiny edge accent
 
+## ProMode workflow
+
+Use the **ProMode query** below, then paste **Appendix A — Source RSI specs for ProMode** immediately after it.
+
+The appendix preserves the strongest designer-language specs from chat verbatim enough that ProMode can reason from the original taste direction instead of only the summarized contract.
+
 ## ProMode query
 
 Use the following as the next ProMode prompt.
@@ -328,6 +334,9 @@ Current implementation baseline:
 Desired final feel:
 The RSI panel should feel like a dark glass instrument: quiet pressure zones, one confident violet line, one ghosted sentiment reference, soft fill only when stretched, threshold rails with architectural precision, no loud decoration, no clutter.
 
+Important source material:
+After this prompt, I am pasting detailed RSI designer specs. Treat those specs as the primary taste direction. Preserve the minimalist, premium, precision-gauge aesthetic, but refine it into an implementable visual contract.
+
 Please define an implementable visual design contract for this RSI panel, including:
 
 1. Visual hierarchy.
@@ -345,10 +354,207 @@ Please define an implementable visual design contract for this RSI panel, includ
 Keep the design restrained, elegant, and product-grade. Favor subtle hierarchy, depth, and clarity over flashy effects.
 ```
 
+## Appendix A — Source RSI specs for ProMode
+
+Paste this section into ProMode immediately after the query above.
+
+```text
+My designer-level direction
+
+I would make the RSI panel feel like a precision gauge, not a small chart.
+
+The panel should have three visual layers:
+1. Environment: quiet 30/70 structure zones
+2. Signal: primary RSI line
+3. Context: sentiment RSI as a ghost/reference line
+
+Right now, the zones are too block-like and the two lines compete slightly. I would make the background more atmospheric and the RSI line more intentional.
+
+1. Make the 30/70 zones feel like pressure fields, not rectangles
+
+Current upper/lower bands are correct, but visually they read as flat blocks.
+
+I would keep them, but soften them heavily:
+
+Upper zone 70–100:
+- warm charcoal-amber wash
+- 2–3% opacity
+
+Lower zone 0–30:
+- cool blue-black wash
+- 2–3% opacity
+
+Then add a very subtle inner fade near the threshold:
+
+70–80: almost invisible amber
+80–90: slightly warmer
+90–100: faint but noticeable pressure
+
+20–30: almost invisible blue
+10–20: slightly cooler
+0–10: faint but noticeable pressure
+
+The key is that the zone should not scream overbought/oversold. It should whisper: this area has gravity.
+
+2. Make the 30 and 70 rails cleaner and more luxurious
+
+The threshold lines should be treated like architectural guide rails.
+
+70 rail:
+- 1px line
+- warm amber
+- 18–24% opacity
+- solid or very short dash
+
+30 rail:
+- 1px line
+- cool blue-violet
+- 18–24% opacity
+- solid or very short dash
+
+50 rail:
+- extremely faint neutral gray
+- 8–10% opacity
+
+Right now the panel feels grid-driven. I would make the threshold rails more important than the regular grid, and make the regular grid almost disappear.
+
+3. Make price RSI the hero line
+
+The main RSI line should have more confidence.
+
+Price RSI:
+- color: soft electric violet / lavender
+- opacity: 90–95%
+- width: 1.35–1.6px
+- shape: linear, not overly smoothed
+
+Then give it a micro-glow, not a neon glow:
+
+Duplicate RSI trace behind it:
+- same x/y
+- width: 4–5px
+- opacity: 10–14%
+- same hue
+- hover disabled
+- showlegend false
+
+This gives the line presence without making it flashy. That one move will make it feel premium.
+
+4. Make Sentiment RSI a ghost line, not a second protagonist
+
+The sentiment RSI should be obviously there, but subordinate.
+
+Current dotted line is directionally right. I would make it even more like a reference layer:
+
+Sentiment RSI:
+- color: muted antique gold
+- opacity: 32–42%
+- width: 0.9–1.0px
+- dash: dot or shortdash
+
+It should not compete with the RSI line. It should feel like a second hand on an instrument panel. The line should appear behind price RSI. That is important.
+
+5. Use fill only when RSI breaches — never as general decoration
+
+The best visual moment should be when RSI crosses above 70 or below 30.
+
+For RSI > 70:
+- fill between 70 and RSI line
+- warm amber
+- gradient by depth:
+  - 70–80 very soft
+  - 80–90 medium
+  - 90–100 strongest
+
+For RSI < 30:
+- fill between RSI line and 30
+- cool blue/violet
+- gradient by depth:
+  - 20–30 very soft
+  - 10–20 medium
+  - 0–10 strongest
+
+This creates the same elegant effect from the reference image: the fill belongs to the line, not the whole panel.
+
+Important: do not color the fill based on sentiment yet. That made the panel feel clever but less classy. Sentiment should influence a separate subtle accent later.
+
+6. Add a tiny state read label, but only when useful
+
+The top-right label currently says:
+RSI structure zone
+
+That is okay, but it is too static. Replace it with a dynamic state label:
+- RSI neutral
+- RSI upper stretch
+- RSI lower reset
+- RSI + sentiment aligned
+- RSI / sentiment diverging
+
+Style:
+- font size: 9px
+- uppercase optional
+- letter spacing: 0.04em
+- color: muted cyan/gray
+- opacity: 70%
+- position: top-right inside RSI panel
+
+Do not make it a pill. A pill would be too heavy. Make it a quiet caption.
+
+7. Reduce axis noise
+
+The left axis currently works, but it can become more elegant.
+
+Show only:
+- 70
+- 50
+- 30
+
+Possibly hide 0 and 100.
+
+Tick labels:
+- font size: 9px
+- color: muted blue-gray
+- opacity: 70%
+
+No extra axis title if space gets tight. The panel label already says RSI.
+
+8. Make the panel background slightly dimensional
+
+This is the understated move that makes it feel expensive.
+
+Use a very subtle vertical depth gradient:
+- panel top: rgba(255,255,255,0.012)
+- panel middle: transparent
+- panel bottom: rgba(0,0,0,0.08)
+
+In Plotly, this is hard as a true gradient, but it can be simulated with very low-opacity horizontal rectangles.
+
+The goal is not to notice it. The goal is for the panel to stop feeling flat.
+
+Final target aesthetic:
+- dark glass instrument
+- quiet pressure zones
+- one confident violet line
+- one ghosted sentiment reference
+- soft fill only when stretched
+- threshold rails with architectural precision
+- no loud colors unless the data earns it
+
+Recommended implementation order:
+1. soften zones and rails
+2. add RSI micro-glow
+3. demote sentiment RSI further
+4. refine breach fill opacity
+5. add dynamic state label
+
+The biggest immediate upgrade would be RSI micro-glow + better threshold rails. That will make the current panel feel significantly more premium without making it flashy.
+```
+
 ## Acceptance criteria for this side quest
 
 - ProMode prompt exists in repo docs.
 - Prompt includes the strongest specs already developed in chat.
+- Source RSI specs are preserved as a copy/paste appendix for ProMode.
 - No runtime files are changed.
 - No payload files are changed.
 - No formulas are changed.
