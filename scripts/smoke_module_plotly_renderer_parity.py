@@ -83,7 +83,7 @@ def main() -> int:
         "static buildBandLayerPolicy(modes = {})",
         "static resolveCombinedOverlapBandSeries(rows = [])",
         "static overlapBandStatus(rows = [], state = {})",
-        "Combined overlap model: unavailable",
+        "model: unavailable for selected asset/range",
         "Combined Overlap",
         "Canonical Overlap",
     ]
