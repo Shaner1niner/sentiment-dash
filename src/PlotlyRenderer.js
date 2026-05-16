@@ -30,7 +30,15 @@ const MODULE_TA_PANEL_VISUALS = {
     panelBand: 'rgba(155,220,255,0.045)',
     macdBarOpacity: 0.52,
     macdLineWidth: 1.25,
-    oscillatorLineWidth: 1.15
+    oscillatorLineWidth: 1.15,
+    priceHighFill: 'rgba(242,204,96,0.090)',
+    priceLowFill: 'rgba(155,220,255,0.085)',
+    sentimentHighFill: 'rgba(255,123,114,0.080)',
+    sentimentLowFill: 'rgba(126,231,135,0.075)',
+    combinedHighFill: 'rgba(255,214,102,0.165)',
+    combinedLowFill: 'rgba(127,255,212,0.145)',
+    combinedMixedFill: 'rgba(190,118,255,0.135)',
+    combinedLine: 'rgba(255,255,255,0.16)'
 };
 
 function compact(values) {
@@ -180,6 +188,141 @@ const MODULE_CHART_STACK_FIELDS = {
     stochRsi: ['stochastic_rsi', 'stochastic_rsi_k', 'stoch_rsi', 'stochrsi', 'stoch_rsi_k', 'stochrsi_k', 'stoch_rsi_fastk', 'STOCHRSIk_14_14_3_3'],
     stochRsiSignal: ['stochastic_rsi_d', 'sentiment_stochastic_rsi_d', 'stochastic_rsi_signal', 'stoch_rsi_d', 'stochrsi_d', 'stoch_rsi_fastd', 'STOCHRSId_14_14_3_3']
 };
+
+const MODULE_SENTIMENT_THRESHOLD_FIELDS = {
+    value: [
+        'scaled_combined_compound_ma_21',
+        'scaled_combined_compound_ma_7',
+        'scaled_combined_compound_ma_50',
+        'combined_compound_ma_21',
+        'combined_compound_ma_7',
+        'combined_compound'
+    ],
+    upper: [
+        'sentiment_upper_band',
+        'scaled_sentiment_upper_band',
+        'combined_sentiment_upper_band',
+        'sentiment_upper'
+    ],
+    lower: [
+        'sentiment_lower_band',
+        'scaled_sentiment_lower_band',
+        'combined_sentiment_lower_band',
+        'sentiment_lower'
+    ]
+};
+
+function plotDateValue(row) {
+    return row?.date || row?.dt || row?.timestamp || null;
+}
+
+function segmentEndDateValue(rows, endIndex) {
+    const next = plotDateValue(rows[endIndex + 1]);
+    if (next) return next;
+
+    const currentDate = asDate(rows[endIndex]);
+    const previousDate = asDate(rows[endIndex - 1]);
+    if (currentDate && previousDate) {
+        const step = Math.max(DAY_MS, currentDate.getTime() - previousDate.getTime());
+        return new Date(currentDate.getTime() + step).toISOString();
+    }
+    if (currentDate) return new Date(currentDate.getTime() + DAY_MS).toISOString();
+    return plotDateValue(rows[endIndex]);
+}
+
+function thresholdStateStyle(kind) {
+    const styles = {
+        price_high: { fillcolor: MODULE_TA_PANEL_VISUALS.priceHighFill, width: 0 },
+        price_low: { fillcolor: MODULE_TA_PANEL_VISUALS.priceLowFill, width: 0 },
+        sentiment_high: { fillcolor: MODULE_TA_PANEL_VISUALS.sentimentHighFill, width: 0 },
+        sentiment_low: { fillcolor: MODULE_TA_PANEL_VISUALS.sentimentLowFill, width: 0 },
+        combined_high: { fillcolor: MODULE_TA_PANEL_VISUALS.combinedHighFill, width: 1 },
+        combined_low: { fillcolor: MODULE_TA_PANEL_VISUALS.combinedLowFill, width: 1 },
+        combined_mixed: { fillcolor: MODULE_TA_PANEL_VISUALS.combinedMixedFill, width: 1 }
+    };
+    return styles[kind] || null;
+}
+
+function buildThresholdStateBandShapes(rows = []) {
+    const source = Array.isArray(rows) ? rows : [];
+    if (!source.length) return [];
+
+    const rsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.rsi, 0.12, 5);
+    if (!rsi) return [];
+
+    const sentimentValue = seriesForFirstSupportedField(source, MODULE_SENTIMENT_THRESHOLD_FIELDS.value, 0.12, 5);
+    const sentimentUpper = seriesForFirstSupportedField(source, MODULE_SENTIMENT_THRESHOLD_FIELDS.upper, 0.10, 3);
+    const sentimentLower = seriesForFirstSupportedField(source, MODULE_SENTIMENT_THRESHOLD_FIELDS.lower, 0.10, 3);
+    const hasSentimentEnvelope = Boolean(sentimentValue && sentimentUpper && sentimentLower);
+
+    const stateForIndex = (index) => {
+        const rsiValue = asNumber(rsi.y[index]);
+        const priceState = rsiValue !== null && rsiValue > 70
+            ? 'high'
+            : (rsiValue !== null && rsiValue < 30 ? 'low' : null);
+
+        let sentimentState = null;
+        if (hasSentimentEnvelope) {
+            const value = asNumber(sentimentValue.y[index]);
+            const upper = asNumber(sentimentUpper.y[index]);
+            const lower = asNumber(sentimentLower.y[index]);
+            sentimentState = value !== null && upper !== null && value > upper
+                ? 'high'
+                : (value !== null && lower !== null && value < lower ? 'low' : null);
+        }
+
+        if (priceState && sentimentState) {
+            return priceState === sentimentState ? `combined_${priceState}` : 'combined_mixed';
+        }
+        if (priceState) return `price_${priceState}`;
+        if (sentimentState) return `sentiment_${sentimentState}`;
+        return null;
+    };
+
+    const shapes = [];
+    let active = null;
+
+    const closeActive = (endIndex) => {
+        if (!active) return;
+        const style = thresholdStateStyle(active.kind);
+        const x0 = plotDateValue(source[active.start]);
+        const x1 = segmentEndDateValue(source, endIndex);
+        if (style && x0 && x1 && x0 !== x1) {
+            shapes.push({
+                type: 'rect',
+                xref: 'x',
+                yref: 'paper',
+                x0,
+                x1,
+                y0: 0.145,
+                y1: 0.265,
+                fillcolor: style.fillcolor,
+                line: { color: style.width ? MODULE_TA_PANEL_VISUALS.combinedLine : 'rgba(0,0,0,0)', width: style.width },
+                layer: 'below'
+            });
+        }
+        active = null;
+    };
+
+    source.forEach((row, index) => {
+        const kind = stateForIndex(index);
+        if (!kind) {
+            closeActive(index - 1);
+            return;
+        }
+        if (!active) {
+            active = { kind, start: index };
+            return;
+        }
+        if (active.kind !== kind) {
+            closeActive(index - 1);
+            active = { kind, start: index };
+        }
+    });
+
+    closeActive(source.length - 1);
+    return shapes;
+}
 
 function withoutUndefinedLayoutKeys(layout = {}) {
     return Object.fromEntries(
@@ -728,6 +871,7 @@ export class PlotlyRenderer {
         const priceDomain = showChartStack ? [0.42, 1] : [0, 1];
         const regimeSummary = this.regimeMarkerSummary(rows, state);
         const overlapStatus = this.overlapBandStatus(rows, state);
+        const thresholdStateBandShapes = showChartStack ? buildThresholdStateBandShapes(rows) : [];
 
         return {
             ...this.withDarkDefaults(baseLayout, state),
@@ -832,6 +976,10 @@ export class PlotlyRenderer {
                 font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 }
             },
             margin: { l: 62, r: showSecondaryAxis ? 68 : 38, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
+            shapes: [
+                ...((baseLayout && Array.isArray(baseLayout.shapes)) ? baseLayout.shapes : []),
+                ...thresholdStateBandShapes
+            ],
             annotations: [
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
                 ...(showChartStack ? [
@@ -846,7 +994,7 @@ export class PlotlyRenderer {
                         font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
                     },
                     {
-                        text: 'RSI structure zone',
+                        text: 'RSI structure zone • shaded extremes',
                         xref: 'paper',
                         yref: 'paper',
                         x: 0.995,
