@@ -120965,7 +120965,7 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
-    return label ? `SETA Score ${score} · ${esc(label)}` : `SETA Score ${score}`;
+    return label ? `Structure Score ${score} · ${esc(label)}` : `Structure Score ${score}`;
 
 
 
@@ -126405,7 +126405,7 @@ window.__MARKET_TAPE_CACHE_BUST__ = 'market_tape_cache_013';
 
 
 
-    {term:"SETA Score", aliases:["Summary Score"], definition:"Composite SETA read for the selected asset/date. It blends sentiment structure, attention, ribbon, and timing context into a 0-100 dashboard score."},
+    {term:"Structure Score", aliases:["SETA Score","Summary Score"], definition:"Composite SETA read for the selected asset/date. It blends sentiment structure, attention, ribbon, and timing context into a 0-100 structure score."},
 
 
 

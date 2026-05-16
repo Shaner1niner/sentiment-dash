@@ -141,7 +141,7 @@ function regimeMarkerHoverText(row, definition) {
         hoverNumber('Close', firstRowValue(row, ['close', 'latest_close', 'price']), 2),
         hoverText('Ribbon', firstRowValue(row, ['sentiment_ribbon_state', 'sent_ribbon_state', 'sentiment_ribbon', 'ribbon_state']), 72),
         hoverText('Regime', firstRowValue(row, ['regime_label', 'regime', 'market_regime', 'context_regime']), 72),
-        hoverNumber('SETA score', firstRowValue(row, ['seta_dashboard_summary_score', 'seta_score', 'dashboard_score']), 1),
+        hoverNumber('Structure Score', firstRowValue(row, ['seta_dashboard_summary_score', 'seta_score', 'dashboard_score']), 1),
         hoverNumber('Attention', firstRowValue(row, ['attention_level_score', 'attention_priority_score', 'screener_attention_priority_score']), 1),
         hoverText('Direction', firstRowValue(row, ['signal_consensus_direction_label', 'direction_label', 'direction']), 72)
     ].filter(Boolean);
@@ -690,12 +690,12 @@ export class PlotlyRenderer {
                 traces.push({
                     type: 'scatter',
                     mode: 'lines',
-                    name: 'SETA Score',
+                    name: 'Structure Score',
                     x,
                     y: dashboardScore,
                     yaxis: 'y2',
                     line: { width: 1 },
-                    hovertemplate: '%{x}<br>SETA Score: %{y:,.1f}<extra></extra>'
+                    hovertemplate: '%{x}<br>Structure Score: %{y:,.1f}<extra></extra>'
                 });
             }
         }
