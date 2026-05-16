@@ -38,7 +38,8 @@ const MODULE_TA_PANEL_VISUALS = {
     rsiLowerRail: 'rgba(155,180,255,0.22)',
     rsiMidRail: 'rgba(148,163,184,0.09)',
     rsiSentimentLine: 'rgba(242,204,96,0.36)',
-    stochRsiLine: 'rgba(126,231,135,0.58)',
+    stochRsiLine: 'rgba(126,231,185,0.58)',
+    stochRsiSentimentLine: 'rgba(242,204,96,0.28)',
     stochRsiSignalLine: 'rgba(255,123,114,0.46)',
     stochUpperRail: 'rgba(242,204,96,0.14)',
     stochLowerRail: 'rgba(155,180,255,0.14)',
@@ -235,8 +236,35 @@ const MODULE_CHART_STACK_FIELDS = {
         'snt_rsi',
         'snt_rsi_14'
     ],
-    stochRsi: ['stochastic_rsi', 'stochastic_rsi_k', 'sentiment_stochastic_rsi', 'sentiment_stochastic_rsi_k', 'stoch_rsi', 'stochrsi', 'stoch_rsi_k', 'stochrsi_k', 'stoch_rsi_fastk', 'STOCHRSIk_14_14_3_3'],
-    stochRsiSignal: ['stochastic_rsi_d', 'sentiment_stochastic_rsi_d', 'stochastic_rsi_signal', 'stoch_rsi_d', 'stochrsi_d', 'stoch_rsi_fastd', 'STOCHRSId_14_14_3_3']
+    stochRsi: ['stochastic_rsi', 'stochastic_rsi_k', 'stoch_rsi', 'stochrsi', 'stoch_rsi_k', 'stochrsi_k', 'stoch_rsi_fastk', 'STOCHRSIk_14_14_3_3'],
+    sentimentStochRsi: [
+        'sentiment_stochastic_rsi',
+        'sentiment_stochastic_rsi_k',
+        'sentiment_stoch_rsi',
+        'sentiment_stoch_rsi_k',
+        'sent_stochastic_rsi',
+        'sent_stochastic_rsi_k',
+        'sent_stoch_rsi',
+        'sent_stoch_rsi_k',
+        'stoch_rsi_sentiment',
+        'stochrsi_sentiment',
+        'combined_sentiment_stochastic_rsi',
+        'combined_sentiment_stoch_rsi',
+        'combined_compound_stochastic_rsi',
+        'combined_compound_stoch_rsi',
+        'scaled_combined_compound_stochastic_rsi',
+        'scaled_combined_compound_stoch_rsi'
+    ],
+    stochRsiSignal: ['stochastic_rsi_d', 'stochastic_rsi_signal', 'stoch_rsi_d', 'stochrsi_d', 'stoch_rsi_fastd', 'STOCHRSId_14_14_3_3'],
+    sentimentStochRsiSignal: [
+        'sentiment_stochastic_rsi_d',
+        'sentiment_stoch_rsi_d',
+        'sent_stochastic_rsi_d',
+        'sent_stoch_rsi_d',
+        'combined_sentiment_stochastic_rsi_d',
+        'combined_compound_stochastic_rsi_d',
+        'scaled_combined_compound_stochastic_rsi_d'
+    ]
 };
 
 const MODULE_SENTIMENT_THRESHOLD_FIELDS = {
@@ -872,7 +900,23 @@ export class PlotlyRenderer {
         }
 
         const stochRsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.stochRsi, 0.12, 5);
+        const sentimentStochRsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentStochRsi, 0.08, 3);
         const stochRsiSignal = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.stochRsiSignal, 0.12, 5);
+        const sentimentStochRsiSignal = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentStochRsiSignal, 0.08, 3);
+
+        if (sentimentStochRsi && (!stochRsi || sentimentStochRsi.field !== stochRsi.field)) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Sentiment Stoch RSI',
+                x,
+                y: sentimentStochRsi.y,
+                yaxis: 'y5',
+                line: { color: MODULE_TA_PANEL_VISUALS.stochRsiSentimentLine, width: 0.85 },
+                hovertemplate: `%{x}<br>${fieldLabel(sentimentStochRsi.field)}: %{y:,.1f}<extra></extra>`
+            });
+        }
+
         if (stochRsi) {
             traces.push({
                 type: 'scatter',
@@ -881,17 +925,19 @@ export class PlotlyRenderer {
                 x,
                 y: stochRsi.y,
                 yaxis: 'y5',
-                line: { color: MODULE_TA_PANEL_VISUALS.stochRsiLine, width: 1.0 },
+                line: { color: MODULE_TA_PANEL_VISUALS.stochRsiLine, width: 1.05 },
                 hovertemplate: `%{x}<br>${fieldLabel(stochRsi.field)}: %{y:,.1f}<extra></extra>`
             });
         }
-        if (stochRsiSignal) {
+
+        if (stochRsiSignal || sentimentStochRsiSignal) {
+            const signal = stochRsiSignal || sentimentStochRsiSignal;
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Stoch RSI Signal',
                 x,
-                y: stochRsiSignal.y,
+                y: signal.y,
                 yaxis: 'y5',
                 visible: 'legendonly',
                 showlegend: false,
