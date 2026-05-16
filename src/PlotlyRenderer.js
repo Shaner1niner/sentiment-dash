@@ -31,6 +31,8 @@ const MODULE_TA_PANEL_VISUALS = {
     macdBarOpacity: 0.52,
     macdLineWidth: 1.25,
     oscillatorLineWidth: 1.15,
+    rsiUpperZoneFill: 'rgba(242,204,96,0.055)',
+    rsiLowerZoneFill: 'rgba(155,220,255,0.055)',
     priceHighFill: 'rgba(242,204,96,0.135)',
     priceLowFill: 'rgba(155,220,255,0.130)',
     sentimentHighFill: 'rgba(255,123,114,0.125)',
@@ -243,85 +245,125 @@ function thresholdStateStyle(kind) {
     return styles[kind] || null;
 }
 
-function buildThresholdStateBandShapes(rows = []) {
+function rsiSentimentThresholdStates(rows = []) {
     const source = Array.isArray(rows) ? rows : [];
-    if (!source.length) return [];
-
-    const rsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.rsi, 0.12, 5);
-    if (!rsi) return [];
-
     const sentimentValue = seriesForFirstSupportedField(source, MODULE_SENTIMENT_THRESHOLD_FIELDS.value, 0.12, 5);
     const sentimentUpper = seriesForFirstSupportedField(source, MODULE_SENTIMENT_THRESHOLD_FIELDS.upper, 0.10, 3);
     const sentimentLower = seriesForFirstSupportedField(source, MODULE_SENTIMENT_THRESHOLD_FIELDS.lower, 0.10, 3);
-    const hasSentimentEnvelope = Boolean(sentimentValue && sentimentUpper && sentimentLower);
 
-    const stateForIndex = (index) => {
-        const rsiValue = asNumber(rsi.y[index]);
-        const priceState = rsiValue !== null && rsiValue > 70
-            ? 'high'
-            : (rsiValue !== null && rsiValue < 30 ? 'low' : null);
+    if (!sentimentValue || !sentimentUpper || !sentimentLower) {
+        return source.map(() => null);
+    }
 
-        let sentimentState = null;
-        if (hasSentimentEnvelope) {
-            const value = asNumber(sentimentValue.y[index]);
-            const upper = asNumber(sentimentUpper.y[index]);
-            const lower = asNumber(sentimentLower.y[index]);
-            sentimentState = value !== null && upper !== null && value > upper
-                ? 'high'
-                : (value !== null && lower !== null && value < lower ? 'low' : null);
-        }
+    return source.map((row, index) => {
+        const value = asNumber(sentimentValue.y[index]);
+        const upper = asNumber(sentimentUpper.y[index]);
+        const lower = asNumber(sentimentLower.y[index]);
 
-        if (priceState && sentimentState) {
-            return priceState === sentimentState ? `combined_${priceState}` : 'combined_mixed';
-        }
-        if (priceState) return `price_${priceState}`;
-        if (sentimentState) return `sentiment_${sentimentState}`;
+        if (value !== null && upper !== null && value > upper) return 'high';
+        if (value !== null && lower !== null && value < lower) return 'low';
         return null;
-    };
+    });
+}
 
-    const shapes = [];
-    let active = null;
+function buildRsiZoneBackgroundShapes() {
+    return [
+        {
+            type: 'rect',
+            xref: 'paper',
+            yref: 'y4',
+            x0: 0,
+            x1: 1,
+            y0: 70,
+            y1: 100,
+            fillcolor: MODULE_TA_PANEL_VISUALS.rsiUpperZoneFill,
+            line: { color: 'rgba(0,0,0,0)', width: 0 },
+            layer: 'below'
+        },
+        {
+            type: 'rect',
+            xref: 'paper',
+            yref: 'y4',
+            x0: 0,
+            x1: 1,
+            y0: 0,
+            y1: 30,
+            fillcolor: MODULE_TA_PANEL_VISUALS.rsiLowerZoneFill,
+            line: { color: 'rgba(0,0,0,0)', width: 0 },
+            layer: 'below'
+        }
+    ];
+}
 
-    const closeActive = (endIndex) => {
-        if (!active) return;
-        const style = thresholdStateStyle(active.kind);
-        const x0 = plotDateValue(source[active.start]);
-        const x1 = segmentEndDateValue(source, endIndex);
-        if (style && x0 && x1 && x0 !== x1) {
-            shapes.push({
-                type: 'rect',
-                xref: 'x',
-                yref: 'y4',
-                x0,
-                x1,
-                y0: 0,
-                y1: 100,
-                fillcolor: style.fillcolor,
-                line: { color: style.width ? MODULE_TA_PANEL_VISUALS.combinedLine : 'rgba(0,0,0,0)', width: style.width },
-                layer: 'below'
-            });
-        }
-        active = null;
-    };
+function addRsiZoneFillTracePair(traces, x, y, baseline, fillcolor, name) {
+    const active = y.map(value => asNumber(value) !== null);
+    if (!active.some(Boolean)) return;
 
-    source.forEach((row, index) => {
-        const kind = stateForIndex(index);
-        if (!kind) {
-            closeActive(index - 1);
-            return;
-        }
-        if (!active) {
-            active = { kind, start: index };
-            return;
-        }
-        if (active.kind !== kind) {
-            closeActive(index - 1);
-            active = { kind, start: index };
-        }
+    traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: `${name} baseline`,
+        x,
+        y: active.map(isActive => isActive ? baseline : null),
+        yaxis: 'y4',
+        line: { width: 0, color: 'rgba(0,0,0,0)' },
+        hoverinfo: 'skip',
+        showlegend: false,
+        connectgaps: false
     });
 
-    closeActive(source.length - 1);
-    return shapes;
+    traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name,
+        x,
+        y,
+        yaxis: 'y4',
+        line: { width: 0, color: 'rgba(0,0,0,0)' },
+        fill: 'tonexty',
+        fillcolor,
+        hoverinfo: 'skip',
+        showlegend: false,
+        connectgaps: false
+    });
+}
+
+function buildRsiZoneFillTraces(rows = [], x = [], rsi = null) {
+    const source = Array.isArray(rows) ? rows : [];
+    if (!source.length || !rsi || !Array.isArray(rsi.y)) return [];
+
+    const sentimentStates = rsiSentimentThresholdStates(source);
+    const traces = [];
+
+    const highPrice = [];
+    const highCombined = [];
+    const highMixed = [];
+    const lowPrice = [];
+    const lowCombined = [];
+    const lowMixed = [];
+
+    rsi.y.forEach((value, index) => {
+        const rsiValue = asNumber(value);
+        const sentimentState = sentimentStates[index];
+
+        highPrice.push(rsiValue !== null && rsiValue > 70 && !sentimentState ? rsiValue : null);
+        highCombined.push(rsiValue !== null && rsiValue > 70 && sentimentState === 'high' ? rsiValue : null);
+        highMixed.push(rsiValue !== null && rsiValue > 70 && sentimentState === 'low' ? rsiValue : null);
+
+        lowPrice.push(rsiValue !== null && rsiValue < 30 && !sentimentState ? rsiValue : null);
+        lowCombined.push(rsiValue !== null && rsiValue < 30 && sentimentState === 'low' ? rsiValue : null);
+        lowMixed.push(rsiValue !== null && rsiValue < 30 && sentimentState === 'high' ? rsiValue : null);
+    });
+
+    addRsiZoneFillTracePair(traces, x, highPrice, 70, MODULE_TA_PANEL_VISUALS.priceHighFill, 'RSI upper-zone fill');
+    addRsiZoneFillTracePair(traces, x, highCombined, 70, MODULE_TA_PANEL_VISUALS.combinedHighFill, 'RSI + sentiment upper-zone fill');
+    addRsiZoneFillTracePair(traces, x, highMixed, 70, MODULE_TA_PANEL_VISUALS.combinedMixedFill, 'RSI upper / sentiment lower fill');
+
+    addRsiZoneFillTracePair(traces, x, lowPrice, 30, MODULE_TA_PANEL_VISUALS.priceLowFill, 'RSI lower-zone fill');
+    addRsiZoneFillTracePair(traces, x, lowCombined, 30, MODULE_TA_PANEL_VISUALS.combinedLowFill, 'RSI + sentiment lower-zone fill');
+    addRsiZoneFillTracePair(traces, x, lowMixed, 30, MODULE_TA_PANEL_VISUALS.combinedMixedFill, 'RSI lower / sentiment upper fill');
+
+    return traces;
 }
 
 function withoutUndefinedLayoutKeys(layout = {}) {
@@ -635,6 +677,7 @@ export class PlotlyRenderer {
 
         const rsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.rsi, 0.12, 5);
         if (rsi) {
+            buildRsiZoneFillTraces(source, x, rsi).forEach(trace => traces.push(trace));
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
@@ -871,7 +914,7 @@ export class PlotlyRenderer {
         const priceDomain = showChartStack ? [0.42, 1] : [0, 1];
         const regimeSummary = this.regimeMarkerSummary(rows, state);
         const overlapStatus = this.overlapBandStatus(rows, state);
-        const thresholdStateBandShapes = showChartStack ? buildThresholdStateBandShapes(rows) : [];
+        const rsiZoneBackgroundShapes = showChartStack ? buildRsiZoneBackgroundShapes() : [];
 
         return {
             ...this.withDarkDefaults(baseLayout, state),
@@ -978,7 +1021,7 @@ export class PlotlyRenderer {
             margin: { l: 62, r: showSecondaryAxis ? 68 : 38, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
             shapes: [
                 ...((baseLayout && Array.isArray(baseLayout.shapes)) ? baseLayout.shapes : []),
-                ...thresholdStateBandShapes
+                ...rsiZoneBackgroundShapes
             ],
             annotations: [
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
@@ -994,7 +1037,7 @@ export class PlotlyRenderer {
                         font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
                     },
                     {
-                        text: 'RSI structure zone • shaded extremes',
+                        text: 'RSI structure zone',
                         xref: 'paper',
                         yref: 'paper',
                         x: 0.995,
