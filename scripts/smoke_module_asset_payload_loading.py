@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 STORE = ROOT / "src" / "Store.js"
 LOADER = ROOT / "src" / "AssetPayloadLoader.js"
 MAIN = ROOT / "src" / "dashboard_main.js"
+CONTROLS = ROOT / "src" / "features" / "Controls.js"
 
 
 def fail(message: str) -> int:
@@ -19,13 +20,14 @@ def read(path: Path) -> str:
 
 
 def main() -> int:
-    for path in [STORE, LOADER, MAIN]:
+    for path in [STORE, LOADER, MAIN, CONTROLS]:
         if not path.exists():
             return fail(f"missing {path.relative_to(ROOT)}")
 
     store = read(STORE)
     loader = read(LOADER)
     main = read(MAIN)
+    controls = read(CONTROLS)
 
     store_tokens = [
         "currentAssetPayload: null",
@@ -54,13 +56,27 @@ def main() -> int:
 
     main_tokens = [
         "import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader_001';",
-        "AssetPayloadLoader.loadAsset(ticker)",
+        "AssetPayloadLoader.loadAsset(requestedAsset)",
+        "activeAssetLoadRequestId",
+        "renderAssetLoadError(targetId, requestedAsset, error)",
+        "skipping stale payload",
         "loadAndRenderAsset(Store.state.currentAsset, targetId)",
         "document.getElementById('chart')",
     ]
     missing_main = [token for token in main_tokens if token not in main]
     if missing_main:
         return fail(f"dashboard_main.js missing token(s): {missing_main}")
+
+
+    controls_tokens = [
+        "fix26_chart_store_public_index.json",
+        "fix26_chart_store_member_index.json",
+        "Store.setAssetStoreIndex(data)",
+        "chart-covered tickers",
+    ]
+    missing_controls = [token for token in controls_tokens if token not in controls]
+    if missing_controls:
+        return fail(f"Controls.js missing token(s): {missing_controls}")
 
     if "fetch(`./fix26_chart_store_assets/member/${ticker}.json`)" in main:
         return fail("dashboard_main.js still fetches payloads directly")

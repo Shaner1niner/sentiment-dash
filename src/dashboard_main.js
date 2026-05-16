@@ -59,33 +59,80 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+let activeAssetLoadRequestId = 0;
+
+function normalizeAssetTicker(value) {
+    return String(value || Store.state.currentAsset || 'BTC').trim().toUpperCase();
+}
+
+function renderAssetLoadError(targetId, ticker, error) {
+    const chartContainer = document.getElementById(targetId);
+    if (!chartContainer) return;
+
+    try {
+        if (window.Plotly && typeof window.Plotly.purge === 'function') {
+            window.Plotly.purge(chartContainer);
+        }
+    } catch (_) {}
+
+    chartContainer.innerHTML = `
+      <div style="display:grid;place-items:center;min-height:360px;padding:32px;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:#0d1117;color:#c9d1d9;text-align:center;">
+        <div>
+          <strong style="display:block;margin-bottom:8px;color:#ffdf7e;">${ticker} chart payload unavailable on this route.</strong>
+          <span style="color:#8b949e;">Use a chart-covered public asset or open the legacy/research route for broader coverage.</span>
+        </div>
+      </div>
+    `;
+}
+
 async function loadAndRenderAsset(ticker, targetId) {
     const chartContainer = document.getElementById(targetId);
     if (!chartContainer) return;
 
+    const requestedAsset = normalizeAssetTicker(ticker);
+    const requestId = ++activeAssetLoadRequestId;
+
     chartContainer.style.opacity = "0.5";
 
     try {
-        await AssetPayloadLoader.loadAsset(ticker);
-        await renderCurrentPayload(targetId);
+        await AssetPayloadLoader.loadAsset(requestedAsset);
+
+        if (requestId !== activeAssetLoadRequestId || normalizeAssetTicker(Store.state.currentAsset) !== requestedAsset) {
+            return;
+        }
+
+        await renderCurrentPayload(targetId, requestedAsset);
         chartContainer.style.opacity = "1.0";
     } catch (error) {
         console.error("Chart load failed:", error);
+
+        if (requestId === activeAssetLoadRequestId && normalizeAssetTicker(Store.state.currentAsset) === requestedAsset) {
+            renderAssetLoadError(targetId, requestedAsset, error);
+        }
+
         chartContainer.style.opacity = "1.0";
     }
 }
 
-async function renderCurrentPayload(targetId) {
+async function renderCurrentPayload(targetId, requestedAsset = Store.state.currentAsset) {
     const payload = Store.state.currentAssetPayload;
     if (!payload) {
         console.warn("Module renderer: no current asset payload available");
         return;
     }
 
+    const activeAsset = normalizeAssetTicker(requestedAsset);
+    const metaAsset = normalizeAssetTicker(Store.state.assetPayloadMeta?.asset || activeAsset);
+
+    if (metaAsset !== activeAsset) {
+        console.warn(`Module renderer: skipping stale payload ${metaAsset}; active asset is ${activeAsset}`);
+        return;
+    }
+
     await PlotlyRenderer.renderAssetPayload(
         targetId,
         payload,
-        Store.snapshot(),
+        { ...Store.snapshot(), currentAsset: activeAsset },
         payload.config || { responsive: true }
     );
 }

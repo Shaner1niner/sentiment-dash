@@ -1261,6 +1261,24 @@ function sortTapeRows(rows, activeAsset) {
     });
 }
 
+function chartCoveredTickerSet() {
+    const assets = Store.state.assetStoreIndex?.assets;
+    if (!assets || typeof assets !== 'object') return null;
+
+    const tickers = Object.keys(assets)
+        .map(ticker => String(ticker || '').trim().toUpperCase())
+        .filter(Boolean);
+
+    return tickers.length ? new Set(tickers) : null;
+}
+
+function filterRowsToChartCoverage(rows) {
+    const source = Array.isArray(rows) ? rows : [];
+    const covered = chartCoveredTickerSet();
+    if (!covered || !covered.size) return source;
+    return source.filter(row => covered.has(String(row?.ticker || '').trim().toUpperCase()));
+}
+
 function formatScore(score) {
     const n = asNumber(score, null);
     if (n === null) return '—';
@@ -1365,16 +1383,24 @@ export const MarketTape = {
             this.payload = data;
             this.render();
         });
+        Store.on('assetStoreIndexUpdated', () => this.render());
     },
 
     rows() {
-        return assetRowsFromScreener(this.payload || Store.state.screenerStore);
+        return filterRowsToChartCoverage(assetRowsFromScreener(this.payload || Store.state.screenerStore));
     },
 
     render() {
         const target = this.ensureTarget();
-        const activeAsset = String(Store.state.currentAsset || 'BTC').trim().toUpperCase();
-        const rows = sortTapeRows(this.rows(), activeAsset);
+        let activeAsset = String(Store.state.currentAsset || 'BTC').trim().toUpperCase();
+        const baseRows = this.rows();
+
+        if (baseRows.length && !baseRows.some(row => row.ticker === activeAsset)) {
+            activeAsset = baseRows[0].ticker;
+            setTimeout(() => Store.setAsset(activeAsset), 0);
+        }
+
+        const rows = sortTapeRows(baseRows, activeAsset);
         const activeFilter = this.filter || 'all';
         const filteredRows = filterRowsForChip(rows, activeFilter);
         const visibleRows = filteredRows.slice(0, 8);

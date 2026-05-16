@@ -110,6 +110,9 @@ def main() -> int:
         "deriveTagsFromCopy(copy, ticker = '')",
         "moduleMarketTapeItem",
         "Store.setAsset(ticker)",
+        "chartCoveredTickerSet()",
+        "filterRowsToChartCoverage(rows)",
+        "Store.on('assetStoreIndexUpdated'",
     ]
     missing_market = [token for token in market_tokens if token not in market_tape]
     if missing_market:

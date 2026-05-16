@@ -141,25 +141,41 @@ export const Controls = {
         if (!assetSelect) return;
 
         try {
-            const response = await fetch('./fix26_chart_store_member_index.json');
+            const mode = String(window.DASH_MODE_DEFAULT || 'member').trim().toLowerCase() === 'public'
+                ? 'public'
+                : 'member';
+            const indexUrl = mode === 'public'
+                ? './fix26_chart_store_public_index.json'
+                : './fix26_chart_store_member_index.json';
+            const response = await fetch(indexUrl);
             let assets = [];
 
             if (response.ok) {
                 const data = await response.json();
+                Store.setAssetStoreIndex(data);
                 assets = data && data.assets ? Object.keys(data.assets) : (!Array.isArray(data) ? Object.keys(data) : data);
             } else {
                 console.warn("Index fetch failed, using fallback list.");
-                assets = ["AAPL","AMD","AMZN","BTC","ETH","NVDA","SOL"];
+                assets = mode === 'public'
+                    ? ["AAPL","BTC","COIN","ETH","GLD","MSFT","NVDA","SOL"]
+                    : ["AAPL","AMD","AMZN","BTC","ETH","NVDA","SOL"];
             }
+
+            assets = assets
+                .map(ticker => String(ticker || '').trim().toUpperCase())
+                .filter(Boolean)
+                .sort();
 
             const optionsHtml = assets.map(ticker => `<option value="${ticker}">${ticker}</option>`).join('');
             assetSelect.innerHTML = optionsHtml;
 
-            if (Store.state.currentAsset) {
+            if (assets.length && !assets.includes(String(Store.state.currentAsset || '').trim().toUpperCase())) {
+                Store.setAsset(assets[0]);
+            } else if (Store.state.currentAsset) {
                 this.syncControlElement('asset', Store.state.currentAsset);
             }
 
-            console.log(`Controls: Populated asset dropdown with ${assets.length} tickers.`);
+            console.log(`Controls: Populated asset dropdown with ${assets.length} ${mode} chart-covered tickers.`);
 
         } catch (error) {
             console.error("Controls: Failed to populate data:", error);
