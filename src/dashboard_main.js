@@ -7,8 +7,8 @@ import { BriefingPanel } from './features/BriefingPanel.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log("SETA Dashboard V2 Modules Initialized");
+    await Controls.init();
     MarketTape.init();
-    Controls.init();
     await BriefingPanel.init();
 
     const btnBtc = document.getElementById('btn-btc');

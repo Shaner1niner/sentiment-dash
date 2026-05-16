@@ -62,6 +62,7 @@ def main() -> int:
         "skipping stale payload",
         "loadAndRenderAsset(Store.state.currentAsset, targetId)",
         "document.getElementById('chart')",
+        "await Controls.init();",
     ]
     missing_main = [token for token in main_tokens if token not in main]
     if missing_main:
@@ -73,6 +74,8 @@ def main() -> int:
         "fix26_chart_store_member_index.json",
         "Store.setAssetStoreIndex(data)",
         "chart-covered tickers",
+        "isPublicChartCoveredAsset(ticker)",
+        "refusing unsupported public asset option",
     ]
     missing_controls = [token for token in controls_tokens if token not in controls]
     if missing_controls:
