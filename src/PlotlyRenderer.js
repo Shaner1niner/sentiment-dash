@@ -894,8 +894,9 @@ export class PlotlyRenderer {
                 y: stochRsiSignal.y,
                 yaxis: 'y5',
                 visible: 'legendonly',
+                showlegend: false,
                 line: { color: MODULE_TA_PANEL_VISUALS.stochRsiSignalLine, width: 0.9 },
-                hovertemplate: `%{x}<br>${fieldLabel(stochRsiSignal.field)}: %{y:,.1f}<extra></extra>`
+                hoverinfo: 'skip'
             });
         }
 
@@ -1216,28 +1217,28 @@ export class PlotlyRenderer {
                         text: 'MACD momentum',
                         xref: 'paper',
                         yref: 'paper',
-                        x: 0.995,
-                        y: 0.405,
+                        x: 0.985,
+                        y: 0.397,
                         xanchor: 'right',
                         showarrow: false,
                         font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
                     },
                     {
-                        text: 'RSI structure zone',
+                        text: 'RSI pressure',
                         xref: 'paper',
                         yref: 'paper',
-                        x: 0.995,
-                        y: 0.265,
+                        x: 0.985,
+                        y: 0.257,
                         xanchor: 'right',
                         showarrow: false,
                         font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
                     },
                     {
-                        text: 'Stoch RSI timing zone',
+                        text: 'Stoch timing',
                         xref: 'paper',
                         yref: 'paper',
-                        x: 0.995,
-                        y: 0.125,
+                        x: 0.985,
+                        y: 0.117,
                         xanchor: 'right',
                         showarrow: false,
                         font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
