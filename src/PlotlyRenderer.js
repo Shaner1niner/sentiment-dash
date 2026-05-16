@@ -793,7 +793,7 @@ export class PlotlyRenderer {
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
-                name: 'Price RSI',
+                name: 'RSI',
                 x,
                 y: rsi.y,
                 yaxis: 'y4',
