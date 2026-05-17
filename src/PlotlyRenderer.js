@@ -760,8 +760,46 @@ function keywordSummaryFromRow(row, limit = 5) {
     return keywords.slice(0, limit).join(', ');
 }
 
+function cleanAttentionContextPhrase(value) {
+    let text = String(value ?? '')
+        .replace(/[_]+/g, ' ')
+        .replace(/[|]+/g, ';')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    if (!text || /^nan$/i.test(text) || /^null$/i.test(text) || /^none$/i.test(text)) return '';
+
+    text = text
+        .replace(/\bNone Inside\b/gi, '')
+        .replace(/\bNone Outside\b/gi, '')
+        .replace(/\bnot available\b/gi, '')
+        .replace(/\s*[-–—]>\s*/g, ' → ')
+        .replace(/\s*[;]\s*/g, '; ')
+        .replace(/\s*\/\s*/g, ' / ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    if (!text) return '';
+
+    const lower = text.toLowerCase();
+
+    if (/high volume|volume/i.test(text)) return 'High volume';
+    if (/broad|breadth|participation/i.test(text)) return 'Broad participation';
+    if (/crowded/i.test(text)) return /bear/i.test(text) ? 'Crowded bearish pressure' : 'Crowded attention';
+    if (/bearish expansion/i.test(text)) return 'Bearish expansion';
+    if (/bullish expansion/i.test(text)) return 'Bullish expansion';
+    if (/rejection/i.test(text)) return 'Rejection pressure';
+    if (/transition/i.test(text)) return 'Transition pressure';
+    if (/flat/i.test(text)) return 'Flat / mixed pressure';
+    if (/mixed|neutral|low \/ mixed/i.test(text)) return 'Mixed pressure';
+    if (/bull/i.test(text) && !/bear/i.test(text)) return 'Constructive pressure';
+    if (/bear|risk[-\s]?off/i.test(text) && !/bull/i.test(text)) return 'Risk-off pressure';
+
+    return text.length > 44 ? `${text.slice(0, 41).trim()}...` : text;
+}
+
 function attentionNarrativeContextFromRow(row) {
-    const values = [
+    const rawValues = [
         firstRowValue(row, [
             'attention_context',
             'attention_context_summary',
@@ -786,20 +824,44 @@ function attentionNarrativeContextFromRow(row) {
             'volume_regime',
             'participation_regime'
         ])
-    ]
-        .map(value => String(value ?? '').replace(/\s+/g, ' ').trim())
-        .filter(value => value && value.toLowerCase() !== 'nan' && value.toLowerCase() !== 'null');
+    ];
+
+    const pieces = [];
+
+    rawValues.forEach(value => {
+        String(value ?? '')
+            .split(/[;|]/)
+            .map(cleanAttentionContextPhrase)
+            .filter(Boolean)
+            .forEach(phrase => pieces.push(phrase));
+    });
 
     const seen = new Set();
-    const unique = values.filter(value => {
+    const unique = pieces.filter(value => {
         const key = value.toLowerCase();
         if (seen.has(key)) return false;
         seen.add(key);
         return true;
     });
 
-    const joined = unique.slice(0, 3).join(' · ');
-    return joined.length > 120 ? `${joined.slice(0, 117).trim()}...` : joined;
+    const priority = [
+        'Risk-off pressure',
+        'Constructive pressure',
+        'Bearish expansion',
+        'Bullish expansion',
+        'Transition pressure',
+        'Mixed pressure',
+        'Broad participation',
+        'High volume'
+    ];
+
+    const ordered = [
+        ...priority.filter(item => unique.includes(item)),
+        ...unique.filter(item => !priority.includes(item))
+    ];
+
+    const joined = ordered.slice(0, 3).join(' · ');
+    return joined.length > 92 ? `${joined.slice(0, 89).trim()}...` : joined;
 }
 
 function attentionSpikeThreshold(rows = []) {
