@@ -1105,10 +1105,10 @@ function buildAttentionMarkerTraces(rows = []) {
                 color: markerRows.map(row => attentionMarkerStyle(row).fill),
                 line: {
                     color: markerRows.map(row => attentionMarkerStyle(row).line),
-                    width: 0.45
+                    width: 0.25
                 }
             },
-            opacity: 0.58,
+            opacity: 0.40,
             text: markerRows.map(row => attentionMarkerHoverText(row)),
             hovertemplate: '%{text}<extra></extra>'
         }
