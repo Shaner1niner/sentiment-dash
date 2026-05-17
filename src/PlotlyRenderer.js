@@ -1454,27 +1454,6 @@ export class PlotlyRenderer {
             }
         }
 
-        if (this.shouldShowSentimentOverlay(state)) {
-            const sentimentFields = modes.sentimentRibbon === 'full'
-                ? ['scaled_combined_compound_ma_7', 'scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_50']
-                : ['scaled_combined_compound_ma_21'];
-
-            sentimentFields.forEach((field, index) => {
-                const y = finiteSeries(source, field);
-                if (hasEnoughSeries(y, source, 0.18, 5)) {
-                    traces.push({
-                        type: 'scatter',
-                        mode: 'lines',
-                        name: index === 0 && modes.sentimentRibbon !== 'full' ? 'Sentiment MA' : fieldLabel(field),
-                        x,
-                        y,
-                        line: { width: index === 0 ? 1.2 : 0.9 },
-                        hovertemplate: `%{x}<br>${fieldLabel(field)}: %{y:,.2f}<extra></extra>`
-                    });
-                }
-            });
-        }
-
         if (this.shouldShowSentimentBands(state) && tableauSentimentBand) {
             addBandEnvelopeTraces(traces, x, tableauSentimentBand, {
                 name: 'Sentiment Band',
