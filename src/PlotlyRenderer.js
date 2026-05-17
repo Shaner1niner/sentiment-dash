@@ -31,6 +31,15 @@ const MODULE_CHART_VISUALS = {
     attentionMarkerLine: 'rgba(242,204,96,0.86)',
     attentionMarkerFill: 'rgba(242,204,96,0.18)',
     attentionMarkerHalo: 'rgba(242,204,96,0.075)',
+    attentionBullLine: 'rgba(126,231,135,0.88)',
+    attentionBullFill: 'rgba(126,231,135,0.20)',
+    attentionBullHalo: 'rgba(126,231,135,0.075)',
+    attentionBearLine: 'rgba(255,123,114,0.90)',
+    attentionBearFill: 'rgba(255,123,114,0.20)',
+    attentionBearHalo: 'rgba(255,123,114,0.080)',
+    attentionNeutralLine: 'rgba(242,204,96,0.86)',
+    attentionNeutralFill: 'rgba(242,204,96,0.18)',
+    attentionNeutralHalo: 'rgba(242,204,96,0.075)',
     unavailableText: '#f2cc60'
 };
 
@@ -821,9 +830,85 @@ function attentionMarkerSize(row) {
     return Math.max(8, Math.min(15, 8 + normalized / 16));
 }
 
+function attentionDirectionText(row) {
+    return [
+        firstRowValue(row, ['signal_consensus_direction_label', 'direction_label', 'direction', 'screener_direction_label']),
+        firstRowValue(row, ['sentiment_label', 'sentiment_direction', 'compound_label', 'combined_compound_label']),
+        firstAttentionLabel(row)
+    ]
+        .filter(value => value !== null && value !== undefined && value !== '')
+        .join(' ')
+        .toLowerCase();
+}
+
+function attentionDirectionKind(row) {
+    const text = attentionDirectionText(row);
+    const score = asNumber(firstRowValue(row, ['direction_score', 'signal_consensus_direction_score', 'screener_direction_score']));
+    const sentiment = asNumber(firstRowValue(row, [
+        'combined_compound',
+        'compound',
+        'sentiment_compound',
+        'weighted_sentiment',
+        'avg_sentiment',
+        'sentiment_score'
+    ]));
+
+    if (/bear|risk[-\s]?off|negative|down|sell|weak|fragile|distribution|breakdown|fear|panic/.test(text)) {
+        return 'bear';
+    }
+
+    if (/bull|risk[-\s]?on|positive|up|buy|strong|constructive|accumulation|breakout|supportive/.test(text)) {
+        return 'bull';
+    }
+
+    if (score !== null) {
+        if (score >= 55) return 'bull';
+        if (score <= 45) return 'bear';
+    }
+
+    if (sentiment !== null) {
+        if (sentiment > 0.08) return 'bull';
+        if (sentiment < -0.08) return 'bear';
+    }
+
+    return 'neutral';
+}
+
+function attentionMarkerStyle(row) {
+    const kind = attentionDirectionKind(row);
+    if (kind === 'bull') {
+        return {
+            kind,
+            label: 'Constructive attention',
+            line: MODULE_CHART_VISUALS.attentionBullLine,
+            fill: MODULE_CHART_VISUALS.attentionBullFill,
+            halo: MODULE_CHART_VISUALS.attentionBullHalo
+        };
+    }
+
+    if (kind === 'bear') {
+        return {
+            kind,
+            label: 'Risk-off attention',
+            line: MODULE_CHART_VISUALS.attentionBearLine,
+            fill: MODULE_CHART_VISUALS.attentionBearFill,
+            halo: MODULE_CHART_VISUALS.attentionBearHalo
+        };
+    }
+
+    return {
+        kind,
+        label: 'Mixed attention',
+        line: MODULE_CHART_VISUALS.attentionNeutralLine,
+        fill: MODULE_CHART_VISUALS.attentionNeutralFill,
+        halo: MODULE_CHART_VISUALS.attentionNeutralHalo
+    };
+}
+
 function attentionMarkerHoverText(row) {
+    const style = attentionMarkerStyle(row);
     const parts = [
-        '<b>Attention Spike</b>',
+        `<b>${style.label}</b>`,
         hoverText('Date', firstRowValue(row, ['date', 'dt', 'timestamp']), 48),
         hoverNumber('Close', firstRowValue(row, ['close', 'latest_close', 'price']), 2)
     ].filter(Boolean);
@@ -850,7 +935,7 @@ function buildAttentionMarkerTraces(rows = []) {
             marker: {
                 size: markerRows.map(row => attentionMarkerSize(row) + 8),
                 symbol: 'circle',
-                color: MODULE_CHART_VISUALS.attentionMarkerHalo,
+                color: markerRows.map(row => attentionMarkerStyle(row).halo),
                 line: { width: 0, color: 'rgba(0,0,0,0)' }
             },
             hoverinfo: 'skip',
@@ -866,8 +951,8 @@ function buildAttentionMarkerTraces(rows = []) {
             marker: {
                 size: markerRows.map(row => attentionMarkerSize(row)),
                 symbol: 'star-open',
-                color: MODULE_CHART_VISUALS.attentionMarkerFill,
-                line: { color: MODULE_CHART_VISUALS.attentionMarkerLine, width: 1.45 }
+                color: markerRows.map(row => attentionMarkerStyle(row).fill),
+                line: { color: markerRows.map(row => attentionMarkerStyle(row).line), width: 1.45 }
             },
             text: markerRows.map(row => attentionMarkerHoverText(row)),
             hovertemplate: '%{text}<extra></extra>'
