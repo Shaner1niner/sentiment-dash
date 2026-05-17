@@ -896,7 +896,7 @@ export class PlotlyRenderer {
                 x,
                 y: macdHist.y,
                 yaxis: 'y3',
-                marker: { opacity: MODULE_TA_PANEL_VISUALS.macdBarOpacity },
+                marker: { color: macdHistogramColors(macdHist.y) },
                 hovertemplate: `%{x}<br>${fieldLabel(macdHist.field)}: %{y:,.4f}<extra></extra>`
             });
         }
@@ -905,11 +905,30 @@ export class PlotlyRenderer {
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
+                name: 'MACD glow',
+                x,
+                y: macd.y,
+                yaxis: 'y3',
+                line: {
+                    color: MODULE_MACD_PANEL_VISUALS.macdGlowLine,
+                    width: MODULE_MACD_PANEL_VISUALS.macdGlowWidth
+                },
+                hoverinfo: 'skip',
+                showlegend: false,
+                connectgaps: false
+            });
+
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
                 name: 'MACD',
                 x,
                 y: macd.y,
                 yaxis: 'y3',
-                line: { width: MODULE_TA_PANEL_VISUALS.macdLineWidth },
+                line: {
+                    color: MODULE_MACD_PANEL_VISUALS.macdLine,
+                    width: 1.42
+                },
                 hovertemplate: `%{x}<br>${fieldLabel(macd.field)}: %{y:,.4f}<extra></extra>`
             });
         }
@@ -922,7 +941,7 @@ export class PlotlyRenderer {
                 x,
                 y: macdSignal.y,
                 yaxis: 'y3',
-                line: { width: 1, dash: 'dot' },
+                line: { color: MODULE_MACD_PANEL_VISUALS.macdSignalLine, width: 0.95, dash: 'shortdash' },
                 hovertemplate: `%{x}<br>${fieldLabel(macdSignal.field)}: %{y:,.4f}<extra></extra>`
             });
         }
@@ -1278,7 +1297,7 @@ export class PlotlyRenderer {
                 domain: priceDomain,
                 autorange: true,
                 fixedrange: false,
-                gridcolor: 'rgba(148,163,184,0.035)',
+                gridcolor: MODULE_CHART_VISUALS.grid,
                 zerolinecolor: MODULE_CHART_VISUALS.zeroLine,
                 linecolor: MODULE_CHART_VISUALS.axisLine,
                 tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 },
@@ -1306,7 +1325,7 @@ export class PlotlyRenderer {
                     zeroline: true,
                     zerolinecolor: MODULE_TA_PANEL_VISUALS.zeroLine,
                     zerolinewidth: 1,
-                    gridcolor: MODULE_CHART_VISUALS.gridSubtle,
+                    gridcolor: 'rgba(148,163,184,0.035)',
                     linecolor: MODULE_CHART_VISUALS.axisLine,
                     tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 },
                     showline: true,
