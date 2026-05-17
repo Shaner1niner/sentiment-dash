@@ -411,6 +411,33 @@ function movingAverageSeriesForField(rows, field) {
     return rollingMeanSeries(rows, sourceField, window);
 }
 
+function maPeriodFromField(field) {
+    const match = String(field || '').match(/_ma_(\d+)$/);
+    return match ? Number.parseInt(match[1], 10) : null;
+}
+
+function maStackLineStyle(field, stackKind = 'price') {
+    const period = maPeriodFromField(field);
+    const priceStyles = {
+        7: { color: 'rgba(180,232,255,0.78)', width: 1.28, opacity: 0.90 },
+        21: { color: 'rgba(120,190,235,0.58)', width: 1.08, opacity: 0.76 },
+        100: { color: 'rgba(92,128,160,0.38)', width: 0.90, opacity: 0.62 },
+        200: { color: 'rgba(65,92,120,0.30)', width: 0.80, opacity: 0.52 }
+    };
+    const sentimentStyles = {
+        7: { color: 'rgba(255,214,112,0.66)', width: 1.08, opacity: 0.80 },
+        21: { color: 'rgba(218,170,72,0.48)', width: 0.96, opacity: 0.66 },
+        100: { color: 'rgba(154,116,58,0.34)', width: 0.82, opacity: 0.54 },
+        200: { color: 'rgba(112,84,48,0.26)', width: 0.74, opacity: 0.46 }
+    };
+
+    const fallback = stackKind === 'sentiment'
+        ? { color: 'rgba(242,204,96,0.42)', width: 0.86, opacity: 0.58 }
+        : { color: 'rgba(155,220,255,0.42)', width: 0.94, opacity: 0.64 };
+
+    return (stackKind === 'sentiment' ? sentimentStyles : priceStyles)[period] || fallback;
+}
+
 function addMovingAverageRibbonTraces(traces, x, rows, {
     name,
     fields = [],
@@ -418,7 +445,8 @@ function addMovingAverageRibbonTraces(traces, x, rows, {
     softLineColor,
     legendgroup,
     legendrank,
-    width = 0.95
+    width = 0.95,
+    stackKind = 'price'
 }) {
     const source = Array.isArray(rows) ? rows : [];
     const series = fields
@@ -428,8 +456,9 @@ function addMovingAverageRibbonTraces(traces, x, rows, {
     if (series.length < 2) return;
 
     series.forEach((item, index) => {
-        const isHero = index === 0;
-        const traceName = isHero ? name : `${name} ${fieldLabel(item.field)}`;
+        const isLegendTrace = index === 0;
+        const traceName = isLegendTrace ? name : `${name} ${fieldLabel(item.field)}`;
+        const style = maStackLineStyle(item.field, stackKind);
 
         traces.push({
             type: 'scatter',
@@ -438,12 +467,12 @@ function addMovingAverageRibbonTraces(traces, x, rows, {
             x,
             y: item.y,
             line: {
-                color: isHero ? lineColor : softLineColor,
-                width: isHero ? width : Math.max(0.62, width * (0.88 - index * 0.08))
+                color: style.color || (isLegendTrace ? lineColor : softLineColor),
+                width: style.width || (isLegendTrace ? width : Math.max(0.62, width * (0.88 - index * 0.08)))
             },
-            opacity: isHero ? 0.88 : Math.max(0.44, 0.70 - index * 0.08),
+            opacity: style.opacity ?? (isLegendTrace ? 0.88 : Math.max(0.44, 0.70 - index * 0.08)),
             legendgroup,
-            showlegend: isHero,
+            showlegend: isLegendTrace,
             ...(Number.isFinite(legendrank) ? { legendrank } : {}),
             hovertemplate: `%{x}<br>${fieldLabel(item.field)}: %{y:,.2f}<extra></extra>`
         });
@@ -466,7 +495,8 @@ function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
             softLineColor: MODULE_CHART_VISUALS.priceMaRibbonSoftLine,
             legendgroup: 'price-ma-ribbon',
             legendrank: 18,
-            width: 1.12
+            width: 1.12,
+            stackKind: 'price'
         });
     }
 
@@ -482,7 +512,8 @@ function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
             softLineColor: MODULE_CHART_VISUALS.sentimentMaRibbonSoftLine,
             legendgroup: 'sentiment-ma-ribbon',
             legendrank: 28,
-            width: 0.98
+            width: 0.98,
+            stackKind: 'sentiment'
         });
     }
 
