@@ -1052,9 +1052,10 @@ export class PlotlyRenderer {
 
     static overlapBandName(modes = {}) {
         const bands = controlMode(modes.bands, 'none');
-        if (bands === 'contextual' || bands === 'combined_overlap') return 'Combined Overlap';
-        if (bands === 'overlap' || bands === 'canonical_overlap') return 'Canonical Overlap';
-        return 'Overlap';
+        if (['contextual', 'combined_overlap', 'canonical_overlap', 'overlap'].includes(bands)) {
+            return 'Overlap Band';
+        }
+        return 'Overlap Band';
     }
 
     static resolveCombinedOverlapBandSeries(rows = []) {
@@ -1092,7 +1093,7 @@ export class PlotlyRenderer {
         if (overlap) return null;
 
         return {
-            text: `${this.overlapBandName(modes)} model: unavailable for selected asset/range`,
+            text: `Overlap Band unavailable for selected asset/range`,
             color: MODULE_CHART_VISUALS.unavailableText
         };
     }
