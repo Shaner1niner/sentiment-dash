@@ -966,39 +966,72 @@ function attentionMarkerHoverText(row) {
     return `${parts.join('<br>')}${context}`;
 }
 
+function attentionHighlightWidthMs(rows = []) {
+    const dates = (Array.isArray(rows) ? rows : [])
+        .map(asDate)
+        .filter(Boolean)
+        .sort((a, b) => a.getTime() - b.getTime());
+
+    if (dates.length < 2) return DAY_MS * 0.7;
+
+    const steps = [];
+    for (let index = 1; index < dates.length; index += 1) {
+        const step = dates[index].getTime() - dates[index - 1].getTime();
+        if (Number.isFinite(step) && step > 0) steps.push(step);
+    }
+
+    if (!steps.length) return DAY_MS * 0.7;
+
+    steps.sort((a, b) => a - b);
+    const medianStep = steps[Math.floor(steps.length / 2)];
+    return Math.max(DAY_MS * 0.45, Math.min(DAY_MS * 5.5, medianStep * 0.72));
+}
+
+function attentionHighlightPriceRange(rows = []) {
+    const source = Array.isArray(rows) ? rows : [];
+    const lows = source
+        .map(row => asNumber(row?.low ?? row?.close))
+        .filter(value => value !== null);
+    const highs = source
+        .map(row => asNumber(row?.high ?? row?.close))
+        .filter(value => value !== null);
+
+    if (!lows.length || !highs.length) return null;
+
+    const min = Math.min(...lows);
+    const max = Math.max(...highs);
+    const spread = Math.max(1, max - min);
+    const pad = spread * 0.045;
+
+    return {
+        base: min - pad,
+        height: spread + pad * 2
+    };
+}
+
 function buildAttentionMarkerTraces(rows = []) {
     const markerRows = attentionMarkerRows(rows);
-    if (!markerRows.length) return [];
+    const range = attentionHighlightPriceRange(rows);
+
+    if (!markerRows.length || !range) return [];
 
     return [
         {
-            type: 'scatter',
-            mode: 'markers',
-            name: 'Attention spike halo',
-            x: markerRows.map(row => row.date),
-            y: markerRows.map(row => asNumber(row.close)),
-            marker: {
-                size: markerRows.map(row => attentionMarkerSize(row) + 8),
-                symbol: 'circle',
-                color: markerRows.map(row => attentionMarkerStyle(row).halo),
-                line: { width: 0, color: 'rgba(0,0,0,0)' }
-            },
-            hoverinfo: 'skip',
-            showlegend: false
-        },
-        {
-            type: 'scatter',
-            mode: 'markers',
-            name: 'Attention Marks',
+            type: 'bar',
+            name: 'Attention Highlights',
             legendrank: 55,
             x: markerRows.map(row => row.date),
-            y: markerRows.map(row => asNumber(row.close)),
+            y: markerRows.map(() => range.height),
+            base: markerRows.map(() => range.base),
+            width: attentionHighlightWidthMs(rows),
             marker: {
-                size: markerRows.map(row => attentionMarkerSize(row)),
-                symbol: 'star-open',
                 color: markerRows.map(row => attentionMarkerStyle(row).fill),
-                line: { color: markerRows.map(row => attentionMarkerStyle(row).line), width: 1.45 }
+                line: {
+                    color: markerRows.map(row => attentionMarkerStyle(row).line),
+                    width: 0.45
+                }
             },
+            opacity: 0.78,
             text: markerRows.map(row => attentionMarkerHoverText(row)),
             hovertemplate: '%{text}<extra></extra>'
         }
@@ -2014,6 +2047,10 @@ export class PlotlyRenderer {
             : '');
         const traces = [];
 
+        if (this.shouldShowAttentionOverlay(state)) {
+            buildAttentionMarkerTraces(source).forEach(trace => traces.push(trace));
+        }
+
         if (modes.chartType === 'line') {
             traces.push({
                 type: 'scatter',
@@ -2097,10 +2134,6 @@ export class PlotlyRenderer {
                 legendgroup: 'sentiment-band',
                 hoverPrefix: 'Sentiment Band'
             });
-        }
-
-        if (this.shouldShowAttentionOverlay(state)) {
-            buildAttentionMarkerTraces(source).forEach(trace => traces.push(trace));
         }
 
         if (modes.scaleMode === 'all_visible') {
