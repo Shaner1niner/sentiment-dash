@@ -38,11 +38,15 @@ const MODULE_TA_PANEL_VISUALS = {
     rsiLowerRail: 'rgba(155,180,255,0.22)',
     rsiMidRail: 'rgba(148,163,184,0.09)',
     rsiSentimentLine: 'rgba(242,204,96,0.36)',
-    stochRsiLine: 'rgba(126,231,185,0.58)',
-    stochRsiSentimentLine: 'rgba(242,204,96,0.28)',
+    stochRsiLine: 'rgba(126,231,185,0.68)',
+    stochRsiGlowLine: 'rgba(126,231,185,0.095)',
+    stochRsiGlowWidth: 3.25,
+    stochRsiSentimentLine: 'rgba(242,204,96,0.34)',
     stochRsiSignalLine: 'rgba(255,123,114,0.46)',
-    stochUpperRail: 'rgba(242,204,96,0.14)',
-    stochLowerRail: 'rgba(155,180,255,0.14)',
+    stochUpperRail: 'rgba(242,204,96,0.16)',
+    stochUpperZoneFill: 'rgba(242,204,96,0.014)',
+    stochLowerRail: 'rgba(155,180,255,0.16)',
+    stochLowerZoneFill: 'rgba(155,180,255,0.014)',
     stochMidRail: 'rgba(148,163,184,0.07)',
     rsiUpperZoneFill: 'rgba(242,204,96,0.035)',
     rsiLowerZoneFill: 'rgba(155,220,255,0.035)',
@@ -397,6 +401,35 @@ function buildStochRsiRailShapes() {
         horizontalRailShape('y5', 80, MODULE_TA_PANEL_VISUALS.stochUpperRail),
         horizontalRailShape('y5', 50, MODULE_TA_PANEL_VISUALS.stochMidRail),
         horizontalRailShape('y5', 20, MODULE_TA_PANEL_VISUALS.stochLowerRail)
+    ];
+}
+
+function buildStochRsiZoneBackgroundShapes() {
+    return [
+        {
+            type: 'rect',
+            xref: 'paper',
+            yref: 'y5',
+            x0: 0,
+            x1: 1,
+            y0: 80,
+            y1: 100,
+            fillcolor: MODULE_TA_PANEL_VISUALS.stochUpperZoneFill,
+            line: { color: 'rgba(0,0,0,0)', width: 0 },
+            layer: 'below'
+        },
+        {
+            type: 'rect',
+            xref: 'paper',
+            yref: 'y5',
+            x0: 0,
+            x1: 1,
+            y0: 0,
+            y1: 20,
+            fillcolor: MODULE_TA_PANEL_VISUALS.stochLowerZoneFill,
+            line: { color: 'rgba(0,0,0,0)', width: 0 },
+            layer: 'below'
+        }
     ];
 }
 
@@ -910,7 +943,7 @@ export class PlotlyRenderer {
                 x,
                 y: sentimentStochRsi.y,
                 yaxis: 'y5',
-                line: { color: MODULE_TA_PANEL_VISUALS.stochRsiSentimentLine, width: 0.85 },
+                line: { color: MODULE_TA_PANEL_VISUALS.stochRsiSentimentLine, width: 0.9 },
                 hovertemplate: `%{x}<br>${fieldLabel(sentimentStochRsi.field)}: %{y:,.1f}<extra></extra>`
             });
         }
@@ -919,11 +952,27 @@ export class PlotlyRenderer {
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
+                name: 'Stoch RSI glow',
+                x,
+                y: stochRsi.y,
+                yaxis: 'y5',
+                line: {
+                    color: MODULE_TA_PANEL_VISUALS.stochRsiGlowLine,
+                    width: MODULE_TA_PANEL_VISUALS.stochRsiGlowWidth
+                },
+                hoverinfo: 'skip',
+                showlegend: false,
+                connectgaps: false
+            });
+
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
                 name: 'Stoch RSI',
                 x,
                 y: stochRsi.y,
                 yaxis: 'y5',
-                line: { color: MODULE_TA_PANEL_VISUALS.stochRsiLine, width: 1.05 },
+                line: { color: MODULE_TA_PANEL_VISUALS.stochRsiLine, width: 1.12 },
                 hovertemplate: `%{x}<br>${fieldLabel(stochRsi.field)}: %{y:,.1f}<extra></extra>`
             });
         }
@@ -1142,6 +1191,7 @@ export class PlotlyRenderer {
         const overlapStatus = this.overlapBandStatus(rows, state);
         const rsiZoneBackgroundShapes = showChartStack ? buildRsiZoneBackgroundShapes() : [];
         const rsiRailShapes = showChartStack ? buildRsiRailShapes() : [];
+        const stochRsiZoneBackgroundShapes = showChartStack ? buildStochRsiZoneBackgroundShapes() : [];
         const stochRsiRailShapes = showChartStack ? buildStochRsiRailShapes() : [];
 
         return {
@@ -1251,6 +1301,7 @@ export class PlotlyRenderer {
                 ...((baseLayout && Array.isArray(baseLayout.shapes)) ? baseLayout.shapes : []),
                 ...rsiZoneBackgroundShapes,
                 ...rsiRailShapes,
+                ...stochRsiZoneBackgroundShapes,
                 ...stochRsiRailShapes
             ],
             annotations: [
