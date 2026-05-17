@@ -232,6 +232,27 @@ function seriesForFirstSupportedField(rows, candidates = [], ratio = 0.18, floor
 const MODULE_CHART_STACK_FIELDS = {
     macd: ['macd', 'macd_line', 'macd_12_26_9', 'MACD', 'MACD_12_26_9', 'macd_value'],
     macdSignal: ['macd_signal', 'macd_signal_9', 'macds', 'MACDs', 'MACDs_12_26_9', 'signal_macd'],
+    sentimentMacd: [
+        'scaled_sentiment_macd',
+        'sentiment_macd',
+        'sentiment_macd_line',
+        'sent_macd',
+        'sent_macd_line',
+        'combined_sentiment_macd',
+        'combined_sentiment_macd_line',
+        'combined_compound_macd',
+        'combined_compound_macd_line',
+        'scaled_combined_compound_macd',
+        'scaled_combined_compound_macd_line'
+    ],
+    sentimentMacdSignal: [
+        'scaled_sentiment_macd_signal',
+        'sentiment_macd_signal',
+        'sent_macd_signal',
+        'combined_sentiment_macd_signal',
+        'combined_compound_macd_signal',
+        'scaled_combined_compound_macd_signal'
+    ],
     macdHist: ['macd_hist', 'macd_histogram', 'macdh', 'MACDh', 'MACDh_12_26_9', 'macd_diff', 'macd_delta'],
     rsi: ['rsi', 'rsi_14', 'RSI', 'RSI_14', 'relative_strength_index', 'ta_rsi_14'],
     sentimentRsi: [
