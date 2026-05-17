@@ -18,6 +18,9 @@ const MODULE_CHART_VISUALS = {
     candleDownFill: 'rgba(125,133,144,0.58)',
     priceLine: '#d7dee8',
     priceBandLine: 'rgba(155,220,255,0.62)',
+    priceBandFill: 'rgba(155,220,255,0.055)',
+    sentimentRibbonLine: 'rgba(242,204,96,0.42)',
+    sentimentRibbonFill: 'rgba(242,204,96,0.050)',
     overlapBandLine: 'rgba(242,204,96,0.86)',
     overlapBandFill: 'rgba(242,204,96,0.13)',
     unavailableText: '#f2cc60'
@@ -1198,24 +1201,38 @@ export class PlotlyRenderer {
         const bandPolicy = this.buildBandLayerPolicy(modes);
 
         if (this.shouldShowPriceBands(state)) {
-            const priceBandFields = bandPolicy.priceBand
-                ? ['close_ma_21', 'close_ma_50']
-                : [];
+            if (bandPolicy.priceBand) {
+                const priceMa21 = finiteSeries(source, 'close_ma_21');
+                const priceMa50 = finiteSeries(source, 'close_ma_50');
+                const hasPriceMa21 = hasEnoughSeries(priceMa21, source, 0.18, 5);
+                const hasPriceMa50 = hasEnoughSeries(priceMa50, source, 0.18, 5);
 
-            priceBandFields.forEach(field => {
-                const y = finiteSeries(source, field);
-                if (hasEnoughSeries(y, source, 0.18, 5)) {
+                if (hasPriceMa50) {
                     traces.push({
                         type: 'scatter',
                         mode: 'lines',
-                        name: fieldLabel(field),
+                        name: 'Price MA 50',
                         x,
-                        y,
-                        line: { color: MODULE_CHART_VISUALS.priceBandLine, width: 1 },
-                        hovertemplate: `%{x}<br>${fieldLabel(field)}: %{y:,.2f}<extra></extra>`
+                        y: priceMa50,
+                        line: { color: MODULE_CHART_VISUALS.priceBandLine, width: 0.9 },
+                        hovertemplate: `%{x}<br>Price MA 50: %{y:,.2f}<extra></extra>`
                     });
                 }
-            });
+
+                if (hasPriceMa21) {
+                    traces.push({
+                        type: 'scatter',
+                        mode: 'lines',
+                        name: 'Price MA 21',
+                        x,
+                        y: priceMa21,
+                        line: { color: MODULE_CHART_VISUALS.priceBandLine, width: 1.05 },
+                        fill: hasPriceMa50 ? 'tonexty' : undefined,
+                        fillcolor: MODULE_CHART_VISUALS.priceBandFill,
+                        hovertemplate: `%{x}<br>Price MA 21: %{y:,.2f}<extra></extra>`
+                    });
+                }
+            }
 
             if (bandPolicy.overlapBand) {
                 const overlapBand = this.resolveCombinedOverlapBandSeries(source);
@@ -1269,27 +1286,37 @@ export class PlotlyRenderer {
         }
 
         if (this.shouldShowSentimentBands(state)) {
-            const upperSentiment = finiteSeries(source, 'sentiment_upper_band');
-            const lowerSentiment = finiteSeries(source, 'sentiment_lower_band');
-            if (hasEnoughSeries(upperSentiment, source, 0.10, 3) && hasEnoughSeries(lowerSentiment, source, 0.10, 3)) {
+            // Main-chart sentiment ribbon must stay on the price axis.
+            // Use price-scaled sentiment MA fields instead of raw sentiment_upper/lower bands.
+            const sentimentMa21 = finiteSeries(source, 'scaled_combined_compound_ma_21');
+            const sentimentMa50 = finiteSeries(source, 'scaled_combined_compound_ma_50');
+            const hasSentimentMa21 = hasEnoughSeries(sentimentMa21, source, 0.18, 5);
+            const hasSentimentMa50 = hasEnoughSeries(sentimentMa50, source, 0.18, 5);
+
+            if (hasSentimentMa50) {
                 traces.push({
                     type: 'scatter',
                     mode: 'lines',
-                    name: 'Sentiment Upper',
+                    name: 'Sentiment Trend 50',
                     x,
-                    y: upperSentiment,
-                    line: { width: 1 },
-                    hoverinfo: 'skip'
+                    y: sentimentMa50,
+                    line: { color: MODULE_CHART_VISUALS.sentimentRibbonLine, width: 0.8 },
+                    opacity: 0.58,
+                    hovertemplate: `%{x}<br>Sentiment Trend 50: %{y:,.2f}<extra></extra>`
                 });
+            }
+
+            if (hasSentimentMa21) {
                 traces.push({
                     type: 'scatter',
                     mode: 'lines',
-                    name: 'Sentiment Lower',
+                    name: 'Sentiment Trend 21',
                     x,
-                    y: lowerSentiment,
-                    line: { width: 1 },
-                    fill: 'tonexty',
-                    hoverinfo: 'skip'
+                    y: sentimentMa21,
+                    line: { color: MODULE_CHART_VISUALS.sentimentRibbonLine, width: 1.05 },
+                    fill: hasSentimentMa50 ? 'tonexty' : undefined,
+                    fillcolor: MODULE_CHART_VISUALS.sentimentRibbonFill,
+                    hovertemplate: `%{x}<br>Sentiment Trend 21: %{y:,.2f}<extra></extra>`
                 });
             }
         }
