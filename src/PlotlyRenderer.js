@@ -20,10 +20,10 @@ const MODULE_CHART_VISUALS = {
     priceBandLine: 'rgba(155,220,255,0.38)',
     priceBandFill: 'rgba(155,220,255,0.032)',
     priceBandBasisLine: 'rgba(155,220,255,0.18)',
-    priceMaRibbonLine: 'rgba(155,220,255,0.34)',
-    priceMaRibbonFill: 'rgba(155,220,255,0.028)',
-    sentimentMaRibbonLine: 'rgba(242,204,96,0.30)',
-    sentimentMaRibbonFill: 'rgba(242,204,96,0.024)',
+    priceMaRibbonLine: 'rgba(155,220,255,0.30)',
+    priceMaRibbonSoftLine: 'rgba(155,220,255,0.16)',
+    sentimentMaRibbonLine: 'rgba(242,204,96,0.28)',
+    sentimentMaRibbonSoftLine: 'rgba(242,204,96,0.14)',
     sentimentRibbonLine: 'rgba(242,204,96,0.34)',
     sentimentRibbonFill: 'rgba(242,204,96,0.030)',
     overlapBandLine: 'rgba(242,204,96,0.58)',
@@ -369,7 +369,7 @@ function addMovingAverageRibbonTraces(traces, x, rows, {
     name,
     fields = [],
     lineColor,
-    fillColor,
+    softLineColor,
     legendgroup,
     legendrank,
     width = 0.95
@@ -392,12 +392,10 @@ function addMovingAverageRibbonTraces(traces, x, rows, {
             x,
             y: item.y,
             line: {
-                color: lineColor,
-                width: isHero ? width : Math.max(0.55, width * 0.72)
+                color: isHero ? lineColor : softLineColor,
+                width: isHero ? width : Math.max(0.55, width * 0.66)
             },
-            opacity: isHero ? 0.82 : 0.52,
-            fill: index > 0 ? 'tonexty' : undefined,
-            fillcolor: index > 0 ? fillColor : undefined,
+            opacity: isHero ? 0.78 : 0.46,
             legendgroup,
             showlegend: isHero,
             ...(Number.isFinite(legendrank) ? { legendrank } : {}),
@@ -416,10 +414,10 @@ function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
 
     if (ribbon === 'price' || ribbon === 'both') {
         addMovingAverageRibbonTraces(traces, x, rows, {
-            name: 'Price MA Ribbon',
+            name: 'Price MA Stack',
             fields: ['close_ma_50', 'close_ma_21', 'close_ma_7'],
             lineColor: MODULE_CHART_VISUALS.priceMaRibbonLine,
-            fillColor: MODULE_CHART_VISUALS.priceMaRibbonFill,
+            softLineColor: MODULE_CHART_VISUALS.priceMaRibbonSoftLine,
             legendgroup: 'price-ma-ribbon',
             legendrank: 18,
             width: 0.92
@@ -432,10 +430,10 @@ function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
             : ['scaled_combined_compound_ma_50', 'scaled_combined_compound_ma_21'];
 
         addMovingAverageRibbonTraces(traces, x, rows, {
-            name: 'Sentiment MA Ribbon',
+            name: 'Sentiment MA Stack',
             fields: sentimentFields,
             lineColor: MODULE_CHART_VISUALS.sentimentMaRibbonLine,
-            fillColor: MODULE_CHART_VISUALS.sentimentMaRibbonFill,
+            softLineColor: MODULE_CHART_VISUALS.sentimentMaRibbonSoftLine,
             legendgroup: 'sentiment-ma-ribbon',
             legendrank: 28,
             width: 0.84
