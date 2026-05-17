@@ -17,13 +17,13 @@ const MODULE_CHART_VISUALS = {
     candleDownLine: '#7d8590',
     candleDownFill: 'rgba(125,133,144,0.58)',
     priceLine: '#d7dee8',
-    priceBandLine: 'rgba(155,220,255,0.62)',
-    priceBandFill: 'rgba(155,220,255,0.055)',
-    priceBandBasisLine: 'rgba(155,220,255,0.28)',
-    sentimentRibbonLine: 'rgba(242,204,96,0.42)',
-    sentimentRibbonFill: 'rgba(242,204,96,0.050)',
-    overlapBandLine: 'rgba(242,204,96,0.86)',
-    overlapBandFill: 'rgba(242,204,96,0.13)',
+    priceBandLine: 'rgba(155,220,255,0.38)',
+    priceBandFill: 'rgba(155,220,255,0.032)',
+    priceBandBasisLine: 'rgba(155,220,255,0.18)',
+    sentimentRibbonLine: 'rgba(242,204,96,0.34)',
+    sentimentRibbonFill: 'rgba(242,204,96,0.030)',
+    overlapBandLine: 'rgba(242,204,96,0.58)',
+    overlapBandFill: 'rgba(242,204,96,0.070)',
     unavailableText: '#f2cc60'
 };
 
@@ -328,13 +328,16 @@ function addBandEnvelopeTraces(traces, x, band, {
 }) {
     if (!band?.upper?.y || !band?.lower?.y) return;
 
+    const lowerWidth = Math.max(0.55, width * 0.72);
+
     traces.push({
         type: 'scatter',
         mode: 'lines',
         name: `${name} Lower`,
         x,
         y: band.lower.y,
-        line: { color: lineColor, width },
+        line: { color: lineColor, width: lowerWidth },
+        opacity: 0.76,
         legendgroup,
         showlegend: showLowerLegend,
         hovertemplate: `%{x}<br>${hoverPrefix} Lower: %{y:,.2f}<extra></extra>`
@@ -347,6 +350,7 @@ function addBandEnvelopeTraces(traces, x, band, {
         x,
         y: band.upper.y,
         line: { color: lineColor, width },
+        opacity: 0.88,
         fill: 'tonexty',
         fillcolor: fillColor,
         legendgroup,
@@ -1432,7 +1436,7 @@ export class PlotlyRenderer {
                     name: 'Price Band',
                     lineColor: MODULE_CHART_VISUALS.priceBandLine,
                     fillColor: MODULE_CHART_VISUALS.priceBandFill,
-                    width: 0.95,
+                    width: 0.78,
                     legendgroup: 'price-band',
                     hoverPrefix: 'Price Band'
                 });
@@ -1446,7 +1450,7 @@ export class PlotlyRenderer {
                         name: bandName,
                         lineColor: MODULE_CHART_VISUALS.overlapBandLine,
                         fillColor: MODULE_CHART_VISUALS.overlapBandFill,
-                        width: 1,
+                        width: 0.88,
                         legendgroup: 'combined-overlap',
                         hoverPrefix: bandName
                     });
@@ -1459,7 +1463,7 @@ export class PlotlyRenderer {
                 name: 'Sentiment Band',
                 lineColor: MODULE_CHART_VISUALS.sentimentRibbonLine,
                 fillColor: MODULE_CHART_VISUALS.sentimentRibbonFill,
-                width: 0.9,
+                width: 0.74,
                 legendgroup: 'sentiment-band',
                 hoverPrefix: 'Sentiment Band'
             });
