@@ -240,31 +240,30 @@ const MODULE_CHART_STACK_FIELDS = {
     sentimentStochRsi: [
         'sentiment_stochastic_rsi',
         'sentiment_stochastic_rsi_k',
+        'sentiment_stochastic_rsi_d',
         'sentiment_stoch_rsi',
         'sentiment_stoch_rsi_k',
+        'sentiment_stoch_rsi_d',
         'sent_stochastic_rsi',
         'sent_stochastic_rsi_k',
+        'sent_stochastic_rsi_d',
         'sent_stoch_rsi',
         'sent_stoch_rsi_k',
+        'sent_stoch_rsi_d',
         'stoch_rsi_sentiment',
         'stochrsi_sentiment',
         'combined_sentiment_stochastic_rsi',
         'combined_sentiment_stoch_rsi',
+        'combined_sentiment_stochastic_rsi_d',
         'combined_compound_stochastic_rsi',
         'combined_compound_stoch_rsi',
+        'combined_compound_stochastic_rsi_d',
         'scaled_combined_compound_stochastic_rsi',
-        'scaled_combined_compound_stoch_rsi'
+        'scaled_combined_compound_stoch_rsi',
+        'scaled_combined_compound_stochastic_rsi_d'
     ],
     stochRsiSignal: ['stochastic_rsi_d', 'stochastic_rsi_signal', 'stoch_rsi_d', 'stochrsi_d', 'stoch_rsi_fastd', 'STOCHRSId_14_14_3_3'],
-    sentimentStochRsiSignal: [
-        'sentiment_stochastic_rsi_d',
-        'sentiment_stoch_rsi_d',
-        'sent_stochastic_rsi_d',
-        'sent_stoch_rsi_d',
-        'combined_sentiment_stochastic_rsi_d',
-        'combined_compound_stochastic_rsi_d',
-        'scaled_combined_compound_stochastic_rsi_d'
-    ]
+    sentimentStochRsiSignal: []
 };
 
 const MODULE_SENTIMENT_THRESHOLD_FIELDS = {
@@ -902,7 +901,6 @@ export class PlotlyRenderer {
         const stochRsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.stochRsi, 0.12, 5);
         const sentimentStochRsi = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentStochRsi, 0.08, 3);
         const stochRsiSignal = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.stochRsiSignal, 0.12, 5);
-        const sentimentStochRsiSignal = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentStochRsiSignal, 0.08, 3);
 
         if (sentimentStochRsi && (!stochRsi || sentimentStochRsi.field !== stochRsi.field)) {
             traces.push({
@@ -930,14 +928,13 @@ export class PlotlyRenderer {
             });
         }
 
-        if (stochRsiSignal || sentimentStochRsiSignal) {
-            const signal = stochRsiSignal || sentimentStochRsiSignal;
+        if (stochRsiSignal) {
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Stoch RSI Signal',
                 x,
-                y: signal.y,
+                y: stochRsiSignal.y,
                 yaxis: 'y5',
                 visible: 'legendonly',
                 showlegend: false,
