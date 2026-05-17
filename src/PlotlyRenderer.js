@@ -20,10 +20,10 @@ const MODULE_CHART_VISUALS = {
     priceBandLine: 'rgba(155,220,255,0.38)',
     priceBandFill: 'rgba(155,220,255,0.032)',
     priceBandBasisLine: 'rgba(155,220,255,0.18)',
-    priceMaRibbonLine: 'rgba(155,220,255,0.30)',
-    priceMaRibbonSoftLine: 'rgba(155,220,255,0.16)',
-    sentimentMaRibbonLine: 'rgba(242,204,96,0.28)',
-    sentimentMaRibbonSoftLine: 'rgba(242,204,96,0.14)',
+    priceMaRibbonLine: 'rgba(155,220,255,0.50)',
+    priceMaRibbonSoftLine: 'rgba(155,220,255,0.26)',
+    sentimentMaRibbonLine: 'rgba(242,204,96,0.46)',
+    sentimentMaRibbonSoftLine: 'rgba(242,204,96,0.24)',
     sentimentRibbonLine: 'rgba(242,204,96,0.34)',
     sentimentRibbonFill: 'rgba(242,204,96,0.030)',
     overlapBandLine: 'rgba(242,204,96,0.58)',
@@ -365,6 +365,52 @@ function addBandEnvelopeTraces(traces, x, band, {
     });
 }
 
+function rollingMeanSeries(rows, sourceField, window) {
+    const source = Array.isArray(rows) ? rows : [];
+    const values = source.map(row => finiteNumber(row?.[sourceField]));
+    const output = new Array(values.length).fill(null);
+    let sum = 0;
+    let count = 0;
+    const queue = [];
+
+    values.forEach((value, index) => {
+        queue.push(value);
+        if (Number.isFinite(value)) {
+            sum += value;
+            count += 1;
+        }
+
+        if (queue.length > window) {
+            const removed = queue.shift();
+            if (Number.isFinite(removed)) {
+                sum -= removed;
+                count -= 1;
+            }
+        }
+
+        const minPeriods = Math.max(5, Math.ceil(window * 0.35));
+        if (count >= minPeriods) {
+            output[index] = sum / count;
+        }
+    });
+
+    return output;
+}
+
+function movingAverageSeriesForField(rows, field) {
+    const direct = finiteSeries(rows, field);
+    if (hasEnoughSeries(direct, rows, 0.18, 5)) return direct;
+
+    const match = String(field || '').match(/^(.*)_ma_(\d+)$/);
+    if (!match) return direct;
+
+    const sourceField = match[1];
+    const window = Number.parseInt(match[2], 10);
+    if (!Number.isFinite(window) || window <= 1) return direct;
+
+    return rollingMeanSeries(rows, sourceField, window);
+}
+
 function addMovingAverageRibbonTraces(traces, x, rows, {
     name,
     fields = [],
@@ -376,13 +422,13 @@ function addMovingAverageRibbonTraces(traces, x, rows, {
 }) {
     const source = Array.isArray(rows) ? rows : [];
     const series = fields
-        .map(field => ({ field, y: finiteSeries(source, field) }))
+        .map(field => ({ field, y: movingAverageSeriesForField(source, field) }))
         .filter(item => hasEnoughSeries(item.y, source, 0.18, 5));
 
     if (series.length < 2) return;
 
     series.forEach((item, index) => {
-        const isHero = index === series.length - 1;
+        const isHero = index === 0;
         const traceName = isHero ? name : `${name} ${fieldLabel(item.field)}`;
 
         traces.push({
@@ -393,9 +439,9 @@ function addMovingAverageRibbonTraces(traces, x, rows, {
             y: item.y,
             line: {
                 color: isHero ? lineColor : softLineColor,
-                width: isHero ? width : Math.max(0.55, width * 0.66)
+                width: isHero ? width : Math.max(0.62, width * (0.88 - index * 0.08))
             },
-            opacity: isHero ? 0.78 : 0.46,
+            opacity: isHero ? 0.88 : Math.max(0.44, 0.70 - index * 0.08),
             legendgroup,
             showlegend: isHero,
             ...(Number.isFinite(legendrank) ? { legendrank } : {}),
@@ -415,19 +461,19 @@ function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
     if (ribbon === 'price' || ribbon === 'both') {
         addMovingAverageRibbonTraces(traces, x, rows, {
             name: 'Price MA Stack',
-            fields: ['close_ma_50', 'close_ma_21', 'close_ma_7'],
+            fields: ['close_ma_7', 'close_ma_21', 'close_ma_100', 'close_ma_200'],
             lineColor: MODULE_CHART_VISUALS.priceMaRibbonLine,
             softLineColor: MODULE_CHART_VISUALS.priceMaRibbonSoftLine,
             legendgroup: 'price-ma-ribbon',
             legendrank: 18,
-            width: 0.92
+            width: 1.12
         });
     }
 
     if (ribbon === 'sentiment' || ribbon === 'both') {
         const sentimentFields = sentimentRibbon === 'full'
-            ? ['scaled_combined_compound_ma_50', 'scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_7']
-            : ['scaled_combined_compound_ma_50', 'scaled_combined_compound_ma_21'];
+            ? ['scaled_combined_compound_ma_7', 'scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_100', 'scaled_combined_compound_ma_200']
+            : ['scaled_combined_compound_ma_7', 'scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_100'];
 
         addMovingAverageRibbonTraces(traces, x, rows, {
             name: 'Sentiment MA Stack',
@@ -436,7 +482,7 @@ function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
             softLineColor: MODULE_CHART_VISUALS.sentimentMaRibbonSoftLine,
             legendgroup: 'sentiment-ma-ribbon',
             legendrank: 28,
-            width: 0.84
+            width: 0.98
         });
     }
 
