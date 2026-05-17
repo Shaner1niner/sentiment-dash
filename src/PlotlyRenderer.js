@@ -751,11 +751,33 @@ function attentionSpikeThreshold(rows = []) {
 
     if (!scores.length) return null;
 
-    const q75 = finiteQuantile(scores, 0.75);
+    const q85 = finiteQuantile(scores, 0.85);
     const maxScore = Math.max(...scores);
 
-    if (maxScore <= 1.5) return Math.max(0.65, q75 ?? 0.65);
-    return Math.max(65, q75 ?? 65);
+    if (maxScore <= 1.5) return Math.max(0.72, q85 ?? 0.72);
+    return Math.max(58, q85 ?? 58);
+}
+
+function attentionSecondaryThreshold(rows = []) {
+    const scores = rows
+        .map(row => asNumber(firstAttentionScore(row)))
+        .filter(value => value !== null);
+
+    if (!scores.length) return null;
+
+    const q70 = finiteQuantile(scores, 0.70);
+    const maxScore = Math.max(...scores);
+
+    if (maxScore <= 1.5) return Math.max(0.55, q70 ?? 0.55);
+    return Math.max(42, q70 ?? 42);
+}
+
+function attentionHighlightLimit(rows = []) {
+    const count = Array.isArray(rows) ? rows.length : 0;
+    if (count <= 45) return 6;
+    if (count <= 100) return 10;
+    if (count <= 180) return 14;
+    return 18;
 }
 
 function rowHasAttentionLabelSpike(row) {
@@ -798,11 +820,14 @@ function attentionContextHoverFragment(row, { includeKeywords = false, compactMo
 
 function attentionDirectionScore(row) {
     return asNumber(firstRowValue(row, [
-        'direction_score',
         'signal_consensus_direction_score',
+        'screener_signal_consensus_direction_score',
         'screener_direction_score',
+        'direction_score',
         'signal_consensus_score',
-        'direction_confidence'
+        'direction_confidence',
+        'consensus_direction_score',
+        'source_direction_score'
     ]));
 }
 
@@ -835,24 +860,36 @@ function attentionMarkerRank(row, threshold = null) {
     return rank;
 }
 
-function attentionMarkerRows(rows = [], maxMarkers = 36) {
+function attentionMarkerRows(rows = [], maxMarkers = null) {
     const source = Array.isArray(rows) ? rows : [];
     const threshold = attentionSpikeThreshold(source);
+    const secondaryThreshold = attentionSecondaryThreshold(source);
+    const limit = maxMarkers ?? attentionHighlightLimit(source);
 
     const candidates = source
         .map((row, index) => {
             const close = asNumber(row?.close);
             if (close === null || !rowHasAttentionContext(row)) return null;
 
-            const rank = attentionMarkerRank(row, threshold);
             const explicit = hasAttentionSpikeFlag(row) || rowHasAttentionLabelSpike(row);
-            const score = asNumber(firstAttentionScore(row)) ?? 0;
+            const score = asNumber(firstAttentionScore(row));
             const directionScore = attentionDirectionScore(row);
             const directionKnown = attentionDirectionKind(row) !== 'neutral';
+            const highAttention = score !== null && threshold !== null && score >= threshold;
+            const elevatedAttention = score !== null && secondaryThreshold !== null && score >= secondaryThreshold;
+            const strongDirection = directionScore !== null && Math.abs(directionScore - 50) >= 13;
 
-            if (!explicit && score === 0 && directionScore === null && !directionKnown) return null;
+            // Do not highlight direction/context-only rows. Attention must be explicit or elevated.
+            if (!explicit && !highAttention && !(elevatedAttention && (directionKnown || strongDirection))) {
+                return null;
+            }
 
-            return { row, index, rank, explicit, score };
+            const rank = attentionMarkerRank(row, threshold)
+                + (highAttention ? 260 : 0)
+                + (elevatedAttention ? 120 : 0)
+                + (strongDirection ? 75 : 0);
+
+            return { row, index, rank, explicit, score: score ?? 0 };
         })
         .filter(Boolean);
 
@@ -861,7 +898,7 @@ function attentionMarkerRows(rows = [], maxMarkers = 36) {
     const selected = candidates
         .slice()
         .sort((a, b) => b.rank - a.rank)
-        .slice(0, maxMarkers)
+        .slice(0, limit)
         .sort((a, b) => a.index - b.index);
 
     return selected.map(item => item.row);
@@ -877,8 +914,23 @@ function attentionMarkerSize(row) {
 
 function attentionDirectionText(row) {
     return [
-        firstRowValue(row, ['signal_consensus_direction_label', 'direction_label', 'direction', 'screener_direction_label']),
-        firstRowValue(row, ['sentiment_label', 'sentiment_direction', 'compound_label', 'combined_compound_label']),
+        firstRowValue(row, [
+            'signal_consensus_direction_label',
+            'screener_signal_consensus_direction_label',
+            'screener_direction_label',
+            'consensus_direction_label',
+            'direction_label',
+            'direction',
+            'source_direction_label'
+        ]),
+        firstRowValue(row, [
+            'sentiment_label',
+            'sentiment_direction',
+            'compound_label',
+            'combined_compound_label',
+            'source_sentiment_label',
+            'ribbon_direction_label'
+        ]),
         firstAttentionLabel(row)
     ]
         .filter(value => value !== null && value !== undefined && value !== '')
@@ -888,7 +940,7 @@ function attentionDirectionText(row) {
 
 function attentionDirectionKind(row) {
     const text = attentionDirectionText(row);
-    const score = asNumber(firstRowValue(row, ['direction_score', 'signal_consensus_direction_score', 'screener_direction_score']));
+    const score = attentionDirectionScore(row);
     const sentiment = asNumber(firstRowValue(row, [
         'combined_compound',
         'compound',
@@ -1031,7 +1083,7 @@ function buildAttentionMarkerTraces(rows = []) {
                     width: 0.45
                 }
             },
-            opacity: 0.78,
+            opacity: 0.58,
             text: markerRows.map(row => attentionMarkerHoverText(row)),
             hovertemplate: '%{text}<extra></extra>'
         }
