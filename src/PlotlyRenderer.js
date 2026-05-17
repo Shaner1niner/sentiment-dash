@@ -19,6 +19,7 @@ const MODULE_CHART_VISUALS = {
     priceLine: '#d7dee8',
     priceBandLine: 'rgba(155,220,255,0.62)',
     priceBandFill: 'rgba(155,220,255,0.055)',
+    priceBandBasisLine: 'rgba(155,220,255,0.28)',
     sentimentRibbonLine: 'rgba(242,204,96,0.42)',
     sentimentRibbonFill: 'rgba(242,204,96,0.050)',
     overlapBandLine: 'rgba(242,204,96,0.86)',
@@ -131,6 +132,227 @@ function finiteSeries(rows, field) {
 
 function hasEnoughSeries(values, rows, ratio = 0.18, floor = 3) {
     return compact(values).length >= Math.max(floor, Math.floor((rows || []).length * ratio));
+}
+
+function seriesForFirstAvailableField(rows, fields = []) {
+    const source = Array.isArray(rows) ? rows : [];
+    for (const field of fields) {
+        const y = finiteSeries(source, field);
+        if (hasEnoughSeries(y, source, 0.18, 5)) {
+            return { field, y };
+        }
+    }
+    return null;
+}
+
+function bandPairFromFieldFamilies(rows, upperFields = [], lowerFields = [], basisFields = []) {
+    const source = Array.isArray(rows) ? rows : [];
+    const upper = seriesForFirstAvailableField(source, upperFields);
+    const lower = seriesForFirstAvailableField(source, lowerFields);
+    if (!upper || !lower) return null;
+
+    const basis = seriesForFirstAvailableField(source, basisFields);
+    return {
+        upper,
+        lower,
+        basis,
+        source: 'field'
+    };
+}
+
+function rollingCloseStddev(rows, period = 20, minPeriods = 10) {
+    const source = Array.isArray(rows) ? rows : [];
+    const closes = source.map(row => asNumber(row?.close));
+    const out = new Array(source.length).fill(null);
+
+    for (let index = 0; index < closes.length; index += 1) {
+        const start = Math.max(0, index - period + 1);
+        const values = closes
+            .slice(start, index + 1)
+            .filter(value => value !== null && Number.isFinite(value));
+
+        if (values.length < minPeriods) continue;
+
+        const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+        const variance = values.reduce((sum, value) => sum + Math.pow(value - mean, 2), 0) / values.length;
+        out[index] = Math.sqrt(variance);
+    }
+
+    return out;
+}
+
+function computeSharedVolatilityBands(rows, centerFields = [], freq = 'D') {
+    const source = Array.isArray(rows) ? rows : [];
+    const center = seriesForFirstAvailableField(source, centerFields);
+    if (!center) return null;
+
+    const normalizedFreq = String(freq || 'D').trim().toUpperCase();
+    const minPeriods = normalizedFreq === 'W' ? 4 : 10;
+    const stddev = rollingCloseStddev(source, 20, minPeriods);
+
+    const upper = center.y.map((value, index) => {
+        const centerValue = asNumber(value);
+        const width = asNumber(stddev[index]);
+        return centerValue === null || width === null ? null : centerValue + 2 * width;
+    });
+
+    const lower = center.y.map((value, index) => {
+        const centerValue = asNumber(value);
+        const width = asNumber(stddev[index]);
+        return centerValue === null || width === null ? null : centerValue - 2 * width;
+    });
+
+    if (!hasEnoughSeries(upper, source, 0.18, 5) || !hasEnoughSeries(lower, source, 0.18, 5)) return null;
+
+    return {
+        upper: { field: `${center.field}_tableau_upper`, y: upper },
+        lower: { field: `${center.field}_tableau_lower`, y: lower },
+        basis: center,
+        source: 'computed_tableau_shared_volatility'
+    };
+}
+
+function resolveTableauPriceBandSeries(rows, freq = 'D') {
+    return bandPairFromFieldFamilies(
+        rows,
+        [
+            'boll_upper_price_calc_7',
+            'price_Upper_Band',
+            'price_upper_band',
+            'price_upper',
+            'boll_upper_price_band'
+        ],
+        [
+            'boll_lower_price_calc_7',
+            'price_Lower_Band',
+            'price_lower_band',
+            'price_lower',
+            'boll_lower_price_band'
+        ],
+        [
+            'close_ma_7',
+            'boll_price_basis_calc_20',
+            'close_ma_21'
+        ]
+    ) || computeSharedVolatilityBands(rows, ['close_ma_7', 'close_ma_21', 'close'], freq);
+}
+
+function resolveTableauSentimentBandSeries(rows, freq = 'D') {
+    return bandPairFromFieldFamilies(
+        rows,
+        [
+            'boll_upper_sent_calc_7',
+            'sentiment_Upper_Band',
+            'scaled_sentiment_upper_band',
+            'combined_sentiment_upper_band',
+            'sentiment_price_upper_band'
+        ],
+        [
+            'boll_lower_sent_calc_7',
+            'sentiment_Lower_Band',
+            'scaled_sentiment_lower_band',
+            'combined_sentiment_lower_band',
+            'sentiment_price_lower_band'
+        ],
+        [
+            'boll_centerline_sent_calc_7',
+            'scaled_combined_compound_ma_7',
+            'scaled_combined_compound_ma_21'
+        ]
+    ) || computeSharedVolatilityBands(
+        rows,
+        ['scaled_combined_compound_ma_7', 'scaled_combined_compound_ma_21', 'scaled_combined_compound'],
+        freq
+    );
+}
+
+function deriveTableauOverlapBandSeries(priceBand, sentimentBand) {
+    const priceUpper = Array.isArray(priceBand?.upper?.y) ? priceBand.upper.y : null;
+    const priceLower = Array.isArray(priceBand?.lower?.y) ? priceBand.lower.y : null;
+    const sentimentUpper = Array.isArray(sentimentBand?.upper?.y) ? sentimentBand.upper.y : null;
+    const sentimentLower = Array.isArray(sentimentBand?.lower?.y) ? sentimentBand.lower.y : null;
+
+    if (!priceUpper || !priceLower || !sentimentUpper || !sentimentLower) return null;
+
+    const length = Math.max(priceUpper.length, priceLower.length, sentimentUpper.length, sentimentLower.length);
+    const upper = new Array(length).fill(null);
+    const lower = new Array(length).fill(null);
+
+    for (let index = 0; index < length; index += 1) {
+        const pu = asNumber(priceUpper[index]);
+        const pl = asNumber(priceLower[index]);
+        const su = asNumber(sentimentUpper[index]);
+        const sl = asNumber(sentimentLower[index]);
+
+        if ([pu, pl, su, sl].some(value => value === null)) continue;
+
+        let hi = null;
+        let lo = null;
+
+        if (pu >= sl && su >= pl) {
+            hi = Math.max(Math.min(pu, su), pl);
+            lo = Math.min(Math.max(pl, sl), pu);
+        } else {
+            hi = Math.abs(pu - sl) < Math.abs(su - pl) ? Math.max(pu, pl) : Math.max(su, pl);
+            lo = Math.abs(pl - su) < Math.abs(sl - pu) ? Math.min(pl, pu) : Math.min(sl, pu);
+        }
+
+        if (hi !== null && lo !== null && hi < lo) {
+            const tmp = hi;
+            hi = lo;
+            lo = tmp;
+        }
+
+        upper[index] = hi;
+        lower[index] = lo;
+    }
+
+    if (!compact(upper).length || !compact(lower).length) return null;
+
+    return {
+        upper: { field: 'derived_tableau_overlap_upper', y: upper },
+        lower: { field: 'derived_tableau_overlap_lower', y: lower },
+        source: 'computed_tableau_overlap'
+    };
+}
+
+function addBandEnvelopeTraces(traces, x, band, {
+    name,
+    lineColor,
+    fillColor,
+    width = 1,
+    legendgroup,
+    hoverPrefix = name,
+    showLowerLegend = false,
+    showUpperLegend = true
+}) {
+    if (!band?.upper?.y || !band?.lower?.y) return;
+
+    traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: `${name} Lower`,
+        x,
+        y: band.lower.y,
+        line: { color: lineColor, width },
+        legendgroup,
+        showlegend: showLowerLegend,
+        hovertemplate: `%{x}<br>${hoverPrefix} Lower: %{y:,.2f}<extra></extra>`
+    });
+
+    traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name,
+        x,
+        y: band.upper.y,
+        line: { color: lineColor, width },
+        fill: 'tonexty',
+        fillcolor: fillColor,
+        legendgroup,
+        showlegend: showUpperLegend,
+        hovertemplate: `%{x}<br>${hoverPrefix} Upper: %{y:,.2f}<extra></extra>`
+    });
 }
 
 function fieldLabel(field) {
@@ -1199,66 +1421,33 @@ export class PlotlyRenderer {
         }
 
         const bandPolicy = this.buildBandLayerPolicy(modes);
+        const tableauPriceBand = resolveTableauPriceBandSeries(source, state.currentFrequency);
+        const tableauSentimentBand = resolveTableauSentimentBandSeries(source, state.currentFrequency);
+        const tableauOverlapBand = deriveTableauOverlapBandSeries(tableauPriceBand, tableauSentimentBand);
 
         if (this.shouldShowPriceBands(state)) {
-            if (bandPolicy.priceBand) {
-                const priceMa21 = finiteSeries(source, 'close_ma_21');
-                const priceMa50 = finiteSeries(source, 'close_ma_50');
-                const hasPriceMa21 = hasEnoughSeries(priceMa21, source, 0.18, 5);
-                const hasPriceMa50 = hasEnoughSeries(priceMa50, source, 0.18, 5);
-
-                if (hasPriceMa50) {
-                    traces.push({
-                        type: 'scatter',
-                        mode: 'lines',
-                        name: 'Price MA 50',
-                        x,
-                        y: priceMa50,
-                        line: { color: MODULE_CHART_VISUALS.priceBandLine, width: 0.9 },
-                        hovertemplate: `%{x}<br>Price MA 50: %{y:,.2f}<extra></extra>`
-                    });
-                }
-
-                if (hasPriceMa21) {
-                    traces.push({
-                        type: 'scatter',
-                        mode: 'lines',
-                        name: 'Price MA 21',
-                        x,
-                        y: priceMa21,
-                        line: { color: MODULE_CHART_VISUALS.priceBandLine, width: 1.05 },
-                        fill: hasPriceMa50 ? 'tonexty' : undefined,
-                        fillcolor: MODULE_CHART_VISUALS.priceBandFill,
-                        hovertemplate: `%{x}<br>Price MA 21: %{y:,.2f}<extra></extra>`
-                    });
-                }
+            if (bandPolicy.priceBand && tableauPriceBand) {
+                addBandEnvelopeTraces(traces, x, tableauPriceBand, {
+                    name: 'Price Band',
+                    lineColor: MODULE_CHART_VISUALS.priceBandLine,
+                    fillColor: MODULE_CHART_VISUALS.priceBandFill,
+                    width: 0.95,
+                    legendgroup: 'price-band',
+                    hoverPrefix: 'Price Band'
+                });
             }
 
             if (bandPolicy.overlapBand) {
-                const overlapBand = this.resolveCombinedOverlapBandSeries(source);
+                const overlapBand = tableauOverlapBand || this.resolveCombinedOverlapBandSeries(source);
                 if (overlapBand) {
                     const bandName = this.overlapBandName(modes);
-                    traces.push({
-                        type: 'scatter',
-                        mode: 'lines',
-                        name: `${bandName} Lower`,
-                        x,
-                        y: overlapBand.lower.y,
-                        line: { color: MODULE_CHART_VISUALS.overlapBandLine, width: 1 },
+                    addBandEnvelopeTraces(traces, x, overlapBand, {
+                        name: bandName,
+                        lineColor: MODULE_CHART_VISUALS.overlapBandLine,
+                        fillColor: MODULE_CHART_VISUALS.overlapBandFill,
+                        width: 1,
                         legendgroup: 'combined-overlap',
-                        hovertemplate: `%{x}<br>${bandName} Lower: %{y:,.2f}<extra></extra>`
-                    });
-                    traces.push({
-                        type: 'scatter',
-                        mode: 'lines',
-                        name: `${bandName} Upper`,
-                        x,
-                        y: overlapBand.upper.y,
-                        line: { color: MODULE_CHART_VISUALS.overlapBandLine, width: 1 },
-                        fill: 'tonexty',
-                        fillcolor: MODULE_CHART_VISUALS.overlapBandFill,
-                        legendgroup: 'combined-overlap',
-                        hovertemplate: `%{x}<br>${bandName} Upper: %{y:,.2f}<extra></extra>`
+                        hoverPrefix: bandName
                     });
                 }
             }
@@ -1285,40 +1474,15 @@ export class PlotlyRenderer {
             });
         }
 
-        if (this.shouldShowSentimentBands(state)) {
-            // Main-chart sentiment ribbon must stay on the price axis.
-            // Use price-scaled sentiment MA fields instead of raw sentiment_upper/lower bands.
-            const sentimentMa21 = finiteSeries(source, 'scaled_combined_compound_ma_21');
-            const sentimentMa50 = finiteSeries(source, 'scaled_combined_compound_ma_50');
-            const hasSentimentMa21 = hasEnoughSeries(sentimentMa21, source, 0.18, 5);
-            const hasSentimentMa50 = hasEnoughSeries(sentimentMa50, source, 0.18, 5);
-
-            if (hasSentimentMa50) {
-                traces.push({
-                    type: 'scatter',
-                    mode: 'lines',
-                    name: 'Sentiment Trend 50',
-                    x,
-                    y: sentimentMa50,
-                    line: { color: MODULE_CHART_VISUALS.sentimentRibbonLine, width: 0.8 },
-                    opacity: 0.58,
-                    hovertemplate: `%{x}<br>Sentiment Trend 50: %{y:,.2f}<extra></extra>`
-                });
-            }
-
-            if (hasSentimentMa21) {
-                traces.push({
-                    type: 'scatter',
-                    mode: 'lines',
-                    name: 'Sentiment Trend 21',
-                    x,
-                    y: sentimentMa21,
-                    line: { color: MODULE_CHART_VISUALS.sentimentRibbonLine, width: 1.05 },
-                    fill: hasSentimentMa50 ? 'tonexty' : undefined,
-                    fillcolor: MODULE_CHART_VISUALS.sentimentRibbonFill,
-                    hovertemplate: `%{x}<br>Sentiment Trend 21: %{y:,.2f}<extra></extra>`
-                });
-            }
+        if (this.shouldShowSentimentBands(state) && tableauSentimentBand) {
+            addBandEnvelopeTraces(traces, x, tableauSentimentBand, {
+                name: 'Sentiment Band',
+                lineColor: MODULE_CHART_VISUALS.sentimentRibbonLine,
+                fillColor: MODULE_CHART_VISUALS.sentimentRibbonFill,
+                width: 0.9,
+                legendgroup: 'sentiment-band',
+                hoverPrefix: 'Sentiment Band'
+            });
         }
 
         if (this.shouldShowAttentionOverlay(state)) {
