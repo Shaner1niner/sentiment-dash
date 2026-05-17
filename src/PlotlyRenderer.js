@@ -28,6 +28,7 @@ const MODULE_MACD_PANEL_VISUALS = {
     macdGlowLine: 'rgba(255,132,204,0.10)',
     macdGlowWidth: 3.75,
     macdSignalLine: 'rgba(160,170,182,0.44)',
+    sentimentMacdLine: 'rgba(242,204,96,0.32)',
     macdZeroRail: 'rgba(170,155,130,0.22)',
     macdHistPositiveStrong: 'rgba(197,120,92,0.48)',
     macdHistPositiveSoft: 'rgba(197,120,92,0.26)',
@@ -231,6 +232,27 @@ function seriesForFirstSupportedField(rows, candidates = [], ratio = 0.18, floor
 const MODULE_CHART_STACK_FIELDS = {
     macd: ['macd', 'macd_line', 'macd_12_26_9', 'MACD', 'MACD_12_26_9', 'macd_value'],
     macdSignal: ['macd_signal', 'macd_signal_9', 'macds', 'MACDs', 'MACDs_12_26_9', 'signal_macd'],
+    sentimentMacd: [
+        'scaled_sentiment_macd',
+        'sentiment_macd',
+        'sentiment_macd_line',
+        'sent_macd',
+        'sent_macd_line',
+        'combined_sentiment_macd',
+        'combined_sentiment_macd_line',
+        'combined_compound_macd',
+        'combined_compound_macd_line',
+        'scaled_combined_compound_macd',
+        'scaled_combined_compound_macd_line'
+    ],
+    sentimentMacdSignal: [
+        'scaled_sentiment_macd_signal',
+        'sentiment_macd_signal',
+        'sent_macd_signal',
+        'combined_sentiment_macd_signal',
+        'combined_compound_macd_signal',
+        'scaled_combined_compound_macd_signal'
+    ],
     macdHist: ['macd_hist', 'macd_histogram', 'macdh', 'MACDh', 'MACDh_12_26_9', 'macd_diff', 'macd_delta'],
     rsi: ['rsi', 'rsi_14', 'RSI', 'RSI_14', 'relative_strength_index', 'ta_rsi_14'],
     sentimentRsi: [
@@ -827,6 +849,7 @@ export class PlotlyRenderer {
         const source = Array.isArray(rows) ? rows : [];
         return Boolean(
             seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macd, 0.12, 5)
+            || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentMacd, 0.08, 3)
             || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macdHist, 0.12, 5)
             || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.rsi, 0.12, 5)
             || seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentRsi, 0.08, 3)
@@ -887,6 +910,7 @@ export class PlotlyRenderer {
 
         const macd = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macd, 0.12, 5);
         const macdSignal = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macdSignal, 0.12, 5);
+        const sentimentMacd = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentMacd, 0.08, 3);
         const macdHist = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macdHist, 0.12, 5);
 
         if (macdHist) {
@@ -898,6 +922,22 @@ export class PlotlyRenderer {
                 yaxis: 'y3',
                 marker: { color: macdHistogramColors(macdHist.y) },
                 hovertemplate: `%{x}<br>${fieldLabel(macdHist.field)}: %{y:,.4f}<extra></extra>`
+            });
+        }
+
+        if (sentimentMacd && (!macd || sentimentMacd.field !== macd.field)) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Sentiment MACD',
+                x,
+                y: sentimentMacd.y,
+                yaxis: 'y3',
+                line: {
+                    color: MODULE_MACD_PANEL_VISUALS.sentimentMacdLine,
+                    width: 0.95
+                },
+                hovertemplate: `%{x}<br>${fieldLabel(sentimentMacd.field)}: %{y:,.4f}<extra></extra>`
             });
         }
 
