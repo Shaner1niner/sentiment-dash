@@ -631,18 +631,29 @@ const MODULE_ATTENTION_LABEL_FIELDS = [
 const MODULE_TFIDF_TEXT_FIELDS = [
     'attention_tfidf_summary',
     'attention_keyword_summary',
+    'attention_topic_summary',
+    'attention_theme_summary',
     'tfidf_tooltip',
     'tfidf_summary',
     'tf_idf_summary',
     'top_tfidf_summary',
     'keyword_summary',
     'keywords_summary',
-    'narrative_keywords'
+    'narrative_keywords',
+    'narrative_keyword_summary',
+    'source_keyword_summary',
+    'article_keyword_summary',
+    'news_keyword_summary',
+    'reddit_keyword_summary',
+    'bsky_keyword_summary'
 ];
 
 const MODULE_TFIDF_TOKEN_FIELDS = [
     'attention_tfidf_keywords',
     'attention_keywords',
+    'attention_terms',
+    'attention_topics',
+    'attention_themes',
     'tfidf_keywords',
     'tf_idf_keywords',
     'top_tfidf_keywords',
@@ -652,7 +663,12 @@ const MODULE_TFIDF_TOKEN_FIELDS = [
     'dominant_keywords',
     'theme_keywords',
     'top_terms',
-    'terms'
+    'terms',
+    'article_keywords',
+    'news_keywords',
+    'reddit_keywords',
+    'bsky_keywords',
+    'source_keywords'
 ];
 
 function firstAttentionScore(row) {
@@ -744,6 +760,48 @@ function keywordSummaryFromRow(row, limit = 5) {
     return keywords.slice(0, limit).join(', ');
 }
 
+function attentionNarrativeContextFromRow(row) {
+    const values = [
+        firstRowValue(row, [
+            'attention_context',
+            'attention_context_summary',
+            'attention_reason',
+            'attention_driver',
+            'attention_explanation'
+        ]),
+        firstRowValue(row, [
+            'seta_dashboard_summary_label',
+            'seta_summary_label',
+            'dashboard_summary_label'
+        ]),
+        firstRowValue(row, [
+            'sent_ribbon_transition_type',
+            'sent_ribbon_regime_raw',
+            'sentiment_regime',
+            'ribbon_regime'
+        ]),
+        firstRowValue(row, [
+            'boll_overlap_volume_confirmation_flag',
+            'boll_volatility_flag',
+            'volume_regime',
+            'participation_regime'
+        ])
+    ]
+        .map(value => String(value ?? '').replace(/\s+/g, ' ').trim())
+        .filter(value => value && value.toLowerCase() !== 'nan' && value.toLowerCase() !== 'null');
+
+    const seen = new Set();
+    const unique = values.filter(value => {
+        const key = value.toLowerCase();
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+    });
+
+    const joined = unique.slice(0, 3).join(' · ');
+    return joined.length > 120 ? `${joined.slice(0, 117).trim()}...` : joined;
+}
+
 function attentionSpikeThreshold(rows = []) {
     const scores = rows
         .map(row => asNumber(firstAttentionScore(row)))
@@ -801,6 +859,7 @@ function attentionContextHoverFragment(row, { includeKeywords = false, compactMo
     const keywords = includeKeywords || rowLooksLikeAttentionSpike(row, threshold)
         ? keywordSummaryFromRow(row)
         : '';
+    const context = keywords ? '' : attentionNarrativeContextFromRow(row);
 
     const parts = [];
     if (score !== null) parts.push(`Score ${score.toFixed(score >= 10 ? 0 : 1)}`);
@@ -811,11 +870,12 @@ function attentionContextHoverFragment(row, { includeKeywords = false, compactMo
         parts.push(`Participation ${asNumber(participation).toFixed(1)}`);
     }
 
-    if (!parts.length && !keywords) return '';
+    if (!parts.length && !keywords && !context) return '';
 
     const lines = [];
     if (parts.length) lines.push(`<b>Attention</b>: ${parts.join(' · ')}`);
     if (keywords) lines.push(`<b>TF-IDF</b>: ${escapeHoverValue(keywords)}`);
+    else if (context) lines.push(`<b>Context</b>: ${escapeHoverValue(context)}`);
 
     return `<br>${lines.join('<br>')}`;
 }
