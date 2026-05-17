@@ -796,6 +796,7 @@ function attentionContextHoverFragment(row, { includeKeywords = false, compactMo
     const score = asNumber(firstAttentionScore(row));
     const label = firstAttentionLabel(row);
     const participation = firstRowValue(row, ['attention_participation_score', 'participation_score', 'engagement_score']);
+    const signedConviction = attentionSignedConviction(row);
     const direction = firstRowValue(row, ['signal_consensus_direction_label', 'direction_label', 'direction', 'screener_direction_label']);
     const keywords = includeKeywords || rowLooksLikeAttentionSpike(row, threshold)
         ? keywordSummaryFromRow(row)
@@ -804,6 +805,7 @@ function attentionContextHoverFragment(row, { includeKeywords = false, compactMo
     const parts = [];
     if (score !== null) parts.push(`Score ${score.toFixed(score >= 10 ? 0 : 1)}`);
     if (label) parts.push(escapeHoverValue(label));
+    if (signedConviction !== null) parts.push(`Conviction ${signedConviction.toFixed(1)}`);
     if (direction) parts.push(`Direction ${escapeHoverValue(direction)}`);
     if (!compactMode && asNumber(participation) !== null) {
         parts.push(`Participation ${asNumber(participation).toFixed(1)}`);
@@ -828,6 +830,16 @@ function attentionDirectionScore(row) {
         'direction_confidence',
         'consensus_direction_score',
         'source_direction_score'
+    ]));
+}
+
+function attentionSignedConviction(row) {
+    return asNumber(firstRowValue(row, [
+        'attention_conviction_score_signed',
+        'attention_signed_conviction_score',
+        'attention_direction_score_signed',
+        'signed_attention_score',
+        'attention_polarity_score'
     ]));
 }
 
@@ -873,21 +885,23 @@ function attentionMarkerRows(rows = [], maxMarkers = null) {
 
             const explicit = hasAttentionSpikeFlag(row) || rowHasAttentionLabelSpike(row);
             const score = asNumber(firstAttentionScore(row));
+            const signedConviction = attentionSignedConviction(row);
             const directionScore = attentionDirectionScore(row);
             const directionKnown = attentionDirectionKind(row) !== 'neutral';
             const highAttention = score !== null && threshold !== null && score >= threshold;
             const elevatedAttention = score !== null && secondaryThreshold !== null && score >= secondaryThreshold;
+            const signedPulse = signedConviction !== null && Math.abs(signedConviction) >= 6;
             const strongDirection = directionScore !== null && Math.abs(directionScore - 50) >= 13;
 
-            // Do not highlight direction/context-only rows. Attention must be explicit or elevated.
-            if (!explicit && !highAttention && !(elevatedAttention && (directionKnown || strongDirection))) {
+            if (!explicit && !highAttention && !(elevatedAttention && (signedPulse || directionKnown || strongDirection))) {
                 return null;
             }
 
             const rank = attentionMarkerRank(row, threshold)
-                + (highAttention ? 260 : 0)
-                + (elevatedAttention ? 120 : 0)
-                + (strongDirection ? 75 : 0);
+                + (highAttention ? 240 : 0)
+                + (elevatedAttention ? 100 : 0)
+                + (signedPulse ? Math.min(220, Math.abs(signedConviction) * 6) : 0)
+                + (strongDirection ? 60 : 0);
 
             return { row, index, rank, explicit, score: score ?? 0 };
         })
@@ -895,13 +909,19 @@ function attentionMarkerRows(rows = [], maxMarkers = null) {
 
     if (!candidates.length) return [];
 
-    const selected = candidates
-        .slice()
-        .sort((a, b) => b.rank - a.rank)
-        .slice(0, limit)
-        .sort((a, b) => a.index - b.index);
+    const selected = [];
+    const sorted = candidates.slice().sort((a, b) => b.rank - a.rank);
+    const minGap = Math.max(2, Math.round(source.length / Math.max(7, limit * 2.2)));
 
-    return selected.map(item => item.row);
+    sorted.forEach(candidate => {
+        if (selected.length >= limit) return;
+        const tooClose = selected.some(item => Math.abs(item.index - candidate.index) < minGap);
+        if (!tooClose || candidate.explicit) selected.push(candidate);
+    });
+
+    return selected
+        .sort((a, b) => a.index - b.index)
+        .map(item => item.row);
 }
 
 function attentionMarkerSize(row) {
@@ -939,6 +959,7 @@ function attentionDirectionText(row) {
 }
 
 function attentionDirectionKind(row) {
+    const signedConviction = attentionSignedConviction(row);
     const text = attentionDirectionText(row);
     const score = attentionDirectionScore(row);
     const sentiment = asNumber(firstRowValue(row, [
@@ -950,6 +971,10 @@ function attentionDirectionKind(row) {
         'sentiment_score'
     ]));
 
+    if (signedConviction !== null && Math.abs(signedConviction) >= 1.25) {
+        return signedConviction > 0 ? 'bull' : 'bear';
+    }
+
     if (/bear|risk[-\s]?off|negative|down|sell|weak|fragile|distribution|breakdown|fear|panic/.test(text)) {
         return 'bear';
     }
@@ -959,8 +984,8 @@ function attentionDirectionKind(row) {
     }
 
     if (score !== null) {
-        if (score >= 55) return 'bull';
-        if (score <= 45) return 'bear';
+        if (score >= 57) return 'bull';
+        if (score <= 43) return 'bear';
     }
 
     if (sentiment !== null) {
@@ -1036,7 +1061,7 @@ function attentionHighlightWidthMs(rows = []) {
 
     steps.sort((a, b) => a - b);
     const medianStep = steps[Math.floor(steps.length / 2)];
-    return Math.max(DAY_MS * 0.45, Math.min(DAY_MS * 5.5, medianStep * 0.72));
+    return Math.max(DAY_MS * 0.65, Math.min(DAY_MS * 7.0, medianStep * 1.05));
 }
 
 function attentionHighlightPriceRange(rows = []) {
