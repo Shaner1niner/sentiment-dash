@@ -967,27 +967,11 @@ export class PlotlyRenderer {
             });
         }
 
-        if (sentimentMacd && (!macd || sentimentMacd.field !== macd.field)) {
-            traces.push({
-                type: 'scatter',
-                mode: 'lines',
-                name: 'Sentiment MACD',
-                x,
-                y: sentimentMacd.y,
-                yaxis: 'y3',
-                line: {
-                    color: MODULE_MACD_PANEL_VISUALS.sentimentMacdLine,
-                    width: 0.95
-                },
-                hovertemplate: `%{x}<br>${fieldLabel(sentimentMacd.field)}: %{y:,.4f}<extra></extra>`
-            });
-        }
-
         if (sentimentMacdSignal && (!sentimentMacd || sentimentMacdSignal.field !== sentimentMacd.field)) {
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
-                name: 'Sentiment MACD Signal',
+                name: 'Sentiment MACD Trend',
                 x,
                 y: sentimentMacdSignal.y,
                 yaxis: 'y3',
@@ -996,7 +980,7 @@ export class PlotlyRenderer {
                     width: 0.85,
                     dash: 'shortdash'
                 },
-                hovertemplate: `%{x}<br>${fieldLabel(sentimentMacdSignal.field)}: %{y:,.4f}<extra></extra>`
+                hovertemplate: `%{x}<br>Sentiment MACD Trend: %{y:,.4f}<extra></extra>`
             });
         }
 
