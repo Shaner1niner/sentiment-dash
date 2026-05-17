@@ -28,6 +28,9 @@ const MODULE_CHART_VISUALS = {
     sentimentRibbonFill: 'rgba(242,204,96,0.030)',
     overlapBandLine: 'rgba(242,204,96,0.58)',
     overlapBandFill: 'rgba(242,204,96,0.070)',
+    attentionMarkerLine: 'rgba(242,204,96,0.86)',
+    attentionMarkerFill: 'rgba(242,204,96,0.18)',
+    attentionMarkerHalo: 'rgba(242,204,96,0.075)',
     unavailableText: '#f2cc60'
 };
 
@@ -559,6 +562,319 @@ function hoverText(label, value, maxLength = 90) {
     return `${label}: ${clipped}`;
 }
 
+
+function escapeHoverValue(value) {
+    return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function finiteNumber(value) {
+    const n = asNumber(value);
+    return n === null ? NaN : n;
+}
+
+function finiteQuantile(values = [], q = 0.75) {
+    const xs = compact(values).sort((a, b) => a - b);
+    if (!xs.length) return null;
+    if (xs.length === 1) return xs[0];
+
+    const position = Math.max(0, Math.min(1, q)) * (xs.length - 1);
+    const lower = Math.floor(position);
+    const upper = Math.ceil(position);
+    const weight = position - lower;
+
+    return xs[lower] + (xs[upper] - xs[lower]) * weight;
+}
+
+const MODULE_ATTENTION_SCORE_FIELDS = [
+    'attention_level_score',
+    'attention_priority_score',
+    'screener_attention_priority_score',
+    'attention_regime_score',
+    'attention_spike_score',
+    'attention_participation_score'
+];
+
+const MODULE_ATTENTION_FLAG_FIELDS = [
+    'attention_spike_flag',
+    'attention_spike',
+    'attention_spike_detected',
+    'screener_attention_spike',
+    'screener_attention_spike_flag',
+    'participation_spike_flag',
+    'engagement_spike_flag'
+];
+
+const MODULE_ATTENTION_LABEL_FIELDS = [
+    'attention_priority_label',
+    'screener_attention_priority_label',
+    'attention_regime_label',
+    'attention_context_label',
+    'attention_label',
+    'participation_label',
+    'engagement_label'
+];
+
+const MODULE_TFIDF_TEXT_FIELDS = [
+    'attention_tfidf_summary',
+    'attention_keyword_summary',
+    'tfidf_tooltip',
+    'tfidf_summary',
+    'tf_idf_summary',
+    'top_tfidf_summary',
+    'keyword_summary',
+    'keywords_summary',
+    'narrative_keywords'
+];
+
+const MODULE_TFIDF_TOKEN_FIELDS = [
+    'attention_tfidf_keywords',
+    'attention_keywords',
+    'tfidf_keywords',
+    'tf_idf_keywords',
+    'top_tfidf_keywords',
+    'top_keywords',
+    'keywords',
+    'keyword_terms',
+    'dominant_keywords',
+    'theme_keywords',
+    'top_terms',
+    'terms'
+];
+
+function firstAttentionScore(row) {
+    return firstRowValue(row, MODULE_ATTENTION_SCORE_FIELDS);
+}
+
+function firstAttentionLabel(row) {
+    return firstRowValue(row, MODULE_ATTENTION_LABEL_FIELDS);
+}
+
+function hasAttentionSpikeFlag(row) {
+    return markerFlag(row, MODULE_ATTENTION_FLAG_FIELDS);
+}
+
+function normalizeKeywordTokens(value, limit = 5) {
+    if (value === null || value === undefined || value === '') return [];
+
+    if (Array.isArray(value)) {
+        return value
+            .map(item => {
+                if (typeof item === 'string') return item;
+
+                if (item && typeof item === 'object') {
+                    const term = item.term || item.keyword || item.text || item.token || item.word || item.label;
+                    const score = asNumber(item.score ?? item.tfidf ?? item.tf_idf ?? item.weight ?? item.value);
+                    if (!term) return '';
+                    return score === null ? String(term) : `${term} (${score.toFixed(score >= 10 ? 0 : 2)})`;
+                }
+
+                return '';
+            })
+            .flatMap(item => normalizeKeywordTokens(item, limit))
+            .slice(0, limit);
+    }
+
+    if (typeof value === 'object') {
+        return Object.entries(value)
+            .sort((a, b) => (asNumber(b[1]) ?? 0) - (asNumber(a[1]) ?? 0))
+            .map(([term, score]) => {
+                const n = asNumber(score);
+                return n === null ? term : `${term} (${n.toFixed(n >= 10 ? 0 : 2)})`;
+            })
+            .slice(0, limit);
+    }
+
+    const text = String(value ?? '').replace(/\s+/g, ' ').trim();
+    if (!text || text.toLowerCase() === 'nan') return [];
+
+    if ((text.startsWith('[') && text.endsWith(']')) || (text.startsWith('{') && text.endsWith('}'))) {
+        try {
+            return normalizeKeywordTokens(JSON.parse(text), limit);
+        } catch (_) {
+            // Fall through to delimiter parsing.
+        }
+    }
+
+    return text
+        .split(/[|,;•\n]+/)
+        .map(part => part.trim().replace(/^['"\[]+|['"\]]+$/g, ''))
+        .map(part => part.replace(/\s*[:=]\s*-?\d+(?:\.\d+)?$/, ''))
+        .filter(part => part && part.toLowerCase() !== 'nan')
+        .slice(0, limit);
+}
+
+function keywordSummaryFromRow(row, limit = 5) {
+    const direct = firstRowValue(row, MODULE_TFIDF_TEXT_FIELDS);
+    if (direct) {
+        const text = String(direct).replace(/\s+/g, ' ').trim();
+        if (text && text.toLowerCase() !== 'nan') {
+            return text.length > 110 ? `${text.slice(0, 107).trim()}...` : text;
+        }
+    }
+
+    const seen = new Set();
+    const keywords = [];
+
+    for (const field of MODULE_TFIDF_TOKEN_FIELDS) {
+        normalizeKeywordTokens(row?.[field], limit).forEach(term => {
+            const clean = String(term || '').replace(/\s+/g, ' ').trim();
+            const key = clean.toLowerCase();
+            if (!clean || seen.has(key)) return;
+            seen.add(key);
+            keywords.push(clean);
+        });
+
+        if (keywords.length >= limit) break;
+    }
+
+    return keywords.slice(0, limit).join(', ');
+}
+
+function attentionSpikeThreshold(rows = []) {
+    const scores = rows
+        .map(row => asNumber(firstAttentionScore(row)))
+        .filter(value => value !== null);
+
+    if (!scores.length) return null;
+
+    const q75 = finiteQuantile(scores, 0.75);
+    const maxScore = Math.max(...scores);
+
+    if (maxScore <= 1.5) return Math.max(0.65, q75 ?? 0.65);
+    return Math.max(65, q75 ?? 65);
+}
+
+function rowHasAttentionLabelSpike(row) {
+    const text = String(firstAttentionLabel(row) || '').toLowerCase();
+    return ['spike', 'elevated', 'high', 'hot', 'surge', 'breakout'].some(token => text.includes(token));
+}
+
+function rowLooksLikeAttentionSpike(row, threshold = null) {
+    const score = asNumber(firstAttentionScore(row));
+    return hasAttentionSpikeFlag(row)
+        || rowHasAttentionLabelSpike(row)
+        || (score !== null && threshold !== null && score >= threshold);
+}
+
+function attentionContextHoverFragment(row, { includeKeywords = false, compactMode = false, threshold = null } = {}) {
+    const score = asNumber(firstAttentionScore(row));
+    const label = firstAttentionLabel(row);
+    const participation = firstRowValue(row, ['attention_participation_score', 'participation_score', 'engagement_score']);
+    const direction = firstRowValue(row, ['signal_consensus_direction_label', 'direction_label', 'direction', 'screener_direction_label']);
+    const keywords = includeKeywords || rowLooksLikeAttentionSpike(row, threshold)
+        ? keywordSummaryFromRow(row)
+        : '';
+
+    const parts = [];
+    if (score !== null) parts.push(`Score ${score.toFixed(score >= 10 ? 0 : 1)}`);
+    if (label) parts.push(escapeHoverValue(label));
+    if (direction) parts.push(`Direction ${escapeHoverValue(direction)}`);
+    if (!compactMode && asNumber(participation) !== null) {
+        parts.push(`Participation ${asNumber(participation).toFixed(1)}`);
+    }
+
+    if (!parts.length && !keywords) return '';
+
+    const lines = [];
+    if (parts.length) lines.push(`<b>Attention</b>: ${parts.join(' · ')}`);
+    if (keywords) lines.push(`<b>TF-IDF</b>: ${escapeHoverValue(keywords)}`);
+
+    return `<br>${lines.join('<br>')}`;
+}
+
+function attentionMarkerRows(rows = [], maxMarkers = 28) {
+    const source = Array.isArray(rows) ? rows : [];
+    const threshold = attentionSpikeThreshold(source);
+
+    const candidates = source
+        .map((row, index) => {
+            const score = asNumber(firstAttentionScore(row));
+            const close = asNumber(row?.close);
+            const explicit = hasAttentionSpikeFlag(row) || rowHasAttentionLabelSpike(row);
+            const thresholdHit = score !== null && threshold !== null && score >= threshold;
+
+            if (close === null || (!explicit && !thresholdHit)) return null;
+            return { row, index, score: score ?? 0, explicit };
+        })
+        .filter(Boolean);
+
+    if (candidates.length <= maxMarkers) return candidates.map(item => item.row);
+
+    return candidates
+        .slice()
+        .sort((a, b) => Number(b.explicit) - Number(a.explicit) || b.score - a.score)
+        .slice(0, maxMarkers)
+        .sort((a, b) => a.index - b.index)
+        .map(item => item.row);
+}
+
+function attentionMarkerSize(row) {
+    const score = asNumber(firstAttentionScore(row));
+    if (score === null) return 9;
+
+    const normalized = score <= 1.5 ? score * 100 : score;
+    return Math.max(8, Math.min(15, 8 + normalized / 16));
+}
+
+function attentionMarkerHoverText(row) {
+    const parts = [
+        '<b>Attention Spike</b>',
+        hoverText('Date', firstRowValue(row, ['date', 'dt', 'timestamp']), 48),
+        hoverNumber('Close', firstRowValue(row, ['close', 'latest_close', 'price']), 2)
+    ].filter(Boolean);
+
+    const context = attentionContextHoverFragment(row, {
+        includeKeywords: true,
+        compactMode: false
+    });
+
+    return `${parts.join('<br>')}${context}`;
+}
+
+function buildAttentionMarkerTraces(rows = []) {
+    const markerRows = attentionMarkerRows(rows);
+    if (!markerRows.length) return [];
+
+    return [
+        {
+            type: 'scatter',
+            mode: 'markers',
+            name: 'Attention spike halo',
+            x: markerRows.map(row => row.date),
+            y: markerRows.map(row => asNumber(row.close)),
+            marker: {
+                size: markerRows.map(row => attentionMarkerSize(row) + 8),
+                symbol: 'circle',
+                color: MODULE_CHART_VISUALS.attentionMarkerHalo,
+                line: { width: 0, color: 'rgba(0,0,0,0)' }
+            },
+            hoverinfo: 'skip',
+            showlegend: false
+        },
+        {
+            type: 'scatter',
+            mode: 'markers',
+            name: 'Attention Spikes',
+            legendrank: 55,
+            x: markerRows.map(row => row.date),
+            y: markerRows.map(row => asNumber(row.close)),
+            marker: {
+                size: markerRows.map(row => attentionMarkerSize(row)),
+                symbol: 'star-open',
+                color: MODULE_CHART_VISUALS.attentionMarkerFill,
+                line: { color: MODULE_CHART_VISUALS.attentionMarkerLine, width: 1.45 }
+            },
+            text: markerRows.map(row => attentionMarkerHoverText(row)),
+            hovertemplate: '%{text}<extra></extra>'
+        }
+    ];
+}
+
 const MODULE_REGIME_MARKER_DEFINITIONS = [
     {
         key: 'confirmedOverlap',
@@ -594,7 +910,7 @@ function rowMatchesRegimeMarker(row, definition) {
     return markerFlag(row, definition.fields);
 }
 
-function regimeMarkerHoverText(row, definition) {
+function regimeMarkerHoverText(row, definition, options = {}) {
     const parts = [
         `Marker: ${definition.name}`,
         hoverText('Date', firstRowValue(row, ['date', 'dt', 'timestamp']), 48),
@@ -602,7 +918,7 @@ function regimeMarkerHoverText(row, definition) {
         hoverText('Ribbon', firstRowValue(row, ['sentiment_ribbon_state', 'sent_ribbon_state', 'sentiment_ribbon', 'ribbon_state']), 72),
         hoverText('Regime', firstRowValue(row, ['regime_label', 'regime', 'market_regime', 'context_regime']), 72),
         hoverNumber('Structure Score', firstRowValue(row, ['seta_dashboard_summary_score', 'seta_score', 'dashboard_score']), 1),
-        hoverNumber('Attention', firstRowValue(row, ['attention_level_score', 'attention_priority_score', 'screener_attention_priority_score']), 1),
+        options.includeAttention === false ? '' : hoverNumber('Attention', firstRowValue(row, ['attention_level_score', 'attention_priority_score', 'screener_attention_priority_score']), 1),
         hoverText('Direction', firstRowValue(row, ['signal_consensus_direction_label', 'direction_label', 'direction']), 72)
     ].filter(Boolean);
 
@@ -1177,8 +1493,7 @@ export class PlotlyRenderer {
 
     static shouldShowAttentionOverlay(state = {}) {
         const attention = controlMode(state.currentAttention, 'context');
-        const scaleMode = controlMode(state.currentScaleMode, 'price_overlays');
-        return attention === 'overlay' || attention === 'overlay_marks' || scaleMode === 'all_visible';
+        return attention === 'overlay' || attention === 'overlay_marks';
     }
 
     static shouldShowRegimeMarkers(state = {}) {
@@ -1295,7 +1610,7 @@ export class PlotlyRenderer {
                         symbol: definition.symbol,
                         opacity: 0.95
                     },
-                    text: markerRows.map(row => regimeMarkerHoverText(row, definition)),
+                    text: markerRows.map(row => regimeMarkerHoverText(row, definition, { includeAttention: controlMode(state.currentAttention, 'context') !== 'off' })),
                     hovertemplate: '%{text}<extra></extra>'
                 };
             })
@@ -1558,6 +1873,15 @@ export class PlotlyRenderer {
         const low = finiteSeries(source, 'low');
 
         const modes = this.buildControlModeSummary(state);
+        const attentionEnabled = modes.attention !== 'off';
+        const attentionThreshold = attentionEnabled ? attentionSpikeThreshold(source) : null;
+        const attentionContext = source.map(row => attentionEnabled
+            ? attentionContextHoverFragment(row, {
+                includeKeywords: rowLooksLikeAttentionSpike(row, attentionThreshold),
+                compactMode: modes.attention === 'context',
+                threshold: attentionThreshold
+            })
+            : '');
         const traces = [];
 
         if (modes.chartType === 'line') {
@@ -1568,8 +1892,9 @@ export class PlotlyRenderer {
                 legendrank: 10,
                 x,
                 y: close,
+                customdata: attentionContext,
                 line: { color: MODULE_CHART_VISUALS.priceLine, width: 1.8 },
-                hovertemplate: '%{x}<br>Close: %{y:,.2f}<extra></extra>'
+                hovertemplate: '%{x}<br>Close: %{y:,.2f}%{customdata}<extra></extra>'
             });
         } else {
             traces.push({
@@ -1581,6 +1906,7 @@ export class PlotlyRenderer {
                 high,
                 low,
                 close,
+                customdata: attentionContext,
                 increasing: {
                     line: { color: MODULE_CHART_VISUALS.candleUpLine, width: 1.05 },
                     fillcolor: MODULE_CHART_VISUALS.candleUpFill
@@ -1590,7 +1916,7 @@ export class PlotlyRenderer {
                     fillcolor: MODULE_CHART_VISUALS.candleDownFill
                 },
                 whiskerwidth: 0.38,
-                hovertemplate: '%{x}<br>O: %{open:,.2f}<br>H: %{high:,.2f}<br>L: %{low:,.2f}<br>C: %{close:,.2f}<extra></extra>'
+                hovertemplate: '%{x}<br>O: %{open:,.2f}<br>H: %{high:,.2f}<br>L: %{low:,.2f}<br>C: %{close:,.2f}%{customdata}<extra></extra>'
             });
         }
 
@@ -1644,20 +1970,7 @@ export class PlotlyRenderer {
         }
 
         if (this.shouldShowAttentionOverlay(state)) {
-            const attention = finiteSeries(source, 'attention_level_score');
-            if (hasEnoughSeries(attention, source, 0.18, 5)) {
-                traces.push({
-                    type: 'scatter',
-                    mode: 'lines',
-                    name: 'Attention',
-                    showlegend: false,
-                    x,
-                    y: attention,
-                    yaxis: 'y2',
-                    line: { width: 1, dash: 'dot' },
-                    hovertemplate: '%{x}<br>Attention: %{y:,.1f}<extra></extra>'
-                });
-            }
+            buildAttentionMarkerTraces(source).forEach(trace => traces.push(trace));
         }
 
         if (modes.scaleMode === 'all_visible') {
@@ -1690,7 +2003,7 @@ export class PlotlyRenderer {
         const range = String(state.currentRange || '3M').trim().toUpperCase();
         const freqLabel = freq === 'W' ? 'Weekly' : 'Daily';
         const modes = this.buildControlModeSummary(state);
-        const showSecondaryAxis = modes.scaleMode === 'all_visible' || modes.attention === 'overlay' || modes.attention === 'overlay_marks';
+        const showSecondaryAxis = modes.scaleMode === 'all_visible';
         const showChartStack = this.hasChartStack(rows);
         const priceDomain = showChartStack ? [0.42, 1] : [0, 1];
         const regimeSummary = this.regimeMarkerSummary(rows, state);
@@ -1871,7 +2184,7 @@ export class PlotlyRenderer {
                 }] : []),
                 {
                     text: rows.length
-                        ? `SETA chart context • ${rows.length} rows • ${modes.chartType} / ${modes.scaleMode}${showChartStack ? ' • chart stack' : ''}${regimeSummary ? ' • regime markers' : ''}`
+                        ? `SETA chart context • ${rows.length} rows • ${modes.chartType} / ${modes.scaleMode}${modes.attention !== 'off' ? ` • attention ${modes.attention === 'context' ? 'context' : 'marks'}` : ''}${showChartStack ? ' • chart stack' : ''}${regimeSummary ? ' • regime markers' : ''}`
                         : 'SETA chart context • no rows found',
                     xref: 'paper',
                     yref: 'paper',
