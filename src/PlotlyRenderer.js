@@ -324,7 +324,8 @@ function addBandEnvelopeTraces(traces, x, band, {
     legendgroup,
     hoverPrefix = name,
     showLowerLegend = false,
-    showUpperLegend = true
+    showUpperLegend = true,
+    legendrank
 }) {
     if (!band?.upper?.y || !band?.lower?.y) return;
 
@@ -355,6 +356,7 @@ function addBandEnvelopeTraces(traces, x, band, {
         fillcolor: fillColor,
         legendgroup,
         showlegend: showUpperLegend,
+        ...(Number.isFinite(legendrank) ? { legendrank } : {}),
         hovertemplate: `%{x}<br>${hoverPrefix} Upper: %{y:,.2f}<extra></extra>`
     });
 }
@@ -1203,6 +1205,7 @@ export class PlotlyRenderer {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Sentiment Trend',
+                showlegend: false,
                 x,
                 y: sentimentMacdSignal.y,
                 yaxis: 'y3',
@@ -1236,6 +1239,7 @@ export class PlotlyRenderer {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'MACD',
+                legendrank: 80,
                 x,
                 y: macd.y,
                 yaxis: 'y3',
@@ -1252,6 +1256,7 @@ export class PlotlyRenderer {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'MACD Signal',
+                showlegend: false,
                 x,
                 y: macdSignal.y,
                 yaxis: 'y3',
@@ -1273,6 +1278,7 @@ export class PlotlyRenderer {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Sentiment RSI',
+                showlegend: false,
                 x,
                 y: sentimentRsi.y,
                 yaxis: 'y4',
@@ -1305,6 +1311,7 @@ export class PlotlyRenderer {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'RSI',
+                showlegend: false,
                 x,
                 y: rsi.y,
                 yaxis: 'y4',
@@ -1325,6 +1332,7 @@ export class PlotlyRenderer {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Sentiment Stoch RSI',
+                showlegend: false,
                 x,
                 y: sentimentStochRsi.y,
                 yaxis: 'y5',
@@ -1354,6 +1362,7 @@ export class PlotlyRenderer {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Stoch RSI',
+                showlegend: false,
                 x,
                 y: stochRsi.y,
                 yaxis: 'y5',
@@ -1398,6 +1407,7 @@ export class PlotlyRenderer {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'Price',
+                legendrank: 10,
                 x,
                 y: close,
                 line: { color: MODULE_CHART_VISUALS.priceLine, width: 1.8 },
@@ -1407,6 +1417,7 @@ export class PlotlyRenderer {
             traces.push({
                 type: 'candlestick',
                 name: 'Price',
+                legendrank: 10,
                 x,
                 open,
                 high,
@@ -1434,6 +1445,7 @@ export class PlotlyRenderer {
             if (bandPolicy.priceBand && tableauPriceBand) {
                 addBandEnvelopeTraces(traces, x, tableauPriceBand, {
                     name: 'Price Band',
+                    legendrank: 20,
                     lineColor: MODULE_CHART_VISUALS.priceBandLine,
                     fillColor: MODULE_CHART_VISUALS.priceBandFill,
                     width: 0.78,
@@ -1448,6 +1460,7 @@ export class PlotlyRenderer {
                     const bandName = this.overlapBandName(modes);
                     addBandEnvelopeTraces(traces, x, overlapBand, {
                         name: bandName,
+                        legendrank: 40,
                         lineColor: MODULE_CHART_VISUALS.overlapBandLine,
                         fillColor: MODULE_CHART_VISUALS.overlapBandFill,
                         width: 0.88,
@@ -1461,6 +1474,7 @@ export class PlotlyRenderer {
         if (this.shouldShowSentimentBands(state) && tableauSentimentBand) {
             addBandEnvelopeTraces(traces, x, tableauSentimentBand, {
                 name: 'Sentiment Band',
+                legendrank: 30,
                 lineColor: MODULE_CHART_VISUALS.sentimentRibbonLine,
                 fillColor: MODULE_CHART_VISUALS.sentimentRibbonFill,
                 width: 0.74,
@@ -1476,6 +1490,7 @@ export class PlotlyRenderer {
                     type: 'scatter',
                     mode: 'lines',
                     name: 'Attention',
+                    showlegend: false,
                     x,
                     y: attention,
                     yaxis: 'y2',
@@ -1492,6 +1507,7 @@ export class PlotlyRenderer {
                     type: 'scatter',
                     mode: 'lines',
                     name: 'Structure Score',
+                    showlegend: false,
                     x,
                     y: dashboardScore,
                     yaxis: 'y2',
@@ -1622,9 +1638,12 @@ export class PlotlyRenderer {
             showlegend: true,
             legend: {
                 orientation: 'v',
-                bgcolor: 'rgba(8,12,18,0.35)',
-                bordercolor: 'rgba(148,163,184,0.16)',
+                traceorder: 'normal',
+                bgcolor: 'rgba(8,12,18,0.28)',
+                bordercolor: 'rgba(148,163,184,0.12)',
                 borderwidth: 1,
+                itemclick: 'toggleothers',
+                itemdoubleclick: 'toggle',
                 font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 }
             },
             margin: { l: 62, r: showSecondaryAxis ? 68 : 38, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
