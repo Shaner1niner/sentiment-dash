@@ -20,6 +20,10 @@ const MODULE_CHART_VISUALS = {
     priceBandLine: 'rgba(155,220,255,0.38)',
     priceBandFill: 'rgba(155,220,255,0.032)',
     priceBandBasisLine: 'rgba(155,220,255,0.18)',
+    priceMaRibbonLine: 'rgba(155,220,255,0.34)',
+    priceMaRibbonFill: 'rgba(155,220,255,0.028)',
+    sentimentMaRibbonLine: 'rgba(242,204,96,0.30)',
+    sentimentMaRibbonFill: 'rgba(242,204,96,0.024)',
     sentimentRibbonLine: 'rgba(242,204,96,0.34)',
     sentimentRibbonFill: 'rgba(242,204,96,0.030)',
     overlapBandLine: 'rgba(242,204,96,0.58)',
@@ -359,6 +363,86 @@ function addBandEnvelopeTraces(traces, x, band, {
         ...(Number.isFinite(legendrank) ? { legendrank } : {}),
         hovertemplate: `%{x}<br>${hoverPrefix} Upper: %{y:,.2f}<extra></extra>`
     });
+}
+
+function addMovingAverageRibbonTraces(traces, x, rows, {
+    name,
+    fields = [],
+    lineColor,
+    fillColor,
+    legendgroup,
+    legendrank,
+    width = 0.95
+}) {
+    const source = Array.isArray(rows) ? rows : [];
+    const series = fields
+        .map(field => ({ field, y: finiteSeries(source, field) }))
+        .filter(item => hasEnoughSeries(item.y, source, 0.18, 5));
+
+    if (series.length < 2) return;
+
+    series.forEach((item, index) => {
+        const isHero = index === series.length - 1;
+        const traceName = isHero ? name : `${name} ${fieldLabel(item.field)}`;
+
+        traces.push({
+            type: 'scatter',
+            mode: 'lines',
+            name: traceName,
+            x,
+            y: item.y,
+            line: {
+                color: lineColor,
+                width: isHero ? width : Math.max(0.55, width * 0.72)
+            },
+            opacity: isHero ? 0.82 : 0.52,
+            fill: index > 0 ? 'tonexty' : undefined,
+            fillcolor: index > 0 ? fillColor : undefined,
+            legendgroup,
+            showlegend: isHero,
+            ...(Number.isFinite(legendrank) ? { legendrank } : {}),
+            hovertemplate: `%{x}<br>${fieldLabel(item.field)}: %{y:,.2f}<extra></extra>`
+        });
+    });
+}
+
+function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
+    const traces = [];
+    const ribbon = controlMode(modes.ribbon, 'none');
+    const sentimentRibbon = controlMode(modes.sentimentRibbon, 'curated');
+    const scaleMode = controlMode(modes.scaleMode, 'price_overlays');
+
+    if (scaleMode === 'price_only') return traces;
+
+    if (ribbon === 'price' || ribbon === 'both') {
+        addMovingAverageRibbonTraces(traces, x, rows, {
+            name: 'Price MA Ribbon',
+            fields: ['close_ma_50', 'close_ma_21', 'close_ma_7'],
+            lineColor: MODULE_CHART_VISUALS.priceMaRibbonLine,
+            fillColor: MODULE_CHART_VISUALS.priceMaRibbonFill,
+            legendgroup: 'price-ma-ribbon',
+            legendrank: 18,
+            width: 0.92
+        });
+    }
+
+    if (ribbon === 'sentiment' || ribbon === 'both') {
+        const sentimentFields = sentimentRibbon === 'full'
+            ? ['scaled_combined_compound_ma_50', 'scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_7']
+            : ['scaled_combined_compound_ma_50', 'scaled_combined_compound_ma_21'];
+
+        addMovingAverageRibbonTraces(traces, x, rows, {
+            name: 'Sentiment MA Ribbon',
+            fields: sentimentFields,
+            lineColor: MODULE_CHART_VISUALS.sentimentMaRibbonLine,
+            fillColor: MODULE_CHART_VISUALS.sentimentMaRibbonFill,
+            legendgroup: 'sentiment-ma-ribbon',
+            legendrank: 28,
+            width: 0.84
+        });
+    }
+
+    return traces;
 }
 
 function fieldLabel(field) {
@@ -1041,7 +1125,6 @@ export class PlotlyRenderer {
 
     static buildBandLayerPolicy(modes = {}) {
         const bands = controlMode(modes.bands, 'none');
-        const ribbon = controlMode(modes.ribbon, 'none');
         const scaleMode = controlMode(modes.scaleMode, 'price_overlays');
         const allBandDiagnostics = bands === 'all' || bands === 'both' || scaleMode === 'all_visible';
         const overlapBand = allBandDiagnostics
@@ -1049,8 +1132,8 @@ export class PlotlyRenderer {
 
         return {
             mode: bands,
-            priceBand: allBandDiagnostics || bands === 'price' || ribbon === 'price' || ribbon === 'both',
-            sentimentEnvelope: allBandDiagnostics || bands === 'sentiment' || ribbon === 'sentiment' || ribbon === 'both',
+            priceBand: allBandDiagnostics || bands === 'price',
+            sentimentEnvelope: allBandDiagnostics || bands === 'sentiment',
             overlapBand,
             allBandDiagnostics
         };
@@ -1440,6 +1523,8 @@ export class PlotlyRenderer {
         const tableauPriceBand = resolveTableauPriceBandSeries(source, state.currentFrequency);
         const tableauSentimentBand = resolveTableauSentimentBandSeries(source, state.currentFrequency);
         const tableauOverlapBand = deriveTableauOverlapBandSeries(tableauPriceBand, tableauSentimentBand);
+
+        buildMovingAverageRibbonTraces(source, x, modes).forEach(trace => traces.push(trace));
 
         if (this.shouldShowPriceBands(state)) {
             if (bandPolicy.priceBand && tableauPriceBand) {
