@@ -1,0 +1,3954 @@
+{
+  "rsi": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 30"
+      },
+      {
+        "label": "Baseline",
+        "range": "30 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "stochastic_rsi_raw": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "internal_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 12.5"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "12.5 to 95"
+      },
+      {
+        "label": "Elevated",
+        "range": "95 to 100"
+      },
+      {
+        "label": "High",
+        "range": "100 to 110"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 110"
+      }
+    ]
+  },
+  "stochastic_rsi": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0.6"
+      },
+      {
+        "label": "Baseline",
+        "range": "0.6 to 17.5"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "17.5 to 85"
+      },
+      {
+        "label": "Elevated",
+        "range": "85 to 100"
+      },
+      {
+        "label": "High",
+        "range": "100 to 110"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 110"
+      }
+    ]
+  },
+  "stochastic_rsi_d": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 3.9"
+      },
+      {
+        "label": "Baseline",
+        "range": "3.9 to 20"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "20 to 85"
+      },
+      {
+        "label": "Elevated",
+        "range": "85 to 100"
+      },
+      {
+        "label": "High",
+        "range": "100 to 110"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 110"
+      }
+    ]
+  },
+  "consecutive_count_macd_price_divergence": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 10"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "10 to 20"
+      },
+      {
+        "label": "Elevated",
+        "range": "20 to 30"
+      },
+      {
+        "label": "High",
+        "range": "30 to 40"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 40"
+      }
+    ]
+  },
+  "sent_ribbon_stack_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 25"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "25 to 75"
+      },
+      {
+        "label": "Elevated",
+        "range": "75 to 100"
+      },
+      {
+        "label": "High",
+        "range": "100 to 110"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 110"
+      }
+    ]
+  },
+  "sent_ribbon_stack_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -100"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-100 to -100"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-100 to -50"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-50 to +50"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+50 to +100"
+      },
+      {
+        "label": "Constructive",
+        "range": "+100 to +100"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +100"
+      }
+    ]
+  },
+  "sent_ribbon_center_slope_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -60"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-60 to -45"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-45 to -25"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-25 to +25"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+25 to +45"
+      },
+      {
+        "label": "Constructive",
+        "range": "+45 to +60"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +60"
+      }
+    ]
+  },
+  "sent_ribbon_fast_slow_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -60"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-60 to -50"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-50 to -25"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-25 to +25"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+25 to +50"
+      },
+      {
+        "label": "Constructive",
+        "range": "+50 to +60"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +60"
+      }
+    ]
+  },
+  "sent_ribbon_regime_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 25"
+      },
+      {
+        "label": "Baseline",
+        "range": "25 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 75"
+      },
+      {
+        "label": "High",
+        "range": "75 to 80"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 80"
+      }
+    ]
+  },
+  "boll_overlap_signal_strength_abs": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 15"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "15 to 45"
+      },
+      {
+        "label": "Elevated",
+        "range": "45 to 60"
+      },
+      {
+        "label": "High",
+        "range": "60 to 70"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 70"
+      }
+    ]
+  },
+  "combined_normalized_score_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 30"
+      },
+      {
+        "label": "Baseline",
+        "range": "30 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 65"
+      },
+      {
+        "label": "High",
+        "range": "65 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "combined_normalized_score_21": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 30"
+      },
+      {
+        "label": "Baseline",
+        "range": "30 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "combined_normalized_score_50": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 30"
+      },
+      {
+        "label": "Baseline",
+        "range": "30 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "combined_normalized_score_100": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "combined_normalized_score_200": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "ma_strength_breadth_count": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 5"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "5 to 15"
+      },
+      {
+        "label": "Elevated",
+        "range": "15 to 25"
+      },
+      {
+        "label": "High",
+        "range": "25 to 35"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 35"
+      }
+    ]
+  },
+  "ma_strength_score_raw": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "internal_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 100"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "100 to 110"
+      },
+      {
+        "label": "Elevated",
+        "range": "110 to 120"
+      },
+      {
+        "label": "High",
+        "range": "120 to 130"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 130"
+      }
+    ]
+  },
+  "ma_strength_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -100"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-100 to -100"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-100 to -100"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-100 to +100"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+100 to +100"
+      },
+      {
+        "label": "Constructive",
+        "range": "+100 to +100"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +100"
+      }
+    ]
+  },
+  "ma_strength_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 1"
+      },
+      {
+        "label": "Baseline",
+        "range": "1 to 100"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "100 to 110"
+      },
+      {
+        "label": "Elevated",
+        "range": "110 to 120"
+      },
+      {
+        "label": "High",
+        "range": "120 to 130"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 130"
+      }
+    ]
+  },
+  "ma_strength_distance_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -10"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-10 to +10"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+10 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "ma_strength_distance_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 55"
+      },
+      {
+        "label": "Elevated",
+        "range": "55 to 60"
+      },
+      {
+        "label": "High",
+        "range": "60 to 70"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 70"
+      }
+    ]
+  },
+  "ma_strength_enhanced_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -65"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-65 to -60"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-60 to -55"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-55 to +55"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+55 to +60"
+      },
+      {
+        "label": "Constructive",
+        "range": "+60 to +65"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +65"
+      }
+    ]
+  },
+  "ma_strength_enhanced_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 20"
+      },
+      {
+        "label": "Baseline",
+        "range": "20 to 75"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "75 to 80"
+      },
+      {
+        "label": "Elevated",
+        "range": "80 to 90"
+      },
+      {
+        "label": "High",
+        "range": "90 to 100"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 100"
+      }
+    ]
+  },
+  "ma_trend_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 100"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "100 to 110"
+      },
+      {
+        "label": "Elevated",
+        "range": "110 to 120"
+      },
+      {
+        "label": "High",
+        "range": "120 to 130"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 130"
+      }
+    ]
+  },
+  "ma_trend_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -100"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-100 to -100"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-100 to -100"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-100 to +100"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+100 to +100"
+      },
+      {
+        "label": "Constructive",
+        "range": "+100 to +100"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +100"
+      }
+    ]
+  },
+  "ma_combined_strength_trend_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 12.5"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "12.5 to 90"
+      },
+      {
+        "label": "Elevated",
+        "range": "90 to 100"
+      },
+      {
+        "label": "High",
+        "range": "100 to 110"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 110"
+      }
+    ]
+  },
+  "ma_combined_strength_trend_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -85"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-85 to -85"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-85 to -70"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-70 to +70"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+70 to +85"
+      },
+      {
+        "label": "Constructive",
+        "range": "+85 to +85"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +85"
+      }
+    ]
+  },
+  "bollinger_strength_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 30"
+      },
+      {
+        "label": "Baseline",
+        "range": "30 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 80"
+      },
+      {
+        "label": "High",
+        "range": "80 to 90"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 90"
+      }
+    ]
+  },
+  "bollinger_strength_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -80"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-80 to -60"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-60 to -40"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-40 to +40"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+40 to +60"
+      },
+      {
+        "label": "Constructive",
+        "range": "+60 to +80"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +80"
+      }
+    ]
+  },
+  "macd_component_signal_direction": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "internal_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -7.5"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-7.5 to +7.5"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+7.5 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "macd_signal_strength_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 25"
+      },
+      {
+        "label": "Baseline",
+        "range": "25 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 75"
+      },
+      {
+        "label": "High",
+        "range": "75 to 90"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 90"
+      }
+    ]
+  },
+  "macd_signal_strength_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -80"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-80 to -60"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-60 to -40"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-40 to +40"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+40 to +60"
+      },
+      {
+        "label": "Constructive",
+        "range": "+60 to +80"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +80"
+      }
+    ]
+  },
+  "rsi_strength_score": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 65"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "65 to 75"
+      },
+      {
+        "label": "Elevated",
+        "range": "75 to 85"
+      },
+      {
+        "label": "High",
+        "range": "85 to 95"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 95"
+      }
+    ]
+  },
+  "rsi_strength_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -15"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-15 to +15"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+15 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "stochastic_rsi_strength_score": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 65"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "65 to 85"
+      },
+      {
+        "label": "Elevated",
+        "range": "85 to 95"
+      },
+      {
+        "label": "High",
+        "range": "95 to 105"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 105"
+      }
+    ]
+  },
+  "stochastic_rsi_strength_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -50"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-50 to -25"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-25 to -25"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-25 to +25"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+25 to +25"
+      },
+      {
+        "label": "Constructive",
+        "range": "+25 to +50"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +50"
+      }
+    ]
+  },
+  "stochastic_rsi_cross_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -100"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-100 to -100"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-100 to -100"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-100 to +100"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+100 to +100"
+      },
+      {
+        "label": "Constructive",
+        "range": "+100 to +100"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +100"
+      }
+    ]
+  },
+  "stochastic_rsi_cross_score": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 100"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "100 to 110"
+      },
+      {
+        "label": "Elevated",
+        "range": "110 to 120"
+      },
+      {
+        "label": "High",
+        "range": "120 to 130"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 130"
+      }
+    ]
+  },
+  "stochastic_rsi_d_strength_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -100"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-100 to -100"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-100 to -7.5"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-7.5 to +7.5"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+7.5 to +100"
+      },
+      {
+        "label": "Constructive",
+        "range": "+100 to +100"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +100"
+      }
+    ]
+  },
+  "stochastic_rsi_d_strength_score": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 100"
+      },
+      {
+        "label": "Elevated",
+        "range": "100 to 110"
+      },
+      {
+        "label": "High",
+        "range": "110 to 120"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 120"
+      }
+    ]
+  },
+  "rsi_combined_strength_score_raw": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "internal_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 65"
+      },
+      {
+        "label": "Elevated",
+        "range": "65 to 75"
+      },
+      {
+        "label": "High",
+        "range": "75 to 85"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 85"
+      }
+    ]
+  },
+  "rsi_combined_strength_score": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 65"
+      },
+      {
+        "label": "Elevated",
+        "range": "65 to 75"
+      },
+      {
+        "label": "High",
+        "range": "75 to 85"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 85"
+      }
+    ]
+  },
+  "rsi_combined_strength_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -17.5"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-17.5 to +17.5"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+17.5 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "signal_consensus_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -45"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-45 to -40"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-40 to -25"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-25 to +25"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+25 to +40"
+      },
+      {
+        "label": "Constructive",
+        "range": "+40 to +45"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +45"
+      }
+    ]
+  },
+  "signal_consensus_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "signal_dispersion_score": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 20"
+      },
+      {
+        "label": "Baseline",
+        "range": "20 to 30"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "30 to 50"
+      },
+      {
+        "label": "Elevated",
+        "range": "50 to 60"
+      },
+      {
+        "label": "High",
+        "range": "60 to 65"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 65"
+      }
+    ]
+  },
+  "ma_strength_enhanced_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 20"
+      },
+      {
+        "label": "Baseline",
+        "range": "20 to 25"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "25 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 80"
+      },
+      {
+        "label": "High",
+        "range": "80 to 90"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 90"
+      }
+    ]
+  },
+  "ma_strength_enhanced_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 20"
+      },
+      {
+        "label": "Baseline",
+        "range": "20 to 25"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "25 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 80"
+      },
+      {
+        "label": "High",
+        "range": "80 to 90"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 90"
+      }
+    ]
+  },
+  "ma_strength_enhanced_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "ma_strength_enhanced_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "ma_combined_strength_trend_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 17.5"
+      },
+      {
+        "label": "Baseline",
+        "range": "17.5 to 30"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "30 to 65"
+      },
+      {
+        "label": "Elevated",
+        "range": "65 to 80"
+      },
+      {
+        "label": "High",
+        "range": "80 to 85"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 85"
+      }
+    ]
+  },
+  "ma_combined_strength_trend_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 25"
+      },
+      {
+        "label": "Baseline",
+        "range": "25 to 35"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "35 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "ma_combined_strength_trend_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 11"
+      },
+      {
+        "label": "Elevated",
+        "range": "11 to 21"
+      },
+      {
+        "label": "High",
+        "range": "21 to 31"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 31"
+      }
+    ]
+  },
+  "ma_combined_strength_trend_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 11"
+      },
+      {
+        "label": "Elevated",
+        "range": "11 to 21"
+      },
+      {
+        "label": "High",
+        "range": "21 to 31"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 31"
+      }
+    ]
+  },
+  "bollinger_strength_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 85"
+      },
+      {
+        "label": "High",
+        "range": "85 to 90"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 90"
+      }
+    ]
+  },
+  "bollinger_strength_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 85"
+      },
+      {
+        "label": "High",
+        "range": "85 to 90"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 90"
+      }
+    ]
+  },
+  "bollinger_strength_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 11"
+      },
+      {
+        "label": "Elevated",
+        "range": "11 to 21"
+      },
+      {
+        "label": "High",
+        "range": "21 to 31"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 31"
+      }
+    ]
+  },
+  "bollinger_strength_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 11"
+      },
+      {
+        "label": "Elevated",
+        "range": "11 to 21"
+      },
+      {
+        "label": "High",
+        "range": "21 to 31"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 31"
+      }
+    ]
+  },
+  "macd_signal_strength_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 25"
+      },
+      {
+        "label": "Baseline",
+        "range": "25 to 35"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "35 to 65"
+      },
+      {
+        "label": "Elevated",
+        "range": "65 to 75"
+      },
+      {
+        "label": "High",
+        "range": "75 to 80"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 80"
+      }
+    ]
+  },
+  "macd_signal_strength_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 30"
+      },
+      {
+        "label": "Baseline",
+        "range": "30 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "macd_signal_strength_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "macd_signal_strength_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "rsi_combined_strength_score_ema_3": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 65"
+      },
+      {
+        "label": "High",
+        "range": "65 to 70"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 70"
+      }
+    ]
+  },
+  "rsi_combined_strength_score_ema_7": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 65"
+      },
+      {
+        "label": "High",
+        "range": "65 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "rsi_combined_strength_score_streak_up": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 11"
+      },
+      {
+        "label": "Elevated",
+        "range": "11 to 21"
+      },
+      {
+        "label": "High",
+        "range": "21 to 31"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 31"
+      }
+    ]
+  },
+  "rsi_combined_strength_score_streak_down": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 11"
+      },
+      {
+        "label": "Elevated",
+        "range": "11 to 21"
+      },
+      {
+        "label": "High",
+        "range": "21 to 31"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 31"
+      }
+    ]
+  },
+  "signal_consensus_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 65"
+      },
+      {
+        "label": "High",
+        "range": "65 to 70"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 70"
+      }
+    ]
+  },
+  "signal_consensus_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 45"
+      },
+      {
+        "label": "Baseline",
+        "range": "45 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 65"
+      },
+      {
+        "label": "High",
+        "range": "65 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "signal_consensus_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "signal_consensus_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "boll_overlap_alert_quality_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 7.5"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "7.5 to 40"
+      },
+      {
+        "label": "Elevated",
+        "range": "40 to 55"
+      },
+      {
+        "label": "High",
+        "range": "55 to 65"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 65"
+      }
+    ]
+  },
+  "attention_level_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 10"
+      },
+      {
+        "label": "Baseline",
+        "range": "10 to 12.5"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "12.5 to 25"
+      },
+      {
+        "label": "Elevated",
+        "range": "25 to 40"
+      },
+      {
+        "label": "High",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 45"
+      }
+    ]
+  },
+  "attention_conviction_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -25"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-25 to -12.5"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-12.5 to +12.5"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+12.5 to +25"
+      },
+      {
+        "label": "Constructive",
+        "range": "+25 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "attention_conviction_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 55"
+      },
+      {
+        "label": "Elevated",
+        "range": "55 to 60"
+      },
+      {
+        "label": "High",
+        "range": "60 to 65"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 65"
+      }
+    ]
+  },
+  "attention_regime_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 20"
+      },
+      {
+        "label": "Baseline",
+        "range": "20 to 25"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "25 to 30"
+      },
+      {
+        "label": "Elevated",
+        "range": "30 to 35"
+      },
+      {
+        "label": "High",
+        "range": "35 to 40"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 40"
+      }
+    ]
+  },
+  "ma_attention_adjusted_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -85"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-85 to -85"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-85 to -60"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-60 to +60"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+60 to +85"
+      },
+      {
+        "label": "Constructive",
+        "range": "+85 to +85"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +85"
+      }
+    ]
+  },
+  "ma_attention_adjusted_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 7.5"
+      },
+      {
+        "label": "Baseline",
+        "range": "7.5 to 20"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "20 to 75"
+      },
+      {
+        "label": "Elevated",
+        "range": "75 to 90"
+      },
+      {
+        "label": "High",
+        "range": "90 to 100"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 100"
+      }
+    ]
+  },
+  "macd_attention_multiplier": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0.9"
+      },
+      {
+        "label": "Baseline",
+        "range": "0.9 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 11"
+      },
+      {
+        "label": "Elevated",
+        "range": "11 to 21"
+      },
+      {
+        "label": "High",
+        "range": "21 to 31"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 31"
+      }
+    ]
+  },
+  "macd_attention_adjusted_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -75"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-75 to -60"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-60 to -40"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-40 to +40"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+40 to +60"
+      },
+      {
+        "label": "Constructive",
+        "range": "+60 to +75"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +75"
+      }
+    ]
+  },
+  "macd_attention_adjusted_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 80"
+      },
+      {
+        "label": "High",
+        "range": "80 to 90"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 90"
+      }
+    ]
+  },
+  "rsi_attention_multiplier": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 1"
+      },
+      {
+        "label": "Baseline",
+        "range": "1 to 1.1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1.1 to 11.1"
+      },
+      {
+        "label": "Elevated",
+        "range": "11.1 to 21.1"
+      },
+      {
+        "label": "High",
+        "range": "21.1 to 31.1"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 31.1"
+      }
+    ]
+  },
+  "rsi_attention_adjusted_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -20"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-20 to +20"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+20 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "rsi_attention_adjusted_score": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 65"
+      },
+      {
+        "label": "High",
+        "range": "65 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "bollinger_attention_adjusted_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -75"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-75 to -60"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-60 to -40"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-40 to +40"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+40 to +60"
+      },
+      {
+        "label": "Constructive",
+        "range": "+60 to +75"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +75"
+      }
+    ]
+  },
+  "bollinger_attention_adjusted_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 30"
+      },
+      {
+        "label": "Baseline",
+        "range": "30 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 80"
+      },
+      {
+        "label": "High",
+        "range": "80 to 90"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 90"
+      }
+    ]
+  },
+  "signal_consensus_attention_adjusted_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -45"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-45 to -40"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-40 to -25"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-25 to +25"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+25 to +40"
+      },
+      {
+        "label": "Constructive",
+        "range": "+40 to +45"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +45"
+      }
+    ]
+  },
+  "signal_consensus_attention_adjusted_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "attention_aligned_consensus_score_signed": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -12.5"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-12.5 to +12.5"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+12.5 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "attention_aligned_consensus_score": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 55"
+      },
+      {
+        "label": "Elevated",
+        "range": "55 to 60"
+      },
+      {
+        "label": "High",
+        "range": "60 to 65"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 65"
+      }
+    ]
+  },
+  "attention_level_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 10"
+      },
+      {
+        "label": "Baseline",
+        "range": "10 to 15"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "15 to 25"
+      },
+      {
+        "label": "Elevated",
+        "range": "25 to 35"
+      },
+      {
+        "label": "High",
+        "range": "35 to 40"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 40"
+      }
+    ]
+  },
+  "attention_level_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 10"
+      },
+      {
+        "label": "Baseline",
+        "range": "10 to 15"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "15 to 25"
+      },
+      {
+        "label": "Elevated",
+        "range": "25 to 35"
+      },
+      {
+        "label": "High",
+        "range": "35 to 40"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 40"
+      }
+    ]
+  },
+  "attention_level_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 3"
+      },
+      {
+        "label": "High",
+        "range": "3 to 13"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 13"
+      }
+    ]
+  },
+  "attention_level_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 2"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "2 to 3"
+      },
+      {
+        "label": "Elevated",
+        "range": "3 to 4"
+      },
+      {
+        "label": "High",
+        "range": "4 to 14"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 14"
+      }
+    ]
+  },
+  "attention_conviction_score_signed_ema_3": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -12.5"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-12.5 to +12.5"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+12.5 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "attention_conviction_score_signed_ema_7": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -10"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-10 to +10"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+10 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "attention_conviction_score_signed_delta_1d": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -7.5"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-7.5 to +7.5"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+7.5 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "attention_conviction_score_signed_delta_3d": {
+    "kind": "signed_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Strong risk-off",
+        "range": "<= -35"
+      },
+      {
+        "label": "Risk-off",
+        "range": "-35 to -20"
+      },
+      {
+        "label": "Leaning risk-off",
+        "range": "-20 to -10"
+      },
+      {
+        "label": "Mixed / weak",
+        "range": "-10 to +10"
+      },
+      {
+        "label": "Leaning constructive",
+        "range": "+10 to +20"
+      },
+      {
+        "label": "Constructive",
+        "range": "+20 to +35"
+      },
+      {
+        "label": "Strong constructive",
+        "range": ">= +35"
+      }
+    ]
+  },
+  "attention_conviction_score_signed_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 3"
+      },
+      {
+        "label": "Elevated",
+        "range": "3 to 13"
+      },
+      {
+        "label": "High",
+        "range": "13 to 23"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 23"
+      }
+    ]
+  },
+  "attention_conviction_score_signed_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 3"
+      },
+      {
+        "label": "Elevated",
+        "range": "3 to 13"
+      },
+      {
+        "label": "High",
+        "range": "13 to 23"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 23"
+      }
+    ]
+  },
+  "attention_regime_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 20"
+      },
+      {
+        "label": "Baseline",
+        "range": "20 to 25"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "25 to 30"
+      },
+      {
+        "label": "Elevated",
+        "range": "30 to 35"
+      },
+      {
+        "label": "High",
+        "range": "35 to 40"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 40"
+      }
+    ]
+  },
+  "attention_regime_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 20"
+      },
+      {
+        "label": "Baseline",
+        "range": "20 to 25"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "25 to 30"
+      },
+      {
+        "label": "Elevated",
+        "range": "30 to 35"
+      },
+      {
+        "label": "High",
+        "range": "35 to 40"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 40"
+      }
+    ]
+  },
+  "attention_regime_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 3"
+      },
+      {
+        "label": "High",
+        "range": "3 to 13"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 13"
+      }
+    ]
+  },
+  "attention_regime_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 2"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "2 to 3"
+      },
+      {
+        "label": "Elevated",
+        "range": "3 to 4"
+      },
+      {
+        "label": "High",
+        "range": "4 to 14"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 14"
+      }
+    ]
+  },
+  "ma_attention_adjusted_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 25"
+      },
+      {
+        "label": "Baseline",
+        "range": "25 to 35"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "35 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "ma_attention_adjusted_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 30"
+      },
+      {
+        "label": "Baseline",
+        "range": "30 to 40"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "40 to 55"
+      },
+      {
+        "label": "Elevated",
+        "range": "55 to 60"
+      },
+      {
+        "label": "High",
+        "range": "60 to 65"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 65"
+      }
+    ]
+  },
+  "ma_attention_adjusted_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "ma_attention_adjusted_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "macd_attention_adjusted_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 80"
+      },
+      {
+        "label": "High",
+        "range": "80 to 85"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 85"
+      }
+    ]
+  },
+  "macd_attention_adjusted_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 45"
+      },
+      {
+        "label": "Baseline",
+        "range": "45 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 75"
+      },
+      {
+        "label": "High",
+        "range": "75 to 80"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 80"
+      }
+    ]
+  },
+  "macd_attention_adjusted_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 3"
+      },
+      {
+        "label": "High",
+        "range": "3 to 13"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 13"
+      }
+    ]
+  },
+  "macd_attention_adjusted_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 3"
+      },
+      {
+        "label": "High",
+        "range": "3 to 13"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 13"
+      }
+    ]
+  },
+  "rsi_attention_adjusted_score_ema_3": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 55"
+      },
+      {
+        "label": "Elevated",
+        "range": "55 to 60"
+      },
+      {
+        "label": "High",
+        "range": "60 to 70"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 70"
+      }
+    ]
+  },
+  "rsi_attention_adjusted_score_ema_7": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 45"
+      },
+      {
+        "label": "Baseline",
+        "range": "45 to 55"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "55 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 70"
+      },
+      {
+        "label": "High",
+        "range": "70 to 80"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 80"
+      }
+    ]
+  },
+  "rsi_attention_adjusted_score_streak_up": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 3"
+      },
+      {
+        "label": "High",
+        "range": "3 to 13"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 13"
+      }
+    ]
+  },
+  "rsi_attention_adjusted_score_streak_down": {
+    "kind": "bounded_0_100_indicator",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 3"
+      },
+      {
+        "label": "High",
+        "range": "3 to 13"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 13"
+      }
+    ]
+  },
+  "bollinger_attention_adjusted_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 80"
+      },
+      {
+        "label": "High",
+        "range": "80 to 90"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 90"
+      }
+    ]
+  },
+  "bollinger_attention_adjusted_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 35"
+      },
+      {
+        "label": "Baseline",
+        "range": "35 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 70"
+      },
+      {
+        "label": "Elevated",
+        "range": "70 to 80"
+      },
+      {
+        "label": "High",
+        "range": "80 to 85"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 85"
+      }
+    ]
+  },
+  "bollinger_attention_adjusted_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "bollinger_attention_adjusted_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 3"
+      },
+      {
+        "label": "High",
+        "range": "3 to 13"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 13"
+      }
+    ]
+  },
+  "signal_consensus_attention_adjusted_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 65"
+      },
+      {
+        "label": "High",
+        "range": "65 to 70"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 70"
+      }
+    ]
+  },
+  "signal_consensus_attention_adjusted_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 45"
+      },
+      {
+        "label": "Baseline",
+        "range": "45 to 50"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "50 to 60"
+      },
+      {
+        "label": "Elevated",
+        "range": "60 to 65"
+      },
+      {
+        "label": "High",
+        "range": "65 to 75"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 75"
+      }
+    ]
+  },
+  "signal_consensus_attention_adjusted_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "signal_consensus_attention_adjusted_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "attention_aligned_consensus_score_ema_3": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 55"
+      },
+      {
+        "label": "Elevated",
+        "range": "55 to 60"
+      },
+      {
+        "label": "High",
+        "range": "60 to 70"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 70"
+      }
+    ]
+  },
+  "attention_aligned_consensus_score_ema_7": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 40"
+      },
+      {
+        "label": "Baseline",
+        "range": "40 to 45"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "45 to 55"
+      },
+      {
+        "label": "Elevated",
+        "range": "55 to 60"
+      },
+      {
+        "label": "High",
+        "range": "60 to 70"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 70"
+      }
+    ]
+  },
+  "attention_aligned_consensus_score_streak_up": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 12"
+      },
+      {
+        "label": "High",
+        "range": "12 to 22"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 22"
+      }
+    ]
+  },
+  "attention_aligned_consensus_score_streak_down": {
+    "kind": "bounded_0_100_score",
+    "suggested_public_exposure": "public_label_ok_raw_score_member_only",
+    "bins": [
+      {
+        "label": "Quiet / Low",
+        "range": "< 0"
+      },
+      {
+        "label": "Baseline",
+        "range": "0 to 1"
+      },
+      {
+        "label": "Active / Medium",
+        "range": "1 to 2"
+      },
+      {
+        "label": "Elevated",
+        "range": "2 to 3"
+      },
+      {
+        "label": "High",
+        "range": "3 to 13"
+      },
+      {
+        "label": "Extreme",
+        "range": ">= 13"
+      }
+    ]
+  }
+}
