@@ -23,6 +23,18 @@ const MODULE_CHART_VISUALS = {
     unavailableText: '#f2cc60'
 };
 
+const MODULE_MACD_PANEL_VISUALS = {
+    macdLine: 'rgba(255,132,204,0.92)',
+    macdGlowLine: 'rgba(255,132,204,0.10)',
+    macdGlowWidth: 3.75,
+    macdSignalLine: 'rgba(160,170,182,0.44)',
+    macdZeroRail: 'rgba(170,155,130,0.22)',
+    macdHistPositiveStrong: 'rgba(197,120,92,0.48)',
+    macdHistPositiveSoft: 'rgba(197,120,92,0.26)',
+    macdHistNegativeStrong: 'rgba(135,120,190,0.42)',
+    macdHistNegativeSoft: 'rgba(135,120,190,0.22)'
+};
+
 const MODULE_TA_PANEL_VISUALS = {
     thresholdLine: 'rgba(155,220,255,0.20)',
     midline: 'rgba(148,163,184,0.035)',
@@ -343,6 +355,46 @@ function rsiSentimentThresholdStates(rows = []) {
         if (value !== null && lower !== null && value < lower) return 'low';
         return null;
     });
+}
+
+function macdHistogramColors(values = []) {
+    return values.map((value, index) => {
+        const current = asNumber(value);
+        const previous = index > 0 ? asNumber(values[index - 1]) : null;
+
+        if (current === null) return MODULE_MACD_PANEL_VISUALS.macdHistPositiveSoft;
+
+        const expanding = previous === null
+            ? Math.abs(current) > 0
+            : Math.abs(current) >= Math.abs(previous);
+
+        if (current >= 0) {
+            return expanding
+                ? MODULE_MACD_PANEL_VISUALS.macdHistPositiveStrong
+                : MODULE_MACD_PANEL_VISUALS.macdHistPositiveSoft;
+        }
+
+        return expanding
+            ? MODULE_MACD_PANEL_VISUALS.macdHistNegativeStrong
+            : MODULE_MACD_PANEL_VISUALS.macdHistNegativeSoft;
+    });
+}
+
+function buildMacdZeroRailShape() {
+    return {
+        type: 'line',
+        xref: 'paper',
+        yref: 'y3',
+        x0: 0,
+        x1: 1,
+        y0: 0,
+        y1: 0,
+        line: {
+            color: MODULE_MACD_PANEL_VISUALS.macdZeroRail,
+            width: 1
+        },
+        layer: 'below'
+    };
 }
 
 function buildRsiZoneBackgroundShapes() {
@@ -1189,6 +1241,7 @@ export class PlotlyRenderer {
         const priceDomain = showChartStack ? [0.42, 1] : [0, 1];
         const regimeSummary = this.regimeMarkerSummary(rows, state);
         const overlapStatus = this.overlapBandStatus(rows, state);
+        const macdZeroRailShapes = showChartStack ? [buildMacdZeroRailShape()] : [];
         const rsiZoneBackgroundShapes = showChartStack ? buildRsiZoneBackgroundShapes() : [];
         const rsiRailShapes = showChartStack ? buildRsiRailShapes() : [];
         const stochRsiZoneBackgroundShapes = showChartStack ? buildStochRsiZoneBackgroundShapes() : [];
@@ -1225,7 +1278,7 @@ export class PlotlyRenderer {
                 domain: priceDomain,
                 autorange: true,
                 fixedrange: false,
-                gridcolor: MODULE_CHART_VISUALS.grid,
+                gridcolor: 'rgba(148,163,184,0.035)',
                 zerolinecolor: MODULE_CHART_VISUALS.zeroLine,
                 linecolor: MODULE_CHART_VISUALS.axisLine,
                 tickfont: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 },
@@ -1299,6 +1352,7 @@ export class PlotlyRenderer {
             margin: { l: 62, r: showSecondaryAxis ? 68 : 38, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
             shapes: [
                 ...((baseLayout && Array.isArray(baseLayout.shapes)) ? baseLayout.shapes : []),
+                ...macdZeroRailShapes,
                 ...rsiZoneBackgroundShapes,
                 ...rsiRailShapes,
                 ...stochRsiZoneBackgroundShapes,
