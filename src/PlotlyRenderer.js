@@ -963,6 +963,7 @@ export class PlotlyRenderer {
                 yaxis: 'y3',
                 marker: { color: sentimentMacdHistogramColors(sentimentMacdHist.y) },
                 opacity: 0.72,
+                showlegend: false,
                 hovertemplate: `%{x}<br>Sentiment MACD Delta: %{y:,.4f}<extra></extra>`
             });
         }
@@ -971,7 +972,7 @@ export class PlotlyRenderer {
             traces.push({
                 type: 'scatter',
                 mode: 'lines',
-                name: 'Sentiment MACD Trend',
+                name: 'Sentiment Trend',
                 x,
                 y: sentimentMacdSignal.y,
                 yaxis: 'y3',
@@ -980,7 +981,7 @@ export class PlotlyRenderer {
                     width: 0.85,
                     dash: 'shortdash'
                 },
-                hovertemplate: `%{x}<br>Sentiment MACD Trend: %{y:,.4f}<extra></extra>`
+                hovertemplate: `%{x}<br>Sentiment Trend: %{y:,.4f}<extra></extra>`
             });
         }
 
@@ -1464,7 +1465,7 @@ export class PlotlyRenderer {
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
                 ...(showChartStack ? [
                     {
-                        text: 'MACD momentum',
+                        text: 'momentum',
                         xref: 'paper',
                         yref: 'paper',
                         x: 0.985,
@@ -1474,7 +1475,7 @@ export class PlotlyRenderer {
                         font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
                     },
                     {
-                        text: 'RSI pressure',
+                        text: 'pressure',
                         xref: 'paper',
                         yref: 'paper',
                         x: 0.985,
@@ -1484,7 +1485,7 @@ export class PlotlyRenderer {
                         font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
                     },
                     {
-                        text: 'Stoch timing',
+                        text: 'timing',
                         xref: 'paper',
                         yref: 'paper',
                         x: 0.985,
