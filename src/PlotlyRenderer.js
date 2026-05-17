@@ -12,10 +12,10 @@ const MODULE_CHART_VISUALS = {
     gridSubtle: 'rgba(148,163,184,0.055)',
     zeroLine: 'rgba(148,163,184,0.18)',
     axisLine: 'rgba(148,163,184,0.22)',
-    candleUpLine: '#d7dee8',
-    candleUpFill: 'rgba(215,222,232,0.82)',
-    candleDownLine: '#7d8590',
-    candleDownFill: 'rgba(125,133,144,0.58)',
+    candleUpLine: 'rgba(226,232,240,0.92)',
+    candleUpFill: 'rgba(226,232,240,0.72)',
+    candleDownLine: 'rgba(125,133,144,0.82)',
+    candleDownFill: 'rgba(82,92,108,0.54)',
     priceLine: '#d7dee8',
     priceBandLine: 'rgba(155,220,255,0.38)',
     priceBandFill: 'rgba(155,220,255,0.032)',
@@ -1424,14 +1424,14 @@ export class PlotlyRenderer {
                 low,
                 close,
                 increasing: {
-                    line: { color: MODULE_CHART_VISUALS.candleUpLine, width: 1.15 },
+                    line: { color: MODULE_CHART_VISUALS.candleUpLine, width: 1.05 },
                     fillcolor: MODULE_CHART_VISUALS.candleUpFill
                 },
                 decreasing: {
-                    line: { color: MODULE_CHART_VISUALS.candleDownLine, width: 1.05 },
+                    line: { color: MODULE_CHART_VISUALS.candleDownLine, width: 0.95 },
                     fillcolor: MODULE_CHART_VISUALS.candleDownFill
                 },
-                whiskerwidth: 0.45,
+                whiskerwidth: 0.38,
                 hovertemplate: '%{x}<br>O: %{open:,.2f}<br>H: %{high:,.2f}<br>L: %{low:,.2f}<br>C: %{close:,.2f}<extra></extra>'
             });
         }
