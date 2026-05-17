@@ -1,5 +1,12 @@
 import { Store } from './Store.js';
 
+const ASSET_PAYLOAD_CACHE_TOKEN = 'module_attention_tfidf_payload_001';
+
+function withAssetPayloadCacheToken(url) {
+    const separator = String(url || '').includes('?') ? '&' : '?';
+    return `${url}${separator}v=${ASSET_PAYLOAD_CACHE_TOKEN}`;
+}
+
 export const AssetPayloadLoader = {
     mode: (window.DASH_MODE_DEFAULT || 'member').toLowerCase(),
     cache: {},
@@ -7,7 +14,7 @@ export const AssetPayloadLoader = {
     assetPath(assetTicker, mode = this.mode) {
         const asset = String(assetTicker || Store.state.currentAsset || 'BTC').trim().toUpperCase();
         const safeMode = mode === 'public' ? 'public' : 'member';
-        return `./fix26_chart_store_assets/${safeMode}/${asset}.json`;
+        return withAssetPayloadCacheToken(`./fix26_chart_store_assets/${safeMode}/${asset}.json`);
     },
 
     cacheKey(assetTicker, mode = this.mode) {
