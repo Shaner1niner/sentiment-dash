@@ -83,9 +83,8 @@ def main() -> int:
         "static buildBandLayerPolicy(modes = {})",
         "static resolveCombinedOverlapBandSeries(rows = [])",
         "static overlapBandStatus(rows = [], state = {})",
-        "model: unavailable for selected asset/range",
-        "Combined Overlap",
-        "Canonical Overlap",
+        "Overlap Band unavailable for selected asset/range",
+        "Overlap Band",
     ]
     missing_plotly = [token for token in plotly_tokens if token not in plotly]
     if missing_plotly:
