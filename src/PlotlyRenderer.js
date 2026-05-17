@@ -912,6 +912,63 @@ function rowLooksLikeAttentionSpike(row, threshold = null) {
         || (score !== null && threshold !== null && score >= threshold);
 }
 
+function calibratedAttentionLevelLabel(score) {
+    const value = asNumber(score);
+    if (value === null) return '';
+
+    if (value < 10) return 'Quiet';
+    if (value < 20) return 'Baseline';
+    if (value < 35) return 'Active';
+    if (value < 50) return 'Elevated';
+    if (value < 65) return 'High';
+    return 'Extreme';
+}
+
+function calibratedAttentionConvictionLabel(signedConviction) {
+    const value = asNumber(signedConviction);
+    if (value === null) return '';
+
+    if (value <= -35) return 'Strong risk-off';
+    if (value <= -20) return 'Risk-off';
+    if (value <= -8) return 'Leaning risk-off';
+    if (value < 8) return 'Mixed / weak';
+    if (value < 20) return 'Leaning constructive';
+    if (value < 35) return 'Constructive';
+    return 'Strong constructive';
+}
+
+function attentionParticipationLabel(value) {
+    const text = String(value ?? '').trim();
+    const numeric = asNumber(value);
+
+    if (numeric !== null) {
+        if (numeric >= 75) return 'Broad';
+        if (numeric >= 45) return 'Moderate';
+        if (numeric > 0) return 'Narrow';
+    }
+
+    if (/broad|wide|high/i.test(text)) return 'Broad';
+    if (/moderate|medium|mixed/i.test(text)) return 'Moderate';
+    if (/narrow|low|thin/i.test(text)) return 'Narrow';
+
+    return '';
+}
+
+function splitAttentionContext(context) {
+    const pieces = String(context || '')
+        .split(/\s*·\s*/)
+        .map(part => part.trim())
+        .filter(Boolean);
+
+    const regime = pieces.find(part => /expansion|transition|pressure|rejection|risk[-\s]?off|constructive|mixed/i.test(part)) || '';
+    const participation = pieces
+        .filter(part => /participation|volume|crowded|broad/i.test(part))
+        .slice(0, 2)
+        .join(' · ');
+
+    return { regime, participation };
+}
+
 function attentionContextHoverFragment(row, { includeKeywords = false, compactMode = false, threshold = null } = {}) {
     const score = asNumber(firstAttentionScore(row));
     const label = firstAttentionLabel(row);
@@ -922,23 +979,41 @@ function attentionContextHoverFragment(row, { includeKeywords = false, compactMo
         ? keywordSummaryFromRow(row)
         : '';
     const context = keywords ? '' : attentionNarrativeContextFromRow(row);
+    const contextParts = splitAttentionContext(context);
 
-    const parts = [];
-    if (score !== null) parts.push(`Score ${score.toFixed(score >= 10 ? 0 : 1)}`);
-    if (label) parts.push(escapeHoverValue(label));
-    if (signedConviction !== null) parts.push(`Conviction ${signedConviction.toFixed(1)}`);
-    if (direction) parts.push(`Direction ${escapeHoverValue(direction)}`);
-    if (!compactMode && asNumber(participation) !== null) {
-        parts.push(`Participation ${asNumber(participation).toFixed(1)}`);
-    }
-
-    if (!parts.length && !keywords && !context) return '';
+    const attentionLevel = calibratedAttentionLevelLabel(score);
+    const convictionLabel = calibratedAttentionConvictionLabel(signedConviction);
+    const participationLabel = attentionParticipationLabel(participation) || contextParts.participation;
 
     const lines = [];
-    if (parts.length) lines.push(`<b>Attention</b>: ${parts.join(' · ')}`);
-    if (keywords) lines.push(`<b>TF-IDF</b>: ${escapeHoverValue(keywords)}`);
-    else if (context) lines.push(`<b>Context</b>: ${escapeHoverValue(context)}`);
 
+    if (attentionLevel) {
+        lines.push(`<b>Attention level</b>: ${escapeHoverValue(attentionLevel)}`);
+    } else if (label) {
+        lines.push(`<b>Attention</b>: ${escapeHoverValue(label)}`);
+    }
+
+    if (convictionLabel) {
+        lines.push(`<b>Conviction</b>: ${escapeHoverValue(convictionLabel)}`);
+    } else if (direction) {
+        lines.push(`<b>Direction</b>: ${escapeHoverValue(direction)}`);
+    }
+
+    if (contextParts.regime) {
+        lines.push(`<b>Regime context</b>: ${escapeHoverValue(contextParts.regime)}`);
+    }
+
+    if (!compactMode && participationLabel) {
+        lines.push(`<b>Participation</b>: ${escapeHoverValue(participationLabel)}`);
+    }
+
+    if (keywords) {
+        lines.push(`<b>TF-IDF</b>: ${escapeHoverValue(keywords)}`);
+    } else if (context && !contextParts.regime && !participationLabel) {
+        lines.push(`<b>Context</b>: ${escapeHoverValue(context)}`);
+    }
+
+    if (!lines.length) return '';
     return `<br>${lines.join('<br>')}`;
 }
 
