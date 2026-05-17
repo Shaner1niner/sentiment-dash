@@ -419,21 +419,21 @@ function maPeriodFromField(field) {
 function maStackLineStyle(field, stackKind = 'price') {
     const period = maPeriodFromField(field);
     const priceStyles = {
-        7: { color: 'rgba(180,232,255,0.78)', width: 1.28, opacity: 0.90 },
-        21: { color: 'rgba(120,190,235,0.58)', width: 1.08, opacity: 0.76 },
-        100: { color: 'rgba(92,128,160,0.38)', width: 0.90, opacity: 0.62 },
-        200: { color: 'rgba(65,92,120,0.30)', width: 0.80, opacity: 0.52 }
+        7: { color: 'rgba(180,232,255,0.86)', width: 1.34, opacity: 0.94 },
+        21: { color: 'rgba(120,190,235,0.66)', width: 1.14, opacity: 0.82 },
+        100: { color: 'rgba(92,128,160,0.44)', width: 0.96, opacity: 0.68 },
+        200: { color: 'rgba(65,92,120,0.35)', width: 0.86, opacity: 0.58 }
     };
     const sentimentStyles = {
-        7: { color: 'rgba(255,214,112,0.66)', width: 1.08, opacity: 0.80 },
-        21: { color: 'rgba(218,170,72,0.48)', width: 0.96, opacity: 0.66 },
-        100: { color: 'rgba(154,116,58,0.34)', width: 0.82, opacity: 0.54 },
-        200: { color: 'rgba(112,84,48,0.26)', width: 0.74, opacity: 0.46 }
+        7: { color: 'rgba(255,214,112,0.46)', width: 0.82, opacity: 0.54 },
+        21: { color: 'rgba(234,182,78,0.62)', width: 1.12, opacity: 0.78 },
+        100: { color: 'rgba(164,124,62,0.42)', width: 0.90, opacity: 0.62 },
+        200: { color: 'rgba(120,90,52,0.32)', width: 0.80, opacity: 0.52 }
     };
 
     const fallback = stackKind === 'sentiment'
-        ? { color: 'rgba(242,204,96,0.42)', width: 0.86, opacity: 0.58 }
-        : { color: 'rgba(155,220,255,0.42)', width: 0.94, opacity: 0.64 };
+        ? { color: 'rgba(242,204,96,0.48)', width: 0.92, opacity: 0.64 }
+        : { color: 'rgba(155,220,255,0.48)', width: 1.00, opacity: 0.70 };
 
     return (stackKind === 'sentiment' ? sentimentStyles : priceStyles)[period] || fallback;
 }
@@ -502,8 +502,8 @@ function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
 
     if (ribbon === 'sentiment' || ribbon === 'both') {
         const sentimentFields = sentimentRibbon === 'full'
-            ? ['scaled_combined_compound_ma_7', 'scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_100', 'scaled_combined_compound_ma_200']
-            : ['scaled_combined_compound_ma_7', 'scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_100'];
+            ? ['scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_7', 'scaled_combined_compound_ma_100', 'scaled_combined_compound_ma_200']
+            : ['scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_100', 'scaled_combined_compound_ma_200'];
 
         addMovingAverageRibbonTraces(traces, x, rows, {
             name: 'Sentiment MA Stack',
