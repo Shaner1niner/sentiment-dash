@@ -29,6 +29,9 @@ const MODULE_MACD_PANEL_VISUALS = {
     macdGlowWidth: 3.75,
     macdSignalLine: 'rgba(160,170,182,0.44)',
     sentimentMacdLine: 'rgba(242,204,96,0.32)',
+    sentimentMacdSignalLine: 'rgba(242,204,96,0.20)',
+    sentimentMacdHistPositive: 'rgba(242,204,96,0.105)',
+    sentimentMacdHistNegative: 'rgba(155,180,255,0.075)',
     macdZeroRail: 'rgba(170,155,130,0.22)',
     macdHistPositiveStrong: 'rgba(197,120,92,0.48)',
     macdHistPositiveSoft: 'rgba(197,120,92,0.26)',
@@ -376,6 +379,30 @@ function rsiSentimentThresholdStates(rows = []) {
         if (value !== null && upper !== null && value > upper) return 'high';
         if (value !== null && lower !== null && value < lower) return 'low';
         return null;
+    });
+}
+
+function derivedSeriesDelta(primary, signal) {
+    const primaryY = Array.isArray(primary?.y) ? primary.y : [];
+    const signalY = Array.isArray(signal?.y) ? signal.y : [];
+    const length = Math.max(primaryY.length, signalY.length);
+
+    const y = Array.from({ length }, (_, index) => {
+        const a = asNumber(primaryY[index]);
+        const b = asNumber(signalY[index]);
+        return a === null || b === null ? null : a - b;
+    });
+
+    return compact(y).length ? { field: `${primary?.field || 'primary'} - ${signal?.field || 'signal'}`, y } : null;
+}
+
+function sentimentMacdHistogramColors(values = []) {
+    return values.map(value => {
+        const current = asNumber(value);
+        if (current === null) return MODULE_MACD_PANEL_VISUALS.sentimentMacdHistPositive;
+        return current >= 0
+            ? MODULE_MACD_PANEL_VISUALS.sentimentMacdHistPositive
+            : MODULE_MACD_PANEL_VISUALS.sentimentMacdHistNegative;
     });
 }
 
@@ -911,6 +938,8 @@ export class PlotlyRenderer {
         const macd = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macd, 0.12, 5);
         const macdSignal = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macdSignal, 0.12, 5);
         const sentimentMacd = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentMacd, 0.08, 3);
+        const sentimentMacdSignal = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.sentimentMacdSignal, 0.08, 3);
+        const sentimentMacdHist = derivedSeriesDelta(sentimentMacd, sentimentMacdSignal);
         const macdHist = seriesForFirstSupportedField(source, MODULE_CHART_STACK_FIELDS.macdHist, 0.12, 5);
 
         if (macdHist) {
@@ -922,6 +951,19 @@ export class PlotlyRenderer {
                 yaxis: 'y3',
                 marker: { color: macdHistogramColors(macdHist.y) },
                 hovertemplate: `%{x}<br>${fieldLabel(macdHist.field)}: %{y:,.4f}<extra></extra>`
+            });
+        }
+
+        if (sentimentMacdHist) {
+            traces.push({
+                type: 'bar',
+                name: 'Sentiment MACD Histogram',
+                x,
+                y: sentimentMacdHist.y,
+                yaxis: 'y3',
+                marker: { color: sentimentMacdHistogramColors(sentimentMacdHist.y) },
+                opacity: 0.72,
+                hovertemplate: `%{x}<br>Sentiment MACD Delta: %{y:,.4f}<extra></extra>`
             });
         }
 
@@ -938,6 +980,23 @@ export class PlotlyRenderer {
                     width: 0.95
                 },
                 hovertemplate: `%{x}<br>${fieldLabel(sentimentMacd.field)}: %{y:,.4f}<extra></extra>`
+            });
+        }
+
+        if (sentimentMacdSignal && (!sentimentMacd || sentimentMacdSignal.field !== sentimentMacd.field)) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Sentiment MACD Signal',
+                x,
+                y: sentimentMacdSignal.y,
+                yaxis: 'y3',
+                line: {
+                    color: MODULE_MACD_PANEL_VISUALS.sentimentMacdSignalLine,
+                    width: 0.85,
+                    dash: 'shortdash'
+                },
+                hovertemplate: `%{x}<br>${fieldLabel(sentimentMacdSignal.field)}: %{y:,.4f}<extra></extra>`
             });
         }
 
