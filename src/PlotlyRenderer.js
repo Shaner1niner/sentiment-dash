@@ -733,21 +733,110 @@ function normalizeKeywordTokens(value, limit = 5) {
         .slice(0, limit);
 }
 
-function keywordSummaryFromRow(row, limit = 5) {
+function narrativeKeywordAssetTerms(row) {
+    const values = [
+        firstRowValue(row, ['term', 'db_term', 'asset', 'ticker', 'symbol', 'asset_ticker', 'asset_symbol']),
+        firstRowValue(row, ['term_display', 'asset_name'])
+    ];
+
+    const terms = new Set();
+
+    values.forEach(value => {
+        String(value ?? '')
+            .split(/[,\s|;/]+/)
+            .map(part => part.trim().toLowerCase())
+            .filter(Boolean)
+            .forEach(part => {
+                if (part && part !== 'nan') terms.add(part);
+            });
+    });
+
+    return terms;
+}
+
+function formatNarrativeKeywordToken(value, assetTerms = new Set()) {
+    const raw = String(value || '')
+        .replace(/[_]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    if (!raw || /^nan$/i.test(raw)) return '';
+
+    const lower = raw.toLowerCase();
+    const generic = new Set([
+        'strong', 'weak', 'new', 'news', 'stock', 'stocks', 'share', 'shares',
+        'market', 'markets', 'price', 'prices', 'today', 'week', 'daily',
+        'update', 'report', 'company', 'companies', 'million', 'billion',
+        'buy', 'sell'
+    ]);
+
+    if (generic.has(lower)) return '';
+
+    const fixedCaseMap = {
+        ai: 'AI',
+        etf: 'ETF',
+        etfs: 'ETFs',
+        sec: 'SEC',
+        cpi: 'CPI',
+        fed: 'Fed',
+        usa: 'US',
+        us: 'US',
+        usd: 'USD',
+        jpy: 'JPY',
+        ev: 'EV',
+        evs: 'EVs',
+        defi: 'DeFi',
+        iphone: 'iPhone',
+        openai: 'OpenAI',
+        nvidia: 'NVIDIA'
+    };
+
+    if (assetTerms.has(lower)) return lower.toUpperCase();
+    if (fixedCaseMap[lower]) return fixedCaseMap[lower];
+
+    return lower
+        .split(' ')
+        .map((part, index) => {
+            if (assetTerms.has(part)) return part.toUpperCase();
+            if (fixedCaseMap[part]) return fixedCaseMap[part];
+            if (part.length <= 2) return part;
+            return index === 0
+                ? `${part.charAt(0).toUpperCase()}${part.slice(1)}`
+                : part;
+        })
+        .join(' ');
+}
+
+function compactNarrativeKeywords(value, limit = 4, row = null) {
+    const seen = new Set();
+    const formatted = [];
+    const assetTerms = narrativeKeywordAssetTerms(row);
+
+    normalizeKeywordTokens(value, limit + 4).forEach(term => {
+        const clean = formatNarrativeKeywordToken(term, assetTerms);
+        const key = clean.toLowerCase();
+        if (!clean || seen.has(key)) return;
+        seen.add(key);
+        formatted.push(clean);
+    });
+
+    return formatted.slice(0, limit).join(' · ');
+}
+
+function keywordSummaryFromRow(row, limit = 4) {
     const direct = firstRowValue(row, MODULE_TFIDF_TEXT_FIELDS);
     if (direct) {
-        const text = String(direct).replace(/\s+/g, ' ').trim();
-        if (text && text.toLowerCase() !== 'nan') {
-            return text.length > 110 ? `${text.slice(0, 107).trim()}...` : text;
-        }
+        const compact = compactNarrativeKeywords(direct, limit, row);
+        if (compact) return compact;
     }
 
     const seen = new Set();
     const keywords = [];
+    const assetTerms = narrativeKeywordAssetTerms(row);
 
     for (const field of MODULE_TFIDF_TOKEN_FIELDS) {
-        normalizeKeywordTokens(row?.[field], limit).forEach(term => {
-            const clean = String(term || '').replace(/\s+/g, ' ').trim();
+        normalizeKeywordTokens(row?.[field], limit + 4).forEach(term => {
+            const clean = formatNarrativeKeywordToken(term, assetTerms);
             const key = clean.toLowerCase();
             if (!clean || seen.has(key)) return;
             seen.add(key);
@@ -757,7 +846,7 @@ function keywordSummaryFromRow(row, limit = 5) {
         if (keywords.length >= limit) break;
     }
 
-    return keywords.slice(0, limit).join(', ');
+    return keywords.slice(0, limit).join(' · ');
 }
 
 function cleanAttentionContextPhrase(value) {
