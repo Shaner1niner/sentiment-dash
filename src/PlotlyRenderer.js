@@ -2695,14 +2695,18 @@ export class PlotlyRenderer {
             legend: {
                 orientation: 'v',
                 traceorder: 'normal',
-                bgcolor: 'rgba(8,12,18,0.28)',
-                bordercolor: 'rgba(148,163,184,0.12)',
+                x: 1.015,
+                xanchor: 'left',
+                y: 0.985,
+                yanchor: 'top',
+                bgcolor: 'rgba(8,12,18,0.34)',
+                bordercolor: 'rgba(148,163,184,0.14)',
                 borderwidth: 1,
                 itemclick: 'toggleothers',
                 itemdoubleclick: 'toggle',
                 font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 }
             },
-            margin: { l: 62, r: showSecondaryAxis ? 68 : 38, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
+            margin: { l: 62, r: showSecondaryAxis ? 156 : 138, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
             shapes: [
                 ...((baseLayout && Array.isArray(baseLayout.shapes)) ? baseLayout.shapes : []),
                 ...macdZeroRailShapes,
@@ -2789,10 +2793,16 @@ export class PlotlyRenderer {
             plot_bgcolor: layout.plot_bgcolor || MODULE_CHART_VISUALS.plotBg,
             font: layout.font || { color: MODULE_CHART_VISUALS.primaryText },
             dragmode: layout.dragmode || 'pan',
-            hoverlabel: layout.hoverlabel || {
+            hovermode: layout.hovermode || 'closest',
+            hoverdistance: layout.hoverdistance ?? 36,
+            spikedistance: layout.spikedistance ?? 36,
+            hoverlabel: {
                 bgcolor: 'rgba(8,12,18,0.96)',
                 bordercolor: 'rgba(155,220,255,0.22)',
-                font: { color: MODULE_CHART_VISUALS.primaryText, size: 11 }
+                font: { color: MODULE_CHART_VISUALS.primaryText, size: 11 },
+                align: 'left',
+                namelength: -1,
+                ...(layout.hoverlabel || {})
             }
         };
     }
