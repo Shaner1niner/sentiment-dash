@@ -2573,7 +2573,12 @@ export class PlotlyRenderer {
             }
         }
 
-        this.buildRegimeMarkerTraces(source, state).forEach(trace => traces.push(trace));
+        // Regime marker traces are intentionally not rendered by default.
+        // They add visual clutter and duplicate attention/context semantics in the public chart.
+        // Keep buildRegimeMarkerTraces available for future diagnostic/debug modes.
+        if (controlMode(state.currentRegimeMarkers, 'off') === 'on') {
+            this.buildRegimeMarkerTraces(source, state).forEach(trace => traces.push(trace));
+        }
 
         this.buildIndicatorStackTraces(source, state).forEach(trace => traces.push(trace));
 
@@ -2695,18 +2700,18 @@ export class PlotlyRenderer {
             legend: {
                 orientation: 'v',
                 traceorder: 'normal',
-                x: 1.015,
+                x: 0.018,
                 xanchor: 'left',
-                y: 0.82,
+                y: 0.985,
                 yanchor: 'top',
-                bgcolor: 'rgba(8,12,18,0.24)',
-                bordercolor: 'rgba(148,163,184,0.10)',
+                bgcolor: 'rgba(8,12,18,0.82)',
+                bordercolor: 'rgba(148,163,184,0.18)',
                 borderwidth: 1,
                 itemclick: 'toggleothers',
                 itemdoubleclick: 'toggle',
-                font: { color: MODULE_CHART_VISUALS.secondaryText, size: 10 }
+                font: { color: MODULE_CHART_VISUALS.secondaryText, size: 9 }
             },
-            margin: { l: 62, r: showSecondaryAxis ? 156 : 138, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
+            margin: { l: 62, r: showSecondaryAxis ? 86 : 54, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
             shapes: [
                 ...((baseLayout && Array.isArray(baseLayout.shapes)) ? baseLayout.shapes : []),
                 ...macdZeroRailShapes,
