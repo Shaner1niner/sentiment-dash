@@ -1382,9 +1382,104 @@ function marketTapeTimelineItems(row) {
         .slice(0, 4);
 }
 
+function evidenceStatusChipItems(row, items = []) {
+    const ticker = row?.ticker || '';
+    const source = row?.source || {};
+    const screener = source.screener || source.scorecard || source.market_tape || {};
+    const archetype = source.archetype || source.market_tape_family || source.family || {};
+    const indicators = source.indicators || source.indicator_payload || source.indicator || {};
+
+    const itemText = items
+        .map(item => `${item.label || ''} ${item.detail || ''} ${item.meta || ''}`)
+        .join(' ')
+        .toLowerCase();
+
+    const kinds = new Set(items.map(item => item.kind).filter(Boolean));
+
+    const structureScore = valueOf(screener, [
+        'structure_score',
+        'structureScore',
+        'signal_structure_score',
+        'signalStructureScore',
+        'screener_attention_priority_score',
+        'attention_priority_score',
+        'priority_score',
+        'priorityScore',
+        'score'
+    ], null);
+
+    const structureLabel = structureQualityLabel(structureScore);
+
+    const directionLabel = formatDeckValue(valueOf(screener, [
+        'signal_consensus_direction_label',
+        'direction_label',
+        'directionLabel'
+    ], valueOf(archetype, [
+        'signal_consensus_direction_label',
+        'direction_label',
+        'directionLabel'
+    ], valueOf(indicators, [
+        'direction_label',
+        'directionLabel'
+    ], ''))), ticker, 62);
+
+    const setupState = kinds.has('setup') ? 'Active' : 'Selected';
+
+    let confirmationState = '';
+    if (/confirmed|confirmation complete|confirmed alert/.test(itemText)) {
+        confirmationState = 'Confirmed';
+    } else if (/watch|missing|pending|still missing|confirmation/.test(itemText) || kinds.has('watch')) {
+        confirmationState = 'Watching';
+    }
+
+    const receiptState = kinds.has('receipt') ? 'Reviewed' : '';
+
+    const chips = [
+        ['Setup', setupState],
+        ['Confirmation', confirmationState],
+        ['Receipt', receiptState],
+        ['Structure', structureLabel],
+        ['Direction', directionLabel]
+    ];
+
+    const seen = new Set();
+
+    return chips
+        .map(([label, value]) => ({
+            label,
+            value: formatDeckValue(value, ticker, 46)
+        }))
+        .filter(chip => chip.value)
+        .filter(chip => {
+            const key = `${chip.label}:${chip.value}`.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        })
+        .slice(0, 5);
+}
+
+function renderEvidenceStatusChips(row, items = []) {
+    const chips = evidenceStatusChipItems(row, items);
+    if (!chips.length) return '';
+
+    return `
+        <div class="moduleMarketTapeFilters moduleMarketTapeEvidenceStatus" aria-label="Evidence status">
+          ${chips.map(chip => `
+            <span class="moduleMarketTapeFilterChip isActive">
+              <span>${escapeHtml(chip.label)}</span>
+              <em>${escapeHtml(chip.value)}</em>
+            </span>
+          `).join('')}
+        </div>
+    `;
+}
+
 function renderMarketTapeEventTimeline(row) {
     const items = marketTapeTimelineItems(row);
     if (!items.length) return '';
+
+    const statusChips = renderEvidenceStatusChips(row, items);
 
     const timeline = items.map((item, index) => `
         <li class="moduleMarketTapeTimelineItem is-${escapeHtml(item.kind || 'context')}">
@@ -1408,6 +1503,7 @@ function renderMarketTapeEventTimeline(row) {
           <span>Evidence Trail</span>
           <em>${escapeHtml(row?.ticker || 'Asset')}</em>
         </div>
+        ${statusChips}
         <ol>${timeline}</ol>
       </section>
     `;
