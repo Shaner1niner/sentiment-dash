@@ -807,12 +807,39 @@ function formatNarrativeKeywordToken(value, assetTerms = new Set()) {
         .join(' ');
 }
 
+function dedupeNarrativeKeywordList(keywords, assetTerms = new Set(), limit = 4) {
+    const values = Array.isArray(keywords) ? keywords.filter(Boolean) : [];
+    const lowerValues = new Set(values.map(value => String(value).toLowerCase()));
+
+    const compact = values.filter(value => {
+        const lower = String(value).toLowerCase();
+
+        // Suppress active ticker tokens when a cleaner brand/name token is already present.
+        // Example: Apple + AAPL -> keep Apple, drop AAPL.
+        if (assetTerms.has(lower)) {
+            const hasReadableCompanion = values.some(other => {
+                const otherLower = String(other).toLowerCase();
+                return otherLower !== lower
+                    && !assetTerms.has(otherLower)
+                    && otherLower.length > 3
+                    && !/^[A-Z0-9.:-]+$/.test(String(other));
+            });
+
+            if (hasReadableCompanion) return false;
+        }
+
+        return lowerValues.has(lower);
+    });
+
+    return compact.slice(0, limit);
+}
+
 function compactNarrativeKeywords(value, limit = 4, row = null) {
     const seen = new Set();
     const formatted = [];
     const assetTerms = narrativeKeywordAssetTerms(row);
 
-    normalizeKeywordTokens(value, limit + 4).forEach(term => {
+    normalizeKeywordTokens(value, limit + 6).forEach(term => {
         const clean = formatNarrativeKeywordToken(term, assetTerms);
         const key = clean.toLowerCase();
         if (!clean || seen.has(key)) return;
@@ -820,7 +847,7 @@ function compactNarrativeKeywords(value, limit = 4, row = null) {
         formatted.push(clean);
     });
 
-    return formatted.slice(0, limit).join(' · ');
+    return dedupeNarrativeKeywordList(formatted, assetTerms, limit).join(' · ');
 }
 
 function keywordSummaryFromRow(row, limit = 4) {
@@ -846,7 +873,7 @@ function keywordSummaryFromRow(row, limit = 4) {
         if (keywords.length >= limit) break;
     }
 
-    return keywords.slice(0, limit).join(' · ');
+    return dedupeNarrativeKeywordList(keywords, assetTerms, limit).join(' · ');
 }
 
 function cleanAttentionContextPhrase(value) {
