@@ -1008,7 +1008,7 @@ function attentionContextHoverFragment(row, { includeKeywords = false, compactMo
     }
 
     if (keywords) {
-        lines.push(`<b>TF-IDF</b>: ${escapeHoverValue(keywords)}`);
+        lines.push(`<b>Narrative keywords</b>: ${escapeHoverValue(keywords)}`);
     } else if (context && !contextParts.regime && !participationLabel) {
         lines.push(`<b>Context</b>: ${escapeHoverValue(context)}`);
     }
