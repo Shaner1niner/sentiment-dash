@@ -579,6 +579,86 @@ function structureScoreDetail(row, screener = {}, archetype = {}, indicators = {
     return scoreText;
 }
 
+function uniqueDisplayParts(values = [], ticker = '', maxLength = 190) {
+    const seen = new Set();
+
+    return values
+        .map(value => formatDeckValue(value, ticker, maxLength))
+        .filter(Boolean)
+        .filter(value => {
+            const key = value.toLowerCase();
+            if (seen.has(key)) return false;
+            seen.add(key);
+            return true;
+        });
+}
+
+function currentReadDetail(row) {
+    const ticker = row?.ticker || '';
+    const parts = uniqueDisplayParts([
+        displayCardHeadline(row),
+        displayCardCopy(row)
+    ], ticker, 210);
+
+    if (!parts.length) return '';
+    if (parts.length === 1) return parts[0];
+
+    const [first, second] = parts;
+    const firstLower = first.toLowerCase();
+    const secondLower = second.toLowerCase();
+
+    if (firstLower.includes(secondLower)) return first;
+    if (secondLower.includes(firstLower)) return second;
+
+    return compactMarketTapeText(parts.join(' '), 230);
+}
+
+function firstSignalTag(tags = [], pattern) {
+    return tags.find(tag => pattern.test(cleanDisplayText(tag))) || '';
+}
+
+function signalStateDetail(row, screener = {}, archetype = {}, indicators = {}) {
+    const ticker = row?.ticker || '';
+    const tags = displayCardTags(row)
+        .map(tag => cleanDisplayText(tag))
+        .filter(Boolean);
+
+    const direction = formatDeckValue(valueOf(screener, [
+        'signal_consensus_direction_label',
+        'direction_label',
+        'directionLabel'
+    ], valueOf(archetype, [
+        'signal_consensus_direction_label',
+        'direction_label',
+        'directionLabel'
+    ], valueOf(indicators, [
+        'direction_label',
+        'directionLabel'
+    ], ''))), ticker, 60);
+
+    const confirmation = formatDeckValue(valueOf(archetype, [
+        'confirmation',
+        'confirmation_state',
+        'confirmationState',
+        'missing_confirmations',
+        'missingConfirmations'
+    ], ''), ticker, 80);
+
+    const bias = direction || firstSignalTag(tags, /bullish|bearish|mixed|neutral/i);
+    const risk = tags.find(tag => /risk|bearish|weak|watch|quiet/i.test(tag) && tag.toLowerCase() !== String(bias || '').toLowerCase()) || '';
+    const stage = firstSignalTag(tags, /confirmation|confirmed|watch|setup|repair|momentum|high.?conviction/i) || confirmation;
+
+    const parts = [
+        bias ? `Bias: ${bias}` : '',
+        risk ? `Risk: ${risk}` : '',
+        stage ? `Stage: ${stage}` : ''
+    ].filter(Boolean);
+
+    if (parts.length) return parts.join(' · ');
+
+    return uniqueDisplayParts(tags, ticker, 120).join(' / ');
+}
+
 function selectedDetailItems(row) {
     if (!row) return [];
 
@@ -590,10 +670,8 @@ function selectedDetailItems(row) {
 
     const items = [
         ['Structure Score', structureScoreDetail(row, screener, archetype, indicators) || `${rankLabel(row)} • ${formatScore(row.score)}`],
-        ['Setup read', displayCardHeadline(row)],
-        ['Watch item', displayCardCopy(row)],
-        ['Tags', displayCardTags(row).join(' / ')],
-        ['Payload source', detailSourceSummary(row)],
+        ['Current Read', currentReadDetail(row)],
+        ['Signal State', signalStateDetail(row, screener, archetype, indicators)],
         ['Screener note', detailCandidateValue(row, screener, ['note', 'summary', 'description', 'rationale', 'reason'], ticker)],
         ['Archetype', detailCandidateValue(row, archetype, ['family', 'label', 'headline', 'summary', 'description'], ticker)],
         ['Indicator context', detailCandidateValue(row, indicators, ['summary', 'description', 'rationale', 'reason', 'watch_item', 'watchItem'], ticker)]
