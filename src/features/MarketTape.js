@@ -621,6 +621,29 @@ function prettyDeckLabel(value) {
     return text || 'Context';
 }
 
+function friendlyDeckLabel(value) {
+    const raw = cleanDisplayText(value)
+        .replace(/[_-]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    const lower = raw.toLowerCase();
+
+    if (/screener attention priority score|attention priority score|priority score|structure score|signal structure score/.test(lower)) {
+        return 'Structure Score';
+    }
+
+    if (/signal consensus direction score|direction score/.test(lower)) {
+        return 'Direction Score';
+    }
+
+    if (/signal consensus direction label|direction label/.test(lower)) {
+        return 'Direction Label';
+    }
+
+    return prettyDeckLabel(value);
+}
+
 function formatDeckValue(value, ticker = '', maxLength = 185) {
     if (value === null || value === undefined || value === '') return '';
 
@@ -678,7 +701,7 @@ function collectDeckFactsFromSource(source, ticker = '', preferredFacts = [], li
         if (!text) return;
 
         addFact({
-            label: prettyDeckLabel(keyText),
+            label: friendlyDeckLabel(keyText),
             value: text
         });
     });
@@ -709,11 +732,11 @@ function marketTapeDetailDeckSections(row) {
         Object.keys(screener).length ? screener : source,
         ticker,
         [
+            ['Structure Score', ['structure_score', 'structureScore', 'signal_structure_score', 'signalStructureScore', 'screener_attention_priority_score', 'attention_priority_score', 'priority_score', 'priorityScore']],
+            ['Direction Score', ['signal_consensus_direction_score', 'direction_score', 'directionScore']],
+            ['Direction Label', ['signal_consensus_direction_label', 'direction_label', 'directionLabel']],
             ['Setup read', ['headline', 'setup_label', 'setupLabel', 'label', 'title', 'read', 'primary_read']],
-            ['Watch item', ['watch_item', 'watchItem', 'watch', 'rationale', 'reason']],
-            ['State', ['state', 'stance', 'bias', 'tone']],
-            ['Score', ['priority_score', 'priorityScore', 'seta_score', 'setaScore', 'market_tape_score', 'score']],
-            ['Rank', ['priority_rank', 'priorityRank', 'market_tape_rank', 'rank']]
+            ['Watch item', ['watch_item', 'watchItem', 'watch', 'rationale', 'reason']]
         ],
         5
     );
@@ -724,9 +747,9 @@ function marketTapeDetailDeckSections(row) {
         [
             ['Family', ['family', 'label', 'archetype', 'name']],
             ['Confirmation', ['confirmation', 'confirmation_state', 'confirmationState']],
-            ['Conflict', ['conflict', 'conflict_label', 'conflictLabel']],
-            ['Confidence', ['confidence', 'conviction', 'quality']],
-            ['Context', ['context', 'summary', 'description']]
+            ['Structure Score', ['structure_score', 'structureScore', 'screener_attention_priority_score', 'attention_priority_score', 'priority_score', 'priorityScore', 'archetype_confidence', 'archetypeConfidence']],
+            ['Direction Score', ['signal_consensus_direction_score', 'direction_score', 'directionScore']],
+            ['Direction Label', ['signal_consensus_direction_label', 'direction_label', 'directionLabel']]
         ],
         5
     );
@@ -753,7 +776,7 @@ function marketTapeDetailDeckSections(row) {
     const sections = [
         {
             title: 'Screener receipt',
-            subtitle: 'rank / score / setup',
+            subtitle: 'structure / direction / setup',
             facts: screenerFacts.length ? screenerFacts : fallbackSetup
         },
         {
