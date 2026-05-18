@@ -807,12 +807,42 @@ function formatNarrativeKeywordToken(value, assetTerms = new Set()) {
         .join(' ');
 }
 
+function narrativeKeywordAliasTokens(values) {
+    const present = new Set(values.map(value => String(value).toLowerCase()));
+    const aliases = new Map([
+        ['apple', ['aapl']],
+        ['coinbase', ['coin']],
+        ['microsoft', ['msft']],
+        ['nvidia', ['nvda']],
+        ['tesla', ['tsla']],
+        ['google', ['googl', 'goog']],
+        ['alphabet', ['googl', 'goog']],
+        ['meta', ['meta']],
+        ['amazon', ['amzn']],
+        ['netflix', ['nflx']]
+    ]);
+
+    const redundant = new Set();
+
+    aliases.forEach((tickers, readable) => {
+        if (!present.has(readable)) return;
+        tickers.forEach(ticker => {
+            if (present.has(ticker)) redundant.add(ticker);
+        });
+    });
+
+    return redundant;
+}
+
 function dedupeNarrativeKeywordList(keywords, assetTerms = new Set(), limit = 4) {
     const values = Array.isArray(keywords) ? keywords.filter(Boolean) : [];
     const lowerValues = new Set(values.map(value => String(value).toLowerCase()));
+    const aliasRedundant = narrativeKeywordAliasTokens(values);
 
     const compact = values.filter(value => {
         const lower = String(value).toLowerCase();
+
+        if (aliasRedundant.has(lower)) return false;
 
         // Suppress active ticker tokens when a cleaner brand/name token is already present.
         // Example: Apple + AAPL -> keep Apple, drop AAPL.
