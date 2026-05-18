@@ -1160,8 +1160,8 @@ function renderSelectedDetail(row) {
     `).join('');
 
     return `
-      <section class="moduleMarketTapeSelectedDetail" aria-label="Selected Asset Signal Detail">
-        <div class="moduleMarketTapeDetailKicker">Selected Asset Signal Detail</div>
+      <section class="moduleMarketTapeSelectedDetail" aria-label="Asset Signal Readout">
+        <div class="moduleMarketTapeDetailKicker">Asset Signal Readout</div>
         <div class="moduleMarketTapeDetailGrid">${rows}</div>
         ${detailDeck}
         ${eventTimeline}
