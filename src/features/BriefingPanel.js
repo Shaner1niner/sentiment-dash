@@ -143,7 +143,7 @@ export const BriefingPanel = {
         const headline = escapeHtml(
             plainText(
                 valueOf(item, ['headline', 'title', 'briefing_title', 'primary_read']),
-                `${asset} module briefing`
+                `${asset} asset briefing`
             )
         );
 
@@ -151,28 +151,28 @@ export const BriefingPanel = {
             item,
             'what',
             ['interpretation', 'what_seta_sees', 'what', 'summary', 'primary_read'],
-            'Module reviewed briefing context is available for this asset, but the detailed interpretation is still being normalized.'
+            'Reviewed asset briefing context is available for this asset, but the detailed interpretation is still being normalized.'
         );
 
         const why = cardCopy(
             item,
             'why',
             ['implication', 'why_it_matters', 'why', 'rationale'],
-            'This module panel is validating reviewed briefing lookup and rendering before production cutover.'
+            'This asset briefing is validating reviewed lookup and rendering before production cutover.'
         );
 
         const participation = cardCopy(
             item,
             'participation',
             ['participation_quality', 'trust_check', 'source_breadth', 'participation'],
-            'Participation-quality copy will be expanded as module briefing parity continues.'
+            'Participation-quality copy will be expanded as asset briefing parity continues.'
         );
 
         target.innerHTML = `
           <article class="moduleBriefingCard">
             <header class="moduleBriefingHeader">
               <div>
-                <div class="moduleBriefingKicker">Module Briefing • ${asset} • ${freq} • ${range}</div>
+                <div class="moduleBriefingKicker">Asset Briefing • ${asset} • ${freq} • ${range}</div>
                 <h2>${headline}</h2>
               </div>
               <span class="moduleBriefingSource">${escapeHtml(sourceLabel(item))}</span>

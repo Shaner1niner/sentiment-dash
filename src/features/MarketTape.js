@@ -311,7 +311,7 @@ function normalizeMarketTapeItem(item, ticker, hint = {}) {
         deepFindText(screener, LABEL_KEY_RE),
         deepFindText(archetype, LABEL_KEY_RE),
         deepFindText(source, LABEL_KEY_RE)
-    ]) || `${resolvedTicker} market tape candidate`;
+    ]) || `${resolvedTicker} radar candidate`;
 
     const stance = firstUsefulText([
         valueOf(source, ['stance', 'bias', 'state', 'tone'], null),
@@ -367,12 +367,12 @@ function isGenericMarketTapeCopy(value, ticker = '') {
     const lower = text.toLowerCase();
     const t = String(ticker || '').trim().toLowerCase();
 
-    if (['summary', 'monitor', 'candidate', 'watch', 'market tape candidate', 'none', 'n/a', 'null'].includes(lower)) {
+    if (['summary', 'monitor', 'candidate', 'watch', 'radar candidate', 'none', 'n/a', 'null'].includes(lower)) {
         return true;
     }
 
-    if (t && lower === `${t} market tape candidate`) return true;
-    if (lower.endsWith(' market tape candidate')) return true;
+    if (t && lower === `${t} radar candidate`) return true;
+    if (lower.endsWith(' radar candidate')) return true;
     if (/^#?\d*\s*[A-Z0-9]{1,8}$/.test(text)) return true;
 
     return false;
@@ -460,7 +460,7 @@ function displayCardCopy(row) {
     const text = firstNonGenericMarketTapeText(candidates, ticker, 170);
     if (text) return text;
 
-    return `${ticker || 'Asset'} remains on module Market Tape watch; monitor price, sentiment, and participation confirmation.`;
+    return `${ticker || 'Asset'} remains on module Market Radar watch; monitor price, sentiment, and participation confirmation.`;
 }
 
 function displayCardHeadline(row) {
@@ -475,7 +475,7 @@ function displayCardHeadline(row) {
     const text = firstNonGenericMarketTapeText(candidates, ticker, 92);
     if (text) return text;
 
-    return 'Market tape watch';
+    return 'Radar watch';
 }
 
 function displayCardTags(row) {
@@ -737,9 +737,9 @@ function renderMarketTapeDetailDeck(row) {
     }).join('');
 
     return `
-      <section class="moduleMarketTapeDetailDeck" aria-label="Market Tape detail deck">
+      <section class="moduleMarketTapeDetailDeck" aria-label="Selected asset signal detail">
         <div class="moduleMarketTapeDeckHeader">
-          <span>Detail deck</span>
+          <span>Signal detail</span>
           <em>${escapeHtml(detailSourceSummary(row))}</em>
         </div>
         <div class="moduleMarketTapeDeckGrid">${cards}</div>
@@ -1053,7 +1053,7 @@ function marketTapeTimelineItems(row) {
                 priorityScore ? `Attention priority: ${priorityScore}` : '',
                 indicatorFamily ? `Indicator family: ${indicatorFamily}` : ''
             ],
-            watchRead || `${ticker || 'Asset'} remains on Market Tape watch.`
+            watchRead || `${ticker || 'Asset'} remains on Market Radar watch.`
         );
 
     const receiptDetail = timelineCompactList(
@@ -1134,9 +1134,9 @@ function renderMarketTapeEventTimeline(row) {
     `).join('');
 
     return `
-      <section class="moduleMarketTapeEventTimeline" aria-label="Market Tape event timeline">
+      <section class="moduleMarketTapeEventTimeline" aria-label="Signal confirmation timeline">
         <div class="moduleMarketTapeTimelineHeader">
-          <span>Event / confirmation timeline</span>
+          <span>Confirmation timeline</span>
           <em>${escapeHtml(row?.ticker || 'Asset')}</em>
         </div>
         <ol>${timeline}</ol>
@@ -1160,8 +1160,8 @@ function renderSelectedDetail(row) {
     `).join('');
 
     return `
-      <section class="moduleMarketTapeSelectedDetail" aria-label="Selected Market Tape detail">
-        <div class="moduleMarketTapeDetailKicker">Selected Market Tape Detail</div>
+      <section class="moduleMarketTapeSelectedDetail" aria-label="Selected Asset Signal Detail">
+        <div class="moduleMarketTapeDetailKicker">Selected Asset Signal Detail</div>
         <div class="moduleMarketTapeDetailGrid">${rows}</div>
         ${detailDeck}
         ${eventTimeline}
@@ -1238,7 +1238,7 @@ function renderFilterChips(rows, activeFilter = 'all') {
     }).join('');
 
     return `
-      <nav class="moduleMarketTapeFilters" aria-label="Market Tape filters">
+      <nav class="moduleMarketTapeFilters" aria-label="Market Radar filters">
         ${buttons}
       </nav>
     `;
@@ -1330,13 +1330,16 @@ export const MarketTape = {
         if (target) return target;
 
         const briefing = document.getElementById('module-briefing-panel');
+        const controls = document.querySelector('.controls');
         const chart = document.getElementById('chart') || document.getElementById('chart-container');
         target = document.createElement('section');
         target.id = this.targetId;
         target.className = 'moduleMarketTapePanel';
 
         if (briefing && briefing.parentNode) {
-            briefing.parentNode.insertBefore(target, briefing.nextSibling);
+            briefing.parentNode.insertBefore(target, briefing);
+        } else if (controls && controls.parentNode) {
+            controls.parentNode.insertBefore(target, controls.nextSibling);
         } else if (chart && chart.parentNode) {
             chart.parentNode.insertBefore(target, chart);
         } else {
@@ -1414,15 +1417,15 @@ export const MarketTape = {
         const active = rows.find(row => row.ticker === activeAsset) || filteredRows[0] || rows[0] || null;
         const selectedDetail = active ? renderSelectedDetail(active) : '';
         const filterChips = renderFilterChips(rows, activeFilter);
-        const emptyMessage = visibleRows.length ? '' : '<div class="moduleMarketTapeEmpty">No Market Tape cards match this filter.</div>';
+        const emptyMessage = visibleRows.length ? '' : '<div class="moduleMarketTapeEmpty">No Market Radar cards match this filter.</div>';
 
         if (!rows.length) {
             target.innerHTML = `
               <article class="moduleMarketTapeCard">
                 <header class="moduleMarketTapeHeader">
                   <div>
-                    <div class="moduleMarketTapeKicker">Module Market Tape</div>
-                    <h2>Loading market tape...</h2>
+                    <div class="moduleMarketTapeKicker">Market Radar</div>
+                    <h2>Loading market radar...</h2>
                   </div>
                   <span class="moduleMarketTapePill">pending</span>
                 </header>
@@ -1453,9 +1456,9 @@ export const MarketTape = {
           <article class="moduleMarketTapeCard">
             <header class="moduleMarketTapeHeader">
               <div>
-                <div class="moduleMarketTapeKicker">Module Market Tape - Active ${escapeHtml(activeAsset)}</div>
-                <h2>${escapeHtml(active ? `${rankLabel(active)}: ${displayCardHeadline(active)}` : 'Market tape')}</h2>
-                <p>${escapeHtml(active ? displayCardCopy(active) : 'Select a market tape item to update the module asset context.')}</p>
+                <div class="moduleMarketTapeKicker">Market Radar · Active ${escapeHtml(activeAsset)}</div>
+                <h2>${escapeHtml(active ? `${rankLabel(active)}: ${displayCardHeadline(active)}` : 'Market radar')}</h2>
+                <p>${escapeHtml(active ? displayCardCopy(active) : 'Select a radar card to update the selected asset context.')}</p>
               </div>
               <span class="moduleMarketTapePill">${rows.length} assets</span>
             </header>
