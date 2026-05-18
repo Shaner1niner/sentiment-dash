@@ -121,12 +121,24 @@ if "%AUTO_COMMIT%"=="1" (
     if /I "!CURRENT_BRANCH!"=="main" (
         echo Commit policy blocks local commits on main.
         echo Switching to automation branch: %PUBLISH_BRANCH%
-        git show-ref --verify --quiet refs/heads/%PUBLISH_BRANCH%
-        if errorlevel 1 (
-            git switch -c %PUBLISH_BRANCH% origin/main
-        ) else (
-            git switch %PUBLISH_BRANCH%
-        )
+        if /I "%CURRENT_BRANCH%"=="%PUBLISH_BRANCH%" (
+    echo Already on publish branch: %PUBLISH_BRANCH%
+) else (
+    REM The publish branch is disposable. Force it to origin/main before switching
+    REM so stale local automation commits cannot block scheduled refreshes.
+    git branch -f %PUBLISH_BRANCH% origin/main
+    if errorlevel 1 (
+        echo ERROR: Could not point %PUBLISH_BRANCH% at origin/main.
+        set "EXITCODE=128"
+        goto failed
+    )
+    git switch %PUBLISH_BRANCH%
+    if errorlevel 1 (
+        echo ERROR: Could not switch to %PUBLISH_BRANCH%.
+        set "EXITCODE=128"
+        goto failed
+    )
+)
         set "EXITCODE=!ERRORLEVEL!"
         if errorlevel 1 goto failed
     )
@@ -136,11 +148,11 @@ if "%AUTO_COMMIT%"=="1" (
 
     if /I not "!CURRENT_BRANCH!"=="main" (
         echo Syncing !CURRENT_BRANCH! with origin/main using fast-forward only...
-        git merge --ff-only origin/main
+        git reset --hard origin/main
         set "EXITCODE=!ERRORLEVEL!"
         if errorlevel 1 (
             echo ERROR: Could not fast-forward !CURRENT_BRANCH! to origin/main.
-            echo Resolve branch divergence manually, then rerun.
+            echo Check git status and branch permissions, then rerun.
             goto failed
         )
     )
@@ -414,3 +426,4 @@ exit /b 0
   echo   4. Rerun manually from C:\Users\shane\sentiment-dash.
 ) > "%FAIL_MARKER%" 2>&1
 exit /b 0
+
