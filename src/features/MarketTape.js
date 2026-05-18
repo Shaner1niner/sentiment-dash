@@ -513,6 +513,15 @@ function detailSourceSummary(row) {
     return sources.length ? sources.join(' / ') : 'module row';
 }
 
+function structureQualityLabel(score) {
+    const value = asNumber(score, null);
+    if (value === null) return '';
+
+    if (value >= 75) return 'Strong';
+    if (value >= 50) return 'Mixed';
+    return 'Weak';
+}
+
 function structureScoreDetail(row, screener = {}, archetype = {}, indicators = {}) {
     const score = valueOf(screener, [
         'structure_score',
@@ -545,14 +554,12 @@ function structureScoreDetail(row, screener = {}, archetype = {}, indicators = {
         'strength_label',
         'strengthLabel',
         'confidence_label',
-        'confidenceLabel',
-        'signal_consensus_direction_label'
+        'confidenceLabel'
     ], valueOf(archetype, [
         'structure_label',
         'structureLabel',
         'confidence_label',
-        'confidenceLabel',
-        'label'
+        'confidenceLabel'
     ], valueOf(indicators, [
         'structure_label',
         'structureLabel',
@@ -563,7 +570,7 @@ function structureScoreDetail(row, screener = {}, archetype = {}, indicators = {
     ], '')));
 
     const scoreText = formatDeckValue(score, row?.ticker || '', 42);
-    const labelText = cleanDisplayText(label);
+    const labelText = cleanDisplayText(label) || structureQualityLabel(score);
 
     if (scoreText && labelText && !isGenericMarketTapeCopy(labelText, row?.ticker || '')) {
         return `${scoreText} · ${labelText}`;
