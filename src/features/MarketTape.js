@@ -675,6 +675,91 @@ function signalStateDetail(row, screener = {}, archetype = {}, indicators = {}) 
     return uniqueDisplayParts(tags, ticker, 120).join(' / ');
 }
 
+function sourceSupportDetail(row, screener = {}, archetype = {}, indicators = {}) {
+    const ticker = row?.ticker || '';
+
+    const structureScore = formatDeckValue(valueOf(screener, [
+        'structure_score',
+        'structureScore',
+        'signal_structure_score',
+        'signalStructureScore',
+        'screener_attention_priority_score',
+        'attention_priority_score',
+        'priority_score',
+        'priorityScore',
+        'score'
+    ], ''), ticker, 45);
+
+    const directionLabel = formatDeckValue(valueOf(screener, [
+        'signal_consensus_direction_label',
+        'direction_label',
+        'directionLabel'
+    ], ''), ticker, 55);
+
+    const archetypeRead = formatDeckValue(valueOf(archetype, [
+        'confirmation',
+        'confirmation_state',
+        'confirmationState',
+        'missing_confirmations',
+        'missingConfirmations',
+        'family',
+        'label'
+    ], ''), ticker, 85);
+
+    const indicatorFamily = formatDeckValue(valueOf(indicators, [
+        'indicator_family',
+        'indicatorFamily',
+        'family'
+    ], ''), ticker, 55);
+
+    const indicatorStrength = formatDeckValue(valueOf(indicators, [
+        'strength_label',
+        'strengthLabel',
+        'confidence_label',
+        'confidenceLabel'
+    ], ''), ticker, 55);
+
+    const participation = formatDeckValue(valueOf(indicators, [
+        'participation',
+        'breadth',
+        'source_breadth',
+        'sourceBreadth',
+        'volume_context',
+        'volumeContext'
+    ], ''), ticker, 65);
+
+    const parts = [];
+
+    const screenerParts = [
+        structureScore ? `Structure ${structureScore}` : '',
+        directionLabel ? `Direction ${directionLabel}` : ''
+    ].filter(Boolean);
+
+    if (screenerParts.length) {
+        parts.push(`Screener: ${screenerParts.join(' / ')}`);
+    }
+
+    if (archetypeRead) {
+        parts.push(`Archetype: ${archetypeRead}`);
+    }
+
+    const indicatorParts = [indicatorFamily, indicatorStrength]
+        .filter(Boolean)
+        .filter((part, index, arr) => arr.findIndex(item => item.toLowerCase() === part.toLowerCase()) === index);
+
+    if (indicatorParts.length) {
+        parts.push(`Indicators: ${indicatorParts.join(' / ')}`);
+    }
+
+    if (participation && !parts.some(part => part.toLowerCase().includes(participation.toLowerCase()))) {
+        parts.push(`Participation: ${participation}`);
+    }
+
+    if (parts.length < 2) return '';
+
+    return compactMarketTapeText(parts.join(' · '), 230);
+}
+
 function selectedDetailItems(row) {
     if (!row) return [];
 
@@ -688,6 +773,7 @@ function selectedDetailItems(row) {
         ['Structure Score', structureScoreDetail(row, screener, archetype, indicators) || `${rankLabel(row)} • ${formatScore(row.score)}`],
         ['Current Read', currentReadDetail(row)],
         ['Signal State', signalStateDetail(row, screener, archetype, indicators)],
+        ['Source Support', sourceSupportDetail(row, screener, archetype, indicators)],
         ['Screener note', detailCandidateValue(row, screener, ['note', 'summary', 'description', 'rationale', 'reason'], ticker)],
         ['Archetype', detailCandidateValue(row, archetype, ['family', 'label', 'headline', 'summary', 'description'], ticker)],
         ['Indicator context', detailCandidateValue(row, indicators, ['summary', 'description', 'rationale', 'reason', 'watch_item', 'watchItem'], ticker)]
