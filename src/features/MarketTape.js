@@ -1459,6 +1459,33 @@ function evidenceStatusChipItems(row, items = []) {
         .slice(0, 5);
 }
 
+function evidenceStatusChipClass(chip) {
+    const label = String(chip?.label || '').toLowerCase();
+    const value = String(chip?.value || '').toLowerCase();
+
+    if (/confirmation/.test(label) && /watch|pending|missing/.test(value)) {
+        return 'moduleMarketTapeFilterChip moduleMarketTapeStatusChip isWatch';
+    }
+
+    if (/structure/.test(label) && /weak|mixed|low/.test(value)) {
+        return 'moduleMarketTapeFilterChip moduleMarketTapeStatusChip isWatch';
+    }
+
+    if (/direction/.test(label) && /bearish/.test(value)) {
+        return 'moduleMarketTapeFilterChip moduleMarketTapeStatusChip isBearish';
+    }
+
+    if (/direction/.test(label) && /bullish/.test(value)) {
+        return 'moduleMarketTapeFilterChip moduleMarketTapeStatusChip isBullish';
+    }
+
+    if (/setup|receipt/.test(label) && /active|reviewed/.test(value)) {
+        return 'moduleMarketTapeFilterChip moduleMarketTapeStatusChip isBullish';
+    }
+
+    return 'moduleMarketTapeFilterChip moduleMarketTapeStatusChip';
+}
+
 function renderEvidenceStatusChips(row, items = []) {
     const chips = evidenceStatusChipItems(row, items);
     if (!chips.length) return '';
@@ -1466,7 +1493,7 @@ function renderEvidenceStatusChips(row, items = []) {
     return `
         <div class="moduleMarketTapeFilters moduleMarketTapeEvidenceStatus" aria-label="Evidence status">
           ${chips.map(chip => `
-            <span class="moduleMarketTapeFilterChip isActive">
+            <span class="${escapeHtml(evidenceStatusChipClass(chip))}">
               <span>${escapeHtml(chip.label)}</span>
               <em>${escapeHtml(chip.value)}</em>
             </span>
