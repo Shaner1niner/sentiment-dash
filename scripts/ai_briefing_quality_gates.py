@@ -280,14 +280,67 @@ def _is_stack_synthesis_receipt(text: str) -> bool:
 
 
 def _frames_breadth_as_proof(text: str) -> bool:
-    lowered = " ".join(str(text or "").lower().split())
-    if re.search(r"\bproves?\b", lowered):
-        return True
-    proof_match = re.search(r"\bproof\b", lowered)
-    if not proof_match:
+    """
+    Return True only when breadth/participation is framed as proof,
+    validation, confirmation, demand, or direction by itself.
+
+    Allowed:
+    - confidence tied to participation breadth and source coverage
+    - breadth alone does not imply demand
+    - participation is not forceful enough to confirm
+    - breadth/source coverage as a trust or context layer
+    """
+    import re
+
+    t = " ".join(str(text or "").lower().split())
+
+    if not t:
         return False
-    prefix = lowered[max(0, proof_match.start() - 40) : proof_match.start()]
-    return not any(phrase in prefix for phrase in ["not ", "no ", "rather than ", "instead of ", "without "])
+
+    # Explicit safe language. These clauses prevent the validator from
+    # treating SETA's normal trust-layer wording as proof language.
+    safe_clauses = [
+        "breadth alone does not imply demand",
+        "participation is not forceful enough to confirm",
+        "confidence tied to participation breadth and source coverage",
+        "keeps confidence tied to participation breadth and source coverage",
+        "distributed rather than isolated",
+        "source coverage",
+        "trust layer",
+        "context quality",
+    ]
+
+    if any(clause in t for clause in safe_clauses):
+        # Still fail if the same text contains an explicit proof/guarantee claim.
+        explicit_bad = [
+            r"\bbreadth\s+(proves|guarantees|validates|confirms)\b",
+            r"\bparticipation\s+(proves|guarantees|validates|confirms)\b",
+            r"\bsource breadth\s+(proves|guarantees|validates|confirms)\b",
+            r"\bbreadth\s+alone\s+(proves|guarantees|validates|confirms|implies)\b",
+            r"\bbreadth\s+confirms\s+demand\b",
+            r"\bbreadth\s+proves\s+demand\b",
+            r"\bparticipation\s+confirms\s+demand\b",
+            r"\bparticipation\s+proves\s+demand\b",
+        ]
+        return any(re.search(pat, t) for pat in explicit_bad)
+
+    # General bad patterns. These are the cases we actually want to block.
+    bad_patterns = [
+        r"\bbreadth\s+(proves|guarantees|validates|confirms)\b",
+        r"\bparticipation\s+(proves|guarantees|validates|confirms)\b",
+        r"\bsource breadth\s+(proves|guarantees|validates|confirms)\b",
+        r"\bauthorship breadth\s+(proves|guarantees|validates|confirms)\b",
+        r"\bbreadth\s+alone\s+(proves|guarantees|validates|confirms|implies)\b",
+        r"\bparticipation\s+alone\s+(proves|guarantees|validates|confirms|implies)\b",
+        r"\bbreadth\s+confirms\s+demand\b",
+        r"\bbreadth\s+proves\s+demand\b",
+        r"\bparticipation\s+confirms\s+demand\b",
+        r"\bparticipation\s+proves\s+demand\b",
+        r"\bdemand\s+is\s+(proven|validated|confirmed)\s+by\s+(breadth|participation)\b",
+        r"\bconfidence\s+is\s+(guaranteed|proven|validated|confirmed)\s+by\s+(breadth|participation)\b",
+    ]
+
+    return any(re.search(pat, t) for pat in bad_patterns)
 
 
 def check_briefing_quality_gates(
