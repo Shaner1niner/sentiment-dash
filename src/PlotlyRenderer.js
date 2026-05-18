@@ -43,15 +43,23 @@ const MODULE_CHART_VISUALS = {
     unavailableText: '#f2cc60'
 };
 
+const MODULE_SENTIMENT_VISUALS = {
+    legendLine: 'rgba(242,204,96,0.62)',
+    line: 'rgba(242,204,96,0.42)',
+    lineSoft: 'rgba(242,204,96,0.26)',
+    histPositive: 'rgba(242,204,96,0.105)',
+    histNegative: 'rgba(155,180,255,0.075)'
+};
+
 const MODULE_MACD_PANEL_VISUALS = {
     macdLine: 'rgba(255,132,204,0.92)',
     macdGlowLine: 'rgba(255,132,204,0.10)',
     macdGlowWidth: 3.75,
-    macdSignalLine: 'rgba(160,170,182,0.44)',
-    sentimentMacdLine: 'rgba(242,204,96,0.32)',
-    sentimentMacdSignalLine: 'rgba(242,204,96,0.20)',
-    sentimentMacdHistPositive: 'rgba(242,204,96,0.105)',
-    sentimentMacdHistNegative: 'rgba(155,180,255,0.075)',
+    macdSignalLine: 'rgba(255,132,204,0.38)',
+    sentimentMacdLine: MODULE_SENTIMENT_VISUALS.line,
+    sentimentMacdSignalLine: MODULE_SENTIMENT_VISUALS.lineSoft,
+    sentimentMacdHistPositive: MODULE_SENTIMENT_VISUALS.histPositive,
+    sentimentMacdHistNegative: MODULE_SENTIMENT_VISUALS.histNegative,
     macdZeroRail: 'rgba(170,155,130,0.22)',
     macdHistPositiveStrong: 'rgba(197,120,92,0.48)',
     macdHistPositiveSoft: 'rgba(197,120,92,0.26)',
@@ -73,11 +81,11 @@ const MODULE_TA_PANEL_VISUALS = {
     rsiUpperRail: 'rgba(242,204,96,0.22)',
     rsiLowerRail: 'rgba(155,180,255,0.22)',
     rsiMidRail: 'rgba(148,163,184,0.09)',
-    rsiSentimentLine: 'rgba(242,204,96,0.36)',
+    rsiSentimentLine: MODULE_SENTIMENT_VISUALS.line,
     stochRsiLine: 'rgba(126,231,185,0.68)',
     stochRsiGlowLine: 'rgba(126,231,185,0.095)',
     stochRsiGlowWidth: 3.25,
-    stochRsiSentimentLine: 'rgba(242,204,96,0.34)',
+    stochRsiSentimentLine: MODULE_SENTIMENT_VISUALS.line,
     stochRsiSignalLine: 'rgba(255,123,114,0.46)',
     stochUpperRail: 'rgba(242,204,96,0.16)',
     stochUpperZoneFill: 'rgba(242,204,96,0.014)',
@@ -2234,6 +2242,7 @@ export class PlotlyRenderer {
             traces.push({
                 type: 'bar',
                 name: 'MACD Histogram',
+                showlegend: false,
                 x,
                 y: macdHist.y,
                 yaxis: 'y3',
@@ -2295,6 +2304,7 @@ export class PlotlyRenderer {
                 type: 'scatter',
                 mode: 'lines',
                 name: 'MACD',
+                showlegend: false,
                 legendrank: 80,
                 x,
                 y: macd.y,
@@ -2438,6 +2448,21 @@ export class PlotlyRenderer {
                 visible: 'legendonly',
                 showlegend: false,
                 line: { color: MODULE_TA_PANEL_VISUALS.stochRsiSignalLine, width: 0.9 },
+                hoverinfo: 'skip'
+            });
+        }
+
+        const hasSentimentContext = Boolean(sentimentMacd || sentimentMacdSignal || sentimentMacdHist || sentimentRsi || sentimentStochRsi);
+        if (hasSentimentContext) {
+            traces.push({
+                type: 'scatter',
+                mode: 'lines',
+                name: 'Sentiment',
+                legendrank: 70,
+                x: [x[0]],
+                y: [null],
+                yaxis: 'y3',
+                line: { color: MODULE_SENTIMENT_VISUALS.legendLine, width: 1.35 },
                 hoverinfo: 'skip'
             });
         }
