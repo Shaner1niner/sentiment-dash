@@ -45,6 +45,9 @@ if not exist "%SCREENER_SCRIPT%" set "SCREENER_SCRIPT=C:\Users\shane\build_seta_
 
 set "SCREENER_STORE_BUILDER=%WEBSITE_REPO%\scripts\build_fix26_screener_store.py"
 set "SCREENER_STORE_JSON=%WEBSITE_REPO%\fix26_screener_store.json"
+set "STRUCTURE_HISTORY_BUILDER=%WEBSITE_REPO%\scripts\append_structure_score_history.py"
+set "STRUCTURE_HISTORY_JSON=%WEBSITE_REPO%\fix26_structure_score_history.json"
+set "STRUCTURE_HISTORY_SMOKE=%WEBSITE_REPO%\scripts\smoke_structure_score_history.py"
 set "REVIEWED_BRIEFING_REFRESH=%WEBSITE_REPO%\scripts\regenerate_reviewed_briefings_v2.py"
 set "REVIEWED_BRIEFINGS_JSON=%WEBSITE_REPO%\generated_briefings_reviewed.json"
 set "REVIEWED_BRIEFINGS_V2_JSON=%WEBSITE_REPO%\generated_briefings_reviewed_v2.json"
@@ -84,6 +87,12 @@ if not exist "%EXPORTER_SCRIPT%" (
 if not exist "%PAYLOAD_BUILDER%" (
   echo [ERROR] Fix 26 payload builder not found:
   echo         %PAYLOAD_BUILDER%
+  goto :fail
+)
+
+if not exist "%STRUCTURE_HISTORY_BUILDER%" (
+  echo [ERROR] Structure Score history builder not found:
+  echo         %STRUCTURE_HISTORY_BUILDER%
   goto :fail
 )
 
@@ -247,7 +256,20 @@ if not exist "%SCREENER_STORE_JSON%" (
 
 echo.
 echo ============================================================
-echo [4/7] Building Fix 26 public/member chart JSON payloads...
+echo [3b/8] Appending Structure Score history snapshot...
+echo ============================================================
+"%PYTHON_EXE%" "%STRUCTURE_HISTORY_BUILDER%" ^
+  --input "%SCREENER_STORE_JSON%" ^
+  --output "%STRUCTURE_HISTORY_JSON%" ^
+  --retention-hours 48
+if errorlevel 1 (
+  echo [ERROR] Structure Score history snapshot failed.
+  goto :fail
+)
+
+echo.
+echo ============================================================
+echo [4/8] Building Fix 26 public/member chart JSON payloads...
 echo ============================================================
 "%PYTHON_EXE%" "%PAYLOAD_BUILDER%" ^
   --manifest "%MANIFEST%" ^
@@ -303,6 +325,13 @@ if errorlevel 1 (
   echo [ERROR] Dashboard smoke test failed.
   goto :fail
 )
+
+"%PYTHON_EXE%" "%STRUCTURE_HISTORY_SMOKE%"
+if errorlevel 1 (
+  popd
+  echo [ERROR] Structure Score history smoke test failed.
+  goto :fail
+)
 popd
 
 echo.
@@ -327,10 +356,13 @@ git add fix26_chart_store_public_index.json
 git add fix26_chart_store_member_index.json
 if exist fix26_chart_store_assets git add fix26_chart_store_assets
 git add fix26_screener_store.json
+if exist fix26_structure_score_history.json git add fix26_structure_score_history.json
 if exist generated_briefings_reviewed.json git add generated_briefings_reviewed.json
 if exist generated_briefings_reviewed_v2.json git add generated_briefings_reviewed_v2.json
 if exist scripts\build_seta_market_screener.py git add scripts\build_seta_market_screener.py
 if exist scripts\build_fix26_screener_store.py git add scripts\build_fix26_screener_store.py
+if exist scripts\append_structure_score_history.py git add scripts\append_structure_score_history.py
+if exist scripts\smoke_structure_score_history.py git add scripts\smoke_structure_score_history.py
 if exist scripts\regenerate_reviewed_briefings_v2.py git add scripts\regenerate_reviewed_briefings_v2.py
 if exist scripts\smoke_fix26_dashboard.py git add scripts\smoke_fix26_dashboard.py
 if exist interactive_dashboard_fix24_public_embed.html git add interactive_dashboard_fix24_public_embed.html

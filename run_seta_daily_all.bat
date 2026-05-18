@@ -281,6 +281,7 @@ git restore --staged . >nul 2>nul
 git add -- fix26_chart_store_public.json
 git add -- fix26_chart_store_member.json
 git add -- fix26_screener_store.json
+git add -- fix26_structure_score_history.json
 git add -- fix26_chart_store_public_index.json
 git add -- fix26_chart_store_member_index.json
 git add -- fix26_chart_store_assets\public
@@ -329,6 +330,7 @@ if "%CLEAN_REPO_AFTER_RUN%"=="1" (
     echo CLEAN_REPO_AFTER_RUN=1: cleaning any remaining generated working-tree changes...
     git restore --staged . >nul 2>nul
     git restore -- fix26_chart_store_public.json fix26_chart_store_member.json fix26_screener_store.json >nul 2>nul
+    git restore -- fix26_structure_score_history.json >nul 2>nul
     git restore -- fix26_chart_store_public_index.json fix26_chart_store_member_index.json >nul 2>nul
     git restore -- generated_briefings_reviewed.json generated_briefings_reviewed_v2.json >nul 2>nul
     git restore -- public_content >nul 2>nul
