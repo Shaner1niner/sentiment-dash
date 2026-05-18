@@ -44,7 +44,7 @@ const MODULE_CHART_VISUALS = {
 };
 
 const MODULE_SENTIMENT_VISUALS = {
-    legendLine: 'rgba(242,204,96,0.62)',
+    legendLine: 'rgba(255,214,102,0.78)',
     line: 'rgba(242,204,96,0.42)',
     lineSoft: 'rgba(242,204,96,0.26)',
     histPositive: 'rgba(242,204,96,0.105)',
