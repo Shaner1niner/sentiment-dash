@@ -513,6 +513,65 @@ function detailSourceSummary(row) {
     return sources.length ? sources.join(' / ') : 'module row';
 }
 
+function structureScoreDetail(row, screener = {}, archetype = {}, indicators = {}) {
+    const score = valueOf(screener, [
+        'structure_score',
+        'structureScore',
+        'signal_structure_score',
+        'signalStructureScore',
+        'screener_attention_priority_score',
+        'attention_priority_score',
+        'priority_score',
+        'priorityScore'
+    ], valueOf(archetype, [
+        'structure_score',
+        'structureScore',
+        'archetype_confidence',
+        'archetypeConfidence',
+        'confidence_score',
+        'confidenceScore'
+    ], valueOf(indicators, [
+        'structure_score',
+        'structureScore',
+        'signal_structure_score',
+        'signalStructureScore'
+    ], null)));
+
+    const label = valueOf(screener, [
+        'structure_label',
+        'structureLabel',
+        'signal_structure_label',
+        'signalStructureLabel',
+        'strength_label',
+        'strengthLabel',
+        'confidence_label',
+        'confidenceLabel',
+        'signal_consensus_direction_label'
+    ], valueOf(archetype, [
+        'structure_label',
+        'structureLabel',
+        'confidence_label',
+        'confidenceLabel',
+        'label'
+    ], valueOf(indicators, [
+        'structure_label',
+        'structureLabel',
+        'strength_label',
+        'strengthLabel',
+        'confidence_label',
+        'confidenceLabel'
+    ], '')));
+
+    const scoreText = formatDeckValue(score, row?.ticker || '', 42);
+    const labelText = cleanDisplayText(label);
+
+    if (scoreText && labelText && !isGenericMarketTapeCopy(labelText, row?.ticker || '')) {
+        return `${scoreText} · ${labelText}`;
+    }
+
+    return scoreText;
+}
+
 function selectedDetailItems(row) {
     if (!row) return [];
 
@@ -523,7 +582,7 @@ function selectedDetailItems(row) {
     const indicators = source.indicators || source.indicator_payload || source.indicator || {};
 
     const items = [
-        ['Rank / score', `${rankLabel(row)} • ${formatScore(row.score)}`],
+        ['Structure Score', structureScoreDetail(row, screener, archetype, indicators) || `${rankLabel(row)} • ${formatScore(row.score)}`],
         ['Setup read', displayCardHeadline(row)],
         ['Watch item', displayCardCopy(row)],
         ['Tags', displayCardTags(row).join(' / ')],
