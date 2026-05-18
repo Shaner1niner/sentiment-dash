@@ -826,13 +826,13 @@ function renderMarketTapeDetailDeck(row) {
     }).join('');
 
     return `
-      <section class="moduleMarketTapeDetailDeck" aria-label="Selected asset signal detail">
-        <div class="moduleMarketTapeDeckHeader">
-          <span>Signal detail</span>
-          <em>${escapeHtml(detailSourceSummary(row))}</em>
-        </div>
+      <details class="moduleMarketTapeDetailDeck moduleMarketTapeTechnicalDetail" aria-label="Signal internals">
+        <summary class="moduleMarketTapeDeckHeader">
+          <span>Signal Internals</span>
+          <em>Optional model detail · ${escapeHtml(detailSourceSummary(row))}</em>
+        </summary>
         <div class="moduleMarketTapeDeckGrid">${cards}</div>
-      </section>
+      </details>
     `;
 }
 
@@ -1006,7 +1006,7 @@ function timelineEventFacts(source, row = null, detail = '') {
         timelineFact('Status', eventValue(source, ['status', 'state', 'result', 'direction', 'tone', 'bias'], ''), ticker, 58),
         timelineFact('Family', eventValue(source, ['family', 'category', 'type'], ''), ticker, 58),
         timelineFact('Close', eventValue(source, ['close', 'latest_close', 'latestClose', 'price'], valueOf(screener, ['latest_close', 'latestClose', 'close', 'price'], '')), ticker, 46),
-        timelineFact('Priority', eventValue(source, ['priority_score', 'priorityScore', 'score', 'attention_priority_score'], valueOf(screener, ['screener_attention_priority_score', 'attention_priority_score', 'priority_score', 'priorityScore', 'score'], '')), ticker, 46),
+        timelineFact('Structure Score', eventValue(source, ['priority_score', 'priorityScore', 'score', 'attention_priority_score'], valueOf(screener, ['screener_attention_priority_score', 'attention_priority_score', 'priority_score', 'priorityScore', 'score'], '')), ticker, 46),
         timelineFact('Direction', eventValue(source, ['direction_label', 'directionLabel', 'direction', 'bias'], valueOf(screener, ['signal_consensus_direction_label', 'direction_label', 'directionLabel'], '')), ticker, 62),
         timelineFact('Confirmation', eventValue(source, ['confirmation', 'confirmation_state', 'confirmationState'], valueOf(archetype, ['missing_confirmations', 'missingConfirmations', 'confirmation', 'confirmation_state', 'confirmationState'], '')), ticker, 72),
         timelineFact('Indicator', eventValue(source, ['indicator_family', 'indicatorFamily', 'indicator', 'technical'], valueOf(indicators, ['indicator_family', 'indicatorFamily', 'family'], '')), ticker, 62)
@@ -1139,7 +1139,7 @@ function marketTapeTimelineItems(row) {
         : timelineCompactList(
             [
                 directionLabel ? `Direction: ${directionLabel}` : '',
-                priorityScore ? `Attention priority: ${priorityScore}` : '',
+                priorityScore ? `Structure score: ${priorityScore}` : '',
                 indicatorFamily ? `Indicator family: ${indicatorFamily}` : ''
             ],
             watchRead || `${ticker || 'Asset'} remains on Market Radar watch.`
@@ -1147,7 +1147,7 @@ function marketTapeTimelineItems(row) {
 
     const receiptDetail = timelineCompactList(
         [
-            priorityScore ? `Attention priority ${priorityScore}` : '',
+            priorityScore ? `Structure score ${priorityScore}` : '',
             directionScore ? `direction score ${directionScore}` : '',
             directionLabel ? directionLabel : '',
             indicatorFamily ? `${indicatorFamily} family` : '',
@@ -1163,7 +1163,7 @@ function marketTapeTimelineItems(row) {
             detail: setupDetail,
             kind: 'setup',
             facts: [
-                priorityScore ? { label: 'Priority', value: priorityScore } : null,
+                priorityScore ? { label: 'Structure Score', value: priorityScore } : null,
                 directionLabel ? { label: 'Direction', value: directionLabel } : null,
                 indicatorFamily ? { label: 'Indicator', value: indicatorFamily } : null
             ].filter(Boolean),
@@ -1177,7 +1177,7 @@ function marketTapeTimelineItems(row) {
             facts: [
                 missingConfirmations ? { label: 'Gate', value: missingConfirmations } : null,
                 strengthLabel ? { label: 'Strength', value: strengthLabel } : null,
-                directionScore ? { label: 'Direction score', value: directionScore } : null
+                directionScore ? { label: 'Direction Score', value: directionScore } : null
             ].filter(Boolean),
             evidence: [missingConfirmations || watchRead].filter(Boolean)
         },
@@ -1189,8 +1189,8 @@ function marketTapeTimelineItems(row) {
             facts: [
                 latestClose ? { label: 'Close', value: latestClose } : null,
                 asOf ? { label: 'As of', value: asOf } : null,
-                priorityScore ? { label: 'Priority', value: priorityScore } : null,
-                directionScore ? { label: 'Direction score', value: directionScore } : null
+                priorityScore ? { label: 'Structure Score', value: priorityScore } : null,
+                directionScore ? { label: 'Direction Score', value: directionScore } : null
             ].filter(Boolean),
             evidence: [receiptDetail].filter(Boolean)
         }
@@ -1223,9 +1223,9 @@ function renderMarketTapeEventTimeline(row) {
     `).join('');
 
     return `
-      <section class="moduleMarketTapeEventTimeline" aria-label="Signal confirmation timeline">
+      <section class="moduleMarketTapeEventTimeline" aria-label="Evidence trail">
         <div class="moduleMarketTapeTimelineHeader">
-          <span>Confirmation timeline</span>
+          <span>Evidence Trail</span>
           <em>${escapeHtml(row?.ticker || 'Asset')}</em>
         </div>
         <ol>${timeline}</ol>
@@ -1252,8 +1252,8 @@ function renderSelectedDetail(row) {
       <section class="moduleMarketTapeSelectedDetail" aria-label="Asset Signal Readout">
         <div class="moduleMarketTapeDetailKicker">Asset Signal Readout</div>
         <div class="moduleMarketTapeDetailGrid">${rows}</div>
-        ${detailDeck}
         ${eventTimeline}
+        ${detailDeck}
       </section>
     `;
 }
