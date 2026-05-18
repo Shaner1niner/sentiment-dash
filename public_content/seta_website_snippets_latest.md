@@ -112,18 +112,6 @@ TSLA is showing broader participation. That is constructive for the equity tape,
 
 ---
 
-## NFLX: participation is broadening
-
-NFLX is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
-
-**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
-
-**SETA read:** participation diffusion | rank 5 | positive skew | rejection / decay
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
 ## LINK: participation is broadening
 
 LINK is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
@@ -136,13 +124,25 @@ LINK is showing broader participation. That is constructive for the crypto tape,
 
 ---
 
-## JPM: participation is broadening
+## NFLX: participation is broadening
 
-JPM is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+NFLX is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
 
 **Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
 **SETA read:** participation diffusion | rank 6 | positive skew | rejection / decay
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## DOGE: participation is broadening
+
+DOGE is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+
+**SETA read:** participation diffusion | rank 6 | positive skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
