@@ -644,14 +644,30 @@ function signalStateDetail(row, screener = {}, archetype = {}, indicators = {}) 
         'missingConfirmations'
     ], ''), ticker, 80);
 
-    const bias = direction || firstSignalTag(tags, /bullish|bearish|mixed|neutral/i);
-    const risk = tags.find(tag => /risk|bearish|weak|watch|quiet/i.test(tag) && tag.toLowerCase() !== String(bias || '').toLowerCase()) || '';
-    const stage = firstSignalTag(tags, /confirmation|confirmed|watch|setup|repair|momentum|high.?conviction/i) || confirmation;
+    const bias = direction || firstSignalTag(tags, /^bullish$|^bearish$|^mixed$|^neutral$/i);
+    const biasKey = String(bias || '').toLowerCase();
+
+    const stage = firstSignalTag(tags, /confirmation|confirmed|watch|setup|repair|momentum/i) || confirmation;
+    const conviction = firstSignalTag(tags, /high.?conviction|low.?conviction|conviction/i);
+    const participation = firstSignalTag(tags, /^quiet$|participation|breadth|broad|narrow/i);
+
+    const risk = tags.find(tag => {
+        const value = cleanDisplayText(tag);
+        const lower = value.toLowerCase();
+
+        if (!value || lower === biasKey) return false;
+        if (/watch|quiet|confirmation|confirmed|setup|repair|momentum|conviction/.test(lower)) return false;
+        if (/risk|weak|extension|breakdown|compression|transition|bearish/.test(lower)) return true;
+
+        return false;
+    }) || '';
 
     const parts = [
         bias ? `Bias: ${bias}` : '',
         risk ? `Risk: ${risk}` : '',
-        stage ? `Stage: ${stage}` : ''
+        stage ? `Stage: ${stage}` : '',
+        conviction ? `Conviction: ${conviction.replace(/\s*conviction\s*/i, '').trim() || conviction}` : '',
+        participation ? `Participation: ${participation}` : ''
     ].filter(Boolean);
 
     if (parts.length) return parts.join(' · ');
