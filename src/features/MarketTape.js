@@ -1293,6 +1293,7 @@ function rankLabel(row) {
 
 export const MarketTape = {
     targetId: 'module-market-tape',
+    detailTargetId: 'module-market-tape-detail',
     payload: null,
     filter: 'all',
     _bound: false,
@@ -1340,6 +1341,27 @@ export const MarketTape = {
             briefing.parentNode.insertBefore(target, briefing);
         } else if (controls && controls.parentNode) {
             controls.parentNode.insertBefore(target, controls.nextSibling);
+        } else if (chart && chart.parentNode) {
+            chart.parentNode.insertBefore(target, chart);
+        } else {
+            document.body.appendChild(target);
+        }
+
+        return target;
+    },
+
+    ensureDetailTarget() {
+        let target = document.getElementById(this.detailTargetId);
+        if (target) return target;
+
+        const briefing = document.getElementById('module-briefing-panel');
+        const chart = document.getElementById('chart') || document.getElementById('chart-container');
+        target = document.createElement('section');
+        target.id = this.detailTargetId;
+        target.className = 'moduleMarketTapeDetailPanel';
+
+        if (briefing && briefing.parentNode) {
+            briefing.parentNode.insertBefore(target, briefing.nextSibling);
         } else if (chart && chart.parentNode) {
             chart.parentNode.insertBefore(target, chart);
         } else {
@@ -1403,6 +1425,7 @@ export const MarketTape = {
 
     render() {
         const target = this.ensureTarget();
+        const detailTarget = this.ensureDetailTarget();
         let activeAsset = String(Store.state.currentAsset || 'BTC').trim().toUpperCase();
         const baseRows = this.rows();
 
@@ -1420,6 +1443,8 @@ export const MarketTape = {
         const emptyMessage = visibleRows.length ? '' : '<div class="moduleMarketTapeEmpty">No Market Radar cards match this filter.</div>';
 
         if (!rows.length) {
+            detailTarget.innerHTML = '';
+
             target.innerHTML = `
               <article class="moduleMarketTapeCard">
                 <header class="moduleMarketTapeHeader">
@@ -1465,8 +1490,9 @@ export const MarketTape = {
             ${filterChips}
             <div class="moduleMarketTapeGrid">${itemCards}</div>
             ${emptyMessage}
-            ${selectedDetail}
           </article>
         `;
+
+        detailTarget.innerHTML = selectedDetail;
     }
 };
