@@ -36,6 +36,9 @@ for token in [
     "moduleMarketTapeBriefingCompact",
     "moduleMarketTapeBriefingSignalState",
     "Signal State",
+    "moduleMarketTapeTrendPrimaryReadout",
+    "Structure stack:",
+    "moduleMarketTapeTrendStackLabel",
     "structure-trend-signal-state",
     "Compact read",
     "full detail in Research",
@@ -46,7 +49,7 @@ for token in [
 ]:
     if token not in patch_text:
         fail(f"View mode density patch missing token: {token}")
-ok("View mode density patch keeps compact Signal State and Structure Trend in Briefing mode")
+ok("View mode density patch keeps compact Signal State and clearer Structure Trend readout in Briefing mode")
 
 if "ViewModeDensityPatch.js?v=module_view_mode_density_001" not in entry_text:
     fail("dashboard entrypoint does not load ViewModeDensityPatch")

@@ -66,10 +66,62 @@ function installViewModeDensityStyle() {
       html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeBriefingCompact .moduleMarketTapeTrendWidget {
         margin-top: 0;
         min-height: 76px;
+        padding: 10px 12px;
+      }
+      html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader {
+        align-items: flex-start;
+        display: grid;
+        gap: 3px 10px;
+        grid-template-columns: 1fr auto;
+      }
+      html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader > span {
+        grid-column: 1;
+        grid-row: 1;
+      }
+      html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader > em:not(.moduleMarketTapeTrendStackLabel) {
+        grid-column: 2;
+        grid-row: 2;
+        text-align: right;
+      }
+      html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader .moduleMarketTapeTrendPrimaryReadout {
+        color: #f2cc60;
+        font-size: 12px;
+        font-weight: 900;
+        grid-column: 2;
+        grid-row: 1;
+        justify-self: end;
+        line-height: 1.1;
+        white-space: nowrap;
+      }
+      html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader .moduleMarketTapeTrendStackLabel {
+        color: #8b949e;
+        font-size: 10px;
+        font-style: normal;
+        grid-column: 1;
+        grid-row: 2;
+        letter-spacing: .01em;
+      }
+      html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendBody {
+        margin-top: 6px;
+      }
+      html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendBody .moduleMarketTapeTrendReadout {
+        display: none !important;
       }
       @media (max-width: 760px) {
         html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeBriefingCompact {
           grid-template-columns: 1fr;
+        }
+        html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader {
+          grid-template-columns: 1fr;
+        }
+        html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader > span,
+        html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader > em:not(.moduleMarketTapeTrendStackLabel),
+        html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader .moduleMarketTapeTrendPrimaryReadout,
+        html[data-seta-view-mode="briefing"] #module-market-tape-detail .moduleMarketTapeTrendHeader .moduleMarketTapeTrendStackLabel {
+          grid-column: 1;
+          grid-row: auto;
+          justify-self: start;
+          text-align: left;
         }
       }
     `;
@@ -114,12 +166,47 @@ function buildSignalStateCard(detailPanel) {
     return card;
 }
 
+function trendParts(trend) {
+    const score = trend.querySelector('.moduleMarketTapeTrendReadout strong')?.textContent?.trim() || '';
+    const raw = trend.querySelector('.moduleMarketTapeTrendReadout span')?.textContent?.trim() || '';
+    const pieces = raw.split('·').map(piece => piece.trim()).filter(Boolean);
+    const delta = pieces[0] || '';
+    const direction = pieces[1] || '';
+    const stackRead = pieces.slice(2).join(' · ');
+
+    return { score, delta, direction, stackRead };
+}
+
+function applyTrendReadoutHeader(trend) {
+    if (!trend || trend.getAttribute('data-structure-trend-readout') === PATCH_TOKEN) return;
+
+    const header = trend.querySelector('.moduleMarketTapeTrendHeader');
+    if (!header) return;
+
+    const { score, delta, direction, stackRead } = trendParts(trend);
+    if (!score && !delta && !direction && !stackRead) return;
+
+    const primary = document.createElement('strong');
+    primary.className = 'moduleMarketTapeTrendPrimaryReadout';
+    primary.textContent = [score, direction].filter(Boolean).join(' · ');
+
+    const stack = document.createElement('em');
+    stack.className = 'moduleMarketTapeTrendStackLabel';
+    stack.textContent = `Structure stack: ${stackRead || 'not classified'}${delta ? ` (${delta})` : ''}`;
+
+    header.appendChild(primary);
+    header.appendChild(stack);
+    trend.setAttribute('data-structure-trend-readout', PATCH_TOKEN);
+}
+
 function applyBriefingCompact(detailPanel, mode) {
     resetBriefingCompact(detailPanel);
 
+    const trend = detailPanel.querySelector('.moduleMarketTapeTrendWidget');
+    if (trend) applyTrendReadoutHeader(trend);
+
     if (mode !== 'briefing') return;
 
-    const trend = detailPanel.querySelector('.moduleMarketTapeTrendWidget');
     if (!trend) return;
 
     const signalState = buildSignalStateCard(detailPanel);
