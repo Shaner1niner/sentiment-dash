@@ -1,6 +1,6 @@
 ﻿# SETA Public Dashboard QA
 
-Run after refreshes when you want one command to check the current public dashboard chart layer, hover taxonomy, Structure strip, and Fix26 dashboard contract.
+Run after refreshes when you want one command to check the current public dashboard chart layer, hover taxonomy, Structure strip, reader flow, and Fix26 dashboard contract.
 
 Main command:
 
@@ -30,9 +30,17 @@ What this protects:
 - Sentiment MA 21 legend cleanup
 - Structure strip behavior
 - Structure strip/current readout alignment
+- Sentiment layer behavior
+- Briefing vs Research view-mode density
+- Compact Signal State and Structure Trend behavior
+- View-aware briefing evidence density
 - Fix26 public/member payload contract
 - Reviewed briefing compatibility contract
 
+Public Dashboard UX Contract:
+
+- docs\public_dashboard_ux_contract.md
+- scripts\smoke_public_dashboard_ux_contract.py
 
 Additional reader-education checks:
 
