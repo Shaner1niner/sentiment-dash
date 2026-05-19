@@ -539,7 +539,7 @@ function decisionPressureScore(row = {}) {
     ]);
 }
 
-function normalizedDecisionPressureValue(row = {}) {
+function decisionPressureDisplayValue(row = {}) {
     const score = decisionPressureScore(row);
     if (score === null) return '';
 
@@ -646,7 +646,7 @@ function addSentimentMa21OverlayTrace(traces, x, rows) {
         const raw = firstFiniteRowValue(row, MODULE_SENTIMENT_MA21_RAW_FIELDS);
         return [
             raw === null ? '' : raw.toFixed(3),
-            normalizedDecisionPressureValue(row),
+            decisionPressureDisplayValue(row),
             decisionPressureLabel(row),
             decisionPressureSkew(row),
             decisionPressureSource(row),
@@ -669,7 +669,7 @@ function addSentimentMa21OverlayTrace(traces, x, rows) {
         legendgroup: 'sentiment-ma-21',
         legendrank: 22,
         showlegend: false,
-        hovertemplate: '%{x}<br>Sentiment MA 21: %{customdata[0]}<br>Decision Pressure: %{customdata[1]} / 100 (%{customdata[2]})<br>Skew: %{customdata[3]}<br>Source: %{customdata[4]}%{customdata[5]}<extra></extra>'
+        hovertemplate: '%{x}<br>Sentiment MA 21: %{customdata[0]}<br>Decision Pressure: %{customdata[2]}<br>DP score: %{customdata[1]}<br>Skew: %{customdata[3]}<br>Source: %{customdata[4]}%{customdata[5]}<extra></extra>'
     });
 }
 
