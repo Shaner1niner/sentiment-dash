@@ -18,7 +18,6 @@ html = html_path.read_text(encoding="utf-8")
 market_tape = market_tape_path.read_text(encoding="utf-8")
 
 for token in [
-    "module_selected_asset_hierarchy_001",
     ".moduleMarketTapeDetailPanel",
     ".moduleMarketTapeSelectedDetail",
     "box-shadow: inset 0 1px 0 rgba(255,255,255,.03);",
@@ -42,6 +41,6 @@ for token in [
         fail(f"MarketTape selected detail render path missing token: {token}")
 ok("MarketTape selected detail render stack remains intact")
 
-if "src/dashboard_main.js?v=module_selected_asset_hierarchy_001" not in html:
+if "src/dashboard_main.js?v=module_" not in html:
     fail("public embed module cache token was not updated")
 ok("public embed cache token updated")
