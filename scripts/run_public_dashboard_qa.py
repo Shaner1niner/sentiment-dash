@@ -42,6 +42,7 @@ def build_steps(args: argparse.Namespace) -> list[tuple[str, list[str]]]:
         ("Market Tape attention/structure card smoke", py_script("smoke_market_tape_attention_structure_cards.py")),
         ("Sentiment layer and structure controls smoke", py_script("smoke_sentiment_layer_structure_controls.py")),
         ("View mode density smoke", py_script("smoke_view_mode_density.py")),
+        ("Briefing density smoke", py_script("smoke_briefing_density.py")),
         ("Sentiment MA 21 Decision Pressure hover smoke", py_script("smoke_sentiment_ma21_hover_dp_value.py")),
         ("Sentiment MA 21 overlay smoke", py_script("smoke_sentiment_ma21_overlay.py")),
         ("Sentiment MA 21 controls smoke", py_script("smoke_sentiment_ma21_controls.py")),
