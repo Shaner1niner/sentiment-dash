@@ -37,4 +37,5 @@ What this protects:
 Additional reader-education checks:
 
 - Public chart glossary smoke
+- Public dashboard intro copy smoke
 - Market Tape attention/structure card smoke
