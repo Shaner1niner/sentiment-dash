@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>SETA Public Dashboard</title>
   <script defer src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-  <link rel="stylesheet" href="dashboard_fix26_base.css?v=module_price_structure_strip_current_override_001"/>
+  <link rel="stylesheet" href="dashboard_fix26_base.css?v=module_selected_asset_hierarchy_001"/>
   <style>
     body {
       margin: 0;
@@ -122,6 +122,9 @@
     }
     .moduleMarketTapePanel {
       margin: 14px 0;
+    }
+    .moduleMarketTapeDetailPanel {
+      margin: 12px 0 12px;
     }
     .moduleMarketTapeCard {
       border: 1px solid rgba(125, 211, 252, 0.22);
@@ -262,29 +265,34 @@
       line-height: 1.35;
     }
     .moduleMarketTapeSelectedDetail {
-      margin-top: 12px;
-      border: 1px solid rgba(125, 211, 252, .18);
-      border-radius: 12px;
-      background: rgba(5, 7, 10, .42);
-      padding: 12px;
+      margin: 12px 0 12px;
+      border: 1px solid rgba(125, 211, 252, .22);
+      border-radius: 14px;
+      background:
+        linear-gradient(180deg, rgba(13, 17, 23, .62), rgba(5, 7, 10, .46));
+      padding: 14px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
     }
     .moduleMarketTapeDetailKicker {
       color: #7dd3fc;
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: .08em;
-      margin-bottom: 8px;
+      margin-bottom: 10px;
+      padding-bottom: 9px;
+      border-bottom: 1px solid rgba(125, 211, 252, .14);
     }
     .moduleMarketTapeDetailGrid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 8px;
+      gap: 10px;
     }
     .moduleMarketTapeDetailItem {
       border: 1px solid rgba(139, 148, 158, .18);
       border-radius: 10px;
-      padding: 8px;
-      min-height: 54px;
+      padding: 9px;
+      min-height: 52px;
+      background: rgba(13, 17, 23, .34);
     }
     .moduleMarketTapeDetailItem span {
       display: block;
@@ -300,12 +308,20 @@
       line-height: 1.35;
       font-weight: 600;
     }
+    .moduleMarketTapeDetailItem:nth-child(-n+4) {
+      border-color: rgba(125, 211, 252, .24);
+      background: rgba(13, 17, 23, .48);
+    }
+    .moduleMarketTapeDetailItem:nth-child(n+5) {
+      border-color: rgba(139, 148, 158, .13);
+      background: rgba(5, 7, 10, .30);
+    }
     .moduleMarketTapeTrendWidget {
-      margin-top: 10px;
-      border: 1px solid rgba(125, 211, 252, .18);
-      border-radius: 10px;
-      background: rgba(13, 17, 23, .34);
-      padding: 9px;
+      margin-top: 12px;
+      border: 1px solid rgba(125, 211, 252, .22);
+      border-radius: 11px;
+      background: rgba(13, 17, 23, .40);
+      padding: 10px;
     }
     .moduleMarketTapeTrendHeader {
       display: flex;
@@ -367,9 +383,15 @@
       margin-top: 3px;
     }
     .moduleMarketTapeDetailDeck {
-      margin-top: 12px;
-      border-top: 1px solid rgba(125, 211, 252, .14);
+      margin-top: 13px;
+      border-top: 1px solid rgba(125, 211, 252, .13);
       padding-top: 12px;
+    }
+    .moduleMarketTapeTechnicalDetail summary {
+      cursor: pointer;
+    }
+    .moduleMarketTapeTechnicalDetail:not([open]) {
+      padding-bottom: 0;
     }
     .moduleMarketTapeDeckHeader {
       display: flex;
@@ -444,8 +466,8 @@
       font-weight: 600;
     }
     .moduleMarketTapeEventTimeline {
-      margin-top: 12px;
-      border-top: 1px solid rgba(125, 211, 252, .14);
+      margin-top: 13px;
+      border-top: 1px solid rgba(125, 211, 252, .16);
       padding-top: 12px;
     }
     .moduleMarketTapeTimelineHeader {
@@ -645,9 +667,9 @@
 
     <script>
       window.DASH_MODE_DEFAULT = "public";
-      window.DASH_MANIFEST_URL = "dashboard_fix26_mode_manifest.json?v=module_price_structure_strip_current_override_001";
+      window.DASH_MANIFEST_URL = "dashboard_fix26_mode_manifest.json?v=module_selected_asset_hierarchy_001";
     </script>
-    <script type="module" src="./src/dashboard_main.js?v=module_price_structure_strip_current_override_001"></script>
+    <script type="module" src="./src/dashboard_main.js?v=module_selected_asset_hierarchy_001"></script>
   </div>
 </body>
 </html>
