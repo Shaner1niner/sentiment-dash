@@ -5,6 +5,7 @@ import './features/SentimentLayerStructureControlPatch.js?v=module_sentiment_lay
 import { MarketTape } from './features/MarketTape.js';
 import './features/MarketTapeAttentionStructureCards.js?v=module_market_tape_attention_structure_cards_001';
 import './features/PublicDashboardIntroCopy.js?v=module_public_dashboard_intro_copy_001';
+import './features/ViewModeDensityPatch.js?v=module_view_mode_density_001';
 import { Controls } from './features/Controls.js';
 import { BriefingPanel } from './features/BriefingPanel.js';
 
