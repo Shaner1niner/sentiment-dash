@@ -12,7 +12,7 @@ The default user path is:
 2. Controls
 3. Market Radar
 4. Asset Briefing
-5. Compact Signal State + Structure Trend
+5. Active Setup Snapshot
 6. How to Read This Chart
 7. Chart
 
@@ -53,8 +53,7 @@ Briefing should show:
 
 - Market Radar
 - Asset Briefing
-- compact Signal State
-- Structure Trend sparkline
+- Active Setup Snapshot
 - How to Read This Chart
 - chart
 
@@ -70,6 +69,22 @@ Briefing evidence density:
 - show a concise evidence preview
 - cap visible Asset Briefing Evidence receipts at 3
 - summarize remaining receipts with a compact line that points to Research mode / source briefing
+
+## Active Setup Snapshot contract
+
+The Active Setup Snapshot is the selected-asset center of gravity in Briefing mode.
+
+It should show three compact elements:
+
+- Structure Score as the hero
+- Signal State as the interpretation
+- Structure Trend as the live/hourly movement read
+
+Structure Score should remain the canonical term. Add interpretation with supporting copy such as:
+
+- `Overall setup quality: Mixed`
+
+Do not rename Structure Score to Overall Score. The dashboard should teach the SETA term while making it understandable.
 
 ## Research mode contract
 
