@@ -32,3 +32,8 @@ What this protects:
 - Structure strip/current readout alignment
 - Fix26 public/member payload contract
 - Reviewed briefing compatibility contract
+
+
+Additional reader-education check:
+
+- Public chart glossary smoke

@@ -25,6 +25,7 @@ for token in [
     "SETA Public Dashboard QA bundle",
     "run_sentiment_price_alignment_soak.py",
     "smoke_sentiment_price_alignment_hover.py",
+    "smoke_public_chart_glossary.py",
     "smoke_sentiment_ma21_hover_dp_value.py",
     "smoke_price_pane_structure_strip.py",
     "smoke_structure_strip_score_alignment.py",
