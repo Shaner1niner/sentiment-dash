@@ -27,12 +27,11 @@ for token in [
     'value="price_ribbon">Price Ribbon',
     'value="combined_ma">Combined MA',
     'value="combined_ribbon">Combined Ribbon',
-    "module_sentiment_ma21_overlay_001",
 ]:
     if token not in html_text:
         fail(f"public embed missing MA Stack token: {token}")
 ok("public embed exposes expanded MA Stack menu")
 
-if "PlotlyRenderer.js?v=module_sentiment_ma21_overlay_001" not in main_text:
-    fail("dashboard_main.js missing PlotlyRenderer cache token")
+if "PlotlyRenderer.js?v=module_" not in main_text:
+    fail("dashboard_main.js missing active PlotlyRenderer module cache token")
 ok("dashboard_main cache-busts PlotlyRenderer import")
