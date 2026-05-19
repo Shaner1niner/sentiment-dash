@@ -21,7 +21,7 @@ renderer_text = renderer.read_text(encoding="utf-8")
 
 for token in [
     "MODULE_STRUCTURE_STRIP_FIELDS",
-    "function buildStructureScoreStripShapes(rows = [], priceDomain = [0, 1])",
+    "function buildStructureScoreStripShapes(rows = [], priceDomain = [0, 1], state = {})",
     "structureScoreStripQuality",
     "structureScoreStripColor",
     "...structureScoreStripShapes",
@@ -29,7 +29,7 @@ for token in [
     "stressed: 'rgba(255,123,114,0.34)'",
     "strong: 'rgba(126,231,135,0.36)'",
     "Structure Score: %{customdata[0]}",
-    "function buildStructureScoreStripHoverTrace(rows = [])",
+    "function buildStructureScoreStripHoverTrace(rows = [], state = {})",
     "structureScoreStripHoverY",
     "structureScoreStripLabel",
 ]:
@@ -56,12 +56,12 @@ for retired in [
 ok("retired Sentiment Pressure price-pane overlay removed")
 
 main_text = main.read_text(encoding="utf-8")
-if "PlotlyRenderer.js?v=module_price_structure_strip_aligned_001" not in main_text:
+if "PlotlyRenderer.js?v=module_price_structure_strip_current_override_001" not in main_text:
     fail("dashboard_main.js missing Structure Score strip cache token")
 ok("dashboard_main.js cache-busts PlotlyRenderer import")
 
 html_text = html.read_text(encoding="utf-8")
-if "module_price_structure_strip_aligned_001" not in html_text:
+if "module_price_structure_strip_current_override_001" not in html_text:
     fail("public embed missing Structure Score strip cache token")
 ok("public embed includes Structure Score strip cache token")
 
@@ -83,3 +83,15 @@ count = sum(1 for row in rows if any(row.get(field) is not None for field in fie
 if count < 5:
     fail(f"BTC payload has too few Structure Score strip values: {count}")
 ok(f"BTC payload has {count} Structure Score strip values")
+
+
+for token in [
+    "function currentStructureReadoutScore(state = {})",
+    "function structureScoreForStripRow(row = {}, index = 0, rows = [], state = {})",
+    "currentStructureReadoutScore(state)",
+    "buildStructureScoreStripHoverTrace(source, state)",
+    "buildStructureScoreStripShapes(rows, priceDomain, state)",
+]:
+    if token not in renderer_text:
+        fail(f"renderer missing current readout override token: {token}")
+ok("Structure strip latest point can override from current readout")

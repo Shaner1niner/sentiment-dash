@@ -1479,6 +1479,94 @@ const MODULE_STRUCTURE_STRIP_FIELDS = [
     'dashboard_score'
 ];
 
+
+function objectPathValue(source, path, fallback = null) {
+    let cursor = source;
+    for (const key of String(path || '').split('.')) {
+        if (cursor && Object.prototype.hasOwnProperty.call(cursor, key)) {
+            cursor = cursor[key];
+        } else {
+            return fallback;
+        }
+    }
+    return cursor ?? fallback;
+}
+
+function screenerStoreItemForAsset(state = {}) {
+    const asset = String(state.currentAsset || '').trim().toUpperCase();
+    if (!asset) return null;
+
+    const store = state.screenerStore || {};
+    const byTerm = store.by_term || store.byTerm || store.assets || store.terms || {};
+
+    if (Array.isArray(byTerm)) {
+        return byTerm.find(item => {
+            const ticker = String(
+                item?.ticker || item?.term || item?.asset || item?.symbol || item?.db_term || ''
+            ).trim().toUpperCase();
+            return ticker === asset;
+        }) || null;
+    }
+
+    return byTerm?.[asset] || byTerm?.[asset.toLowerCase()] || null;
+}
+
+function currentStructureReadoutScore(state = {}) {
+    const item = screenerStoreItemForAsset(state);
+    if (!item || typeof item !== 'object') return null;
+
+    const paths = [
+        'screener.structure_score',
+        'screener.structureScore',
+        'screener.signal_structure_score',
+        'screener.signalStructureScore',
+        'screener.screener_attention_priority_score',
+        'screener.attention_priority_score',
+        'screener.priority_score',
+        'screener.priorityScore',
+        'archetype.structure_score',
+        'archetype.structureScore',
+        'archetype.archetype_confidence',
+        'archetype.archetypeConfidence',
+        'archetype.confidence_score',
+        'archetype.confidenceScore',
+        'indicators.structure_score',
+        'indicators.structureScore',
+        'indicators.signal_structure_score',
+        'indicators.signalStructureScore',
+        'structure_score',
+        'structureScore',
+        'signal_structure_score',
+        'signalStructureScore',
+        'screener_attention_priority_score',
+        'attention_priority_score',
+        'priority_score',
+        'priorityScore',
+        'score'
+    ];
+
+    for (const path of paths) {
+        const n = asNumber(objectPathValue(item, path));
+        if (n !== null) return n;
+    }
+
+    return null;
+}
+
+function structureScoreForStripRow(row = {}, index = 0, rows = [], state = {}) {
+    const latestIndex = Math.max(0, (Array.isArray(rows) ? rows.length : 0) - 1);
+    const override = index === latestIndex ? currentStructureReadoutScore(state) : null;
+    if (override !== null) return override;
+
+    for (const field of MODULE_STRUCTURE_STRIP_FIELDS) {
+        const n = asNumber(row?.[field]);
+        if (n !== null) return n;
+    }
+
+    return null;
+}
+
+
 function structureScoreStripQuality(score) {
     const n = asNumber(score);
     if (n === null) return null;
@@ -1546,7 +1634,7 @@ function structureScoreStripHoverY(rows = []) {
     return min + spread * 0.065;
 }
 
-function buildStructureScoreStripHoverTrace(rows = []) {
+function buildStructureScoreStripHoverTrace(rows = [], state = {}) {
     const source = Array.isArray(rows) ? rows : [];
     if (!source.length) return null;
 
@@ -1556,11 +1644,10 @@ function buildStructureScoreStripHoverTrace(rows = []) {
     if (!series || !Array.isArray(series.y) || hoverY === null) return null;
 
     const x = source.map(row => plotDateValue(row));
-    const y = series.y.map(value => asNumber(value) === null ? null : hoverY);
+    const y = source.map((row, index) => structureScoreForStripRow(row, index, source, state) === null ? null : hoverY);
 
-    const customdata = series.y.map((value, index) => {
-        const score = asNumber(value);
-        const row = source[index] || {};
+    const customdata = source.map((row, index) => {
+        const score = structureScoreForStripRow(row, index, source, state);
         if (score === null) return ['', '', ''];
 
         return [
@@ -1591,7 +1678,7 @@ function buildStructureScoreStripHoverTrace(rows = []) {
     };
 }
 
-function buildStructureScoreStripShapes(rows = [], priceDomain = [0, 1]) {
+function buildStructureScoreStripShapes(rows = [], priceDomain = [0, 1], state = {}) {
     const source = Array.isArray(rows) ? rows : [];
     if (!source.length) return [];
 
@@ -1601,7 +1688,7 @@ function buildStructureScoreStripShapes(rows = [], priceDomain = [0, 1]) {
     const y0 = Math.max(0, Math.min(1, (priceDomain?.[0] ?? 0) + 0.006));
     const y1 = Math.max(0, Math.min(1, y0 + 0.018));
 
-    const states = series.y.map(value => structureScoreStripQuality(value));
+    const states = source.map((row, index) => structureScoreStripQuality(structureScoreForStripRow(row, index, source, state)));
     const shapes = [];
     let startIndex = null;
     let activeQuality = null;
@@ -2719,7 +2806,7 @@ export class PlotlyRenderer {
             });
         }
 
-        const structureScoreStripHoverTrace = buildStructureScoreStripHoverTrace(source);
+        const structureScoreStripHoverTrace = buildStructureScoreStripHoverTrace(source, state);
         if (structureScoreStripHoverTrace) traces.push(structureScoreStripHoverTrace);
 
         const bandPolicy = this.buildBandLayerPolicy(modes);
@@ -2809,7 +2896,7 @@ export class PlotlyRenderer {
         const showSecondaryAxis = modes.scaleMode === 'all_visible';
         const showChartStack = this.hasChartStack(rows);
         const priceDomain = showChartStack ? [0.42, 1] : [0, 1];
-        const structureScoreStripShapes = buildStructureScoreStripShapes(rows, priceDomain);
+        const structureScoreStripShapes = buildStructureScoreStripShapes(rows, priceDomain, state);
         const regimeSummary = this.regimeMarkerSummary(rows, state);
         const overlapStatus = this.overlapBandStatus(rows, state);
         const macdZeroRailShapes = showChartStack ? [buildMacdZeroRailShape()] : [];
