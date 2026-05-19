@@ -37,6 +37,14 @@ for token in [
         fail(f"renderer missing token: {token}")
 ok("renderer includes Structure Score strip path")
 
+renderer_text = renderer.read_text(encoding="utf-8")
+priority_block = renderer_text.split("const MODULE_STRUCTURE_STRIP_FIELDS = [", 1)[1].split("];", 1)[0]
+first_priority = priority_block.strip().splitlines()[0].strip().strip(",").strip("'").strip('"')
+if first_priority != "screener_attention_priority_score":
+    fail(f"Structure strip priority should start with screener_attention_priority_score, got {first_priority}")
+ok("Structure strip prioritizes screener/current readout score source")
+
+
 for retired in [
     "MODULE_SENTIMENT_PRESSURE_FIELDS",
     "buildSentimentPressureRailTraces",
@@ -48,12 +56,12 @@ for retired in [
 ok("retired Sentiment Pressure price-pane overlay removed")
 
 main_text = main.read_text(encoding="utf-8")
-if "PlotlyRenderer.js?v=module_price_structure_strip_hover_001" not in main_text:
+if "PlotlyRenderer.js?v=module_price_structure_strip_aligned_001" not in main_text:
     fail("dashboard_main.js missing Structure Score strip cache token")
 ok("dashboard_main.js cache-busts PlotlyRenderer import")
 
 html_text = html.read_text(encoding="utf-8")
-if "module_price_structure_strip_hover_001" not in html_text:
+if "module_price_structure_strip_aligned_001" not in html_text:
     fail("public embed missing Structure Score strip cache token")
 ok("public embed includes Structure Score strip cache token")
 
