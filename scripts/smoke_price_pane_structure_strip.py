@@ -26,6 +26,12 @@ for token in [
     "structureScoreStripColor",
     "...structureScoreStripShapes",
     "text: 'structure'",
+    "stressed: 'rgba(255,123,114,0.34)'",
+    "strong: 'rgba(126,231,135,0.36)'",
+    "Structure Score: %{customdata[0]}",
+    "function buildStructureScoreStripHoverTrace(rows = [])",
+    "structureScoreStripHoverY",
+    "structureScoreStripLabel",
 ]:
     if token not in renderer_text:
         fail(f"renderer missing token: {token}")
@@ -42,12 +48,12 @@ for retired in [
 ok("retired Sentiment Pressure price-pane overlay removed")
 
 main_text = main.read_text(encoding="utf-8")
-if "PlotlyRenderer.js?v=module_price_structure_strip_001" not in main_text:
+if "PlotlyRenderer.js?v=module_price_structure_strip_hover_001" not in main_text:
     fail("dashboard_main.js missing Structure Score strip cache token")
 ok("dashboard_main.js cache-busts PlotlyRenderer import")
 
 html_text = html.read_text(encoding="utf-8")
-if "module_price_structure_strip_001" not in html_text:
+if "module_price_structure_strip_hover_001" not in html_text:
     fail("public embed missing Structure Score strip cache token")
 ok("public embed includes Structure Score strip cache token")
 

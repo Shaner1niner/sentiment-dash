@@ -1481,18 +1481,113 @@ const MODULE_STRUCTURE_STRIP_FIELDS = [
 function structureScoreStripQuality(score) {
     const n = asNumber(score);
     if (n === null) return null;
-    if (n >= 75) return 'strong';
+    if (n >= 82) return 'strong';
+    if (n >= 68) return 'constructive';
     if (n >= 50) return 'mixed';
-    return 'weak';
+    if (n >= 35) return 'weak';
+    return 'stressed';
+}
+
+function structureScoreStripLabel(score) {
+    const n = asNumber(score);
+    if (n === null) return '';
+    if (n >= 82) return 'Strong structure';
+    if (n >= 68) return 'Constructive structure';
+    if (n >= 50) return 'Mixed structure';
+    if (n >= 35) return 'Weak structure';
+    return 'Stressed structure';
 }
 
 function structureScoreStripColor(quality) {
     const colors = {
-        strong: 'rgba(126,231,135,0.22)',
-        mixed: 'rgba(242,204,96,0.20)',
-        weak: 'rgba(255,161,152,0.20)'
+        strong: 'rgba(126,231,135,0.36)',
+        constructive: 'rgba(126,231,135,0.24)',
+        mixed: 'rgba(242,204,96,0.22)',
+        weak: 'rgba(255,191,105,0.27)',
+        stressed: 'rgba(255,123,114,0.34)'
     };
     return colors[quality] || 'rgba(148,163,184,0.10)';
+}
+
+function structureScoreStripDirection(row = {}) {
+    const fields = [
+        'direction_label',
+        'signal_consensus_direction_label',
+        'seta_dashboard_direction_label',
+        'screener_direction_label',
+        'bias_label'
+    ];
+
+    for (const field of fields) {
+        const value = row?.[field];
+        if (value !== undefined && value !== null && String(value).trim()) {
+            return cleanDisplayText(value);
+        }
+    }
+
+    return '';
+}
+
+function structureScoreStripHoverY(rows = []) {
+    const source = Array.isArray(rows) ? rows : [];
+    const lows = source
+        .map(row => asNumber(row?.low ?? row?.close))
+        .filter(value => value !== null);
+    const highs = source
+        .map(row => asNumber(row?.high ?? row?.close))
+        .filter(value => value !== null);
+
+    if (!lows.length || !highs.length) return null;
+
+    const min = Math.min(...lows);
+    const max = Math.max(...highs);
+    const spread = Math.max(1, max - min);
+    return min + spread * 0.065;
+}
+
+function buildStructureScoreStripHoverTrace(rows = []) {
+    const source = Array.isArray(rows) ? rows : [];
+    if (!source.length) return null;
+
+    const series = seriesForFirstSupportedField(source, MODULE_STRUCTURE_STRIP_FIELDS, 0.12, 5);
+    const hoverY = structureScoreStripHoverY(source);
+
+    if (!series || !Array.isArray(series.y) || hoverY === null) return null;
+
+    const x = source.map(row => plotDateValue(row));
+    const y = series.y.map(value => asNumber(value) === null ? null : hoverY);
+
+    const customdata = series.y.map((value, index) => {
+        const score = asNumber(value);
+        const row = source[index] || {};
+        if (score === null) return ['', '', ''];
+
+        return [
+            score.toFixed(1),
+            structureScoreStripLabel(score),
+            structureScoreStripDirection(row)
+        ];
+    });
+
+    const validCount = customdata.filter(item => item[0]).length;
+    if (validCount < 5) return null;
+
+    return {
+        type: 'scatter',
+        mode: 'markers',
+        name: 'Structure',
+        x,
+        y,
+        customdata,
+        showlegend: false,
+        hovertemplate: '%{x}<br>Structure Score: %{customdata[0]}<br>%{customdata[1]}%{customdata[2]:+}<extra></extra>'.replace('%{customdata[2]:+}', '%{customdata[2]}'),
+        marker: {
+            size: 12,
+            color: 'rgba(242,204,96,0.01)',
+            line: { color: 'rgba(0,0,0,0)', width: 0 }
+        },
+        opacity: 0.01
+    };
 }
 
 function buildStructureScoreStripShapes(rows = [], priceDomain = [0, 1]) {
@@ -1503,7 +1598,7 @@ function buildStructureScoreStripShapes(rows = [], priceDomain = [0, 1]) {
     if (!series || !Array.isArray(series.y)) return [];
 
     const y0 = Math.max(0, Math.min(1, (priceDomain?.[0] ?? 0) + 0.006));
-    const y1 = Math.max(0, Math.min(1, y0 + 0.014));
+    const y1 = Math.max(0, Math.min(1, y0 + 0.018));
 
     const states = series.y.map(value => structureScoreStripQuality(value));
     const shapes = [];
@@ -2622,6 +2717,9 @@ export class PlotlyRenderer {
                 hovertemplate: '%{x}<br>O: %{open:,.2f}<br>H: %{high:,.2f}<br>L: %{low:,.2f}<br>C: %{close:,.2f}%{customdata}<extra></extra>'
             });
         }
+
+        const structureScoreStripHoverTrace = buildStructureScoreStripHoverTrace(source);
+        if (structureScoreStripHoverTrace) traces.push(structureScoreStripHoverTrace);
 
         const bandPolicy = this.buildBandLayerPolicy(modes);
         const tableauPriceBand = resolveTableauPriceBandSeries(source, state.currentFrequency);
