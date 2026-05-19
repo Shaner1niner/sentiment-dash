@@ -1,6 +1,9 @@
 import { Store } from '../Store.js';
 import { ReviewedBriefingLoader } from '../ReviewedBriefingLoader.js';
 
+const BRIEFING_VISIBLE_EVIDENCE_ITEMS = 3;
+const RESEARCH_VISIBLE_EVIDENCE_ITEMS = 6;
+
 function escapeHtml(value) {
     return String(value ?? '')
         .replaceAll('&', '&amp;')
@@ -66,24 +69,49 @@ function cardCopy(item, title, keys, fallback) {
     return plainText(valueOf(item, keys), fallback);
 }
 
-function evidenceList(item) {
+function normalizeEvidenceItems(item) {
     const card = cardFromBriefingCards(item, 'evidence');
     const cardItems = card && Array.isArray(card.body) ? card.body : null;
-    if (cardItems && cardItems.length) {
-        return cardItems.map(v => `<li>${escapeHtml(plainText(v, ''))}</li>`).join('');
-    }
+    if (cardItems && cardItems.length) return cardItems.map(v => plainText(v, '')).filter(Boolean);
 
     const candidates = valueOf(item, ['evidence', 'receipts', 'briefing_evidence', 'evidence_list']);
-    if (Array.isArray(candidates)) return candidates.map(v => `<li>${escapeHtml(plainText(v, ''))}</li>`).join('');
+    if (Array.isArray(candidates)) return candidates.map(v => plainText(v, '')).filter(Boolean);
 
     const text = plainText(candidates, '');
-    if (text) return `<li>${escapeHtml(text)}</li>`;
+    if (text) return [text];
 
     const asOf = valueOf(item, ['as_of', 'date']);
     const payloadKey = valueOf(item, ['payload_key', 'key']);
     const rows = [];
-    if (asOf) rows.push(`<li>Reviewed context date: ${escapeHtml(asOf)}</li>`);
-    if (payloadKey) rows.push(`<li>Payload key: ${escapeHtml(payloadKey)}</li>`);
+    if (asOf) rows.push(`Reviewed context date: ${asOf}`);
+    if (payloadKey) rows.push(`Payload key: ${payloadKey}`);
+    return rows;
+}
+
+function currentViewMode(state = Store.snapshot()) {
+    const value = String(state.currentView || 'briefing').trim().toLowerCase();
+    return value === 'research' ? 'research' : 'briefing';
+}
+
+function evidenceLimitForState(state = Store.snapshot()) {
+    return currentViewMode(state) === 'research'
+        ? RESEARCH_VISIBLE_EVIDENCE_ITEMS
+        : BRIEFING_VISIBLE_EVIDENCE_ITEMS;
+}
+
+function evidenceList(item, state = Store.snapshot()) {
+    const items = normalizeEvidenceItems(item);
+    if (!items.length) return '<li>Reviewed briefing payload loaded for module lookup.</li>';
+
+    const limit = evidenceLimitForState(state);
+    const visible = items.slice(0, limit);
+    const hiddenCount = Math.max(0, items.length - visible.length);
+    const rows = visible.map(v => `<li>${escapeHtml(v)}</li>`);
+
+    if (hiddenCount > 0) {
+        rows.push(`<li class="moduleBriefingMoreEvidence">+${hiddenCount} more reviewed receipt${hiddenCount === 1 ? '' : 's'} available in Research mode / source briefing.</li>`);
+    }
+
     return rows.join('');
 }
 
@@ -169,7 +197,7 @@ export const BriefingPanel = {
         );
 
         target.innerHTML = `
-          <article class="moduleBriefingCard">
+          <article class="moduleBriefingCard" data-view-mode="${escapeHtml(currentViewMode(state))}">
             <header class="moduleBriefingHeader">
               <div>
                 <div class="moduleBriefingKicker">Asset Briefing • ${asset} • ${freq} • ${range}</div>
@@ -189,7 +217,7 @@ export const BriefingPanel = {
               </section>
               <section>
                 <h3>Evidence</h3>
-                <ul>${evidenceList(item) || '<li>Reviewed briefing payload loaded for module lookup.</li>'}</ul>
+                <ul>${evidenceList(item, state)}</ul>
               </section>
               <section>
                 <h3>Participation Quality</h3>
