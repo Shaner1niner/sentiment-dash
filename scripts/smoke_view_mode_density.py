@@ -33,15 +33,20 @@ for token in [
     "detailPanel.hidden",
     "data-seta-view-mode",
     "moduleMarketTapeTrendWidget",
+    "moduleMarketTapeBriefingCompact",
+    "moduleMarketTapeBriefingSignalState",
+    "Signal State",
+    "structure-trend-signal-state",
+    "Compact read",
+    "full detail in Research",
     "data-view-mode-detail",
-    "structure-trend",
     "moduleMarketTapeEventTimeline",
     "moduleMarketTapeDetailDeck",
     "MutationObserver",
 ]:
     if token not in patch_text:
         fail(f"View mode density patch missing token: {token}")
-ok("View mode density patch keeps Structure Trend while hiding heavy diagnostics in Briefing mode")
+ok("View mode density patch keeps compact Signal State and Structure Trend in Briefing mode")
 
 if "ViewModeDensityPatch.js?v=module_view_mode_density_001" not in entry_text:
     fail("dashboard entrypoint does not load ViewModeDensityPatch")
