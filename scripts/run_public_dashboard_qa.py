@@ -40,6 +40,8 @@ def build_steps(args: argparse.Namespace) -> list[tuple[str, list[str]]]:
         ("Public chart glossary smoke", py_script("smoke_public_chart_glossary.py")),
         ("Public dashboard intro copy smoke", py_script("smoke_public_dashboard_intro_copy.py")),
         ("Market Tape attention/structure card smoke", py_script("smoke_market_tape_attention_structure_cards.py")),
+        ("Sentiment layer and structure controls smoke", py_script("smoke_sentiment_layer_structure_controls.py")),
+        ("View mode density smoke", py_script("smoke_view_mode_density.py")),
         ("Sentiment MA 21 Decision Pressure hover smoke", py_script("smoke_sentiment_ma21_hover_dp_value.py")),
         ("Sentiment MA 21 overlay smoke", py_script("smoke_sentiment_ma21_overlay.py")),
         ("Sentiment MA 21 controls smoke", py_script("smoke_sentiment_ma21_controls.py")),

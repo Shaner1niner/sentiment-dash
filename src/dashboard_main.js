@@ -1,9 +1,11 @@
 import { Store } from './Store.js';
 import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader_001';
 import { PlotlyRenderer } from './PlotlyRenderer.js?v=module_sentiment_price_alignment_hover_001';
+import './features/SentimentLayerStructureControlPatch.js?v=module_sentiment_layer_structure_controls_001';
 import { MarketTape } from './features/MarketTape.js';
 import './features/MarketTapeAttentionStructureCards.js?v=module_market_tape_attention_structure_cards_001';
 import './features/PublicDashboardIntroCopy.js?v=module_public_dashboard_intro_copy_001';
+import './features/ViewModeDensityPatch.js?v=module_view_mode_density_001';
 import { Controls } from './features/Controls.js';
 import { BriefingPanel } from './features/BriefingPanel.js';
 
