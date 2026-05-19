@@ -30,7 +30,7 @@ for token in [
     'value="price_ribbon">Price Ribbon',
     'value="combined_ma">Combined MA',
     'value="combined_ribbon">Combined Ribbon',
-    "module_sentiment_ma21_overlay_001",
+    "module_sentiment_ma21_hover_dp_value_001",
 ]:
     if token not in html_text:
         fail(f"public embed missing MA Stack token: {token}")
@@ -40,9 +40,11 @@ for token in [
     "function addSentimentMa21OverlayTrace(traces, x, rows)",
     "MODULE_SENTIMENT_MA21_PRICE_FIELDS",
     "MODULE_SENTIMENT_MA21_RAW_FIELDS",
-    "Decision Pressure: %{customdata[1]}",
-    "Skew: %{customdata[2]}",
-    "Source: %{customdata[3]}",
+    "function normalizedDecisionPressureValue(row = {})",
+    "Decision Pressure: %{customdata[1]} / 100",
+    "Skew: %{customdata[3]}",
+    "Source: %{customdata[4]}",
+    "showlegend: false",
     "function decisionPressureLabel(row = {})",
     "function decisionPressureSkew(row = {})",
     "function decisionPressureSource(row = {})",
@@ -53,7 +55,7 @@ for token in [
         fail(f"PlotlyRenderer missing Sentiment MA 21 token: {token}")
 ok("PlotlyRenderer includes Sentiment MA 21 and Decision Pressure hover path")
 
-if "PlotlyRenderer.js?v=module_sentiment_ma21_overlay_001" not in main_text:
+if "PlotlyRenderer.js?v=module_sentiment_ma21_hover_dp_value_001" not in main_text:
     fail("dashboard_main.js missing PlotlyRenderer cache token")
 ok("dashboard_main cache-busts PlotlyRenderer import")
 
