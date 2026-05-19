@@ -1470,12 +1470,13 @@ function buildAttentionMarkerTraces(rows = []) {
 
 
 const MODULE_STRUCTURE_STRIP_FIELDS = [
-    'seta_dashboard_summary_score',
-    'seta_score',
-    'dashboard_score',
+    'screener_attention_priority_score',
+    'screener_structure_score',
     'structure_score',
     'signal_structure_score',
-    'screener_attention_priority_score'
+    'seta_dashboard_summary_score',
+    'seta_score',
+    'dashboard_score'
 ];
 
 function structureScoreStripQuality(score) {
