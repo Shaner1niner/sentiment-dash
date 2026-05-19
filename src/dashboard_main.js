@@ -1,6 +1,6 @@
 import { Store } from './Store.js';
 import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader_001';
-import { PlotlyRenderer } from './PlotlyRenderer.js?v=module_price_structure_strip_current_override_001';
+import { PlotlyRenderer } from './PlotlyRenderer.js?v=module_sentiment_ma21_overlay_001';
 import { MarketTape } from './features/MarketTape.js';
 import { Controls } from './features/Controls.js';
 import { BriefingPanel } from './features/BriefingPanel.js';

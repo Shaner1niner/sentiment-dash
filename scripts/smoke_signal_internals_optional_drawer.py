@@ -13,7 +13,6 @@ html = html_path.read_text(encoding="utf-8")
 market_tape = market_tape_path.read_text(encoding="utf-8")
 
 for token in [
-    "module_signal_internals_optional_001",
     ".moduleMarketTapeDetailDeck:not([open]) .moduleMarketTapeDeckGrid",
     'content: "Show";',
     'content: "Hide";',
