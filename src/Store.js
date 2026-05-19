@@ -31,6 +31,7 @@ export const Store = {
         assetStoreIndex: null,
         screenerStore: null,
         reviewedBriefings: null,
+        structureScoreHistory: null,
         currentAssetPayload: null,
         assetPayloadMeta: null,
         ...DEFAULT_CONTROL_STATE
@@ -55,6 +56,11 @@ export const Store = {
     setReviewedBriefings(data) {
         this.state.reviewedBriefings = data;
         this.emit('reviewedBriefingsUpdated', data);
+    },
+
+    setStructureScoreHistory(data) {
+        this.state.structureScoreHistory = data;
+        this.emit('structureScoreHistoryUpdated', data);
     },
 
     setCurrentAssetPayload(payload, meta = {}) {

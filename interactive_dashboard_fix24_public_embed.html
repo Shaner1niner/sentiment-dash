@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>SETA Public Dashboard</title>
   <script defer src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-  <link rel="stylesheet" href="dashboard_fix26_base.css?v=module_evidence_chip_semantics_001"/>
+  <link rel="stylesheet" href="dashboard_fix26_base.css?v=module_structure_trend_001"/>
   <style>
     body {
       margin: 0;
@@ -300,6 +300,72 @@
       line-height: 1.35;
       font-weight: 600;
     }
+    .moduleMarketTapeTrendWidget {
+      margin-top: 10px;
+      border: 1px solid rgba(125, 211, 252, .18);
+      border-radius: 10px;
+      background: rgba(13, 17, 23, .34);
+      padding: 9px;
+    }
+    .moduleMarketTapeTrendHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+      color: #7dd3fc;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+    .moduleMarketTapeTrendHeader em {
+      color: #8b949e;
+      font-style: normal;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .moduleMarketTapeTrendBody {
+      display: grid;
+      grid-template-columns: minmax(140px, 220px) 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+    .moduleMarketTapeTrendBody svg {
+      width: 100%;
+      min-height: 44px;
+      overflow: visible;
+    }
+    .moduleMarketTapeTrendBody line {
+      stroke: rgba(139, 148, 158, .18);
+      stroke-width: 1;
+    }
+    .moduleMarketTapeTrendBody polyline {
+      fill: none;
+      stroke: #f2cc60;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 4px rgba(242, 204, 96, .18));
+    }
+    .moduleMarketTapeTrendWidget.isUp .moduleMarketTapeTrendBody polyline {
+      stroke: #7ee787;
+    }
+    .moduleMarketTapeTrendWidget.isDown .moduleMarketTapeTrendBody polyline {
+      stroke: #ffa198;
+    }
+    .moduleMarketTapeTrendReadout strong {
+      display: block;
+      color: #f0f6fc;
+      font-size: 14px;
+      line-height: 1.1;
+    }
+    .moduleMarketTapeTrendReadout span {
+      display: block;
+      color: #c9d1d9;
+      font-size: 11px;
+      line-height: 1.35;
+      margin-top: 3px;
+    }
     .moduleMarketTapeDetailDeck {
       margin-top: 12px;
       border-top: 1px solid rgba(125, 211, 252, .14);
@@ -579,9 +645,9 @@
 
     <script>
       window.DASH_MODE_DEFAULT = "public";
-      window.DASH_MANIFEST_URL = "dashboard_fix26_mode_manifest.json?v=module_evidence_chip_semantics_001";
+      window.DASH_MANIFEST_URL = "dashboard_fix26_mode_manifest.json?v=module_structure_trend_001";
     </script>
-    <script type="module" src="./src/dashboard_main.js?v=module_evidence_chip_semantics_001"></script>
+    <script type="module" src="./src/dashboard_main.js?v=module_structure_trend_001"></script>
   </div>
 </body>
 </html>

@@ -1,5 +1,23 @@
 import { Store } from '../Store.js';
 
+const STRUCTURE_HISTORY_CACHE_TOKEN = 'module_structure_trend_001';
+
+function withStructureHistoryCacheToken(url) {
+    const separator = String(url || '').includes('?') ? '&' : '?';
+    return `${url}${separator}v=${STRUCTURE_HISTORY_CACHE_TOKEN}`;
+}
+
+async function loadStructureScoreHistory() {
+    try {
+        const response = await fetch(withStructureHistoryCacheToken('./fix26_structure_score_history.json'));
+        if (!response.ok) throw new Error(`Structure history fetch failed: ${response.status}`);
+        return await response.json();
+    } catch (error) {
+        console.warn('MarketTape: structure history unavailable', error);
+        return null;
+    }
+}
+
 const SCORE_KEY_RE = /(priority.*score|seta.*score|market.*score|tape.*score|deck.*score|metric.*score|total.*score|score)$/i;
 const RANK_KEY_RE = /(priority.*rank|market.*rank|tape.*rank|rank|ordinal|position|order)$/i;
 const LABEL_KEY_RE = /(headline|setup.*label|market.*label|tape.*label|primary.*setup|primary.*read|read|title|thesis|archetype.*label|family)$/i;
@@ -1536,6 +1554,131 @@ function renderMarketTapeEventTimeline(row) {
     `;
 }
 
+function parseStructureHistoryTime(value) {
+    const time = Date.parse(String(value || '').replace('Z', '+00:00'));
+    return Number.isFinite(time) ? time : null;
+}
+
+function structureHistoryPoints(row, maxHours = 24) {
+    const ticker = String(row?.ticker || '').trim().toUpperCase();
+    if (!ticker) return [];
+
+    const history = Store.state.structureScoreHistory || {};
+    const byTerm = history.points_by_term || history.pointsByTerm || {};
+    const rawPoints = byTerm[ticker] || byTerm[ticker.toLowerCase()] || [];
+
+    if (!Array.isArray(rawPoints) || rawPoints.length < 2) return [];
+
+    const points = rawPoints
+        .map(point => {
+            const score = asNumber(point?.structure_score ?? point?.structureScore, null);
+            const ms = parseStructureHistoryTime(point?.as_of_utc || point?.asOfUtc || point?.timestamp);
+            if (score === null || ms === null) return null;
+
+            return {
+                score,
+                ms,
+                asOf: point?.as_of_utc || point?.asOfUtc || '',
+                label: cleanDisplayText(point?.structure_label || point?.structureLabel || structureQualityLabel(score))
+            };
+        })
+        .filter(Boolean)
+        .sort((a, b) => a.ms - b.ms);
+
+    const deduped = [];
+    const seen = new Set();
+
+    points.forEach(point => {
+        const key = point.asOf || String(point.ms);
+        if (seen.has(key)) return;
+        seen.add(key);
+        deduped.push(point);
+    });
+
+    if (deduped.length < 2) return [];
+
+    const latestMs = Math.max(...deduped.map(point => point.ms));
+    const cutoffMs = latestMs - (maxHours * 60 * 60 * 1000);
+    const recent = deduped.filter(point => point.ms >= cutoffMs);
+
+    return recent.length >= 2 ? recent : deduped.slice(-2);
+}
+
+function signedScoreDelta(value) {
+    const n = asNumber(value, null);
+    if (n === null) return '0.0';
+    if (Math.abs(n) < 0.05) return '0.0';
+    return `${n > 0 ? '+' : ''}${n.toFixed(1)}`;
+}
+
+function structureTrendState(delta) {
+    const value = asNumber(delta, 0);
+    if (value > 0.25) return { label: 'Improving', className: 'isUp' };
+    if (value < -0.25) return { label: 'Softening', className: 'isDown' };
+    return { label: 'Stable', className: 'isFlat' };
+}
+
+function structureTrendPolyline(points, width = 220, height = 44) {
+    if (!Array.isArray(points) || points.length < 2) return '';
+
+    const minScore = Math.min(...points.map(point => point.score));
+    const maxScore = Math.max(...points.map(point => point.score));
+    const range = Math.max(1, maxScore - minScore);
+    const xPad = 4;
+    const yPad = 6;
+    const usableWidth = width - (xPad * 2);
+    const usableHeight = height - (yPad * 2);
+
+    return points.map((point, index) => {
+        const x = points.length === 1
+            ? width / 2
+            : xPad + (index / (points.length - 1)) * usableWidth;
+        const y = yPad + ((maxScore - point.score) / range) * usableHeight;
+        return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+}
+
+function structureTrendHours(points) {
+    if (!Array.isArray(points) || points.length < 2) return 0;
+    const first = points[0];
+    const last = points[points.length - 1];
+    return Math.max(1, Math.round((last.ms - first.ms) / (60 * 60 * 1000)));
+}
+
+function renderStructureTrend(row) {
+    const points = structureHistoryPoints(row, 24);
+    if (points.length < 2) return '';
+
+    const first = points[0];
+    const latest = points[points.length - 1];
+    const delta = latest.score - first.score;
+    const state = structureTrendState(delta);
+    const polyline = structureTrendPolyline(points);
+    const latestLabel = latest.label || structureQualityLabel(latest.score);
+    const hours = structureTrendHours(points);
+    const pointCountLabel = `${points.length} real hourly point${points.length === 1 ? '' : 's'}`;
+    const windowLabel = hours >= 24 ? '24h' : `${hours}h`;
+
+    return `
+      <section class="moduleMarketTapeTrendWidget ${escapeHtml(state.className)}" aria-label="24 hour Structure Score trend">
+        <div class="moduleMarketTapeTrendHeader">
+          <span>Structure Trend · ${escapeHtml(windowLabel)}</span>
+          <em>${escapeHtml(pointCountLabel)}</em>
+        </div>
+        <div class="moduleMarketTapeTrendBody">
+          <svg viewBox="0 0 220 44" role="img" aria-label="Structure Score sparkline">
+            <line x1="0" y1="22" x2="220" y2="22"></line>
+            <polyline points="${escapeHtml(polyline)}"></polyline>
+          </svg>
+          <div class="moduleMarketTapeTrendReadout">
+            <strong>${escapeHtml(formatScore(latest.score))}</strong>
+            <span>${escapeHtml(`${signedScoreDelta(delta)} · ${state.label} · ${latestLabel}`)}</span>
+          </div>
+        </div>
+      </section>
+    `;
+}
+
 function renderSelectedDetail(row) {
     if (!row) return '';
 
@@ -1543,6 +1686,7 @@ function renderSelectedDetail(row) {
     if (!detailItems.length) return '';
 
     const detailDeck = renderMarketTapeDetailDeck(row);
+    const structureTrend = renderStructureTrend(row);
     const eventTimeline = renderMarketTapeEventTimeline(row);
     const rows = detailItems.map(item => `
         <div class="moduleMarketTapeDetailItem">
@@ -1555,6 +1699,7 @@ function renderSelectedDetail(row) {
       <section class="moduleMarketTapeSelectedDetail" aria-label="Asset Signal Readout">
         <div class="moduleMarketTapeDetailKicker">Asset Signal Readout</div>
         <div class="moduleMarketTapeDetailGrid">${rows}</div>
+        ${structureTrend}
         ${eventTimeline}
         ${detailDeck}
       </section>
@@ -1687,6 +1832,7 @@ export const MarketTape = {
     targetId: 'module-market-tape',
     detailTargetId: 'module-market-tape-detail',
     payload: null,
+    historyPayload: null,
     filter: 'all',
     _bound: false,
 
@@ -1713,6 +1859,8 @@ export const MarketTape = {
         if (!response.ok) throw new Error(`Screener store fetch failed: ${response.status}`);
 
         this.payload = await response.json();
+        this.historyPayload = await loadStructureScoreHistory();
+        if (this.historyPayload) Store.setStructureScoreHistory(this.historyPayload);
         Store.setScreenerData(this.payload);
         this.render();
         return this.payload;
@@ -1809,6 +1957,7 @@ export const MarketTape = {
             this.render();
         });
         Store.on('assetStoreIndexUpdated', () => this.render());
+        Store.on('structureScoreHistoryUpdated', () => this.render());
     },
 
     rows() {
