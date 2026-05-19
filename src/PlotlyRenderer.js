@@ -1468,117 +1468,94 @@ function buildAttentionMarkerTraces(rows = []) {
 
 
 
-const MODULE_SENTIMENT_PRESSURE_FIELDS = [
-    'attention_conviction_score_signed',
-    'attention_signed_conviction_score',
-    'attention_direction_score_signed',
-    'signed_attention_score',
-    'attention_polarity_score',
-    'signal_consensus_attention_adjusted_score_signed',
-    'attention_aligned_consensus_score_signed'
+
+const MODULE_STRUCTURE_STRIP_FIELDS = [
+    'seta_dashboard_summary_score',
+    'seta_score',
+    'dashboard_score',
+    'structure_score',
+    'signal_structure_score',
+    'screener_attention_priority_score'
 ];
 
-function sentimentPressureLabel(value) {
-    const n = asNumber(value);
-    if (n === null) return '';
-    if (n <= -35) return 'Strong risk-off';
-    if (n <= -20) return 'Risk-off';
-    if (n <= -8) return 'Leaning risk-off';
-    if (n < 8) return 'Mixed pressure';
-    if (n < 20) return 'Leaning constructive';
-    if (n < 35) return 'Constructive';
-    return 'Strong constructive';
+function structureScoreStripQuality(score) {
+    const n = asNumber(score);
+    if (n === null) return null;
+    if (n >= 75) return 'strong';
+    if (n >= 50) return 'mixed';
+    return 'weak';
 }
 
-function sentimentPressureRailRange(rows = []) {
-    const source = Array.isArray(rows) ? rows : [];
-    const lows = source
-        .map(row => asNumber(row?.low ?? row?.close))
-        .filter(value => value !== null);
-    const highs = source
-        .map(row => asNumber(row?.high ?? row?.close))
-        .filter(value => value !== null);
-
-    if (!lows.length || !highs.length) return null;
-
-    const min = Math.min(...lows);
-    const max = Math.max(...highs);
-    const spread = Math.max(1, max - min);
-
-    return {
-        center: min + spread * 0.055,
-        amplitude: spread * 0.024
+function structureScoreStripColor(quality) {
+    const colors = {
+        strong: 'rgba(126,231,135,0.22)',
+        mixed: 'rgba(242,204,96,0.20)',
+        weak: 'rgba(255,161,152,0.20)'
     };
+    return colors[quality] || 'rgba(148,163,184,0.10)';
 }
 
-function buildSentimentPressureRailTraces(rows = [], x = []) {
+function buildStructureScoreStripShapes(rows = [], priceDomain = [0, 1]) {
     const source = Array.isArray(rows) ? rows : [];
-    const series = seriesForFirstSupportedField(source, MODULE_SENTIMENT_PRESSURE_FIELDS, 0.12, 5);
-    const range = sentimentPressureRailRange(source);
+    if (!source.length) return [];
 
-    if (!series || !range) return [];
+    const series = seriesForFirstSupportedField(source, MODULE_STRUCTURE_STRIP_FIELDS, 0.12, 5);
+    if (!series || !Array.isArray(series.y)) return [];
 
-    const values = Array.isArray(series.y) ? series.y : [];
-    const finiteValues = values
-        .map(value => asNumber(value))
-        .filter(value => value !== null);
+    const y0 = Math.max(0, Math.min(1, (priceDomain?.[0] ?? 0) + 0.006));
+    const y1 = Math.max(0, Math.min(1, y0 + 0.014));
 
-    if (finiteValues.length < 5) return [];
+    const states = series.y.map(value => structureScoreStripQuality(value));
+    const shapes = [];
+    let startIndex = null;
+    let activeQuality = null;
 
-    const maxAbs = Math.max(12, ...finiteValues.map(value => Math.abs(value)));
+    const closeSegment = endIndex => {
+        if (startIndex === null || !activeQuality) return;
+        const x0 = plotDateValue(source[startIndex]);
+        const x1 = segmentEndDateValue(source, endIndex);
+        if (!x0 || !x1) return;
 
-    const railY = values.map(value => {
-        const n = asNumber(value);
-        return n === null ? null : range.center;
-    });
+        shapes.push({
+            type: 'rect',
+            xref: 'x',
+            yref: 'paper',
+            x0,
+            x1,
+            y0,
+            y1,
+            fillcolor: structureScoreStripColor(activeQuality),
+            line: { color: 'rgba(0,0,0,0)', width: 0 },
+            layer: 'below'
+        });
+    };
 
-    const pressureY = values.map(value => {
-        const n = asNumber(value);
-        if (n === null) return null;
-        const normalized = Math.max(-1, Math.min(1, n / maxAbs));
-        return range.center + normalized * range.amplitude;
-    });
-
-    const customdata = values.map(value => {
-        const n = asNumber(value);
-        if (n === null) return ['', ''];
-        return [n.toFixed(1), sentimentPressureLabel(n)];
-    });
-
-    return [
-        {
-            type: 'scatter',
-            mode: 'lines',
-            name: 'Sentiment Pressure rail',
-            x,
-            y: railY,
-            line: {
-                color: 'rgba(242,204,96,0.16)',
-                width: 1,
-                dash: 'dot'
-            },
-            hoverinfo: 'skip',
-            showlegend: false,
-            connectgaps: false
-        },
-        {
-            type: 'scatter',
-            mode: 'lines',
-            name: 'Sentiment Pressure',
-            legendrank: 24,
-            x,
-            y: pressureY,
-            customdata,
-            line: {
-                color: MODULE_SENTIMENT_VISUALS.line,
-                width: 0.92
-            },
-            opacity: 0.86,
-            connectgaps: false,
-            hovertemplate: '%{x}<br>Sentiment Pressure: %{customdata[0]}<br>%{customdata[1]}<extra></extra>'
+    states.forEach((quality, index) => {
+        if (!quality) {
+            closeSegment(index - 1);
+            startIndex = null;
+            activeQuality = null;
+            return;
         }
-    ];
+
+        if (startIndex === null) {
+            startIndex = index;
+            activeQuality = quality;
+            return;
+        }
+
+        if (quality !== activeQuality) {
+            closeSegment(index - 1);
+            startIndex = index;
+            activeQuality = quality;
+        }
+    });
+
+    closeSegment(states.length - 1);
+
+    return shapes;
 }
+
 
 const MODULE_REGIME_MARKER_DEFINITIONS = [
     {
@@ -2646,8 +2623,6 @@ export class PlotlyRenderer {
             });
         }
 
-        buildSentimentPressureRailTraces(source, x).forEach(trace => traces.push(trace));
-
         const bandPolicy = this.buildBandLayerPolicy(modes);
         const tableauPriceBand = resolveTableauPriceBandSeries(source, state.currentFrequency);
         const tableauSentimentBand = resolveTableauSentimentBandSeries(source, state.currentFrequency);
@@ -2735,6 +2710,7 @@ export class PlotlyRenderer {
         const showSecondaryAxis = modes.scaleMode === 'all_visible';
         const showChartStack = this.hasChartStack(rows);
         const priceDomain = showChartStack ? [0.42, 1] : [0, 1];
+        const structureScoreStripShapes = buildStructureScoreStripShapes(rows, priceDomain);
         const regimeSummary = this.regimeMarkerSummary(rows, state);
         const overlapStatus = this.overlapBandStatus(rows, state);
         const macdZeroRailShapes = showChartStack ? [buildMacdZeroRailShape()] : [];
@@ -2855,6 +2831,7 @@ export class PlotlyRenderer {
             margin: { l: 62, r: showSecondaryAxis ? 86 : 54, t: 56, b: showChartStack ? 68 : 42, ...(baseLayout.margin || {}) },
             shapes: [
                 ...((baseLayout && Array.isArray(baseLayout.shapes)) ? baseLayout.shapes : []),
+                ...structureScoreStripShapes,
                 ...macdZeroRailShapes,
                 ...rsiZoneBackgroundShapes,
                 ...rsiRailShapes,
@@ -2863,6 +2840,16 @@ export class PlotlyRenderer {
             ],
             annotations: [
                 ...((baseLayout && Array.isArray(baseLayout.annotations)) ? baseLayout.annotations : []),
+                ...(structureScoreStripShapes.length ? [{
+                    text: 'structure',
+                    xref: 'paper',
+                    yref: 'paper',
+                    x: 0.985,
+                    y: Math.min(0.99, (priceDomain?.[0] ?? 0) + 0.028),
+                    xanchor: 'right',
+                    showarrow: false,
+                    font: { color: MODULE_CHART_VISUALS.mutedText, size: 9 }
+                }] : []),
                 ...(showChartStack ? [
                     {
                         text: 'momentum',
