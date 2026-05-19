@@ -61,9 +61,11 @@ if "PlotlyRenderer.js?v=module_price_structure_strip_current_override_001" not i
 ok("dashboard_main.js cache-busts PlotlyRenderer import")
 
 html_text = html.read_text(encoding="utf-8")
-if "module_price_structure_strip_current_override_001" not in html_text:
-    fail("public embed missing Structure Score strip cache token")
-ok("public embed includes Structure Score strip cache token")
+if "src/dashboard_main.js?v=module_" not in html_text:
+    fail("public embed missing module dashboard entrypoint cache token")
+if "window.DASH_MANIFEST_URL" not in html_text:
+    fail("public embed missing manifest URL")
+ok("public embed routes through module dashboard entrypoint with active cache token")
 
 data = json.loads(payload.read_text(encoding="utf-8"))
 rows = data.get("D", {}).get("BTC", [])
