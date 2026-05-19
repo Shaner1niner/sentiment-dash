@@ -26,6 +26,7 @@ for token in [
     "run_sentiment_price_alignment_soak.py",
     "smoke_sentiment_price_alignment_hover.py",
     "smoke_public_chart_glossary.py",
+    "smoke_public_dashboard_intro_copy.py",
     "smoke_market_tape_attention_structure_cards.py",
     "smoke_sentiment_ma21_hover_dp_value.py",
     "smoke_price_pane_structure_strip.py",
