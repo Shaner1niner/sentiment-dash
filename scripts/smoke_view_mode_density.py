@@ -34,12 +34,17 @@ for token in [
     "data-seta-view-mode",
     "moduleMarketTapeTrendWidget",
     "moduleMarketTapeBriefingCompact",
+    "moduleMarketTapeBriefingStructureHero",
+    "Structure Score",
+    "Overall setup quality:",
+    "moduleMarketTapeStructureMeter",
     "moduleMarketTapeBriefingSignalState",
     "Signal State",
+    "Active Setup Snapshot",
     "moduleMarketTapeTrendPrimaryReadout",
     "Structure stack:",
     "moduleMarketTapeTrendStackLabel",
-    "structure-trend-signal-state",
+    "active-setup-snapshot",
     "Compact read",
     "full detail in Research",
     "data-view-mode-detail",
@@ -49,7 +54,7 @@ for token in [
 ]:
     if token not in patch_text:
         fail(f"View mode density patch missing token: {token}")
-ok("View mode density patch keeps compact Signal State and clearer Structure Trend readout in Briefing mode")
+ok("View mode density patch creates an Active Setup Snapshot in Briefing mode")
 
 if "ViewModeDensityPatch.js?v=module_view_mode_density_001" not in entry_text:
     fail("dashboard entrypoint does not load ViewModeDensityPatch")
