@@ -28,6 +28,12 @@ for token in [
     "SETA explains market emotion and setup quality",
     "SETA Public Dashboard | Attention, Sentiment, Structure",
     "applyPublicDashboardIntroCopy",
+    "CONTROL_LABELS",
+    "Trend lens",
+    "Attention layer",
+    "Range bands",
+    "Chart scale",
+    "Structure",
 ]:
     if token not in module_text:
         fail(f"intro copy module missing token: {token}")
