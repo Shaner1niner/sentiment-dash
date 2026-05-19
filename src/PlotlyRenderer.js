@@ -1466,6 +1466,97 @@ function buildAttentionMarkerTraces(rows = []) {
     ];
 }
 
+
+const MODULE_SENTIMENT_PRESSURE_FIELDS = [
+    'attention_conviction_score_signed',
+    'attention_signed_conviction_score',
+    'attention_direction_score_signed',
+    'signed_attention_score',
+    'attention_polarity_score',
+    'signal_consensus_attention_adjusted_score_signed',
+    'attention_aligned_consensus_score_signed'
+];
+
+function sentimentPressureLabel(value) {
+    const n = asNumber(value);
+    if (n === null) return '';
+    if (n <= -35) return 'Strong risk-off';
+    if (n <= -20) return 'Risk-off';
+    if (n <= -8) return 'Leaning risk-off';
+    if (n < 8) return 'Mixed pressure';
+    if (n < 20) return 'Leaning constructive';
+    if (n < 35) return 'Constructive';
+    return 'Strong constructive';
+}
+
+function sentimentPressureVisualRange(rows = []) {
+    const source = Array.isArray(rows) ? rows : [];
+    const lows = source
+        .map(row => asNumber(row?.low ?? row?.close))
+        .filter(value => value !== null);
+    const highs = source
+        .map(row => asNumber(row?.high ?? row?.close))
+        .filter(value => value !== null);
+
+    if (!lows.length || !highs.length) return null;
+
+    const min = Math.min(...lows);
+    const max = Math.max(...highs);
+    const spread = Math.max(1, max - min);
+
+    return {
+        zero: min + spread * 0.30,
+        amplitude: spread * 0.115
+    };
+}
+
+function buildSentimentPressureTrace(rows = [], x = []) {
+    const source = Array.isArray(rows) ? rows : [];
+    const series = seriesForFirstSupportedField(source, MODULE_SENTIMENT_PRESSURE_FIELDS, 0.12, 5);
+    const range = sentimentPressureVisualRange(source);
+
+    if (!series || !range) return null;
+
+    const values = Array.isArray(series.y) ? series.y : [];
+    const finiteValues = values
+        .map(value => asNumber(value))
+        .filter(value => value !== null);
+
+    if (finiteValues.length < 5) return null;
+
+    const maxAbs = Math.max(12, ...finiteValues.map(value => Math.abs(value)));
+
+    const y = values.map(value => {
+        const n = asNumber(value);
+        if (n === null) return null;
+        const normalized = Math.max(-1, Math.min(1, n / maxAbs));
+        return range.zero + normalized * range.amplitude;
+    });
+
+    const customdata = values.map(value => {
+        const n = asNumber(value);
+        if (n === null) return ['', ''];
+        return [n.toFixed(1), sentimentPressureLabel(n)];
+    });
+
+    return {
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Sentiment Pressure',
+        legendrank: 24,
+        x,
+        y,
+        customdata,
+        line: {
+            color: MODULE_SENTIMENT_VISUALS.line,
+            width: 1.05
+        },
+        opacity: 0.92,
+        connectgaps: false,
+        hovertemplate: '%{x}<br>Sentiment Pressure: %{customdata[0]}<br>%{customdata[1]}<extra></extra>'
+    };
+}
+
 const MODULE_REGIME_MARKER_DEFINITIONS = [
     {
         key: 'confirmedOverlap',
@@ -2531,6 +2622,9 @@ export class PlotlyRenderer {
                 hovertemplate: '%{x}<br>O: %{open:,.2f}<br>H: %{high:,.2f}<br>L: %{low:,.2f}<br>C: %{close:,.2f}%{customdata}<extra></extra>'
             });
         }
+
+        const sentimentPressureTrace = buildSentimentPressureTrace(source, x);
+        if (sentimentPressureTrace) traces.push(sentimentPressureTrace);
 
         const bandPolicy = this.buildBandLayerPolicy(modes);
         const tableauPriceBand = resolveTableauPriceBandSeries(source, state.currentFrequency);
