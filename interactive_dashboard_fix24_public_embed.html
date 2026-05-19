@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>SETA Public Dashboard</title>
   <script defer src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
-  <link rel="stylesheet" href="dashboard_fix26_base.css?v=module_signal_internals_optional_001"/>
+  <link rel="stylesheet" href="dashboard_fix26_base.css?v=module_sentiment_ma21_overlay_001"/>
   <style>
     body {
       margin: 0;
@@ -672,7 +672,7 @@
       <div class="control" data-control="briefingMode"><label data-label-for="briefingMode">VIEW</label><select id="briefingMode"><option value="briefing" selected>Briefing</option><option value="research">Research</option></select></div>
       <div class="control" data-control="priceDisplay"><label data-label-for="priceDisplay">CHART TYPE</label><select id="priceDisplay"><option value="candles" selected>Candles</option><option value="line">Line</option></select></div>
       <div class="control" data-control="scaleMode"><label data-label-for="scaleMode">SCALE MODE</label><select id="scaleMode"><option value="price_overlays" selected>Price + Price Overlays</option><option value="price_only">Price Only</option><option value="all_visible">All Visible Traces</option></select></div>
-      <div class="control" data-control="ribbon"><label data-label-for="ribbon">MA STACK</label><select id="ribbon"><option value="none" selected>None</option><option value="price">Price MA</option><option value="sentiment">Sentiment MA</option><option value="both">Price + Sentiment</option></select></div>
+      <div class="control" data-control="ribbon"><label data-label-for="ribbon">MA STACK</label><select id="ribbon"><option value="none">None</option><option value="sentiment_ma_21" selected>Sentiment MA 21</option><option value="price_ma_21">Price MA 21</option><option value="sentiment_ribbon">Sentiment Ribbon</option><option value="price_ribbon">Price Ribbon</option><option value="combined_ma">Combined MA</option><option value="combined_ribbon">Combined Ribbon</option></select></div>
       <div class="control" data-control="regimeLayer"><label data-label-for="regimeLayer">REGIME VISUALS</label><select id="regimeLayer"><option value="on" selected>On</option><option value="off">Off</option></select></div>
       <div class="control" data-control="engagement"><label data-label-for="engagement">ATTENTION</label><select id="engagement"><option value="off">Off</option><option value="context" selected>Context</option><option value="overlay">Overlay Marks</option></select></div>
       <div class="control" data-control="bollinger"><label data-label-for="bollinger">BANDS</label><select id="bollinger"><option value="none" selected>None</option><option value="price">Price Band</option><option value="sentiment">Sentiment Band</option><option value="contextual">Overlap Band</option><option value="both">All Bands</option></select></div>
@@ -689,9 +689,9 @@
 
     <script>
       window.DASH_MODE_DEFAULT = "public";
-      window.DASH_MANIFEST_URL = "dashboard_fix26_mode_manifest.json?v=module_signal_internals_optional_001";
+      window.DASH_MANIFEST_URL = "dashboard_fix26_mode_manifest.json?v=module_sentiment_ma21_overlay_001";
     </script>
-    <script type="module" src="./src/dashboard_main.js?v=module_signal_internals_optional_001"></script>
+    <script type="module" src="./src/dashboard_main.js?v=module_sentiment_ma21_overlay_001"></script>
   </div>
 </body>
 </html>

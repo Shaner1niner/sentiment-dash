@@ -19,7 +19,7 @@ export const DEFAULT_CONTROL_STATE = Object.freeze({
     currentView: 'briefing',
     currentChartType: 'candles',
     currentScaleMode: 'price_overlays',
-    currentRibbon: 'none',
+    currentRibbon: 'sentiment_ma_21',
     currentRegimeLayer: 'on',
     currentAttention: 'context',
     currentBands: 'none',

@@ -458,6 +458,209 @@ function maStackLineStyle(field, stackKind = 'price') {
     return (stackKind === 'sentiment' ? sentimentStyles : priceStyles)[period] || fallback;
 }
 
+
+const MODULE_SENTIMENT_MA21_PRICE_FIELDS = [
+    'scaled_combined_compound_ma_21',
+    'scaled_sentiment_ma_21',
+    'sentiment_price_ma_21',
+    'scaled_sentiment_pressure_ma_21'
+];
+
+const MODULE_SENTIMENT_MA21_RAW_FIELDS = [
+    'combined_compound_ma_21',
+    'sentiment_ma_21',
+    'weighted_sentiment_ma_21',
+    'sentiment_pressure_ma_21'
+];
+
+const MODULE_PRICE_MA21_FIELDS = [
+    'close_ma_21',
+    'price_ma_21',
+    'close_ma_20',
+    'price_ma_20'
+];
+
+function firstFiniteRowValue(row = {}, fields = []) {
+    for (const field of fields) {
+        const n = asNumber(row?.[field]);
+        if (n !== null) return n;
+    }
+    return null;
+}
+
+function firstTextRowValue(row = {}, fields = []) {
+    for (const field of fields) {
+        const value = row?.[field];
+        if (value !== null && value !== undefined && String(value).trim()) {
+            return String(value).replace(/\s+/g, ' ').trim();
+        }
+    }
+    return '';
+}
+
+function rowBooleanFlag(row = {}, fields = []) {
+    return fields.some(field => {
+        const value = row?.[field];
+        if (value === true) return true;
+
+        const n = asNumber(value);
+        if (n !== null) return n === 1;
+
+        const text = String(value ?? '').trim().toLowerCase();
+        return ['true', 'yes', 'confirmed', 'high volume'].includes(text);
+    });
+}
+
+function decisionPressureScore(row = {}) {
+    const direct = firstFiniteRowValue(row, [
+        'decision_pressure_score',
+        'decisionPressureScore',
+        'decision_pressure',
+        'decisionPressure',
+        'pressure_score',
+        'pressureScore'
+    ]);
+    if (direct !== null) return Math.abs(direct);
+
+    const signed = firstFiniteRowValue(row, [
+        'decision_pressure_signed',
+        'decisionPressureSigned',
+        'attention_conviction_score_signed',
+        'attentionConvictionScoreSigned',
+        'attention_conviction_signed'
+    ]);
+    if (signed !== null) return Math.abs(signed);
+
+    return firstFiniteRowValue(row, [
+        'attention_level_score',
+        'attention_regime_score',
+        'sent_ribbon_regime_confidence',
+        'sent_ribbon_stack_score'
+    ]);
+}
+
+function decisionPressureSkew(row = {}) {
+    const direct = firstTextRowValue(row, [
+        'decision_pressure_skew',
+        'decisionPressureSkew',
+        'resolution_skew',
+        'resolutionSkew',
+        'expected_resolution_direction',
+        'expectedResolutionDirection'
+    ]);
+    if (direct) return direct;
+
+    const direction = firstTextRowValue(row, [
+        'signal_consensus_direction_label',
+        'direction_label',
+        'directionLabel',
+        'bias_label'
+    ]);
+    if (direction) return `${direction} skew`;
+
+    const signed = firstFiniteRowValue(row, [
+        'decision_pressure_signed',
+        'decisionPressureSigned',
+        'attention_conviction_score_signed',
+        'attentionConvictionScoreSigned',
+        'attention_conviction_signed'
+    ]);
+
+    if (signed !== null && signed > 5) return 'Bullish skew';
+    if (signed !== null && signed < -5) return 'Bearish skew';
+
+    return 'Mixed / unresolved';
+}
+
+function decisionPressureSource(row = {}) {
+    if (rowBooleanFlag(row, ['sent_ribbon_compression_flag', 'sentiment_compression_flag'])) return 'Sentiment compression';
+    if (rowBooleanFlag(row, ['sent_ribbon_transition_flag', 'sentiment_transition_flag'])) return 'Ribbon transition';
+    if (rowBooleanFlag(row, ['boll_overlap_break_confirmed_high_volume', 'signal_boll_overlap_break_confirmed_high_volume'])) return 'Volume confirmation';
+    if (firstFiniteRowValue(row, ['attention_conviction_score_signed', 'attention_level_score']) !== null) return 'Attention conviction';
+    return 'Context model';
+}
+
+function decisionPressureLabel(row = {}) {
+    if (rowBooleanFlag(row, ['sent_ribbon_compression_flag', 'sentiment_compression_flag'])) return 'Compressed';
+    if (rowBooleanFlag(row, ['sent_ribbon_transition_flag', 'sentiment_transition_flag'])) return 'Resolving';
+
+    const score = decisionPressureScore(row);
+    if (score === null) return 'Unavailable';
+    if (score >= 60) return 'Elevated';
+    if (score >= 30) return 'Building';
+    if (score >= 12) return 'Low / forming';
+    return 'Low';
+}
+
+function decisionPressureGate(row = {}) {
+    const gate = firstTextRowValue(row, [
+        'confirmation_gate',
+        'decision_pressure_gate',
+        'decisionPressureGate',
+        'boll_overlap_volume_confirmation_flag',
+        'sent_ribbon_regime_raw',
+        'seta_dashboard_summary_label'
+    ]);
+
+    return gate ? `<br>Gate: ${escapeHoverValue(gate)}` : '';
+}
+
+function addPriceMa21OverlayTrace(traces, x, rows) {
+    const source = Array.isArray(rows) ? rows : [];
+    const series = seriesForFirstAvailableField(source, MODULE_PRICE_MA21_FIELDS);
+    if (!series) return;
+
+    traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Price MA 21',
+        x,
+        y: series.y,
+        line: { color: 'rgba(155,220,255,0.42)', width: 0.95 },
+        opacity: 0.58,
+        legendgroup: 'price-ma-21',
+        legendrank: 21,
+        showlegend: true,
+        hovertemplate: '%{x}<br>Price MA 21: %{y:,.2f}<extra></extra>'
+    });
+}
+
+function addSentimentMa21OverlayTrace(traces, x, rows) {
+    const source = Array.isArray(rows) ? rows : [];
+    const series = seriesForFirstAvailableField(source, MODULE_SENTIMENT_MA21_PRICE_FIELDS);
+    if (!series) return;
+
+    const customdata = source.map(row => {
+        const raw = firstFiniteRowValue(row, MODULE_SENTIMENT_MA21_RAW_FIELDS);
+        return [
+            raw === null ? '' : raw.toFixed(3),
+            decisionPressureLabel(row),
+            decisionPressureSkew(row),
+            decisionPressureSource(row),
+            decisionPressureGate(row)
+        ];
+    });
+
+    traces.push({
+        type: 'scatter',
+        mode: 'lines',
+        name: 'Sentiment MA 21',
+        x,
+        y: series.y,
+        customdata,
+        line: {
+            color: MODULE_SENTIMENT_VISUALS.line,
+            width: 0.86
+        },
+        opacity: 0.48,
+        legendgroup: 'sentiment-ma-21',
+        legendrank: 22,
+        showlegend: true,
+        hovertemplate: '%{x}<br>Sentiment MA 21: %{customdata[0]}<br>Decision Pressure: %{customdata[1]}<br>Skew: %{customdata[2]}<br>Source: %{customdata[3]}%{customdata[4]}<extra></extra>'
+    });
+}
+
+
 function addMovingAverageRibbonTraces(traces, x, rows, {
     name,
     fields = [],
@@ -501,15 +704,29 @@ function addMovingAverageRibbonTraces(traces, x, rows, {
 
 function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
     const traces = [];
-    const ribbon = controlMode(modes.ribbon, 'none');
+    const rawRibbon = controlMode(modes.ribbon, 'sentiment_ma_21');
+    const ribbonAliases = {
+        sentiment: 'sentiment_ma_21',
+        price: 'price_ma_21',
+        both: 'combined_ma'
+    };
+    const ribbon = ribbonAliases[rawRibbon] || rawRibbon;
     const sentimentRibbon = controlMode(modes.sentimentRibbon, 'curated');
     const scaleMode = controlMode(modes.scaleMode, 'price_overlays');
 
     if (scaleMode === 'price_only') return traces;
 
-    if (ribbon === 'price' || ribbon === 'both') {
+    if (ribbon === 'price_ma_21' || ribbon === 'combined_ma') {
+        addPriceMa21OverlayTrace(traces, x, rows);
+    }
+
+    if (ribbon === 'sentiment_ma_21' || ribbon === 'combined_ma') {
+        addSentimentMa21OverlayTrace(traces, x, rows);
+    }
+
+    if (ribbon === 'price_ribbon' || ribbon === 'combined_ribbon') {
         addMovingAverageRibbonTraces(traces, x, rows, {
-            name: 'Price MA Stack',
+            name: 'Price Ribbon',
             fields: ['close_ma_7', 'close_ma_21', 'close_ma_100', 'close_ma_200'],
             lineColor: MODULE_CHART_VISUALS.priceMaRibbonLine,
             softLineColor: MODULE_CHART_VISUALS.priceMaRibbonSoftLine,
@@ -520,13 +737,13 @@ function buildMovingAverageRibbonTraces(rows = [], x = [], modes = {}) {
         });
     }
 
-    if (ribbon === 'sentiment' || ribbon === 'both') {
+    if (ribbon === 'sentiment_ribbon' || ribbon === 'combined_ribbon') {
         const sentimentFields = sentimentRibbon === 'full'
             ? ['scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_7', 'scaled_combined_compound_ma_100', 'scaled_combined_compound_ma_200']
             : ['scaled_combined_compound_ma_21', 'scaled_combined_compound_ma_100', 'scaled_combined_compound_ma_200'];
 
         addMovingAverageRibbonTraces(traces, x, rows, {
-            name: 'Sentiment MA Stack',
+            name: 'Sentiment Ribbon',
             fields: sentimentFields,
             lineColor: MODULE_CHART_VISUALS.sentimentMaRibbonLine,
             softLineColor: MODULE_CHART_VISUALS.sentimentMaRibbonSoftLine,
@@ -2336,8 +2553,7 @@ export class PlotlyRenderer {
         const scaleMode = controlMode(state.currentScaleMode, 'price_overlays');
 
         return timingView !== 'price'
-            || ribbon === 'sentiment'
-            || ribbon === 'both'
+            || ['sentiment', 'both', 'sentiment_ma_21', 'sentiment_ribbon', 'combined_ma', 'combined_ribbon'].includes(ribbon)
             || sentimentRibbon === 'full'
             || scaleMode === 'all_visible';
     }

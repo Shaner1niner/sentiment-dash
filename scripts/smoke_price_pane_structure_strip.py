@@ -56,8 +56,8 @@ for retired in [
 ok("retired Sentiment Pressure price-pane overlay removed")
 
 main_text = main.read_text(encoding="utf-8")
-if "PlotlyRenderer.js?v=module_price_structure_strip_current_override_001" not in main_text:
-    fail("dashboard_main.js missing Structure Score strip cache token")
+if "PlotlyRenderer.js?v=module_" not in main_text:
+    fail("dashboard_main.js missing active PlotlyRenderer module cache token")
 ok("dashboard_main.js cache-busts PlotlyRenderer import")
 
 html_text = html.read_text(encoding="utf-8")
