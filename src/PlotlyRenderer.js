@@ -617,6 +617,34 @@ function decisionPressureGate(row = {}) {
     return gate ? `<br>Gate: ${escapeHoverValue(gate)}` : '';
 }
 
+function sentimentPriceAlignmentLabel(row = {}, scaledSentimentValue = null) {
+    const price = firstFiniteRowValue(row, [
+        'close',
+        'Close',
+        'price',
+        'last_price',
+        'adj_close'
+    ]);
+    const sentiment = asNumber(scaledSentimentValue);
+
+    if (price === null || sentiment === null || Math.abs(price) < 1e-9) {
+        return 'Unavailable';
+    }
+
+    const gapPct = ((sentiment - price) / Math.abs(price)) * 100;
+    const absGap = Math.abs(gapPct);
+    const signedGap = `${gapPct >= 0 ? '+' : ''}${gapPct.toFixed(1)}% scaled`;
+
+    let label = 'Aligned';
+    if (gapPct >= 3) label = 'Sentiment premium';
+    else if (gapPct >= 1) label = 'Mild sentiment premium';
+    else if (gapPct <= -3) label = 'Price premium';
+    else if (gapPct <= -1) label = 'Mild price premium';
+    else if (absGap < 1) label = 'Aligned';
+
+    return `${label} (${signedGap})`;
+}
+
 function addPriceMa21OverlayTrace(traces, x, rows) {
     const source = Array.isArray(rows) ? rows : [];
     const series = seriesForFirstAvailableField(source, MODULE_PRICE_MA21_FIELDS);
@@ -642,15 +670,17 @@ function addSentimentMa21OverlayTrace(traces, x, rows) {
     const series = seriesForFirstAvailableField(source, MODULE_SENTIMENT_MA21_PRICE_FIELDS);
     if (!series) return;
 
-    const customdata = source.map(row => {
+    const customdata = source.map((row, index) => {
         const raw = firstFiniteRowValue(row, MODULE_SENTIMENT_MA21_RAW_FIELDS);
+        const scaledSentiment = asNumber(series.y?.[index]);
         return [
             raw === null ? '' : raw.toFixed(3),
             decisionPressureDisplayValue(row),
             decisionPressureLabel(row),
             decisionPressureSkew(row),
             decisionPressureSource(row),
-            decisionPressureGate(row)
+            decisionPressureGate(row),
+            sentimentPriceAlignmentLabel(row, scaledSentiment)
         ];
     });
 
@@ -669,7 +699,7 @@ function addSentimentMa21OverlayTrace(traces, x, rows) {
         legendgroup: 'sentiment-ma-21',
         legendrank: 22,
         showlegend: false,
-        hovertemplate: '%{x}<br>Sentiment MA 21: %{customdata[0]}<br>Decision Pressure: %{customdata[2]}<br>DP score: %{customdata[1]}<br>Skew: %{customdata[3]}<br>Source: %{customdata[4]}%{customdata[5]}<extra></extra>'
+        hovertemplate: '%{x}<br>Sentiment MA 21: %{customdata[0]}<br>Alignment: %{customdata[6]}<br>Decision Pressure: %{customdata[2]}<br>DP score: %{customdata[1]}<br>Skew: %{customdata[3]}<br>Source: %{customdata[4]}%{customdata[5]}<extra></extra>'
     });
 }
 

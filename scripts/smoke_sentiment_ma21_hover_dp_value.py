@@ -30,13 +30,13 @@ for token in [
 ok("PlotlyRenderer includes DP score hover and hides Sentiment MA 21 legend entry")
 
 for token in [
-    "module_sentiment_ma21_dp_score_hover_001",
+    "module_sentiment_price_alignment_hover_001",
     "value=\"sentiment_ma_21\" selected>Sentiment MA 21",
 ]:
     if token not in html_text:
         fail(f"public embed missing token: {token}")
 ok("public embed cache token and MA Stack menu are intact")
 
-if "PlotlyRenderer.js?v=module_sentiment_ma21_dp_score_hover_001" not in main_text:
+if "PlotlyRenderer.js?v=module_sentiment_price_alignment_hover_001" not in main_text:
     fail("dashboard_main.js missing PlotlyRenderer hover DP value cache token")
 ok("dashboard_main cache-busts PlotlyRenderer import")
