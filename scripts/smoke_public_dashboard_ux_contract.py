@@ -90,14 +90,19 @@ for token in [
 ok("Sentiment layer and Structure strip behavior is protected")
 
 for token in [
+    "moduleMarketTapeBriefingStructureHero",
+    "Structure Score",
+    "Overall setup quality:",
+    "moduleMarketTapeStructureMeter",
     "moduleMarketTapeBriefingSignalState",
     "Signal State",
+    "Active Setup Snapshot",
     "moduleMarketTapeTrendPrimaryReadout",
     "Structure stack:",
     "moduleMarketTapeTrendStackLabel",
     "moduleMarketTapeEventTimeline",
     "moduleMarketTapeDetailDeck",
-    "structure-trend-signal-state",
+    "active-setup-snapshot",
 ]:
     if token not in view_text:
         fail(f"View mode density contract missing token: {token}")
