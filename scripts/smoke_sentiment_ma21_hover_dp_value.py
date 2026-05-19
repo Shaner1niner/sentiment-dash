@@ -16,8 +16,8 @@ html_text = html.read_text(encoding="utf-8")
 main_text = main.read_text(encoding="utf-8")
 
 for token in [
-    "function normalizedDecisionPressureValue(row = {})",
-    "Decision Pressure: %{customdata[1]} / 100",
+    "function decisionPressureDisplayValue(row = {})",
+    "Decision Pressure: %{customdata[2]}",
     "decisionPressureLabel(row)",
     "decisionPressureSkew(row)",
     "decisionPressureSource(row)",
@@ -27,16 +27,16 @@ for token in [
 ]:
     if token not in renderer_text:
         fail(f"PlotlyRenderer missing hover DP value token: {token}")
-ok("PlotlyRenderer includes normalized DP value hover and hides Sentiment MA 21 legend entry")
+ok("PlotlyRenderer includes DP score hover and hides Sentiment MA 21 legend entry")
 
 for token in [
-    "module_sentiment_ma21_hover_dp_value_001",
+    "module_sentiment_ma21_dp_score_hover_001",
     "value=\"sentiment_ma_21\" selected>Sentiment MA 21",
 ]:
     if token not in html_text:
         fail(f"public embed missing token: {token}")
 ok("public embed cache token and MA Stack menu are intact")
 
-if "PlotlyRenderer.js?v=module_sentiment_ma21_hover_dp_value_001" not in main_text:
+if "PlotlyRenderer.js?v=module_sentiment_ma21_dp_score_hover_001" not in main_text:
     fail("dashboard_main.js missing PlotlyRenderer hover DP value cache token")
 ok("dashboard_main cache-busts PlotlyRenderer import")
