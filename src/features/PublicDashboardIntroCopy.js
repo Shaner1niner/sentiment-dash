@@ -10,10 +10,10 @@ const CONTROL_LABELS = {
     priceDisplay: 'Chart type',
     scaleMode: 'Chart scale',
     ribbon: 'Trend lens',
-    regimeLayer: 'Structure',
+    regimeLayer: 'Structure strip',
     engagement: 'Attention layer',
     bollinger: 'Range bands',
-    osc: 'Timing'
+    osc: 'Sentiment layer'
 };
 
 function applyControlLabels() {
