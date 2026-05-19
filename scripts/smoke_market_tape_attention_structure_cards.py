@@ -27,8 +27,6 @@ for token in [
     "Ranked by attention. Scored by structure.",
     "#${rank} by Attention",
     "Structure</span>",
-    "Why surfaced:",
-    "attention is elevated, but confirmation is still incomplete.",
     "Store.state.structureScoreHistory",
     "structureScoreForTicker",
     "latestStructurePoint",
@@ -38,6 +36,15 @@ for token in [
     if token not in module_text:
         fail(f"attention/structure card module missing token: {token}")
 ok("Market Tape attention/structure card module contains expected reader framing")
+
+for removed_token in [
+    "Why surfaced:",
+    "attention is elevated, but confirmation is still incomplete.",
+    "function whySurfaced",
+]:
+    if removed_token in module_text:
+        fail(f"attention/structure card module still contains repetitive card copy: {removed_token}")
+ok("Market Tape cards omit repetitive why-surfaced microcopy")
 
 if "MarketTapeAttentionStructureCards.js?v=module_market_tape_attention_structure_cards_001" not in entry_text:
     fail("dashboard module entrypoint does not load MarketTapeAttentionStructureCards")

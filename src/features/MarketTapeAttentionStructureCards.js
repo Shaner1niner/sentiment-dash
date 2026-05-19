@@ -134,32 +134,6 @@ function attentionRankForCard(card, ticker) {
     return match ? Number(match[1]) : null;
 }
 
-function whySurfaced(rowText, tagsText) {
-    const lower = `${rowText || ''} ${tagsText || ''}`.toLowerCase();
-
-    if (/no recent confirmed|not fully confirmed|confirmation[^.]*incomplete|missing confirmation|watch candidates/.test(lower)) {
-        return 'attention is elevated, but confirmation is still incomplete.';
-    }
-
-    if (/high.?conviction|confirmed alert|confirmation complete|confirmed setup/.test(lower)) {
-        return 'attention is elevated and the structure read is more fully confirmed.';
-    }
-
-    if (/bear|risk|weak|pressure|deteriorat|transition-risk/.test(lower)) {
-        return 'attention is elevated around a weaker or risk-heavy structure profile.';
-    }
-
-    if (/momentum/.test(lower) && /not yet|still developing|not fully|watch|monitor/.test(lower)) {
-        return 'attention is elevated while momentum is still developing.';
-    }
-
-    if (/quiet|low conviction|thin/.test(lower)) {
-        return 'attention keeps it on the board, but participation remains quiet.';
-    }
-
-    return 'attention is elevated, so this setup is worth reviewing against structure.';
-}
-
 function installStyle() {
     if (document.getElementById(STYLE_ID)) return;
 
@@ -217,16 +191,6 @@ function installStyle() {
         font-size: 12px;
         font-weight: 800;
       }
-      .moduleMarketTapeWhySurfaced {
-        margin-top: 8px !important;
-        border-top: 1px solid rgba(139, 148, 158, .14);
-        padding-top: 7px;
-        color: #8b949e;
-      }
-      .moduleMarketTapeWhySurfaced strong {
-        color: #9bdcff;
-        font-weight: 700;
-      }
     `;
     document.head.appendChild(style);
 }
@@ -262,17 +226,7 @@ function patchCard(card) {
     if (score.className !== 'moduleMarketTapeStructureScore') score.className = 'moduleMarketTapeStructureScore';
     if (score.innerHTML !== scoreHtml) score.innerHTML = scoreHtml;
 
-    const copy = cleanText(card.querySelector('p:not(.moduleMarketTapeWhySurfaced)')?.textContent || '');
-    const tags = cleanText(card.querySelector('.moduleMarketTapeTags')?.textContent || '');
-    let why = card.querySelector('.moduleMarketTapeWhySurfaced');
-    if (!why) {
-        why = document.createElement('p');
-        why.className = 'moduleMarketTapeWhySurfaced';
-        card.appendChild(why);
-    }
-
-    const whyHtml = `<strong>Why surfaced:</strong> ${escapeHtml(whySurfaced(copy, tags))}`;
-    if (why.innerHTML !== whyHtml) why.innerHTML = whyHtml;
+    card.querySelectorAll('.moduleMarketTapeWhySurfaced').forEach(node => node.remove());
 }
 
 function patchMarketTape() {
