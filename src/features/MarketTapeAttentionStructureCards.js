@@ -3,6 +3,8 @@ import { Store } from '../Store.js';
 const PATCH_TOKEN = 'module_market_tape_attention_structure_cards_001';
 const STYLE_ID = `${PATCH_TOKEN}_style`;
 
+let patchQueued = false;
+
 function cleanText(value) {
     return String(value ?? '').replace(/\s+/g, ' ').trim();
 }
@@ -253,10 +255,12 @@ function patchCard(card) {
     const rank = attentionRankForCard(card, ticker);
     const structureScore = structureScoreForTicker(ticker);
     const attentionLabel = rank ? `#${rank} by Attention` : 'By Attention';
+    const titleHtml = `<span class="moduleMarketTapeAttentionRank">${escapeHtml(attentionLabel)}</span><span class="moduleMarketTapeTicker">${escapeHtml(ticker)}</span>`;
+    const scoreHtml = `<span>Structure</span><strong>${escapeHtml(formatScore(structureScore))}</strong>`;
 
-    title.innerHTML = `<span class="moduleMarketTapeAttentionRank">${escapeHtml(attentionLabel)}</span><span class="moduleMarketTapeTicker">${escapeHtml(ticker)}</span>`;
-    score.className = 'moduleMarketTapeStructureScore';
-    score.innerHTML = `<span>Structure</span><strong>${escapeHtml(formatScore(structureScore))}</strong>`;
+    if (title.innerHTML !== titleHtml) title.innerHTML = titleHtml;
+    if (score.className !== 'moduleMarketTapeStructureScore') score.className = 'moduleMarketTapeStructureScore';
+    if (score.innerHTML !== scoreHtml) score.innerHTML = scoreHtml;
 
     const copy = cleanText(card.querySelector('p:not(.moduleMarketTapeWhySurfaced)')?.textContent || '');
     const tags = cleanText(card.querySelector('.moduleMarketTapeTags')?.textContent || '');
@@ -266,7 +270,9 @@ function patchCard(card) {
         why.className = 'moduleMarketTapeWhySurfaced';
         card.appendChild(why);
     }
-    why.innerHTML = `<strong>Why surfaced:</strong> ${escapeHtml(whySurfaced(copy, tags))}`;
+
+    const whyHtml = `<strong>Why surfaced:</strong> ${escapeHtml(whySurfaced(copy, tags))}`;
+    if (why.innerHTML !== whyHtml) why.innerHTML = whyHtml;
 }
 
 function patchMarketTape() {
@@ -275,15 +281,24 @@ function patchMarketTape() {
     document.querySelectorAll('#module-market-tape .moduleMarketTapeItem[data-ticker]').forEach(patchCard);
 }
 
-function start() {
-    patchMarketTape();
+function queuePatchMarketTape() {
+    if (patchQueued) return;
+    patchQueued = true;
+    window.requestAnimationFrame(() => {
+        patchQueued = false;
+        patchMarketTape();
+    });
+}
 
-    const observer = new MutationObserver(() => patchMarketTape());
+function start() {
+    queuePatchMarketTape();
+
+    const observer = new MutationObserver(() => queuePatchMarketTape());
     observer.observe(document.body, { childList: true, subtree: true });
 
     ['assetChanged', 'controlChanged', 'screenerUpdated', 'structureScoreHistoryUpdated'].forEach(eventName => {
         try {
-            Store.on(eventName, () => setTimeout(patchMarketTape, 0));
+            Store.on(eventName, () => queuePatchMarketTape());
         } catch (_) {}
     });
 }
