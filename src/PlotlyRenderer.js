@@ -1467,6 +1467,7 @@ function buildAttentionMarkerTraces(rows = []) {
 }
 
 
+
 const MODULE_SENTIMENT_PRESSURE_FIELDS = [
     'attention_conviction_score_signed',
     'attention_signed_conviction_score',
@@ -1489,7 +1490,7 @@ function sentimentPressureLabel(value) {
     return 'Strong constructive';
 }
 
-function sentimentPressureVisualRange(rows = []) {
+function sentimentPressureRailRange(rows = []) {
     const source = Array.isArray(rows) ? rows : [];
     const lows = source
         .map(row => asNumber(row?.low ?? row?.close))
@@ -1505,32 +1506,37 @@ function sentimentPressureVisualRange(rows = []) {
     const spread = Math.max(1, max - min);
 
     return {
-        zero: min + spread * 0.30,
-        amplitude: spread * 0.115
+        center: min + spread * 0.055,
+        amplitude: spread * 0.024
     };
 }
 
-function buildSentimentPressureTrace(rows = [], x = []) {
+function buildSentimentPressureRailTraces(rows = [], x = []) {
     const source = Array.isArray(rows) ? rows : [];
     const series = seriesForFirstSupportedField(source, MODULE_SENTIMENT_PRESSURE_FIELDS, 0.12, 5);
-    const range = sentimentPressureVisualRange(source);
+    const range = sentimentPressureRailRange(source);
 
-    if (!series || !range) return null;
+    if (!series || !range) return [];
 
     const values = Array.isArray(series.y) ? series.y : [];
     const finiteValues = values
         .map(value => asNumber(value))
         .filter(value => value !== null);
 
-    if (finiteValues.length < 5) return null;
+    if (finiteValues.length < 5) return [];
 
     const maxAbs = Math.max(12, ...finiteValues.map(value => Math.abs(value)));
 
-    const y = values.map(value => {
+    const railY = values.map(value => {
+        const n = asNumber(value);
+        return n === null ? null : range.center;
+    });
+
+    const pressureY = values.map(value => {
         const n = asNumber(value);
         if (n === null) return null;
         const normalized = Math.max(-1, Math.min(1, n / maxAbs));
-        return range.zero + normalized * range.amplitude;
+        return range.center + normalized * range.amplitude;
     });
 
     const customdata = values.map(value => {
@@ -1539,22 +1545,39 @@ function buildSentimentPressureTrace(rows = [], x = []) {
         return [n.toFixed(1), sentimentPressureLabel(n)];
     });
 
-    return {
-        type: 'scatter',
-        mode: 'lines',
-        name: 'Sentiment Pressure',
-        legendrank: 24,
-        x,
-        y,
-        customdata,
-        line: {
-            color: MODULE_SENTIMENT_VISUALS.line,
-            width: 1.05
+    return [
+        {
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Sentiment Pressure rail',
+            x,
+            y: railY,
+            line: {
+                color: 'rgba(242,204,96,0.16)',
+                width: 1,
+                dash: 'dot'
+            },
+            hoverinfo: 'skip',
+            showlegend: false,
+            connectgaps: false
         },
-        opacity: 0.92,
-        connectgaps: false,
-        hovertemplate: '%{x}<br>Sentiment Pressure: %{customdata[0]}<br>%{customdata[1]}<extra></extra>'
-    };
+        {
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Sentiment Pressure',
+            legendrank: 24,
+            x,
+            y: pressureY,
+            customdata,
+            line: {
+                color: MODULE_SENTIMENT_VISUALS.line,
+                width: 0.92
+            },
+            opacity: 0.86,
+            connectgaps: false,
+            hovertemplate: '%{x}<br>Sentiment Pressure: %{customdata[0]}<br>%{customdata[1]}<extra></extra>'
+        }
+    ];
 }
 
 const MODULE_REGIME_MARKER_DEFINITIONS = [
@@ -2623,8 +2646,7 @@ export class PlotlyRenderer {
             });
         }
 
-        const sentimentPressureTrace = buildSentimentPressureTrace(source, x);
-        if (sentimentPressureTrace) traces.push(sentimentPressureTrace);
+        buildSentimentPressureRailTraces(source, x).forEach(trace => traces.push(trace));
 
         const bandPolicy = this.buildBandLayerPolicy(modes);
         const tableauPriceBand = resolveTableauPriceBandSeries(source, state.currentFrequency);

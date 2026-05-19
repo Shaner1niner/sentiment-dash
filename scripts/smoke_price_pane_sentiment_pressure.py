@@ -21,21 +21,28 @@ renderer_text = renderer.read_text(encoding="utf-8")
 for token in [
     "MODULE_SENTIMENT_PRESSURE_FIELDS",
     "attention_conviction_score_signed",
-    "function buildSentimentPressureTrace(rows = [], x = [])",
+    "function buildSentimentPressureRailTraces(rows = [], x = [])",
+    "sentimentPressureRailRange",
+    "Sentiment Pressure rail",
     "Sentiment Pressure",
-    "sentimentPressureTrace",
+    "buildSentimentPressureRailTraces",
 ]:
     if token not in renderer_text:
         fail(f"renderer missing token: {token}")
-ok("renderer includes Sentiment Pressure trace path")
+ok("renderer includes Sentiment Pressure rail trace path")
+
+if "zero: min + spread * 0.30" in renderer_text:
+    fail("legacy mid-pane Sentiment Pressure projection is still present")
+ok("legacy mid-pane Sentiment Pressure projection removed")
+
 
 main_text = main.read_text(encoding="utf-8")
-if "PlotlyRenderer.js?v=module_price_sentiment_pressure_001" not in main_text:
+if "PlotlyRenderer.js?v=module_price_sentiment_pressure_rail_001" not in main_text:
     fail("dashboard_main.js missing PlotlyRenderer cache token")
 ok("dashboard_main.js cache-busts PlotlyRenderer import")
 
 html_text = html.read_text(encoding="utf-8")
-if "module_price_sentiment_pressure_001" not in html_text:
+if "module_price_sentiment_pressure_rail_001" not in html_text:
     fail("public embed missing cache token")
 ok("public embed includes Sentiment Pressure cache token")
 
