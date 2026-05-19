@@ -34,6 +34,7 @@ What this protects:
 - Reviewed briefing compatibility contract
 
 
-Additional reader-education check:
+Additional reader-education checks:
 
 - Public chart glossary smoke
+- Market Tape attention/structure card smoke
