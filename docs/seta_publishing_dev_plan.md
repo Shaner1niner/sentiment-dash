@@ -182,6 +182,41 @@ Publishing rules:
 - do not imply hidden certainty when evidence is unavailable
 - use Research mode as the deeper receipt layer
 
+### Overlap Band
+
+Public definition:
+
+```text
+Overlap Band is high-value context for sentiment/price separation and possible floor/ceiling behavior, not a mandatory narrative pillar.
+```
+
+Publishing rules:
+
+- default to silent omission
+- do not force Overlap Band into every post
+- mention it only when the floor/ceiling is visually obvious, materially changes interpretation, price is pressing into it, or the post is specifically about sentiment/price alignment
+- when unavailable, usually omit rather than adding boilerplate
+- do not replace unavailable overlap with an unlabeled proxy
+- never describe overlap as a price target or guaranteed reversal level
+
+Safe phrasing when it matters:
+
+```text
+Overlap context argues against treating this as clean one-way continuation.
+```
+
+Expanded phrasing:
+
+```text
+The overlap band is acting more like context than confirmation here: it suggests price may be pressing into an area where sentiment and price structure have historically struggled to separate cleanly.
+```
+
+Avoid:
+
+```text
+The overlap band says price will reverse.
+```
+
 ### Research Mode
 
 Public definition:
@@ -281,7 +316,7 @@ Use longer/shorter windows only when the setup requires it.
 
 The `How SETA Reads the Market` page is ready when it:
 
-- defines Structure Score, Structure Trend, Signal State, Participation Quality, Evidence, Research Mode, and AI/model badge language
+- defines Structure Score, Structure Trend, Signal State, Participation Quality, Evidence, Overlap Band, Research Mode, and AI/model badge language
 - includes color semantics and chart-row meanings
 - includes safe Substack/social phrasing examples
 - explicitly avoids price targets, trade instructions, and certainty language
