@@ -29,12 +29,16 @@ for token in [
     "__session_axis_weekend_context",
     "PlotlyRenderer.selectRowsForState",
     "PlotlyRenderer.buildLayout",
+    "PlotlyRenderer.buildPriceTraces",
+    "applyLineModeContinuity",
+    "connectgaps: true",
+    "sessionAxisLineContinuity",
     "rangebreaks",
 ]:
     if token not in module_text:
         fail(f"chart session axis patch missing token: {token}")
 
-ok("chart session axis patch protects equity rangebreaks and weekend sentiment context roll-forward")
+ok("chart session axis patch protects equity rangebreaks, weekend sentiment roll-forward, and line-mode continuity")
 
 if "ChartSessionAxisPatch.js?v=module_chart_session_axis_001" not in entry_text:
     fail("dashboard entrypoint does not load ChartSessionAxisPatch")
