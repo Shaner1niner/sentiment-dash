@@ -6,6 +6,7 @@ const CRYPTO_ASSETS = new Set(['BTC', 'ETH', 'SOL', 'DOGE', 'XRP', 'ADA', 'AVAX'
 const PRICE_FIELDS = new Set(['open', 'high', 'low', 'close', 'adj_close', 'volume']);
 const SUM_HINTS = ['count', 'volume', 'posts', 'comments', 'engagement', 'mentions', 'num_'];
 const AVG_HINTS = ['sent', 'sentiment', 'compound', 'vader', 'roberta', 'bsky', 'reddit', 'twitter', 'tweet', 'news'];
+const CONTINUOUS_LINE_NAMES = new Set(['price', 'sentiment']);
 
 function assetSymbol(state = {}) {
     return String(state.currentAsset || '').trim().toUpperCase();
@@ -118,6 +119,31 @@ function sessionRangebreaksForState(state = {}) {
     return [{ bounds: ['sat', 'mon'] }];
 }
 
+function chartTypeForState(state = {}) {
+    return String(state.currentChartType || 'candles').trim().toLowerCase();
+}
+
+function shouldConnectLineTrace(trace = {}) {
+    if (!trace || trace.type !== 'scatter' || trace.mode !== 'lines') return false;
+    const name = String(trace.name || '').trim().toLowerCase();
+    return CONTINUOUS_LINE_NAMES.has(name);
+}
+
+function applyLineModeContinuity(traces = [], state = {}) {
+    if (chartTypeForState(state) !== 'line') return traces;
+    return (Array.isArray(traces) ? traces : []).map(trace => {
+        if (!shouldConnectLineTrace(trace)) return trace;
+        return {
+            ...trace,
+            connectgaps: true,
+            meta: {
+                ...(trace.meta || {}),
+                sessionAxisLineContinuity: true
+            }
+        };
+    });
+}
+
 function patchChartSessionAxis() {
     if (PlotlyRenderer.__chartSessionAxisPatch === PATCH_TOKEN) return;
     PlotlyRenderer.__chartSessionAxisPatch = PATCH_TOKEN;
@@ -137,8 +163,14 @@ function patchChartSessionAxis() {
         };
         return layout;
     };
+
+    const originalBuildPriceTraces = PlotlyRenderer.buildPriceTraces;
+    PlotlyRenderer.buildPriceTraces = function patchedBuildPriceTraces(rows = [], state = {}) {
+        const traces = originalBuildPriceTraces.call(this, rows, state);
+        return applyLineModeContinuity(traces, state);
+    };
 }
 
 patchChartSessionAxis();
 
-export { PATCH_TOKEN, normalizeEquityRowsToTradingSessions, sessionRangebreaksForState, patchChartSessionAxis };
+export { PATCH_TOKEN, normalizeEquityRowsToTradingSessions, sessionRangebreaksForState, applyLineModeContinuity, patchChartSessionAxis };
