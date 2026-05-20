@@ -38,6 +38,7 @@ def build_steps(args: argparse.Namespace) -> list[tuple[str, list[str]]]:
         ("Sentiment-Price Alignment audit smoke", py_script("smoke_sentiment_price_alignment_audit.py")),
         ("Sentiment-Price Alignment hover smoke", py_script("smoke_sentiment_price_alignment_hover.py")),
         ("Public dashboard UX contract smoke", py_script("smoke_public_dashboard_ux_contract.py")),
+        ("Active Setup Snapshot visual polish smoke", py_script("smoke_active_setup_snapshot_visual_polish.py")),
         ("Public chart glossary smoke", py_script("smoke_public_chart_glossary.py")),
         ("Public dashboard intro copy smoke", py_script("smoke_public_dashboard_intro_copy.py")),
         ("Market Tape attention/structure card smoke", py_script("smoke_market_tape_attention_structure_cards.py")),
