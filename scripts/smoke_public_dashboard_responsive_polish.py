@@ -24,6 +24,9 @@ for token in [
     "module_public_dashboard_responsive_polish_001",
     "overflow-x: hidden",
     "grid-template-columns: repeat(auto-fit, minmax(142px, 1fr))",
+    "@media (hover: none), (pointer: coarse)",
+    "modebar-container",
+    "gtitle",
     "@media (max-width: 900px)",
     "@media (max-width: 720px)",
     "@media (max-width: 460px)",
@@ -37,7 +40,7 @@ for token in [
     if token not in module_text:
         fail(f"responsive polish module missing token: {token}")
 
-ok("responsive polish module protects narrow-screen layout")
+ok("responsive polish module protects narrow-screen layout and mobile chart chrome")
 
 if "PublicDashboardResponsivePolish.js?v=module_public_dashboard_responsive_polish_001" not in entry_text:
     fail("dashboard entrypoint does not load PublicDashboardResponsivePolish")

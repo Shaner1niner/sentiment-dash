@@ -48,11 +48,24 @@ function installResponsivePolishStyle() {
       }
       #chart {
         overflow: hidden;
+        position: relative;
       }
       #chart .plot-container,
       #chart .svg-container,
       #chart .main-svg {
         max-width: 100% !important;
+      }
+      @media (hover: none), (pointer: coarse) {
+        #chart .modebar-container {
+          opacity: .18;
+          transform: scale(.86);
+          transform-origin: top right;
+          transition: opacity .16s ease;
+        }
+        #chart:focus-within .modebar-container,
+        #chart:hover .modebar-container {
+          opacity: .72;
+        }
       }
       @media (max-width: 1180px) {
         .harnessShell {
@@ -84,6 +97,13 @@ function installResponsivePolishStyle() {
         }
         #chart {
           min-height: 640px;
+        }
+        #chart .modebar-container {
+          opacity: .12;
+          transform: scale(.82);
+        }
+        #chart .gtitle {
+          transform: translateY(12px);
         }
       }
       @media (max-width: 720px) {
@@ -205,6 +225,9 @@ function installResponsivePolishStyle() {
         #chart {
           min-height: 500px;
           border-radius: 12px;
+        }
+        #chart .modebar-container {
+          display: none !important;
         }
       }
     `;
