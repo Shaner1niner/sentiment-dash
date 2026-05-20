@@ -169,6 +169,15 @@ function patchChartSessionAxis() {
         const traces = originalBuildPriceTraces.call(this, rows, state);
         return applyLineModeContinuity(traces, state);
     };
+
+    const originalRenderChart = PlotlyRenderer.renderChart;
+    PlotlyRenderer.renderChart = async function patchedRenderChart(containerId, data, layout = {}, config = {}) {
+        const state = (window?.SETA_STORE_STATE || window?.setaStoreState || window?.Store?.state || null) || {};
+        const chartTitle = String(layout?.title?.text || layout?.title || '').toLowerCase();
+        const inferredLineMode = chartTitle.includes(' line ') || document.querySelector('#chartType')?.value === 'line';
+        const continuityState = inferredLineMode ? { ...state, currentChartType: 'line' } : state;
+        return originalRenderChart.call(this, containerId, applyLineModeContinuity(data, continuityState), layout, config);
+    };
 }
 
 patchChartSessionAxis();
