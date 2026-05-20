@@ -23,6 +23,16 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_OUT_DIR = REPO_ROOT / "reply_agent" / "pipeline_runs"
 CLOUD_SYNC_DIR = REPO_ROOT / "cloud_sync_staging"  # Smart Dual Save target
 
+OUTPUT_PROFILE_REQUIRED_CONTENT = "required_content"
+OUTPUT_PROFILE_REQUIRED_PUBLIC = "required_public_content"
+OUTPUT_PROFILE_OPTIONAL_DRAFT = "optional_draft_output"
+OUTPUT_PROFILE_EXPERIMENTAL = "experimental_output"
+
+REQUIRED_OUTPUT_PROFILES = {
+    OUTPUT_PROFILE_REQUIRED_CONTENT,
+    OUTPUT_PROFILE_REQUIRED_PUBLIC,
+}
+
 # ==============================================================================
 # 🚨 CRITICAL FIX: DYNAMIC DATE INJECTION
 # This forces all downstream scripts (like build_seta_daily_content_packet.py)
@@ -38,6 +48,7 @@ STEPS = [
         "expected_latest": REPO_ROOT / "reply_agent" / "content_packets" / "seta_daily_content_packet_latest.json",
         "fallback_glob": REPO_ROOT / "reply_agent" / "content_packets",
         "fallback_pattern": "seta_daily_content_packet_*.json",
+        "output_profile": OUTPUT_PROFILE_REQUIRED_CONTENT,
     },
     {
         "name": "website_snippets",
@@ -45,6 +56,7 @@ STEPS = [
         "expected_latest": REPO_ROOT / "reply_agent" / "website_snippets" / "seta_website_snippets_latest.json",
         "fallback_glob": REPO_ROOT / "reply_agent" / "website_snippets",
         "fallback_pattern": "seta_website_snippets_*.json",
+        "output_profile": OUTPUT_PROFILE_REQUIRED_CONTENT,
     },
     {
         "name": "blog_outline",
@@ -52,6 +64,7 @@ STEPS = [
         "expected_latest": REPO_ROOT / "reply_agent" / "blog_outlines" / "seta_blog_outline_latest.json",
         "fallback_glob": REPO_ROOT / "reply_agent" / "blog_outlines",
         "fallback_pattern": "seta_blog_outline_*.json",
+        "output_profile": OUTPUT_PROFILE_OPTIONAL_DRAFT,
     },
     {
         "name": "blog_draft",
@@ -59,6 +72,7 @@ STEPS = [
         "expected_latest": REPO_ROOT / "reply_agent" / "blog_drafts" / "seta_blog_draft_latest.json",
         "fallback_glob": REPO_ROOT / "reply_agent" / "blog_drafts",
         "fallback_pattern": "seta_blog_draft_*.json",
+        "output_profile": OUTPUT_PROFILE_OPTIONAL_DRAFT,
     },
     {
         "name": "social_calendar",
@@ -66,6 +80,7 @@ STEPS = [
         "expected_latest": REPO_ROOT / "reply_agent" / "social_calendar" / "seta_social_calendar_latest.json",
         "fallback_glob": REPO_ROOT / "reply_agent" / "social_calendar",
         "fallback_pattern": "seta_social_calendar_*.json",
+        "output_profile": OUTPUT_PROFILE_OPTIONAL_DRAFT,
     },
     {
         "name": "public_website_content",
@@ -73,6 +88,7 @@ STEPS = [
         "expected_latest": REPO_ROOT / "public_content" / "seta_website_snippets_latest.json",
         "fallback_glob": REPO_ROOT / "public_content",
         "fallback_pattern": "seta_website_snippets_*.json",
+        "output_profile": OUTPUT_PROFILE_REQUIRED_PUBLIC,
     },
 ]
 
@@ -108,6 +124,12 @@ def find_latest_file(glob_dir: Path, pattern: str) -> Optional[Path]:
     if not valid_matches:
         return None
     return max(valid_matches, key=lambda p: p.stat().st_mtime)
+
+def get_output_profile(step: Dict[str, Any]) -> str:
+    return str(step.get("output_profile") or OUTPUT_PROFILE_REQUIRED_CONTENT)
+
+def is_required_step(step: Dict[str, Any]) -> bool:
+    return get_output_profile(step) in REQUIRED_OUTPUT_PROFILES
 
 def get_actual_output(step: Dict[str, Any]) -> Optional[Path]:
     expected = step["expected_latest"]
@@ -213,8 +235,11 @@ def normalize_system_exit_code(code: Any) -> int:
 
 def run_step_direct(step: Dict[str, Any], dry_run: bool = False) -> Dict[str, Any]:
     script = step["script"]
+    output_profile = get_output_profile(step)
     result = {
         "name": step["name"],
+        "output_profile": output_profile,
+        "required_output": output_profile in REQUIRED_OUTPUT_PROFILES,
         "started_at_utc": now_iso(),
         "status": "pending",
         "returncode": None,
@@ -265,7 +290,12 @@ def run_step_direct(step: Dict[str, Any], dry_run: bool = False) -> Dict[str, An
 
     output = get_actual_output(step)
     if not output:
-        result.update({"status": "failed", "finished_at_utc": now_iso(), "stderr_tail": f"Expected output not found for {step['name']}"})
+        missing_level = "required" if result["required_output"] else "optional"
+        result.update({
+            "status": "failed" if result["required_output"] else "optional_missing",
+            "finished_at_utc": now_iso(),
+            "stderr_tail": f"Expected {missing_level} output not found for {step['name']}",
+        })
         return result
 
     result["output_path"] = str(output)
@@ -302,6 +332,45 @@ def collect_final_outputs() -> Dict[str, str]:
             outputs[step["name"]] = str(actual)
     return outputs
 
+def summarize_run_quality(steps: List[Dict[str, Any]]) -> Dict[str, Any]:
+    counts = {
+        "required_missing_count": 0,
+        "optional_missing_count": 0,
+        "safety_violation_count": 0,
+        "failed_count": 0,
+        "passed_count": 0,
+    }
+    by_profile: Dict[str, Dict[str, int]] = {}
+    for step in steps:
+        status = str(step.get("status"))
+        profile = str(step.get("output_profile") or "unknown")
+        by_profile.setdefault(profile, {})
+        by_profile[profile][status] = by_profile[profile].get(status, 0) + 1
+        if status == "passed":
+            counts["passed_count"] += 1
+        elif status == "optional_missing":
+            counts["optional_missing_count"] += 1
+        elif status == "safety_violation":
+            counts["safety_violation_count"] += 1
+        elif step.get("required_output") and status in {"failed", "missing_script"}:
+            counts["required_missing_count"] += 1
+            counts["failed_count"] += 1
+        elif status in {"failed", "missing_script"}:
+            counts["failed_count"] += 1
+
+    if counts["required_missing_count"] or counts["safety_violation_count"]:
+        run_quality_status = "red"
+    elif counts["optional_missing_count"] or counts["failed_count"]:
+        run_quality_status = "yellow"
+    else:
+        run_quality_status = "green"
+
+    return {
+        "run_quality_status": run_quality_status,
+        "warning_counts": counts,
+        "by_output_profile": by_profile,
+    }
+
 def smart_dual_save_run(report_path: Path) -> None:
     if not CLOUD_SYNC_DIR.exists():
         CLOUD_SYNC_DIR.mkdir(parents=True, exist_ok=True)
@@ -329,10 +398,12 @@ def main() -> int:
         "started_at_utc": now_iso(),
         "finished_at_utc": None,
         "status": "running",
+        "run_quality_status": "unknown",
         "draft_only": True,
         "posting_performed": False,
         "steps": [],
         "final_outputs": {},
+        "output_quality": {},
     }
 
     print("=" * 76); print("SETA content pipeline runner V2 (Direct Execution)"); print("=" * 76)
@@ -345,6 +416,8 @@ def main() -> int:
 
         if result["status"] == "passed":
             print(f"[OK] {step['name']}")
+        elif result["status"] == "optional_missing":
+            print(f"[WARN] {step['name']} optional output missing")
         else:
             overall_ok = False
             print(f"[ERROR] {step['name']} status={result['status']}")
@@ -353,6 +426,8 @@ def main() -> int:
 
     run["finished_at_utc"] = now_iso()
     run["final_outputs"] = collect_final_outputs()
+    run["output_quality"] = summarize_run_quality(run["steps"])
+    run["run_quality_status"] = run["output_quality"]["run_quality_status"]
     run["status"] = "passed" if overall_ok else "failed"
 
     json_path = out_dir / f"seta_content_pipeline_run_{run_id}.json"
@@ -369,13 +444,20 @@ def main() -> int:
         f"# SETA Content Pipeline Run — {run_id}\n",
         f"Started: {run['started_at_utc']}",
         f"Finished: {run['finished_at_utc']}",
-        f"Status: {run['status']}\n",
+        f"Status: {run['status']}",
+        f"Run quality: {run['run_quality_status']}\n",
         "> Draft-only pipeline. No posting is performed.\n",
+        "## Output quality\n",
+        "```json",
+        json.dumps(run["output_quality"], indent=2),
+        "```\n",
         "## Steps\n"
     ]
 
     for s in run["steps"]:
         md_lines.append(f"### {s['name']} — {s['status']}\n")
+        md_lines.append(f"- Output profile: {s.get('output_profile', 'unknown')}")
+        md_lines.append(f"- Required output: {s.get('required_output', False)}")
         if s['returncode'] is not None: md_lines.append(f"- Return code: {s['returncode']}")
         if s['output_path']: md_lines.append(f"- Output JSON: {s['output_path']}")
         md_lines.append(f"- Safety OK: {s['safety_ok']}")
@@ -406,6 +488,7 @@ def main() -> int:
     print(json.dumps({
         "run_id": run_id,
         "status": run["status"],
+        "run_quality_status": run["run_quality_status"],
         "json_path": str(json_path),
         "markdown_path": str(md_path),
         "latest_json": str(latest_json),
@@ -414,6 +497,7 @@ def main() -> int:
         "draft_only": run["draft_only"],
         "posting_performed": run["posting_performed"],
         "final_outputs": run["final_outputs"],
+        "output_quality": run["output_quality"],
     }, indent=2))
     print("=" * 76)
 
