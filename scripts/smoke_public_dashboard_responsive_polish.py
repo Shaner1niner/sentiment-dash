@@ -2,6 +2,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 module = ROOT / "src" / "features" / "PublicDashboardResponsivePolish.js"
+touch_module = ROOT / "src" / "features" / "TouchChartStatusPolish.js"
 entry = ROOT / "src" / "dashboard_main.js"
 
 
@@ -13,11 +14,12 @@ def ok(message: str) -> None:
     print(f"[OK] {message}")
 
 
-for path in [module, entry]:
+for path in [module, touch_module, entry]:
     if not path.exists():
         fail(f"missing {path.relative_to(ROOT)}")
 
 module_text = module.read_text(encoding="utf-8")
+touch_text = touch_module.read_text(encoding="utf-8")
 entry_text = entry.read_text(encoding="utf-8")
 
 for token in [
@@ -42,7 +44,24 @@ for token in [
 
 ok("responsive polish module protects narrow-screen layout and mobile chart chrome")
 
+for token in [
+    "module_touch_chart_status_polish_001",
+    "looksLikeChartStatus",
+    "Markers:",
+    "price_overlays",
+    "setaTouchHiddenChartStatus",
+    "data-touch-chart-status-polish",
+    "MutationObserver",
+]:
+    if token not in touch_text:
+        fail(f"touch chart status polish module missing token: {token}")
+
+ok("touch chart status polish hides chart status text on touch layouts")
+
 if "PublicDashboardResponsivePolish.js?v=module_public_dashboard_responsive_polish_001" not in entry_text:
     fail("dashboard entrypoint does not load PublicDashboardResponsivePolish")
 
-ok("dashboard entrypoint loads responsive polish module")
+if "TouchChartStatusPolish.js?v=module_touch_chart_status_polish_001" not in entry_text:
+    fail("dashboard entrypoint does not load TouchChartStatusPolish")
+
+ok("dashboard entrypoint loads responsive and touch chart status polish modules")
