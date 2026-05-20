@@ -10,6 +10,7 @@ import './features/ViewModeDensityPatch.js?v=module_view_mode_density_001';
 import './features/ActiveSetupSnapshotVisualPolish.js?v=module_active_setup_snapshot_visual_polish_001';
 import './features/PublicDashboardResponsivePolish.js?v=module_public_dashboard_responsive_polish_001';
 import './features/TouchChartStatusPolish.js?v=module_touch_chart_status_polish_001';
+import './features/MobilePublicDashboardAffordances.js?v=module_mobile_public_dashboard_affordances_001';
 import { Controls } from './features/Controls.js';
 import { BriefingPanel } from './features/BriefingPanel.js';
 
