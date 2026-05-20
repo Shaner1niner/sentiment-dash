@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="How SETA reads market emotion, structure, participation, and evidence without issuing price targets or trade instructions." />
+  <title>How SETA Reads the Market</title>
+  <style>
+    :root {
+      --bg: #05070a;
+      --panel: #0d1117;
+      --panel-2: #090d12;
+      --text: #f0f6fc;
+      --muted: #9aa4b2;
+      --border: rgba(125, 211, 252, .22);
+      --accent: #7dd3fc;
+      --gold: #f2cc60;
+      color-scheme: dark;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); }
+    body {
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      line-height: 1.55;
+      background:
+        radial-gradient(circle at 16% 10%, rgba(125, 211, 252, .12), transparent 28%),
+        radial-gradient(circle at 80% 18%, rgba(242, 204, 96, .08), transparent 28%),
+        linear-gradient(180deg, #05070a, #030405 58%, #000);
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { width: min(980px, calc(100% - 40px)); margin: 0 auto; padding: 28px 0 64px; }
+    .topbar { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 28px; }
+    .back { color: var(--muted); font-size: 13px; }
+    .badge { border: 1px solid rgba(142, 232, 162, .34); border-radius: 999px; color: #8ee8a2; padding: 6px 10px; font-size: 12px; font-weight: 800; }
+    .hero { border: 1px solid var(--border); background: rgba(13, 17, 23, .72); border-radius: 18px; padding: clamp(22px, 4vw, 38px); box-shadow: 0 24px 80px rgba(0,0,0,.32); }
+    h1 { margin: 0 0 12px; font-size: clamp(2.3rem, 6vw, 4.8rem); line-height: .95; letter-spacing: -.055em; }
+    .hero p { color: var(--muted); font-size: clamp(1rem, 2vw, 1.24rem); max-width: 800px; margin: 0; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+    .card { border: 1px solid rgba(125, 211, 252, .16); border-radius: 14px; background: rgba(9, 13, 18, .78); padding: 18px; }
+    .card h2 { color: var(--accent); font-size: 13px; letter-spacing: .08em; text-transform: uppercase; margin: 0 0 10px; }
+    .card p { color: #d6dee8; margin: 0; font-size: 15px; }
+    .card strong { color: var(--text); }
+    .rule { margin: 28px 0 0; border-top: 1px solid rgba(125,211,252,.18); padding-top: 20px; color: var(--muted); }
+    code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    pre { white-space: pre-wrap; border: 1px solid rgba(242,204,96,.18); border-radius: 12px; background: rgba(242,204,96,.05); color: #f7df95; padding: 14px; }
+    .wide { grid-column: 1 / -1; }
+    @media (max-width: 740px) {
+      .grid { grid-template-columns: 1fr; }
+      .topbar { align-items: start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="topbar" aria-label="Page navigation">
+      <a class="back" href="interactive_dashboard_fix24_public_embed.html">← Back to Public Dashboard</a>
+      <span class="badge">SETA glossary</span>
+    </nav>
+
+    <section class="hero">
+      <h1>How SETA reads the market.</h1>
+      <p>SETA organizes market emotion, setup quality, and participation context. It is a research and education layer — not a price target, trade instruction, or buy/sell recommendation.</p>
+    </section>
+
+    <section class="grid" aria-label="SETA language guide">
+      <article class="card">
+        <h2>Structure Score</h2>
+        <p><strong>Structure Score</strong> is SETA's 0–100 read on setup quality: how coherent the current sentiment, price, technical, confirmation, and participation structure looks.</p>
+      </article>
+
+      <article class="card">
+        <h2>Structure Trend</h2>
+        <p><strong>Improving</strong>, <strong>softening</strong>, or <strong>stable</strong> describes the recent direction of travel in Structure Score, not a guaranteed future move.</p>
+      </article>
+
+      <article class="card">
+        <h2>Signal State</h2>
+        <p><strong>Signal State</strong> combines the current bias and setup stage. Example: Bias: Bearish · Stage: Momentum means pressure is active, not exhausted.</p>
+      </article>
+
+      <article class="card">
+        <h2>Participation Quality</h2>
+        <p><strong>Participation Quality</strong> asks whether the read is broadly supported or distorted by thin, noisy, concentrated activity. It affects confidence, not direction by itself.</p>
+      </article>
+
+      <article class="card">
+        <h2>Evidence</h2>
+        <p><strong>Evidence</strong> is the receipt layer: visible dashboard/chart receipts first, SETA system notes second, and external context only when relevant and verified.</p>
+      </article>
+
+      <article class="card">
+        <h2>Overlap Band</h2>
+        <p><strong>Overlap Band</strong> is high-value context for sentiment/price separation, but it is optional. If it does not materially change the read, SETA can silently omit it.</p>
+      </article>
+
+      <article class="card">
+        <h2>Research Mode</h2>
+        <p><strong>Research Mode</strong> contains the deeper receipts behind the read: source mix, drivers, confirmation context, and additional evidence trails when available.</p>
+      </article>
+
+      <article class="card">
+        <h2>AI / model badge</h2>
+        <p>The AI/model badge is a context flag, not a standalone signal. It should be read alongside structure, confirmation, and participation quality.</p>
+      </article>
+
+      <article class="card wide">
+        <h2>Chart layers</h2>
+        <p><strong>Structure</strong> = setup coherence. <strong>Momentum</strong> = continuation force. <strong>Pressure</strong> = unresolved tension. <strong>Timing</strong> = extension or mean-reversion risk.</p>
+      </article>
+    </section>
+
+    <section class="rule">
+      <p>Default public read format:</p>
+      <pre>Asset: BTC
+View: Daily / 3M
+Read: Weak structure, softening</pre>
+      <p>SETA explains market emotion and setup quality. It does not tell readers what to buy or sell.</p>
+    </section>
+  </main>
+</body>
+</html>
