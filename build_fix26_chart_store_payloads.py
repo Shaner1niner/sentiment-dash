@@ -129,10 +129,13 @@ def load_csv(path: Path) -> pd.DataFrame:
     df["term"] = df["term"].astype(str).str.strip().str.upper()
     df = df.dropna(subset=["date", "term"]).sort_values(["term", "date"]).reset_index(drop=True)
 
+    fallback_columns: dict[str, pd.Series] = {}
     if "rsi_d" not in df.columns and "rsi" in df.columns:
-        df["rsi_d"] = df["rsi"]
+        fallback_columns["rsi_d"] = df["rsi"]
     if "sentiment_rsi_d" not in df.columns and "sentiment_rsi" in df.columns:
-        df["sentiment_rsi_d"] = df["sentiment_rsi"]
+        fallback_columns["sentiment_rsi_d"] = df["sentiment_rsi"]
+    if fallback_columns:
+        df = pd.concat([df, pd.DataFrame(fallback_columns, index=df.index)], axis=1).copy()
 
     alias_groups = {
         "sentiment_upper_band": ["sentiment_upper_band", "sentiment_upper_band_1"],
@@ -144,21 +147,25 @@ def load_csv(path: Path) -> pd.DataFrame:
         "scaled_sentiment_macd": ["scaled_sentiment_macd"],
         "scaled_sentiment_macd_signal": ["scaled_sentiment_macd_signal"],
     }
+    alias_columns: dict[str, pd.Series] = {}
     for target, candidates in alias_groups.items():
         if target in df.columns:
             continue
         for cand in candidates:
             if cand in df.columns:
-                df[target] = df[cand]
+                alias_columns[target] = df[cand]
                 break
+    if alias_columns:
+        df = pd.concat([df, pd.DataFrame(alias_columns, index=df.index)], axis=1).copy()
 
     df = derive_seta_dashboard_summary_fields(df)
 
     keep = [c for c in CORE_FIELDS if c in df.columns]
     missing = [c for c in CORE_FIELDS if c not in df.columns and c != "date"]
-    for col in missing:
-        df[col] = pd.NA
-        keep.append(col)
+    if missing:
+        missing_columns = {col: pd.Series(pd.NA, index=df.index) for col in missing}
+        df = pd.concat([df, pd.DataFrame(missing_columns, index=df.index)], axis=1).copy()
+        keep.extend(missing)
     return df[["term"] + [c for c in CORE_FIELDS if c in df.columns]].copy()
 
 
