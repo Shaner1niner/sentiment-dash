@@ -1,6 +1,7 @@
 const INTRO_COPY_TOKEN = 'module_public_dashboard_intro_copy_001';
 
 const PUBLIC_DASHBOARD_SUBTITLE = 'Read attention, sentiment, structure, and confirmation context in one view. SETA explains market emotion and setup quality - not price targets or trade instructions.';
+const PUBLIC_FRESHNESS_NOTE = 'Freshness shows the latest visible dashboard data date. SETA uses this as a data-quality cue, not a price forecast or trade instruction.';
 const PUBLIC_LANGUAGE_GUIDE_URL = './how_seta_reads_the_market.html';
 
 const CONTROL_LABELS = {
@@ -52,8 +53,37 @@ function installLanguageGuideLinkStyle() {
         color: #b6e7ff;
         outline: none;
       }
+      .setaFreshnessReaderNote {
+        border-left: 2px solid rgba(125, 211, 252, .42);
+        color: #8b949e;
+        font-size: 12px;
+        line-height: 1.45;
+        margin: 8px 0 0;
+        max-width: 760px;
+        padding-left: 10px;
+      }
+      .setaFreshnessReaderNote strong {
+        color: #c9d1d9;
+        font-weight: 800;
+      }
     `;
     document.head.appendChild(style);
+}
+
+function applyFreshnessReaderNote(banner) {
+    if (!banner || banner.querySelector('[data-seta-freshness-reader-note]')) return;
+
+    const note = document.createElement('p');
+    note.className = 'setaFreshnessReaderNote';
+    note.innerHTML = `<strong>Freshness:</strong> ${PUBLIC_FRESHNESS_NOTE}`;
+    note.setAttribute('data-seta-freshness-reader-note', INTRO_COPY_TOKEN);
+
+    const link = banner.querySelector('[data-seta-language-guide-link]');
+    if (link) {
+        banner.insertBefore(note, link);
+    } else {
+        banner.appendChild(note);
+    }
 }
 
 function applyLanguageGuideLink(banner) {
@@ -82,6 +112,7 @@ function applyPublicDashboardIntroCopy() {
             paragraph.setAttribute('data-copy-token', INTRO_COPY_TOKEN);
         }
         applyLanguageGuideLink(banner);
+        applyFreshnessReaderNote(banner);
     }
 
     applyControlLabels();
@@ -97,4 +128,4 @@ if (document.readyState === 'loading') {
     applyPublicDashboardIntroCopy();
 }
 
-export { CONTROL_LABELS, PUBLIC_DASHBOARD_SUBTITLE, PUBLIC_LANGUAGE_GUIDE_URL, applyPublicDashboardIntroCopy };
+export { CONTROL_LABELS, PUBLIC_DASHBOARD_SUBTITLE, PUBLIC_FRESHNESS_NOTE, PUBLIC_LANGUAGE_GUIDE_URL, applyPublicDashboardIntroCopy };
