@@ -22,11 +22,11 @@ REM   8. Stages changed website repo files in git
 REM   9. Optionally commits and pushes
 REM
 REM Safety behavior:
-REM   - Default path remains the existing legacy exporter
-REM   - DB chart-history export is opt-in via USE_DB_CHART_EXPORT=1
+REM   - Default chart-history payload path uses the canonical DB overlay
+REM   - Set USE_DB_CHART_EXPORT=0 to force legacy chart-history output
 REM   - DB chart-history export must pass row/date-depth guardrails before overwriting CSVs
 REM   - Legacy exporter still refreshes alert/audit/attention sidecars used downstream
-REM   - If the opt-in DB chart-history bridge fails, the script falls back to legacy
+REM   - If the DB chart-history bridge fails, the script falls back to legacy
 REM     chart-history output unless DB_EXPORT_FALLBACK_TO_LEGACY=0
 REM   - Stops if any required upstream step fails
 REM   - Deletes prior screener outputs before rebuilding so stale files cannot pass validation
@@ -76,13 +76,13 @@ set "AUTO_PUSH=0"
 set "COMMIT_MESSAGE=Fix 26 dashboard payload and SETA screener refresh"
 
 REM DB chart-history bridge switches. Defaults can be overridden before running this BAT:
-REM   set USE_DB_CHART_EXPORT=1
+REM   set USE_DB_CHART_EXPORT=0
 REM   set DB_EXPORT_FALLBACK_TO_LEGACY=0
 REM   set DB_CHART_EXPORT_ASSET_SOURCE=db
 REM   set DB_CHART_MIN_ROWS_PER_TERM=150
 REM   set DB_CHART_MIN_MEDIAN_ROWS_PER_TERM=250
 REM   set DB_CHART_MIN_DATE_SPAN_DAYS=330
-if "%USE_DB_CHART_EXPORT%"=="" set "USE_DB_CHART_EXPORT=0"
+if "%USE_DB_CHART_EXPORT%"=="" set "USE_DB_CHART_EXPORT=1"
 if "%DB_EXPORT_FALLBACK_TO_LEGACY%"=="" set "DB_EXPORT_FALLBACK_TO_LEGACY=1"
 if "%DB_CHART_EXPORT_ASSET_SOURCE%"=="" set "DB_CHART_EXPORT_ASSET_SOURCE=manifest"
 if "%DB_CHART_EXPORT_MODE%"=="" set "DB_CHART_EXPORT_MODE=all"
