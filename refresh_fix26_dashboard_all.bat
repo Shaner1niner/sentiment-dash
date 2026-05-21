@@ -24,6 +24,7 @@ REM
 REM Safety behavior:
 REM   - Default path remains the existing legacy exporter
 REM   - DB chart-history export is opt-in via USE_DB_CHART_EXPORT=1
+REM   - DB chart-history export must pass row/date-depth guardrails before overwriting CSVs
 REM   - Legacy exporter still refreshes alert/audit/attention sidecars used downstream
 REM   - If the opt-in DB chart-history bridge fails, the script falls back to legacy
 REM     chart-history output unless DB_EXPORT_FALLBACK_TO_LEGACY=0
@@ -78,11 +79,17 @@ REM DB chart-history bridge switches. Defaults can be overridden before running 
 REM   set USE_DB_CHART_EXPORT=1
 REM   set DB_EXPORT_FALLBACK_TO_LEGACY=0
 REM   set DB_CHART_EXPORT_ASSET_SOURCE=db
+REM   set DB_CHART_MIN_ROWS_PER_TERM=250
+REM   set DB_CHART_MIN_MEDIAN_ROWS_PER_TERM=300
+REM   set DB_CHART_MIN_DATE_SPAN_DAYS=330
 if "%USE_DB_CHART_EXPORT%"=="" set "USE_DB_CHART_EXPORT=0"
 if "%DB_EXPORT_FALLBACK_TO_LEGACY%"=="" set "DB_EXPORT_FALLBACK_TO_LEGACY=1"
 if "%DB_CHART_EXPORT_ASSET_SOURCE%"=="" set "DB_CHART_EXPORT_ASSET_SOURCE=manifest"
 if "%DB_CHART_EXPORT_MODE%"=="" set "DB_CHART_EXPORT_MODE=all"
 if "%DB_CHART_HISTORY_DAYS%"=="" set "DB_CHART_HISTORY_DAYS=365"
+if "%DB_CHART_MIN_ROWS_PER_TERM%"=="" set "DB_CHART_MIN_ROWS_PER_TERM=250"
+if "%DB_CHART_MIN_MEDIAN_ROWS_PER_TERM%"=="" set "DB_CHART_MIN_MEDIAN_ROWS_PER_TERM=300"
+if "%DB_CHART_MIN_DATE_SPAN_DAYS%"=="" set "DB_CHART_MIN_DATE_SPAN_DAYS=330"
 
 if "%TWT_SNT_DB_URL%"=="" (
   echo [ERROR] TWT_SNT_DB_URL is not set.
@@ -203,10 +210,16 @@ if "%USE_DB_CHART_EXPORT%"=="1" (
   echo DB asset source: %DB_CHART_EXPORT_ASSET_SOURCE%
   echo DB mode: %DB_CHART_EXPORT_MODE%
   echo DB history days: %DB_CHART_HISTORY_DAYS%
+  echo DB min rows per term: %DB_CHART_MIN_ROWS_PER_TERM%
+  echo DB min median rows per term: %DB_CHART_MIN_MEDIAN_ROWS_PER_TERM%
+  echo DB min date span days: %DB_CHART_MIN_DATE_SPAN_DAYS%
   "%PYTHON_EXE%" "%DB_EXPORT_BRIDGE%" ^
     --asset-source "%DB_CHART_EXPORT_ASSET_SOURCE%" ^
     --mode "%DB_CHART_EXPORT_MODE%" ^
     --history-days %DB_CHART_HISTORY_DAYS% ^
+    --min-rows-per-term %DB_CHART_MIN_ROWS_PER_TERM% ^
+    --min-median-rows-per-term %DB_CHART_MIN_MEDIAN_ROWS_PER_TERM% ^
+    --min-date-span-days %DB_CHART_MIN_DATE_SPAN_DAYS% ^
     --output-dir "%EXPORT_DIR%" ^
     --output-filename "%EXPORT_FILENAME%" ^
     --tableau-autosync-dir "%TABLEAU_AUTOSYNC_DIR%"

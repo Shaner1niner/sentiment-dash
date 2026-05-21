@@ -4,7 +4,8 @@ from __future__ import annotations
 
 This smoke test does not run the production refresh. It verifies that the BAT
 keeps the legacy exporter as the default path, exposes an explicit DB bridge
-opt-in, and protects fallback behavior.
+opt-in, protects fallback behavior, and passes history-depth guardrails to the
+DB chart-history bridge.
 """
 
 from pathlib import Path
@@ -31,18 +32,25 @@ def main() -> int:
         "if \"%USE_DB_CHART_EXPORT%\"==\"\" set \"USE_DB_CHART_EXPORT=0\"",
         "if \"%DB_EXPORT_FALLBACK_TO_LEGACY%\"==\"\" set \"DB_EXPORT_FALLBACK_TO_LEGACY=1\"",
         "if \"%DB_CHART_EXPORT_ASSET_SOURCE%\"==\"\" set \"DB_CHART_EXPORT_ASSET_SOURCE=manifest\"",
+        "if \"%DB_CHART_MIN_ROWS_PER_TERM%\"==\"\" set \"DB_CHART_MIN_ROWS_PER_TERM=250\"",
+        "if \"%DB_CHART_MIN_MEDIAN_ROWS_PER_TERM%\"==\"\" set \"DB_CHART_MIN_MEDIAN_ROWS_PER_TERM=300\"",
+        "if \"%DB_CHART_MIN_DATE_SPAN_DAYS%\"==\"\" set \"DB_CHART_MIN_DATE_SPAN_DAYS=330\"",
         "echo [1/8] Running legacy chart-history exporter...",
         "echo [1b/8] Overlaying chart-history CSV from canonical DB table...",
         "--asset-source \"%DB_CHART_EXPORT_ASSET_SOURCE%\"",
+        "--min-rows-per-term %DB_CHART_MIN_ROWS_PER_TERM%",
+        "--min-median-rows-per-term %DB_CHART_MIN_MEDIAN_ROWS_PER_TERM%",
+        "--min-date-span-days %DB_CHART_MIN_DATE_SPAN_DAYS%",
         "--tableau-autosync-dir \"%TABLEAU_AUTOSYNC_DIR%\"",
         "echo [WARN] DB chart-history overlay failed. Continuing with legacy exporter chart-history CSV.",
         "DB_EXPORT_FALLBACK_TO_LEGACY=0",
+        "DB chart-history export must pass row/date-depth guardrails before overwriting CSVs",
         "Legacy exporter still refreshes alert/audit/attention sidecars used downstream",
     ]
     for token in required_tokens:
         if token not in text:
             fail(f"missing expected token: {token}")
-    ok("refresh BAT exposes DB bridge opt-in and fallback controls")
+    ok("refresh BAT exposes DB bridge opt-in, fallback controls, and depth guard thresholds")
 
     legacy_idx = text.find("echo [1/8] Running legacy chart-history exporter...")
     overlay_idx = text.find("echo [1b/8] Overlaying chart-history CSV from canonical DB table...")
