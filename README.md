@@ -91,6 +91,18 @@ python scripts/smoke_fix26_dashboard.py
 
 This checks that the generated payloads exist, the screener store has the expected structure, the dashboard app contains expected Market Tape hooks, and the embed pages reference the dashboard JS with a cache token.
 
+Run the DB source contract smoke test after changing DB-source docs or reporting scripts:
+
+```powershell
+python scripts/smoke_dashboard_db_source_contract.py
+```
+
+Run the read-only local DB source contract report on the production machine when `TWT_SNT_DB_URL` is available:
+
+```powershell
+python scripts/report_dashboard_db_source_contract.py
+```
+
 The public context cards page also has its own smoke-test pattern. The page should continue to read:
 
 ```text
@@ -178,9 +190,10 @@ Start here:
 - `docs/MONETIZATION_STRUCTURE_V1.md`
 - `docs/INVESTOR_ONE_PAGER_V1.md`
 - `docs/REPO_STRUCTURE.md`
+- `docs/DASHBOARD_DB_SOURCE_CONTRACT_V1.md`
 - `docs/DASHBOARD_V2_COMPLETION_LEDGER.md`
 - `docs/GITHUB_PAGES_LIVE_HEALTH_CHECK.md`
 
-These docs define the Dashboard v2 operating plan, SETA methodology, Briefing Mode direction, AI briefing schema and implementation path, large-population AI briefing rollout path, SaaS migration path, demo narrative, monetization posture, and current repository structure.
+These docs define the Dashboard v2 operating plan, SETA methodology, Briefing Mode direction, AI briefing schema and implementation path, large-population AI briefing rollout path, SaaS migration path, demo narrative, monetization posture, current repository structure, and DB-backed dashboard source boundary.
 
 - [Dashboard v2 RC Baseline - 2026-05-02](docs/DASHBOARD_V2_RC_BASELINE_2026-05-02.md)
