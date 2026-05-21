@@ -2,7 +2,7 @@ from __future__ import annotations
 
 """Export dashboard chart history from the canonical enriched DB table.
 
-This is the conservative Phase 2 bridge for the Dashboard DB Source Contract:
+Conservative Phase 2 bridge for the Dashboard DB Source Contract:
 
     Postgres final_combined_data_enriched_tbl
       -> final_combined_data_enriched_chart_history.csv
@@ -14,11 +14,6 @@ contract remains stable while the source of truth moves closer to Postgres.
 
 Environment:
   TWT_SNT_DB_URL must be set unless using --print-manifest-terms only.
-
-Examples:
-  python scripts/export_dashboard_chart_history_from_db.py --dry-run
-  python scripts/export_dashboard_chart_history_from_db.py --output-dir C:\Users\shane\snt_exports
-  python scripts/export_dashboard_chart_history_from_db.py --asset-source db --dry-run
 """
 
 import argparse
@@ -117,12 +112,27 @@ def source_columns(conn: Any, source_table: str) -> list[str]:
     return [str(row[0]) for row in conn.execute(text(sql), params).fetchall()]
 
 
-def db_terms(conn: Any, source_table: str, history_days: int | None) -> list[str]:
+def where_clause(terms: list[str], history_days: int | None) -> tuple[list[str], dict[str, Any]]:
     where = ["term is not null", "date is not null"]
     params: dict[str, Any] = {}
+    if terms:
+        where.append("upper(trim(term::text)) in :terms")
+        params["terms"] = terms
     if history_days is not None:
         where.append("date >= current_date - (:history_days * interval '1 day')")
         params["history_days"] = int(history_days)
+    return where, params
+
+
+def bind_query(sql: str, terms: list[str]) -> Any:
+    query = text(sql)
+    if terms:
+        query = query.bindparams(bindparam("terms", expanding=True))
+    return query
+
+
+def db_terms(conn: Any, source_table: str, history_days: int | None) -> list[str]:
+    where, params = where_clause([], history_days)
     sql = f"""
         select distinct upper(trim(term::text)) as term
         from {qualified_table(source_table)}
@@ -152,31 +162,30 @@ def determine_terms(args: argparse.Namespace, conn: Any | None, manifest: dict[s
     raise ValueError(f"Unsupported asset source: {args.asset_source}")
 
 
-def build_query(source_table: str, terms: list[str], history_days: int | None) -> Any:
-    where = ["term is not null", "date is not null"]
-    params: dict[str, Any] = {}
-
-    if terms:
-        where.append("upper(trim(term::text)) in :terms")
-        params["terms"] = terms
-    if history_days is not None:
-        where.append("date >= current_date - (:history_days * interval '1 day')")
-        params["history_days"] = int(history_days)
-
+def build_export_query(source_table: str, terms: list[str], history_days: int | None) -> tuple[Any, dict[str, Any]]:
+    where, params = where_clause(terms, history_days)
     sql = f"""
         select *
         from {qualified_table(source_table)}
         where {' and '.join(where)}
         order by upper(trim(term::text)), date
     """
-    query = text(sql)
-    if terms:
-        query = query.bindparams(bindparam("terms", expanding=True))
-    return query, params
+    return bind_query(sql, terms), params
+
+
+def build_count_query(source_table: str, terms: list[str], history_days: int | None) -> tuple[Any, dict[str, Any]]:
+    where, params = where_clause(terms, history_days)
+    sql = f"""
+        select count(*)
+        from {qualified_table(source_table)}
+        where {' and '.join(where)}
+    """
+    return bind_query(sql, terms), params
 
 
 def export_chart_history(args: argparse.Namespace) -> dict[str, Any]:
-    manifest = load_json(Path(args.manifest)) if Path(args.manifest).exists() else None
+    manifest_path = Path(args.manifest)
+    manifest = load_json(manifest_path) if manifest_path.exists() else None
 
     if args.print_manifest_terms:
         terms = determine_terms(args, None, manifest)
@@ -196,15 +205,9 @@ def export_chart_history(args: argparse.Namespace) -> dict[str, Any]:
 
         terms = determine_terms(args, conn, manifest)
         history_days = None if args.no_history_filter else args.history_days
-        query, params = build_query(args.source_table, terms, history_days)
 
         if args.dry_run:
-            count_query = f"select count(*) from ({str(query)}) as export_preview"
-            count_params = dict(params)
-            if terms:
-                count_query = text(count_query).bindparams(bindparam("terms", expanding=True))
-            else:
-                count_query = text(count_query)
+            count_query, count_params = build_count_query(args.source_table, terms, history_days)
             row_count = int(conn.execute(count_query, count_params).scalar() or 0)
             return {
                 "dry_run": True,
@@ -218,6 +221,7 @@ def export_chart_history(args: argparse.Namespace) -> dict[str, Any]:
                 "source_column_count": len(columns),
             }
 
+        query, params = build_export_query(args.source_table, terms, history_days)
         df = pd.read_sql_query(query, conn, params=params)
 
     if df.empty:
