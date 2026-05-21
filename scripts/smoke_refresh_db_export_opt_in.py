@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-"""Static smoke checks for refresh_fix26_dashboard_all.bat DB-export opt-in.
+"""Static smoke checks for refresh_fix26_dashboard_all.bat DB chart-history defaults.
 
 This smoke test does not run the production refresh. It verifies that the BAT
-keeps the legacy exporter as the default path, exposes an explicit DB bridge
-opt-in, protects fallback behavior, and passes calibrated history-depth
-guardrails to the DB chart-history bridge.
+runs the legacy exporter first for sidecars, uses the DB chart-history bridge as
+the default chart-history payload path, protects fallback behavior, and passes
+calibrated history-depth guardrails to the DB chart-history bridge.
 """
 
 from pathlib import Path
@@ -29,7 +29,9 @@ def main() -> int:
 
     required_tokens = [
         "set \"DB_EXPORT_BRIDGE=%WEBSITE_REPO%\\scripts\\export_dashboard_chart_history_from_db.py\"",
-        "if \"%USE_DB_CHART_EXPORT%\"==\"\" set \"USE_DB_CHART_EXPORT=0\"",
+        "Default chart-history payload path uses the canonical DB overlay",
+        "Set USE_DB_CHART_EXPORT=0 to force legacy chart-history output",
+        "if \"%USE_DB_CHART_EXPORT%\"==\"\" set \"USE_DB_CHART_EXPORT=1\"",
         "if \"%DB_EXPORT_FALLBACK_TO_LEGACY%\"==\"\" set \"DB_EXPORT_FALLBACK_TO_LEGACY=1\"",
         "if \"%DB_CHART_EXPORT_ASSET_SOURCE%\"==\"\" set \"DB_CHART_EXPORT_ASSET_SOURCE=manifest\"",
         "if \"%DB_CHART_MIN_ROWS_PER_TERM%\"==\"\" set \"DB_CHART_MIN_ROWS_PER_TERM=150\"",
@@ -50,20 +52,20 @@ def main() -> int:
     for token in required_tokens:
         if token not in text:
             fail(f"missing expected token: {token}")
-    ok("refresh BAT exposes DB bridge opt-in, fallback controls, and calibrated depth guard thresholds")
+    ok("refresh BAT defaults to DB bridge with fallback controls and calibrated depth guard thresholds")
 
     legacy_idx = text.find("echo [1/8] Running legacy chart-history exporter...")
     overlay_idx = text.find("echo [1b/8] Overlaying chart-history CSV from canonical DB table...")
     screener_idx = text.find("echo [2/8] Building SETA market screener")
     if not (0 <= legacy_idx < overlay_idx < screener_idx):
-        fail("expected order is legacy exporter, optional DB overlay, then screener builder")
-    ok("refresh BAT runs optional DB overlay after legacy exporter and before screener build")
+        fail("expected order is legacy exporter, DB overlay, then screener builder")
+    ok("refresh BAT runs DB overlay after legacy exporter and before screener build")
 
     if text.count("%PYTHON_EXE%\" \"%DB_EXPORT_BRIDGE%\"") != 1:
         fail("expected exactly one DB export bridge invocation")
     ok("refresh BAT invokes DB export bridge exactly once")
 
-    print("[OK] refresh DB export opt-in smoke passed")
+    print("[OK] refresh DB export default smoke passed")
     return 0
 
 
