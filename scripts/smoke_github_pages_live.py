@@ -53,6 +53,14 @@ REQUIRED_REFS_BY_PAGE: dict[str, tuple[str, ...]] = {
 
 RUNTIME_JS_REFS = {"dashboard_fix26_app.js", "src/dashboard_main.js"}
 
+# Public intentionally uses the module runtime while member remains on the
+# legacy monolith runtime. Treat this exact split as healthy; warn on any other
+# mixed runtime token set.
+ACCEPTED_RUNTIME_CACHE_TOKEN_SPLIT = {
+    "public dashboard": "module_sentiment_price_alignment_hover_001",
+    "member dashboard": "restore_monolith_entry_001",
+}
+
 
 @dataclass
 class Response:
@@ -173,7 +181,10 @@ class LiveHealthCheck:
         if len(unique_tokens) == 1:
             self.ok(f"dashboard runtime cache token is consistent: {unique_tokens[0]}")
         elif len(unique_tokens) > 1:
-            self.warn(f"dashboard runtime cache tokens differ by surface: {runtime_cache_tokens}")
+            if runtime_cache_tokens == ACCEPTED_RUNTIME_CACHE_TOKEN_SPLIT:
+                self.ok(f"accepted dashboard runtime cache token split: {runtime_cache_tokens}")
+            else:
+                self.warn(f"dashboard runtime cache tokens differ by surface: {runtime_cache_tokens}")
         elif REQUIRED_REFS_BY_PAGE:
             self.fail("no dashboard runtime cache tokens found")
 
