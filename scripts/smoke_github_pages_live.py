@@ -32,6 +32,27 @@ JSON_ENDPOINTS = {
     "public snippets": "public_content/seta_website_snippets_latest.json",
 }
 
+EXPECTED_TITLES: dict[str, tuple[str, ...]] = {
+    "site root": ("SETA Sentiment Dashboard", "SETA Sentiment Dashboard | sentiment-dash"),
+    "public dashboard": ("SETA Public Dashboard", "SETA Market Dashboard"),
+    "member dashboard": ("SETA Research Dashboard",),
+    "market context cards": ("SETA Market Context Cards",),
+}
+
+REQUIRED_REFS_BY_PAGE: dict[str, tuple[str, ...]] = {
+    "public dashboard": (
+        "dashboard_fix26_base.css",
+        "src/dashboard_main.js",
+    ),
+    "member dashboard": (
+        "dashboard_fix26_base.css",
+        "dashboard_fix26_app.js",
+        "dashboard_alert_events_v2_patch.js",
+    ),
+}
+
+RUNTIME_JS_REFS = {"dashboard_fix26_app.js", "src/dashboard_main.js"}
+
 
 @dataclass
 class Response:
@@ -63,6 +84,12 @@ class LiveHealthCheck:
         self.errors.append(msg)
         print(f"[ERROR] {msg}")
 
+    def resolve(self, rel_or_url: str) -> str:
+        parsed = urlparse(rel_or_url)
+        if parsed.scheme and parsed.netloc:
+            return rel_or_url
+        return urljoin(self.base_url, rel_or_url)
+
     def fetch(self, label: str, rel_or_url: str) -> Response | None:
         url = self.resolve(rel_or_url)
         request = Request(
@@ -77,13 +104,12 @@ class LiveHealthCheck:
                 body = raw.read()
                 charset = raw.headers.get_content_charset() or "utf-8"
                 text = body.decode(charset, errors="replace")
-                last_modified = parse_http_datetime(raw.headers.get("Last-Modified"))
                 response = Response(
                     url=url,
                     status=raw.status,
                     text=text,
                     content_type=raw.headers.get("Content-Type", ""),
-                    last_modified=last_modified,
+                    last_modified=parse_http_datetime(raw.headers.get("Last-Modified")),
                 )
         except HTTPError as exc:
             self.fail(f"{label} returned HTTP {exc.code}: {url}")
@@ -99,12 +125,6 @@ class LiveHealthCheck:
         self.responses[label] = response
         return response
 
-    def resolve(self, rel_or_url: str) -> str:
-        parsed = urlparse(rel_or_url)
-        if parsed.scheme and parsed.netloc:
-            return rel_or_url
-        return urljoin(self.base_url, rel_or_url)
-
     def fetch_baseline(self) -> None:
         for label, rel in HTML_ENDPOINTS.items():
             self.fetch(label, rel)
@@ -119,52 +139,43 @@ class LiveHealthCheck:
                 self.fail(f"{label} is not valid JSON: {exc}")
 
     def check_html_contracts(self) -> None:
-        expected_titles: dict[str, str | tuple[str, ...]] = {
-            "site root": ("SETA Sentiment Dashboard", "SETA Sentiment Dashboard | sentiment-dash"),
-            "public dashboard": "SETA Market Dashboard",
-            "member dashboard": "SETA Research Dashboard",
-            "market context cards": "SETA Market Context Cards",
-        }
-        for label, expected in expected_titles.items():
+        for label, expected_values in EXPECTED_TITLES.items():
             response = self.responses.get(label)
             if response is None:
                 continue
             title = extract_title(response.text)
-            expected_values = expected if isinstance(expected, tuple) else (expected,)
             if title in expected_values:
                 self.ok(f"{label} title is {title}")
             else:
                 self.fail(f"{label} title expected one of {expected_values!r}, got {title!r}")
 
-        cache_tokens: dict[str, str] = {}
-        for label in ["public dashboard", "member dashboard"]:
+        runtime_cache_tokens: dict[str, str] = {}
+        for label, required_refs in REQUIRED_REFS_BY_PAGE.items():
             response = self.responses.get(label)
             if response is None:
                 continue
             refs = extract_repo_refs(response.text)
-            for required in [
-                "dashboard_fix26_base.css",
-                "dashboard_fix26_app.js",
-                "dashboard_alert_events_v2_patch.js",
-            ]:
-                matching = [ref for ref in refs if ref.split("?", 1)[0] == required]
-                if not matching:
+            refs_by_path = {repo_ref_path(ref): ref for ref in refs}
+            for required in required_refs:
+                ref = refs_by_path.get(required)
+                if not ref:
                     self.fail(f"{label} does not reference {required}")
                     continue
-                for ref in matching:
-                    self.fetch(f"{label} asset {ref}", ref)
-                    if required == "dashboard_fix26_app.js":
-                        token = query_token(ref)
-                        if token:
-                            cache_tokens[label] = token
-                        else:
-                            self.fail(f"{label} references dashboard_fix26_app.js without cache token")
+                self.fetch(f"{label} asset {ref}", ref)
+                if required in RUNTIME_JS_REFS:
+                    token = query_token(ref)
+                    if token:
+                        runtime_cache_tokens[label] = token
+                    else:
+                        self.fail(f"{label} references {required} without cache token")
 
-        unique_tokens = sorted(set(cache_tokens.values()))
+        unique_tokens = sorted(set(runtime_cache_tokens.values()))
         if len(unique_tokens) == 1:
-            self.ok(f"dashboard JS cache token is consistent: {unique_tokens[0]}")
+            self.ok(f"dashboard runtime cache token is consistent: {unique_tokens[0]}")
         elif len(unique_tokens) > 1:
-            self.warn(f"dashboard JS cache tokens differ: {cache_tokens}")
+            self.warn(f"dashboard runtime cache tokens differ by surface: {runtime_cache_tokens}")
+        elif REQUIRED_REFS_BY_PAGE:
+            self.fail("no dashboard runtime cache tokens found")
 
         context = self.responses.get("market context cards")
         if context and "public_content/seta_website_snippets_latest.json" in context.text:
@@ -311,9 +322,9 @@ class LiveHealthCheck:
         else:
             self.check_freshness("public snippets published_at_utc", published_at)
 
-        text = json.dumps(payload, ensure_ascii=False).lower()
+        text_blob = json.dumps(payload, ensure_ascii=False).lower()
         for forbidden in ["c:\\\\users", "g:\\\\my drive", "reply_agent\\\\pipeline_runs"]:
-            if forbidden.lower() in text:
+            if forbidden.lower() in text_blob:
                 self.fail(f"public snippets leaked internal path token: {forbidden}")
         self.ok("public snippets contain no known internal path tokens")
 
@@ -336,9 +347,7 @@ class LiveHealthCheck:
         elif age_hours <= self.max_age_hours:
             self.ok(f"{label} fresh ({age_hours:.1f}h old)")
         else:
-            self.fail(
-                f"{label} stale ({age_hours:.1f}h old; max {self.max_age_hours:.1f}h)"
-            )
+            self.fail(f"{label} stale ({age_hours:.1f}h old; max {self.max_age_hours:.1f}h)")
 
     def run(self) -> int:
         print("=" * 76)
@@ -378,6 +387,10 @@ def extract_repo_refs(html: str) -> list[str]:
             continue
         refs.append(ref)
     return refs
+
+
+def repo_ref_path(ref: str) -> str:
+    return ref.split("?", 1)[0].lstrip("./")
 
 
 def query_token(ref: str) -> str | None:
@@ -436,20 +449,13 @@ def parse_http_datetime(value: str | None) -> datetime | None:
 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
-    parser = argparse.ArgumentParser(
-        description="Check the live GitHub Pages deployment for the SETA dashboard."
-    )
+    parser = argparse.ArgumentParser(description="Check the live GitHub Pages deployment for the SETA dashboard.")
     parser.add_argument(
         "--base-url",
         default=DEFAULT_BASE_URL,
         help=f"GitHub Pages base URL. Default: {DEFAULT_BASE_URL}",
     )
-    parser.add_argument(
-        "--timeout",
-        type=float,
-        default=20.0,
-        help="Per-request timeout in seconds. Default: 20",
-    )
+    parser.add_argument("--timeout", type=float, default=20.0, help="Per-request timeout in seconds. Default: 20")
     parser.add_argument(
         "--max-age-hours",
         type=float,
