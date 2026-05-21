@@ -6,15 +6,16 @@ The report inspects the current dashboard manifest and the canonical enriched
 DB table, then ranks unconfigured DB assets for possible member-dashboard
 promotion. It does not mutate the manifest, generated payloads, or database.
 
-Default behavior is adaptive:
+Default behavior is adaptive and compact:
   - derive the current member/public counts from the manifest
   - derive the effective promotion target from eligible DB coverage
   - cap any one promotion batch by a growth fraction of the current member set
   - show eligible, warming, blocked, configured, and pinned-term diagnostics
   - estimate readiness timing for warming assets if coverage keeps accruing
+  - limit default text/JSON samples so routine PowerShell output stays readable
 
-A fixed target can still be modeled with --target-member-count 40, but the
-report no longer assumes a raw target count by default.
+A fixed target can still be modeled with --target-member-count 40, and full JSON
+can still be emitted with --full-json.
 """
 
 import argparse
@@ -40,6 +41,7 @@ DEFAULT_MIN_DATE_SPAN_DAYS = 330
 DEFAULT_WARM_MIN_ROWS_PER_TERM = 45
 DEFAULT_WARM_MIN_DATE_SPAN_DAYS = 45
 DEFAULT_MAX_PROMOTION_GROWTH_FRACTION = 0.50
+DEFAULT_OUTPUT_LIMIT = 10
 
 
 @dataclass(frozen=True)
@@ -374,7 +376,7 @@ def pinned_term_report(pinned_terms: list[str], stats: list[AssetStats]) -> list
     return out
 
 
-def readiness_summary(warming_assets: list[AssetStats]) -> dict[str, Any]:
+def readiness_summary(warming_assets: list[AssetStats], *, limit: int | None = None) -> dict[str, Any]:
     if not warming_assets:
         return {
             "next_estimated_days_to_eligible": None,
@@ -394,7 +396,9 @@ def readiness_summary(warming_assets: list[AssetStats]) -> dict[str, Any]:
         blocker = item.promotion_blocker or "none"
         blockers[blocker] = blockers.get(blocker, 0) + 1
     next_days = ranked[0].estimated_days_to_eligible
-    next_assets = [as_dict(item) for item in ranked if item.estimated_days_to_eligible == next_days][:20]
+    next_assets = [as_dict(item) for item in ranked if item.estimated_days_to_eligible == next_days]
+    if limit is not None:
+        next_assets = next_assets[:max(0, limit)]
     return {
         "next_estimated_days_to_eligible": next_days,
         "next_assets": next_assets,
@@ -508,6 +512,35 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
     }
 
 
+def compact_report(report: dict[str, Any], *, limit: int) -> dict[str, Any]:
+    sample_limit = max(0, int(limit))
+    summary_keys = [
+        "generated_at_utc", "source_table", "db_available", "db_error", "history_days",
+        "current_member_count", "current_public_count", "configured_union_count",
+        "target_member_count_requested", "target_member_count_mode", "effective_target_member_count",
+        "max_promotion_additions_this_run", "recommended_add_count", "db_asset_count",
+        "eligible_unconfigured_count", "warming_unconfigured_count", "blocked_unconfigured_count",
+        "already_configured_count", "recommended_candidate_count", "thresholds",
+        "forecast_assumptions", "all_assets_summary",
+    ]
+    out = {key: report.get(key) for key in summary_keys if key in report}
+    readiness = dict(report.get("readiness_summary") or {})
+    if isinstance(readiness.get("next_assets"), list):
+        readiness["next_assets"] = readiness["next_assets"][:sample_limit]
+    out["readiness_summary"] = readiness
+    out["recommended_candidates"] = (report.get("recommended_candidates") or [])[:sample_limit]
+    out["eligible_unconfigured_assets_sample"] = (report.get("eligible_unconfigured_assets") or [])[:sample_limit]
+    out["warming_unconfigured_assets_sample"] = (report.get("warming_unconfigured_assets") or [])[:sample_limit]
+    out["blocked_unconfigured_assets_sample"] = (report.get("blocked_unconfigured_assets") or [])[:sample_limit]
+    out["pinned_terms_report"] = report.get("pinned_terms_report") or []
+    out["output_policy"] = {
+        "compact_json": True,
+        "sample_limit": sample_limit,
+        "full_json_flag": "--full-json",
+    }
+    return out
+
+
 def print_asset_lines(items: list[dict[str, Any]], *, limit: int) -> None:
     for item in items[:limit]:
         reasons = ",".join(item.get("block_reasons") or [])
@@ -522,7 +555,7 @@ def print_asset_lines(items: list[dict[str, Any]], *, limit: int) -> None:
         )
 
 
-def print_text_report(report: dict[str, Any]) -> None:
+def print_text_report(report: dict[str, Any], *, limit: int) -> None:
     print("Adaptive Asset Universe Promotion Report v2")
     print("=" * 80)
     for key in [
@@ -536,17 +569,18 @@ def print_text_report(report: dict[str, Any]) -> None:
     readiness = report.get("readiness_summary") or {}
     print(f"next_estimated_days_to_eligible: {readiness.get('next_estimated_days_to_eligible')}")
     print(f"dominant_promotion_blockers: {readiness.get('dominant_promotion_blockers')}")
+    print(f"output_limit: {limit} rows per section; use --limit N or --json --full-json for more")
     print()
     print("Recommended candidates:")
-    print_asset_lines(report.get("recommended_candidates", []), limit=50)
+    print_asset_lines(report.get("recommended_candidates", []), limit=limit)
     print()
     print("Warming candidates:")
-    print_asset_lines(report.get("warming_unconfigured_assets", []), limit=25)
+    print_asset_lines(report.get("warming_unconfigured_assets", []), limit=limit)
     pinned = report.get("pinned_terms_report") or []
     if pinned:
         print()
         print("Pinned terms report:")
-        print_asset_lines(pinned, limit=50)
+        print_asset_lines(pinned, limit=max(limit, len(pinned)))
 
 
 def main() -> int:
@@ -564,14 +598,17 @@ def main() -> int:
     parser.add_argument("--warm-min-date-span-days", type=int, default=DEFAULT_WARM_MIN_DATE_SPAN_DAYS)
     parser.add_argument("--max-age-days", type=int, default=5)
     parser.add_argument("--pin-terms", help="Comma-separated terms to prefer first if eligible and diagnose otherwise.")
+    parser.add_argument("--limit", type=int, default=DEFAULT_OUTPUT_LIMIT, help="Rows to show per output section. Default: 10")
     parser.add_argument("--json", action="store_true")
+    parser.add_argument("--full-json", action="store_true", help="With --json, emit full arrays instead of compact samples.")
     args = parser.parse_args()
 
     report = build_report(args)
     if args.json:
-        print(json.dumps(report, indent=2, default=str))
+        payload = report if args.full_json else compact_report(report, limit=args.limit)
+        print(json.dumps(payload, indent=2, default=str))
     else:
-        print_text_report(report)
+        print_text_report(report, limit=args.limit)
     return 0 if report.get("db_available") else 2
 
 
