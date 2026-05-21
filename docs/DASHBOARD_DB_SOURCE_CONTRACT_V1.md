@@ -93,6 +93,32 @@ Postgres -> final_combined_data_enriched_chart_history.csv -> existing payload b
 
 The existing payload builder remains the stable JSON contract.
 
+Bridge smoke check:
+
+```powershell
+python scripts/smoke_db_chart_history_export_bridge.py
+```
+
+Dry run against the current manifest asset union:
+
+```powershell
+python scripts/export_dashboard_chart_history_from_db.py --dry-run
+```
+
+Export the manifest asset union to the standard local chart-history CSV path:
+
+```powershell
+python scripts/export_dashboard_chart_history_from_db.py --output-dir C:\Users\shane\snt_exports
+```
+
+Export every DB asset with current 365-day coverage for asset-universe discovery:
+
+```powershell
+python scripts/export_dashboard_chart_history_from_db.py --asset-source db --dry-run
+```
+
+The bridge intentionally stops at CSV output. The existing payload builder should remain responsible for `fix26_chart_store_public.json`, `fix26_chart_store_member.json`, split asset payloads, and index files.
+
 ### Phase 3 - Optional direct DB payload builder
 
 Only after Phase 2 is stable, allow `build_fix26_chart_store_payloads.py` or a wrapper to use a direct DB source mode.
