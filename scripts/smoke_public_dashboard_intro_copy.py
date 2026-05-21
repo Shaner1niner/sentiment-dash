@@ -46,6 +46,28 @@ for token in [
 ok("public dashboard intro copy module contains expected reader framing and guide link")
 
 for token in [
+    "PUBLIC_FRESHNESS_NOTE",
+    "Freshness shows the latest visible dashboard data date",
+    "data-quality cue",
+    "not a price forecast or trade instruction",
+    "setaFreshnessReaderNote",
+    "data-seta-freshness-reader-note",
+    "applyFreshnessReaderNote",
+]:
+    if token not in module_text:
+        fail(f"intro copy module missing freshness context token: {token}")
+
+for token in ["run_registry.jsonl", "exit_code", "blocking_count", "stack trace", "DB profile"]:
+    if token in module_text:
+        fail(f"backend jargon leaked into public intro/freshness copy: {token}")
+
+for token in ["buy", "sell", "trade now", "price target", "guaranteed"]:
+    if token in module_text.lower():
+        fail(f"trade-instruction language leaked into public intro/freshness copy: {token}")
+
+ok("public dashboard intro copy includes freshness context without backend jargon or trade instructions")
+
+for token in [
     "How SETA reads the market.",
     "Structure Score",
     "Participation Quality",
