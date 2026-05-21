@@ -2,6 +2,10 @@
 
 Run after refreshes when you want one command to check the current public dashboard chart layer, hover taxonomy, Structure strip, reader flow, and Fix26 dashboard contract.
 
+For the full dashboard release workflow, including clean git state, targeted smoke, visual QA, public-language checks, merge, and post-merge sync, see:
+
+- docs\public_dashboard_release_checklist.md
+
 Main command:
 
 python scripts\run_public_dashboard_qa.py
