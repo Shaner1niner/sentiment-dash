@@ -4,7 +4,7 @@ from __future__ import annotations
 
 This test intentionally avoids requiring a live DB connection. It checks that
 scripts/report_asset_universe_promotion.py remains a read-only reporting tool
-and preserves adaptive promotion policy semantics.
+and preserves adaptive promotion policy and readiness forecast semantics.
 """
 
 from pathlib import Path
@@ -52,6 +52,25 @@ def main() -> int:
         if token not in text:
             fail(f"missing expected token: {token}")
     ok("asset promotion report uses adaptive target policy and candidate tiers")
+
+    forecast_tokens = [
+        "readiness_forecast(",
+        "rows_to_strict_threshold",
+        "days_to_strict_span_threshold",
+        "estimated_days_to_row_threshold",
+        "estimated_days_to_span_threshold",
+        "estimated_days_to_eligible",
+        "promotion_blocker",
+        "readiness_summary",
+        "next_estimated_days_to_eligible",
+        "dominant_promotion_blockers",
+        "row_accumulation_rate",
+        "date_span_accumulation_rate",
+    ]
+    for token in forecast_tokens:
+        if token not in text:
+            fail(f"missing readiness forecast token: {token}")
+    ok("asset promotion report includes readiness forecast fields")
 
     fixed_target_tokens = [
         "DEFAULT_TARGET_MEMBER_COUNT = 40",

@@ -11,6 +11,7 @@ Default behavior is adaptive:
   - derive the effective promotion target from eligible DB coverage
   - cap any one promotion batch by a growth fraction of the current member set
   - show eligible, warming, blocked, configured, and pinned-term diagnostics
+  - estimate readiness timing for warming assets if coverage keeps accruing
 
 A fixed target can still be modeled with --target-member-count 40, but the
 report no longer assumes a raw target count by default.
@@ -55,6 +56,12 @@ class AssetStats:
     warming: bool
     status: str
     block_reasons: tuple[str, ...]
+    rows_to_strict_threshold: int | None
+    days_to_strict_span_threshold: int | None
+    estimated_days_to_row_threshold: int | None
+    estimated_days_to_span_threshold: int | None
+    estimated_days_to_eligible: int | None
+    promotion_blocker: str | None
     score: float
 
 
@@ -181,6 +188,55 @@ def status_for_asset(
     return "blocked", False, False, tuple(dict.fromkeys(reasons))
 
 
+def readiness_forecast(
+    *,
+    row_count: int,
+    span: int | None,
+    age: int | None,
+    max_age_days: int,
+    min_rows_per_term: int,
+    min_date_span_days: int,
+    configured_member: bool,
+) -> tuple[int | None, int | None, int | None, int | None, int | None, str | None]:
+    if configured_member:
+        return None, None, None, None, None, None
+
+    rows_gap = max(0, min_rows_per_term - row_count)
+    span_gap = None if span is None else max(0, min_date_span_days - span)
+    days_to_rows = rows_gap
+    days_to_span = span_gap
+
+    if age is None or age > max_age_days:
+        freshness_days = None
+    else:
+        freshness_days = 0
+
+    components = [days_to_rows]
+    if days_to_span is not None:
+        components.append(days_to_span)
+    if freshness_days is not None:
+        components.append(freshness_days)
+
+    if freshness_days is None or span_gap is None:
+        days_to_eligible = None
+    else:
+        days_to_eligible = max(components)
+
+    blockers: list[tuple[str, int]] = []
+    if rows_gap > 0:
+        blockers.append(("row_threshold", rows_gap))
+    if span_gap is None:
+        return rows_gap, span_gap, days_to_rows, days_to_span, days_to_eligible, "missing_date_span"
+    if span_gap > 0:
+        blockers.append(("date_span_threshold", span_gap))
+    if freshness_days is None:
+        return rows_gap, span_gap, days_to_rows, days_to_span, days_to_eligible, "freshness_threshold"
+    if not blockers:
+        return rows_gap, span_gap, days_to_rows, days_to_span, days_to_eligible, None
+    blockers.sort(key=lambda item: (-item[1], item[0]))
+    return rows_gap, span_gap, days_to_rows, days_to_span, days_to_eligible, blockers[0][0]
+
+
 def build_asset_stats(
     rows: list[dict[str, Any]],
     public_assets: list[str],
@@ -221,6 +277,22 @@ def build_asset_stats(
             warm_deep=warm_deep,
             warm_wide=warm_wide,
         )
+        (
+            rows_to_strict,
+            days_to_strict_span,
+            days_to_rows,
+            days_to_span,
+            days_to_eligible,
+            promotion_blocker,
+        ) = readiness_forecast(
+            row_count=row_count,
+            span=span,
+            age=age,
+            max_age_days=max_age_days,
+            min_rows_per_term=min_rows_per_term,
+            min_date_span_days=min_date_span_days,
+            configured_member=configured_member,
+        )
 
         score = 0.0
         score += min(row_count, 366) / 366 * 70
@@ -244,6 +316,12 @@ def build_asset_stats(
                 warming=warming,
                 status=status,
                 block_reasons=block_reasons,
+                rows_to_strict_threshold=rows_to_strict,
+                days_to_strict_span_threshold=days_to_strict_span,
+                estimated_days_to_row_threshold=days_to_rows,
+                estimated_days_to_span_threshold=days_to_span,
+                estimated_days_to_eligible=days_to_eligible,
+                promotion_blocker=promotion_blocker,
                 score=round(score, 4),
             )
         )
@@ -265,6 +343,12 @@ def as_dict(item: AssetStats) -> dict[str, Any]:
         "warming": item.warming,
         "status": item.status,
         "block_reasons": list(item.block_reasons),
+        "rows_to_strict_threshold": item.rows_to_strict_threshold,
+        "days_to_strict_span_threshold": item.days_to_strict_span_threshold,
+        "estimated_days_to_row_threshold": item.estimated_days_to_row_threshold,
+        "estimated_days_to_span_threshold": item.estimated_days_to_span_threshold,
+        "estimated_days_to_eligible": item.estimated_days_to_eligible,
+        "promotion_blocker": item.promotion_blocker,
     }
 
 
@@ -288,6 +372,34 @@ def pinned_term_report(pinned_terms: list[str], stats: list[AssetStats]) -> list
         else:
             out.append(as_dict(item))
     return out
+
+
+def readiness_summary(warming_assets: list[AssetStats]) -> dict[str, Any]:
+    if not warming_assets:
+        return {
+            "next_estimated_days_to_eligible": None,
+            "next_assets": [],
+            "dominant_promotion_blockers": {},
+        }
+    ranked = sorted(
+        warming_assets,
+        key=lambda item: (
+            item.estimated_days_to_eligible if item.estimated_days_to_eligible is not None else 10**9,
+            -item.score,
+            item.term,
+        ),
+    )
+    blockers: dict[str, int] = {}
+    for item in warming_assets:
+        blocker = item.promotion_blocker or "none"
+        blockers[blocker] = blockers.get(blocker, 0) + 1
+    next_days = ranked[0].estimated_days_to_eligible
+    next_assets = [as_dict(item) for item in ranked if item.estimated_days_to_eligible == next_days][:20]
+    return {
+        "next_estimated_days_to_eligible": next_days,
+        "next_assets": next_assets,
+        "dominant_promotion_blockers": dict(sorted(blockers.items(), key=lambda pair: (-pair[1], pair[0]))),
+    }
 
 
 def build_report(args: argparse.Namespace) -> dict[str, Any]:
@@ -319,6 +431,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
             "recommended_add_count": 0,
             "recommended_candidate_count": 0,
             "recommended_candidates": [],
+            "readiness_summary": readiness_summary([]),
             "pinned_terms_report": [],
         }
 
@@ -367,6 +480,10 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
             "max_age_days": args.max_age_days,
             "max_promotion_growth_fraction": args.max_promotion_growth_fraction,
         },
+        "forecast_assumptions": {
+            "row_accumulation_rate": "one row per asset per day",
+            "date_span_accumulation_rate": "one calendar day per day while source remains fresh",
+        },
         "target_member_count_mode": target_mode,
         "effective_target_member_count": effective_target,
         "max_promotion_additions_this_run": max_additions,
@@ -381,6 +498,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         "warming_unconfigured_assets": [as_dict(item) for item in warming_unconfigured],
         "blocked_unconfigured_assets": [as_dict(item) for item in blocked_unconfigured],
         "eligible_unconfigured_assets": [as_dict(item) for item in eligible_unconfigured],
+        "readiness_summary": readiness_summary(warming_unconfigured),
         "pinned_terms_report": pinned_term_report(pinned_terms, stats),
         "all_assets_summary": {
             "row_count_min": min(row_counts) if row_counts else 0,
@@ -394,10 +512,13 @@ def print_asset_lines(items: list[dict[str, Any]], *, limit: int) -> None:
     for item in items[:limit]:
         reasons = ",".join(item.get("block_reasons") or [])
         reason_text = f"  reasons={reasons}" if reasons else ""
+        blocker_text = f"  blocker={item.get('promotion_blocker')}" if item.get("promotion_blocker") else ""
+        eta_text = f"  eta={item.get('estimated_days_to_eligible')}d" if item.get("estimated_days_to_eligible") is not None else ""
         print(
             f"  {item['term']:>8}  status={item.get('status', ''):<18} score={item.get('score', 0):>7}  "
             f"rows={item.get('row_count', ''):>4}  span={item.get('date_span_days')}  "
-            f"max_date={item.get('max_date')}  age={item.get('latest_age_days')}{reason_text}"
+            f"max_date={item.get('max_date')}  age={item.get('latest_age_days')}"
+            f"{eta_text}{blocker_text}{reason_text}"
         )
 
 
@@ -412,6 +533,9 @@ def print_text_report(report: dict[str, Any]) -> None:
         "warming_unconfigured_count", "blocked_unconfigured_count", "recommended_candidate_count",
     ]:
         print(f"{key}: {report.get(key)}")
+    readiness = report.get("readiness_summary") or {}
+    print(f"next_estimated_days_to_eligible: {readiness.get('next_estimated_days_to_eligible')}")
+    print(f"dominant_promotion_blockers: {readiness.get('dominant_promotion_blockers')}")
     print()
     print("Recommended candidates:")
     print_asset_lines(report.get("recommended_candidates", []), limit=50)
