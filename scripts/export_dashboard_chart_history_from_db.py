@@ -20,8 +20,9 @@ import argparse
 import json
 import os
 import shutil
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 from pathlib import Path
+from statistics import median
 from typing import Any
 
 import pandas as pd
@@ -35,6 +36,9 @@ DEFAULT_OUTPUT_FILENAME = "final_combined_data_enriched_chart_history.csv"
 DEFAULT_OUTPUT_DIR = ROOT / "snt_exports"
 
 REQUIRED_EXPORT_COLUMNS = ["date", "term"]
+DEFAULT_MIN_ROWS_PER_TERM = 180
+DEFAULT_MIN_MEDIAN_ROWS_PER_TERM = 200
+DEFAULT_MIN_DATE_SPAN_DAYS = 240
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -173,14 +177,136 @@ def build_export_query(source_table: str, terms: list[str], history_days: int | 
     return bind_query(sql, terms), params
 
 
-def build_count_query(source_table: str, terms: list[str], history_days: int | None) -> tuple[Any, dict[str, Any]]:
+def build_term_stats_query(source_table: str, terms: list[str], history_days: int | None) -> tuple[Any, dict[str, Any]]:
     where, params = where_clause(terms, history_days)
     sql = f"""
-        select count(*)
+        select upper(trim(term::text)) as term,
+               count(*)::bigint as row_count,
+               min(date)::date as min_date,
+               max(date)::date as max_date
         from {qualified_table(source_table)}
         where {' and '.join(where)}
+        group by upper(trim(term::text))
+        order by upper(trim(term::text))
     """
     return bind_query(sql, terms), params
+
+
+def date_value(value: Any) -> date | None:
+    if value is None:
+        return None
+    if isinstance(value, datetime):
+        return value.date()
+    if isinstance(value, date):
+        return value
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00")).date()
+    except ValueError:
+        try:
+            return datetime.strptime(str(value), "%Y-%m-%d").date()
+        except ValueError:
+            return None
+
+
+def iso_date(value: Any) -> str | None:
+    parsed = date_value(value)
+    return parsed.isoformat() if parsed else None
+
+
+def stats_from_rows(rows: list[dict[str, Any]], requested_terms: list[str], min_rows_per_term: int) -> dict[str, Any]:
+    normalized: list[dict[str, Any]] = []
+    for row in rows:
+        term = str(row.get("term") or "").strip().upper()
+        if not term:
+            continue
+        normalized.append(
+            {
+                "term": term,
+                "row_count": int(row.get("row_count") or 0),
+                "min_date": iso_date(row.get("min_date")),
+                "max_date": iso_date(row.get("max_date")),
+            }
+        )
+
+    present_terms = {row["term"] for row in normalized}
+    requested = {term.upper() for term in requested_terms if term}
+    missing_terms = sorted(requested - present_terms)
+    row_counts = [row["row_count"] for row in normalized]
+    parsed_min_dates = [date_value(row["min_date"]) for row in normalized if row.get("min_date")]
+    parsed_max_dates = [date_value(row["max_date"]) for row in normalized if row.get("max_date")]
+    parsed_min_dates = [d for d in parsed_min_dates if d is not None]
+    parsed_max_dates = [d for d in parsed_max_dates if d is not None]
+    global_min = min(parsed_min_dates) if parsed_min_dates else None
+    global_max = max(parsed_max_dates) if parsed_max_dates else None
+    terms_below_min = [row for row in normalized if row["row_count"] < min_rows_per_term]
+
+    return {
+        "term_count": len(normalized),
+        "requested_term_count": len(requested_terms),
+        "missing_requested_terms": missing_terms,
+        "row_count": sum(row_counts),
+        "min_date": global_min.isoformat() if global_min else None,
+        "max_date": global_max.isoformat() if global_max else None,
+        "date_span_days": (global_max - global_min).days if global_min and global_max else None,
+        "rows_per_term_min": min(row_counts) if row_counts else 0,
+        "rows_per_term_median": float(median(row_counts)) if row_counts else 0.0,
+        "rows_per_term_max": max(row_counts) if row_counts else 0,
+        "terms_below_min_rows_count": len(terms_below_min),
+        "terms_below_min_rows_sample": terms_below_min[:20],
+    }
+
+
+def stats_from_dataframe(df: pd.DataFrame, requested_terms: list[str], min_rows_per_term: int) -> dict[str, Any]:
+    tmp = df[["date", "term"]].copy()
+    tmp["term"] = tmp["term"].astype(str).str.strip().str.upper()
+    tmp["date"] = pd.to_datetime(tmp["date"], errors="coerce")
+    grouped = tmp.dropna(subset=["date", "term"]).groupby("term", dropna=True)["date"].agg(["size", "min", "max"]).reset_index()
+    rows = [
+        {
+            "term": row["term"],
+            "row_count": int(row["size"]),
+            "min_date": row["min"].date() if pd.notna(row["min"]) else None,
+            "max_date": row["max"].date() if pd.notna(row["max"]) else None,
+        }
+        for _, row in grouped.iterrows()
+    ]
+    return stats_from_rows(rows, requested_terms, min_rows_per_term)
+
+
+def depth_guard(summary: dict[str, Any], args: argparse.Namespace) -> dict[str, Any]:
+    failures: list[str] = []
+    if args.skip_depth_guard:
+        return {"enabled": False, "passed": True, "failures": [], "thresholds": {}}
+
+    min_total_rows = int(args.min_total_rows or 0)
+    min_rows_per_term = int(args.min_rows_per_term or 0)
+    min_median_rows = int(args.min_median_rows_per_term or 0)
+    min_date_span = int(args.min_date_span_days or 0)
+
+    if summary["missing_requested_terms"]:
+        failures.append(f"missing requested terms: {', '.join(summary['missing_requested_terms'][:20])}")
+    if min_total_rows and summary["row_count"] < min_total_rows:
+        failures.append(f"row_count {summary['row_count']} < min_total_rows {min_total_rows}")
+    if min_rows_per_term and summary["rows_per_term_min"] < min_rows_per_term:
+        failures.append(f"rows_per_term_min {summary['rows_per_term_min']} < min_rows_per_term {min_rows_per_term}")
+    if min_median_rows and summary["rows_per_term_median"] < min_median_rows:
+        failures.append(
+            f"rows_per_term_median {summary['rows_per_term_median']:.1f} < min_median_rows_per_term {min_median_rows}"
+        )
+    if min_date_span and (summary["date_span_days"] is None or summary["date_span_days"] < min_date_span):
+        failures.append(f"date_span_days {summary['date_span_days']} < min_date_span_days {min_date_span}")
+
+    return {
+        "enabled": True,
+        "passed": not failures,
+        "failures": failures,
+        "thresholds": {
+            "min_total_rows": min_total_rows,
+            "min_rows_per_term": min_rows_per_term,
+            "min_median_rows_per_term": min_median_rows,
+            "min_date_span_days": min_date_span,
+        },
+    }
 
 
 def export_chart_history(args: argparse.Namespace) -> dict[str, Any]:
@@ -205,20 +331,22 @@ def export_chart_history(args: argparse.Namespace) -> dict[str, Any]:
 
         terms = determine_terms(args, conn, manifest)
         history_days = None if args.no_history_filter else args.history_days
+        stats_query, stats_params = build_term_stats_query(args.source_table, terms, history_days)
+        stats_rows = [dict(row._mapping) for row in conn.execute(stats_query, stats_params).fetchall()]
+        summary = stats_from_rows(stats_rows, terms, args.min_rows_per_term)
+        guard = depth_guard(summary, args)
 
         if args.dry_run:
-            count_query, count_params = build_count_query(args.source_table, terms, history_days)
-            row_count = int(conn.execute(count_query, count_params).scalar() or 0)
             return {
                 "dry_run": True,
                 "source_table": args.source_table,
                 "asset_source": args.asset_source,
                 "mode": args.mode,
-                "term_count": len(terms),
                 "terms": terms,
                 "history_days": history_days,
-                "row_count": row_count,
                 "source_column_count": len(columns),
+                "history_depth": summary,
+                "depth_guard": guard,
             }
 
         query, params = build_export_query(args.source_table, terms, history_days)
@@ -230,6 +358,11 @@ def export_chart_history(args: argparse.Namespace) -> dict[str, Any]:
     df["term"] = df["term"].astype(str).str.strip().str.upper()
     if "date" in df.columns:
         df["date"] = pd.to_datetime(df["date"], errors="coerce").dt.strftime("%Y-%m-%d")
+    summary = stats_from_dataframe(df, terms, args.min_rows_per_term)
+    guard = depth_guard(summary, args)
+    if guard["enabled"] and not guard["passed"]:
+        failures = "; ".join(guard["failures"])
+        raise RuntimeError(f"DB chart-history depth guard failed: {failures}")
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -248,11 +381,12 @@ def export_chart_history(args: argparse.Namespace) -> dict[str, Any]:
         "source_table": args.source_table,
         "asset_source": args.asset_source,
         "mode": args.mode,
-        "term_count": int(df["term"].nunique()),
         "terms": sorted(df["term"].dropna().unique().tolist()),
         "history_days": None if args.no_history_filter else args.history_days,
         "row_count": len(df),
         "column_count": len(df.columns),
+        "history_depth": summary,
+        "depth_guard": guard,
         "output_path": str(output_path),
         "tableau_autosync_path": str(tableau_path) if tableau_path else None,
         "generated_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
@@ -269,6 +403,11 @@ def main() -> int:
     parser.add_argument("--terms", default=None, help="Comma-separated explicit asset list. Overrides --asset-source.")
     parser.add_argument("--history-days", type=int, default=365)
     parser.add_argument("--no-history-filter", action="store_true")
+    parser.add_argument("--min-total-rows", type=int, default=0)
+    parser.add_argument("--min-rows-per-term", type=int, default=DEFAULT_MIN_ROWS_PER_TERM)
+    parser.add_argument("--min-median-rows-per-term", type=int, default=DEFAULT_MIN_MEDIAN_ROWS_PER_TERM)
+    parser.add_argument("--min-date-span-days", type=int, default=DEFAULT_MIN_DATE_SPAN_DAYS)
+    parser.add_argument("--skip-depth-guard", action="store_true")
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR))
     parser.add_argument("--output-filename", default=DEFAULT_OUTPUT_FILENAME)
     parser.add_argument("--tableau-autosync-dir", default=None)
