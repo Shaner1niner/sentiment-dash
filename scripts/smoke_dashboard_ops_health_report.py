@@ -54,7 +54,7 @@ def main() -> int:
     ok("dashboard ops health report includes cockpit fields and skip flags")
 
     read_only_tokens = [
-        "git status --short",
+        '"git", "status", "--short"',
         "smoke_fix26_dashboard.py",
         "smoke_github_pages_live.py",
         "smoke_refresh_db_export_opt_in.py",
