@@ -4,7 +4,8 @@ from __future__ import annotations
 
 This test intentionally avoids requiring a live DB connection. It checks that
 scripts/report_asset_universe_promotion.py remains a read-only reporting tool
-and preserves adaptive promotion policy and readiness forecast semantics.
+and preserves adaptive promotion policy, readiness forecast semantics, and
+compact-by-default output behavior.
 """
 
 from pathlib import Path
@@ -35,6 +36,7 @@ def main() -> int:
         "DEFAULT_WARM_MIN_ROWS_PER_TERM = 45",
         "DEFAULT_WARM_MIN_DATE_SPAN_DAYS = 45",
         "DEFAULT_MAX_PROMOTION_GROWTH_FRACTION = 0.50",
+        "DEFAULT_OUTPUT_LIMIT = 10",
         "target_member_count_mode",
         "effective_target_member_count",
         "max_promotion_additions_this_run",
@@ -46,12 +48,31 @@ def main() -> int:
         "--target-member-count",
         "--max-promotion-growth-fraction",
         "--pin-terms",
+        "--limit",
         "--json",
+        "--full-json",
     ]
     for token in required_tokens:
         if token not in text:
             fail(f"missing expected token: {token}")
     ok("asset promotion report uses adaptive target policy and candidate tiers")
+
+    compact_tokens = [
+        "compact_report(",
+        "compact_json",
+        "sample_limit",
+        "full_json_flag",
+        "eligible_unconfigured_assets_sample",
+        "warming_unconfigured_assets_sample",
+        "blocked_unconfigured_assets_sample",
+        "output_limit:",
+        "use --limit N or --json --full-json for more",
+        "payload = report if args.full_json else compact_report(report, limit=args.limit)",
+    ]
+    for token in compact_tokens:
+        if token not in text:
+            fail(f"missing compact output token: {token}")
+    ok("asset promotion report is compact by default with full-json escape hatch")
 
     forecast_tokens = [
         "readiness_forecast(",
