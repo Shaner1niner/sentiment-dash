@@ -71,15 +71,39 @@ refresh_fix26_dashboard_all.bat
 It is designed to:
 
 1. Run the local enriched chart-history exporter.
-2. Write chart-history, attention, and alert CSV outputs locally and to Tableau AutoSync.
-3. Build the SETA market screener, indicator matrix, and archetype outputs.
-4. Build `fix26_screener_store.json`.
-5. Build public/member chart JSON payloads.
-6. Run the dashboard smoke test.
-7. Stage dashboard repo changes.
-8. Optionally commit and push.
+2. Optionally overlay chart-history from `final_combined_data_enriched_tbl` using the DB export bridge.
+3. Write chart-history, attention, and alert CSV outputs locally and to Tableau AutoSync.
+4. Build the SETA market screener, indicator matrix, and archetype outputs.
+5. Build `fix26_screener_store.json`.
+6. Build public/member chart JSON payloads.
+7. Run the dashboard smoke test.
+8. Stage dashboard repo changes.
+9. Optionally commit and push.
 
 This workflow depends on local paths and environment variables, including `TWT_SNT_DB_URL`. Do not commit API keys, database credentials, `.env` files, or local-only secrets.
+
+By default, the runner keeps using the legacy exporter as the chart-history source. To opt into the canonical DB chart-history overlay while preserving legacy alert/audit/attention sidecars, run:
+
+```powershell
+$env:USE_DB_CHART_EXPORT="1"
+.\refresh_fix26_dashboard_all.bat
+```
+
+If the DB overlay fails, the runner falls back to the legacy exporter output by default. To make DB overlay failure stop the refresh instead:
+
+```powershell
+$env:USE_DB_CHART_EXPORT="1"
+$env:DB_EXPORT_FALLBACK_TO_LEGACY="0"
+.\refresh_fix26_dashboard_all.bat
+```
+
+Optional DB bridge switches:
+
+```powershell
+$env:DB_CHART_EXPORT_ASSET_SOURCE="manifest"  # manifest or db
+$env:DB_CHART_EXPORT_MODE="all"              # public, member, or all
+$env:DB_CHART_HISTORY_DAYS="365"
+```
 
 ## Smoke tests
 
@@ -107,6 +131,12 @@ Run the DB chart-history export bridge smoke after changing the DB-to-CSV bridge
 
 ```powershell
 python scripts/smoke_db_chart_history_export_bridge.py
+```
+
+Run the refresh runner DB opt-in smoke after changing `refresh_fix26_dashboard_all.bat`:
+
+```powershell
+python scripts/smoke_refresh_db_export_opt_in.py
 ```
 
 Dry-run the DB chart-history export bridge before writing any CSV:
