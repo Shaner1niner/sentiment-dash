@@ -10,6 +10,8 @@ REM Fix 26 public/member dashboard refresh script - production hardened
 REM
 REM What it does:
 REM   1. Runs export_enriched_chart_history_v2.py for the dashboard union
+REM   1b. Optionally overlays chart-history from final_combined_data_enriched_tbl
+REM       through scripts\export_dashboard_chart_history_from_db.py
 REM   2. Writes chart-history/attention/alert CSV outputs locally and to Tableau AutoSync
 REM   3. Builds SETA screener, indicator matrix, and signal archetype CSVs/JSONs
 REM   4. Builds Fix 26 screener JSON payload for the website
@@ -20,6 +22,11 @@ REM   8. Stages changed website repo files in git
 REM   9. Optionally commits and pushes
 REM
 REM Safety behavior:
+REM   - Default path remains the existing legacy exporter
+REM   - DB chart-history export is opt-in via USE_DB_CHART_EXPORT=1
+REM   - Legacy exporter still refreshes alert/audit/attention sidecars used downstream
+REM   - If the opt-in DB chart-history bridge fails, the script falls back to legacy
+REM     chart-history output unless DB_EXPORT_FALLBACK_TO_LEGACY=0
 REM   - Stops if any required upstream step fails
 REM   - Deletes prior screener outputs before rebuilding so stale files cannot pass validation
 REM   - Smoke test fails fast on missing Market Tape/dashboard payload pieces
@@ -34,6 +41,7 @@ set "TABLEAU_AUTOSYNC_DIR=G:\My Drive\Tableau_AutoSync"
 set "WEBSITE_REPO=C:\Users\shane\sentiment-dash"
 set "MANIFEST=%WEBSITE_REPO%\dashboard_fix26_mode_manifest.json"
 set "PAYLOAD_BUILDER=%WEBSITE_REPO%\build_fix26_chart_store_payloads.py"
+set "DB_EXPORT_BRIDGE=%WEBSITE_REPO%\scripts\export_dashboard_chart_history_from_db.py"
 set "PUBLIC_JSON=%WEBSITE_REPO%\fix26_chart_store_public.json"
 set "MEMBER_JSON=%WEBSITE_REPO%\fix26_chart_store_member.json"
 set "INPUT_CSV=%EXPORT_DIR%\%EXPORT_FILENAME%"
@@ -66,6 +74,16 @@ set "AUTO_COMMIT=0"
 set "AUTO_PUSH=0"
 set "COMMIT_MESSAGE=Fix 26 dashboard payload and SETA screener refresh"
 
+REM DB chart-history bridge switches. Defaults can be overridden before running this BAT:
+REM   set USE_DB_CHART_EXPORT=1
+REM   set DB_EXPORT_FALLBACK_TO_LEGACY=0
+REM   set DB_CHART_EXPORT_ASSET_SOURCE=db
+if "%USE_DB_CHART_EXPORT%"=="" set "USE_DB_CHART_EXPORT=0"
+if "%DB_EXPORT_FALLBACK_TO_LEGACY%"=="" set "DB_EXPORT_FALLBACK_TO_LEGACY=1"
+if "%DB_CHART_EXPORT_ASSET_SOURCE%"=="" set "DB_CHART_EXPORT_ASSET_SOURCE=manifest"
+if "%DB_CHART_EXPORT_MODE%"=="" set "DB_CHART_EXPORT_MODE=all"
+if "%DB_CHART_HISTORY_DAYS%"=="" set "DB_CHART_HISTORY_DAYS=365"
+
 if "%TWT_SNT_DB_URL%"=="" (
   echo [ERROR] TWT_SNT_DB_URL is not set.
   echo Please add it in Windows Environment Variables.
@@ -82,6 +100,14 @@ if not exist "%EXPORTER_SCRIPT%" (
   echo [ERROR] Exporter script not found:
   echo         %EXPORTER_SCRIPT%
   goto :fail
+)
+
+if "%USE_DB_CHART_EXPORT%"=="1" (
+  if not exist "%DB_EXPORT_BRIDGE%" (
+    echo [ERROR] DB chart-history export bridge not found:
+    echo         %DB_EXPORT_BRIDGE%
+    goto :fail
+  )
 )
 
 if not exist "%PAYLOAD_BUILDER%" (
@@ -149,11 +175,12 @@ set "EXPORT_TERMS=BTC,ETH,SOL,NVDA,MSFT,COIN,AAPL,SPY,GLD,DOGE,AVAX,LINK,BNB,XRP
 
 echo.
 echo ============================================================
-echo [1/7] Running chart-history exporter...
+echo [1/8] Running legacy chart-history exporter...
 echo ============================================================
 echo Export terms: %EXPORT_TERMS%
 echo Local export dir: %EXPORT_DIR%
 echo Tableau AutoSync dir: %TABLEAU_AUTOSYNC_DIR%
+echo DB chart-history overlay: %USE_DB_CHART_EXPORT%
 "%PYTHON_EXE%" "%EXPORTER_SCRIPT%" ^
   --history-days 365 ^
   --output-dir "%EXPORT_DIR%" ^
@@ -165,6 +192,32 @@ echo Tableau AutoSync dir: %TABLEAU_AUTOSYNC_DIR%
 if errorlevel 1 (
   echo [ERROR] Exporter failed. Screener and JSON payloads were not rebuilt.
   goto :fail
+)
+
+if "%USE_DB_CHART_EXPORT%"=="1" (
+  echo.
+  echo ============================================================
+  echo [1b/8] Overlaying chart-history CSV from canonical DB table...
+  echo ============================================================
+  echo DB bridge: %DB_EXPORT_BRIDGE%
+  echo DB asset source: %DB_CHART_EXPORT_ASSET_SOURCE%
+  echo DB mode: %DB_CHART_EXPORT_MODE%
+  echo DB history days: %DB_CHART_HISTORY_DAYS%
+  "%PYTHON_EXE%" "%DB_EXPORT_BRIDGE%" ^
+    --asset-source "%DB_CHART_EXPORT_ASSET_SOURCE%" ^
+    --mode "%DB_CHART_EXPORT_MODE%" ^
+    --history-days %DB_CHART_HISTORY_DAYS% ^
+    --output-dir "%EXPORT_DIR%" ^
+    --output-filename "%EXPORT_FILENAME%" ^
+    --tableau-autosync-dir "%TABLEAU_AUTOSYNC_DIR%"
+  if errorlevel 1 (
+    if "%DB_EXPORT_FALLBACK_TO_LEGACY%"=="1" (
+      echo [WARN] DB chart-history overlay failed. Continuing with legacy exporter chart-history CSV.
+    ) else (
+      echo [ERROR] DB chart-history overlay failed and DB_EXPORT_FALLBACK_TO_LEGACY=0.
+      goto :fail
+    )
+  )
 )
 
 if not exist "%INPUT_CSV%" (
@@ -203,7 +256,7 @@ if exist "%SCREENER_STORE_JSON%" del "%SCREENER_STORE_JSON%"
 
 echo.
 echo ============================================================
-echo [2/7] Building SETA market screener, indicator matrix, and archetypes...
+echo [2/8] Building SETA market screener, indicator matrix, and archetypes...
 echo ============================================================
 echo Screener script: %SCREENER_SCRIPT%
 "%PYTHON_EXE%" "%SCREENER_SCRIPT%" ^
@@ -238,7 +291,7 @@ if not exist "%ARCHETYPES_JSON%" echo [WARN] Signal archetypes JSON sibling was 
 
 echo.
 echo ============================================================
-echo [3/7] Building Fix 26 screener JSON payload...
+echo [3/8] Building Fix 26 screener JSON payload...
 echo ============================================================
 "%PYTHON_EXE%" "%SCREENER_STORE_BUILDER%" ^
   --source-dir "%TABLEAU_AUTOSYNC_DIR%" ^
