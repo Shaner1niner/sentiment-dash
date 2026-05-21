@@ -216,6 +216,7 @@
     }
 
     .metric {
+      min-width: 0;
       background: rgba(255, 255, 255, 0.045);
       border: 1px solid rgba(255, 255, 255, 0.08);
       border-radius: 16px;
@@ -231,9 +232,12 @@
 
     .metric .num {
       margin-top: 6px;
-      font-size: 20px;
+      font-size: clamp(16px, 2.1vw, 20px);
       font-weight: 800;
       letter-spacing: -0.03em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .secondary-list {
@@ -356,6 +360,19 @@
       return parsed.toFixed(0);
     };
 
+    const humanizeLevel = (value) => {
+      const raw = String(value || "").trim();
+      const labels = {
+        asset_class_promotion_candidate: "Promotion candidate",
+        asset_class_strong_research_candidate: "Strong research",
+        asset_class_watchlist: "Watchlist",
+        asset_class_exploratory_only: "Exploratory",
+        strong_research_candidate: "Strong research",
+        control: "Control"
+      };
+      return labels[raw] || raw.replaceAll("_", " ") || "-";
+    };
+
     const titleCaseStatus = (value) => String(value || "").replaceAll("_", " ");
 
     function parseCsv(text) {
@@ -410,8 +427,9 @@
       return `<span class="${cls}">${titleCaseStatus(row.dashboard_status)}</span>`;
     }
 
-    function metric(name, value) {
-      return `<div class="metric"><div class="name">${name}</div><div class="num">${value}</div></div>`;
+    function metric(name, value, title = "") {
+      const titleAttr = title ? ` title="${title}"` : "";
+      return `<div class="metric"><div class="name">${name}</div><div class="num"${titleAttr}>${value}</div></div>`;
     }
 
     function renderLead(row) {
@@ -425,7 +443,7 @@
           <p class="copy">${row.public_copy_detail || row.public_copy_short}</p>
           <div class="metric-row">
             ${metric("Maturity", fmtScore(row.maturity_score))}
-            ${metric("Level", row.maturity_level || "-")}
+            ${metric("Level", humanizeLevel(row.maturity_level), row.maturity_level)}
             ${metric("Forward rows", safeNumber(row.forward_row_count))}
             ${metric("3D pending", safeNumber(row.forward_3d_pending_count))}
           </div>
