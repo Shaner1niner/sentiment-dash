@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""Dry-run-first helper for backfilling final_combined_data_enriched_tbl.
+r"""Dry-run-first helper for backfilling final_combined_data_enriched_tbl.
 
 Purpose
 -------
