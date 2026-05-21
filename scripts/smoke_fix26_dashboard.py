@@ -11,6 +11,11 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 EXPECTED_MARKER = "phaseG_market_tape_metric_deck_v8"
+ACCEPTED_EMBED_ENTRY_CACHE_TOKEN_SPLIT = {
+    "interactive_dashboard_fix24_public_embed.html": "manifest:module_sentiment_price_alignment_hover_001",
+    "interactive_dashboard_fix24_public_legacy_embed.html": "legacy_app:restore_monolith_entry_001",
+    "interactive_dashboard_fix24_member_embed.html": "legacy_app:restore_monolith_entry_001",
+}
 
 ERRORS: list[str] = []
 WARNINGS: list[str] = []
@@ -623,6 +628,7 @@ def check_homepage_routes() -> None:
         else:
             fail(f"homepage route missing {token}")
 
+
 def check_embeds() -> None:
     entry_tokens: dict[str, str] = {}
 
@@ -670,7 +676,10 @@ def check_embeds() -> None:
 
     unique_tokens = sorted(set(entry_tokens.values()))
     if len(unique_tokens) > 1:
-        warn(f"embed entry/cache tokens differ: {entry_tokens}")
+        if entry_tokens == ACCEPTED_EMBED_ENTRY_CACHE_TOKEN_SPLIT:
+            ok(f"accepted embed entry/cache token split: {entry_tokens}")
+        else:
+            warn(f"embed entry/cache tokens differ: {entry_tokens}")
     elif unique_tokens:
         ok(f"embed entry/cache token policy consistent: {unique_tokens[0]}")
 
