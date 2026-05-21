@@ -20,6 +20,7 @@ for path in [module, entry, public_embed, language_guide]:
         fail(f"missing {path.relative_to(ROOT)}")
 
 module_text = module.read_text(encoding="utf-8")
+module_text_lower = module_text.lower()
 entry_text = entry.read_text(encoding="utf-8")
 embed_text = public_embed.read_text(encoding="utf-8")
 guide_text = language_guide.read_text(encoding="utf-8")
@@ -50,6 +51,7 @@ for token in [
     "Freshness shows the latest visible dashboard data date",
     "data-quality cue",
     "not a price forecast or trade instruction",
+    "not price targets or trade instructions",
     "setaFreshnessReaderNote",
     "data-seta-freshness-reader-note",
     "applyFreshnessReaderNote",
@@ -61,11 +63,17 @@ for token in ["run_registry.jsonl", "exit_code", "blocking_count", "stack trace"
     if token in module_text:
         fail(f"backend jargon leaked into public intro/freshness copy: {token}")
 
-for token in ["buy", "sell", "trade now", "price target", "guaranteed"]:
-    if token in module_text.lower():
+for token in ["buy", "sell", "trade now", "guaranteed"]:
+    if token in module_text_lower:
         fail(f"trade-instruction language leaked into public intro/freshness copy: {token}")
 
-ok("public dashboard intro copy includes freshness context without backend jargon or trade instructions")
+for token in ["price target", "price targets", "price forecast"]:
+    if token in module_text_lower:
+        negated_forms = [f"not {token}", f"not a {token}", f"not an {token}"]
+        if not any(form in module_text_lower for form in negated_forms):
+            fail(f"unnegated forecast/target language leaked into public intro/freshness copy: {token}")
+
+ok("public dashboard intro copy includes freshness context without backend jargon or affirmative trade instructions")
 
 for token in [
     "How SETA reads the market.",
