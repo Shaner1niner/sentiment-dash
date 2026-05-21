@@ -103,6 +103,24 @@ Run the read-only local DB source contract report on the production machine when
 python scripts/report_dashboard_db_source_contract.py
 ```
 
+Run the DB chart-history export bridge smoke after changing the DB-to-CSV bridge:
+
+```powershell
+python scripts/smoke_db_chart_history_export_bridge.py
+```
+
+Dry-run the DB chart-history export bridge before writing any CSV:
+
+```powershell
+python scripts/export_dashboard_chart_history_from_db.py --dry-run
+```
+
+Export the manifest asset union from `final_combined_data_enriched_tbl` to the standard chart-history CSV path:
+
+```powershell
+python scripts/export_dashboard_chart_history_from_db.py --output-dir C:\Users\shane\snt_exports
+```
+
 The public context cards page also has its own smoke-test pattern. The page should continue to read:
 
 ```text
