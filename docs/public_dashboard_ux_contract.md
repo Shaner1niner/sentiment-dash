@@ -77,7 +77,7 @@ The Active Setup Snapshot is the selected-asset center of gravity in Briefing mo
 It should show three compact elements:
 
 - Structure Score as the hero
-- Signal State as the interpretation
+- compact Signal State as the interpretation
 - Structure Trend as the live/hourly movement read
 
 Structure Score should remain the canonical term. Add interpretation with supporting copy such as:

@@ -12,6 +12,7 @@ import './features/PublicDashboardResponsivePolish.js?v=module_public_dashboard_
 import './features/TouchChartStatusPolish.js?v=module_touch_chart_status_polish_001';
 import './features/MobilePublicDashboardAffordances.js?v=module_mobile_public_dashboard_affordances_001';
 import './features/ResearchSourceMixPanel.js?v=module_research_source_mix_panel_001';
+import { DataFreshnessIndicator } from './features/DataFreshnessIndicator.js?v=module_data_freshness_indicator_001';
 import { Controls } from './features/Controls.js';
 import { BriefingPanel } from './features/BriefingPanel.js';
 
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("SETA Dashboard V2 Modules Initialized");
     await Controls.init();
     MarketTape.init();
+    DataFreshnessIndicator.init();
     await BriefingPanel.init();
 
     const btnBtc = document.getElementById('btn-btc');

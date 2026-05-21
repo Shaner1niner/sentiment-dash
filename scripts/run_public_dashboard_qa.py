@@ -39,6 +39,7 @@ def build_steps(args: argparse.Namespace) -> list[tuple[str, list[str]]]:
         ("Sentiment-Price Alignment hover smoke", py_script("smoke_sentiment_price_alignment_hover.py")),
         ("Chart session axis smoke", py_script("smoke_chart_session_axis.py")),
         ("Attention context parity smoke", py_script("smoke_attention_context_parity.py")),
+        ("Data freshness indicator smoke", py_script("smoke_data_freshness_indicator.py")),
         ("Public dashboard UX contract smoke", py_script("smoke_public_dashboard_ux_contract.py")),
         ("Public dashboard responsive polish smoke", py_script("smoke_public_dashboard_responsive_polish.py")),
         ("Research Source Mix panel smoke", py_script("smoke_research_source_mix_panel.py")),

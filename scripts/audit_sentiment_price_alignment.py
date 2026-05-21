@@ -32,6 +32,10 @@ RAW_SENTIMENT_FIELDS = [
     "sentiment_pressure_ma_21",
 ]
 
+KNOWN_NON_ASSET_SIDEcars = {
+    "research_source_mix_contract",
+}
+
 
 def as_float(value: Any) -> float | None:
     if value is None:
@@ -83,6 +87,24 @@ def load_rows(path: Path) -> list[dict[str, Any]]:
                 return [row for row in rows if isinstance(row, dict)]
 
     return []
+
+
+def is_asset_payload(path: Path) -> bool:
+    """Return true only for public chart payloads, not sidecar JSON contracts."""
+
+    if path.stem.lower() in KNOWN_NON_ASSET_SIDEcars:
+        return False
+
+    try:
+        rows = load_rows(path)
+    except (OSError, json.JSONDecodeError):
+        return False
+
+    return any(
+        first_text(row, ["date", "Date", "datetime", "timestamp"])
+        and first_float(row, PRICE_FIELDS) is not None
+        for row in rows
+    )
 
 
 def classify_alignment(gap_pct: float) -> str:
@@ -168,7 +190,7 @@ def main() -> int:
         print(f"[FAIL] missing public asset directory: {PUBLIC_ASSET_DIR}")
         return 1
 
-    paths = sorted(PUBLIC_ASSET_DIR.glob("*.json"))
+    paths = sorted(path for path in PUBLIC_ASSET_DIR.glob("*.json") if is_asset_payload(path))
     if args.asset:
         wanted = args.asset.upper()
         paths = [path for path in paths if path.stem.upper() == wanted]
