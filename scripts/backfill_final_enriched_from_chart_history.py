@@ -88,6 +88,25 @@ def table_columns(conn: Any, table_name: str) -> list[str]:
     return [str(row[0]) for row in conn.execute(text(sql), params).fetchall()]
 
 
+def normalize_constraint_columns(value: Any) -> list[str]:
+    """Normalize key column arrays returned by different Postgres drivers.
+
+    SQLAlchemy/driver combinations may return array_agg values as a Python list,
+    tuple, or PostgreSQL array literal string such as '{date,term}'. Treat a raw
+    string as one array literal rather than as an iterable of characters.
+    """
+    if value is None:
+        return []
+    if isinstance(value, str):
+        raw = value.strip()
+        if raw.startswith("{") and raw.endswith("}"):
+            raw = raw[1:-1]
+        return [part.strip().strip('"') for part in raw.split(",") if part.strip()]
+    if isinstance(value, (list, tuple)):
+        return [str(part).strip().strip('"') for part in value if str(part).strip()]
+    return [str(value).strip().strip('"')]
+
+
 def existing_constraint_columns(conn: Any, table_name: str) -> list[list[str]]:
     ref = parse_table_name(table_name)
     params: dict[str, Any] = {"table": ref.table}
@@ -110,7 +129,7 @@ def existing_constraint_columns(conn: Any, table_name: str) -> list[list[str]]:
           and tc.constraint_type in ('PRIMARY KEY', 'UNIQUE')
         group by tc.constraint_name
     """
-    return [list(row[1]) for row in conn.execute(text(sql), params).fetchall()]
+    return [normalize_constraint_columns(row[1]) for row in conn.execute(text(sql), params).fetchall()]
 
 
 def read_csv_headers(path: Path) -> list[str]:
