@@ -218,7 +218,8 @@ def _rolling_z_component(df: pd.DataFrame, col: str, term_col: str = "term") -> 
         expanding_mean = s.expanding(min_periods=10).mean()
         expanding_std = s.expanding(min_periods=10).std().replace(0, pd.NA)
         z = ((s - expanding_mean) / expanding_std).clip(lower=-3, upper=3)
-        out.loc[idx] = (50 + z * 12).clip(lower=0, upper=100)
+        component = pd.to_numeric((50 + z * 12).clip(lower=0, upper=100), errors="coerce")
+        out.loc[idx] = component.astype("float64")
     return out
 
 
@@ -255,8 +256,10 @@ def _direction_signal(df: pd.DataFrame) -> pd.Series:
 
     if "macd_histogram" in df.columns:
         macd = _numeric_series(df, "macd_histogram")
-        signed = macd.apply(lambda v: 1.0 if pd.notna(v) and v > 0 else (-1.0 if pd.notna(v) and v < 0 else pd.NA))
-        mask = signed.notna()
+        signed = pd.Series(0.0, index=df.index, dtype="float64")
+        signed.loc[macd > 0] = 1.0
+        signed.loc[macd < 0] = -1.0
+        mask = macd.notna() & (macd != 0)
         signal.loc[mask] += signed.loc[mask] * 0.35
         weight.loc[mask] += 0.35
 
