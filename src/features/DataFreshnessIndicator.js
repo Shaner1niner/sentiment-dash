@@ -78,6 +78,29 @@ function dateLabel(date) {
     return d.toISOString().slice(0, 10);
 }
 
+function freshnessTooltip(status) {
+    const base = 'Freshness is a data-quality cue, not a price forecast or trade instruction.';
+    const dateText = status.latestDataDate ? ` Latest visible data date: ${status.latestDataDate}.` : '';
+
+    if (status.status === 'stale') {
+        return `Latest visible data is older than expected.${dateText} Interpret short-term signals with caution. ${base}`;
+    }
+
+    if (status.status === 'source_warning' || status.status === 'partial_coverage') {
+        return `Latest visible data may have partial refresh coverage.${dateText} Interpret short-term signals with caution. ${base}`;
+    }
+
+    if (status.status === 'reviewed') {
+        return `Reviewed dashboard context is available.${dateText} SETA explains market emotion and setup quality, not trade instructions.`;
+    }
+
+    if (status.status === 'fresh') {
+        return `Fresh means the selected dashboard payload contains recent visible data.${dateText} ${base}`;
+    }
+
+    return `Freshness could not be confirmed from dated dashboard rows. ${base}`;
+}
+
 export function classifyDataFreshness(state = Store.snapshot(), now = new Date()) {
     const payload = state.currentAssetPayload;
     const rows = rowsForPayload(payload, state);
@@ -87,7 +110,7 @@ export function classifyDataFreshness(state = Store.snapshot(), now = new Date()
     const reviewed = isReviewedBriefing(state);
 
     if (!payload || !rows.length || !latestDate) {
-        return {
+        const status = {
             status: 'unknown',
             label: 'freshness unknown',
             detail: 'Dashboard payload loaded, but no dated rows were available for a freshness read.',
@@ -95,10 +118,11 @@ export function classifyDataFreshness(state = Store.snapshot(), now = new Date()
             latestDataDate: null,
             reviewed
         };
+        return { ...status, tooltip: freshnessTooltip(status) };
     }
 
     if (ageDays !== null && ageDays > 7) {
-        return {
+        const status = {
             status: 'stale',
             label: 'stale',
             detail: `Latest visible data is from ${dateLabel(latestDate)}. Interpret short-term signals with caution.`,
@@ -106,10 +130,11 @@ export function classifyDataFreshness(state = Store.snapshot(), now = new Date()
             latestDataDate: dateLabel(latestDate),
             reviewed
         };
+        return { ...status, tooltip: freshnessTooltip(status) };
     }
 
     if (ageDays !== null && ageDays > 2) {
-        return {
+        const status = {
             status: 'source_warning',
             label: 'source warning',
             detail: `Latest visible data is from ${dateLabel(latestDate)}. Some refresh coverage may be partial.`,
@@ -117,10 +142,11 @@ export function classifyDataFreshness(state = Store.snapshot(), now = new Date()
             latestDataDate: dateLabel(latestDate),
             reviewed
         };
+        return { ...status, tooltip: freshnessTooltip(status) };
     }
 
     if (reviewed) {
-        return {
+        const status = {
             status: 'reviewed',
             label: 'reviewed',
             detail: `Reviewed dashboard context loaded. Latest visible data date: ${dateLabel(latestDate)}.`,
@@ -128,9 +154,10 @@ export function classifyDataFreshness(state = Store.snapshot(), now = new Date()
             latestDataDate: dateLabel(latestDate),
             reviewed
         };
+        return { ...status, tooltip: freshnessTooltip(status) };
     }
 
-    return {
+    const status = {
         status: 'fresh',
         label: ageDays === 0 ? 'refreshed today' : 'fresh',
         detail: `Latest visible data date: ${dateLabel(latestDate)}.`,
@@ -138,6 +165,7 @@ export function classifyDataFreshness(state = Store.snapshot(), now = new Date()
         latestDataDate: dateLabel(latestDate),
         reviewed
     };
+    return { ...status, tooltip: freshnessTooltip(status) };
 }
 
 function ensureStyle() {
@@ -241,8 +269,8 @@ export const DataFreshnessIndicator = {
         const target = ensureTarget();
         const status = classifyDataFreshness(Store.snapshot());
         target.innerHTML = `
-          <span class="moduleDataFreshnessPill is-${escapeHtml(status.status)}" title="${escapeHtml(status.detail)}">${escapeHtml(status.label)}</span>
-          <span class="moduleDataFreshnessDetail">${escapeHtml(status.detail)}</span>
+          <span class="moduleDataFreshnessPill is-${escapeHtml(status.status)}" title="${escapeHtml(status.tooltip || status.detail)}">${escapeHtml(status.label)}</span>
+          <span class="moduleDataFreshnessDetail" title="${escapeHtml(status.tooltip || status.detail)}">${escapeHtml(status.detail)}</span>
         `;
     }
 };
