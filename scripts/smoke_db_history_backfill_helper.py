@@ -55,13 +55,20 @@ def main() -> int:
         fail(f"backfill helper has syntax error: {exc}")
 
     dry_run_gate = "if not args.execute:\n            return report"
-    first_write = min(
-        idx for idx in [text.find("execute_upsert("), text.find("execute_delete_insert(")] if idx >= 0
-    )
-    if text.find(dry_run_gate) < 0:
+    dry_run_idx = text.find(dry_run_gate)
+    if dry_run_idx < 0:
         fail("missing explicit dry-run return before execution")
-    if text.find(dry_run_gate) > first_write:
-        fail("dry-run return appears after write execution path")
+
+    guarded_execution_tokens = [
+        "if args.write_mode == \"upsert\":\n            executed = execute_upsert(",
+        "else:\n            executed = execute_delete_insert(",
+    ]
+    for token in guarded_execution_tokens:
+        token_idx = text.find(token)
+        if token_idx < 0:
+            fail(f"missing guarded execution token: {token}")
+        if dry_run_idx > token_idx:
+            fail("dry-run return appears after guarded execution branch")
     ok("backfill helper is dry-run-first with explicit execution gating")
 
     if text.count("conn.execute(") < 4:
