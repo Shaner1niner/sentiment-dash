@@ -38,10 +38,11 @@ def main() -> int:
         "read-only research context surface",
         "Prediction Intelligence Engine export",
         "not a trading system",
+        "tuning interface",
+        "promotion engine",
         "not exactly one lead rule",
         "no baseline/control rule",
         "risk guard language",
-        "does not compute, tune, or promote trading rules",
     ]:
         if token not in contract_text:
             fail(f"contract missing token: {token}")
