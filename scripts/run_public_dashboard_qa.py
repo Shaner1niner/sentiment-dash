@@ -41,6 +41,7 @@ def build_steps(args: argparse.Namespace) -> list[tuple[str, list[str]]]:
         ("Attention context parity smoke", py_script("smoke_attention_context_parity.py")),
         ("Data freshness indicator smoke", py_script("smoke_data_freshness_indicator.py")),
         ("Public dashboard UX contract smoke", py_script("smoke_public_dashboard_ux_contract.py")),
+        ("Dislocation Context Cards contract smoke", py_script("smoke_dislocation_context_cards_contract.py")),
         ("Public dashboard responsive polish smoke", py_script("smoke_public_dashboard_responsive_polish.py")),
         ("Research Source Mix panel smoke", py_script("smoke_research_source_mix_panel.py")),
         ("Active Setup Snapshot visual polish smoke", py_script("smoke_active_setup_snapshot_visual_polish.py")),
