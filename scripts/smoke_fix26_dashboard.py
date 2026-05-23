@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import json
-import re
 import sys
 from pathlib import Path
 from typing import Any
@@ -16,6 +15,11 @@ ACCEPTED_EMBED_ENTRY_CACHE_TOKEN_SPLIT = {
     "interactive_dashboard_fix24_public_legacy_embed.html": "legacy_app:restore_monolith_entry_001",
     "interactive_dashboard_fix24_member_embed.html": "legacy_app:restore_monolith_entry_001",
 }
+BRIEFING_MODE_TOKENS = [
+    "Briefing Mode",
+    'data-control="briefingMode"',
+    'id="briefingMode"',
+]
 
 ERRORS: list[str] = []
 WARNINGS: list[str] = []
@@ -57,6 +61,10 @@ def require_file(rel: str) -> Path:
     else:
         fail(f"missing {rel}")
     return path
+
+
+def has_briefing_mode_control(text: str) -> bool:
+    return any(token in text for token in BRIEFING_MODE_TOKENS)
 
 
 def check_screener_store() -> None:
@@ -413,10 +421,10 @@ def check_embed_pages() -> None:
         if not path.exists():
             continue
         text = read_text(path)
-        if "Briefing Mode" in text:
-            ok(f"{html_name} contains Briefing Mode control")
+        if has_briefing_mode_control(text):
+            ok(f"{html_name} contains briefing mode control")
         else:
-            fail(f"{html_name} missing Briefing Mode control")
+            fail(f"{html_name} missing briefing mode control")
         if "semantic_briefing" not in text:
             ok(f"{html_name} does not load retired semantic briefing sidecar")
         else:
