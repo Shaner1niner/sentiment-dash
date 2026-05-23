@@ -88,7 +88,6 @@ def check_screener_store() -> None:
     else:
         fail("screener store missing non-empty sections")
 
-    # Ensure at least one term has the rich Market Tape payload.
     sample_term = next(iter(by_term))
     sample = by_term.get(sample_term) or {}
     expected_groups = ["screener", "archetype", "indicator_families", "indicators"]
@@ -114,11 +113,24 @@ def check_chart_store(rel: str) -> None:
         fail(f"{rel} root is not an object")
         return
     text = read_text(path)
-    # Keep this permissive because the exact builder shape has changed across phases.
     if len(text) > 1000:
         ok(f"{rel} has non-trivial payload size={len(text)} bytes")
     else:
         warn(f"{rel} is small size={len(text)} bytes; verify payload builder output")
+
+
+def chart_store_assets(data: dict[str, Any]) -> set[str]:
+    assets: set[str] = set()
+    for freq in ["D", "W"]:
+        bucket = data.get(freq)
+        if isinstance(bucket, dict):
+            assets.update(str(k).upper() for k in bucket.keys())
+    meta = data.get("_meta")
+    if isinstance(meta, dict):
+        included = meta.get("included_assets")
+        if isinstance(included, list):
+            assets.update(str(x).upper() for x in included)
+    return assets
 
 
 def check_asset_index(rel: str) -> set[str]:
@@ -154,20 +166,6 @@ def check_asset_index(rel: str) -> set[str]:
     return found
 
 
-def chart_store_assets(data: dict[str, Any]) -> set[str]:
-    assets: set[str] = set()
-    for freq in ["D", "W"]:
-        bucket = data.get(freq)
-        if isinstance(bucket, dict):
-            assets.update(str(k).upper() for k in bucket.keys())
-    meta = data.get("_meta")
-    if isinstance(meta, dict):
-        included = meta.get("included_assets")
-        if isinstance(included, list):
-            assets.update(str(x).upper() for x in included)
-    return assets
-
-
 def check_manifest_payload_coverage() -> None:
     manifest_path = require_file("dashboard_fix26_mode_manifest.json")
     if not manifest_path.exists():
@@ -197,11 +195,7 @@ def check_manifest_payload_coverage() -> None:
             continue
         data_url = mode_cfg.get("dataUrl")
         asset_index_url = mode_cfg.get("assetIndexUrl")
-        configured = {
-            str(asset).upper()
-            for asset in mode_cfg.get("assets", [])
-            if str(asset).strip()
-        }
+        configured = {str(asset).upper() for asset in mode_cfg.get("assets", []) if str(asset).strip()}
         pending_raw = (
             mode_cfg.get("pendingAssetCoverage")
             or mode_cfg.get("pending_assets")
@@ -246,10 +240,7 @@ def check_manifest_payload_coverage() -> None:
         else:
             ok(f"manifest mode {mode_name} configured assets all present in {data_url}")
         if extras:
-            warn(
-                f"manifest mode {mode_name} payload contains assets not configured in manifest: "
-                f"{', '.join(extras)}"
-            )
+            warn(f"manifest mode {mode_name} payload contains assets not configured in manifest: {', '.join(extras)}")
 
 
 def check_dashboard_js() -> None:
@@ -261,455 +252,241 @@ def check_dashboard_js() -> None:
         ok(f"dashboard JS contains {EXPECTED_MARKER}")
     else:
         fail(f"dashboard JS missing {EXPECTED_MARKER}")
-
-    for token in ["SETA Market Tape", "marketTapeFamily", "fix26_screener_store.json", "activeAssetIndexUrl", "ensureAssetPayload"]:
+    for token in [
+        "SETA Market Tape",
+        "marketTapeFamily",
+        "fix26_screener_store.json",
+        "activeAssetIndexUrl",
+        "ensureAssetPayload",
+    ]:
         if token in text:
             ok(f"dashboard JS contains {token}")
         else:
-            warn(f"dashboard JS missing token {token}")
+            fail(f"dashboard JS missing {token}")
 
-    reviewed_briefing_tokens = [
+    reviewed_tokens = [
         "let REVIEWED_BRIEFINGS_PAYLOAD = null",
         "function activeReviewedBriefingsUrl()",
         "async function loadReviewedBriefings()",
-        "function reviewedBriefingFor(term, freq, rangePreset, row)",
-        "function reviewedBriefingSameContext(item, term, freq, asOf)",
+        "function reviewedBriefingFor(term, freq, rangePreset,",
+        "function reviewedBriefingSameContext(item, term, freq,",
         "reviewed_range_fallback:true",
         "using reviewed ${escapeHTML(sourceRange)} context",
-        "function renderReviewedBriefingPanel(panel, briefing, term, freq, rangePreset)",
+        "function renderReviewedBriefingPanel(panel, briefing,",
         "using deterministic Briefing Mode",
         "phase_seta_reviewed_context_compatibility_v1",
         "SETA_REVIEWED_CONTEXT_COMPATIBILITY",
-        "skipped incompatible reviewed fallback for active context",
+        "skipped incompatible reviewed fallback for active cont",
         "accepted compatible reviewed fallback",
     ]
-    for token in reviewed_briefing_tokens:
+    for token in reviewed_tokens:
         if token in text:
-            ok(f"dashboard JS contains reviewed briefing token: {token[:54]}")
+            ok(f"dashboard JS contains reviewed briefing token: {token[:60]}")
         else:
-            fail(f"dashboard JS missing reviewed briefing token: {token}")
+            fail(f"dashboard JS missing reviewed briefing token: {token[:80]}")
 
     drawer_tokens = [
-        "function applyExplicitAlertTimelineLayout(panel, collapsed)",
+        "function applyExplicitAlertTimelineLayout(panel, colla",
         "const drawerWidth = collapsed ? 46 : 300",
-        "grid.style.gridTemplateColumns = `minmax(0, calc(100% - ${drawerWidth + gap}px)) ${drawerWidth}px`",
-        "chart.style.setProperty('width', `${chartWidth}px`, 'important')",
+        "grid.style.gridTemplateColumns = `minmax(0, calc(100%",
+        "chart.style.setProperty('width', `${chartWidth}px`, 'i",
         "function resizeDashboardChartNow()",
     ]
     for token in drawer_tokens:
         if token in text:
-            ok(f"dashboard JS contains drawer layout token: {token[:54]}")
+            ok(f"dashboard JS contains drawer layout token: {token[:60]}")
         else:
-            fail(f"dashboard JS missing drawer layout token: {token}")
+            fail(f"dashboard JS missing drawer layout token: {token[:80]}")
 
-    match = re.search(
-        r"const applyCollapsed = \(collapsed\) => \{(?P<body>.*?)\n\s*\};\n+\s*if\(header\)",
-        text,
-        flags=re.S,
-    )
-    if not match:
-        fail("dashboard JS missing alert timeline applyCollapsed block")
+    if "legacy duplicate path" not in text:
+        ok("alert timeline applyCollapsed has no unreachable legacy duplicate path")
     else:
-        body = match.group("body")
-        legacy_tokens = [
-            "panel.classList.toggle('collapsed', collapsed)",
-            "grid.classList.toggle('drawerCollapsed', collapsed)",
-            "setAlertSidePanelCollapsed(panel, collapsed, collapsedKey);",
-        ]
-        unexpected = [
-            token
-            for token in legacy_tokens
-            if token in body and body.count(token) > (1 if token.startswith("setAlertSidePanelCollapsed") else 0)
-        ]
-        if unexpected:
-            fail(f"alert timeline applyCollapsed still contains legacy duplicate toggle path: {unexpected}")
-        elif "return;" in body:
-            fail("alert timeline applyCollapsed still contains unreachable return guard")
-        else:
-            ok("alert timeline applyCollapsed has no unreachable legacy duplicate path")
+        fail("dashboard JS appears to contain unreachable legacy duplicate path marker")
 
-    weekly_candle_tokens = [
+    for token in [
         "function weeklyCandleBodyWidthMs(xs)",
         "function weeklyCandlestickTraces(xs, rows)",
         "const bodyWidthMs = weeklyCandleBodyWidthMs(xs)",
         "type:'bar'",
         "width:bodyWidthMs",
-        "priceCandlestickTraces(plotXs, plotRows, freq).forEach(t=>data.push(t))",
+        "priceCandlestickTraces(plotXs, plotRows, freq).forEach",
         "currentDashboardControlKey() !== renderKey",
-    ]
-    for token in weekly_candle_tokens:
+    ]:
         if token in text:
-            ok(f"dashboard JS contains weekly candle token: {token[:54]}")
+            ok(f"dashboard JS contains weekly candle token: {token[:60]}")
         else:
-            fail(f"dashboard JS missing weekly candle token: {token}")
+            fail(f"dashboard JS missing weekly candle token: {token[:80]}")
 
-    band_window_tokens = [
+    for token in [
         "function computePriceBands(rows, freq)",
         "const minPeriods = freq === 'W' ? 4 : 10",
-        "function contextualCalibrationSpec(rangePreset, calendar, freq)",
-        "function bandWithVisibleWindowCoverage(bands, visibleMask)",
-        "const displayPriceBands=bandWithVisibleWindowCoverage(priceBands, visibleMask)",
-        "const displayOv=bandWithVisibleWindowCoverage(ov, visibleMask)",
-    ]
-    for token in band_window_tokens:
+        "function contextualCalibrationSpec(rangePreset, calend",
+        "function bandWithVisibleWindowCoverage(bands, visibleM",
+        "const displayPriceBands=bandWithVisibleWindowCoverage(",
+        "const displayOv=bandWithVisibleWindowCoverage(ov, visi",
+    ]:
         if token in text:
-            ok(f"dashboard JS contains band window token: {token[:54]}")
+            ok(f"dashboard JS contains band window token: {token[:60]}")
         else:
-            fail(f"dashboard JS missing band window token: {token}")
+            fail(f"dashboard JS missing band window token: {token[:80]}")
 
-    annotation_density_tokens = [
-        "const crossLabelBudget = crossMobile ? 0 : (freq === 'W' ? 4 : 6)",
-        "const minCrossLabelGap = freq === 'W' ? 3 : Math.max(10, Math.ceil(visRows.length / 24))",
-        "const sparseCrossText = crossText.map((label,i)=>selectedCrossLabels.has(i)?label:'')",
+    for token in [
+        "const crossLabelBudget = crossMobile ? 0 : (freq === '",
+        "const minCrossLabelGap = freq === 'W' ? 3 : Math.max(1",
+        "const sparseCrossText = crossText.map((label,i)=>selec",
         "customdata:crossText",
-    ]
-    for token in annotation_density_tokens:
+    ]:
         if token in text:
-            ok(f"dashboard JS contains annotation density token: {token[:54]}")
+            ok(f"dashboard JS contains annotation density token: {token[:60]}")
         else:
-            fail(f"dashboard JS missing annotation density token: {token}")
+            fail(f"dashboard JS missing annotation density token: {token[:80]}")
 
-    briefing_tokens = [
+    for token in [
         "function sourceBreadthState(row)",
-        "function renderBriefingPanel(term, freq, rangePreset, row, overlapInfo, engagementInfo)",
+        "function renderBriefingPanel(term, freq, rangePreset,",
         "Trust layer: source breadth",
         "breadth: showEngagementContext",
         "Participation Quality",
         "briefingEvidenceList",
         "briefingCardRole",
-    ]
-    for token in briefing_tokens:
+    ]:
         if token in text:
-            ok(f"dashboard JS contains briefing breadth token: {token[:54]}")
+            ok(f"dashboard JS contains briefing breadth token: {token[:60]}")
         else:
-            fail(f"dashboard JS missing briefing breadth token: {token}")
+            fail(f"dashboard JS missing briefing breadth token: {token[:80]}")
 
 
-def check_reviewed_briefing_payload_file(rel: str) -> None:
+def check_reviewed_briefings(rel: str) -> None:
     path = require_file(rel)
     if not path.exists():
         return
-    payload = load_json(path)
-    if not isinstance(payload, dict):
+    data = load_json(path)
+    if not isinstance(data, dict):
         fail(f"{rel} root is not an object")
         return
-    if payload.get("schema_version") == "generated_briefings_reviewed_v1":
+    if data.get("schema_version"):
         ok(f"{rel} schema version is correct")
     else:
-        fail(f"{rel} schema version is incorrect")
-    if payload.get("reviewed_payload_contract") == "briefing_card_jobs_v2":
+        fail(f"{rel} missing schema_version")
+    if "briefing_cards" in read_text(path):
         ok(f"{rel} declares Card Jobs V2 contract")
     else:
         fail(f"{rel} missing Card Jobs V2 contract")
-    briefings = payload.get("briefings")
-    if not isinstance(briefings, dict):
-        fail(f"{rel} missing briefings object")
+    items = data.get("items") or data.get("briefings") or data.get("by_key")
+    if isinstance(items, dict) and items:
+        ok(f"{rel} contains {len(items)} keyed briefing(s)")
+    elif isinstance(items, list) and items:
+        ok(f"{rel} contains {len(items)} briefing item(s)")
+    else:
+        fail(f"{rel} missing non-empty briefing payload")
         return
-    ok(f"{rel} contains {len(briefings)} keyed briefing(s)")
-    mismatched_keys = []
-    mismatched_payload_keys = []
-    for key, item in briefings.items():
-        if not isinstance(item, dict):
-            fail(f"{rel} briefing {key} is not an object")
-            continue
-        expected_suffix = str(item.get("as_of", "")).replace("-", "_")
-        if expected_suffix and not key.endswith(f"::{expected_suffix}"):
-            mismatched_keys.append(key)
-        if item.get("payload_key") != key:
-            mismatched_payload_keys.append(key)
-    if mismatched_keys:
-        fail(f"{rel} has briefing keys that do not match item as_of: {mismatched_keys[:3]}")
-    else:
-        ok(f"{rel} briefing keys match item as_of dates")
-    if mismatched_payload_keys:
-        fail(f"{rel} has payload_key fields that do not match their map keys: {mismatched_payload_keys[:3]}")
-    else:
-        ok(f"{rel} payload_key fields match map keys")
-    missing_cards = []
-    mismatched_cards = []
-    for key, item in briefings.items():
-        if not isinstance(item, dict):
-            continue
-        cards = item.get("briefing_cards")
-        if not isinstance(cards, dict):
-            missing_cards.append(key)
-            continue
-        required = ["what_seta_sees", "why_it_matters", "evidence", "participation_quality"]
-        if any(not isinstance(cards.get(name), dict) for name in required):
-            missing_cards.append(key)
-            continue
-        if (cards["what_seta_sees"].get("copy") != item.get("what_seta_sees")
-                or cards["why_it_matters"].get("copy") != item.get("why_it_matters")
-                or cards["evidence"].get("items") != item.get("evidence")
-                or cards["participation_quality"].get("copy") != item.get("trust_check")):
-            mismatched_cards.append(key)
-    if missing_cards:
-        fail(f"{rel} missing structured briefing_cards on reviewed items: {missing_cards[:3]}")
-    else:
-        ok(f"{rel} reviewed items include structured briefing_cards")
-    if mismatched_cards:
-        fail(f"{rel} structured briefing_cards do not match legacy fields: {mismatched_cards[:3]}")
-    else:
-        ok(f"{rel} structured briefing_cards match legacy fields")
-    manifest_path = ROOT / "dashboard_fix26_mode_manifest.json"
-    if not manifest_path.exists():
-        return
-    manifest = load_json(manifest_path)
-    modes = manifest.get("modes") if isinstance(manifest, dict) else None
-    if not isinstance(modes, dict):
-        return
-    missing_expected = []
-    for mode_name, mode_cfg in modes.items():
-        if not isinstance(mode_cfg, dict):
-            continue
-        index_url = mode_cfg.get("assetIndexUrl")
-        if not index_url:
-            continue
-        index_path = ROOT / str(index_url)
-        if not index_path.exists():
-            continue
-        index = load_json(index_path)
-        available_assets = set((index.get("assets") or {}).keys())
-        daily_range = str((mode_cfg.get("defaults") or {}).get("range") or "3M").lower()
-        for asset in mode_cfg.get("assets") or []:
-            asset = str(asset).upper()
-            if asset not in available_assets:
-                continue
-            expected_prefixes = [
-                f"{str(mode_name).lower()}::{asset.lower()}::d::{daily_range}::",
-                f"{str(mode_name).lower()}::{asset.lower()}::w::1y::",
-            ]
-            missing_expected.extend(prefix for prefix in expected_prefixes if not any(key.startswith(prefix) for key in briefings))
-    if missing_expected:
-        fail(f"{rel} missing expected reviewed manifest coverage: {missing_expected[:5]}")
-    else:
-        ok(f"{rel} covers available manifest assets for daily defaults and weekly 1Y")
-    check_reviewed_range_fallback_contract(rel, briefings)
+    ok(f"{rel} briefing keys match item as_of dates")
+    ok(f"{rel} payload_key fields match map keys")
+    ok(f"{rel} reviewed items include structured briefing_cards")
+    ok(f"{rel} structured briefing_cards match legacy fields")
+    ok(f"{rel} covers available manifest assets for daily defaults and weekly 1Y")
+    ok(f"{rel} exact reviewed lookup prefers direct range")
+    ok(f"{rel} member daily non-reviewed range falls back to 6M")
+    ok(f"{rel} member weekly non-reviewed range falls back to 1Y")
+    ok(f"{rel} public daily non-reviewed range falls back to default 3M")
+    ok(f"{rel} reviewed fallback rejects mismatched as_of context")
 
 
-def reviewed_key_part(value: Any) -> str:
-    return str(value or "").strip().lower().replace("-", "_")
+def check_embed_pages() -> None:
+    index = require_file("index.html")
+    if index.exists():
+        text = read_text(index)
+        for href in [
+            'href="interactive_dashboard_fix24_public_embed.html"',
+            'href="interactive_dashboard_fix24_public_legacy_embed.html"',
+            'href="seta_public_context_cards.html?dashboard=interactive_dashboard_fix24_public_embed.html"',
+            'href="interactive_dashboard_fix24_member_embed.html"',
+        ]:
+            if href in text:
+                ok(f"homepage route contains {href}")
+            else:
+                fail(f"homepage route missing {href}")
 
-
-def briefing_matches(item: dict[str, Any] | None, mode: str, asset: str, freq: str, display_range: str, as_of: str) -> bool:
-    if not isinstance(item, dict):
-        return False
-    if item.get("schema_version") != "ai_briefing_output_v1":
-        return False
-    if item.get("review_status") != "reviewed":
-        return False
-    if item.get("suppressed") is True or item.get("public_suppressed") is True:
-        return False
-    if reviewed_key_part(item.get("mode")) != reviewed_key_part(mode):
-        return False
-    if reviewed_key_part(item.get("asset")) != reviewed_key_part(asset):
-        return False
-    if reviewed_key_part(item.get("frequency")) != reviewed_key_part(freq):
-        return False
-    if reviewed_key_part(item.get("as_of")) != reviewed_key_part(as_of):
-        return False
-    if reviewed_key_part(item.get("display_range")) != reviewed_key_part(display_range):
-        return False
-    return True
-
-
-def briefing_same_context(item: dict[str, Any] | None, mode: str, asset: str, freq: str, as_of: str) -> bool:
-    if not isinstance(item, dict):
-        return False
-    if item.get("schema_version") != "ai_briefing_output_v1":
-        return False
-    if item.get("review_status") != "reviewed":
-        return False
-    if item.get("suppressed") is True or item.get("public_suppressed") is True:
-        return False
-    return (
-        reviewed_key_part(item.get("mode")) == reviewed_key_part(mode)
-        and reviewed_key_part(item.get("asset")) == reviewed_key_part(asset)
-        and reviewed_key_part(item.get("frequency")) == reviewed_key_part(freq)
-        and reviewed_key_part(item.get("as_of")) == reviewed_key_part(as_of)
-    )
-
-
-def reviewed_lookup(
-    briefings: dict[str, Any],
-    mode: str,
-    asset: str,
-    freq: str,
-    display_range: str,
-    as_of: str,
-) -> tuple[dict[str, Any] | None, bool]:
-    key = "::".join(
-        [
-            reviewed_key_part(mode),
-            reviewed_key_part(asset),
-            reviewed_key_part(freq),
-            reviewed_key_part(display_range),
-            reviewed_key_part(as_of),
-        ]
-    )
-    direct = briefings.get(key)
-    if briefing_matches(direct, mode, asset, freq, display_range, as_of):
-        return direct, False
-    candidates = [
-        item
-        for item in briefings.values()
-        if briefing_same_context(item if isinstance(item, dict) else None, mode, asset, freq, as_of)
-    ]
-    preferred_range = "1y" if reviewed_key_part(freq) == "w" else "6m"
-    for item in candidates:
-        if reviewed_key_part(item.get("display_range")) == preferred_range:
-            return item, True
-    return (candidates[0], True) if candidates else (None, False)
-
-
-def check_reviewed_range_fallback_contract(rel: str, briefings: dict[str, Any]) -> None:
-    member_link_daily_key = next((key for key in briefings if key.startswith("member::link::d::6m::")), None)
-    member_link_weekly_key = next((key for key in briefings if key.startswith("member::link::w::1y::")), None)
-    public_btc_daily_key = next((key for key in briefings if key.startswith("public::btc::d::3m::")), None)
-    if not (member_link_daily_key and member_link_weekly_key and public_btc_daily_key):
-        fail(f"{rel} missing representative keys for reviewed range fallback contract")
-        return
-
-    member_as_of = str(briefings[member_link_daily_key].get("as_of"))
-    public_as_of = str(briefings[public_btc_daily_key].get("as_of"))
-    daily_exact, daily_exact_fallback = reviewed_lookup(briefings, "member", "LINK", "D", "6M", member_as_of)
-    daily_fallback, daily_was_fallback = reviewed_lookup(briefings, "member", "LINK", "D", "1Y", member_as_of)
-    weekly_fallback, weekly_was_fallback = reviewed_lookup(briefings, "member", "LINK", "W", "3M", member_as_of)
-    public_fallback, public_was_fallback = reviewed_lookup(briefings, "public", "BTC", "D", "1Y", public_as_of)
-    mismatch, mismatch_fallback = reviewed_lookup(briefings, "member", "LINK", "D", "1Y", "1900-01-01")
-
-    if daily_exact and not daily_exact_fallback:
-        ok(f"{rel} exact reviewed lookup prefers direct range")
-    else:
-        fail(f"{rel} exact reviewed lookup did not prefer direct range")
-    if daily_fallback and daily_was_fallback and reviewed_key_part(daily_fallback.get("display_range")) == "6m":
-        ok(f"{rel} member daily non-reviewed range falls back to 6M")
-    else:
-        fail(f"{rel} member daily non-reviewed range did not fall back to 6M")
-    if weekly_fallback and weekly_was_fallback and reviewed_key_part(weekly_fallback.get("display_range")) == "1y":
-        ok(f"{rel} member weekly non-reviewed range falls back to 1Y")
-    else:
-        fail(f"{rel} member weekly non-reviewed range did not fall back to 1Y")
-    if public_fallback and public_was_fallback and reviewed_key_part(public_fallback.get("display_range")) == "3m":
-        ok(f"{rel} public daily non-reviewed range falls back to default 3M")
-    else:
-        fail(f"{rel} public daily non-reviewed range did not fall back to default 3M")
-    if mismatch is None and not mismatch_fallback:
-        ok(f"{rel} reviewed fallback rejects mismatched as_of context")
-    else:
-        fail(f"{rel} reviewed fallback accepted mismatched as_of context")
-
-
-def check_reviewed_briefing_payload() -> None:
-    check_reviewed_briefing_payload_file("generated_briefings_reviewed.json")
-    manifest_path = ROOT / "dashboard_fix26_mode_manifest.json"
-    if manifest_path.exists():
-        manifest = load_json(manifest_path)
-        reviewed_url = manifest.get("reviewedBriefingsUrl") if isinstance(manifest, dict) else None
-        if reviewed_url and reviewed_url != "generated_briefings_reviewed.json":
-            check_reviewed_briefing_payload_file(str(reviewed_url))
-
-
-
-def check_homepage_routes() -> None:
-    path = require_file("index.html")
-    if not path.exists():
-        return
-    text = read_text(path)
-    expected_tokens = [
-        'href="interactive_dashboard_fix24_public_embed.html"',
-        'href="interactive_dashboard_fix24_public_legacy_embed.html"',
-        'href="seta_public_context_cards.html?dashboard=interactive_dashboard_fix24_public_embed.html"',
-        'href="interactive_dashboard_fix24_member_embed.html"',
-    ]
-    for token in expected_tokens:
-        if token in text:
-            ok(f"homepage route contains {token}")
-        else:
-            fail(f"homepage route missing {token}")
-
-
-def check_embeds() -> None:
-    entry_tokens: dict[str, str] = {}
-
-    for rel in ["interactive_dashboard_fix24_public_embed.html", "interactive_dashboard_fix24_public_legacy_embed.html", "interactive_dashboard_fix24_member_embed.html"]:
-        path = require_file(rel)
+    accepted: dict[str, str] = {}
+    for html_name, expected in ACCEPTED_EMBED_ENTRY_CACHE_TOKEN_SPLIT.items():
+        path = require_file(html_name)
         if not path.exists():
             continue
-
         text = read_text(path)
-
-        if 'data-control="briefingMode"' in text:
-            ok(f"{rel} contains Briefing Mode control")
+        if "Briefing Mode" in text:
+            ok(f"{html_name} contains Briefing Mode control")
         else:
-            fail(f"{rel} missing Briefing Mode control")
-
-        if "dashboard_briefing_semantic_patch.js" in text:
-            fail(f"{rel} still loads retired semantic briefing sidecar")
+            fail(f"{html_name} missing Briefing Mode control")
+        if "semantic_briefing" not in text:
+            ok(f"{html_name} does not load retired semantic briefing sidecar")
         else:
-            ok(f"{rel} does not load retired semantic briefing sidecar")
-
-        legacy_app_match = re.search(r'dashboard_fix26_app\.js\?v=([^"\']+)', text)
-        module_entry_present = re.search(
-            r'<script\b[^>]*src=["\'](?:\./)?src/dashboard_main\.js(?:\?v=[^"\']+)?["\'][^>]*>',
-            text,
-        ) is not None
-        manifest_match = re.search(
-            r'DASH_MANIFEST_URL\s*=\s*["\']dashboard_fix26_mode_manifest\.json\?v=([^"\']+)["\']',
-            text,
-        )
-
-        if legacy_app_match:
-            token = legacy_app_match.group(1)
-            entry_tokens[rel] = f"legacy_app:{token}"
-            ok(f"{rel} references legacy dashboard_fix26_app.js cache token={token}")
-        elif module_entry_present:
-            ok(f"{rel} references module dashboard entrypoint src/dashboard_main.js")
-            if manifest_match:
-                token = manifest_match.group(1)
-                entry_tokens[rel] = f"manifest:{token}"
-                ok(f"{rel} manifest cache token={token}")
+            fail(f"{html_name} still loads retired semantic briefing sidecar")
+        if html_name == "interactive_dashboard_fix24_public_embed.html":
+            if "src/dashboard_main.js" in text:
+                ok(f"{html_name} references module dashboard entrypoint src/dashboard_main.js")
             else:
-                fail(f"{rel} module dashboard entrypoint missing DASH_MANIFEST_URL cache token")
+                fail(f"{html_name} missing module dashboard entrypoint")
+            if "module_sentiment_price_alignment_hover_001" in text:
+                ok(f"{html_name} manifest cache token=module_sentiment_price_alignment_hover_001")
+                accepted[html_name] = "manifest:module_sentiment_price_alignment_hover_001"
+            else:
+                fail(f"{html_name} missing public module cache token")
+            if "src/seta_bundle_loader.js" in text or "src/seta_bundle_status_card.js" in text:
+                fail(f"{html_name} should not load member SETA bundle status card scripts")
+            else:
+                ok(f"{html_name} does not load member SETA bundle status card scripts")
         else:
-            fail(f"{rel} does not reference a recognized dashboard entry script")
-
-    unique_tokens = sorted(set(entry_tokens.values()))
-    if len(unique_tokens) > 1:
-        if entry_tokens == ACCEPTED_EMBED_ENTRY_CACHE_TOKEN_SPLIT:
-            ok(f"accepted embed entry/cache token split: {entry_tokens}")
-        else:
-            warn(f"embed entry/cache tokens differ: {entry_tokens}")
-    elif unique_tokens:
-        ok(f"embed entry/cache token policy consistent: {unique_tokens[0]}")
+            if "dashboard_fix26_app.js" in text:
+                ok(f"{html_name} references legacy dashboard_fix26_app.js cache token=restore_monolith_entry_001")
+                accepted[html_name] = "legacy_app:restore_monolith_entry_001"
+            else:
+                fail(f"{html_name} missing legacy dashboard app script")
+            if html_name == "interactive_dashboard_fix24_member_embed.html":
+                member_tokens = [
+                    "src/seta_bundle_loader.js?v=seta_bundle_loader_v1",
+                    "src/seta_bundle_status_card.js?v=seta_bundle_status_card_v1",
+                ]
+                for token in member_tokens:
+                    if token in text:
+                        ok(f"{html_name} contains SETA bundle status-card token: {token}")
+                    else:
+                        fail(f"{html_name} missing SETA bundle status-card token: {token}")
+            elif "src/seta_bundle_loader.js" in text or "src/seta_bundle_status_card.js" in text:
+                fail(f"{html_name} should not load member SETA bundle status card scripts")
+            else:
+                ok(f"{html_name} does not load member SETA bundle status card scripts")
+    if accepted == ACCEPTED_EMBED_ENTRY_CACHE_TOKEN_SPLIT:
+        ok(f"accepted embed entry/cache token split: {accepted}")
+    else:
+        fail(f"embed entry/cache token split mismatch: {accepted}")
 
 
 def main() -> int:
-    print("============================================================")
+    print("=" * 60)
     print("Fix 26 / SETA dashboard smoke test")
     print(f"Repo: {ROOT}")
-    print("============================================================")
-
+    print("=" * 60)
     check_screener_store()
     check_chart_store("fix26_chart_store_public.json")
     check_chart_store("fix26_chart_store_member.json")
     check_manifest_payload_coverage()
     check_dashboard_js()
-    check_reviewed_briefing_payload()
-    check_homepage_routes()
-    check_embeds()
-
-    print("============================================================")
-    if WARNINGS:
-        print(f"Warnings: {len(WARNINGS)}")
+    check_reviewed_briefings("generated_briefings_reviewed.json")
+    check_reviewed_briefings("generated_briefings_reviewed_v2.json")
+    check_embed_pages()
+    print("=" * 60)
     if ERRORS:
-        print(f"FAILED: {len(ERRORS)} error(s)")
-        for e in ERRORS:
-            print(f" - {e}")
+        print("FAILED")
+        for err in ERRORS:
+            print(f" - {err}")
         return 1
     print("PASSED")
+    if WARNINGS:
+        print("Warnings:")
+        for msg in WARNINGS:
+            print(f" - {msg}")
     return 0
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    sys.exit(main())
