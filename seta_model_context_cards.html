@@ -1,0 +1,539 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SETA Model Context Cards</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #070b12;
+      --panel: #101826;
+      --panel-soft: #151f30;
+      --panel-strong: #17243a;
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #e8eef8;
+      --muted: #99a8bd;
+      --accent: #64d2ff;
+      --accent-2: #a78bfa;
+      --good: #34d399;
+      --warning: #fbbf24;
+      --bad: #fb7185;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(100, 210, 255, 0.14), transparent 32rem),
+        radial-gradient(circle at top right, rgba(167, 139, 250, 0.12), transparent 30rem),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .page {
+      width: min(1240px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 36px 0 56px;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 22px;
+      align-items: end;
+      margin-bottom: 28px;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 4.7rem);
+      line-height: 0.92;
+      margin: 0 0 14px;
+      letter-spacing: -0.07em;
+    }
+
+    .subtitle {
+      max-width: 780px;
+      color: #b9d9ff;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .source-pill {
+      color: #bfe3ff;
+      border: 1px solid var(--border);
+      background: rgba(16, 24, 38, 0.78);
+      border-radius: 999px;
+      padding: 11px 15px;
+      font-size: 0.82rem;
+      max-width: 360px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      box-shadow: 0 16px 40px var(--shadow);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      background: rgba(16, 24, 38, 0.86);
+      padding: 17px;
+      min-height: 86px;
+    }
+
+    .stat .label {
+      color: #9ed8ff;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .stat .value {
+      font-size: 1.75rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    input, select {
+      width: 100%;
+      color: var(--text);
+      background: rgba(16, 24, 38, 0.92);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      outline: none;
+    }
+
+    input::placeholder { color: #7f8fa5; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(340px, 0.85fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background: rgba(16, 24, 38, 0.86);
+      box-shadow: 0 20px 70px var(--shadow);
+      padding: 20px;
+    }
+
+    .section-title {
+      margin: 0 0 14px;
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(23, 36, 58, 0.96), rgba(13, 20, 32, 0.96));
+      padding: 16px;
+      min-height: 240px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card.strong { border-color: rgba(52, 211, 153, 0.5); }
+    .card.watch { border-color: rgba(100, 210, 255, 0.42); }
+    .card.mixed { border-color: rgba(167, 139, 250, 0.38); }
+    .card.thin { border-color: rgba(251, 191, 36, 0.42); }
+    .card.weak { border-color: rgba(251, 113, 133, 0.44); }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .asset {
+      font-size: 1.65rem;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+    }
+
+    .badge {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .badge.strong { color: #bbf7d0; border-color: rgba(52, 211, 153, 0.6); }
+    .badge.watch { color: #bae6fd; border-color: rgba(100, 210, 255, 0.6); }
+    .badge.mixed { color: #ddd6fe; border-color: rgba(167, 139, 250, 0.6); }
+    .badge.thin { color: #fde68a; border-color: rgba(251, 191, 36, 0.6); }
+    .badge.weak { color: #fecdd3; border-color: rgba(251, 113, 133, 0.6); }
+
+    .model {
+      color: #dcecff;
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      word-break: break-word;
+    }
+
+    .copy {
+      color: #b8c6d8;
+      font-size: 0.86rem;
+      line-height: 1.45;
+      min-height: 42px;
+      margin-bottom: 14px;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .metric {
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 10px;
+    }
+
+    .metric .k {
+      color: #9ed8ff;
+      font-size: 0.64rem;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .metric .v {
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+
+    .rail {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mini-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-item {
+      border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.04);
+      padding: 12px;
+    }
+
+    .mini-item strong { display: block; margin-bottom: 5px; }
+    .mini-item span { color: var(--muted); font-size: 0.83rem; }
+
+    .error {
+      border: 1px solid rgba(251, 113, 133, 0.45);
+      background: rgba(127, 29, 29, 0.20);
+      border-radius: 18px;
+      padding: 18px;
+      color: #fecdd3;
+      margin-top: 20px;
+    }
+
+    code {
+      color: #dbeafe;
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 980px) {
+      header, .layout, .controls { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div>
+        <div class="eyebrow">SETA Model Intelligence</div>
+        <h1>Model Context Cards</h1>
+        <p class="subtitle">Read-only dashboard stub powered by the Prediction Intelligence Engine scoped model export. This page displays model context, confidence posture, and directional diagnostics only; it does not train, tune, or generate recommendations.</p>
+      </div>
+      <div id="source" class="source-pill">public_content/scoped_model_dashboard_export.csv</div>
+    </header>
+
+    <section class="stats">
+      <div class="stat"><div class="label">Rows</div><div id="statRows" class="value">-</div></div>
+      <div class="stat"><div class="label">Strong</div><div id="statStrong" class="value">-</div></div>
+      <div class="stat"><div class="label">Watch</div><div id="statWatch" class="value">-</div></div>
+      <div class="stat"><div class="label">Top Model</div><div id="statTop" class="value">-</div></div>
+    </section>
+
+    <section class="controls">
+      <input id="search" placeholder="Search asset or model..." />
+      <select id="statusFilter"><option value="">All dashboard statuses</option></select>
+      <select id="modelFilter"><option value="">All models</option></select>
+      <select id="postureFilter"><option value="">All directional postures</option></select>
+    </section>
+
+    <section id="error" class="error" style="display:none"></section>
+
+    <section id="content" class="layout" style="display:none">
+      <div class="panel">
+        <h2 class="section-title">Scoped model cards</h2>
+        <div id="cards" class="cards"></div>
+      </div>
+      <aside class="rail">
+        <div class="panel">
+          <h2 class="section-title">Champion distribution</h2>
+          <div id="modelCounts" class="mini-list"></div>
+        </div>
+        <div class="panel">
+          <h2 class="section-title">Dashboard status mix</h2>
+          <div id="statusCounts" class="mini-list"></div>
+        </div>
+        <div class="panel">
+          <h2 class="section-title">Directional posture mix</h2>
+          <div id="postureCounts" class="mini-list"></div>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const defaultPath = "public_content/scoped_model_dashboard_export.csv";
+    const params = new URLSearchParams(window.location.search);
+    const dataPath = params.get("data") || defaultPath;
+    document.getElementById("source").textContent = dataPath;
+
+    const state = { rows: [], filtered: [] };
+
+    const toNumber = (value) => {
+      const num = Number(value);
+      return Number.isFinite(num) ? num : null;
+    };
+
+    const formatPct = (value) => {
+      const num = toNumber(value);
+      return num === null ? "-" : `${(num * 100).toFixed(1)}%`;
+    };
+
+    const formatScore = (value) => {
+      const num = toNumber(value);
+      return num === null ? "-" : num.toFixed(3);
+    };
+
+    const clean = (value) => String(value ?? "").trim();
+
+    const humanize = (value) => clean(value).replaceAll("_", " ");
+
+    const statusClass = (status) => {
+      const value = clean(status);
+      if (value.includes("strong")) return "strong";
+      if (value.includes("watch")) return "watch";
+      if (value.includes("mixed")) return "mixed";
+      if (value.includes("thin")) return "thin";
+      if (value.includes("weak")) return "weak";
+      return "mixed";
+    };
+
+    function parseCsv(text) {
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let inQuotes = false;
+      for (let i = 0; i < text.length; i++) {
+        const char = text[i];
+        const next = text[i + 1];
+        if (char === '"' && inQuotes && next === '"') {
+          cell += '"';
+          i++;
+        } else if (char === '"') {
+          inQuotes = !inQuotes;
+        } else if (char === "," && !inQuotes) {
+          row.push(cell);
+          cell = "";
+        } else if ((char === "\n" || char === "\r") && !inQuotes) {
+          if (char === "\r" && next === "\n") i++;
+          row.push(cell);
+          if (row.some((item) => item !== "")) rows.push(row);
+          row = [];
+          cell = "";
+        } else {
+          cell += char;
+        }
+      }
+      row.push(cell);
+      if (row.some((item) => item !== "")) rows.push(row);
+      const headers = rows.shift().map((header) => header.trim());
+      return rows.map((values) => Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""])));
+    }
+
+    function countBy(rows, key) {
+      return rows.reduce((acc, row) => {
+        const value = clean(row[key]) || "unknown";
+        acc[value] = (acc[value] || 0) + 1;
+        return acc;
+      }, {});
+    }
+
+    function renderCountList(id, counts) {
+      const target = document.getElementById(id);
+      target.innerHTML = Object.entries(counts)
+        .sort((a, b) => b[1] - a[1])
+        .map(([name, count]) => `<div class="mini-item"><strong>${humanize(name)}</strong><span>${count} scoped assets</span></div>`)
+        .join("");
+    }
+
+    function fillSelect(id, rows, key) {
+      const select = document.getElementById(id);
+      const values = [...new Set(rows.map((row) => clean(row[key])).filter(Boolean))].sort();
+      values.forEach((value) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = humanize(value);
+        select.appendChild(option);
+      });
+    }
+
+    function publicCopy(row) {
+      if (clean(row.public_guardrail_copy)) return clean(row.public_guardrail_copy);
+      const status = humanize(row.dashboard_status || "model context");
+      const posture = humanize(row.directional_posture || "mixed posture");
+      return `${status}; ${posture}. Research context only.`;
+    }
+
+    function renderCards(rows) {
+      const target = document.getElementById("cards");
+      target.innerHTML = rows
+        .sort((a, b) => {
+          const statusOrder = { model_context_strong: 0, model_context_watch: 1, model_context_mixed: 2, thin_sample: 3, weak_model_context: 4 };
+          const left = statusOrder[clean(a.dashboard_status)] ?? 9;
+          const right = statusOrder[clean(b.dashboard_status)] ?? 9;
+          if (left !== right) return left - right;
+          return clean(a.group_value).localeCompare(clean(b.group_value));
+        })
+        .map((row) => {
+          const klass = statusClass(row.dashboard_status);
+          return `
+            <article class="card ${klass}">
+              <div class="card-head">
+                <div class="asset">${clean(row.group_value)}</div>
+                <div class="badge ${klass}">${humanize(row.dashboard_status)}</div>
+              </div>
+              <div class="model">${clean(row.champion_candidate_id)}</div>
+              <div class="copy">${publicCopy(row)}</div>
+              <div class="metric-grid">
+                <div class="metric"><div class="k">Score</div><div class="v">${formatScore(row.champion_score)}</div></div>
+                <div class="metric"><div class="k">Model Gap</div><div class="v">${formatScore(row.model_score_gap)}</div></div>
+                <div class="metric"><div class="k">Recall Up</div><div class="v">${formatPct(row.recall_up)}</div></div>
+                <div class="metric"><div class="k">Recall Down</div><div class="v">${formatPct(row.recall_down)}</div></div>
+                <div class="metric"><div class="k">Up Bias</div><div class="v">${formatPct(row.up_prediction_bias)}</div></div>
+                <div class="metric"><div class="k">Splits</div><div class="v">${clean(row.observed_splits) || "-"}</div></div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+    }
+
+    function applyFilters() {
+      const q = clean(document.getElementById("search").value).toLowerCase();
+      const status = document.getElementById("statusFilter").value;
+      const model = document.getElementById("modelFilter").value;
+      const posture = document.getElementById("postureFilter").value;
+      state.filtered = state.rows.filter((row) => {
+        const haystack = `${row.group_value} ${row.champion_candidate_id}`.toLowerCase();
+        return (!q || haystack.includes(q))
+          && (!status || clean(row.dashboard_status) === status)
+          && (!model || clean(row.champion_candidate_id) === model)
+          && (!posture || clean(row.directional_posture) === posture);
+      });
+      renderCards(state.filtered);
+    }
+
+    function renderSummary(rows) {
+      const modelCounts = countBy(rows, "champion_candidate_id");
+      const statusCounts = countBy(rows, "dashboard_status");
+      const postureCounts = countBy(rows, "directional_posture");
+      const topModel = Object.entries(modelCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || "-";
+      document.getElementById("statRows").textContent = rows.length;
+      document.getElementById("statStrong").textContent = statusCounts.model_context_strong || 0;
+      document.getElementById("statWatch").textContent = statusCounts.model_context_watch || 0;
+      document.getElementById("statTop").textContent = topModel.replaceAll("_", " ");
+      renderCountList("modelCounts", modelCounts);
+      renderCountList("statusCounts", statusCounts);
+      renderCountList("postureCounts", postureCounts);
+    }
+
+    async function load() {
+      try {
+        const response = await fetch(dataPath, { cache: "no-store" });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const text = await response.text();
+        state.rows = parseCsv(text);
+        if (!state.rows.length) throw new Error("CSV parsed but contained no rows");
+        renderSummary(state.rows);
+        fillSelect("statusFilter", state.rows, "dashboard_status");
+        fillSelect("modelFilter", state.rows, "champion_candidate_id");
+        fillSelect("postureFilter", state.rows, "directional_posture");
+        ["search", "statusFilter", "modelFilter", "postureFilter"].forEach((id) => {
+          document.getElementById(id).addEventListener("input", applyFilters);
+          document.getElementById(id).addEventListener("change", applyFilters);
+        });
+        state.filtered = state.rows;
+        renderCards(state.rows);
+        document.getElementById("content").style.display = "grid";
+      } catch (error) {
+        const box = document.getElementById("error");
+        box.style.display = "block";
+        box.innerHTML = `<strong>Model context export could not be loaded.</strong><br>${error.message}<br><br>Expected default path: <code>${defaultPath}</code><br>You can also pass a custom relative URL with <code>?data=path/to/scoped_model_dashboard_export.csv</code>.`;
+      }
+    }
+
+    load();
+  </script>
+</body>
+</html>
