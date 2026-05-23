@@ -513,9 +513,6 @@ exit /b 0
 
 :fail
 echo.
-echo Script stopped due to an error.
-if not "%NO_PAUSE%"=="1" pause
-exit /b 1
 
 echo.
 echo Running dashboard quality gate...
@@ -526,4 +523,8 @@ if errorlevel 1 (
 )
 
 echo Dashboard quality gate passed.
+
+echo Script stopped due to an error.
+if not "%NO_PAUSE%"=="1" pause
+exit /b 1
 
