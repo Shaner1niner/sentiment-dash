@@ -6,11 +6,11 @@ Public-safe explanation copy for website/dashboard display.
 
 ## SUI: contested structure
 
-SUI is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Rejection / Decay is the key tension.
+SUI is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Rejection/Decay is the key tension.
 
 **Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** contested structure | rank 1 | negative skew | Rejection / Decay
+**SETA read:** contested structure | rank 1 | negative skew | Rejection/Decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -22,19 +22,19 @@ MSTR is showing broader participation. That is constructive for the equity tape,
 
 **Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
-**SETA read:** participation diffusion | rank 1 | positive skew | Permission without belief
+**SETA read:** participation diffusion | rank 1 | positive skew | 5) One-Line Analyst Takes
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## ETH: validation risk
+## ETH: participation is broadening
 
-ETH still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
+ETH is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** validation risk | rank 2 | negative skew | Rejection / Decay
+**SETA read:** participation diffusion | rank 2 | positive skew | Rejection/Decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -64,13 +64,13 @@ AAVE is showing broader participation. That is constructive for the crypto tape,
 
 ---
 
-## AMC: participation is broadening
+## AMD: repair watch
 
-AMC is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+AMD looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
-**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** participation diffusion | rank 3
+**SETA read:** repair watch | rank 3
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -88,9 +88,9 @@ ADA is showing broader participation. That is constructive for the crypto tape, 
 
 ---
 
-## AMD: repair watch
+## AMZN: repair watch
 
-AMD looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+AMZN looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
@@ -100,25 +100,25 @@ AMD looks more like repair than confirmation. The useful read is whether sponsor
 
 ---
 
-## AVAX: participation is broadening
+## AVAX: contested structure
 
-AVAX is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+AVAX is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
 
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** participation diffusion | rank 5
+**SETA read:** contested structure | rank 5
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## AMZN: repair watch
+## COIN: SETA context
 
-AMZN looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+COIN sits in a elevated decision-pressure zone in the equity tape.
 
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+**Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** repair watch | rank 5
+**SETA read:** seta context | rank 5
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -136,13 +136,13 @@ BNB is active, and SETA reads the structure as contested rather than cleanly con
 
 ---
 
-## COIN: SETA context
+## CRM: contested structure
 
-COIN sits in a elevated decision-pressure zone in the equity tape.
+CRM is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
 
-**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** seta context | rank 6
+**SETA read:** contested structure | rank 6
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
