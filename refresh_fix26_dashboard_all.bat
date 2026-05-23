@@ -516,3 +516,14 @@ echo.
 echo Script stopped due to an error.
 if not "%NO_PAUSE%"=="1" pause
 exit /b 1
+
+echo.
+echo Running dashboard quality gate...
+python scripts\run_dashboard_quality_gate.py
+if errorlevel 1 (
+    echo Dashboard quality gate failed.
+    exit /b 1
+)
+
+echo Dashboard quality gate passed.
+
