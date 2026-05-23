@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Smoke-test member-only SETA bundle mini-panel wiring."""
+"""Smoke-test member-only SETA bundle mini-panel wiring and ranking summary tokens."""
 
 from __future__ import annotations
 
@@ -66,17 +66,27 @@ def check_module() -> None:
     if not text:
         return
     for token, label in [
-        ("SETA bundle mini-panel v1", "module declares mini-panel v1"),
+        ("SETA bundle mini-panel v2", "module declares mini-panel v2"),
         ("SETA_BUNDLE_MINI_PANEL", "module exports global API"),
         ("parseCsvPreview", "module includes CSV preview parser"),
+        ("parseCsvRecords", "module includes CSV record parser"),
+        ("rankCsvRecords", "module includes ranking summary function"),
+        ("chooseRankColumn", "module includes defensive rank-column selection"),
+        ("RANK_COLUMN_HINTS", "module includes preferred rank-column hints"),
+        ("LABEL_COLUMN_HINTS", "module includes label-column hints"),
         ("renderSetaBundleMiniPanel", "module includes render entrypoint"),
         ("loadSetaBundleCsv", "module calls loader CSV read path"),
         ("setaMiniUniverse", "module includes universe control"),
         ("setaMiniWeighting", "module includes weighting control"),
         ("setaMiniRole", "module includes level control"),
-        ("market-cap is an alternate participation-structure lens", "module includes non-predictive mcap copy"),
+        ("market-cap is an alternate participation-structure lens, not a prediction or trade signal", "module includes non-predictive mcap copy"),
         ("Rows", "module renders row count"),
         ("Source file", "module renders source file"),
+        ("Rank column", "module renders selected rank column"),
+        ("Top 5", "module renders top-5 summary"),
+        ("Bottom 5", "module renders bottom-5 summary"),
+        ("First 5 CSV records", "module preserves CSV preview"),
+        ("Ranking unavailable: no usable numeric SETA-like column found", "module has quiet no-ranking fallback"),
         ("escapeHTML", "module escapes rendered values"),
     ]:
         require_token(text, token, label)
