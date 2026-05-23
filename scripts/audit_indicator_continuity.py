@@ -28,6 +28,13 @@ INDICATOR_CONFIG = {
     "sentiment_stochastic_rsi_d": {"warmup": 66, "max_mid_null_run": 0},
 }
 
+# Explicitly documented source-start/warmup cases.
+# These remain visible in the report, but they do not fail the audit.
+EXPECTED_NULL_RUNS = {
+    ("SPY", "sentiment_rsi", "2025-12-30", "2026-01-25"),
+    ("SPY", "sentiment_stochastic_rsi_d", "2026-02-06", "2026-02-11"),
+}
+
 NULL_VALUES = {None, "", "NaN", "nan", "None", "null"}
 
 
@@ -119,6 +126,16 @@ def build_run(rows: list[dict[str, Any]], term: str, indicator: str, start: int,
     )
 
 
+def is_expected_null_run(run: NullRun) -> bool:
+    key = (
+        str(run.term).upper().strip(),
+        str(run.indicator).strip(),
+        str(run.start_date),
+        str(run.end_date),
+    )
+    return key in EXPECTED_NULL_RUNS
+
+
 def summarize_indicator(rows: list[dict[str, Any]], term: str, indicator: str, warmup: int, runs: list[NullRun]) -> IndicatorSummary:
     return IndicatorSummary(
         term=term,
@@ -142,6 +159,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
 
     summaries: list[IndicatorSummary] = []
     unexpected_runs: list[NullRun] = []
+    expected_runs: list[NullRun] = []
     missing_payloads: list[str] = []
 
     for term in terms:
@@ -152,8 +170,11 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         for indicator, config in INDICATOR_CONFIG.items():
             warmup = int(config["warmup"])
             runs = find_unexpected_null_runs(rows, term, indicator, warmup)
-            unexpected_runs.extend(runs)
-            summaries.append(summarize_indicator(rows, term, indicator, warmup, runs))
+            expected = [run for run in runs if is_expected_null_run(run)]
+            unexpected = [run for run in runs if not is_expected_null_run(run)]
+            expected_runs.extend(expected)
+            unexpected_runs.extend(unexpected)
+            summaries.append(summarize_indicator(rows, term, indicator, warmup, unexpected))
 
     severity = "pass"
     if missing_payloads:
@@ -173,6 +194,8 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         "unexpected_null_run_count": len(unexpected_runs),
         "max_unexpected_null_run": max([run.length for run in unexpected_runs], default=0),
         "unexpected_null_runs": [asdict(run) for run in unexpected_runs[: args.limit]],
+        "expected_null_run_count": len(expected_runs),
+        "expected_null_runs": [asdict(run) for run in expected_runs[: args.limit]],
         "summary": [asdict(item) for item in summaries[: args.summary_limit]],
         "severity": severity,
     }
@@ -188,6 +211,7 @@ def print_report(report: dict[str, Any]) -> None:
         "missing_payloads",
         "unexpected_null_run_count",
         "max_unexpected_null_run",
+        "expected_null_run_count",
         "severity",
     ]:
         print(f"{key}: {report.get(key)}")
@@ -197,6 +221,16 @@ def print_report(report: dict[str, Any]) -> None:
     if not runs:
         print("  none")
     for run in runs:
+        print(
+            "  {term:<6} {indicator:<30} {start_date} -> {end_date} "
+            "length={length} index={start_index}-{end_index}".format(**run)
+        )
+
+    print("\nExpected null runs:")
+    expected = report.get("expected_null_runs") or []
+    if not expected:
+        print("  none")
+    for run in expected:
         print(
             "  {term:<6} {indicator:<30} {start_date} -> {end_date} "
             "length={length} index={start_index}-{end_index}".format(**run)
