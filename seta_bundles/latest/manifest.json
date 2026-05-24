@@ -1,0 +1,70 @@
+{
+  "files": {
+    "all": {
+      "equal": {
+        "asset": "asset_level_SETA_all_equal.csv",
+        "eco_weight_history": "eco_weight_history_all_equal.csv",
+        "ecosystem": "ecosystem_level_SETA_all_equal.csv",
+        "multi_level": "multi_level_SETA_output_all_equal.csv",
+        "sector": "sector_level_SETA_all_equal.csv",
+        "sector_daily": "sector_daily_analytics_all_equal.csv"
+      },
+      "mcap": {
+        "asset": "asset_level_SETA_all_mcap.csv",
+        "eco_weight_history": "eco_weight_history_all_mcap.csv",
+        "ecosystem": "ecosystem_level_SETA_all_mcap.csv",
+        "multi_level": "multi_level_SETA_output_all_mcap.csv",
+        "sector": "sector_level_SETA_all_mcap.csv",
+        "sector_daily": "sector_daily_analytics_all_mcap.csv"
+      }
+    },
+    "crypto": {
+      "equal": {
+        "asset": "asset_level_SETA_crypto_equal.csv",
+        "eco_weight_history": "eco_weight_history_crypto_equal.csv",
+        "ecosystem": "ecosystem_level_SETA_crypto_equal.csv",
+        "multi_level": "multi_level_SETA_output_crypto_equal.csv",
+        "sector": "sector_level_SETA_crypto_equal.csv",
+        "sector_daily": "sector_daily_analytics_crypto_equal.csv"
+      },
+      "mcap": {
+        "asset": "asset_level_SETA_crypto_mcap.csv",
+        "eco_weight_history": "eco_weight_history_crypto_mcap.csv",
+        "ecosystem": "ecosystem_level_SETA_crypto_mcap.csv",
+        "multi_level": "multi_level_SETA_output_crypto_mcap.csv",
+        "sector": "sector_level_SETA_crypto_mcap.csv",
+        "sector_daily": "sector_daily_analytics_crypto_mcap.csv"
+      }
+    },
+    "stocks": {
+      "equal": {
+        "asset": "asset_level_SETA_stocks_equal.csv",
+        "eco_weight_history": "eco_weight_history_stocks_equal.csv",
+        "ecosystem": "ecosystem_level_SETA_stocks_equal.csv",
+        "multi_level": "multi_level_SETA_output_stocks_equal.csv",
+        "sector": "sector_level_SETA_stocks_equal.csv",
+        "sector_daily": "sector_daily_analytics_stocks_equal.csv"
+      },
+      "mcap": {
+        "asset": "asset_level_SETA_stocks_mcap.csv",
+        "eco_weight_history": "eco_weight_history_stocks_mcap.csv",
+        "ecosystem": "ecosystem_level_SETA_stocks_mcap.csv",
+        "multi_level": "multi_level_SETA_output_stocks_mcap.csv",
+        "sector": "sector_level_SETA_stocks_mcap.csv",
+        "sector_daily": "sector_daily_analytics_stocks_mcap.csv"
+      }
+    }
+  },
+  "generated_at": "2026-05-24T08:39:26Z",
+  "latest_date": "2026-05-24",
+  "schema_version": "seta_dashboard_bundle_v1",
+  "universes": [
+    "all",
+    "crypto",
+    "stocks"
+  ],
+  "weightings": [
+    "equal",
+    "mcap"
+  ]
+}
