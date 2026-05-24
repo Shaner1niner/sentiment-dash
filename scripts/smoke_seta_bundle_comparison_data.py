@@ -157,14 +157,14 @@ def choose_shared_rank_column(
 def choose_label_column(headers: list[str]) -> str | None:
     if not headers:
         return None
-    normalized = [(column, normalized_column_name(column)) for column in headers]
+    normalized_columns = [(column, normalized_column_name(column)) for column in headers]
     for hint in LABEL_COLUMN_HINTS:
-        for column, normalized in normalized:
-            if normalized == hint:
+        for column, normalized_name in normalized_columns:
+            if normalized_name == hint:
                 return column
     for hint in LABEL_COLUMN_HINTS:
-        for column, normalized in normalized:
-            if hint in normalized:
+        for column, normalized_name in normalized_columns:
+            if hint in normalized_name:
                 return column
     return headers[0]
 
