@@ -26,6 +26,8 @@ LIVE_SMOKE = ROOT / "scripts" / "smoke_github_pages_live.py"
 REFRESH_DEFAULT_SMOKE = ROOT / "scripts" / "smoke_refresh_db_export_opt_in.py"
 ASSET_PROMOTION_REPORT = ROOT / "scripts" / "report_asset_universe_promotion.py"
 DB_SOURCE_CONTRACT_REPORT = ROOT / "scripts" / "report_dashboard_db_source_contract.py"
+PREDICTION_OVERLAY_CONTRACT = ROOT / "scripts" / "validate_prediction_outcome_overlay.py"
+PREDICTION_OVERLAY_ENV = "SETA_PREDICTION_OUTCOME_OVERLAY_JSON"
 REFRESH_BAT = ROOT / "refresh_fix26_dashboard_all.bat"
 
 
@@ -114,6 +116,45 @@ def load_asset_readiness(*, timeout: int) -> tuple[dict[str, Any], CommandResult
     return parse_asset_report(result.stdout) if result.stdout else {}, result
 
 
+def parse_json_or_key_values(stdout: str) -> dict[str, Any]:
+    try:
+        data = json.loads(stdout)
+        if isinstance(data, dict):
+            return data
+    except json.JSONDecodeError:
+        pass
+    return parse_key_values(stdout)
+
+
+def load_prediction_overlay_contract(
+    *,
+    timeout: int,
+    skip: bool = False,
+) -> tuple[dict[str, Any], CommandResult | None, str]:
+    if skip:
+        return {}, None, "skipped"
+
+    if not os.environ.get(PREDICTION_OVERLAY_ENV):
+        return {"configured": False}, None, "not_configured"
+
+    if not PREDICTION_OVERLAY_CONTRACT.exists():
+        result = CommandResult(
+            "prediction_outcome_overlay_contract",
+            [PYTHON, str(PREDICTION_OVERLAY_CONTRACT), "--json"],
+            127,
+            "",
+            f"Missing script: {PREDICTION_OVERLAY_CONTRACT}",
+        )
+        return {}, result, status_word(result)
+
+    result = run_command(
+        "prediction_outcome_overlay_contract",
+        [PYTHON, str(PREDICTION_OVERLAY_CONTRACT), "--json"],
+        timeout=timeout,
+    )
+    return parse_json_or_key_values(result.stdout) if result.stdout else {}, result, status_word(result)
+
+
 def run_optional_script(name: str, path: Path, *, timeout: int, skip: bool = False) -> CommandResult | None:
     if skip:
         return None
@@ -173,9 +214,13 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
     live_smoke = run_optional_script("live_pages_smoke", LIVE_SMOKE, timeout=args.live_timeout, skip=args.skip_live)
     db_contract = run_optional_script("db_source_contract", DB_SOURCE_CONTRACT_REPORT, timeout=args.timeout, skip=args.skip_db_contract)
     asset_report, asset_result = load_asset_readiness(timeout=args.timeout)
+    prediction_overlay_report, prediction_overlay_result, prediction_overlay_status = load_prediction_overlay_contract(
+        timeout=args.timeout,
+        skip=args.skip_prediction_overlay,
+    )
 
     failures: list[str] = []
-    for result in [refresh_smoke, local_smoke, live_smoke, db_contract, asset_result]:
+    for result in [refresh_smoke, local_smoke, live_smoke, db_contract, asset_result, prediction_overlay_result]:
         if result is not None and not result.passed:
             failures.append(result.name)
 
@@ -190,6 +235,13 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
         "live_pages_smoke": status_word(live_smoke),
         "db_source_contract": status_word(db_contract),
         "asset_readiness_report": status_word(asset_result),
+        "prediction_outcome_overlay_contract": prediction_overlay_status,
+        "prediction_overlay_valid": prediction_overlay_report.get("valid"),
+        "prediction_overlay_row_count": prediction_overlay_report.get("row_count"),
+        "prediction_overlay_resolved_count": prediction_overlay_report.get("resolved_count"),
+        "prediction_overlay_pending_count": prediction_overlay_report.get("pending_count"),
+        "prediction_overlay_selective_accuracy": prediction_overlay_report.get("selective_accuracy"),
+        "prediction_overlay_generated_at": prediction_overlay_report.get("generated_at"),
         "source_table": asset_report.get("source_table") or db_contract_values.get("source_table"),
         "member_assets_configured": asset_report.get("current_member_count") or db_contract_values.get("configured_asset_count"),
         "db_assets_available": asset_report.get("db_asset_count") or db_contract_values.get("eligible_asset_count"),
@@ -206,6 +258,7 @@ def build_report(args: argparse.Namespace) -> dict[str, Any]:
             "live_pages_smoke": live_smoke,
             "db_source_contract": db_contract,
             "asset_readiness_report": asset_result,
+            "prediction_outcome_overlay_contract": prediction_overlay_result,
         },
     }
 
@@ -221,6 +274,13 @@ def printable_report(report: dict[str, Any], *, show_diagnostics: bool) -> None:
         ("live_pages_smoke", report.get("live_pages_smoke")),
         ("db_source_contract", report.get("db_source_contract")),
         ("asset_readiness_report", report.get("asset_readiness_report")),
+        ("prediction_outcome_overlay_contract", report.get("prediction_outcome_overlay_contract")),
+        ("prediction_overlay_valid", report.get("prediction_overlay_valid")),
+        ("prediction_overlay_row_count", report.get("prediction_overlay_row_count")),
+        ("prediction_overlay_resolved_count", report.get("prediction_overlay_resolved_count")),
+        ("prediction_overlay_pending_count", report.get("prediction_overlay_pending_count")),
+        ("prediction_overlay_selective_accuracy", report.get("prediction_overlay_selective_accuracy")),
+        ("prediction_overlay_generated_at", report.get("prediction_overlay_generated_at")),
         ("source_table", report.get("source_table")),
         ("member_assets_configured", report.get("member_assets_configured")),
         ("db_assets_available", report.get("db_assets_available")),
@@ -252,6 +312,7 @@ def main() -> int:
     parser.add_argument("--skip-local", action="store_true")
     parser.add_argument("--skip-static-smokes", action="store_true")
     parser.add_argument("--skip-db-contract", action="store_true")
+    parser.add_argument("--skip-prediction-overlay", action="store_true")
     parser.add_argument("--diagnostics", action="store_true", help="Print failed command output tails.")
     args = parser.parse_args()
 
