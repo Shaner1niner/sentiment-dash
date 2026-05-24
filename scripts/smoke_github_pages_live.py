@@ -30,6 +30,7 @@ JSON_ENDPOINTS = {
     "member chart store": "fix26_chart_store_member.json",
     "screener store": "fix26_screener_store.json",
     "public snippets": "public_content/seta_website_snippets_latest.json",
+    "prediction outcome overlay": "public_content/prediction_outcomes/prediction_outcome_overlay_latest.json",
 }
 
 EXPECTED_TITLES: dict[str, tuple[str, ...]] = {
@@ -350,6 +351,46 @@ class LiveHealthCheck:
         else:
             self.fail("screener store missing non-empty by_term")
 
+    def check_prediction_outcome_overlay(self) -> None:
+        payload = self.json_payloads.get("prediction outcome overlay")
+        if not isinstance(payload, dict):
+            self.fail("prediction outcome overlay root is not an object")
+            return
+
+        metadata = payload.get("metadata")
+        rows = payload.get("rows")
+        if not isinstance(metadata, dict):
+            self.fail("prediction outcome overlay metadata is not an object")
+            return
+        if not isinstance(rows, list):
+            self.fail("prediction outcome overlay rows is not a list")
+            return
+
+        row_count = metadata.get("row_count")
+        if isinstance(row_count, int) and row_count == len(rows):
+            self.ok(f"prediction outcome overlay row_count={row_count}")
+        else:
+            self.fail(f"prediction outcome overlay row_count mismatch: metadata={row_count} rows={len(rows)}")
+
+        if rows:
+            self.ok("prediction outcome overlay rows are non-empty")
+        else:
+            self.warn("prediction outcome overlay rows are empty")
+
+        resolved_count = metadata.get("resolved_count")
+        pending_count = metadata.get("pending_count")
+        selective_accuracy = metadata.get("selective_accuracy")
+        self.ok(
+            "prediction outcome overlay summary "
+            f"resolved={resolved_count} pending={pending_count} selective_accuracy={selective_accuracy}"
+        )
+
+        generated_at = parse_payload_datetime(metadata.get("generated_at"))
+        if generated_at is None:
+            self.fail("prediction outcome overlay missing parseable metadata.generated_at")
+        else:
+            self.check_freshness("prediction outcome overlay generated_at", generated_at)
+
     def check_freshness(self, label: str, timestamp: datetime) -> None:
         now = datetime.now(timezone.utc)
         age_hours = (now - timestamp.astimezone(timezone.utc)).total_seconds() / 3600
@@ -371,6 +412,7 @@ class LiveHealthCheck:
         self.check_manifest_and_payloads()
         self.check_public_snippets()
         self.check_screener()
+        self.check_prediction_outcome_overlay()
         print("=" * 76)
         if self.warnings:
             print(f"Warnings: {len(self.warnings)}")
