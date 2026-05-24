@@ -2,8 +2,9 @@
 """Data-backed smoke test for SETA equal-vs-mcap staged bundle comparisons.
 
 This validates that the real staged bundle can produce matched equal-vs-mcap
-rank comparisons across every universe/level pair. It complements the UI wiring
-smoke tests by checking the actual data path.
+rank comparisons for role types with stable single-column identities. It also
+keeps multi_level visible as an exploratory warning until its composite-key
+semantics are defined.
 """
 
 from __future__ import annotations
@@ -20,6 +21,8 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MANIFEST = ROOT / "seta_bundles" / "latest" / "manifest.json"
 UNIVERSES = ("all", "crypto", "stocks")
 ROLES = ("ecosystem", "sector", "asset", "multi_level")
+ROLE_REQUIRED_MATCHES = {"ecosystem", "sector", "asset"}
+ROLE_WARNING_ONLY = {"multi_level"}
 RANK_COLUMN_HINTS = (
     "seta_score",
     "seta",
@@ -31,7 +34,14 @@ RANK_COLUMN_HINTS = (
     "combined_score",
     "rank_score",
 )
-LABEL_COLUMN_HINTS = ("term", "asset", "name", "sector", "ecosystem", "symbol", "label")
+ROLE_LABEL_HINTS: dict[str, tuple[str, ...]] = {
+    "asset": ("term", "asset", "symbol", "name", "label"),
+    "sector": ("sector", "sector_name", "name", "label"),
+    "ecosystem": ("ecosystem", "ecosystem_name", "name", "label"),
+    "multi_level": ("level", "term", "asset", "sector", "ecosystem", "name", "label"),
+}
+GENERIC_LABEL_HINTS = ("term", "asset", "name", "sector", "ecosystem", "symbol", "label")
+DISALLOWED_LABEL_COLUMNS = {"n_terms", "n", "count", "row_count", "term_count", "source_count"}
 
 ERRORS: list[str] = []
 WARNINGS: list[str] = []
@@ -154,30 +164,33 @@ def choose_shared_rank_column(
     return choose_rank_column(shared, equal_rows + mcap_rows)
 
 
-def choose_label_column(headers: list[str]) -> str | None:
+def choose_label_column(headers: list[str], role: str) -> str | None:
     if not headers:
         return None
     normalized_columns = [(column, normalized_column_name(column)) for column in headers]
-    for hint in LABEL_COLUMN_HINTS:
+    hints = ROLE_LABEL_HINTS.get(role, GENERIC_LABEL_HINTS)
+
+    for hint in hints:
         for column, normalized_name in normalized_columns:
-            if normalized_name == hint:
+            if normalized_name == hint and normalized_name not in DISALLOWED_LABEL_COLUMNS:
                 return column
-    for hint in LABEL_COLUMN_HINTS:
+    for hint in hints:
         for column, normalized_name in normalized_columns:
-            if hint in normalized_name:
+            if hint in normalized_name and normalized_name not in DISALLOWED_LABEL_COLUMNS:
                 return column
-    return headers[0]
+    return None
 
 
-def choose_shared_label_column(equal_headers: list[str], mcap_headers: list[str]) -> str | None:
-    equal_label = choose_label_column(equal_headers)
+def choose_shared_label_column(equal_headers: list[str], mcap_headers: list[str], role: str) -> str | None:
+    equal_label = choose_label_column(equal_headers, role)
     if equal_label and equal_label in mcap_headers:
         return equal_label
-    mcap_label = choose_label_column(mcap_headers)
+    mcap_label = choose_label_column(mcap_headers, role)
     if mcap_label and mcap_label in equal_headers:
         return mcap_label
     for column in equal_headers:
-        if column in mcap_headers:
+        normalized = normalized_column_name(column)
+        if column in mcap_headers and normalized not in DISALLOWED_LABEL_COLUMNS:
             return column
     return None
 
@@ -199,11 +212,11 @@ def ranked_by_label(rows: list[dict[str, str]], label_column: str, rank_column: 
     return by_label
 
 
-def compare_files(equal_path: Path, mcap_path: Path) -> dict[str, Any]:
+def compare_files(equal_path: Path, mcap_path: Path, role: str) -> dict[str, Any]:
     equal_headers, equal_rows = read_csv_rows(equal_path)
     mcap_headers, mcap_rows = read_csv_rows(mcap_path)
     rank_column = choose_shared_rank_column(equal_headers, equal_rows, mcap_headers, mcap_rows)
-    label_column = choose_shared_label_column(equal_headers, mcap_headers)
+    label_column = choose_shared_label_column(equal_headers, mcap_headers, role)
     if not rank_column or not label_column:
         return {
             "rank_column": rank_column,
@@ -259,6 +272,13 @@ def format_rows(rows: list[ComparisonRow]) -> str:
     return ", ".join(f"{row.label}(E{row.equal_rank}/M{row.mcap_rank}/d{row.delta:+d})" for row in rows)
 
 
+def handle_role_failure(universe: str, role: str, message: str) -> None:
+    if role in ROLE_WARNING_ONLY:
+        warn(f"{universe}/{role} {message}; tracked in issue #391")
+    else:
+        fail(f"{universe}/{role} {message}")
+
+
 def check_matrix(manifest_path: Path, min_matched_rows: int) -> None:
     if not manifest_path.exists():
         fail(f"manifest missing: {manifest_path}")
@@ -270,40 +290,47 @@ def check_matrix(manifest_path: Path, min_matched_rows: int) -> None:
 
     base_dir = manifest_path.parent
     total_pairs = 0
+    required_pairs = 0
+    required_pairs_passed = 0
     total_matched = 0
     total_nonzero_delta_pairs = 0
 
     for universe in UNIVERSES:
         for role in ROLES:
             total_pairs += 1
+            if role in ROLE_REQUIRED_MATCHES:
+                required_pairs += 1
             equal_rel = rel_from_manifest(manifest, universe, "equal", role)
             mcap_rel = rel_from_manifest(manifest, universe, "mcap", role)
             if not equal_rel or not mcap_rel:
-                fail(f"{universe}/{role} missing equal or mcap manifest file declaration")
+                handle_role_failure(universe, role, "missing equal or mcap manifest file declaration")
                 continue
             equal_path = base_dir / equal_rel
             mcap_path = base_dir / mcap_rel
             if not equal_path.exists():
-                fail(f"{universe}/{role} equal CSV missing: {equal_path.relative_to(ROOT)}")
+                handle_role_failure(universe, role, f"equal CSV missing: {equal_path.relative_to(ROOT)}")
                 continue
             if not mcap_path.exists():
-                fail(f"{universe}/{role} mcap CSV missing: {mcap_path.relative_to(ROOT)}")
+                handle_role_failure(universe, role, f"mcap CSV missing: {mcap_path.relative_to(ROOT)}")
                 continue
 
-            result = compare_files(equal_path, mcap_path)
+            result = compare_files(equal_path, mcap_path, role)
             matched = result["matched_rows"]
             if not result["rank_column"]:
-                fail(f"{universe}/{role} no shared numeric SETA-like rank column")
+                handle_role_failure(universe, role, "no shared numeric SETA-like rank column")
                 continue
             if not result["label_column"]:
-                fail(f"{universe}/{role} no shared label column")
+                handle_role_failure(universe, role, "no role-appropriate shared label column")
                 continue
             if len(matched) < min_matched_rows:
-                fail(
-                    f"{universe}/{role} matched rows below threshold: "
-                    f"matched={len(matched)} threshold={min_matched_rows}"
+                handle_role_failure(
+                    universe,
+                    role,
+                    f"matched rows below threshold: matched={len(matched)} threshold={min_matched_rows}",
                 )
                 continue
+            if role in ROLE_REQUIRED_MATCHES:
+                required_pairs_passed += 1
             total_matched += len(matched)
             nonzero_deltas = [row for row in matched if row.delta != 0]
             if nonzero_deltas:
@@ -323,6 +350,10 @@ def check_matrix(manifest_path: Path, min_matched_rows: int) -> None:
         fail("no universe/role pairs checked")
     else:
         ok(f"checked comparison pairs={total_pairs} total_matched_rows={total_matched}")
+    if required_pairs_passed != required_pairs:
+        fail(f"required comparison pairs passed={required_pairs_passed}/{required_pairs}")
+    else:
+        ok(f"required comparison pairs passed={required_pairs_passed}/{required_pairs}")
     if total_nonzero_delta_pairs == 0:
         fail("no comparison pair produced non-zero rank deltas")
     else:
@@ -341,7 +372,7 @@ def parse_args() -> argparse.Namespace:
         "--min-matched-rows",
         type=int,
         default=1,
-        help="Minimum matched labels required per universe/level pair. Defaults to 1.",
+        help="Minimum matched labels required for required universe/level pairs. Defaults to 1.",
     )
     return parser.parse_args()
 
