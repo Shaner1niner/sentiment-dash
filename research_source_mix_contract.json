@@ -1,0 +1,90 @@
+{
+  "export_contract": "research_source_mix_export_v1",
+  "contract_version": "research_source_mix_v1",
+  "generated_at_utc": "2026-05-20T07:30:18.891619Z",
+  "generated_by": "SETA_engine",
+  "metadata": {
+    "run_date": "2026-05-20",
+    "start_date": "2026-03-21",
+    "end_date": "2026-05-20",
+    "terms": [
+      "SPY"
+    ]
+  },
+  "research_source_mix": {
+    "contract_version": "research_source_mix_v1",
+    "preferred_ma": 21,
+    "records": [
+      {
+        "contract_version": "research_source_mix_v1",
+        "term": "SPY",
+        "ma_horizon": 21,
+        "method": "grid_optimized_source_mix",
+        "source_weights": [
+          {
+            "source": "reddit",
+            "label": "Reddit",
+            "weight": 0.7,
+            "weight_pct": 70.0,
+            "is_active": true,
+            "rank": 1
+          },
+          {
+            "source": "bsky",
+            "label": "Bluesky",
+            "weight": 0.3,
+            "weight_pct": 30.0,
+            "is_active": true,
+            "rank": 2
+          },
+          {
+            "source": "twitter",
+            "label": "Twitter/X",
+            "weight": 0.0,
+            "weight_pct": 0.0,
+            "is_active": false,
+            "rank": 3
+          },
+          {
+            "source": "news",
+            "label": "News",
+            "weight": 0.0,
+            "weight_pct": 0.0,
+            "is_active": false,
+            "rank": 4
+          }
+        ],
+        "dominant_source": "reddit",
+        "dominant_label": "Reddit",
+        "summary": "Reddit 70% · Bluesky 30%",
+        "run_date": "2026-05-20",
+        "start_date": "2026-03-21",
+        "end_date": "2026-05-20",
+        "quality": {
+          "correlation": 0.918416490665,
+          "p_value": 1.0,
+          "r2_in_sample": null,
+          "n_obs": null,
+          "eligible_sources": null
+        }
+      }
+    ],
+    "record_count": 1,
+    "source_order": [
+      "twitter",
+      "reddit",
+      "bsky",
+      "news"
+    ],
+    "source_labels": {
+      "twitter": "Twitter/X",
+      "reddit": "Reddit",
+      "bsky": "Bluesky",
+      "news": "News"
+    },
+    "method_precedence": [
+      "ridge_source_mix",
+      "grid_optimized_source_mix"
+    ]
+  }
+}
