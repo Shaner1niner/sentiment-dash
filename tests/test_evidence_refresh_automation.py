@@ -49,3 +49,9 @@ def test_refresh_automation_docs_explain_task_scheduler_usage():
     assert "Historical diagnostic only; not a trade signal" in doc
     assert "CommitEvidencePayload" in doc
     assert "unrelated files are already staged" in doc
+
+def test_refresh_automation_avoids_powershell_args_automatic_variable_collision():
+    source = SCRIPT.read_text(encoding="utf-8")
+    assert "$GitArgs" in source
+    assert "[string[]]$Args" not in source
+    assert "& git @Args" not in source

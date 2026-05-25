@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Runs the sentiment-dash refresh flow with an optional SETA_engine Evidence Handoff publish step.
 
@@ -73,15 +73,15 @@ function Invoke-CheckedCommand {
 
 function Invoke-GitChecked {
   param(
-    [string[]]$Args,
+    [string[]]$GitArgs,
     [string]$Label
   )
-  Write-Step "git $($Args -join ' ')"
+  Write-Step "git $($GitArgs -join ' ')"
   if ($WhatIf) {
     Write-Step "WHATIF: would run git command for $Label."
     return @()
   }
-  $output = & git @Args 2>&1
+  $output = & git @GitArgs 2>&1
   $exitCode = $LASTEXITCODE
   if ($output) {
     $output | ForEach-Object { Write-Host $_ }
@@ -94,14 +94,14 @@ function Invoke-GitChecked {
 
 function Get-GitOutputChecked {
   param(
-    [string[]]$Args,
+    [string[]]$GitArgs,
     [string]$Label
   )
   if ($WhatIf) {
     Write-Step "WHATIF: would inspect git state for $Label."
     return @()
   }
-  $output = & git @Args 2>&1
+  $output = & git @GitArgs 2>&1
   $exitCode = $LASTEXITCODE
   if ($exitCode -ne 0) {
     if ($output) {
@@ -113,7 +113,7 @@ function Get-GitOutputChecked {
 }
 
 function Assert-CleanEvidenceStagingScope {
-  $stagedFiles = @(Get-GitOutputChecked -Args @("--no-pager", "diff", "--cached", "--name-only") -Label "inspect staged files")
+  $stagedFiles = @(Get-GitOutputChecked -GitArgs @("--no-pager", "diff", "--cached", "--name-only") -Label "inspect staged files")
   $stagedFiles = @($stagedFiles | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
   $unexpected = @($stagedFiles | Where-Object { $_ -ne $PayloadRelPath })
   if ($unexpected.Count -gt 0) {
@@ -151,7 +151,7 @@ function Invoke-EvidencePayloadCommitPublish {
 
   if (-not $Stage) {
     Write-Step "staging evidence payload because -CommitEvidencePayload was provided."
-    Invoke-GitChecked -Args @("add", "-f", "--", $PayloadRelPath) -Label "stage evidence payload" | Out-Null
+    Invoke-GitChecked -GitArgs @("add", "-f", "--", $PayloadRelPath) -Label "stage evidence payload" | Out-Null
   }
 
   Assert-CleanEvidenceStagingScope
@@ -166,15 +166,15 @@ function Invoke-EvidencePayloadCommitPublish {
     throw "CommitMessage cannot be blank when -CommitEvidencePayload is used."
   }
 
-  Invoke-GitChecked -Args @("commit", "-m", $CommitMessage) -Label "commit evidence payload" | Out-Null
+  Invoke-GitChecked -GitArgs @("commit", "-m", $CommitMessage) -Label "commit evidence payload" | Out-Null
 
   if ($Push) {
-    $branchName = (Get-GitOutputChecked -Args @("rev-parse", "--abbrev-ref", "HEAD") -Label "inspect current branch" | Select-Object -First 1)
+    $branchName = (Get-GitOutputChecked -GitArgs @("rev-parse", "--abbrev-ref", "HEAD") -Label "inspect current branch" | Select-Object -First 1)
     if ($branchName -eq "HEAD") {
       throw "Refusing to push from detached HEAD. Check out the intended branch first."
     }
     Write-Step "pushing evidence payload commit from branch: $branchName"
-    Invoke-GitChecked -Args @("push") -Label "push evidence payload commit" | Out-Null
+    Invoke-GitChecked -GitArgs @("push") -Label "push evidence payload commit" | Out-Null
   } else {
     Write-Step "evidence payload committed locally; push skipped because -Push was not provided."
   }
@@ -247,3 +247,4 @@ try {
 finally {
   Pop-Location
 }
+
