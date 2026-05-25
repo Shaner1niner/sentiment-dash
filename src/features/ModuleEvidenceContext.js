@@ -1,4 +1,4 @@
-﻿/*
+/*
  * SETA Module Evidence Context v1
  *
  * Adds a compact historical evidence context surface to the module dashboard.
@@ -25,14 +25,13 @@
       <div class="moduleEvidenceContextCard">
         <div class="moduleEvidenceContextHeader">
           <div>
-            <span class="moduleEvidenceContextKicker">Historical Context</span>
-            <h2>Evidence Context</h2>
+            <span class="moduleEvidenceContextKicker">Historical Evidence Context</span>
+            <p class="moduleEvidenceContextIntro">
+              Context for interpreting attention validation near the dashboard briefing. Diagnostic only; not a prediction, trade signal, recommendation, or price forecast.
+            </p>
           </div>
           <span class="moduleEvidenceContextPill">Attention validation</span>
         </div>
-        <p class="moduleEvidenceContextIntro">
-          Historical evidence context for interpreting attention and validation near the dashboard briefing. This is diagnostic context only, not a prediction or trade instruction.
-        </p>
         <div
           id="module-evidence-card-root"
           data-seta-evidence-card
@@ -64,19 +63,13 @@
         align-items: flex-start;
         justify-content: space-between;
         gap: 16px;
-        margin-bottom: 10px;
+        margin-bottom: 6px;
       }
       .moduleEvidenceContextKicker {
         color: #7dd3fc;
         font-size: 11px;
         text-transform: uppercase;
         letter-spacing: .08em;
-      }
-      .moduleEvidenceContextHeader h2 {
-        margin: 4px 0 0;
-        color: #f0f6fc;
-        font-size: 16px;
-        line-height: 1.25;
       }
       .moduleEvidenceContextPill {
         border: 1px solid rgba(126, 231, 135, .4);
@@ -87,10 +80,11 @@
         white-space: nowrap;
       }
       .moduleEvidenceContextIntro {
-        margin: 0 0 12px;
+        margin: 4px 0 0;
         color: #c9d1d9;
         font-size: 12px;
         line-height: 1.45;
+        max-width: 840px;
       }
     `;
     document.head.appendChild(style);
