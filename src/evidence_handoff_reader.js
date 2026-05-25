@@ -77,6 +77,17 @@
     return node;
   }
 
+  function appendMetricFact(documentRef, facts, label, value) {
+    if (value === undefined || value === null || value === "") return null;
+
+    const item = documentRef.createElement("div");
+    item.className = "seta-evidence-fact";
+    appendTextElement(documentRef, item, "dt", "", label);
+    appendTextElement(documentRef, item, "dd", "", String(value));
+    facts.appendChild(item);
+    return item;
+  }
+
   function renderEvidenceHandoffCard(payload, target, options = {}) {
     const documentRef = options.document || document;
     const element = typeof target === "string" ? documentRef.querySelector(target) : target;
@@ -108,11 +119,7 @@
       ["7d win rate", metrics.forward_7d_win_rate],
       ["7d baseline", metrics.baseline_7d_win_rate],
     ];
-    rows.forEach(([label, value]) => {
-      if (value === undefined || value === null || value === "") return;
-      appendTextElement(documentRef, facts, "dt", "", label);
-      appendTextElement(documentRef, facts, "dd", "", String(value));
-    });
+    rows.forEach(([label, value]) => appendMetricFact(documentRef, facts, label, value));
     element.appendChild(facts);
 
     const safetyNote = payload.safety_note || REQUIRED_SAFETY_NOTE;
@@ -131,6 +138,7 @@
     validateEvidenceHandoffPayload,
     findPrimaryEvidenceCard,
     loadEvidenceHandoffPayload,
+    appendMetricFact,
     renderEvidenceHandoffCard,
     loadAndRenderEvidenceHandoff,
   };
