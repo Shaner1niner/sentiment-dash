@@ -1,0 +1,28 @@
+{
+  "schema_version": "seta_evidence_handoff_v1",
+  "primary_archetype": "attention_validation",
+  "primary_status": "constructive",
+  "safety_note": "Historical diagnostic only; not a trade signal, recommendation, or price forecast.",
+  "cards": [
+    {
+      "archetype": "attention_validation",
+      "title": "Attention Validation",
+      "status": "constructive",
+      "interpretation": "Historically, this archetype captures moments when elevated attention and positive tone appeared together.",
+      "public_takeaway": "Attention Validation currently shows constructive historical evidence: 682 events across 47 terms, with a 7d mean edge of 0.42% and a 7d win rate of 62.77% versus 57.22% baseline.",
+      "metrics": {
+        "events": "682",
+        "unique_terms": "47",
+        "date_range": "2026-03-24 to 2026-05-22",
+        "edge_1d_mean": "0.22%",
+        "edge_3d_mean": "0.26%",
+        "edge_7d_mean": "0.42%",
+        "forward_7d_win_rate": "62.77%",
+        "baseline_7d_win_rate": "57.22%"
+      },
+      "caveats": [
+        "Historical diagnostic only; not a trade signal, recommendation, or price forecast."
+      ]
+    }
+  ]
+}
