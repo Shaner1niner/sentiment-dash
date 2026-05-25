@@ -40,6 +40,8 @@ def test_refresh_automation_commit_push_guardrails_are_present():
     assert "commit evidence payload" in source
     assert "push evidence payload commit" in source
     assert "seta_bundles/latest/evidence/dashboard_evidence_payload.json" in source
+    assert "EvidenceManagedRelPaths" in source
+    assert "interactive_dashboard_fix24_public_embed.html" in source
 
 
 def test_refresh_automation_docs_explain_task_scheduler_usage():

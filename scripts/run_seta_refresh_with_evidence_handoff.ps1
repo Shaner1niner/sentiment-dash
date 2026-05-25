@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 Runs the sentiment-dash refresh flow with an optional SETA_engine Evidence Handoff publish step.
 
@@ -34,6 +34,11 @@ param(
 
 $ErrorActionPreference = "Stop"
 $PayloadRelPath = "seta_bundles/latest/evidence/dashboard_evidence_payload.json"
+$EvidenceMountRelPaths = @(
+  "index.html",
+  "interactive_dashboard_fix24_public_embed.html"
+)
+$EvidenceManagedRelPaths = @($PayloadRelPath) + $EvidenceMountRelPaths
 
 function Write-Step {
   param([string]$Message)
@@ -115,19 +120,20 @@ function Get-GitOutputChecked {
 function Assert-CleanEvidenceStagingScope {
   $stagedFiles = @(Get-GitOutputChecked -GitArgs @("--no-pager", "diff", "--cached", "--name-only") -Label "inspect staged files")
   $stagedFiles = @($stagedFiles | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
-  $unexpected = @($stagedFiles | Where-Object { $_ -ne $PayloadRelPath })
+  $unexpected = @($stagedFiles | Where-Object { $EvidenceManagedRelPaths -notcontains $_ })
   if ($unexpected.Count -gt 0) {
     $formatted = ($unexpected -join ", ")
     throw "Refusing to commit because unrelated staged files are present: $formatted"
   }
 }
 
-function Test-StagedEvidencePayloadChanged {
+function Test-StagedEvidenceManagedFilesChanged {
   if ($WhatIf) {
-    Write-Step "WHATIF: would check whether evidence payload has staged changes."
+    Write-Step "WHATIF: would check whether evidence managed files have staged changes."
     return $true
   }
-  & git --no-pager diff --cached --quiet -- $PayloadRelPath
+  $diffArgs = @("--no-pager", "diff", "--cached", "--quiet", "--") + $EvidenceManagedRelPaths
+  & git @diffArgs
   $exitCode = $LASTEXITCODE
   if ($exitCode -eq 0) {
     return $false
@@ -135,7 +141,7 @@ function Test-StagedEvidencePayloadChanged {
   if ($exitCode -eq 1) {
     return $true
   }
-  throw "Failed to inspect staged evidence payload diff with exit code $exitCode"
+  throw "Failed to inspect staged evidence managed-file diff with exit code $exitCode"
 }
 
 function Invoke-EvidencePayloadCommitPublish {
@@ -151,14 +157,14 @@ function Invoke-EvidencePayloadCommitPublish {
 
   if (-not $Stage) {
     Write-Step "staging evidence payload because -CommitEvidencePayload was provided."
-    Invoke-GitChecked -GitArgs @("add", "-f", "--", $PayloadRelPath) -Label "stage evidence payload" | Out-Null
+    Invoke-GitChecked -GitArgs (@("add", "-f", "--") + $EvidenceManagedRelPaths) -Label "stage evidence managed files" | Out-Null
   }
 
   Assert-CleanEvidenceStagingScope
 
-  $hasPayloadDiff = Test-StagedEvidencePayloadChanged
-  if (-not $hasPayloadDiff) {
-    Write-Step "no staged evidence payload changes; skipping commit and push."
+  $hasManagedDiff = Test-StagedEvidenceManagedFilesChanged
+  if (-not $hasManagedDiff) {
+    Write-Step "no staged evidence managed-file changes; skipping commit and push."
     return
   }
 
@@ -185,9 +191,11 @@ $SetaEngineRoot = Resolve-RequiredPath -Path $SetaEngineRoot -Label "SETA_engine
 $PublishHelper = Join-Path $DashRoot "scripts\publish_seta_evidence_handoff_to_bundle.ps1"
 $Validator = Join-Path $DashRoot "scripts\check_evidence_handoff_payload.py"
 $BundlePayload = Join-Path $DashRoot "seta_bundles\latest\evidence\dashboard_evidence_payload.json"
+$MountRepairHelper = Join-Path $DashRoot "scripts\ensure_evidence_mounts.py"
 
 Resolve-RequiredPath -Path $PublishHelper -Label "evidence publish helper" | Out-Null
 Resolve-RequiredPath -Path $Validator -Label "evidence payload validator" | Out-Null
+Resolve-RequiredPath -Path $MountRepairHelper -Label "evidence mount repair helper" | Out-Null
 
 Push-Location $DashRoot
 try {
@@ -198,6 +206,16 @@ try {
     Write-Step "dashboard refresh command skipped by -SkipRefreshCommand."
   } else {
     Invoke-CheckedCommand -Command $RefreshCommand -Label "dashboard refresh"
+  }
+
+  if ($WhatIf) {
+    Write-Step "WHATIF: would repair Evidence Card mounts."
+  } else {
+    Write-Step "repairing Evidence Card mounts after dashboard refresh"
+    & python $MountRepairHelper --root $DashRoot
+    if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
+      throw "Evidence Card mount repair failed with exit code $LASTEXITCODE"
+    }
   }
 
   $publishArgs = @(
@@ -234,10 +252,12 @@ try {
 
   if ($Stage -or $CommitEvidencePayload) {
     Write-Step "staged evidence payload status:"
-    git --no-pager diff --cached --name-status -- $PayloadRelPath
+    $statusArgs = @("--no-pager", "diff", "--cached", "--name-status", "--") + $EvidenceManagedRelPaths
+    git @statusArgs
   } else {
     Write-Step "working tree evidence payload status:"
-    git status --short -- $PayloadRelPath
+    $statusArgs = @("status", "--short", "--") + $EvidenceManagedRelPaths
+    git @statusArgs
   }
 
   Invoke-EvidencePayloadCommitPublish
