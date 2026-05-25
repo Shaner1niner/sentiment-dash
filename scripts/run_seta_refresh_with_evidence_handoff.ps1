@@ -34,11 +34,12 @@ param(
 
 $ErrorActionPreference = "Stop"
 $PayloadRelPath = "seta_bundles/latest/evidence/dashboard_evidence_payload.json"
+$HealthStatusRelPath = "seta_bundles/latest/evidence/evidence_refresh_status.json"
 $EvidenceMountRelPaths = @(
   "index.html",
   "interactive_dashboard_fix24_public_embed.html"
 )
-$EvidenceManagedRelPaths = @($PayloadRelPath) + $EvidenceMountRelPaths
+$EvidenceManagedRelPaths = @($PayloadRelPath, $HealthStatusRelPath) + $EvidenceMountRelPaths
 
 function Write-Step {
   param([string]$Message)
@@ -192,10 +193,12 @@ $PublishHelper = Join-Path $DashRoot "scripts\publish_seta_evidence_handoff_to_b
 $Validator = Join-Path $DashRoot "scripts\check_evidence_handoff_payload.py"
 $BundlePayload = Join-Path $DashRoot "seta_bundles\latest\evidence\dashboard_evidence_payload.json"
 $MountRepairHelper = Join-Path $DashRoot "scripts\ensure_evidence_mounts.py"
+$HealthCheckHelper = Join-Path $DashRoot "scripts\check_evidence_refresh_health.py"
 
 Resolve-RequiredPath -Path $PublishHelper -Label "evidence publish helper" | Out-Null
 Resolve-RequiredPath -Path $Validator -Label "evidence payload validator" | Out-Null
 Resolve-RequiredPath -Path $MountRepairHelper -Label "evidence mount repair helper" | Out-Null
+Resolve-RequiredPath -Path $HealthCheckHelper -Label "evidence refresh health helper" | Out-Null
 
 Push-Location $DashRoot
 try {
@@ -247,6 +250,16 @@ try {
     & python $Validator --payload $BundlePayload
     if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
       throw "Evidence Handoff payload validation failed with exit code $LASTEXITCODE"
+    }
+  }
+
+  if ($WhatIf) {
+    Write-Step "WHATIF: would write Evidence Handoff refresh health status."
+  } else {
+    Write-Step "writing Evidence Handoff refresh health status"
+    & python $HealthCheckHelper --root $DashRoot
+    if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
+      throw "Evidence Handoff refresh health check failed with exit code $LASTEXITCODE"
     }
   }
 
