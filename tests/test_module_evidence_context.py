@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 from pathlib import Path
 
@@ -28,6 +28,6 @@ def test_module_evidence_context_uses_existing_payload_and_mount_contract():
 def test_module_evidence_context_preserves_public_safety_framing():
     source = FEATURE.read_text(encoding="utf-8")
 
-    assert "diagnostic context only" in source
-    assert "not a prediction or trade instruction" in source
+    assert "Diagnostic only" in source
+    assert "not a prediction, trade signal, recommendation, or price forecast" in source
     assert "attention_validation" in source
