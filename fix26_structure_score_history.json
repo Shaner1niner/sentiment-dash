@@ -1,262 +1,424 @@
 {
   "asset_count": 28,
-  "generated_at_utc": "2026-05-25T05:10:31.319293Z",
+  "generated_at_utc": "2026-05-24T11:14:47.914334Z",
   "latest_by_term": {
     "AAPL": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bullish",
-      "direction_score": 74.6052,
+      "direction_score": 59.8717,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 22.8686,
+      "structure_score": 14.0504,
       "term": "AAPL"
     },
     "AMD": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 51.7884,
+      "direction_score": 45.3491,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 9.6416,
+      "structure_score": 10.9881,
       "term": "AMD"
     },
     "AMZN": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 26.818,
+      "direction_score": 26.5972,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 21.6403,
+      "structure_score": 21.7439,
       "term": "AMZN"
     },
     "AVAX": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 32.9797,
+      "direction_score": 40.6487,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 60.2454,
+      "structure_score": 55.9558,
       "term": "AVAX"
     },
     "BNB": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bullish",
-      "direction_score": 67.0018,
+      "direction_score": 62.3183,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 60.0227,
+      "structure_score": 57.7398,
       "term": "BNB"
     },
     "BTC": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Mixed / Neutral",
-      "direction_score": 49.2749,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bearish",
+      "direction_score": 22.4752,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 51.3224,
+      "structure_score": 63.1109,
       "term": "BTC"
     },
     "COIN": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Bearish",
-      "direction_score": 32.4316,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bullish",
+      "direction_score": 66.159,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 19.2499,
+      "structure_score": 17.4129,
       "term": "COIN"
     },
     "DOGE": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 48.2882,
+      "direction_score": 45.5547,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 51.9916,
+      "structure_score": 53.2248,
       "term": "DOGE"
     },
     "DXY": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 50.2922,
+      "direction_score": 49.725,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 10.0255,
+      "structure_score": 10.1091,
       "term": "DXY"
     },
     "ETH": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Bullish",
-      "direction_score": 58.482,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bearish",
+      "direction_score": 39.3941,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 54.172,
+      "structure_score": 54.5357,
       "term": "ETH"
     },
     "GLD": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Mixed / Neutral",
-      "direction_score": 49.7744,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bearish",
+      "direction_score": 42.2849,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 7.9708,
+      "structure_score": 12.823,
       "term": "GLD"
     },
     "GOOGL": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 34.9285,
+      "direction_score": 35.8554,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 16.8724,
+      "structure_score": 16.5523,
       "term": "GOOGL"
     },
     "LINK": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 22.44,
+      "direction_score": 23.7376,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 65.7243,
+      "structure_score": 64.9688,
       "term": "LINK"
     },
     "META": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 30.9705,
+      "direction_score": 20.0583,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 18.8511,
+      "structure_score": 25.3084,
       "term": "META"
     },
     "MSFT": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Bullish",
-      "direction_score": 63.1412,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bearish",
+      "direction_score": 40.6184,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 16.4326,
+      "structure_score": 14.6699,
       "term": "MSFT"
     },
     "MSTR": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 29.4446,
+      "direction_score": 41.5756,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 20.007,
+      "structure_score": 12.284,
       "term": "MSTR"
     },
     "NFLX": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Mixed / Neutral",
-      "direction_score": 46.6584,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bullish",
+      "direction_score": 60.6479,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 10.0031,
+      "structure_score": 14.9815,
       "term": "NFLX"
     },
     "NVDA": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Bullish",
-      "direction_score": 62.231,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bearish",
+      "direction_score": 25.2589,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 16.2313,
+      "structure_score": 22.351,
       "term": "NVDA"
     },
     "PLTR": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 20.9831,
+      "direction_score": 21.2872,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 24.8353,
+      "structure_score": 24.6504,
       "term": "PLTR"
     },
     "QQQ": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 46.726,
+      "direction_score": 49.0014,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 10.4175,
+      "structure_score": 9.1185,
       "term": "QQQ"
     },
     "SHOP": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 20.7438,
+      "direction_score": 20.1867,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 24.9324,
+      "structure_score": 25.2555,
       "term": "SHOP"
     },
     "SMCI": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Mixed / Neutral",
-      "direction_score": 43.9992,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bullish",
+      "direction_score": 65.8983,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 12.2984,
+      "structure_score": 17.2981,
       "term": "SMCI"
     },
     "SOL": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Mixed / Neutral",
-      "direction_score": 47.5415,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bullish",
+      "direction_score": 66.6906,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 51.7945,
+      "structure_score": 59.6925,
       "term": "SOL"
     },
     "SPY": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Bullish",
-      "direction_score": 69.7425,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Mixed / Neutral",
+      "direction_score": 47.7761,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 19.9716,
+      "structure_score": 9.9707,
       "term": "SPY"
     },
     "TLT": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
-      "direction_label": "Mixed / Neutral",
-      "direction_score": 45.6294,
+      "as_of_utc": "2026-05-24T11:00:00Z",
+      "direction_label": "Bearish",
+      "direction_score": 30.0094,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 10.8082,
+      "structure_score": 19.1981,
       "term": "TLT"
     },
     "TSLA": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 23.9525,
+      "direction_score": 23.9331,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 23.0047,
+      "structure_score": 23.0195,
       "term": "TSLA"
     },
     "XLE": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Bullish",
-      "direction_score": 66.2533,
+      "direction_score": 78.6932,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 18.4587,
+      "structure_score": 24.9855,
       "term": "XLE"
     },
     "XRP": {
-      "as_of_utc": "2026-05-25T05:00:00Z",
+      "as_of_utc": "2026-05-24T11:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 50.8733,
+      "direction_score": 47.9022,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 49.0855,
+      "structure_score": 49.7466,
       "term": "XRP"
     }
   },
   "points_by_term": {
     "AAPL": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.9276,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.4249,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.9276,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.4249,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.9276,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.4249,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.9276,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.4249,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.9276,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.4249,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.9276,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.4249,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.9276,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.4249,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.9276,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.4249,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.9276,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.4249,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.2198,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.5829,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.2198,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.5829,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.2198,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.5829,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.2198,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.5829,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.2198,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.5936,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2015,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.0232,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2015,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.0238,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2015,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.0239,
+        "term": "AAPL"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.1434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.987,
+        "term": "AAPL"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bullish",
@@ -445,18 +607,171 @@
         "structure_label": "Weak",
         "structure_score": 14.0504,
         "term": "AAPL"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bullish",
-        "direction_score": 74.6052,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 22.8686,
-        "term": "AAPL"
       }
     ],
     "AMD": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.245,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.2698,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.245,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.2698,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.245,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.2698,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.245,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.2699,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.245,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.2699,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.245,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.2699,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.245,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.2699,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.245,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.2699,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.245,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.2699,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 42.7035,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.5295,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 42.7035,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.5295,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 42.7035,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.5295,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 42.7035,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.5295,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 42.7035,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.5295,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 48.8318,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.3147,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 48.8318,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.3148,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 48.8318,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.3148,
+        "term": "AMD"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 48.6309,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.436,
+        "term": "AMD"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -645,18 +960,171 @@
         "structure_label": "Weak",
         "structure_score": 10.9881,
         "term": "AMD"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 51.7884,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 9.6416,
-        "term": "AMD"
       }
     ],
     "AMZN": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.1207,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0687,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.1207,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0687,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.1207,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0687,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.1207,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0687,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.1207,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0687,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.1207,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0687,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.1207,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0687,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.1207,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0687,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.1207,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0687,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.7824,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.6058,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.7824,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.6058,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.7824,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.6058,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.7824,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.6058,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.7824,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.625,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 30.0252,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.5012,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 30.0252,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.5016,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 30.0252,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.5016,
+        "term": "AMZN"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.7943,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6629,
+        "term": "AMZN"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -845,18 +1313,171 @@
         "structure_label": "Weak",
         "structure_score": 21.7439,
         "term": "AMZN"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 26.818,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 21.6403,
-        "term": "AMZN"
       }
     ],
     "AVAX": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.4552,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.2253,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.4552,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.2253,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.4552,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.2253,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.4552,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.2253,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.4552,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.3045,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.4552,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.3045,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.4552,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.384,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.4552,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.384,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.4552,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.384,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.0406,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 58.0351,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.0406,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 58.0351,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.0406,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 58.0351,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.0406,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 58.0351,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.0406,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 58.0351,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 26.0658,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 63.5731,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 26.0658,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 63.5986,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 26.0658,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 63.5986,
+        "term": "AVAX"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 25.9653,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 63.662,
+        "term": "AVAX"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -1045,18 +1666,171 @@
         "structure_label": "Mixed",
         "structure_score": 55.9558,
         "term": "AVAX"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 32.9797,
-        "rank": "",
-        "structure_label": "Mixed",
-        "structure_score": 60.2454,
-        "term": "AVAX"
       }
     ],
     "BNB": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2287,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.1678,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2287,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.1678,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2287,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.1678,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2287,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.1933,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2287,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.1933,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2287,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.2324,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2287,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.2324,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2287,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.2836,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.2287,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.2836,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.7695,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.9178,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.7695,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.9178,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.7695,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.9472,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.7695,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.9472,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.7695,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.9472,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.3456,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 52.6299,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.3456,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 52.6637,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.3456,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 52.6637,
+        "term": "BNB"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.2045,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 52.7682,
+        "term": "BNB"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -1245,18 +2019,171 @@
         "structure_label": "Mixed",
         "structure_score": 57.7398,
         "term": "BNB"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bullish",
-        "direction_score": 67.0018,
-        "rank": "",
-        "structure_label": "Mixed",
-        "structure_score": 60.0227,
-        "term": "BNB"
       }
     ],
     "BTC": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 70.3526,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 44.5825,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 70.3526,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 44.5825,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 70.3526,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 44.5825,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 70.3526,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 44.5825,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 70.3526,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 44.5825,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 70.3526,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 44.5825,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 70.3526,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 44.5825,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 70.3526,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 44.5825,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 70.3526,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 62.1611,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.8408,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.032,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.8408,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.0654,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.8408,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.0719,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.8408,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.0745,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.8408,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.0803,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.2475,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 59.4751,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.2475,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 59.4765,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.2475,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 59.4765,
+        "term": "BTC"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.2475,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 59.4811,
+        "term": "BTC"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bullish",
@@ -1445,18 +2372,171 @@
         "structure_label": "Mixed",
         "structure_score": 63.1109,
         "term": "BTC"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 49.2749,
-        "rank": "",
-        "structure_label": "Mixed",
-        "structure_score": 51.3224,
-        "term": "BTC"
       }
     ],
     "COIN": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.0918,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3602,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.0918,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3602,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.0918,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3602,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.0918,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3602,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.0918,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3602,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.0918,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3602,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.0918,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3603,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.0918,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3603,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.0918,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3603,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 21.2768,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.2128,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 21.2768,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.2128,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 21.2768,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.2128,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 21.2768,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.2128,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 21.2768,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.2075,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.5187,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.1451,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.5187,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.1451,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.5187,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.1451,
+        "term": "COIN"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.4557,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.1865,
+        "term": "COIN"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -1645,18 +2725,171 @@
         "structure_label": "Weak",
         "structure_score": 17.4129,
         "term": "COIN"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 32.4316,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 19.2499,
-        "term": "COIN"
       }
     ],
     "DOGE": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.5534,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.3378,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.5534,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.3466,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.5534,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.3466,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.5534,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.3528,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.5534,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.3528,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.5534,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.3589,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.5534,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.3589,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.5534,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.366,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.5534,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.366,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 55.5157,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 54.8459,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 55.5157,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 54.8459,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 55.5157,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 54.8809,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 55.5157,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 54.8809,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 55.5157,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 54.8809,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 53.5683,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.3967,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 53.5683,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.3984,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 53.5683,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.3984,
+        "term": "DOGE"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 53.4567,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.3192,
+        "term": "DOGE"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -1845,18 +3078,171 @@
         "structure_label": "Mixed",
         "structure_score": 53.2248,
         "term": "DOGE"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 48.2882,
-        "rank": "",
-        "structure_label": "Mixed",
-        "structure_score": 51.9916,
-        "term": "DOGE"
       }
     ],
     "DXY": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 52.4799,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.8354,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 52.4799,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.8354,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 52.4799,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.8354,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 52.4799,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.8354,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 52.4799,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.8354,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 52.4799,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.8354,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 52.4799,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.8354,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 52.4799,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.8354,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 52.4799,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.8354,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 49.6683,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1358,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 49.6683,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1358,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 49.6683,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1358,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 49.6683,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1358,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 49.6683,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1358,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 49.7021,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1199,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 49.7021,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1199,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 49.7021,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1199,
+        "term": "DXY"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.9768,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.6542,
+        "term": "DXY"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -2045,18 +3431,171 @@
         "structure_label": "Weak",
         "structure_score": 10.1091,
         "term": "DXY"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 50.2922,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 10.0255,
-        "term": "DXY"
       }
     ],
     "ETH": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.3438,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 50.7567,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.3438,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 50.7616,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.3438,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 50.7616,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.3438,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 50.7666,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.3438,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 50.7758,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.3438,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 50.7758,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.3438,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 50.791,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.3438,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 50.8137,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.3438,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 50.8197,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.6824,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 55.7674,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.6824,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 55.7674,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.6824,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 55.775,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.6824,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 55.7837,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.6824,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 55.7999,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 32.4947,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.4689,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 32.4947,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.4854,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 32.4947,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.4854,
+        "term": "ETH"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 32.4947,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 57.5137,
+        "term": "ETH"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -2245,18 +3784,171 @@
         "structure_label": "Mixed",
         "structure_score": 54.5357,
         "term": "ETH"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bullish",
-        "direction_score": 58.482,
-        "rank": "",
-        "structure_label": "Mixed",
-        "structure_score": 54.172,
-        "term": "ETH"
       }
     ],
     "GLD": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.5349,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.4333,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.5349,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.4333,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.5349,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.4333,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.5349,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.4333,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.5349,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.4333,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.5349,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.4333,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.5349,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.4333,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.5349,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.4333,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.5349,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.4333,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 41.9212,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.1576,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 41.923,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.1565,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 41.923,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.1565,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 41.923,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.1565,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 41.923,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.1565,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 45.5265,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.0507,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 45.5265,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.0507,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 45.5265,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.0507,
+        "term": "GLD"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 45.5171,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.0563,
+        "term": "GLD"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -2445,18 +4137,171 @@
         "structure_label": "Weak",
         "structure_score": 12.823,
         "term": "GLD"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 49.7744,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 7.9708,
-        "term": "GLD"
       }
     ],
     "GOOGL": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5752,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.8968,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5752,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.8968,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5752,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.8968,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5752,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.8968,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5752,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.8968,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5752,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.8968,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5752,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.8968,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5752,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.8968,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5752,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.8968,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.2886,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.2358,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.2886,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.2358,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.2886,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.2358,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.2886,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.2358,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.2886,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.2337,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.2978,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.6006,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.2978,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.6006,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.2978,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.6006,
+        "term": "GOOGL"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.0438,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.7492,
+        "term": "GOOGL"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -2645,18 +4490,171 @@
         "structure_label": "Weak",
         "structure_score": 16.5523,
         "term": "GOOGL"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 34.9285,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 16.8724,
-        "term": "GOOGL"
       }
     ],
     "LINK": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.1902,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.2722,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.1902,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.2809,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.1902,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.2809,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.1902,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.2809,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.1902,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.2825,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.1902,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.2883,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.1902,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.2883,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.1902,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.3058,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 54.1902,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.3058,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.0416,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.9258,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.0416,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.9258,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.0416,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.9258,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.0416,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.9258,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.0416,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.9258,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 31.5775,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.5704,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 31.5775,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.5704,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 31.5775,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.5704,
+        "term": "LINK"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 31.5294,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.6004,
+        "term": "LINK"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -2845,18 +4843,171 @@
         "structure_label": "Mixed",
         "structure_score": 64.9688,
         "term": "LINK"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 22.44,
-        "rank": "",
-        "structure_label": "Mixed",
-        "structure_score": 65.7243,
-        "term": "LINK"
       }
     ],
     "META": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.1302,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.6997,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.1302,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.6997,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.1302,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.6997,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.1302,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.6997,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.1302,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.6997,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.1302,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.6997,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.1302,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.6997,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.1302,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.6997,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.1302,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.6997,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.6857,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8456,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.6857,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8456,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.6857,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8456,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.6857,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8456,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.6857,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8456,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.9294,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.3876,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.9294,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.3876,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.9294,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.3876,
+        "term": "META"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6454,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.2291,
+        "term": "META"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bullish",
@@ -3045,18 +5196,171 @@
         "structure_label": "Weak",
         "structure_score": 25.3084,
         "term": "META"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 30.9705,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 18.8511,
-        "term": "META"
       }
     ],
     "MSFT": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.5072,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0553,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.5072,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0553,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.5072,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0553,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.5072,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0553,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.5072,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0553,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.5072,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0553,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.5072,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0553,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.5072,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0553,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.5072,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0553,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 19.9313,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.5762,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 19.9313,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.5762,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 19.9313,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.5762,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 19.9313,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.5762,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 19.9313,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.5791,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 26.8588,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.5404,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 26.8588,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.5404,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 26.8588,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.5404,
+        "term": "MSFT"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 26.6417,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 21.6847,
+        "term": "MSFT"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -3245,18 +5549,171 @@
         "structure_label": "Weak",
         "structure_score": 14.6699,
         "term": "MSFT"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bullish",
-        "direction_score": 63.1412,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 16.4326,
-        "term": "MSFT"
       }
     ],
     "MSTR": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9423,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6877,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9423,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6877,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9423,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6877,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9423,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6877,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9423,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6877,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9423,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6877,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9423,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6878,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9423,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6878,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9423,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.6879,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 36.2616,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1013,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 36.2616,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1013,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 36.2616,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1013,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 36.2616,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1013,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 36.2616,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1013,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 31.1414,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.9152,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 31.1414,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.9152,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 31.1414,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.9153,
+        "term": "MSTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 32.1441,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.24,
+        "term": "MSTR"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -3445,18 +5902,171 @@
         "structure_label": "Weak",
         "structure_score": 12.284,
         "term": "MSTR"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 29.4446,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 20.007,
-        "term": "MSTR"
       }
     ],
     "NFLX": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.547,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.3016,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.547,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.3016,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.547,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.3016,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.547,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.3016,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.547,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.3016,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.547,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.3016,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.547,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.3016,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.547,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.3016,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.547,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.3016,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.3688,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.0352,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.3688,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.0352,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.3688,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.0352,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.3688,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.0352,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.3688,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 12.0417,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.7457,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.1355,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.7457,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.1355,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.7457,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.1355,
+        "term": "NFLX"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 51.8402,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.1832,
+        "term": "NFLX"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -3645,18 +6255,171 @@
         "structure_label": "Weak",
         "structure_score": 14.9815,
         "term": "NFLX"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 46.6584,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 10.0031,
-        "term": "NFLX"
       }
     ],
     "NVDA": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.8693,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.8693,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.8693,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.8693,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.8693,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.8693,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.8694,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.8694,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.8695,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 53.8644,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.1278,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 53.8644,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.1279,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 53.8644,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.1279,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 53.8644,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.1279,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 53.8644,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.1256,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.7935,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.4541,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.7935,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.4541,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.7935,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.4541,
+        "term": "NVDA"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.6012,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.5745,
+        "term": "NVDA"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -3845,18 +6608,171 @@
         "structure_label": "Weak",
         "structure_score": 22.351,
         "term": "NVDA"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bullish",
-        "direction_score": 62.231,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 16.2313,
-        "term": "NVDA"
       }
     ],
     "PLTR": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.0545,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.0504,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.0545,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.0504,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.0545,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.0504,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.0545,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.0504,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.0545,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.0504,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.0545,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.0505,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.0545,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.0505,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.0545,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.0505,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 33.0545,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.0505,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.6665,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.9253,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.6665,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.9253,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.6665,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.9253,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.6665,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.9253,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.6665,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.9253,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.1271,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0716,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.1271,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0724,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.1271,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0724,
+        "term": "PLTR"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 38.1152,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.0789,
+        "term": "PLTR"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -4045,18 +6961,171 @@
         "structure_label": "Weak",
         "structure_score": 24.6504,
         "term": "PLTR"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 20.9831,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 24.8353,
-        "term": "PLTR"
       }
     ],
     "QQQ": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.4434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.6221,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.4434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.6222,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.4434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.6222,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.4434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.6232,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.4434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.6232,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.4434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.6232,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.4434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.6232,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.4434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.6232,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 62.4434,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.6232,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.5013,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.0526,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.4847,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.0426,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.4847,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.0427,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.4847,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.0427,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 74.4847,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.0427,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 63.8648,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.2628,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 63.8648,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.2628,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 63.8648,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.2628,
+        "term": "QQQ"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 63.4316,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.011,
+        "term": "QQQ"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bullish",
@@ -4245,18 +7314,171 @@
         "structure_label": "Weak",
         "structure_score": 9.1185,
         "term": "QQQ"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 46.726,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 10.4175,
-        "term": "QQQ"
       }
     ],
     "SHOP": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 58.2475,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.6696,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 58.2475,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.6696,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 58.2475,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.6696,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 58.2475,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.6696,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 58.2475,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.6696,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 58.2475,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.6696,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 58.2475,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.6696,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 58.2475,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.6696,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 58.2475,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 13.6696,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 22.2387,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 24.0729,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 22.2387,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 24.0729,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 22.2387,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 24.0729,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 22.2387,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 24.0729,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 22.2387,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 24.0729,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.589,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.0264,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.589,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.0264,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 20.589,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.0264,
+        "term": "SHOP"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 19.9182,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 25.3061,
+        "term": "SHOP"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -4445,18 +7667,171 @@
         "structure_label": "Weak",
         "structure_score": 25.2555,
         "term": "SHOP"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 20.7438,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 24.9324,
-        "term": "SHOP"
       }
     ],
     "SMCI": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.0663,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.7276,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.0663,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.7276,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.0663,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.7276,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.0663,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.7276,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.0663,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.7276,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.0663,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.7276,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.0663,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.7276,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.0663,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.7276,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 68.0663,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 18.7276,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.8524,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.6736,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.8524,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.6736,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.8524,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.6736,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.8524,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.6736,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 44.8524,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 11.6736,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 48.029,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.695,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 48.029,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.695,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 48.029,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.695,
+        "term": "SMCI"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 49.6057,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 8.9269,
+        "term": "SMCI"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -4645,18 +8020,171 @@
         "structure_label": "Weak",
         "structure_score": 17.2981,
         "term": "SMCI"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 43.9992,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 12.2984,
-        "term": "SMCI"
       }
     ],
     "SOL": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3126,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.6903,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3126,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.6932,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3126,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.7343,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3126,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.7516,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3126,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.7631,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3126,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.7689,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3126,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.8347,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3126,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.8347,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3126,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 61.8778,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 67.3923,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.6609,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 67.3923,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.6609,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 67.3923,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.6787,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 67.3923,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.6866,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 67.3923,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 60.7606,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.9779,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 59.9654,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.9779,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 59.9703,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.9779,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 59.9703,
+        "term": "SOL"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.9779,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 59.9703,
+        "term": "SOL"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bullish",
@@ -4845,18 +8373,171 @@
         "structure_label": "Mixed",
         "structure_score": 59.6925,
         "term": "SOL"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 47.5415,
-        "rank": "",
-        "structure_label": "Mixed",
-        "structure_score": 51.7945,
-        "term": "SOL"
       }
     ],
     "SPY": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.9787,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.8802,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.9787,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.8802,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.9787,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.8802,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.9787,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.8802,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.9787,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.8802,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.9787,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.8802,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.9787,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.8802,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.9787,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.8802,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.9787,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.8802,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3054,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.7063,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3054,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.7063,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3054,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.7063,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3054,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.7063,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 69.3054,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.7063,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 76.0183,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.9045,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 76.0183,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.9045,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 76.0183,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.9045,
+        "term": "SPY"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 75.5445,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.6087,
+        "term": "SPY"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bullish",
@@ -5045,18 +8726,171 @@
         "structure_label": "Weak",
         "structure_score": 9.9707,
         "term": "SPY"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bullish",
-        "direction_score": 69.7425,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 19.9716,
-        "term": "SPY"
       }
     ],
     "TLT": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6432,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.7675,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6432,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.7675,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6432,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.7675,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6432,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.7677,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6432,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.7677,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6432,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.7677,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6432,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.7677,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6432,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.7677,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 60.6432,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 14.7677,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.5671,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8184,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.5023,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.7795,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.5023,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.7795,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.5023,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.7795,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 66.5023,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.7795,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 36.2398,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.2274,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 36.2398,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.2274,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 36.2398,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.2274,
+        "term": "TLT"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 35.8736,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 15.4733,
+        "term": "TLT"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -5245,18 +9079,171 @@
         "structure_label": "Weak",
         "structure_score": 19.1981,
         "term": "TLT"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 45.6294,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 10.8082,
-        "term": "TLT"
       }
     ],
     "TSLA": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 46.8883,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1496,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 46.8883,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1496,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 46.8883,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1496,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 46.8883,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1499,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 46.8883,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1499,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 46.8883,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1499,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 46.8883,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1499,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 46.8883,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1499,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 46.8883,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 10.1499,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.3296,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1455,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.3296,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1455,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.3296,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1455,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.3296,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1455,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 37.3296,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 16.1437,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 24.868,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.3884,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 24.868,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.3884,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 24.868,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.3884,
+        "term": "TSLA"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 24.8408,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 22.4075,
+        "term": "TSLA"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bearish",
@@ -5445,18 +9432,171 @@
         "structure_label": "Weak",
         "structure_score": 23.0195,
         "term": "TSLA"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 23.9525,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 23.0047,
-        "term": "TSLA"
       }
     ],
     "XLE": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9199,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.885,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9199,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.885,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9199,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.885,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9199,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.885,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9199,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.885,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9199,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.885,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9199,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.885,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9199,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.885,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 29.9199,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 19.885,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 47.4154,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.2753,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 47.4139,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.2763,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 47.4139,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.2763,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 47.4139,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.2763,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 47.4139,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 9.2763,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.7762,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8251,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.7762,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8251,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.7762,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8251,
+        "term": "XLE"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 65.8252,
+        "rank": "",
+        "structure_label": "Weak",
+        "structure_score": 17.8606,
+        "term": "XLE"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Bullish",
@@ -5645,18 +9785,171 @@
         "structure_label": "Weak",
         "structure_score": 24.9855,
         "term": "XLE"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Bullish",
-        "direction_score": 66.2533,
-        "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 18.4587,
-        "term": "XLE"
       }
     ],
     "XRP": [
+      {
+        "as_of_utc": "2026-05-22T11:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 72.8561,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 65.7007,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T12:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 72.8561,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 65.7007,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T13:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 72.8561,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 65.7007,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T14:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 72.8561,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 65.7096,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T15:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 72.8561,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 65.7096,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T16:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 72.8561,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 65.7277,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T17:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 72.8561,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 65.7277,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T18:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 72.8561,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 65.7277,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T19:00:00Z",
+        "direction_label": "Bullish",
+        "direction_score": 72.8561,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 65.7277,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T20:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.4266,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.0972,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T21:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.404,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.1099,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T22:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.404,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.1366,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-22T23:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.404,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.1366,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-23T00:00:00Z",
+        "direction_label": "Bearish",
+        "direction_score": 42.404,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 53.1806,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-23T01:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.8466,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 51.9791,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-23T02:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.8466,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 52.0008,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-23T03:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.8466,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 52.0008,
+        "term": "XRP"
+      },
+      {
+        "as_of_utc": "2026-05-23T04:00:00Z",
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 43.8225,
+        "rank": "",
+        "structure_label": "Mixed",
+        "structure_score": 52.0132,
+        "term": "XRP"
+      },
       {
         "as_of_utc": "2026-05-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
@@ -5845,20 +10138,11 @@
         "structure_label": "Mixed",
         "structure_score": 49.7466,
         "term": "XRP"
-      },
-      {
-        "as_of_utc": "2026-05-25T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 50.8733,
-        "rank": "",
-        "structure_label": "Mixed",
-        "structure_score": 49.0855,
-        "term": "XRP"
       }
     ]
   },
   "retention_hours": 48,
   "schema_version": "structure_score_history_v1",
-  "snapshot_hour_utc": "2026-05-25T05:00:00Z",
+  "snapshot_hour_utc": "2026-05-24T11:00:00Z",
   "source_file": "fix26_screener_store.json"
 }
