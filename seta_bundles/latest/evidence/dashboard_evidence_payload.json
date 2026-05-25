@@ -1,0 +1,70 @@
+{
+  "schema_version": "seta_evidence_handoff_v1",
+  "primary_archetype": "attention_validation",
+  "primary_status": "constructive",
+  "safety_note": "Historical diagnostic only; not a trade signal, recommendation, or price forecast.",
+  "cards": [
+    {
+      "archetype": "attention_validation",
+      "title": "Attention Validation",
+      "status": "constructive",
+      "interpretation": "Historically, this archetype captures moments when elevated attention and positive tone appeared together.",
+      "public_takeaway": "Attention Validation currently shows constructive historical evidence: 682 events across 47 terms, with a 7d mean edge of 0.42% and a 7d win rate of 62.77% versus 57.22% baseline.",
+      "metrics": {
+        "events": "682",
+        "unique_terms": "47",
+        "date_range": "2026-03-24 to 2026-05-22",
+        "edge_1d_mean": "0.22%",
+        "edge_3d_mean": "0.26%",
+        "edge_7d_mean": "0.42%",
+        "forward_7d_win_rate": "62.77%",
+        "baseline_7d_win_rate": "57.22%"
+      },
+      "caveats": [
+        "Historical diagnostic only; not a trade signal, recommendation, or price forecast."
+      ]
+    },
+    {
+      "archetype": "sentiment_repair",
+      "title": "Sentiment Repair",
+      "status": "not_validated",
+      "interpretation": "Historically, this archetype captures moments when sentiment improved from a weaker prior state.",
+      "public_takeaway": "Sentiment Repair is not validated by the current MVP evidence definition. This may indicate the archetype needs tighter filters.",
+      "metrics": {
+        "events": "451",
+        "unique_terms": "80",
+        "date_range": "2026-03-25 to 2026-05-22",
+        "edge_1d_mean": "-0.09%",
+        "edge_3d_mean": "-0.25%",
+        "edge_7d_mean": "-0.41%",
+        "forward_7d_win_rate": "53.85%",
+        "baseline_7d_win_rate": "57.22%"
+      },
+      "caveats": [
+        "Historical diagnostic only; not a trade signal, recommendation, or price forecast.",
+        "Definition should be reviewed and segmented before stronger public claims."
+      ]
+    },
+    {
+      "archetype": "divergence",
+      "title": "Divergence",
+      "status": "mixed_constructive",
+      "interpretation": "Historically, this archetype captures moments when tone strengthened without clear recent price confirmation.",
+      "public_takeaway": "Divergence shows a mixed but potentially constructive pattern. It needs segmentation before making stronger claims.",
+      "metrics": {
+        "events": "259",
+        "unique_terms": "66",
+        "date_range": "2026-03-27 to 2026-05-22",
+        "edge_1d_mean": "-0.02%",
+        "edge_3d_mean": "-0.22%",
+        "edge_7d_mean": "-0.21%",
+        "forward_7d_win_rate": "59.00%",
+        "baseline_7d_win_rate": "57.22%"
+      },
+      "caveats": [
+        "Historical diagnostic only; not a trade signal, recommendation, or price forecast.",
+        "Definition should be reviewed and segmented before stronger public claims."
+      ]
+    }
+  ]
+}
