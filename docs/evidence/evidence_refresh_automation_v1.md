@@ -72,6 +72,7 @@ seta_bundles/latest/evidence/dashboard_evidence_payload.json
 
 4. Validates the copied payload with `scripts/check_evidence_handoff_payload.py`.
 5. Optionally stages the generated payload with `git add -f` through the existing publish helper.
+6. Optionally commits and pushes **only** the generated evidence payload when `-CommitEvidencePayload` and `-Push` are explicitly provided.
 
 ## Safety behavior
 
@@ -82,6 +83,9 @@ The refresh should fail clearly if:
 - the upstream evidence payload is missing
 - the copied payload fails validation
 - the safety note is not present
+- `-Push` is provided without `-CommitEvidencePayload`
+- unrelated files are already staged when commit mode is enabled
+- push is requested from a detached HEAD
 
 The required safety note remains:
 
@@ -91,7 +95,26 @@ The required safety note remains:
 
 The wrapper does **not** commit or push by default.
 
-This is intentional. The existing website refresh/autotask process should remain responsible for the final commit/push behavior. The wrapper can stage the generated evidence payload with `-Stage` so the existing publish process can include it intentionally.
+This is intentional. The default mode is safe for manual validation and for refresh flows that already manage their own commit/push behavior.
+
+For unattended publishing of only the Evidence Handoff payload, use:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run_seta_refresh_with_evidence_handoff.ps1 `
+  -DashRoot "C:\Users\shane\sentiment-dash" `
+  -SetaEngineRoot "C:\SETA_engine\SETA_engine_git_initialized_for_push\SETA_engine" `
+  -RefreshCommand 'cmd.exe /c "C:\Users\shane\Projects\SETA_Prediction_Intelligence_Engine\scripts\run_public_card_site_publish_scheduled.bat"' `
+  -CommitEvidencePayload `
+  -Push
+```
+
+`-CommitEvidencePayload` implies staging the payload. Before committing, the wrapper checks the staged file list and refuses to continue if anything other than this file is staged:
+
+```text
+seta_bundles/latest/evidence/dashboard_evidence_payload.json
+```
+
+If the payload has not changed, the wrapper skips the commit and push.
 
 ## Manual validation
 

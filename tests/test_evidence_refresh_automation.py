@@ -19,13 +19,27 @@ def test_refresh_automation_script_supports_safe_modes():
     assert "[switch]$SkipRefreshCommand" in source
     assert "[switch]$Stage" in source
     assert "[switch]$WhatIf" in source
+    assert "[switch]$CommitEvidencePayload" in source
+    assert "[switch]$Push" in source
     assert "Invoke-CheckedCommand" in source
 
 
 def test_refresh_automation_does_not_commit_or_push_by_default():
-    source = SCRIPT.read_text(encoding="utf-8").lower()
-    assert "git commit" not in source
-    assert "git push" not in source
+    source = SCRIPT.read_text(encoding="utf-8")
+    assert "[switch]$CommitEvidencePayload" in source
+    assert "[switch]$Push" in source
+    assert "if (-not $CommitEvidencePayload)" in source
+    assert "The script intentionally does not commit or push by default" in source
+
+
+def test_refresh_automation_commit_push_guardrails_are_present():
+    source = SCRIPT.read_text(encoding="utf-8")
+    assert "-Push requires -CommitEvidencePayload" in source
+    assert "Refusing to commit because unrelated staged files are present" in source
+    assert "Refusing to push from detached HEAD" in source
+    assert "commit evidence payload" in source
+    assert "push evidence payload commit" in source
+    assert "seta_bundles/latest/evidence/dashboard_evidence_payload.json" in source
 
 
 def test_refresh_automation_docs_explain_task_scheduler_usage():
@@ -33,3 +47,5 @@ def test_refresh_automation_docs_explain_task_scheduler_usage():
     assert "scheduled" in doc.lower()
     assert "run_seta_refresh_with_evidence_handoff.ps1" in doc
     assert "Historical diagnostic only; not a trade signal" in doc
+    assert "CommitEvidencePayload" in doc
+    assert "unrelated files are already staged" in doc
