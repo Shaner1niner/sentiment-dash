@@ -67,8 +67,14 @@
     .seta-evidence-facts {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px 14px;
-      margin: 2px 0 0;
+      gap: 14px 18px;
+      margin: 4px 0 0;
+    }
+    .seta-evidence-fact {
+      display: grid;
+      gap: 4px;
+      align-content: start;
+      min-width: 0;
     }
     .seta-evidence-facts dt {
       color: rgba(226, 232, 236, .54);
@@ -78,7 +84,7 @@
       text-transform: uppercase;
     }
     .seta-evidence-facts dd {
-      margin: 2px 0 0;
+      margin: 0;
       color: rgba(244, 247, 249, .96);
       font-size: 1rem;
       font-weight: 800;
