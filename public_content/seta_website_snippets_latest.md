@@ -1,4 +1,4 @@
-# SETA Website Snippets — 2026-05-24
+# SETA Website Snippets — 2026-05-25
 
 Public-safe explanation copy for website/dashboard display.
 
