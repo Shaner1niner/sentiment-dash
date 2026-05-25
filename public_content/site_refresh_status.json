@@ -22,10 +22,10 @@
       "date": "2026-05-24",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-05-25T08:32:44+00:00"
+      "published_at_utc": "2026-05-25T09:14:59+00:00"
     }
   },
-  "generated_at_utc": "2026-05-25T08:32:47Z",
+  "generated_at_utc": "2026-05-25T09:15:02Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Member chart artifacts remain an explicit product/security decision while current compatibility is preserved."
@@ -34,7 +34,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "e7ce83c432647b76c29a27f49e1c3ef52684acaf"
+    "head_sha": "9309a5e5dd62a2e20e0498c9bee81e06a34ada54"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
