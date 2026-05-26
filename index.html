@@ -102,14 +102,6 @@
       text-transform: uppercase;
     }
 
-    .statusCluster {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
     .status {
       position: relative;
       border: 1px solid rgba(142, 232, 162, .34);
@@ -136,52 +128,6 @@
       background: var(--green);
       box-shadow: 0 0 0 0 rgba(142, 232, 162, .55);
       animation: setaPulse 2.4s ease-out infinite;
-    }
-
-    .evidenceHealthBadge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border: 1px solid rgba(143, 179, 255, .34);
-      color: #cfe0ff;
-      background: rgba(10, 18, 34, .48);
-      border-radius: 999px;
-      padding: 7px 11px;
-      font-size: 11px;
-      font-weight: 800;
-      white-space: nowrap;
-      box-shadow: 0 0 22px rgba(143, 179, 255, .10);
-      backdrop-filter: blur(14px);
-    }
-
-    .evidenceHealthBadge[hidden] {
-      display: none;
-    }
-
-    .evidenceHealthBadgeDot {
-      width: 7px;
-      height: 7px;
-      border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 12px rgba(143, 179, 255, .58);
-      flex: 0 0 auto;
-    }
-
-    .evidenceHealthBadgeText {
-      display: grid;
-      gap: 1px;
-      line-height: 1.15;
-    }
-
-    .evidenceHealthBadgeText strong {
-      color: #e7efff;
-      font-size: 11px;
-    }
-
-    .evidenceHealthBadgeText span {
-      color: rgba(207, 224, 255, .72);
-      font-size: 10px;
-      font-weight: 700;
     }
 
     @keyframes setaPulse {
@@ -369,15 +315,7 @@
         align-items: start;
       }
 
-      .status,
-      .statusCluster,
-      .evidenceHealthBadge {
-        width: fit-content;
-      }
-
-      .statusCluster {
-        justify-content: flex-start;
-      }
+      .status { width: fit-content; }
 
       .hero { padding-top: 34px; }
 
@@ -403,31 +341,13 @@
         <strong>SETA Sentiment Dashboard</strong>
         <span>Sentiment, attention, and decision pressure beneath price.</span>
       </div>
-      <div class="statusCluster">
-        <span class="status">GitHub Pages live</span>
-        <span
-          class="evidenceHealthBadge"
-          data-seta-evidence-health-badge
-          data-status-url="seta_bundles/latest/evidence/evidence_refresh_status.json"
-          hidden
-        ></span>
-      </div>
+      <span class="status" id="setaRefreshBadge">GitHub Pages live</span>
     </header>
 
     <section class="hero">
       <h1>Read market behavior beneath price.</h1>
       <p>SETA helps organize sentiment, attention, and participation into market context. Start with the public dashboard for the module runtime overview, then use the context cards to understand how price and sentiment are lining up, diverging, or waiting for confirmation — in SETA terms, that is Decision Pressure.</p>
     </section>
-    <section class="ops evidence-stage" aria-label="Historical SETA evidence context" data-seta-evidence-section hidden>
-      <div class="panel evidence-panel">
-        <div
-          id="seta-evidence-card-root"
-          data-seta-evidence-card
-          data-payload-url="seta_bundles/latest/evidence/dashboard_evidence_payload.json"
-        ></div>
-      </div>
-    </section>
-
 
     <section class="grid" aria-label="SETA navigation">
       <a class="card" href="interactive_dashboard_fix24_public_embed.html">
@@ -481,7 +401,7 @@
     <section class="ops" aria-label="Operations notes">
       <div class="panel">
         <h2>Production Refresh</h2>
-        <p>The site is hosted on GitHub Pages. Refresh runs update static dashboard payloads and the context packet after safety and smoke gates pass.</p>
+        <p id="setaRefreshCopy">The site is hosted on GitHub Pages. Refresh runs update static dashboard payloads and the context packet after safety and smoke gates pass.</p>
       </div>
       <div class="panel">
         <h2>Not a trading signal</h2>
@@ -489,10 +409,42 @@
       </div>
     </section>
   </main>
+<script>
+  async function updateRefreshStatus() {
+    const badge = document.getElementById("setaRefreshBadge");
+    const copy = document.getElementById("setaRefreshCopy");
 
-  <script src="src/evidence_handoff_reader.js"></script>
-  <script src="src/evidence_card_ui.js"></script>
+    if (!badge || !copy) return;
 
-  <script src="src/evidence_health_badge.js"></script>
+    try {
+      const response = await fetch("public_content/site_refresh_status.json?v=" + Date.now(), {
+        cache: "no-store"
+      });
+
+      if (!response.ok) throw new Error("Refresh status unavailable");
+
+      const payload = await response.json();
+      const generatedAt = payload.generated_at_utc || payload.published_at_utc || payload.last_refreshed_utc || null;
+      const date = generatedAt ? new Date(generatedAt) : null;
+      const dateIsValid = date && !Number.isNaN(date.getTime());
+
+      badge.textContent = "Fresh public data";
+
+      if (dateIsValid) {
+        const strong = document.createElement("strong");
+        strong.textContent = date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+        copy.replaceChildren(
+          document.createTextNode("Latest public refresh: "),
+          strong,
+          document.createTextNode(". Static payloads update only after the SETA safety, smoke, and public payload gates pass.")
+        );
+      }
+    } catch (error) {
+      badge.textContent = "GitHub Pages live";
+    }
+  }
+
+  updateRefreshStatus();
+</script>
 </body>
 </html>
