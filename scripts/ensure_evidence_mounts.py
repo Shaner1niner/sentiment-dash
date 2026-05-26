@@ -5,6 +5,7 @@ import re
 from pathlib import Path
 
 PAYLOAD_URL = "seta_bundles/latest/evidence/dashboard_evidence_payload.json"
+HEALTH_STATUS_URL = "seta_bundles/latest/evidence/evidence_refresh_status.json"
 
 INDEX_EVIDENCE_SECTION = f'''
     <section class="ops evidence-stage" aria-label="Historical SETA evidence context" data-seta-evidence-section hidden>
@@ -18,9 +19,18 @@ INDEX_EVIDENCE_SECTION = f'''
     </section>
 '''
 
+INDEX_HEALTH_BADGE = f'''        <span
+          class="evidenceHealthBadge"
+          data-seta-evidence-health-badge
+          data-status-url="{HEALTH_STATUS_URL}"
+          hidden
+        ></span>
+'''
+
 INDEX_SCRIPT_BLOCK = '''
   <script src="src/evidence_handoff_reader.js"></script>
   <script src="src/evidence_card_ui.js"></script>
+  <script src="src/evidence_health_badge.js"></script>
 '''
 
 MODULE_SCRIPT_BLOCK = '''
@@ -47,8 +57,26 @@ def remove_script_tags(html: str, script_paths: list[str]) -> str:
 
 def ensure_before_body(html: str, block: str) -> str:
     if "</body>" not in html:
-        raise ValueError("Cannot insert Evidence Card scripts because </body> was not found.")
+        raise ValueError("Cannot insert Evidence scripts because </body> was not found.")
     return html.replace("</body>", f"{block}\n</body>", 1)
+
+
+def ensure_homepage_health_badge(html: str) -> str:
+    if "data-seta-evidence-health-badge" in html:
+        return html
+
+    status_pill = '<span class="status">GitHub Pages live</span>'
+    status_cluster = (
+        '<div class="statusCluster">\n'
+        '        <span class="status">GitHub Pages live</span>\n'
+        f'{INDEX_HEALTH_BADGE}'
+        '      </div>'
+    )
+
+    if status_pill in html:
+        return html.replace(status_pill, status_cluster, 1)
+
+    raise ValueError("Homepage Evidence Health Badge mount could not be restored.")
 
 
 def ensure_homepage_mount(root: Path) -> bool:
@@ -67,11 +95,14 @@ def ensure_homepage_mount(root: Path) -> bool:
     if "data-seta-evidence-section" not in html:
         raise ValueError("Homepage Evidence Card mount could not be restored.")
 
+    html = ensure_homepage_health_badge(html)
+
     html = remove_script_tags(
         html,
         [
             "src/evidence_handoff_reader.js",
             "src/evidence_card_ui.js",
+            "src/evidence_health_badge.js",
         ],
     )
     html = ensure_before_body(html, INDEX_SCRIPT_BLOCK)
@@ -135,9 +166,9 @@ def main() -> int:
         changed.append("interactive_dashboard_fix24_public_embed.html")
 
     if changed:
-        print("[OK] repaired Evidence Card mounts:", ", ".join(changed))
+        print("[OK] repaired Evidence mounts:", ", ".join(changed))
     else:
-        print("[OK] Evidence Card mounts already present")
+        print("[OK] Evidence mounts already present")
 
     return 0
 
