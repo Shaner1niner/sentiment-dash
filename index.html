@@ -341,7 +341,7 @@
         <strong>SETA Sentiment Dashboard</strong>
         <span>Sentiment, attention, and decision pressure beneath price.</span>
       </div>
-      <span class="status" id="setaRefreshBadge">GitHub Pages live</span>
+      <span class="status">GitHub Pages live</span>
     </header>
 
     <section class="hero">
@@ -401,7 +401,7 @@
     <section class="ops" aria-label="Operations notes">
       <div class="panel">
         <h2>Production Refresh</h2>
-        <p id="setaRefreshCopy">The site is hosted on GitHub Pages. Refresh runs update static dashboard payloads and the context packet after safety and smoke gates pass.</p>
+        <p>The site is hosted on GitHub Pages. Refresh runs update static dashboard payloads and the context packet after safety and smoke gates pass.</p>
       </div>
       <div class="panel">
         <h2>Not a trading signal</h2>
@@ -409,42 +409,5 @@
       </div>
     </section>
   </main>
-<script>
-  async function updateRefreshStatus() {
-    const badge = document.getElementById("setaRefreshBadge");
-    const copy = document.getElementById("setaRefreshCopy");
-
-    if (!badge || !copy) return;
-
-    try {
-      const response = await fetch("public_content/site_refresh_status.json?v=" + Date.now(), {
-        cache: "no-store"
-      });
-
-      if (!response.ok) throw new Error("Refresh status unavailable");
-
-      const payload = await response.json();
-      const generatedAt = payload.generated_at_utc || payload.published_at_utc || payload.last_refreshed_utc || null;
-      const date = generatedAt ? new Date(generatedAt) : null;
-      const dateIsValid = date && !Number.isNaN(date.getTime());
-
-      badge.textContent = "Fresh public data";
-
-      if (dateIsValid) {
-        const strong = document.createElement("strong");
-        strong.textContent = date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
-        copy.replaceChildren(
-          document.createTextNode("Latest public refresh: "),
-          strong,
-          document.createTextNode(". Static payloads update only after the SETA safety, smoke, and public payload gates pass.")
-        );
-      }
-    } catch (error) {
-      badge.textContent = "GitHub Pages live";
-    }
-  }
-
-  updateRefreshStatus();
-</script>
 </body>
 </html>
