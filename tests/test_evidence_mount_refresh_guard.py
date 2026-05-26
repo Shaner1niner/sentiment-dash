@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import shutil
 import subprocess
@@ -19,6 +19,8 @@ def test_mount_repair_helper_exists_and_knows_required_surfaces():
     assert "data-seta-evidence-card" in source
     assert "src/evidence_handoff_reader.js" in source
     assert "src/evidence_card_ui.js" in source
+    assert "src/evidence_health_badge.js" in source
+    assert "data-seta-evidence-health-badge" in source
     assert "src/features/ModuleEvidenceContext.js" in source
 
 
@@ -55,6 +57,8 @@ def test_mount_repair_helper_repairs_stripped_temp_files(tmp_path):
     assert "data-seta-evidence-section" in repaired_index
     assert "src/evidence_handoff_reader.js" in repaired_index
     assert "src/evidence_card_ui.js" in repaired_index
+    assert "src/evidence_health_badge.js" in repaired_index
+    assert "data-seta-evidence-health-badge" in repaired_index
     assert "src/evidence_handoff_reader.js" in repaired_dashboard
     assert "src/evidence_card_ui.js" in repaired_dashboard
     assert "src/features/ModuleEvidenceContext.js" in repaired_dashboard
