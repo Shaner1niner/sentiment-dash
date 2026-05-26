@@ -1,0 +1,44 @@
+﻿{
+  "schema_version": "seta_refresh_manifest_v1",
+  "description": "Expected generated and protected files for sentiment-dash public/member refresh review.",
+  "generated_public_data": [
+    "fix26_chart_store_assets/public/*.json",
+    "fix26_chart_store_public.json",
+    "fix26_chart_store_public_index.json",
+    "fix26_screener_store.json",
+    "fix26_structure_score_history.json",
+    "generated_briefings_reviewed_v2.json",
+    "public_content/seta_website_snippets_latest.json",
+    "public_content/seta_website_snippets_latest.md",
+    "public_content/site_refresh_status.json",
+    "seta_bundles/latest/evidence/dashboard_evidence_payload.json",
+    "seta_bundles/latest/evidence/evidence_refresh_status.json"
+  ],
+  "generated_public_html": [
+    "index.html",
+    "interactive_dashboard_fix24_public_embed.html",
+    "interactive_dashboard_fix24_public_legacy_embed.html",
+    "seta_public_context_cards.html"
+  ],
+  "protected_mount_markers": {
+    "index.html": [
+      "data-seta-evidence-section",
+      "data-seta-evidence-card",
+      "data-seta-evidence-health-badge",
+      "src/evidence_handoff_reader.js",
+      "src/evidence_card_ui.js",
+      "src/evidence_health_badge.js"
+    ],
+    "interactive_dashboard_fix24_public_embed.html": [
+      "src/evidence_handoff_reader.js",
+      "src/evidence_card_ui.js",
+      "src/features/ModuleEvidenceContext.js"
+    ]
+  },
+  "unexpected_tracked_change_policy": "fail",
+  "notes": [
+    "This manifest is for refresh review and guardrail classification.",
+    "It does not define trading signals, predictions, recommendations, or methodology validation.",
+    "Local scratch files should stay untracked or ignored and are not classified by this manifest."
+  ]
+}

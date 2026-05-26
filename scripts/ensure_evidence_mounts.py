@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import re
@@ -65,16 +65,22 @@ def ensure_homepage_health_badge(html: str) -> str:
     if "data-seta-evidence-health-badge" in html:
         return html
 
-    status_pill = '<span class="status">GitHub Pages live</span>'
     status_cluster = (
         '<div class="statusCluster">\n'
-        '        <span class="status">GitHub Pages live</span>\n'
+        '        <span class="status" id="setaRefreshBadge">GitHub Pages live</span>\n'
         f'{INDEX_HEALTH_BADGE}'
         '      </div>'
     )
 
-    if status_pill in html:
-        return html.replace(status_pill, status_cluster, 1)
+    html, replaced = re.subn(
+        r'<span class="status"(?:\s+id="setaRefreshBadge")?>GitHub Pages live</span>',
+        status_cluster,
+        html,
+        count=1,
+    )
+
+    if replaced:
+        return html
 
     raise ValueError("Homepage Evidence Health Badge mount could not be restored.")
 
