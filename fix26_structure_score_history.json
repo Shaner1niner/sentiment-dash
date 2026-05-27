@@ -1,6 +1,6 @@
 {
   "asset_count": 28,
-  "generated_at_utc": "2026-05-27T03:20:40.570872Z",
+  "generated_at_utc": "2026-05-27T03:50:15.729473Z",
   "latest_by_term": {
     "AAPL": {
       "as_of_utc": "2026-05-27T03:00:00Z",
@@ -17,7 +17,7 @@
       "direction_score": 63.0026,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 18.5322,
+      "structure_score": 18.5006,
       "term": "AMD"
     },
     "AMZN": {
@@ -35,7 +35,7 @@
       "direction_score": 42.171,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 60.4546,
+      "structure_score": 60.5715,
       "term": "AVAX"
     },
     "BNB": {
@@ -44,16 +44,16 @@
       "direction_score": 33.277,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 62.4944,
+      "structure_score": 62.797,
       "term": "BNB"
     },
     "BTC": {
       "as_of_utc": "2026-05-27T03:00:00Z",
-      "direction_label": "Mixed / Neutral",
-      "direction_score": 42.6164,
+      "direction_label": "Bearish",
+      "direction_score": 42.2555,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 59.0688,
+      "structure_score": 59.2866,
       "term": "BTC"
     },
     "COIN": {
@@ -71,7 +71,7 @@
       "direction_score": 37.7221,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 60.7663,
+      "structure_score": 60.9363,
       "term": "DOGE"
     },
     "DXY": {
@@ -89,7 +89,7 @@
       "direction_score": 41.3582,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 55.9499,
+      "structure_score": 55.9731,
       "term": "ETH"
     },
     "GLD": {
@@ -116,7 +116,7 @@
       "direction_score": 24.5595,
       "rank": "",
       "structure_label": "Strong",
-      "structure_score": 67.5767,
+      "structure_score": 67.5549,
       "term": "LINK"
     },
     "META": {
@@ -161,7 +161,7 @@
       "direction_score": 58.491,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 16.4021,
+      "structure_score": 16.3862,
       "term": "NVDA"
     },
     "PLTR": {
@@ -170,7 +170,7 @@
       "direction_score": 45.5176,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 13.9588,
+      "structure_score": 13.9406,
       "term": "PLTR"
     },
     "QQQ": {
@@ -203,10 +203,10 @@
     "SOL": {
       "as_of_utc": "2026-05-27T03:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 41.7113,
+      "direction_score": 42.3966,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 58.9607,
+      "structure_score": 58.669,
       "term": "SOL"
     },
     "SPY": {
@@ -233,7 +233,7 @@
       "direction_score": 81.5534,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 28.5199,
+      "structure_score": 28.4444,
       "term": "TSLA"
     },
     "XLE": {
@@ -251,7 +251,7 @@
       "direction_score": 33.3925,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 61.6242,
+      "structure_score": 61.7856,
       "term": "XRP"
     }
   },
@@ -436,7 +436,7 @@
         "direction_score": 63.0026,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 18.5322,
+        "structure_score": 18.5006,
         "term": "AMD"
       }
     ],
@@ -620,7 +620,7 @@
         "direction_score": 42.171,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 60.4546,
+        "structure_score": 60.5715,
         "term": "AVAX"
       }
     ],
@@ -712,7 +712,7 @@
         "direction_score": 33.277,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 62.4944,
+        "structure_score": 62.797,
         "term": "BNB"
       }
     ],
@@ -800,11 +800,11 @@
       },
       {
         "as_of_utc": "2026-05-27T03:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 42.6164,
+        "direction_label": "Bearish",
+        "direction_score": 42.2555,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 59.0688,
+        "structure_score": 59.2866,
         "term": "BTC"
       }
     ],
@@ -988,7 +988,7 @@
         "direction_score": 37.7221,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 60.7663,
+        "structure_score": 60.9363,
         "term": "DOGE"
       }
     ],
@@ -1172,7 +1172,7 @@
         "direction_score": 41.3582,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 55.9499,
+        "structure_score": 55.9731,
         "term": "ETH"
       }
     ],
@@ -1448,7 +1448,7 @@
         "direction_score": 24.5595,
         "rank": "",
         "structure_label": "Strong",
-        "structure_score": 67.5767,
+        "structure_score": 67.5549,
         "term": "LINK"
       }
     ],
@@ -1908,7 +1908,7 @@
         "direction_score": 58.491,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 16.4021,
+        "structure_score": 16.3862,
         "term": "NVDA"
       }
     ],
@@ -2000,7 +2000,7 @@
         "direction_score": 45.5176,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 13.9588,
+        "structure_score": 13.9406,
         "term": "PLTR"
       }
     ],
@@ -2365,10 +2365,10 @@
       {
         "as_of_utc": "2026-05-27T03:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 41.7113,
+        "direction_score": 42.3966,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 58.9607,
+        "structure_score": 58.669,
         "term": "SOL"
       }
     ],
@@ -2644,7 +2644,7 @@
         "direction_score": 81.5534,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 28.5199,
+        "structure_score": 28.4444,
         "term": "TSLA"
       }
     ],
@@ -2828,7 +2828,7 @@
         "direction_score": 33.3925,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 61.6242,
+        "structure_score": 61.7856,
         "term": "XRP"
       }
     ]
