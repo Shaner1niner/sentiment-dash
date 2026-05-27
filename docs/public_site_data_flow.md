@@ -6,13 +6,13 @@ This public dashboard is generated from a private SETA analytics pipeline and pu
 
 ```text
 Private analytics pipeline
-  ↓
+  â†“
 Reviewed and generated public-safe artifacts
-  ↓
+  â†“
 Safety and smoke checks
-  ↓
+  â†“
 Public dashboard payloads
-  ↓
+  â†“
 GitHub Pages
 ```
 
@@ -66,3 +66,13 @@ Important fields include:
 ## Safety model
 
 Public artifacts are published only after allowlist checks and public-content smoke tests. The bridge is intended to publish only files suitable for the public site.
+
+## Prediction Accountability freshness
+
+The public dashboard includes a Prediction Accountability overlay for resolved historical outcomes. This module is a public-safe accountability view, not a trade signal, price forecast, or recommendation.
+
+The overlay is refreshed as part of the public publishing flow. Public metadata may include generated time, row count, resolved count, pending count, and selective accuracy.
+
+Rows without auditable public resolution basis are withheld from final Correct/Miss display until sufficient public resolution basis is available. These rows may be treated as `pending_resolution_basis` in the public display layer.
+
+This keeps public accountability tied to auditable outcome evidence rather than unsupported correctness labels.
