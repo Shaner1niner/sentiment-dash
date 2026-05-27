@@ -46,7 +46,7 @@ XRP is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 2 | positive skew | Rejection / Decay
+**SETA read:** participation diffusion | rank 2 | positive skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -70,7 +70,7 @@ ETH still carries validation risk. Surface activity may be visible, while the un
 
 **Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
-**SETA read:** validation risk | rank 3 | negative skew | Rejection / Decay
+**SETA read:** validation risk | rank 3 | negative skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -94,7 +94,7 @@ SOL looks more like repair than confirmation. The useful read is whether sponsor
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 4 | negative skew | Rejection / Decay
+**SETA read:** repair watch | rank 4 | negative skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -118,7 +118,7 @@ SHIB still carries validation risk. Surface activity may be visible, while the u
 
 **Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
-**SETA read:** validation risk | rank 5 | negative skew | Rejection / Decay
+**SETA read:** validation risk | rank 5 | negative skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -142,7 +142,7 @@ BTC is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 6 | positive skew | rejection / decay
+**SETA read:** participation diffusion | rank 6 | positive skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
