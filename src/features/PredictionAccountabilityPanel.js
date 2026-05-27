@@ -319,6 +319,54 @@ function renderError(error) {
     `;
 }
 
+
+const OUTCOME_BASIS_FIELDS = [
+    'resolution_date',
+    'resolved_at',
+    'anchor_date',
+    'anchor_price',
+    'resolution_price',
+    'actual_return',
+    'actual_move_pct',
+    'resolution_basis',
+    'is_final_resolution',
+];
+
+function hasOutcomeBasis(row) {
+    if (!row || typeof row !== 'object') return false;
+    return OUTCOME_BASIS_FIELDS.some((key) => {
+        const value = row[key];
+        return value !== undefined && value !== null && value !== '' && value !== 'null';
+    });
+}
+
+function displayActualLabel(row) {
+    if (!row || row.outcome_status !== 'resolved') return 'Pending';
+    return labelDirection(row.actual_label);
+}
+
+function publicCorrectnessLabel(row) {
+    if (!row || row.outcome_status !== 'resolved') return 'Pending';
+    if (!hasOutcomeBasis(row)) return 'Resolved label only';
+    return correctnessLabel(row);
+}
+
+function publicCorrectnessClass(row) {
+    if (!row || row.outcome_status !== 'resolved') return 'isPending';
+    if (!hasOutcomeBasis(row)) return 'isBasisOnly';
+    return correctnessClass(row);
+}
+
+function outcomeBasisNote(row) {
+    if (!row) return '';
+    if (row.outcome_status !== 'resolved') return 'Pending outcome resolution.';
+    if (!hasOutcomeBasis(row)) {
+        return 'Stored outcome label only; not live market movement.';
+    }
+    return 'Resolved against stored accountability basis.';
+}
+
+
 function renderPanel() {
     const target = ensureTarget();
 
@@ -344,7 +392,7 @@ function renderPanel() {
         <div>
           <div class="modulePredictionAccountabilityKicker">Prediction Accountability</div>
           <h2>Outcome overlay</h2>
-          <p>Resolved prediction outcomes from the SETA Prediction Intelligence Engine.</p>
+          <p>Stored prediction outcome rows from the SETA Prediction Intelligence Engine. Not live market direction.</p>
         </div>
         <span class="modulePredictionAccountabilityPill">${escapeHtml(accuracy)} selective accuracy</span>
       </div>
@@ -357,15 +405,16 @@ function renderPanel() {
       </div>
 
       <div class="modulePredictionActiveRow">
-        <h3>${escapeHtml(asset)} latest outcome</h3>
+        <h3>${escapeHtml(asset)} latest accountability row</h3>
         ${activeRow ? `
           <div class="modulePredictionFactGrid">
             <div class="modulePredictionFact"><span>Date</span><strong>${escapeHtml(formatDate(activeRow.prediction_date))}</strong></div>
             <div class="modulePredictionFact"><span>Prediction</span><strong>${escapeHtml(labelDirection(activeRow.prediction_label))}</strong></div>
-            <div class="modulePredictionFact"><span>Actual</span><strong>${escapeHtml(labelDirection(activeRow.actual_label))}</strong></div>
+            <div class="modulePredictionFact"><span>Stored outcome</span><strong>${escapeHtml(displayActualLabel(activeRow))}</strong></div>
             <div class="modulePredictionFact"><span>Confidence</span><strong>${escapeHtml(asPercent(activeRow.confidence))}</strong></div>
-            <div class="modulePredictionFact"><span>Status</span><strong>${escapeHtml(correctnessLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Status</span><strong>${escapeHtml(publicCorrectnessLabel(activeRow))}</strong></div>
           </div>
+          <p class="modulePredictionNote">${escapeHtml(outcomeBasisNote(activeRow))}</p>
         ` : `
           <p class="modulePredictionNote">No recent ${escapeHtml(asset)} prediction outcome is present in the current overlay sample.</p>
         `}
@@ -375,15 +424,15 @@ function renderPanel() {
         ${recents.map(row => `
           <div class="modulePredictionRecentRow">
             <strong>${escapeHtml(row.term)}</strong>
-            <span>${escapeHtml(formatDate(row.prediction_date))}: ${escapeHtml(labelDirection(row.prediction_label))} → ${escapeHtml(labelDirection(row.actual_label))}</span>
+            <span>${escapeHtml(formatDate(row.prediction_date))}: ${escapeHtml(labelDirection(row.prediction_label))} &rarr; ${escapeHtml(displayActualLabel(row))}</span>
             <span>Confidence ${escapeHtml(asPercent(row.confidence))}</span>
-            <span class="modulePredictionBadge ${escapeHtml(correctnessClass(row))}">${escapeHtml(correctnessLabel(row))}</span>
+            <span class="modulePredictionBadge ${escapeHtml(publicCorrectnessClass(row))}">${escapeHtml(publicCorrectnessLabel(row))}</span>
           </div>
         `).join('')}
       </div>
 
       <p class="modulePredictionNote">
-        Accountability view only. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
+        Accountability view only. Stored outcome labels are historical accountability fields, not live market direction. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
         Generated: ${escapeHtml(meta.generated_at || 'unknown')}.
       </p>
     `;
