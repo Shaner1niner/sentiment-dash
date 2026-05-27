@@ -6,7 +6,7 @@
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-05-27T07:15:02",
+      "generated_at_utc": "2026-05-27T08:15:02",
       "pending_count": 512,
       "pending_resolution_basis_count": null,
       "resolution_basis_guard_applied": null,
@@ -26,10 +26,10 @@
       "date": "2026-05-27",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-05-27T07:14:59+00:00"
+      "published_at_utc": "2026-05-27T08:14:59+00:00"
     }
   },
-  "generated_at_utc": "2026-05-27T07:15:03Z",
+  "generated_at_utc": "2026-05-27T08:15:02Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -38,7 +38,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "cc8a3927c3e5686fea72b163d1332c9e1234ddfd"
+    "head_sha": "0c832d8b17e0ac9b1d400747f67296f7a514c5c9"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"

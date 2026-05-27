@@ -353,6 +353,13 @@ function isResolved(row) {
     return row && String(row.outcome_status || '').toLowerCase() === 'resolved';
 }
 
+
+function displayWindowLabel(row) {
+    const days = Number(row?.horizon_days || 1);
+    if (!Number.isFinite(days) || days <= 0) return 'N/A';
+    return `${days}D`;
+}
+
 function displayPredictionLabel(row) {
     if (!row) return 'N/A';
     if (isNoCall(row)) return 'No call';
@@ -388,7 +395,7 @@ function outcomeBasisNote(row) {
         return 'Current result is not final. Outcome resolves after the prediction window closes.';
     }
     if (!hasOutcomeBasis(row)) {
-        return 'Historical accountability result; measurement window not shown on this card. Not live candle movement.';
+        return 'Measured over the stored prediction window, not the live candle.';
     }
     return 'Measured over the stored prediction window, not the live candle.';
 }
@@ -430,8 +437,8 @@ function renderPanel() {
       <div class="modulePredictionAccountabilityHeader">
         <div>
           <div class="modulePredictionAccountabilityKicker">Prediction Accountability</div>
-          <h2>Outcome overlay</h2>
-          <p>Prediction accountability rows from the SETA Prediction Intelligence Engine. Results are historical accountability outcomes, not live candle direction.</p>
+          <h2>Model Call Tracking</h2>
+          <p>Tracks stored model calls and measured outcomes after prediction windows close. Not a live trading signal.</p>
         </div>
         <span class="modulePredictionAccountabilityPill">${escapeHtml(accuracy)} selective accuracy</span>
       </div>
@@ -444,12 +451,13 @@ function renderPanel() {
       </div>
 
       <div class="modulePredictionActiveRow">
-        <h3>${escapeHtml(asset)} latest accountability row</h3>
+        <h3>${escapeHtml(asset)} latest model call</h3>
         ${activeRow ? `
           <div class="modulePredictionFactGrid">
             <div class="modulePredictionFact"><span>Date</span><strong>${escapeHtml(formatDate(activeRow.prediction_date))}</strong></div>
             <div class="modulePredictionFact"><span>Prediction</span><strong>${escapeHtml(displayPredictionLabel(activeRow))}</strong></div>
-            <div class="modulePredictionFact"><span>Result</span><strong>${escapeHtml(displayResultLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Window</span><strong>${escapeHtml(displayWindowLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Measured result</span><strong>${escapeHtml(displayResultLabel(activeRow))}</strong></div>
             <div class="modulePredictionFact"><span>Confidence</span><strong>${escapeHtml(asPercent(activeRow.confidence))}</strong></div>
             <div class="modulePredictionFact"><span>Status</span><strong>${escapeHtml(publicOutcomeStatusLabel(activeRow))}</strong></div>
           </div>
@@ -460,6 +468,7 @@ function renderPanel() {
       </div>
 
       <div class="modulePredictionRecent">
+        <p class="modulePredictionNote">Recent accountability sample across tracked assets.</p>
         ${recents.map(row => `
           <div class="modulePredictionRecentRow">
             <strong>${escapeHtml(row.term)}</strong>
@@ -471,7 +480,7 @@ function renderPanel() {
       </div>
 
       <p class="modulePredictionNote">
-        Accountability view only. Results are historical accountability fields, not live candle direction. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
+        Accountability view only. Measured results reflect stored prediction windows, not live candle movement. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
         Generated: ${escapeHtml(meta.generated_at || 'unknown')}.
       </p>
     `;
