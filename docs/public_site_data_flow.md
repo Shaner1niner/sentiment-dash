@@ -76,3 +76,20 @@ The overlay is refreshed as part of the public publishing flow. Public metadata 
 Rows without auditable public resolution basis are withheld from final Correct/Miss display until sufficient public resolution basis is available. These rows may be treated as `pending_resolution_basis` in the public display layer.
 
 This keeps public accountability tied to auditable outcome evidence rather than unsupported correctness labels.
+
+<!-- BEGIN SETA_PARTIAL_CRYPTO_CANDLES -->
+
+## Partial current-day crypto candles
+
+Some crypto Daily charts may show a partial current-day candle before the confirmed daily candle is available.
+
+This candle is built from intraday crypto OHLCV data and is labeled as partial. It is intended for visual freshness only.
+
+Important interpretation notes:
+
+- The partial candle is not a finalized end-of-day candle.
+- Volume on the partial candle is intraday volume so far.
+- Confirmed daily candles remain the canonical source for indicators, historical chart context, and accountability views.
+- Weekly charts do not roll the partial daily candle into weekly candle calculations.
+
+<!-- END SETA_PARTIAL_CRYPTO_CANDLES -->
