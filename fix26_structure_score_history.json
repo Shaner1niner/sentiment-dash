@@ -1,6 +1,6 @@
 {
   "asset_count": 28,
-  "generated_at_utc": "2026-05-27T05:14:46.955546Z",
+  "generated_at_utc": "2026-05-27T05:49:00.427493Z",
   "latest_by_term": {
     "AAPL": {
       "as_of_utc": "2026-05-27T05:00:00Z",
@@ -17,7 +17,7 @@
       "direction_score": 63.0023,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 18.5005,
+      "structure_score": 18.4812,
       "term": "AMD"
     },
     "AMZN": {
@@ -35,7 +35,7 @@
       "direction_score": 42.171,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 60.5715,
+      "structure_score": 60.5914,
       "term": "AVAX"
     },
     "BNB": {
@@ -44,7 +44,7 @@
       "direction_score": 33.277,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 62.8481,
+      "structure_score": 62.8924,
       "term": "BNB"
     },
     "BTC": {
@@ -53,7 +53,7 @@
       "direction_score": 42.2555,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 59.2866,
+      "structure_score": 59.257,
       "term": "BTC"
     },
     "COIN": {
@@ -68,10 +68,10 @@
     "DOGE": {
       "as_of_utc": "2026-05-27T05:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 37.7221,
+      "direction_score": 36.8439,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 60.9363,
+      "structure_score": 61.4994,
       "term": "DOGE"
     },
     "DXY": {
@@ -89,7 +89,7 @@
       "direction_score": 41.3582,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 55.9751,
+      "structure_score": 56.0894,
       "term": "ETH"
     },
     "GLD": {
@@ -116,7 +116,7 @@
       "direction_score": 24.5595,
       "rank": "",
       "structure_label": "Strong",
-      "structure_score": 67.4861,
+      "structure_score": 67.2769,
       "term": "LINK"
     },
     "META": {
@@ -161,7 +161,7 @@
       "direction_score": 58.4901,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 16.3856,
+      "structure_score": 16.3257,
       "term": "NVDA"
     },
     "PLTR": {
@@ -170,7 +170,7 @@
       "direction_score": 45.5174,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 13.9341,
+      "structure_score": 13.9228,
       "term": "PLTR"
     },
     "QQQ": {
@@ -206,7 +206,7 @@
       "direction_score": 42.3966,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 58.6723,
+      "structure_score": 58.7087,
       "term": "SOL"
     },
     "SPY": {
@@ -233,7 +233,7 @@
       "direction_score": 81.5531,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 28.4428,
+      "structure_score": 28.3931,
       "term": "TSLA"
     },
     "XLE": {
@@ -251,7 +251,7 @@
       "direction_score": 33.3925,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 61.7856,
+      "structure_score": 61.8534,
       "term": "XRP"
     }
   },
@@ -472,7 +472,7 @@
         "direction_score": 63.0023,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 18.5005,
+        "structure_score": 18.4812,
         "term": "AMD"
       }
     ],
@@ -692,7 +692,7 @@
         "direction_score": 42.171,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 60.5715,
+        "structure_score": 60.5914,
         "term": "AVAX"
       }
     ],
@@ -802,7 +802,7 @@
         "direction_score": 33.277,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 62.8481,
+        "structure_score": 62.8924,
         "term": "BNB"
       }
     ],
@@ -912,7 +912,7 @@
         "direction_score": 42.2555,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 59.2866,
+        "structure_score": 59.257,
         "term": "BTC"
       }
     ],
@@ -1129,10 +1129,10 @@
       {
         "as_of_utc": "2026-05-27T05:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 37.7221,
+        "direction_score": 36.8439,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 60.9363,
+        "structure_score": 61.4994,
         "term": "DOGE"
       }
     ],
@@ -1352,7 +1352,7 @@
         "direction_score": 41.3582,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 55.9751,
+        "structure_score": 56.0894,
         "term": "ETH"
       }
     ],
@@ -1682,7 +1682,7 @@
         "direction_score": 24.5595,
         "rank": "",
         "structure_label": "Strong",
-        "structure_score": 67.4861,
+        "structure_score": 67.2769,
         "term": "LINK"
       }
     ],
@@ -2232,7 +2232,7 @@
         "direction_score": 58.4901,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 16.3856,
+        "structure_score": 16.3257,
         "term": "NVDA"
       }
     ],
@@ -2342,7 +2342,7 @@
         "direction_score": 45.5174,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 13.9341,
+        "structure_score": 13.9228,
         "term": "PLTR"
       }
     ],
@@ -2782,7 +2782,7 @@
         "direction_score": 42.3966,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 58.6723,
+        "structure_score": 58.7087,
         "term": "SOL"
       }
     ],
@@ -3112,7 +3112,7 @@
         "direction_score": 81.5531,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 28.4428,
+        "structure_score": 28.3931,
         "term": "TSLA"
       }
     ],
@@ -3332,7 +3332,7 @@
         "direction_score": 33.3925,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 61.7856,
+        "structure_score": 61.8534,
         "term": "XRP"
       }
     ]

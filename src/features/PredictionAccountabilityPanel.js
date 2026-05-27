@@ -320,6 +320,7 @@ function renderError(error) {
 }
 
 
+
 const OUTCOME_BASIS_FIELDS = [
     'resolution_date',
     'resolved_at',
@@ -340,31 +341,66 @@ function hasOutcomeBasis(row) {
     });
 }
 
-function displayActualLabel(row) {
-    if (!row || row.outcome_status !== 'resolved') return 'Pending';
+function isNoCall(row) {
+    if (!row || typeof row !== 'object') return true;
+    const callStatus = String(row.call_status || '').toLowerCase();
+    const predictionLabel = String(row.prediction_label || '').toLowerCase();
+    return callStatus.includes('no') || predictionLabel.includes('no call') || predictionLabel.includes('no_call');
+}
+
+function displayPredictionLabel(row) {
+    if (!row) return 'N/A';
+    if (isNoCall(row)) return 'No call';
+    return labelDirection(row.prediction_label);
+}
+
+function displayResultLabel(row) {
+    if (!row) return 'Pending';
+    if (isNoCall(row)) return 'N/A';
+    if (row.outcome_status !== 'resolved') return 'Pending';
+    if (!hasOutcomeBasis(row)) return 'Pending';
     return labelDirection(row.actual_label);
 }
 
-function publicCorrectnessLabel(row) {
-    if (!row || row.outcome_status !== 'resolved') return 'Pending';
-    if (!hasOutcomeBasis(row)) return 'Resolved label only';
-    return correctnessLabel(row);
+function publicOutcomeStatusLabel(row) {
+    if (!row) return 'Pending';
+    if (isNoCall(row)) return 'N/A';
+    if (row.outcome_status !== 'resolved') return 'Pending';
+    if (!hasOutcomeBasis(row)) return 'Pending';
+    return 'Resolved';
 }
 
-function publicCorrectnessClass(row) {
-    if (!row || row.outcome_status !== 'resolved') return 'isPending';
-    if (!hasOutcomeBasis(row)) return 'isBasisOnly';
-    return correctnessClass(row);
+function publicOutcomeStatusClass(row) {
+    if (!row || isNoCall(row)) return 'isPending';
+    if (row.outcome_status !== 'resolved') return 'isPending';
+    if (!hasOutcomeBasis(row)) return 'isPending';
+    return 'isCorrect';
 }
 
 function outcomeBasisNote(row) {
     if (!row) return '';
-    if (row.outcome_status !== 'resolved') return 'Pending outcome resolution.';
-    if (!hasOutcomeBasis(row)) {
-        return 'Stored outcome label only; not live market movement.';
+    if (isNoCall(row)) {
+        return 'No accountability result is assigned to no-call or low-confidence rows.';
     }
-    return 'Resolved against stored accountability basis.';
+    if (row.outcome_status !== 'resolved') {
+        return 'Outcome resolves after the prediction window closes.';
+    }
+    if (!hasOutcomeBasis(row)) {
+        return 'Result is pending on the public card until the measurement window is shown. Not live market movement.';
+    }
+    return 'Measured over the stored prediction window, not the live candle.';
 }
+
+function recentOutcomeText(row) {
+    const date = formatDate(row.prediction_date);
+    const prediction = displayPredictionLabel(row);
+    const result = displayResultLabel(row);
+
+    if (isNoCall(row)) return `${date}: No call`;
+    if (publicOutcomeStatusLabel(row) !== 'Resolved') return `${date}: ${prediction} - Pending`;
+    return `${date}: ${prediction} - ${result}`;
+}
+
 
 
 function renderPanel() {
@@ -392,7 +428,7 @@ function renderPanel() {
         <div>
           <div class="modulePredictionAccountabilityKicker">Prediction Accountability</div>
           <h2>Outcome overlay</h2>
-          <p>Stored prediction outcome rows from the SETA Prediction Intelligence Engine. Not live market direction.</p>
+          <p>Prediction accountability rows from the SETA Prediction Intelligence Engine. Pending means the public card does not yet show the measured result.</p>
         </div>
         <span class="modulePredictionAccountabilityPill">${escapeHtml(accuracy)} selective accuracy</span>
       </div>
@@ -409,10 +445,10 @@ function renderPanel() {
         ${activeRow ? `
           <div class="modulePredictionFactGrid">
             <div class="modulePredictionFact"><span>Date</span><strong>${escapeHtml(formatDate(activeRow.prediction_date))}</strong></div>
-            <div class="modulePredictionFact"><span>Prediction</span><strong>${escapeHtml(labelDirection(activeRow.prediction_label))}</strong></div>
-            <div class="modulePredictionFact"><span>Stored outcome</span><strong>${escapeHtml(displayActualLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Prediction</span><strong>${escapeHtml(displayPredictionLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Result</span><strong>${escapeHtml(displayResultLabel(activeRow))}</strong></div>
             <div class="modulePredictionFact"><span>Confidence</span><strong>${escapeHtml(asPercent(activeRow.confidence))}</strong></div>
-            <div class="modulePredictionFact"><span>Status</span><strong>${escapeHtml(publicCorrectnessLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Status</span><strong>${escapeHtml(publicOutcomeStatusLabel(activeRow))}</strong></div>
           </div>
           <p class="modulePredictionNote">${escapeHtml(outcomeBasisNote(activeRow))}</p>
         ` : `
@@ -424,15 +460,15 @@ function renderPanel() {
         ${recents.map(row => `
           <div class="modulePredictionRecentRow">
             <strong>${escapeHtml(row.term)}</strong>
-            <span>${escapeHtml(formatDate(row.prediction_date))}: ${escapeHtml(labelDirection(row.prediction_label))} &rarr; ${escapeHtml(displayActualLabel(row))}</span>
+            <span>${escapeHtml(recentOutcomeText(row))}</span>
             <span>Confidence ${escapeHtml(asPercent(row.confidence))}</span>
-            <span class="modulePredictionBadge ${escapeHtml(publicCorrectnessClass(row))}">${escapeHtml(publicCorrectnessLabel(row))}</span>
+            <span class="modulePredictionBadge ${escapeHtml(publicOutcomeStatusClass(row))}">${escapeHtml(publicOutcomeStatusLabel(row))}</span>
           </div>
         `).join('')}
       </div>
 
       <p class="modulePredictionNote">
-        Accountability view only. Stored outcome labels are historical accountability fields, not live market direction. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
+        Accountability view only. Pending rows do not show a measured result on the public card. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
         Generated: ${escapeHtml(meta.generated_at || 'unknown')}.
       </p>
     `;
