@@ -6,13 +6,13 @@ This public dashboard is generated from a private SETA analytics pipeline and pu
 
 ```text
 Private analytics pipeline
-  â†“
+  ->
 Reviewed and generated public-safe artifacts
-  â†“
+  ->
 Safety and smoke checks
-  â†“
+  ->
 Public dashboard payloads
-  â†“
+  ->
 GitHub Pages
 ```
 
