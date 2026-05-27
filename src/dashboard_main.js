@@ -1,6 +1,6 @@
 import { Store } from './Store.js';
 import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader_001';
-import { PlotlyRenderer } from './PlotlyRenderer.js?v=module_sentiment_price_alignment_hover_001';
+import { PlotlyRenderer } from './PlotlyRenderer.js?v=module_crypto_partial_daily_overlay_001';
 import './features/ChartSessionAxisPatch.js?v=module_chart_session_axis_001';
 import './features/SentimentLayerStructureControlPatch.js?v=module_sentiment_layer_structure_controls_001';
 import { MarketTape } from './features/MarketTape.js';

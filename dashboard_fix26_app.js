@@ -84573,6 +84573,124 @@ function currentDashboardControlKey(){
   return CONTROL_IDS.map(id => document.getElementById(id)?.value || "").join("|");
 }
 
+const CRYPTO_PARTIAL_DAILY_OVERLAY_URL = 'public_content/current_candles/crypto_partial_daily_latest.json';
+
+let CRYPTO_PARTIAL_DAILY_OVERLAY_PROMISE = null;
+
+let CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD = null;
+
+function cryptoPartialDailyStatus(reason, detail = {}){
+  const status = {reason, ...detail};
+  if(typeof window !== 'undefined') window.SETA_CRYPTO_PARTIAL_DAILY_OVERLAY_STATUS = status;
+  return status;
+}
+
+function cryptoPartialDailyDateMs(value){
+  if(value === null || value === undefined || value === '') return null;
+  if(value instanceof Date){
+    if(!Number.isFinite(value.getTime())) return null;
+    return Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate());
+  }
+  const text = String(value).trim();
+  const match = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(match) return Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  const parsed = new Date(text);
+  if(!Number.isFinite(parsed.getTime())) return null;
+  return Date.UTC(parsed.getUTCFullYear(), parsed.getUTCMonth(), parsed.getUTCDate());
+}
+
+function latestConfirmedDailyDateMs(confirmedRows = []){
+  return (Array.isArray(confirmedRows) ? confirmedRows : [])
+    .map(row => cryptoPartialDailyDateMs(row && (row.date || row.dt || row.timestamp || row.dateObj)))
+    .filter(value => value !== null)
+    .reduce((latest, value) => Math.max(latest, value), -Infinity);
+}
+
+// Display-only crypto overlay; never append this row to canonical indicator inputs.
+async function loadCryptoPartialDailyOverlay(){
+  if(CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD) return CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD;
+  if(!CRYPTO_PARTIAL_DAILY_OVERLAY_PROMISE){
+    CRYPTO_PARTIAL_DAILY_OVERLAY_PROMISE = fetch(CRYPTO_PARTIAL_DAILY_OVERLAY_URL, dashboardPayloadFetchOptions())
+      .then(res => {
+        if(!res || !res.ok) return null;
+        return res.json();
+      })
+      .then(payload => {
+        if(!payload || typeof payload !== 'object' || !payload.by_term || typeof payload.by_term !== 'object') return null;
+        CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD = payload;
+        return payload;
+      })
+      .catch(() => null);
+  }
+  return CRYPTO_PARTIAL_DAILY_OVERLAY_PROMISE;
+}
+
+async function getCryptoPartialDailyCandle(term, confirmedRows, freq){
+  const normalizedFreq = String(freq || '').trim().toUpperCase();
+  if(normalizedFreq !== 'D' && normalizedFreq !== 'DAILY') return cryptoPartialDailyStatus('non_daily_freq', {term, freq:normalizedFreq});
+
+  const overlay = await loadCryptoPartialDailyOverlay();
+  if(!overlay || !overlay.by_term || typeof overlay.by_term !== 'object') return cryptoPartialDailyStatus('missing_overlay', {term, freq:normalizedFreq});
+
+  const normalizedTerm = String(term || '').trim().toUpperCase();
+  const row = overlay.by_term[normalizedTerm] || overlay.by_term[String(term || '').trim()];
+  if(!normalizedTerm || !row) return cryptoPartialDailyStatus('no_term', {term:normalizedTerm, freq:normalizedFreq});
+  if(row.is_partial !== true) return cryptoPartialDailyStatus('missing_overlay', {term:normalizedTerm, freq:normalizedFreq});
+
+  const open = num(row.open), high = num(row.high), low = num(row.low), close = num(row.close);
+  if([open, high, low, close].some(value => value === null) || high < low) return cryptoPartialDailyStatus('invalid_ohlc', {term:normalizedTerm, freq:normalizedFreq});
+
+  const overlayDateMs = cryptoPartialDailyDateMs(row.date || row.dt || row.timestamp);
+  const confirmedDateMs = latestConfirmedDailyDateMs(confirmedRows);
+  if(overlayDateMs === null || (Number.isFinite(confirmedDateMs) && overlayDateMs <= confirmedDateMs)){
+    return cryptoPartialDailyStatus('stale_or_same_date', {term:normalizedTerm, freq:normalizedFreq, overlay_date:row.date || null});
+  }
+
+  const displayDate = row.date || new Date(overlayDateMs).toISOString().slice(0, 10);
+  return cryptoPartialDailyStatus('applied', {
+    term: normalizedTerm,
+    freq: normalizedFreq,
+    overlay_date: displayDate,
+    row: {
+      ...row,
+      term: normalizedTerm,
+      date: displayDate,
+      open,
+      high,
+      low,
+      close,
+      volume: num(row.volume),
+      volume_status: 'partial_intraday'
+    }
+  });
+}
+
+function buildPartialDailyCandleTrace(row){
+  if(!row) return null;
+  const asOf = row.latest_bar_utc || row.as_of_utc || '';
+  const volume = num(row.volume);
+  const volumeText = volume === null ? 'n/a' : volume.toLocaleString(undefined, {maximumFractionDigits:4});
+  return {
+    type:'candlestick',
+    x:[row.date],
+    open:[row.open],
+    high:[row.high],
+    low:[row.low],
+    close:[row.close],
+    name:'Partial current-day candle',
+    xaxis:'x',
+    yaxis:'y',
+    showlegend:true,
+    legendrank:11,
+    customdata:[[row.volume_status || 'partial_intraday', asOf, volumeText]],
+    increasing:{line:{color:'rgba(126,231,135,0.94)',width:1.45},fillcolor:'rgba(126,231,135,0.30)'},
+    decreasing:{line:{color:'rgba(255,123,114,0.94)',width:1.45},fillcolor:'rgba(255,123,114,0.30)'},
+    whiskerwidth:0.42,
+    opacity:0.78,
+    hovertemplate:'Partial current-day candle · intraday volume so far<br>%{x|%b %d, %Y}<br>Open=%{open:,.2f}<br>High=%{high:,.2f}<br>Low=%{low:,.2f}<br>Close=%{close:,.2f}<br>Volume=%{customdata[2]}<br>Volume status: %{customdata[0]}<br>Latest/as of: %{customdata[1]}<extra></extra>'
+  };
+}
+
 function priceCandlestickTrace(xs, rows, freq){
 
   const isWeekly = freq === 'W';
@@ -84840,7 +84958,9 @@ async function buildFigure(){
 
 
 
-  const calendar=detectCalendar(rows), xs=rows.map(r=>r.dateObj), visStart=visRows[0].dateObj, visEnd=visRows[visRows.length-1].dateObj, visEndPad=nextRangeEnd(visEnd,calendar,freq);
+  const calendar=detectCalendar(rows), xs=rows.map(r=>r.dateObj), visStart=visRows[0].dateObj, visEnd=visRows[visRows.length-1].dateObj;
+
+  let visEndPad=nextRangeEnd(visEnd,calendar,freq);
 
 
 
@@ -84876,6 +84996,13 @@ async function buildFigure(){
 
   const plotRows=displayRangeRowsFromMask(rows, visibleMask);
   const plotXs=displayRangeXsFromRows(plotRows);
+
+  const partialDailyStatus=await getCryptoPartialDailyCandle(term, rows, freq);
+
+  if(partialDailyStatus.row){
+    const partialDate = new Date(partialDailyStatus.row.date);
+    if(Number.isFinite(partialDate.getTime()) && partialDate > visEndPad) visEndPad = nextRangeEnd(partialDate, calendar, freq);
+  }
 
 
 
@@ -85744,6 +85871,9 @@ async function buildFigure(){
 
 
   else data.push(traceLine(xs,rows.map(r=>num(r.close)),'Price',COLORS.price,2.0,'solid','y',true,'%{x|%b %d, %Y}<br>Close=%{y:.2f}<extra></extra>'));
+
+  const partialDailyTrace=buildPartialDailyCandleTrace(partialDailyStatus.row);
+  if(partialDailyTrace) data.push(partialDailyTrace);
 
 
 
