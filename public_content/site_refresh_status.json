@@ -6,7 +6,7 @@
       "publication_status": "decision_needed_currently_allowed"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-05-27T04:31:19",
+      "generated_at_utc": "2026-05-27T04:58:25",
       "pending_count": 512,
       "pending_resolution_basis_count": null,
       "resolution_basis_guard_applied": null,
@@ -25,10 +25,10 @@
       "date": "2026-05-27",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-05-27T04:31:15+00:00"
+      "published_at_utc": "2026-05-27T04:58:22+00:00"
     }
   },
-  "generated_at_utc": "2026-05-27T04:31:19Z",
+  "generated_at_utc": "2026-05-27T04:58:25Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Member chart artifacts remain an explicit product/security decision while current compatibility is preserved."
@@ -37,7 +37,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "7495ed7756d98058820bff0b14ee92c7f76855f2"
+    "head_sha": "8e7787f34e6e1fe22c825e98064205f650c22a49"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
