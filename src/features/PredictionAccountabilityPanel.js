@@ -321,6 +321,7 @@ function renderError(error) {
 
 
 
+
 const OUTCOME_BASIS_FIELDS = [
     'resolution_date',
     'resolved_at',
@@ -348,6 +349,10 @@ function isNoCall(row) {
     return callStatus.includes('no') || predictionLabel.includes('no call') || predictionLabel.includes('no_call');
 }
 
+function isResolved(row) {
+    return row && String(row.outcome_status || '').toLowerCase() === 'resolved';
+}
+
 function displayPredictionLabel(row) {
     if (!row) return 'N/A';
     if (isNoCall(row)) return 'No call';
@@ -355,26 +360,23 @@ function displayPredictionLabel(row) {
 }
 
 function displayResultLabel(row) {
-    if (!row) return 'Pending';
+    if (!row) return 'N/A';
     if (isNoCall(row)) return 'N/A';
-    if (row.outcome_status !== 'resolved') return 'Pending';
-    if (!hasOutcomeBasis(row)) return 'Pending';
+    if (!isResolved(row)) return 'Not final';
     return labelDirection(row.actual_label);
 }
 
 function publicOutcomeStatusLabel(row) {
-    if (!row) return 'Pending';
-    if (isNoCall(row)) return 'N/A';
-    if (row.outcome_status !== 'resolved') return 'Pending';
-    if (!hasOutcomeBasis(row)) return 'Pending';
+    if (!row) return 'Unavailable';
+    if (isNoCall(row)) return 'No score';
+    if (!isResolved(row)) return 'In progress';
     return 'Resolved';
 }
 
 function publicOutcomeStatusClass(row) {
     if (!row || isNoCall(row)) return 'isPending';
-    if (row.outcome_status !== 'resolved') return 'isPending';
-    if (!hasOutcomeBasis(row)) return 'isPending';
-    return 'isCorrect';
+    if (!isResolved(row)) return 'isPending';
+    return correctnessClass(row);
 }
 
 function outcomeBasisNote(row) {
@@ -382,11 +384,11 @@ function outcomeBasisNote(row) {
     if (isNoCall(row)) {
         return 'No accountability result is assigned to no-call or low-confidence rows.';
     }
-    if (row.outcome_status !== 'resolved') {
-        return 'Outcome resolves after the prediction window closes.';
+    if (!isResolved(row)) {
+        return 'Current result is not final. Outcome resolves after the prediction window closes.';
     }
     if (!hasOutcomeBasis(row)) {
-        return 'Result is pending on the public card until the measurement window is shown. Not live market movement.';
+        return 'Historical accountability result; measurement window not shown on this card. Not live candle movement.';
     }
     return 'Measured over the stored prediction window, not the live candle.';
 }
@@ -397,9 +399,10 @@ function recentOutcomeText(row) {
     const result = displayResultLabel(row);
 
     if (isNoCall(row)) return `${date}: No call`;
-    if (publicOutcomeStatusLabel(row) !== 'Resolved') return `${date}: ${prediction} - Pending`;
+    if (!isResolved(row)) return `${date}: ${prediction} - In progress`;
     return `${date}: ${prediction} - ${result}`;
 }
+
 
 
 
@@ -428,7 +431,7 @@ function renderPanel() {
         <div>
           <div class="modulePredictionAccountabilityKicker">Prediction Accountability</div>
           <h2>Outcome overlay</h2>
-          <p>Prediction accountability rows from the SETA Prediction Intelligence Engine. Pending means the public card does not yet show the measured result.</p>
+          <p>Prediction accountability rows from the SETA Prediction Intelligence Engine. Results are historical accountability outcomes, not live candle direction.</p>
         </div>
         <span class="modulePredictionAccountabilityPill">${escapeHtml(accuracy)} selective accuracy</span>
       </div>
@@ -468,7 +471,7 @@ function renderPanel() {
       </div>
 
       <p class="modulePredictionNote">
-        Accountability view only. Pending rows do not show a measured result on the public card. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
+        Accountability view only. Results are historical accountability fields, not live candle direction. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
         Generated: ${escapeHtml(meta.generated_at || 'unknown')}.
       </p>
     `;
