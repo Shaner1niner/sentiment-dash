@@ -6,9 +6,12 @@
       "publication_status": "decision_needed_currently_allowed"
     },
     "prediction_outcomes": {
-      "generated_at_utc": null,
-      "resolved_count": null,
-      "selective_accuracy": null
+      "generated_at_utc": "2026-05-27T04:15:00",
+      "pending_count": 512,
+      "pending_resolution_basis_count": null,
+      "resolution_basis_guard_applied": null,
+      "resolved_count": 7502,
+      "selective_accuracy": 0.6979264214046823
     },
     "public_chart_store": {
       "asset_count": 0,
@@ -22,10 +25,10 @@
       "date": "2026-05-27",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-05-27T04:02:53+00:00"
+      "published_at_utc": "2026-05-27T04:14:56+00:00"
     }
   },
-  "generated_at_utc": "2026-05-27T04:02:56Z",
+  "generated_at_utc": "2026-05-27T04:15:00Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Member chart artifacts remain an explicit product/security decision while current compatibility is preserved."
@@ -33,8 +36,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "main",
-    "head_sha": "aa36fcda74b781427f6bc4de8cc06f6a606cc678"
+    "branch": "fix/outcome-overlay-resolution-basis",
+    "head_sha": "acab8e75e59ba20182b0a9cfc0890141ce181248"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
