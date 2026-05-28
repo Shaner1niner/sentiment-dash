@@ -6,7 +6,7 @@
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-05-28T20:15:03",
+      "generated_at_utc": "2026-05-28T21:15:13",
       "pending_count": 512,
       "pending_resolution_basis_count": 7413,
       "resolution_basis_guard_applied": true,
@@ -26,10 +26,10 @@
       "date": "2026-05-28",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-05-28T20:15:00+00:00"
+      "published_at_utc": "2026-05-28T21:15:09+00:00"
     }
   },
-  "generated_at_utc": "2026-05-28T20:15:09Z",
+  "generated_at_utc": "2026-05-28T21:15:20Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -37,8 +37,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "main",
-    "head_sha": "189adddf4bbeac12af9891af2e6d5883cf69fde2"
+    "branch": "docs/equity-current-session-candle-rules-v1",
+    "head_sha": "49f0e760f80a55dbf208c94ca1efb48710ee7d58"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
