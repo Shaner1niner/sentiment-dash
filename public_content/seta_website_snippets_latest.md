@@ -22,7 +22,7 @@ LINK is showing broader participation. That is constructive for the crypto tape,
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 1 | positive skew | Belief exceeds permission
+**SETA read:** participation diffusion | rank 1 | positive skew | belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -46,7 +46,7 @@ ADA is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 2 | positive skew | Belief exceeds permission
+**SETA read:** participation diffusion | rank 2 | positive skew | belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -70,7 +70,7 @@ BNB is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 3 | positive skew | Rejection / decay
+**SETA read:** participation diffusion | rank 3 | positive skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -90,11 +90,11 @@ TSMC sits in a elevated decision-pressure zone in the equity tape.
 
 ## DOGE: contested structure
 
-DOGE is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Rejection / decay is the key tension.
+DOGE is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. rejection / decay is the key tension.
 
 **Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** contested structure | rank 4 | negative skew | Rejection / decay
+**SETA read:** contested structure | rank 4 | negative skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -118,7 +118,7 @@ XRP is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 5 | positive skew | Rejection / decay
+**SETA read:** participation diffusion | rank 5 | positive skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
