@@ -3,6 +3,7 @@
 const STYLE_ID = 'seta-prediction-accountability-panel-style';
 const TARGET_ID = 'module-prediction-accountability-panel';
 const OVERLAY_URL = 'public_content/prediction_outcomes/prediction_outcome_overlay_latest.json?v=prediction_accountability_panel_001';
+const OVERLAY_SCHEMA_VERSION = 'prediction_outcome_overlay_v1';
 
 let overlayPayload = null;
 let overlayError = null;
@@ -36,12 +37,14 @@ function labelDirection(value, fallback = '—') {
 }
 
 function correctnessClass(row) {
+    if (!hasFinalOutcome(row)) return 'isPending';
     if (row?.is_correct === 1 || row?.is_correct === true) return 'isCorrect';
     if (row?.is_correct === 0 || row?.is_correct === false) return 'isIncorrect';
     return 'isPending';
 }
 
 function correctnessLabel(row) {
+    if (!hasFinalOutcome(row)) return 'Pending';
     if (row?.is_correct === 1 || row?.is_correct === true) return 'Correct';
     if (row?.is_correct === 0 || row?.is_correct === false) return 'Miss';
     return 'Pending';
@@ -66,13 +69,35 @@ function metadata() {
         : {};
 }
 
+function rowDateMs(row) {
+    const candidates = [
+        row?.prediction_date,
+        row?.resolved_at,
+        row?.resolution_date,
+        row?.generated_at,
+    ];
+    for (const value of candidates) {
+        const parsed = Date.parse(value);
+        if (Number.isFinite(parsed)) return parsed;
+    }
+    return 0;
+}
+
+function sortedRows() {
+    return [...rows()].sort((a, b) => {
+        const dateDelta = rowDateMs(b) - rowDateMs(a);
+        if (dateDelta !== 0) return dateDelta;
+        return String(a?.term || '').localeCompare(String(b?.term || ''));
+    });
+}
+
 function latestRowForAsset(asset) {
     const ticker = String(asset || '').trim().toUpperCase();
-    return rows().find(row => String(row?.term || '').trim().toUpperCase() === ticker) || null;
+    return sortedRows().find(row => String(row?.term || '').trim().toUpperCase() === ticker) || null;
 }
 
 function recentRows(limit = 6) {
-    return rows().slice(0, limit);
+    return sortedRows().slice(0, limit);
 }
 
 function ensureStyle() {
@@ -353,6 +378,32 @@ function isResolved(row) {
     return row && String(row.outcome_status || '').toLowerCase() === 'resolved';
 }
 
+function isPendingResolutionBasis(row) {
+    if (!row || typeof row !== 'object') return false;
+    const status = String(row.outcome_status || '').trim().toLowerCase();
+    const basisStatus = String(row.resolution_basis_status || '').trim().toLowerCase();
+    const note = String(row.public_display_note || '').trim().toLowerCase();
+    return (
+        status === 'pending_resolution_basis' ||
+        basisStatus === 'missing' ||
+        note.includes('resolution basis')
+    );
+}
+
+function hasFinalOutcome(row) {
+    return (
+        isResolved(row) &&
+        !isNoCall(row) &&
+        !isPendingResolutionBasis(row) &&
+        (
+            row?.is_correct === 1 ||
+            row?.is_correct === 0 ||
+            row?.is_correct === true ||
+            row?.is_correct === false
+        )
+    );
+}
+
 
 function displayWindowLabel(row) {
     const days = Number(row?.horizon_days || 1);
@@ -369,19 +420,23 @@ function displayPredictionLabel(row) {
 function displayResultLabel(row) {
     if (!row) return 'N/A';
     if (isNoCall(row)) return 'N/A';
+    if (isPendingResolutionBasis(row)) return 'Pending basis';
     if (!isResolved(row)) return 'Not final';
-    return labelDirection(row.actual_label);
+    return labelDirection(row.actual_label, 'Resolved');
 }
 
 function publicOutcomeStatusLabel(row) {
     if (!row) return 'Unavailable';
     if (isNoCall(row)) return 'No score';
+    if (isPendingResolutionBasis(row)) return 'Pending basis';
     if (!isResolved(row)) return 'In progress';
+    if (hasFinalOutcome(row)) return correctnessLabel(row);
     return 'Resolved';
 }
 
 function publicOutcomeStatusClass(row) {
     if (!row || isNoCall(row)) return 'isPending';
+    if (isPendingResolutionBasis(row)) return 'isPending';
     if (!isResolved(row)) return 'isPending';
     return correctnessClass(row);
 }
@@ -391,11 +446,11 @@ function outcomeBasisNote(row) {
     if (isNoCall(row)) {
         return 'No accountability result is assigned to no-call or low-confidence rows.';
     }
+    if (isPendingResolutionBasis(row)) {
+        return 'Correct/Miss display is withheld until the public payload includes the resolution basis.';
+    }
     if (!isResolved(row)) {
         return 'Current result is not final. Outcome resolves after the prediction window closes.';
-    }
-    if (!hasOutcomeBasis(row)) {
-        return 'Measured over the stored prediction window, not the live candle.';
     }
     return 'Measured over the stored prediction window, not the live candle.';
 }
@@ -406,7 +461,9 @@ function recentOutcomeText(row) {
     const result = displayResultLabel(row);
 
     if (isNoCall(row)) return `${date}: No call`;
+    if (isPendingResolutionBasis(row)) return `${date}: ${prediction} - Pending basis`;
     if (!isResolved(row)) return `${date}: ${prediction} - In progress`;
+    if (hasFinalOutcome(row)) return `${date}: ${prediction} - ${result} (${correctnessLabel(row)})`;
     return `${date}: ${prediction} - ${result}`;
 }
 
@@ -486,6 +543,24 @@ function renderPanel() {
     `;
 }
 
+function validateOverlayContract(data) {
+    if (!data || typeof data !== 'object' || !Array.isArray(data.rows) || !data.metadata || typeof data.metadata !== 'object') {
+        throw new Error('Overlay JSON did not match the expected contract.');
+    }
+
+    const rootSchema = String(data.schema_version || '').trim();
+    const metadataSchema = String(data.metadata.schema_version || '').trim();
+
+    if (rootSchema !== OVERLAY_SCHEMA_VERSION || metadataSchema !== OVERLAY_SCHEMA_VERSION) {
+        throw new Error(`Overlay schema mismatch. Expected ${OVERLAY_SCHEMA_VERSION}.`);
+    }
+
+    const declaredRowCount = Number(data.metadata.row_count);
+    if (Number.isFinite(declaredRowCount) && declaredRowCount !== data.rows.length) {
+        throw new Error(`Overlay row_count mismatch. Metadata=${declaredRowCount}, rows=${data.rows.length}.`);
+    }
+}
+
 async function loadOverlay() {
     overlayLoading = true;
     overlayError = null;
@@ -497,9 +572,7 @@ async function loadOverlay() {
             throw new Error(`Overlay returned HTTP ${response.status}`);
         }
         const data = await response.json();
-        if (!data || typeof data !== 'object' || !Array.isArray(data.rows) || !data.metadata) {
-            throw new Error('Overlay JSON did not match the expected contract.');
-        }
+        validateOverlayContract(data);
         overlayPayload = data;
     } catch (error) {
         overlayError = error;
