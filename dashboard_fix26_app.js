@@ -84680,13 +84680,13 @@ function buildPartialDailyCandleTrace(row){
     name:'Partial current-day candle',
     xaxis:'x',
     yaxis:'y',
-    showlegend:true,
+    showlegend:false,
     legendrank:11,
     customdata:[[row.volume_status || 'partial_intraday', asOf, volumeText]],
-    increasing:{line:{color:'rgba(126,231,135,0.94)',width:1.45},fillcolor:'rgba(126,231,135,0.30)'},
-    decreasing:{line:{color:'rgba(255,123,114,0.94)',width:1.45},fillcolor:'rgba(255,123,114,0.30)'},
-    whiskerwidth:0.42,
-    opacity:0.78,
+    increasing:{line:{color:COLORS.price,width:1.15},fillcolor:COLORS.price},
+    decreasing:{line:{color:'#b5b5b5',width:1.15},fillcolor:'#9f9f9f'},
+    whiskerwidth:0.36,
+    opacity:0.94,
     hovertemplate:'Partial current-day candle · intraday volume so far<br>%{x|%b %d, %Y}<br>Open=%{open:,.2f}<br>High=%{high:,.2f}<br>Low=%{low:,.2f}<br>Close=%{close:,.2f}<br>Volume=%{customdata[2]}<br>Volume status: %{customdata[0]}<br>Latest/as of: %{customdata[1]}<extra></extra>'
   };
 }
