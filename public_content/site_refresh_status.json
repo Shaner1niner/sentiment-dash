@@ -6,7 +6,7 @@
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-05-29T07:15:14",
+      "generated_at_utc": "2026-05-29T08:15:08",
       "pending_count": 512,
       "pending_resolution_basis_count": 7413,
       "resolution_basis_guard_applied": true,
@@ -26,10 +26,10 @@
       "date": "2026-05-29",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-05-29T07:15:09+00:00"
+      "published_at_utc": "2026-05-29T08:15:04+00:00"
     }
   },
-  "generated_at_utc": "2026-05-29T07:15:21Z",
+  "generated_at_utc": "2026-05-29T08:15:15Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -37,8 +37,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "diagnostic/oscillator-gaps",
-    "head_sha": "8b5c8521d03b67a117601dd40cc3705002f3cb13"
+    "branch": "main",
+    "head_sha": "d2a0d211fefc412f156d7e9683517491548eda07"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
