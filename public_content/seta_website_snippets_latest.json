@@ -1,7 +1,7 @@
 {
   "schema_version": "seta_public_website_snippets_v1",
-  "date": "2026-05-29",
-  "published_at_utc": "2026-05-29T22:15:21+00:00",
+  "date": "2026-05-30",
+  "published_at_utc": "2026-05-30T21:00:34+00:00",
   "draft_only": false,
   "public_safe": true,
   "posting_performed": false,
@@ -31,7 +31,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     {
       "term": "LINK",
@@ -57,7 +57,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     {
       "term": "NVDA",
@@ -83,59 +83,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     {
       "term": "SHIB",
       "universe": "crypto",
-      "copy_archetype": "participation_diffusion",
-      "narrative_theme": "",
-      "headline": "SHIB: participation is broadening",
-      "one_liner": "SHIB is showing broader participation, and the open question is whether that breadth can hold.",
-      "public_note": "SHIB is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
-      "short_explanation": "SHIB is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "SHIB is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
-      "seta_read_line": "participation diffusion | rank 2 | positive skew | Belief exceeds permission",
-      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Resolution skew: positive.",
-      "narrative_note": "",
-      "social_blurb": "SHIB is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
-      "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Participation diffusion",
-      "asset_state": "diffusion",
-      "decision_pressure_rank": 2,
-      "structural_state": "Belief exceeds permission",
-      "resolution_skew": "positive",
-      "narrative_regime": "",
-      "narrative_coherence_bucket": "",
-      "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
-    },
-    {
-      "term": "TSMC",
-      "universe": "equities",
       "copy_archetype": "decision_pressure",
       "narrative_theme": "",
-      "headline": "TSMC: decision-pressure watch",
-      "one_liner": "TSMC sits in a high decision-pressure zone in the equity tape.",
-      "public_note": "TSMC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
-      "short_explanation": "TSMC sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: mixed. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "TSMC sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "headline": "SHIB: decision-pressure watch",
+      "one_liner": "SHIB sits in a high decision-pressure zone in the crypto tape.",
+      "public_note": "SHIB is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
+      "short_explanation": "SHIB sits in a high decision-pressure zone in the crypto tape. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: mixed. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "SHIB sits in a high decision-pressure zone in the crypto tape. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: mixed. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
       "watch_condition": "Watch whether decision pressure resolves into confirmation or rejection.",
-      "seta_read_line": "decision pressure | rank 3 | mixed skew | Permission without belief",
-      "regime_note": "Structure reads as Permission without belief. Decision-pressure rank: 3. Resolution skew: mixed.",
+      "seta_read_line": "decision pressure | rank 2 | mixed skew | Belief exceeds permission",
+      "regime_note": "In the crypto tape, this reads as neutral. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Resolution skew: mixed.",
       "narrative_note": "",
-      "social_blurb": "TSMC sits in a high decision-pressure zone in the equity tape. Context, not a signal.",
+      "social_blurb": "SHIB sits in a high decision-pressure zone in the crypto tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "SETA context watch",
-      "asset_state": "",
-      "decision_pressure_rank": 3,
-      "structural_state": "Permission without belief",
+      "asset_state": "neutral",
+      "decision_pressure_rank": 2,
+      "structural_state": "Belief exceeds permission",
       "resolution_skew": "mixed",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     {
       "term": "XRP",
@@ -161,7 +135,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
+    },
+    {
+      "term": "TSMC",
+      "universe": "equities",
+      "copy_archetype": "decision_pressure",
+      "narrative_theme": "",
+      "headline": "TSMC: decision-pressure watch",
+      "one_liner": "TSMC sits in a high decision-pressure zone in the equity tape.",
+      "public_note": "TSMC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
+      "short_explanation": "TSMC sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: mixed. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "TSMC sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether decision pressure resolves into confirmation or rejection.",
+      "seta_read_line": "decision pressure | rank 3 | mixed skew | Permission without belief",
+      "regime_note": "Structure reads as Permission without belief. Decision-pressure rank: 3. Resolution skew: mixed.",
+      "narrative_note": "",
+      "social_blurb": "TSMC sits in a high decision-pressure zone in the equity tape. Context, not a signal.",
+      "risk_note": "Interpretation context only; not a prediction or trade signal.",
+      "content_angle": "SETA context watch",
+      "asset_state": "",
+      "decision_pressure_rank": 3,
+      "structural_state": "Permission without belief",
+      "resolution_skew": "mixed",
+      "narrative_regime": "",
+      "narrative_coherence_bucket": "",
+      "narrative_top_keywords": [],
+      "updated_at": "2026-05-30"
     },
     {
       "term": "ETH",
@@ -187,7 +187,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     {
       "term": "TSLA",
@@ -213,7 +213,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     {
       "term": "DOGE",
@@ -239,7 +239,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     {
       "term": "NFLX",
@@ -265,7 +265,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     {
       "term": "ADA",
@@ -291,23 +291,23 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     {
-      "term": "DIS",
+      "term": "JPM",
       "universe": "equities",
       "copy_archetype": "contested_structure",
       "narrative_theme": "",
-      "headline": "DIS: contested structure",
-      "one_liner": "DIS is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
-      "public_note": "DIS is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. rejection / decay is the key tension.",
-      "short_explanation": "DIS is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "DIS is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "headline": "JPM: contested structure",
+      "one_liner": "JPM is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
+      "public_note": "JPM is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. rejection / decay is the key tension.",
+      "short_explanation": "JPM is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "JPM is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
       "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
       "seta_read_line": "contested structure | rank 6 | negative skew | rejection / decay",
       "regime_note": "In the equity tape, this reads as disagreement. Structure reads as rejection / decay. Decision-pressure rank: 6. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "DIS is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "social_blurb": "JPM is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "Decision pressure / contested structure",
       "asset_state": "disagreement",
@@ -317,7 +317,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     }
   ],
   "by_term": {
@@ -345,7 +345,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     "LINK": {
       "term": "LINK",
@@ -371,7 +371,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     "NVDA": {
       "term": "NVDA",
@@ -397,59 +397,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     "SHIB": {
       "term": "SHIB",
       "universe": "crypto",
-      "copy_archetype": "participation_diffusion",
-      "narrative_theme": "",
-      "headline": "SHIB: participation is broadening",
-      "one_liner": "SHIB is showing broader participation, and the open question is whether that breadth can hold.",
-      "public_note": "SHIB is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
-      "short_explanation": "SHIB is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "SHIB is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
-      "seta_read_line": "participation diffusion | rank 2 | positive skew | Belief exceeds permission",
-      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Resolution skew: positive.",
-      "narrative_note": "",
-      "social_blurb": "SHIB is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
-      "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Participation diffusion",
-      "asset_state": "diffusion",
-      "decision_pressure_rank": 2,
-      "structural_state": "Belief exceeds permission",
-      "resolution_skew": "positive",
-      "narrative_regime": "",
-      "narrative_coherence_bucket": "",
-      "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
-    },
-    "TSMC": {
-      "term": "TSMC",
-      "universe": "equities",
       "copy_archetype": "decision_pressure",
       "narrative_theme": "",
-      "headline": "TSMC: decision-pressure watch",
-      "one_liner": "TSMC sits in a high decision-pressure zone in the equity tape.",
-      "public_note": "TSMC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
-      "short_explanation": "TSMC sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: mixed. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "TSMC sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "headline": "SHIB: decision-pressure watch",
+      "one_liner": "SHIB sits in a high decision-pressure zone in the crypto tape.",
+      "public_note": "SHIB is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
+      "short_explanation": "SHIB sits in a high decision-pressure zone in the crypto tape. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: mixed. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "SHIB sits in a high decision-pressure zone in the crypto tape. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: mixed. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
       "watch_condition": "Watch whether decision pressure resolves into confirmation or rejection.",
-      "seta_read_line": "decision pressure | rank 3 | mixed skew | Permission without belief",
-      "regime_note": "Structure reads as Permission without belief. Decision-pressure rank: 3. Resolution skew: mixed.",
+      "seta_read_line": "decision pressure | rank 2 | mixed skew | Belief exceeds permission",
+      "regime_note": "In the crypto tape, this reads as neutral. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Resolution skew: mixed.",
       "narrative_note": "",
-      "social_blurb": "TSMC sits in a high decision-pressure zone in the equity tape. Context, not a signal.",
+      "social_blurb": "SHIB sits in a high decision-pressure zone in the crypto tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "SETA context watch",
-      "asset_state": "",
-      "decision_pressure_rank": 3,
-      "structural_state": "Permission without belief",
+      "asset_state": "neutral",
+      "decision_pressure_rank": 2,
+      "structural_state": "Belief exceeds permission",
       "resolution_skew": "mixed",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     "XRP": {
       "term": "XRP",
@@ -475,7 +449,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
+    },
+    "TSMC": {
+      "term": "TSMC",
+      "universe": "equities",
+      "copy_archetype": "decision_pressure",
+      "narrative_theme": "",
+      "headline": "TSMC: decision-pressure watch",
+      "one_liner": "TSMC sits in a high decision-pressure zone in the equity tape.",
+      "public_note": "TSMC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
+      "short_explanation": "TSMC sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: mixed. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "TSMC sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether decision pressure resolves into confirmation or rejection.",
+      "seta_read_line": "decision pressure | rank 3 | mixed skew | Permission without belief",
+      "regime_note": "Structure reads as Permission without belief. Decision-pressure rank: 3. Resolution skew: mixed.",
+      "narrative_note": "",
+      "social_blurb": "TSMC sits in a high decision-pressure zone in the equity tape. Context, not a signal.",
+      "risk_note": "Interpretation context only; not a prediction or trade signal.",
+      "content_angle": "SETA context watch",
+      "asset_state": "",
+      "decision_pressure_rank": 3,
+      "structural_state": "Permission without belief",
+      "resolution_skew": "mixed",
+      "narrative_regime": "",
+      "narrative_coherence_bucket": "",
+      "narrative_top_keywords": [],
+      "updated_at": "2026-05-30"
     },
     "ETH": {
       "term": "ETH",
@@ -501,7 +501,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     "TSLA": {
       "term": "TSLA",
@@ -527,7 +527,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     "DOGE": {
       "term": "DOGE",
@@ -553,7 +553,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     "NFLX": {
       "term": "NFLX",
@@ -579,7 +579,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
     "ADA": {
       "term": "ADA",
@@ -605,23 +605,23 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     },
-    "DIS": {
-      "term": "DIS",
+    "JPM": {
+      "term": "JPM",
       "universe": "equities",
       "copy_archetype": "contested_structure",
       "narrative_theme": "",
-      "headline": "DIS: contested structure",
-      "one_liner": "DIS is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
-      "public_note": "DIS is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. rejection / decay is the key tension.",
-      "short_explanation": "DIS is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "DIS is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "headline": "JPM: contested structure",
+      "one_liner": "JPM is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
+      "public_note": "JPM is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. rejection / decay is the key tension.",
+      "short_explanation": "JPM is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "JPM is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
       "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
       "seta_read_line": "contested structure | rank 6 | negative skew | rejection / decay",
       "regime_note": "In the equity tape, this reads as disagreement. Structure reads as rejection / decay. Decision-pressure rank: 6. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "DIS is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "social_blurb": "JPM is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "Decision pressure / contested structure",
       "asset_state": "disagreement",
@@ -631,7 +631,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-05-29"
+      "updated_at": "2026-05-30"
     }
   },
   "counts": {
