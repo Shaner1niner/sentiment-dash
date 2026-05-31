@@ -4,19 +4,24 @@ Runs the sentiment-dash refresh flow with an optional SETA_engine Evidence Hando
 
 .DESCRIPTION
 This wrapper is intended for Windows Task Scheduler / local refresh automation.
-It can run an existing dashboard refresh command, then publish the generated
-SETA_engine Evidence Handoff payload into sentiment-dash via the already-merged
-publish helper:
+
+It can run an existing dashboard refresh command, repair protected Evidence Handoff
+mounts after generated HTML is produced, publish the generated SETA_engine Evidence
+Handoff payload into sentiment-dash, validate Evidence health, report refresh
+integrity, and optionally commit/push the evidence-managed files.
+
+The publish helper is:
 
   scripts/publish_seta_evidence_handoff_to_bundle.ps1
 
 The script intentionally does not commit or push by default. Use -Stage to stage
-the generated evidence payload so an existing publish job can include it in its
-normal commit/push step.
+the generated evidence-managed files so an existing publish job can include them in
+its normal commit/push step.
 
 For fully unattended website refreshes, use -CommitEvidencePayload to commit only
-the generated Evidence Handoff payload if it changed. Use -Push with
+the generated Evidence Handoff managed files if they changed. Use -Push with
 -CommitEvidencePayload to push that commit to the branch's configured upstream.
+
 The commit/push mode refuses to continue if unrelated files are already staged.
 #>
 [CmdletBinding()]
@@ -33,6 +38,7 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
+
 $PayloadRelPath = "seta_bundles/latest/evidence/dashboard_evidence_payload.json"
 $HealthStatusRelPath = "seta_bundles/latest/evidence/evidence_refresh_status.json"
 $EvidenceMountRelPaths = @(
@@ -51,9 +57,11 @@ function Resolve-RequiredPath {
     [string]$Path,
     [string]$Label
   )
+
   if (-not (Test-Path $Path)) {
     throw "$Label not found: $Path"
   }
+
   return (Resolve-Path $Path).Path
 }
 
@@ -62,16 +70,21 @@ function Invoke-CheckedCommand {
     [string]$Command,
     [string]$Label
   )
+
   if ([string]::IsNullOrWhiteSpace($Command)) {
     Write-Step "$Label skipped because no command was provided."
     return
   }
+
   Write-Step "$Label command: $Command"
+
   if ($WhatIf) {
     Write-Step "WHATIF: would run $Label command."
     return
   }
+
   Invoke-Expression $Command
+
   if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
     throw "$Label command failed with exit code $LASTEXITCODE"
   }
@@ -82,19 +95,25 @@ function Invoke-GitChecked {
     [string[]]$GitArgs,
     [string]$Label
   )
+
   Write-Step "git $($GitArgs -join ' ')"
+
   if ($WhatIf) {
     Write-Step "WHATIF: would run git command for $Label."
     return @()
   }
+
   $output = & git @GitArgs 2>&1
   $exitCode = $LASTEXITCODE
+
   if ($output) {
     $output | ForEach-Object { Write-Host $_ }
   }
+
   if ($exitCode -ne 0) {
     throw "$Label failed with exit code $exitCode"
   }
+
   return @($output)
 }
 
@@ -103,25 +122,32 @@ function Get-GitOutputChecked {
     [string[]]$GitArgs,
     [string]$Label
   )
+
   if ($WhatIf) {
     Write-Step "WHATIF: would inspect git state for $Label."
     return @()
   }
+
   $output = & git @GitArgs 2>&1
   $exitCode = $LASTEXITCODE
+
   if ($exitCode -ne 0) {
     if ($output) {
       $output | ForEach-Object { Write-Host $_ }
     }
+
     throw "$Label failed with exit code $exitCode"
   }
+
   return @($output)
 }
 
 function Assert-CleanEvidenceStagingScope {
   $stagedFiles = @(Get-GitOutputChecked -GitArgs @("--no-pager", "diff", "--cached", "--name-only") -Label "inspect staged files")
   $stagedFiles = @($stagedFiles | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
+
   $unexpected = @($stagedFiles | Where-Object { $EvidenceManagedRelPaths -notcontains $_ })
+
   if ($unexpected.Count -gt 0) {
     $formatted = ($unexpected -join ", ")
     throw "Refusing to commit because unrelated staged files are present: $formatted"
@@ -133,15 +159,19 @@ function Test-StagedEvidenceManagedFilesChanged {
     Write-Step "WHATIF: would check whether evidence managed files have staged changes."
     return $true
   }
+
   $diffArgs = @("--no-pager", "diff", "--cached", "--quiet", "--") + $EvidenceManagedRelPaths
   & git @diffArgs
   $exitCode = $LASTEXITCODE
+
   if ($exitCode -eq 0) {
     return $false
   }
+
   if ($exitCode -eq 1) {
     return $true
   }
+
   throw "Failed to inspect staged evidence managed-file diff with exit code $exitCode"
 }
 
@@ -154,16 +184,17 @@ function Invoke-EvidencePayloadCommitPublish {
     return
   }
 
-  Write-Step "commit/push mode enabled for Evidence Handoff payload only."
+  Write-Step "commit/push mode enabled for Evidence Handoff managed files."
 
   if (-not $Stage) {
-    Write-Step "staging evidence payload because -CommitEvidencePayload was provided."
+    Write-Step "staging evidence managed files because -CommitEvidencePayload was provided."
     Invoke-GitChecked -GitArgs (@("add", "-f", "--") + $EvidenceManagedRelPaths) -Label "stage evidence managed files" | Out-Null
   }
 
   Assert-CleanEvidenceStagingScope
 
   $hasManagedDiff = Test-StagedEvidenceManagedFilesChanged
+
   if (-not $hasManagedDiff) {
     Write-Step "no staged evidence managed-file changes; skipping commit and push."
     return
@@ -177,9 +208,11 @@ function Invoke-EvidencePayloadCommitPublish {
 
   if ($Push) {
     $branchName = (Get-GitOutputChecked -GitArgs @("rev-parse", "--abbrev-ref", "HEAD") -Label "inspect current branch" | Select-Object -First 1)
+
     if ($branchName -eq "HEAD") {
       throw "Refusing to push from detached HEAD. Check out the intended branch first."
     }
+
     Write-Step "pushing evidence payload commit from branch: $branchName"
     Invoke-GitChecked -GitArgs @("push") -Label "push evidence payload commit" | Out-Null
   } else {
@@ -189,18 +222,22 @@ function Invoke-EvidencePayloadCommitPublish {
 
 $DashRoot = Resolve-RequiredPath -Path $DashRoot -Label "sentiment-dash root"
 $SetaEngineRoot = Resolve-RequiredPath -Path $SetaEngineRoot -Label "SETA_engine root"
+
 $PublishHelper = Join-Path $DashRoot "scripts\publish_seta_evidence_handoff_to_bundle.ps1"
 $Validator = Join-Path $DashRoot "scripts\check_evidence_handoff_payload.py"
 $BundlePayload = Join-Path $DashRoot "seta_bundles\latest\evidence\dashboard_evidence_payload.json"
 $MountRepairHelper = Join-Path $DashRoot "scripts\ensure_evidence_mounts.py"
 $HealthCheckHelper = Join-Path $DashRoot "scripts\check_evidence_refresh_health.py"
+$RefreshIntegrityHelper = Join-Path $DashRoot "scripts\check_refresh_integrity.py"
 
 Resolve-RequiredPath -Path $PublishHelper -Label "evidence publish helper" | Out-Null
 Resolve-RequiredPath -Path $Validator -Label "evidence payload validator" | Out-Null
 Resolve-RequiredPath -Path $MountRepairHelper -Label "evidence mount repair helper" | Out-Null
 Resolve-RequiredPath -Path $HealthCheckHelper -Label "evidence refresh health helper" | Out-Null
+Resolve-RequiredPath -Path $RefreshIntegrityHelper -Label "refresh integrity helper" | Out-Null
 
 Push-Location $DashRoot
+
 try {
   Write-Step "dashboard root: $DashRoot"
   Write-Step "SETA_engine root: $SetaEngineRoot"
@@ -216,8 +253,20 @@ try {
   } else {
     Write-Step "repairing Evidence Card mounts after dashboard refresh"
     & python $MountRepairHelper --root $DashRoot
+
     if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
       throw "Evidence Card mount repair failed with exit code $LASTEXITCODE"
+    }
+  }
+
+  if ($WhatIf) {
+    Write-Step "WHATIF: would run strict Evidence Handoff refresh health check after mount repair."
+  } else {
+    Write-Step "validating Evidence Handoff refresh health after mount repair"
+    & python $HealthCheckHelper --root $DashRoot --no-write
+
+    if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
+      throw "Evidence Handoff refresh health check failed after mount repair with exit code $LASTEXITCODE"
     }
   }
 
@@ -227,6 +276,7 @@ try {
     "-SetaEngineRoot", $SetaEngineRoot,
     "-DashRoot", $DashRoot
   )
+
   if ($Stage -or $CommitEvidencePayload) {
     $publishArgs += "-Stage"
   }
@@ -239,6 +289,7 @@ try {
     Write-Step "WHATIF: would run publish helper."
   } else {
     & powershell @publishArgs
+
     if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
       throw "Evidence Handoff publish helper failed with exit code $LASTEXITCODE"
     }
@@ -248,6 +299,7 @@ try {
     Write-Step "WHATIF: would validate bundle payload."
   } else {
     & python $Validator --payload $BundlePayload
+
     if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
       throw "Evidence Handoff payload validation failed with exit code $LASTEXITCODE"
     }
@@ -258,8 +310,31 @@ try {
   } else {
     Write-Step "writing Evidence Handoff refresh health status"
     & python $HealthCheckHelper --root $DashRoot
+
     if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
       throw "Evidence Handoff refresh health check failed with exit code $LASTEXITCODE"
+    }
+  }
+
+  if ($WhatIf) {
+    Write-Step "WHATIF: would run strict Evidence Handoff refresh health check after status write."
+  } else {
+    Write-Step "validating Evidence Handoff refresh health after status write"
+    & python $HealthCheckHelper --root $DashRoot --no-write
+
+    if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
+      throw "Evidence Handoff refresh health check failed after status write with exit code $LASTEXITCODE"
+    }
+  }
+
+  if ($WhatIf) {
+    Write-Step "WHATIF: would run refresh integrity report after Evidence repair."
+  } else {
+    Write-Step "running refresh integrity report after Evidence repair"
+    & python $RefreshIntegrityHelper --root $DashRoot --report-only
+
+    if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
+      throw "Refresh integrity report failed with exit code $LASTEXITCODE"
     }
   }
 
@@ -280,4 +355,3 @@ try {
 finally {
   Pop-Location
 }
-
