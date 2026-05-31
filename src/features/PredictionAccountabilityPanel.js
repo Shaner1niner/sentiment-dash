@@ -1,8 +1,10 @@
-﻿import { Store } from '../Store.js';
+import { Store } from '../Store.js';
 
 const STYLE_ID = 'seta-prediction-accountability-panel-style';
 const TARGET_ID = 'module-prediction-accountability-panel';
 const OVERLAY_URL = 'public_content/prediction_outcomes/prediction_outcome_overlay_latest.json?v=prediction_accountability_panel_001';
+const OVERLAY_SCHEMA_VERSION = 'prediction_outcome_overlay_v1';
+const OVERLAY_STALE_WARNING_HOURS = 48;
 
 let overlayPayload = null;
 let overlayError = null;
@@ -35,18 +37,6 @@ function labelDirection(value, fallback = '—') {
     return fallback;
 }
 
-function correctnessClass(row) {
-    if (row?.is_correct === 1 || row?.is_correct === true) return 'isCorrect';
-    if (row?.is_correct === 0 || row?.is_correct === false) return 'isIncorrect';
-    return 'isPending';
-}
-
-function correctnessLabel(row) {
-    if (row?.is_correct === 1 || row?.is_correct === true) return 'Correct';
-    if (row?.is_correct === 0 || row?.is_correct === false) return 'Miss';
-    return 'Pending';
-}
-
 function formatDate(value) {
     if (!value) return '—';
     return String(value).slice(0, 10);
@@ -66,13 +56,35 @@ function metadata() {
         : {};
 }
 
+function rowDateMs(row) {
+    const candidates = [
+        row?.prediction_date,
+        row?.resolved_at,
+        row?.resolution_date,
+        row?.generated_at,
+    ];
+    for (const value of candidates) {
+        const parsed = Date.parse(value);
+        if (Number.isFinite(parsed)) return parsed;
+    }
+    return 0;
+}
+
+function sortedRows() {
+    return [...rows()].sort((a, b) => {
+        const dateDelta = rowDateMs(b) - rowDateMs(a);
+        if (dateDelta !== 0) return dateDelta;
+        return String(a?.term || '').localeCompare(String(b?.term || ''));
+    });
+}
+
 function latestRowForAsset(asset) {
     const ticker = String(asset || '').trim().toUpperCase();
-    return rows().find(row => String(row?.term || '').trim().toUpperCase() === ticker) || null;
+    return sortedRows().find(row => String(row?.term || '').trim().toUpperCase() === ticker) || null;
 }
 
 function recentRows(limit = 6) {
-    return rows().slice(0, limit);
+    return sortedRows().slice(0, limit);
 }
 
 function ensureStyle() {
@@ -230,6 +242,20 @@ function ensureStyle() {
         color: #f2cc60;
         border-color: rgba(242, 204, 96, .35);
       }
+      .modulePredictionWarning {
+        margin: 0 0 10px;
+        border: 1px solid rgba(242, 204, 96, .22);
+        border-radius: 10px;
+        background: rgba(242, 204, 96, .07);
+        color: #f2cc60;
+        padding: 8px 10px;
+        font-size: 11px;
+        line-height: 1.45;
+      }
+      .modulePredictionWarning ul {
+        margin: 4px 0 0 16px;
+        padding: 0;
+      }
       .modulePredictionNote {
         margin: 10px 0 0;
         padding-top: 9px;
@@ -319,6 +345,254 @@ function renderError(error) {
     `;
 }
 
+const OUTCOME_BASIS_FIELDS = [
+    'resolution_date',
+    'resolved_at',
+    'anchor_date',
+    'anchor_price',
+    'resolution_price',
+    'actual_return',
+    'actual_move_pct',
+    'resolution_basis',
+    'is_final_resolution',
+];
+
+function hasOutcomeBasis(row) {
+    if (!row || typeof row !== 'object') return false;
+    return OUTCOME_BASIS_FIELDS.some((key) => {
+        const value = row[key];
+        return value !== undefined && value !== null && value !== '' && value !== 'null';
+    });
+}
+
+function isNoCall(row) {
+    if (!row || typeof row !== 'object') return true;
+    const callStatus = String(row.call_status || '').toLowerCase();
+    const predictionLabel = String(row.prediction_label || '').toLowerCase();
+    return callStatus.includes('no') || predictionLabel.includes('no call') || predictionLabel.includes('no_call');
+}
+
+function isResolved(row) {
+    return row && String(row.outcome_status || '').toLowerCase() === 'resolved';
+}
+
+function isPendingResolutionBasis(row) {
+    if (!row || typeof row !== 'object') return false;
+    const status = String(row.outcome_status || '').trim().toLowerCase();
+    const basisStatus = String(row.resolution_basis_status || '').trim().toLowerCase();
+    const note = String(row.public_display_note || '').trim().toLowerCase();
+    return (
+        status === 'pending_resolution_basis' ||
+        basisStatus === 'missing' ||
+        note.includes('resolution basis')
+    );
+}
+
+function hasFinalOutcome(row) {
+    return (
+        isResolved(row) &&
+        !isNoCall(row) &&
+        !isPendingResolutionBasis(row) &&
+        (
+            row?.is_correct === 1 ||
+            row?.is_correct === 0 ||
+            row?.is_correct === true ||
+            row?.is_correct === false
+        )
+    );
+}
+
+function correctnessClass(row) {
+    if (!hasFinalOutcome(row)) return 'isPending';
+    if (row?.is_correct === 1 || row?.is_correct === true) return 'isCorrect';
+    if (row?.is_correct === 0 || row?.is_correct === false) return 'isIncorrect';
+    return 'isPending';
+}
+
+function correctnessLabel(row) {
+    if (!hasFinalOutcome(row)) return 'Pending';
+    if (row?.is_correct === 1 || row?.is_correct === true) return 'Correct';
+    if (row?.is_correct === 0 || row?.is_correct === false) return 'Miss';
+    return 'Pending';
+}
+
+function summaryCounts(sourceRows) {
+    const list = Array.isArray(sourceRows) ? sourceRows : [];
+    const summary = {
+        row_count: list.length,
+        resolved_count: 0,
+        pending_count: 0,
+        no_call_count: 0,
+        pending_basis_count: 0,
+        final_outcome_count: 0,
+    };
+
+    list.forEach((row) => {
+        if (isNoCall(row)) summary.no_call_count += 1;
+        if (isPendingResolutionBasis(row)) summary.pending_basis_count += 1;
+        if (hasFinalOutcome(row)) summary.final_outcome_count += 1;
+        if (isResolved(row)) {
+            summary.resolved_count += 1;
+        } else {
+            summary.pending_count += 1;
+        }
+    });
+
+    return summary;
+}
+
+function metadataNumber(meta, key, fallback) {
+    const number = Number(meta?.[key]);
+    return Number.isFinite(number) ? number : fallback;
+}
+
+function metadataCountWarnings(meta, derived) {
+    const labels = {
+        row_count: 'row count',
+        resolved_count: 'resolved count',
+        pending_count: 'pending count',
+        no_call_count: 'no-call count',
+    };
+
+    return Object.keys(labels).flatMap((key) => {
+        const declared = Number(meta?.[key]);
+        if (!Number.isFinite(declared)) return [];
+        if (declared === derived[key]) return [];
+        return [`Overlay metadata ${labels[key]} (${declared}) differs from row-derived count (${derived[key]}).`];
+    });
+}
+
+function parseDateMs(value) {
+    const parsed = Date.parse(value);
+    return Number.isFinite(parsed) ? parsed : null;
+}
+
+function overlayFreshnessState(generatedAt) {
+    const generatedMs = parseDateMs(generatedAt);
+    if (generatedMs == null) {
+        return {
+            label: 'Freshness unknown',
+            warning: 'Overlay metadata is missing a parseable generated_at timestamp.',
+        };
+    }
+
+    const ageHours = (Date.now() - generatedMs) / 36e5;
+    if (ageHours < -1) {
+        return {
+            label: 'Timestamp ahead',
+            warning: 'Overlay generated_at timestamp appears to be in the future.',
+        };
+    }
+    if (ageHours > OVERLAY_STALE_WARNING_HOURS) {
+        return {
+            label: 'Stale overlay',
+            warning: `Overlay generated_at is ${Math.round(ageHours)} hours old; verify the public refresh completed.`,
+        };
+    }
+    return {
+        label: 'Fresh overlay',
+        warning: '',
+    };
+}
+
+function panelWarnings(meta, derived, allRows) {
+    const freshness = overlayFreshnessState(meta.generated_at);
+    const warnings = metadataCountWarnings(meta, derived);
+    if (freshness.warning) warnings.push(freshness.warning);
+    if (!allRows.length) warnings.push('No prediction outcome rows are available in the current overlay.');
+    return { freshness, warnings };
+}
+
+function displayWindowLabel(row) {
+    const days = Number(row?.horizon_days || 1);
+    if (!Number.isFinite(days) || days <= 0) return 'N/A';
+    return `${days}D`;
+}
+
+function displayPredictionLabel(row) {
+    if (!row) return 'N/A';
+    if (isNoCall(row)) return 'No call';
+    return labelDirection(row.prediction_label);
+}
+
+function displayResultLabel(row) {
+    if (!row) return 'N/A';
+    if (isNoCall(row)) return 'N/A';
+    if (isPendingResolutionBasis(row)) return 'Pending basis';
+    if (!isResolved(row)) return 'Not final';
+    return labelDirection(row.actual_label, 'Resolved');
+}
+
+function publicOutcomeStatusLabel(row) {
+    if (!row) return 'Unavailable';
+    if (isNoCall(row)) return 'No score';
+    if (isPendingResolutionBasis(row)) return 'Pending basis';
+    if (!isResolved(row)) return 'In progress';
+    if (hasFinalOutcome(row)) return correctnessLabel(row);
+    return 'Resolved';
+}
+
+function publicOutcomeStatusClass(row) {
+    if (!row || isNoCall(row)) return 'isPending';
+    if (isPendingResolutionBasis(row)) return 'isPending';
+    if (!isResolved(row)) return 'isPending';
+    return correctnessClass(row);
+}
+
+function outcomeBasisNote(row) {
+    if (!row) return '';
+    if (isNoCall(row)) {
+        return 'No accountability result is assigned to no-call or low-confidence rows.';
+    }
+    if (isPendingResolutionBasis(row)) {
+        return 'Correct/Miss display is withheld until the public payload includes the resolution basis.';
+    }
+    if (!isResolved(row)) {
+        return 'Current result is not final. Outcome resolves after the prediction window closes.';
+    }
+    if (!hasOutcomeBasis(row)) {
+        return 'Resolved row is shown without a detailed public resolution basis; review the upstream payload if this persists.';
+    }
+    return 'Measured over the stored prediction window, not the live candle.';
+}
+
+function recentOutcomeText(row) {
+    const date = formatDate(row.prediction_date);
+    const prediction = displayPredictionLabel(row);
+    const result = displayResultLabel(row);
+
+    if (isNoCall(row)) return `${date}: No call`;
+    if (isPendingResolutionBasis(row)) return `${date}: ${prediction} - Pending basis`;
+    if (!isResolved(row)) return `${date}: ${prediction} - In progress`;
+    if (hasFinalOutcome(row)) return `${date}: ${prediction} - ${result} (${correctnessLabel(row)})`;
+    return `${date}: ${prediction} - ${result}`;
+}
+
+function renderWarningBlock(warnings) {
+    if (!warnings.length) return '';
+    return `
+      <div class="modulePredictionWarning">
+        <strong>Review note</strong>
+        <ul>${warnings.map(item => `<li>${escapeHtml(item)}</li>`).join('')}</ul>
+      </div>
+    `;
+}
+
+function renderRecentRows(recents) {
+    if (!recents.length) {
+        return '<p class="modulePredictionNote">No prediction outcome rows are available in the current overlay.</p>';
+    }
+
+    return recents.map(row => `
+      <div class="modulePredictionRecentRow">
+        <strong>${escapeHtml(row.term)}</strong>
+        <span>${escapeHtml(recentOutcomeText(row))}</span>
+        <span>Confidence ${escapeHtml(asPercent(row.confidence))}</span>
+        <span class="modulePredictionBadge ${escapeHtml(publicOutcomeStatusClass(row))}">${escapeHtml(publicOutcomeStatusLabel(row))}</span>
+      </div>
+    `).join('');
+}
+
 function renderPanel() {
     const target = ensureTarget();
 
@@ -333,60 +607,77 @@ function renderPanel() {
     }
 
     const meta = metadata();
+    const allRows = rows();
+    const derived = summaryCounts(allRows);
+    const { freshness, warnings } = panelWarnings(meta, derived, allRows);
     const asset = activeAsset();
     const activeRow = latestRowForAsset(asset);
     const accuracy = asPercent(meta.selective_accuracy ?? meta.accuracy_on_all_resolved);
     const recents = recentRows(6);
+    const pillText = accuracy === '—'
+        ? freshness.label
+        : `${accuracy} selective accuracy`;
 
     target.className = 'modulePredictionAccountabilityPanel';
     target.innerHTML = `
       <div class="modulePredictionAccountabilityHeader">
         <div>
           <div class="modulePredictionAccountabilityKicker">Prediction Accountability</div>
-          <h2>Outcome overlay</h2>
-          <p>Resolved prediction outcomes from the SETA Prediction Intelligence Engine.</p>
+          <h2>Model Call Tracking</h2>
+          <p>Tracks stored model calls and measured outcomes after prediction windows close. Not a live trading signal.</p>
         </div>
-        <span class="modulePredictionAccountabilityPill">${escapeHtml(accuracy)} selective accuracy</span>
+        <span class="modulePredictionAccountabilityPill">${escapeHtml(pillText)}</span>
       </div>
 
       <div class="modulePredictionMetricGrid">
-        <div class="modulePredictionMetric"><span>Rows</span><strong>${escapeHtml(asNumber(meta.row_count))}</strong></div>
-        <div class="modulePredictionMetric"><span>Resolved</span><strong>${escapeHtml(asNumber(meta.resolved_count))}</strong></div>
-        <div class="modulePredictionMetric"><span>Pending</span><strong>${escapeHtml(asNumber(meta.pending_count))}</strong></div>
-        <div class="modulePredictionMetric"><span>No-call</span><strong>${escapeHtml(asNumber(meta.no_call_count))}</strong></div>
+        <div class="modulePredictionMetric"><span>Rows</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'row_count', derived.row_count)))}</strong></div>
+        <div class="modulePredictionMetric"><span>Resolved</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'resolved_count', derived.resolved_count)))}</strong></div>
+        <div class="modulePredictionMetric"><span>Pending</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'pending_count', derived.pending_count)))}</strong></div>
+        <div class="modulePredictionMetric"><span>No-call</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'no_call_count', derived.no_call_count)))}</strong></div>
       </div>
 
+      ${renderWarningBlock(warnings)}
+
       <div class="modulePredictionActiveRow">
-        <h3>${escapeHtml(asset)} latest outcome</h3>
+        <h3>${escapeHtml(asset)} latest model call</h3>
         ${activeRow ? `
           <div class="modulePredictionFactGrid">
             <div class="modulePredictionFact"><span>Date</span><strong>${escapeHtml(formatDate(activeRow.prediction_date))}</strong></div>
-            <div class="modulePredictionFact"><span>Prediction</span><strong>${escapeHtml(labelDirection(activeRow.prediction_label))}</strong></div>
-            <div class="modulePredictionFact"><span>Actual</span><strong>${escapeHtml(labelDirection(activeRow.actual_label))}</strong></div>
+            <div class="modulePredictionFact"><span>Prediction</span><strong>${escapeHtml(displayPredictionLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Window</span><strong>${escapeHtml(displayWindowLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Measured result</span><strong>${escapeHtml(displayResultLabel(activeRow))}</strong></div>
             <div class="modulePredictionFact"><span>Confidence</span><strong>${escapeHtml(asPercent(activeRow.confidence))}</strong></div>
-            <div class="modulePredictionFact"><span>Status</span><strong>${escapeHtml(correctnessLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Status</span><strong>${escapeHtml(publicOutcomeStatusLabel(activeRow))}</strong></div>
           </div>
+          <p class="modulePredictionNote">${escapeHtml(outcomeBasisNote(activeRow))}</p>
         ` : `
           <p class="modulePredictionNote">No recent ${escapeHtml(asset)} prediction outcome is present in the current overlay sample.</p>
         `}
       </div>
 
       <div class="modulePredictionRecent">
-        ${recents.map(row => `
-          <div class="modulePredictionRecentRow">
-            <strong>${escapeHtml(row.term)}</strong>
-            <span>${escapeHtml(formatDate(row.prediction_date))}: ${escapeHtml(labelDirection(row.prediction_label))} → ${escapeHtml(labelDirection(row.actual_label))}</span>
-            <span>Confidence ${escapeHtml(asPercent(row.confidence))}</span>
-            <span class="modulePredictionBadge ${escapeHtml(correctnessClass(row))}">${escapeHtml(correctnessLabel(row))}</span>
-          </div>
-        `).join('')}
+        <p class="modulePredictionNote">Recent accountability sample across tracked assets.</p>
+        ${renderRecentRows(recents)}
       </div>
 
       <p class="modulePredictionNote">
-        Accountability view only. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
+        Accountability view only. Measured results reflect stored prediction windows, not live candle movement. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
         Generated: ${escapeHtml(meta.generated_at || 'unknown')}.
       </p>
     `;
+}
+
+function validateOverlayContract(data) {
+    if (!data || typeof data !== 'object' || !Array.isArray(data.rows) || !data.metadata || typeof data.metadata !== 'object') {
+        throw new Error('Overlay JSON did not match the expected contract.');
+    }
+
+    const rootSchema = String(data.schema_version || '').trim();
+    const metadataSchema = String(data.metadata.schema_version || '').trim();
+
+    if (rootSchema !== OVERLAY_SCHEMA_VERSION || metadataSchema !== OVERLAY_SCHEMA_VERSION) {
+        throw new Error(`Overlay schema mismatch. Expected ${OVERLAY_SCHEMA_VERSION}.`);
+    }
 }
 
 async function loadOverlay() {
@@ -400,9 +691,7 @@ async function loadOverlay() {
             throw new Error(`Overlay returned HTTP ${response.status}`);
         }
         const data = await response.json();
-        if (!data || typeof data !== 'object' || !Array.isArray(data.rows) || !data.metadata) {
-            throw new Error('Overlay JSON did not match the expected contract.');
-        }
+        validateOverlayContract(data);
         overlayPayload = data;
     } catch (error) {
         overlayError = error;
@@ -423,6 +712,14 @@ export const PredictionAccountabilityPanel = {
             Store.on('assetChanged', () => renderPanel());
             Store.on('controlChanged', () => renderPanel());
         } catch (_) {}
+    },
+    _test: {
+        hasFinalOutcome,
+        isNoCall,
+        isPendingResolutionBasis,
+        overlayFreshnessState,
+        publicOutcomeStatusLabel,
+        summaryCounts,
     },
 };
 

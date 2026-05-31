@@ -1,6 +1,9 @@
 import { selectedWindowRows } from './core/displayRangeWindow.js';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
+const CRYPTO_PARTIAL_DAILY_OVERLAY_URL = './public_content/current_candles/crypto_partial_daily_latest.json';
+let CRYPTO_PARTIAL_DAILY_OVERLAY_PROMISE = null;
+let CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD = null;
 
 const MODULE_CHART_VISUALS = {
     paperBg: '#080c12',
@@ -138,9 +141,146 @@ function asDate(row) {
     return Number.isFinite(d.getTime()) ? d : null;
 }
 
+function dateOnlyMs(value) {
+    if (value === null || value === undefined || value === '') return null;
+    if (value instanceof Date) {
+        if (!Number.isFinite(value.getTime())) return null;
+        return Date.UTC(value.getUTCFullYear(), value.getUTCMonth(), value.getUTCDate());
+    }
+    const text = String(value).trim();
+    const match = text.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if (match) {
+        return Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    }
+    const parsed = new Date(text);
+    if (!Number.isFinite(parsed.getTime())) return null;
+    return Date.UTC(parsed.getUTCFullYear(), parsed.getUTCMonth(), parsed.getUTCDate());
+}
+
 function latestDate(rows) {
     const dates = rows.map(asDate).filter(Boolean).sort((a, b) => a.getTime() - b.getTime());
     return dates.length ? dates[dates.length - 1] : null;
+}
+
+function cryptoPartialDailyStatus(reason, detail = {}) {
+    const status = { reason, ...detail };
+    if (typeof window !== 'undefined') {
+        window.SETA_CRYPTO_PARTIAL_DAILY_OVERLAY_STATUS = status;
+    }
+    return status;
+}
+
+// Display-only crypto overlay; never append this row to canonical indicator inputs.
+async function loadCryptoPartialDailyOverlay() {
+    if (CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD) return CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD;
+    if (!CRYPTO_PARTIAL_DAILY_OVERLAY_PROMISE) {
+        CRYPTO_PARTIAL_DAILY_OVERLAY_PROMISE = fetch(CRYPTO_PARTIAL_DAILY_OVERLAY_URL)
+            .then(response => {
+                if (!response || !response.ok) return null;
+                return response.json();
+            })
+            .then(payload => {
+                if (!payload || typeof payload !== 'object' || !payload.by_term || typeof payload.by_term !== 'object') {
+                    return null;
+                }
+                CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD = payload;
+                return payload;
+            })
+            .catch(() => null);
+    }
+    return CRYPTO_PARTIAL_DAILY_OVERLAY_PROMISE;
+}
+
+function latestConfirmedDailyDateMs(confirmedRows = []) {
+    return (Array.isArray(confirmedRows) ? confirmedRows : [])
+        .map(row => dateOnlyMs(row && (row.date || row.dt || row.timestamp || row.dateObj)))
+        .filter(value => value !== null)
+        .reduce((latest, value) => Math.max(latest, value), -Infinity);
+}
+
+function getCryptoPartialDailyCandle(term, confirmedRows, freq, overlay = CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD) {
+    const normalizedFreq = String(freq || '').trim().toUpperCase();
+    if (normalizedFreq !== 'D' && normalizedFreq !== 'DAILY') {
+        return cryptoPartialDailyStatus('non_daily_freq', { term, freq: normalizedFreq });
+    }
+    if (!overlay || !overlay.by_term || typeof overlay.by_term !== 'object') {
+        return cryptoPartialDailyStatus('missing_overlay', { term, freq: normalizedFreq });
+    }
+
+    const normalizedTerm = String(term || '').trim().toUpperCase();
+    const row = overlay.by_term[normalizedTerm] || overlay.by_term[String(term || '').trim()];
+    if (!normalizedTerm || !row) {
+        return cryptoPartialDailyStatus('no_term', { term: normalizedTerm, freq: normalizedFreq });
+    }
+    if (row.is_partial !== true) {
+        return cryptoPartialDailyStatus('missing_overlay', { term: normalizedTerm, freq: normalizedFreq });
+    }
+
+    const open = asNumber(row.open);
+    const high = asNumber(row.high);
+    const low = asNumber(row.low);
+    const close = asNumber(row.close);
+    if ([open, high, low, close].some(value => value === null) || high < low) {
+        return cryptoPartialDailyStatus('invalid_ohlc', { term: normalizedTerm, freq: normalizedFreq });
+    }
+
+    const overlayDateMs = dateOnlyMs(row.date || row.dt || row.timestamp);
+    const confirmedDateMs = latestConfirmedDailyDateMs(confirmedRows);
+    if (overlayDateMs === null || (Number.isFinite(confirmedDateMs) && overlayDateMs <= confirmedDateMs)) {
+        return cryptoPartialDailyStatus('stale_or_same_date', {
+            term: normalizedTerm,
+            freq: normalizedFreq,
+            overlay_date: row.date || null
+        });
+    }
+
+    const displayDate = row.date || new Date(overlayDateMs).toISOString().slice(0, 10);
+    return cryptoPartialDailyStatus('applied', {
+        term: normalizedTerm,
+        freq: normalizedFreq,
+        overlay_date: displayDate,
+        row: {
+            ...row,
+            term: normalizedTerm,
+            date: displayDate,
+            open,
+            high,
+            low,
+            close,
+            volume: asNumber(row.volume),
+            volume_status: 'partial_intraday'
+        }
+    });
+}
+
+function buildPartialDailyCandleTrace(row) {
+    if (!row) return null;
+    const asOf = row.latest_bar_utc || row.as_of_utc || '';
+    const volume = asNumber(row.volume);
+    const volumeText = volume === null ? 'n/a' : volume.toLocaleString(undefined, { maximumFractionDigits: 4 });
+    return {
+        type: 'candlestick',
+        name: 'Partial current-day candle',
+        legendrank: 11,
+        showlegend: false,
+        x: [row.date],
+        open: [row.open],
+        high: [row.high],
+        low: [row.low],
+        close: [row.close],
+        customdata: [[row.volume_status || 'partial_intraday', asOf, volumeText]],
+        increasing: {
+            line: { color: MODULE_CHART_VISUALS.candleUpLine, width: 1.15 },
+            fillcolor: MODULE_CHART_VISUALS.candleUpFill
+        },
+        decreasing: {
+            line: { color: MODULE_CHART_VISUALS.candleDownLine, width: 1.15 },
+            fillcolor: MODULE_CHART_VISUALS.candleDownFill
+        },
+        whiskerwidth: 0.36,
+        opacity: 0.94,
+        hovertemplate: 'Partial current-day candle · intraday volume so far<br>%{x|%b %d, %Y}<br>Open=%{open:,.2f}<br>High=%{high:,.2f}<br>Low=%{low:,.2f}<br>Close=%{close:,.2f}<br>Volume=%{customdata[2]}<br>Volume status: %{customdata[0]}<br>Latest/as of: %{customdata[1]}<extra></extra>'
+    };
 }
 
 function controlMode(value, fallback = '') {
@@ -2550,7 +2690,9 @@ export class PlotlyRenderer {
 
         const rows = this.resolveRows(payload, state);
         const visibleRows = this.selectRowsForState(rows, state);
-        const traces = this.buildPriceTraces(visibleRows, state);
+        const overlay = await loadCryptoPartialDailyOverlay();
+        const partialDailyStatus = getCryptoPartialDailyCandle(state.currentAsset, rows, state.currentFrequency, overlay);
+        const traces = this.buildPriceTraces(visibleRows, state, partialDailyStatus.row);
         const layout = this.buildLayout(payload && payload.layout ? payload.layout : {}, state, visibleRows);
 
         await this.renderChart(containerId, traces, layout, config || (payload && payload.config) || { responsive: true });
@@ -3003,7 +3145,7 @@ export class PlotlyRenderer {
         return traces;
     }
 
-    static buildPriceTraces(rows, state = {}) {
+    static buildPriceTraces(rows, state = {}, partialDailyCandle = null) {
         const source = Array.isArray(rows) ? rows : [];
         if (!source.length) return [];
 
@@ -3064,6 +3206,9 @@ export class PlotlyRenderer {
                 hovertemplate: '%{x}<br>O: %{open:,.2f}<br>H: %{high:,.2f}<br>L: %{low:,.2f}<br>C: %{close:,.2f}%{customdata}<extra></extra>'
             });
         }
+
+        const partialTrace = buildPartialDailyCandleTrace(partialDailyCandle);
+        if (partialTrace) traces.push(partialTrace);
 
         const structureScoreStripHoverTrace = buildStructureScoreStripHoverTrace(source, state);
         if (structureScoreStripHoverTrace) traces.push(structureScoreStripHoverTrace);

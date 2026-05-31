@@ -1,0 +1,31 @@
+{
+  "by_term": {},
+  "date": "2026-05-31",
+  "errors": {
+    "ADA": "insufficient intraday rows: 1",
+    "BNB": "insufficient intraday rows: 1",
+    "BTC": "insufficient intraday rows: 1",
+    "DOGE": "insufficient intraday rows: 1",
+    "ETH": "insufficient intraday rows: 1",
+    "LINK": "insufficient intraday rows: 1",
+    "SHIB": "insufficient intraday rows: 1",
+    "SOL": "insufficient intraday rows: 1",
+    "SUI": "insufficient intraday rows: 1",
+    "XRP": "insufficient intraday rows: 1"
+  },
+  "generated_at_utc": "2026-05-31T00:15:04Z",
+  "is_partial": true,
+  "min_intraday_rows": 3,
+  "notes": [
+    "Display overlay only; do not use as finalized daily OHLC.",
+    "Volume is partial intraday volume and should not be treated as final EOD volume.",
+    "Confirmed daily candles remain the canonical OHLC source for indicators, backtests, and prediction resolution."
+  ],
+  "row_count": 0,
+  "rows": [],
+  "schema_version": "crypto_partial_daily_overlay_v1",
+  "source": "tiingo_crypto_intraday",
+  "source_interval": "1hour",
+  "terms": [],
+  "volume_status": "partial_intraday"
+}

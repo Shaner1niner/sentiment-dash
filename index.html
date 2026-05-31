@@ -342,6 +342,7 @@
         <span>Sentiment, attention, and decision pressure beneath price.</span>
       </div>
       <div class="statusCluster">
+        <div class="statusCluster">
         <span class="status" id="setaRefreshBadge">GitHub Pages live</span>
         <span
           class="evidenceHealthBadge"
@@ -349,6 +350,7 @@
           data-status-url="seta_bundles/latest/evidence/evidence_refresh_status.json"
           hidden
         ></span>
+      </div>
       </div>
     </header>
 
@@ -388,7 +390,7 @@
 
       <a class="card" href="interactive_dashboard_fix24_member_embed.html">
         <span>
-          <span class="meta">Member research</span>
+          <span class="meta">Research mode</span>
           <h2>Research Dashboard</h2>
           <p>Expanded asset universe and fuller analytical controls for deeper SETA research workflows.</p>
         </span>
@@ -419,7 +421,7 @@
     <section class="ops" aria-label="Operations notes">
       <div class="panel">
         <h2>Production Refresh</h2>
-        <p>The site is hosted on GitHub Pages. Refresh runs update static dashboard payloads and the context packet after safety and smoke gates pass.</p>
+        <p id="setaRefreshCopy">The site is hosted on GitHub Pages. Refresh runs update static dashboard payloads and the context packet after safety and smoke gates pass.</p>
       </div>
       <div class="panel">
         <h2>Not a trading signal</h2>
@@ -428,6 +430,43 @@
     </section>
   </main>
 
+<script>
+  async function updateRefreshStatus() {
+    const badge = document.getElementById("setaRefreshBadge");
+    const copy = document.getElementById("setaRefreshCopy");
+
+    if (!badge || !copy) return;
+
+    try {
+      const response = await fetch("public_content/site_refresh_status.json?v=" + Date.now(), {
+        cache: "no-store"
+      });
+
+      if (!response.ok) throw new Error("Refresh status unavailable");
+
+      const payload = await response.json();
+      const generatedAt = payload.generated_at_utc || payload.published_at_utc || payload.last_refreshed_utc || null;
+      const date = generatedAt ? new Date(generatedAt) : null;
+      const dateIsValid = date && !Number.isNaN(date.getTime());
+
+      badge.textContent = "Fresh public data";
+
+      if (dateIsValid) {
+        const strong = document.createElement("strong");
+        strong.textContent = date.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+        copy.replaceChildren(
+          document.createTextNode("Latest public refresh: "),
+          strong,
+          document.createTextNode(". Static payloads update only after the SETA safety, smoke, and public payload gates pass.")
+        );
+      }
+    } catch (error) {
+      badge.textContent = "GitHub Pages live";
+    }
+  }
+
+  updateRefreshStatus();
+</script>
 
   <script src="src/evidence_handoff_reader.js"></script>
   <script src="src/evidence_card_ui.js"></script>
