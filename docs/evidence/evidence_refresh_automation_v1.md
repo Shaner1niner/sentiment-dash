@@ -29,6 +29,7 @@ scripts/run_seta_refresh_with_evidence_handoff.ps1
 ```
 
 ## Recommended scheduling pattern
+Important: the refresh command should generate dashboard/site artifacts but should not independently publish or push generated HTML before this wrapper has repaired and validated the protected Evidence mounts. The safe order is: generate, repair mounts, validate health, then commit/push/publish.
 
 Use the wrapper as the scheduled-task entrypoint, or call it from the existing scheduled refresh script.
 

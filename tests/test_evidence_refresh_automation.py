@@ -58,3 +58,20 @@ def test_refresh_automation_avoids_powershell_args_automatic_variable_collision(
     assert "$GitArgs" in source
     assert "[string[]]$Args" not in source
     assert "& git @Args" not in source
+
+
+def test_refresh_automation_repairs_and_checks_mounts_before_commit_publish():
+    source = SCRIPT.read_text(encoding="utf-8")
+    assert "ensure_evidence_mounts.py" in source
+    assert "check_evidence_refresh_health.py" in source
+    assert "check_refresh_integrity.py" in source
+    assert "--no-write" in source
+    assert "validating Evidence Handoff refresh health after mount repair" in source
+    assert "validating Evidence Handoff refresh health after status write" in source
+    assert "running refresh integrity report after Evidence repair" in source
+
+    commit_call_index = source.rindex("Invoke-EvidencePayloadCommitPublish")
+
+    assert source.index("repairing Evidence Card mounts after dashboard refresh") < source.index("publishing Evidence Handoff payload")
+    assert source.index("validating Evidence Handoff refresh health after mount repair") < source.index("publishing Evidence Handoff payload")
+    assert source.index("running refresh integrity report after Evidence repair") < commit_call_index
