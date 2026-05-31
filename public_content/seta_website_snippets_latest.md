@@ -1,4 +1,4 @@
-# SETA Website Snippets — 2026-05-30
+# SETA Website Snippets — 2026-05-31
 
 Public-safe explanation copy for website/dashboard display.
 
@@ -40,13 +40,13 @@ NVDA is showing broader participation. That is constructive for the equity tape,
 
 ---
 
-## SHIB: decision-pressure watch
+## SHIB: repair watch
 
-SHIB is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
+SHIB looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
-**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** decision pressure | rank 2 | mixed skew | Belief exceeds permission
+**SETA read:** repair watch | rank 2 | mixed skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
