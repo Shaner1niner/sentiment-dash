@@ -75,3 +75,12 @@ def test_refresh_automation_repairs_and_checks_mounts_before_commit_publish():
     assert source.index("repairing Evidence Card mounts after dashboard refresh") < source.index("publishing Evidence Handoff payload")
     assert source.index("validating Evidence Handoff refresh health after mount repair") < source.index("publishing Evidence Handoff payload")
     assert source.index("running refresh integrity report after Evidence repair") < commit_call_index
+
+def test_refresh_automation_git_helpers_tolerate_native_stderr_warnings():
+    source = SCRIPT.read_text(encoding="utf-8")
+    assert "$previousErrorActionPreference = $ErrorActionPreference" in source
+    assert '$ErrorActionPreference = "Continue"' in source
+    assert "$ErrorActionPreference = $previousErrorActionPreference" in source
+    assert "& git @GitArgs 2>&1" in source
+    assert "if ($exitCode -ne 0)" in source
+    assert "failed with exit code $exitCode" in source

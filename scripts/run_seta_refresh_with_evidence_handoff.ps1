@@ -128,8 +128,16 @@ function Get-GitOutputChecked {
     return @()
   }
 
-  $output = & git @GitArgs 2>&1
-  $exitCode = $LASTEXITCODE
+  $previousErrorActionPreference = $ErrorActionPreference
+
+  try {
+    $ErrorActionPreference = "Continue"
+    $output = & git @GitArgs 2>&1
+    $exitCode = $LASTEXITCODE
+  }
+  finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
 
   if ($exitCode -ne 0) {
     if ($output) {
