@@ -1,4 +1,4 @@
-# SETA Website Snippets — 2026-06-01
+# SETA Website Snippets — 2026-06-02
 
 Public-safe explanation copy for website/dashboard display.
 
@@ -52,6 +52,18 @@ SHIB looks more like repair than confirmation. The useful read is whether sponso
 
 ---
 
+## NVDA: participation is broadening
+
+NVDA is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
+
+**SETA read:** participation diffusion | rank 3 | positive skew | Permission without Belief
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
 ## SOL: participation is broadening
 
 SOL is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
@@ -64,25 +76,13 @@ SOL is showing broader participation. That is constructive for the crypto tape, 
 
 ---
 
-## COIN: decision-pressure watch
+## COIN: SETA context
 
-COIN is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
+COIN sits in a elevated decision-pressure zone in the equity tape.
 
-**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
+**Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** decision pressure | rank 3 | negative skew | Belief Exceeds Permission
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## NVDA: contested structure
-
-NVDA is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission Without Belief is the key tension.
-
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
-
-**SETA read:** contested structure | rank 4 | negative skew | Permission Without Belief
+**SETA read:** seta context | rank 4 | negative skew | Belief Exceeds Permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -102,11 +102,11 @@ ADA is showing broader participation. That is constructive for the crypto tape, 
 
 ## TSLA: contested structure
 
-TSLA is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission Without Belief is the key tension.
+TSLA is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without Belief is the key tension.
 
 **Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** contested structure | rank 5 | negative skew | Permission Without Belief
+**SETA read:** contested structure | rank 5 | negative skew | Permission without Belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -130,7 +130,7 @@ TSMC sits in a elevated decision-pressure zone in the equity tape.
 
 **Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** seta context | rank 6 | positive skew | confirmed / accepted
+**SETA read:** seta context | rank 6 | positive skew | Confirmed / Accepted
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -142,7 +142,7 @@ DOGE still carries validation risk. Surface activity may be visible, while the u
 
 **Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
-**SETA read:** validation risk | rank 6 | negative skew | rejection / decay
+**SETA read:** validation risk | rank 6 | negative skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
