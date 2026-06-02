@@ -103,18 +103,36 @@ function Invoke-GitChecked {
     return @()
   }
 
-  $output = & git @GitArgs 2>&1
-  $exitCode = $LASTEXITCODE
+  $stdoutPath = [System.IO.Path]::GetTempFileName()
+  $stderrPath = [System.IO.Path]::GetTempFileName()
+  $previousErrorActionPreference = $ErrorActionPreference
 
-  if ($output) {
-    $output | ForEach-Object { Write-Host $_ }
+  try {
+    $ErrorActionPreference = "Continue"
+    & git @GitArgs 1> $stdoutPath 2> $stderrPath
+    $exitCode = $LASTEXITCODE
+
+    $stdout = @(Get-Content -Path $stdoutPath -ErrorAction SilentlyContinue)
+    $stderr = @(Get-Content -Path $stderrPath -ErrorAction SilentlyContinue)
+  }
+  finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+    Remove-Item -Path $stdoutPath, $stderrPath -Force -ErrorAction SilentlyContinue
+  }
+
+  if ($stdout) {
+    $stdout | ForEach-Object { Write-Host $_ }
+  }
+
+  if ($stderr) {
+    $stderr | ForEach-Object { Write-Host $_ }
   }
 
   if ($exitCode -ne 0) {
     throw "$Label failed with exit code $exitCode"
   }
 
-  return @($output)
+  return @($stdout + $stderr)
 }
 
 function Get-GitOutputChecked {
@@ -128,26 +146,40 @@ function Get-GitOutputChecked {
     return @()
   }
 
+  $stdoutPath = [System.IO.Path]::GetTempFileName()
+  $stderrPath = [System.IO.Path]::GetTempFileName()
   $previousErrorActionPreference = $ErrorActionPreference
 
   try {
     $ErrorActionPreference = "Continue"
-    $output = & git @GitArgs 2>&1
+    & git @GitArgs 1> $stdoutPath 2> $stderrPath
     $exitCode = $LASTEXITCODE
+
+    $stdout = @(Get-Content -Path $stdoutPath -ErrorAction SilentlyContinue)
+    $stderr = @(Get-Content -Path $stderrPath -ErrorAction SilentlyContinue)
   }
   finally {
     $ErrorActionPreference = $previousErrorActionPreference
+    Remove-Item -Path $stdoutPath, $stderrPath -Force -ErrorAction SilentlyContinue
   }
 
   if ($exitCode -ne 0) {
-    if ($output) {
-      $output | ForEach-Object { Write-Host $_ }
+    if ($stdout) {
+      $stdout | ForEach-Object { Write-Host $_ }
+    }
+
+    if ($stderr) {
+      $stderr | ForEach-Object { Write-Host $_ }
     }
 
     throw "$Label failed with exit code $exitCode"
   }
 
-  return @($output)
+  if ($stderr) {
+    $stderr | ForEach-Object { Write-Host $_ }
+  }
+
+  return @($stdout)
 }
 
 function Assert-CleanEvidenceStagingScope {
