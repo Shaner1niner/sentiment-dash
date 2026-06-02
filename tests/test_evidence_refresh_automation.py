@@ -36,7 +36,12 @@ def test_refresh_automation_commit_push_guardrails_are_present():
     source = SCRIPT.read_text(encoding="utf-8")
     assert "-Push requires -CommitEvidencePayload" in source
     assert "Refusing to commit because unrelated staged files are present" in source
-    assert "Refusing to push from detached HEAD" in source
+    assert "Refusing to commit from detached HEAD" in source
+    assert "AutomationCommitBranch" in source
+    assert "auto/evidence-refresh-state" in source
+    assert "ProtectedDirectCommitBranches" in source
+    assert '"switch", "-C", $targetBranch' in source
+    assert "returning to source branch after generated Evidence commit" in source
     assert "commit evidence payload" in source
     assert "push evidence payload commit" in source
     assert "seta_bundles/latest/evidence/dashboard_evidence_payload.json" in source
@@ -86,4 +91,5 @@ def test_refresh_automation_git_helpers_capture_native_stderr_safely():
     assert "Remove-Item -Path $stdoutPath, $stderrPath" in source
     assert "if ($exitCode -ne 0)" in source
     assert "failed with exit code $exitCode" in source
+
 
