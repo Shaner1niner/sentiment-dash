@@ -198,10 +198,17 @@ function latestConfirmedDailyDateMs(confirmedRows = []) {
         .reduce((latest, value) => Math.max(latest, value), -Infinity);
 }
 
+function isExactlyNextCalendarDate(latestConfirmedDateMs, overlayDateMs) {
+    const dayMs = 24 * 60 * 60 * 1000;
+    return Number.isFinite(latestConfirmedDateMs)
+        && Number.isFinite(overlayDateMs)
+        && overlayDateMs - latestConfirmedDateMs === dayMs;
+}
+
 function getCryptoPartialDailyCandle(term, confirmedRows, freq, overlay = CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD) {
     const normalizedFreq = String(freq || '').trim().toUpperCase();
     if (normalizedFreq !== 'D' && normalizedFreq !== 'DAILY') {
-        return cryptoPartialDailyStatus('non_daily_freq', { term, freq: normalizedFreq });
+        return cryptoPartialDailyStatus('non_daily_frequency', { term, freq: normalizedFreq });
     }
     if (!overlay || !overlay.by_term || typeof overlay.by_term !== 'object') {
         return cryptoPartialDailyStatus('missing_overlay', { term, freq: normalizedFreq });
@@ -210,10 +217,10 @@ function getCryptoPartialDailyCandle(term, confirmedRows, freq, overlay = CRYPTO
     const normalizedTerm = String(term || '').trim().toUpperCase();
     const row = overlay.by_term[normalizedTerm] || overlay.by_term[String(term || '').trim()];
     if (!normalizedTerm || !row) {
-        return cryptoPartialDailyStatus('no_term', { term: normalizedTerm, freq: normalizedFreq });
+        return cryptoPartialDailyStatus('term_not_found', { term: normalizedTerm, freq: normalizedFreq });
     }
     if (row.is_partial !== true) {
-        return cryptoPartialDailyStatus('missing_overlay', { term: normalizedTerm, freq: normalizedFreq });
+        return cryptoPartialDailyStatus('not_partial', { term: normalizedTerm, freq: normalizedFreq });
     }
 
     const open = asNumber(row.open);
@@ -227,10 +234,18 @@ function getCryptoPartialDailyCandle(term, confirmedRows, freq, overlay = CRYPTO
     const overlayDateMs = dateOnlyMs(row.date || row.dt || row.timestamp);
     const confirmedDateMs = latestConfirmedDailyDateMs(confirmedRows);
     if (overlayDateMs === null || (Number.isFinite(confirmedDateMs) && overlayDateMs <= confirmedDateMs)) {
-        return cryptoPartialDailyStatus('stale_or_same_date', {
+        return cryptoPartialDailyStatus('same_or_older_date', {
             term: normalizedTerm,
             freq: normalizedFreq,
             overlay_date: row.date || null
+        });
+    }
+    if (!isExactlyNextCalendarDate(confirmedDateMs, overlayDateMs)) {
+        return cryptoPartialDailyStatus('confirmed_data_stale', {
+            term: normalizedTerm,
+            freq: normalizedFreq,
+            overlay_date: row.date || null,
+            latest_confirmed_date: Number.isFinite(confirmedDateMs) ? new Date(confirmedDateMs).toISOString().slice(0, 10) : null
         });
     }
 

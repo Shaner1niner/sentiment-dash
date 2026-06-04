@@ -84606,6 +84606,13 @@ function latestConfirmedDailyDateMs(confirmedRows = []){
     .reduce((latest, value) => Math.max(latest, value), -Infinity);
 }
 
+function isExactlyNextCalendarDate(latestConfirmedDateMs, overlayDateMs){
+  const dayMs = 24 * 60 * 60 * 1000;
+  return Number.isFinite(latestConfirmedDateMs)
+    && Number.isFinite(overlayDateMs)
+    && overlayDateMs - latestConfirmedDateMs === dayMs;
+}
+
 // Display-only crypto overlay; never append this row to canonical indicator inputs.
 async function loadCryptoPartialDailyOverlay(){
   if(CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD) return CRYPTO_PARTIAL_DAILY_OVERLAY_PAYLOAD;
@@ -84627,15 +84634,15 @@ async function loadCryptoPartialDailyOverlay(){
 
 async function getCryptoPartialDailyCandle(term, confirmedRows, freq){
   const normalizedFreq = String(freq || '').trim().toUpperCase();
-  if(normalizedFreq !== 'D' && normalizedFreq !== 'DAILY') return cryptoPartialDailyStatus('non_daily_freq', {term, freq:normalizedFreq});
+  if(normalizedFreq !== 'D' && normalizedFreq !== 'DAILY') return cryptoPartialDailyStatus('non_daily_frequency', {term, freq:normalizedFreq});
 
   const overlay = await loadCryptoPartialDailyOverlay();
   if(!overlay || !overlay.by_term || typeof overlay.by_term !== 'object') return cryptoPartialDailyStatus('missing_overlay', {term, freq:normalizedFreq});
 
   const normalizedTerm = String(term || '').trim().toUpperCase();
   const row = overlay.by_term[normalizedTerm] || overlay.by_term[String(term || '').trim()];
-  if(!normalizedTerm || !row) return cryptoPartialDailyStatus('no_term', {term:normalizedTerm, freq:normalizedFreq});
-  if(row.is_partial !== true) return cryptoPartialDailyStatus('missing_overlay', {term:normalizedTerm, freq:normalizedFreq});
+  if(!normalizedTerm || !row) return cryptoPartialDailyStatus('term_not_found', {term:normalizedTerm, freq:normalizedFreq});
+  if(row.is_partial !== true) return cryptoPartialDailyStatus('not_partial', {term:normalizedTerm, freq:normalizedFreq});
 
   const open = num(row.open), high = num(row.high), low = num(row.low), close = num(row.close);
   if([open, high, low, close].some(value => value === null) || high < low) return cryptoPartialDailyStatus('invalid_ohlc', {term:normalizedTerm, freq:normalizedFreq});
@@ -84643,7 +84650,15 @@ async function getCryptoPartialDailyCandle(term, confirmedRows, freq){
   const overlayDateMs = cryptoPartialDailyDateMs(row.date || row.dt || row.timestamp);
   const confirmedDateMs = latestConfirmedDailyDateMs(confirmedRows);
   if(overlayDateMs === null || (Number.isFinite(confirmedDateMs) && overlayDateMs <= confirmedDateMs)){
-    return cryptoPartialDailyStatus('stale_or_same_date', {term:normalizedTerm, freq:normalizedFreq, overlay_date:row.date || null});
+    return cryptoPartialDailyStatus('same_or_older_date', {term:normalizedTerm, freq:normalizedFreq, overlay_date:row.date || null});
+  }
+  if(!isExactlyNextCalendarDate(confirmedDateMs, overlayDateMs)){
+    return cryptoPartialDailyStatus('confirmed_data_stale', {
+      term: normalizedTerm,
+      freq: normalizedFreq,
+      overlay_date: row.date || null,
+      latest_confirmed_date: Number.isFinite(confirmedDateMs) ? new Date(confirmedDateMs).toISOString().slice(0, 10) : null
+    });
   }
 
   const displayDate = row.date || new Date(overlayDateMs).toISOString().slice(0, 10);
