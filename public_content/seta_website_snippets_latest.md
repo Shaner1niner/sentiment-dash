@@ -130,19 +130,19 @@ BTC looks more like repair than confirmation. The useful read is whether sponsor
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 6 | negative skew | Rejection / decay
+**SETA read:** repair watch | rank 6 | negative skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## NFLX: validation risk
+## DIS: contested structure
 
-NFLX still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
+DIS is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. rejection / decay is the key tension.
 
-**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** validation risk | rank 6 | negative skew | rejection / decay
+**SETA read:** contested structure | rank 6 | negative skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
