@@ -1,4 +1,4 @@
-# SETA Website Snippets — 2026-06-03
+# SETA Website Snippets — 2026-06-04
 
 Public-safe explanation copy for website/dashboard display.
 
@@ -16,13 +16,13 @@ TSMC is sitting in a decision-pressure zone. The signal is less about prediction
 
 ---
 
-## DOGE: validation risk
+## DOGE: decision-pressure watch
 
-DOGE still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
+DOGE is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
 
-**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
+**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** validation risk | rank 1 | negative skew | Decay
+**SETA read:** decision pressure | rank 1 | negative skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -34,7 +34,7 @@ SOL is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 2 | positive skew | Diffusion
+**SETA read:** participation diffusion | rank 2 | positive skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -58,7 +58,7 @@ LINK is showing broader participation. That is constructive for the crypto tape,
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 3 | positive skew | Diffusion
+**SETA read:** participation diffusion | rank 3 | positive skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -82,7 +82,7 @@ ADA is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 4 | positive skew | Diffusion
+**SETA read:** participation diffusion | rank 4 | positive skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -106,7 +106,7 @@ ETH is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 5 | positive skew | Diffusion
+**SETA read:** participation diffusion | rank 5 | positive skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -130,7 +130,7 @@ BTC looks more like repair than confirmation. The useful read is whether sponsor
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 6 | negative skew | rejection / decay
+**SETA read:** repair watch | rank 6 | negative skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
