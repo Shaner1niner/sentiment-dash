@@ -1,6 +1,6 @@
 {
   "asset_count": 28,
-  "generated_at_utc": "2026-06-04T21:04:01.830291Z",
+  "generated_at_utc": "2026-06-04T21:15:03.353031Z",
   "latest_by_term": {
     "AAPL": {
       "as_of_utc": "2026-06-04T21:00:00Z",
@@ -32,28 +32,28 @@
     "AVAX": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 26.4288,
+      "direction_score": 26.4281,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 59.3674,
+      "structure_score": 59.3679,
       "term": "AVAX"
     },
     "BNB": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 29.5959,
+      "direction_score": 29.5831,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 56.54,
+      "structure_score": 56.5474,
       "term": "BNB"
     },
     "BTC": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 25.5529,
+      "direction_score": 25.5174,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 63.0137,
+      "structure_score": 63.0819,
       "term": "BTC"
     },
     "COIN": {
@@ -62,34 +62,34 @@
       "direction_score": 22.6772,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 29.1955,
+      "structure_score": 29.211,
       "term": "COIN"
     },
     "DOGE": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 31.1018,
+      "direction_score": 31.1003,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 58.0623,
+      "structure_score": 58.0632,
       "term": "DOGE"
     },
     "DXY": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bullish",
-      "direction_score": 57.7444,
+      "direction_score": 59.9891,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 14.6028,
+      "structure_score": 16.0351,
       "term": "DXY"
     },
     "ETH": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 45.3841,
+      "direction_score": 45.3692,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 48.1689,
+      "structure_score": 48.178,
       "term": "ETH"
     },
     "GLD": {
@@ -113,19 +113,19 @@
     "LINK": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 54.8627,
+      "direction_score": 54.8459,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 51.7825,
+      "structure_score": 51.7712,
       "term": "LINK"
     },
     "META": {
       "as_of_utc": "2026-06-04T21:00:00Z",
-      "direction_label": "Bearish",
-      "direction_score": 41.9396,
+      "direction_label": "Mixed / Neutral",
+      "direction_score": 45.2918,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 18.7431,
+      "structure_score": 16.8039,
       "term": "META"
     },
     "MSFT": {
@@ -179,34 +179,34 @@
       "direction_score": 42.4407,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 15.6308,
+      "structure_score": 15.7996,
       "term": "QQQ"
     },
     "SHOP": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 39.5271,
+      "direction_score": 39.3535,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 18.5852,
+      "structure_score": 18.6685,
       "term": "SHOP"
     },
     "SMCI": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 29.0245,
+      "direction_score": 28.8867,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 23.2622,
+      "structure_score": 23.3501,
       "term": "SMCI"
     },
     "SOL": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 31.5836,
+      "direction_score": 31.5865,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 61.1544,
+      "structure_score": 61.108,
       "term": "SOL"
     },
     "SPY": {
@@ -221,37 +221,37 @@
     "TLT": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 50.8675,
+      "direction_score": 50.3718,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 11.4778,
+      "structure_score": 11.1416,
       "term": "TLT"
     },
     "TSLA": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 38.2001,
+      "direction_score": 33.8263,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 20.0801,
+      "structure_score": 22.4288,
       "term": "TSLA"
     },
     "XLE": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 21.2287,
+      "direction_score": 23.0859,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 26.7602,
+      "structure_score": 25.7034,
       "term": "XLE"
     },
     "XRP": {
       "as_of_utc": "2026-06-04T21:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 44.8191,
+      "direction_score": 44.8037,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 48.8035,
+      "structure_score": 48.8115,
       "term": "XRP"
     }
   },
@@ -2021,10 +2021,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 26.4288,
+        "direction_score": 26.4281,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 59.3674,
+        "structure_score": 59.3679,
         "term": "AVAX"
       }
     ],
@@ -2464,10 +2464,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 29.5959,
+        "direction_score": 29.5831,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 56.54,
+        "structure_score": 56.5474,
         "term": "BNB"
       }
     ],
@@ -2907,10 +2907,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 25.5529,
+        "direction_score": 25.5174,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 63.0137,
+        "structure_score": 63.0819,
         "term": "BTC"
       }
     ],
@@ -3353,7 +3353,7 @@
         "direction_score": 22.6772,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 29.1955,
+        "structure_score": 29.211,
         "term": "COIN"
       }
     ],
@@ -3793,10 +3793,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 31.1018,
+        "direction_score": 31.1003,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 58.0623,
+        "structure_score": 58.0632,
         "term": "DOGE"
       }
     ],
@@ -4236,10 +4236,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bullish",
-        "direction_score": 57.7444,
+        "direction_score": 59.9891,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 14.6028,
+        "structure_score": 16.0351,
         "term": "DXY"
       }
     ],
@@ -4679,10 +4679,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Mixed / Neutral",
-        "direction_score": 45.3841,
+        "direction_score": 45.3692,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 48.1689,
+        "structure_score": 48.178,
         "term": "ETH"
       }
     ],
@@ -6008,10 +6008,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Mixed / Neutral",
-        "direction_score": 54.8627,
+        "direction_score": 54.8459,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 51.7825,
+        "structure_score": 51.7712,
         "term": "LINK"
       }
     ],
@@ -6450,11 +6450,11 @@
       },
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
-        "direction_label": "Bearish",
-        "direction_score": 41.9396,
+        "direction_label": "Mixed / Neutral",
+        "direction_score": 45.2918,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 18.7431,
+        "structure_score": 16.8039,
         "term": "META"
       }
     ],
@@ -9112,7 +9112,7 @@
         "direction_score": 42.4407,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 15.6308,
+        "structure_score": 15.7996,
         "term": "QQQ"
       }
     ],
@@ -9552,10 +9552,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 39.5271,
+        "direction_score": 39.3535,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 18.5852,
+        "structure_score": 18.6685,
         "term": "SHOP"
       }
     ],
@@ -9995,10 +9995,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 29.0245,
+        "direction_score": 28.8867,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 23.2622,
+        "structure_score": 23.3501,
         "term": "SMCI"
       }
     ],
@@ -10438,10 +10438,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 31.5836,
+        "direction_score": 31.5865,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 61.1544,
+        "structure_score": 61.108,
         "term": "SOL"
       }
     ],
@@ -11324,10 +11324,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Mixed / Neutral",
-        "direction_score": 50.8675,
+        "direction_score": 50.3718,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 11.4778,
+        "structure_score": 11.1416,
         "term": "TLT"
       }
     ],
@@ -11767,10 +11767,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 38.2001,
+        "direction_score": 33.8263,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 20.0801,
+        "structure_score": 22.4288,
         "term": "TSLA"
       }
     ],
@@ -12210,10 +12210,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 21.2287,
+        "direction_score": 23.0859,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 26.7602,
+        "structure_score": 25.7034,
         "term": "XLE"
       }
     ],
@@ -12653,10 +12653,10 @@
       {
         "as_of_utc": "2026-06-04T21:00:00Z",
         "direction_label": "Mixed / Neutral",
-        "direction_score": 44.8191,
+        "direction_score": 44.8037,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 48.8035,
+        "structure_score": 48.8115,
         "term": "XRP"
       }
     ]
