@@ -10,7 +10,7 @@ MSFT is sitting in a decision-pressure zone. The signal is less about prediction
 
 **Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** decision pressure | rank 1 | negative skew | Belief exceeds permission
+**SETA read:** decision pressure | rank 1 | negative skew | belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -34,7 +34,7 @@ NVDA is showing broader participation. That is constructive for the equity tape,
 
 **Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
-**SETA read:** participation diffusion | rank 2 | positive skew | Permission without belief
+**SETA read:** participation diffusion | rank 2 | positive skew | permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -58,7 +58,7 @@ GOOGL is sitting in a decision-pressure zone. The signal is less about predictio
 
 **Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** decision pressure | rank 3 | negative skew | Permission without belief
+**SETA read:** decision pressure | rank 3 | negative skew | permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -82,7 +82,7 @@ TSMC sits in a elevated decision-pressure zone in the equity tape.
 
 **Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** seta context | rank 4 | positive skew | Confirmed / accepted
+**SETA read:** seta context | rank 4 | positive skew | confirmed / accepted
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -102,11 +102,11 @@ BTC looks more like repair than confirmation. The useful read is whether sponsor
 
 ## JPM: contested structure
 
-JPM is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.
+JPM is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. permission without belief is the key tension.
 
 **Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** contested structure | rank 5 | negative skew | Permission without belief
+**SETA read:** contested structure | rank 5 | negative skew | permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -142,7 +142,7 @@ KAS still carries validation risk. Surface activity may be visible, while the un
 
 **Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
-**SETA read:** validation risk | rank 6 | negative skew | Rejection / Decay
+**SETA read:** validation risk | rank 6 | negative skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
