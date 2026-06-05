@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
 Runs the sentiment-dash refresh flow with an optional SETA_engine Evidence Handoff publish step.
 
@@ -119,10 +119,8 @@ $ErrorActionPreference = "Continue"
 & git @GitArgs 1> $stdoutPath 2> $stderrPath
 $exitCode = $LASTEXITCODE
 
-```
 $stdout = @(Get-Content -Path $stdoutPath -ErrorAction SilentlyContinue)
 $stderr = @(Get-Content -Path $stderrPath -ErrorAction SilentlyContinue)
-```
 
 }
 finally {
@@ -165,10 +163,8 @@ $ErrorActionPreference = "Continue"
 & git @GitArgs 1> $stdoutPath 2> $stderrPath
 $exitCode = $LASTEXITCODE
 
-```
 $stdout = @(Get-Content -Path $stdoutPath -ErrorAction SilentlyContinue)
 $stderr = @(Get-Content -Path $stderrPath -ErrorAction SilentlyContinue)
-```
 
 }
 finally {
@@ -181,13 +177,11 @@ if ($stdout) {
 $stdout | ForEach-Object { Write-Host $_ }
 }
 
-```
 if ($stderr) {
   $stderr | ForEach-Object { Write-Host $_ }
 }
 
 throw "$Label failed with exit code $exitCode"
-```
 
 }
 
@@ -378,11 +372,9 @@ Write-Step "WHATIF: would repair Evidence Card mounts."
 Write-Step "repairing Evidence Card mounts after dashboard refresh"
 & python $MountRepairHelper --root $DashRoot
 
-```
 if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
   throw "Evidence Card mount repair failed with exit code $LASTEXITCODE"
 }
-```
 
 }
 
@@ -392,11 +384,9 @@ Write-Step "WHATIF: would run strict Evidence Handoff refresh health check after
 Write-Step "validating Evidence Handoff refresh health after mount repair"
 & python $HealthCheckHelper --root $DashRoot --no-write
 
-```
 if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
   throw "Evidence Handoff refresh health check failed after mount repair with exit code $LASTEXITCODE"
 }
-```
 
 }
 
@@ -420,11 +410,9 @@ Write-Step "WHATIF: would run publish helper."
 } else {
 & powershell @publishArgs
 
-```
 if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
   throw "Evidence Handoff publish helper failed with exit code $LASTEXITCODE"
 }
-```
 
 }
 
@@ -433,11 +421,9 @@ Write-Step "WHATIF: would validate bundle payload."
 } else {
 & python $Validator --payload $BundlePayload
 
-```
 if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
   throw "Evidence Handoff payload validation failed with exit code $LASTEXITCODE"
 }
-```
 
 }
 
@@ -447,11 +433,9 @@ Write-Step "WHATIF: would write Evidence Handoff refresh health status."
 Write-Step "writing Evidence Handoff refresh health status"
 & python $HealthCheckHelper --root $DashRoot
 
-```
 if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
   throw "Evidence Handoff refresh health check failed with exit code $LASTEXITCODE"
 }
-```
 
 }
 
@@ -461,11 +445,9 @@ Write-Step "WHATIF: would run strict Evidence Handoff refresh health check after
 Write-Step "validating Evidence Handoff refresh health after status write"
 & python $HealthCheckHelper --root $DashRoot --no-write
 
-```
 if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
   throw "Evidence Handoff refresh health check failed after status write with exit code $LASTEXITCODE"
 }
-```
 
 }
 
@@ -475,11 +457,9 @@ Write-Step "WHATIF: would run refresh integrity report after Evidence repair."
 Write-Step "running refresh integrity report after Evidence repair"
 & python $RefreshIntegrityHelper --root $DashRoot --report-only
 
-```
 if ($LASTEXITCODE -ne $null -and $LASTEXITCODE -ne 0) {
   throw "Refresh integrity report failed with exit code $LASTEXITCODE"
 }
-```
 
 }
 
