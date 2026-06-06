@@ -6,13 +6,13 @@
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-06T06:40:53",
-      "pending_count": 2733,
-      "pending_resolution_basis_count": 2349,
+      "generated_at_utc": "2026-06-06T07:03:34",
+      "pending_count": 2668,
+      "pending_resolution_basis_count": 2348,
       "resolution_basis_guard_applied": true,
-      "resolved_count": 5020,
+      "resolved_count": 4996,
       "schema_version": "prediction_outcome_overlay_v1",
-      "selective_accuracy": 0.6250996015936255
+      "selective_accuracy": 0.6234987990392313
     },
     "public_chart_store": {
       "asset_count": 0,
@@ -26,10 +26,10 @@
       "date": "2026-06-06",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-06T06:40:48+00:00"
+      "published_at_utc": "2026-06-06T07:03:30+00:00"
     }
   },
-  "generated_at_utc": "2026-06-06T06:41:00Z",
+  "generated_at_utc": "2026-06-06T07:03:41Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
