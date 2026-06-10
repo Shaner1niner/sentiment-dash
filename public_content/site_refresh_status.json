@@ -6,7 +6,7 @@
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-10T05:29:17",
+      "generated_at_utc": "2026-06-10T06:29:09",
       "pending_count": 2965,
       "pending_resolution_basis_count": 2709,
       "resolution_basis_guard_applied": true,
@@ -26,10 +26,10 @@
       "date": "2026-06-10",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-10T05:29:12+00:00"
+      "published_at_utc": "2026-06-10T06:29:04+00:00"
     }
   },
-  "generated_at_utc": "2026-06-10T05:29:24Z",
+  "generated_at_utc": "2026-06-10T06:29:16Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -37,8 +37,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "polish/prediction-accountability-ux-v1",
-    "head_sha": "1918555a73ed730cd7483c5d53489de61626939a"
+    "branch": "main",
+    "head_sha": "f8a286205957259a704ee914f4a2b55c2f926f31"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
