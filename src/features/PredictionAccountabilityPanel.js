@@ -634,6 +634,8 @@ function renderPanel() {
         <div class="modulePredictionMetric"><span>Resolved</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'resolved_count', derived.resolved_count)))}</strong></div>
         <div class="modulePredictionMetric"><span>Pending</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'pending_count', derived.pending_count)))}</strong></div>
         <div class="modulePredictionMetric"><span>No-call</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'no_call_count', derived.no_call_count)))}</strong></div>
+        <div class="modulePredictionMetric"><span>Final scored</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'called_evaluated_count', derived.final_outcome_count)))}</strong></div>
+        <div class="modulePredictionMetric"><span>Basis pending</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'pending_resolution_basis_count', derived.pending_basis_count)))}</strong></div>
       </div>
 
       ${renderWarningBlock(warnings)}
@@ -661,7 +663,7 @@ function renderPanel() {
       </div>
 
       <p class="modulePredictionNote">
-        Accountability view only. Measured results reflect stored prediction windows, not live candle movement. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
+        Accountability view only. Measured results reflect stored prediction windows, not live candle movement. Final scored rows are the only rows eligible for Correct/Miss display; pending basis rows remain withheld until public resolution context is available. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
         Generated: ${escapeHtml(meta.generated_at || 'unknown')}.
       </p>
     `;
