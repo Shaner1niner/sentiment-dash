@@ -6,7 +6,7 @@
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-10T02:28:46",
+      "generated_at_utc": "2026-06-10T03:28:56",
       "pending_count": 2965,
       "pending_resolution_basis_count": 2709,
       "resolution_basis_guard_applied": true,
@@ -23,13 +23,13 @@
       "briefing_count": 74
     },
     "website_snippets": {
-      "date": "2026-06-09",
+      "date": "2026-06-10",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-10T02:28:41+00:00"
+      "published_at_utc": "2026-06-10T03:28:51+00:00"
     }
   },
-  "generated_at_utc": "2026-06-10T02:28:53Z",
+  "generated_at_utc": "2026-06-10T03:29:03Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -38,7 +38,7 @@
   "public_safe": true,
   "repository": {
     "branch": "harden/prediction-accountability-overlay-v1",
-    "head_sha": "53696270789310d2aaf89cdca5e9c382879cd8f4"
+    "head_sha": "da7de3a3fadd4a2a4b3019ed7fb913db8fb0ab09"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
