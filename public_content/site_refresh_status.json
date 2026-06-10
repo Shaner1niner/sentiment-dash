@@ -6,7 +6,7 @@
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-10T20:28:49",
+      "generated_at_utc": "2026-06-10T21:29:12",
       "pending_count": 3055,
       "pending_resolution_basis_count": 2799,
       "resolution_basis_guard_applied": true,
@@ -26,10 +26,10 @@
       "date": "2026-06-10",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-10T20:28:44+00:00"
+      "published_at_utc": "2026-06-10T21:29:06+00:00"
     }
   },
-  "generated_at_utc": "2026-06-10T20:28:56Z",
+  "generated_at_utc": "2026-06-10T21:29:19Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -37,8 +37,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "main",
-    "head_sha": "f8a286205957259a704ee914f4a2b55c2f926f31"
+    "branch": "test/prediction-accountability-fixtures-v1",
+    "head_sha": "e450f921a721442bc531aacb090b1bccde5e1fb6"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
