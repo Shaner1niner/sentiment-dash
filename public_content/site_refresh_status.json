@@ -6,7 +6,7 @@
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-11T00:28:47",
+      "generated_at_utc": "2026-06-11T01:29:10",
       "pending_count": 3055,
       "pending_resolution_basis_count": 2799,
       "resolution_basis_guard_applied": true,
@@ -26,10 +26,10 @@
       "date": "2026-06-10",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-11T00:28:41+00:00"
+      "published_at_utc": "2026-06-11T01:29:04+00:00"
     }
   },
-  "generated_at_utc": "2026-06-11T00:28:54Z",
+  "generated_at_utc": "2026-06-11T01:29:17Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -37,8 +37,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "test/prediction-accountability-fixtures-v1",
-    "head_sha": "ed1be48a34576862f450bbd04aa5a831b66978ee"
+    "branch": "docs/session-wrap-public-bridge-and-accountability-v1",
+    "head_sha": "b7fef120fbb3d1c1ab1d8d2004344a4a05c5b34e"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
