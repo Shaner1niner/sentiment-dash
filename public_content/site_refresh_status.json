@@ -1,35 +1,75 @@
 {
   "artifacts": {
     "member_chart_store": {
-      "asset_count": 0,
-      "generated_at_utc": null,
+      "asset_count": 28,
+      "assets": [
+        "AAPL",
+        "AMD",
+        "AMZN",
+        "AVAX",
+        "BNB",
+        "BTC",
+        "COIN",
+        "DOGE",
+        "DXY",
+        "ETH",
+        "GLD",
+        "GOOGL",
+        "LINK",
+        "META",
+        "MSFT",
+        "MSTR",
+        "NFLX",
+        "NVDA",
+        "PLTR",
+        "QQQ",
+        "SHOP",
+        "SMCI",
+        "SOL",
+        "SPY",
+        "TLT",
+        "TSLA",
+        "XLE",
+        "XRP"
+      ],
+      "generated_at_utc": "2026-06-12T23:10:14Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-11T03:29:07",
-      "pending_count": 3055,
-      "pending_resolution_basis_count": 2799,
+      "generated_at_utc": "2026-06-12T23:10:32",
+      "pending_count": 3235,
+      "pending_resolution_basis_count": 2979,
       "resolution_basis_guard_applied": true,
-      "resolved_count": 4708,
+      "resolved_count": 4532,
       "schema_version": "prediction_outcome_overlay_v1",
-      "selective_accuracy": 0.6297790994052677
+      "selective_accuracy": 0.6262135922330098
     },
     "public_chart_store": {
-      "asset_count": 0,
-      "assets": [],
-      "generated_at_utc": null
+      "asset_count": 9,
+      "assets": [
+        "AAPL",
+        "BTC",
+        "COIN",
+        "ETH",
+        "GLD",
+        "MSFT",
+        "NVDA",
+        "SOL",
+        "SPY"
+      ],
+      "generated_at_utc": "2026-06-12T23:10:09Z"
     },
     "reviewed_briefings": {
       "briefing_count": 74
     },
     "website_snippets": {
-      "date": "2026-06-11",
+      "date": "2026-06-12",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-11T03:29:01+00:00"
+      "published_at_utc": "2026-06-12T23:10:27+00:00"
     }
   },
-  "generated_at_utc": "2026-06-11T03:29:14Z",
+  "generated_at_utc": "2026-06-12T23:10:39Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -37,8 +77,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "docs/session-wrap-public-bridge-and-accountability-v1",
-    "head_sha": "b7fef120fbb3d1c1ab1d8d2004344a4a05c5b34e"
+    "branch": "main",
+    "head_sha": "045b2f00977752e4ee3bd5d61f7937930a2949f0"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"

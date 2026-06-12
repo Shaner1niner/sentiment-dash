@@ -3,6 +3,7 @@ import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader
 import { PlotlyRenderer } from './PlotlyRenderer.js?v=module_crypto_partial_daily_overlay_001';
 import './features/ChartSessionAxisPatch.js?v=module_chart_session_axis_001';
 import './features/SentimentLayerStructureControlPatch.js?v=module_sentiment_layer_structure_controls_001';
+import './features/ModularConfirmedDiamondsPatch.js?v=module_confirmed_diamonds_001';
 import { MarketTape } from './features/MarketTape.js';
 import './features/MarketTapeAttentionStructureCards.js?v=module_market_tape_attention_structure_cards_001';
 import './features/PublicDashboardIntroCopy.js?v=module_public_dashboard_intro_copy_001';
@@ -11,14 +12,19 @@ import './features/ActiveSetupSnapshotVisualPolish.js?v=module_active_setup_snap
 import './features/PublicDashboardResponsivePolish.js?v=module_public_dashboard_responsive_polish_001';
 import './features/TouchChartStatusPolish.js?v=module_touch_chart_status_polish_001';
 import './features/MobilePublicDashboardAffordances.js?v=module_mobile_public_dashboard_affordances_001';
+import './features/PublicControlDensityPolish.js?v=module_public_control_density_polish_001';
+import './features/PublicPredictionAccountabilityPolish.js?v=prediction_accountability_polish_004';
 import './features/ResearchSourceMixPanel.js?v=module_research_source_mix_panel_001';
 import { DataFreshnessIndicator } from './features/DataFreshnessIndicator.js?v=module_data_freshness_indicator_001';
 import { Controls } from './features/Controls.js';
-import { BriefingPanel } from './features/BriefingPanel.js';
+import { BriefingPanel } from './features/BriefingPanel.js?v=asset_briefing_combined_read_003';
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log("SETA Dashboard V2 Modules Initialized");
     await Controls.init();
+    if (window.PUBLIC_CONTROL_DENSITY_POLISH && typeof window.PUBLIC_CONTROL_DENSITY_POLISH.init === 'function') {
+        window.PUBLIC_CONTROL_DENSITY_POLISH.init();
+    }
     MarketTape.init();
     DataFreshnessIndicator.init();
     await BriefingPanel.init();
