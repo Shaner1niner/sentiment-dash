@@ -97,7 +97,7 @@
     <section class="seta-hero">
       <div class="seta-eyebrow">SETA Market Context</div>
       <h1>Sentiment beneath price, translated into plain language.</h1>
-      <p class="seta-subtitle">These cards summarize how SETA reads attention, sentiment, and price/sentiment structure by asset. Decision Pressure is the model’s read of how sentiment behavior and price behavior are aligning, diverging, or waiting for confirmation. These are educational explanations, not predictions, recommendations, or trade signals.</p>
+      <p class="seta-subtitle">These cards summarize how SETA reads attention, sentiment, and price/sentiment structure by asset. Decision Pressure is the modelâ€™s read of how sentiment behavior and price behavior are aligning, diverging, or waiting for confirmation. These are educational explanations, not predictions, recommendations, or trade signals.</p>
       <div class="seta-explainer" aria-label="How to read these cards">
         <div class="seta-explainer-card"><strong>Attention is not validation.</strong>High attention means participation is active. It does not mean price has confirmed the behavior.</div>
         <div class="seta-explainer-card"><strong>Sentiment vs price matters.</strong>Decision pressure compares sentiment behavior with price behavior to show where they are aligned, stretched, or out of balance.</div>
@@ -109,7 +109,7 @@
 
     <section class="seta-controls" aria-label="SETA card controls">
       <div class="seta-control-left">
-        <input id="setaSearch" type="search" placeholder="Search asset, sentiment, theme, or phrase…" />
+        <input id="setaSearch" type="search" placeholder="Search asset, sentiment, theme, or phraseâ€¦" />
         <select id="setaUniverse"><option value="">All universes</option></select>
       </div>
       <div class="seta-control-right">
@@ -118,7 +118,7 @@
       </div>
     </section>
 
-    <p id="setaMeta" class="seta-meta">Loading SETA context…</p>
+    <p id="setaMeta" class="seta-meta">Loading SETA contextâ€¦</p>
     <section id="setaFeaturedWrap" class="seta-featured-wrap" aria-label="Featured SETA context">
       <div class="seta-section-title"><h2>Featured context</h2><span>First few cards from the current packet</span></div>
       <div id="setaFeatured" class="seta-featured-grid"></div>
@@ -233,8 +233,8 @@
       renderStatus(); renderActions(); renderFeatured();
       els.cards.innerHTML = state.filtered.length ? state.filtered.map(s => renderCard(s)).join("") : `<div class="seta-empty">No SETA context cards match the current filters.</div>`;
       const date = clean(state.payload?.date), published = clean(state.payload?.published_at_utc);
-      const filterNote = state.focusedTerm ? ` · <span class="seta-active-filter">focused on ${escapeHtml(state.focusedTerm)}</span>` : (state.universe ? ` · <span class="seta-active-filter">${escapeHtml(state.universe)}</span>` : "");
-      els.meta.innerHTML = `${state.filtered.length} of ${state.snippets.length} context snippets` + (date ? ` · date ${escapeHtml(date)}` : "") + (published ? ` · published ${escapeHtml(published)}` : "") + filterNote;
+      const filterNote = state.focusedTerm ? ` Â· <span class="seta-active-filter">focused on ${escapeHtml(state.focusedTerm)}</span>` : (state.universe ? ` Â· <span class="seta-active-filter">${escapeHtml(state.universe)}</span>` : "");
+      els.meta.innerHTML = `${state.filtered.length} of ${state.snippets.length} context snippets` + (date ? ` Â· date ${escapeHtml(date)}` : "") + (published ? ` Â· published ${escapeHtml(published)}` : "") + filterNote;
       els.countLabel.textContent = `${state.filtered.length} shown`;
     }
 
