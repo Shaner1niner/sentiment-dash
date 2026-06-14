@@ -43,6 +43,9 @@ def test_evidence_refresh_health_script_writes_status_json(tmp_path):
     assert status["payload"]["valid"] is True
     assert status["payload"]["primary_archetype"] == "attention_validation"
     assert status["payload"]["primary_title"]
+    assert status["payload"]["sample_window"] == "2026-03-24 to 2026-05-22"
+    assert status["payload"]["generated_or_as_of_utc"]
+    assert status["payload"]["archival"] is True
     assert status["mounts"]["homepage"]["present"] is True
     assert status["mounts"]["module_dashboard"]["present"] is True
     assert status["errors"] == []
@@ -72,6 +75,29 @@ def test_evidence_refresh_health_fails_when_homepage_mount_missing(tmp_path):
     assert status["status"] == "fail"
     assert status["mounts"]["homepage"]["present"] is False
     assert "homepage evidence mount missing or incomplete" in status["errors"]
+
+
+def test_evidence_refresh_health_fails_current_tense_stale_copy(tmp_path):
+    copy_health_inputs(tmp_path)
+
+    payload_path = tmp_path / "seta_bundles" / "latest" / "evidence" / "dashboard_evidence_payload.json"
+    payload = json.loads(payload_path.read_text(encoding="utf-8"))
+    payload["archive_notice"] = ""
+    payload["evidence_mode"] = "live"
+    payload["cards"][0]["public_takeaway"] = "Attention Validation currently shows constructive historical evidence."
+    payload_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+    result = subprocess.run(
+        [sys.executable, str(HEALTH), "--root", str(tmp_path), "--max-age-days", "1"],
+        capture_output=True,
+        text=True,
+    )
+
+    assert result.returncode == 1
+    assert "[FAIL] evidence refresh health" in result.stdout
+    assert "current-tense" in result.stdout or "current-tense" in (
+        tmp_path / "seta_bundles" / "latest" / "evidence" / "evidence_refresh_status.json"
+    ).read_text(encoding="utf-8")
 
 
 def test_refresh_wrapper_runs_health_helper_and_tracks_status_artifact():

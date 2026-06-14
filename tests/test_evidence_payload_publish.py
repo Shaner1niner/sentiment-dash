@@ -20,6 +20,8 @@ def test_publish_script_has_safe_modes():
     assert "ValidateOnly" in text
     assert "DryRun" in text
     assert "Stage" in text
+    assert "[PRE-COPY] validating source payload" in text
+    assert "refusing to copy stale or unsafe Evidence Handoff payload" in text
     assert "git -C $DashRoot add -f" in text
 
 

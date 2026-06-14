@@ -32,6 +32,23 @@ def test_missing_safety_note_fails_validation():
     assert any("safety_note missing phrase" in err for err in errors)
 
 
+def test_current_tense_takeaway_fails_validation():
+    payload = checker.load_payload(FIXTURE_PATH)
+    card = checker.find_card(payload, "attention_validation")
+    assert card is not None
+    card["public_takeaway"] = "Attention Validation currently shows constructive historical evidence."
+    errors = checker.validate_payload(payload)
+    assert any("current-tense" in err for err in errors)
+
+
+def test_archival_payload_requires_generated_metadata():
+    payload = checker.load_payload(FIXTURE_PATH)
+    payload.pop("generated_at_utc", None)
+    payload.pop("as_of", None)
+    errors = checker.validate_payload(payload)
+    assert any("generated_at_utc/as_of" in err for err in errors)
+
+
 def test_wrong_primary_archetype_fails_validation():
     payload = checker.load_payload(FIXTURE_PATH)
     payload["primary_archetype"] = "divergence"

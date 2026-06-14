@@ -14,6 +14,7 @@ INDEX_EVIDENCE_SECTION = f'''
           id="seta-evidence-card-root"
           data-seta-evidence-card
           data-payload-url="{PAYLOAD_URL}"
+          data-status-url="{HEALTH_STATUS_URL}"
         ></div>
       </div>
     </section>
@@ -100,6 +101,12 @@ def ensure_homepage_mount(root: Path) -> bool:
 
     if "data-seta-evidence-section" not in html:
         raise ValueError("Homepage Evidence Card mount could not be restored.")
+    if "id=\"seta-evidence-card-root\"" in html and "data-status-url" not in html.split('id="seta-evidence-card-root"', 1)[1].split("</div>", 1)[0]:
+        html = html.replace(
+            f'data-payload-url="{PAYLOAD_URL}"',
+            f'data-payload-url="{PAYLOAD_URL}"\n          data-status-url="{HEALTH_STATUS_URL}"',
+            1,
+        )
 
     html = ensure_homepage_health_badge(html)
 

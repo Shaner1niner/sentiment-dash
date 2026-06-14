@@ -22,6 +22,7 @@ def test_module_evidence_context_uses_existing_payload_and_mount_contract():
     assert "data-seta-evidence-section" in source
     assert "data-seta-evidence-card" in source
     assert "seta_bundles/latest/evidence/dashboard_evidence_payload.json" in source
+    assert "seta_bundles/latest/evidence/evidence_refresh_status.json" in source
     assert "window.SETAEvidenceCardUI.mountEvidenceCard" in source
 
 
@@ -31,3 +32,4 @@ def test_module_evidence_context_preserves_public_safety_framing():
     assert "Diagnostic only" in source
     assert "not a prediction, trade signal, recommendation, or price forecast" in source
     assert "attention_validation" in source
+    assert "Historical Evidence Context" in source

@@ -8,4 +8,12 @@ Expected generated file:
 dashboard_evidence_payload.json
 ```
 
-Do not hand-edit generated payloads. Refresh them from SETA_engine when the evidence chain is intentionally updated.
+Source of truth:
+
+```text
+C:\SETA_engine\SETA_engine_git_initialized_for_push\SETA_engine\outputs\evidence\handoff\dashboard_evidence_payload.json
+```
+
+The currently published sample is archival unless refreshed from SETA_engine. Public UI copy must say "Historical / archived validation sample" when the bundle is older than the configured freshness threshold.
+
+Do not hand-edit generated payloads except for an explicit archival disclosure/safety patch. Refresh them from SETA_engine when the evidence chain is intentionally updated.
