@@ -32,11 +32,11 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-06-14T18:29:18Z",
+      "generated_at_utc": "2026-06-14T19:29:05Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-14T18:29:37",
+      "generated_at_utc": "2026-06-14T19:29:24",
       "pending_count": 3287,
       "pending_resolution_basis_count": 3159,
       "resolution_basis_guard_applied": true,
@@ -57,7 +57,7 @@
         "SOL",
         "SPY"
       ],
-      "generated_at_utc": "2026-06-14T18:29:11Z"
+      "generated_at_utc": "2026-06-14T19:28:59Z"
     },
     "reviewed_briefings": {
       "briefing_count": 74
@@ -66,10 +66,10 @@
       "date": "2026-06-14",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-14T18:29:31+00:00"
+      "published_at_utc": "2026-06-14T19:29:18+00:00"
     }
   },
-  "generated_at_utc": "2026-06-14T18:29:45Z",
+  "generated_at_utc": "2026-06-14T19:29:31Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -78,7 +78,7 @@
   "public_safe": true,
   "repository": {
     "branch": "codex/private-handoff-review-viewer",
-    "head_sha": "f198aa88f121a7d5569c5f66ad981692da3e9cf5"
+    "head_sha": "cd8e779072248c925d312bd713e0c24b4e9f3782"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
