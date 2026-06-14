@@ -2,6 +2,10 @@
   "schema_version": "seta_evidence_handoff_v1",
   "primary_archetype": "attention_validation",
   "primary_status": "constructive",
+  "evidence_mode": "archival",
+  "archive_notice": "Historical / archived validation sample; not current evidence.",
+  "generated_at_utc": "2026-05-30T19:20:31Z",
+  "as_of": "2026-05-22",
   "safety_note": "Historical diagnostic only; not a trade signal, recommendation, or price forecast.",
   "cards": [
     {
@@ -9,7 +13,7 @@
       "title": "Attention Validation",
       "status": "constructive",
       "interpretation": "Historically, this archetype captures moments when elevated attention and positive tone appeared together.",
-      "public_takeaway": "Attention Validation currently shows constructive historical evidence: 682 events across 47 terms, with a 7d mean edge of 0.42% and a 7d win rate of 62.77% versus 57.22% baseline.",
+      "public_takeaway": "Historical / archived validation sample: Attention Validation showed constructive historical evidence from 2026-03-24 to 2026-05-22: 682 events across 47 terms, with a 7d mean edge of 0.42% and a 7d win rate of 62.77% versus 57.22% baseline.",
       "metrics": {
         "events": "682",
         "unique_terms": "47",
@@ -29,7 +33,7 @@
       "title": "Sentiment Repair",
       "status": "not_validated",
       "interpretation": "Historically, this archetype captures moments when sentiment improved from a weaker prior state.",
-      "public_takeaway": "Sentiment Repair is not validated by the current MVP evidence definition. This may indicate the archetype needs tighter filters.",
+      "public_takeaway": "Historical / archived validation sample: Sentiment Repair was not validated by this evidence definition. This may indicate the archetype needs tighter filters.",
       "metrics": {
         "events": "451",
         "unique_terms": "80",
@@ -50,7 +54,7 @@
       "title": "Divergence",
       "status": "mixed_constructive",
       "interpretation": "Historically, this archetype captures moments when tone strengthened without clear recent price confirmation.",
-      "public_takeaway": "Divergence shows a mixed but potentially constructive pattern. It needs segmentation before making stronger claims.",
+      "public_takeaway": "Historical / archived validation sample: Divergence showed a mixed but potentially constructive pattern. It needs segmentation before making stronger claims.",
       "metrics": {
         "events": "259",
         "unique_terms": "66",

@@ -28,6 +28,16 @@ REQUIRED_PRIMARY_METRICS = (
     "baseline_7d_win_rate",
 )
 
+CURRENT_TENSE_PHRASES = (
+    "currently shows",
+    "currently classifies",
+    "current evidence report",
+    "current historical evidence report",
+    "current MVP evidence definition",
+)
+
+ARCHIVAL_DISCLOSURE = "Historical / archived validation sample"
+
 
 def load_payload(path: str | Path) -> dict[str, Any]:
     payload_path = Path(path)
@@ -62,6 +72,14 @@ def validate_payload(payload: dict[str, Any], expected_primary: str = "attention
         if phrase not in safety_note:
             errors.append(f"safety_note missing phrase: {phrase}")
 
+    generated_at = payload.get("generated_at_utc") or payload.get("generated_at") or payload.get("as_of")
+    if not generated_at:
+        errors.append("payload missing generated_at_utc/as_of metadata")
+
+    archive_notice = str(payload.get("archive_notice") or "")
+    if payload.get("evidence_mode") == "archival" and ARCHIVAL_DISCLOSURE not in archive_notice:
+        errors.append("archival payload missing explicit archive_notice disclosure")
+
     cards = payload.get("cards")
     if not isinstance(cards, list) or not cards:
         errors.append("cards must be a non-empty list")
@@ -78,6 +96,14 @@ def validate_payload(payload: dict[str, Any], expected_primary: str = "attention
         errors.append("primary card missing status")
     if not primary_card.get("public_takeaway"):
         errors.append("primary card missing public_takeaway")
+    else:
+        takeaway = str(primary_card.get("public_takeaway") or "")
+        lowered = takeaway.lower()
+        for phrase in CURRENT_TENSE_PHRASES:
+            if phrase.lower() in lowered:
+                errors.append(f"primary card public_takeaway uses current-tense stale-risk phrase: {phrase}")
+        if payload.get("evidence_mode") == "archival" and ARCHIVAL_DISCLOSURE not in takeaway:
+            errors.append("archival primary card public_takeaway missing historical/archive disclosure")
 
     metrics = primary_card.get("metrics")
     if not isinstance(metrics, dict):
@@ -86,6 +112,8 @@ def validate_payload(payload: dict[str, Any], expected_primary: str = "attention
         for metric in REQUIRED_PRIMARY_METRICS:
             if metric not in metrics:
                 errors.append(f"primary card missing metric: {metric}")
+        if not metrics.get("date_range"):
+            errors.append("primary card missing sample window date_range")
 
     caveats = primary_card.get("caveats")
     if not isinstance(caveats, list) or not caveats:

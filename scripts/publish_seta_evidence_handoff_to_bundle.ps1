@@ -67,6 +67,11 @@ if ($DryRun) {
   exit 0
 }
 
+Write-Host "[PRE-COPY] validating source payload"
+& python $Validator --payload $SourcePayload
+if ($LASTEXITCODE -ne 0) { throw "Payload validation failed for source payload; refusing to copy stale or unsafe Evidence Handoff payload." }
+Write-Host "[OK] source payload valid"
+
 New-Item -ItemType Directory -Force -Path $DestinationDir | Out-Null
 Copy-Item -Path $SourcePayload -Destination $DestinationPayload -Force
 Write-Host "[OK] copied evidence handoff payload"

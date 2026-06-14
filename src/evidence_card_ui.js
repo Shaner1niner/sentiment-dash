@@ -14,6 +14,7 @@
 })(typeof self !== "undefined" ? self : this, function (root) {
   const TARGET_SELECTOR = "[data-seta-evidence-card]";
   const SECTION_SELECTOR = "[data-seta-evidence-section]";
+  const HEALTH_BADGE_SELECTOR = "[data-seta-evidence-health-badge]";
   const PRIMARY_ARCHETYPE = "attention_validation";
   const SAFETY_NOTE = "Historical diagnostic only; not a trade signal, recommendation, or price forecast.";
   const STYLE_ID = "seta-evidence-card-ui-v1-styles";
@@ -137,6 +138,20 @@
     if (section) section.hidden = false;
   }
 
+  function resolveStatusUrl(documentRef, element, options) {
+    if (options.statusUrl) return options.statusUrl;
+    if (options.statusURL) return options.statusURL;
+    if (element && element.getAttribute("data-status-url")) {
+      return element.getAttribute("data-status-url");
+    }
+    const section = element && element.closest ? element.closest(SECTION_SELECTOR) : null;
+    if (section && section.getAttribute("data-status-url")) {
+      return section.getAttribute("data-status-url");
+    }
+    const badge = documentRef ? documentRef.querySelector(HEALTH_BADGE_SELECTOR) : null;
+    return badge ? badge.getAttribute("data-status-url") : null;
+  }
+
   async function mountEvidenceCard(target, options = {}) {
     const documentRef = getDocument(options);
     const evidenceReader = options.reader || (root && root.SETAEvidenceHandoff);
@@ -147,11 +162,13 @@
     }
 
     const payloadUrl = options.url || element.getAttribute("data-payload-url") || evidenceReader.DEFAULT_PAYLOAD_URL;
+    const statusUrl = resolveStatusUrl(documentRef, element, options);
 
     try {
       injectEvidenceCardStyles({ document: documentRef });
       const rendered = await evidenceReader.loadAndRenderEvidenceHandoff(element, {
         url: payloadUrl,
+        statusUrl,
         primaryArchetype: PRIMARY_ARCHETYPE,
         cache: options.cache || "no-store",
       });
@@ -182,6 +199,7 @@
   return {
     TARGET_SELECTOR,
     SECTION_SELECTOR,
+    HEALTH_BADGE_SELECTOR,
     PRIMARY_ARCHETYPE,
     SAFETY_NOTE,
     injectEvidenceCardStyles,

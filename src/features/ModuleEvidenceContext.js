@@ -8,6 +8,7 @@
 (function () {
   const SECTION_ID = "module-evidence-context";
   const PAYLOAD_URL = "seta_bundles/latest/evidence/dashboard_evidence_payload.json";
+  const STATUS_URL = "seta_bundles/latest/evidence/evidence_refresh_status.json";
 
   function hasEvidenceContext() {
     return Boolean(document.getElementById(SECTION_ID));
@@ -36,6 +37,7 @@
           id="module-evidence-card-root"
           data-seta-evidence-card
           data-payload-url="${PAYLOAD_URL}"
+          data-status-url="${STATUS_URL}"
         ></div>
       </div>
     `;
@@ -121,6 +123,7 @@
   window.SETAModuleEvidenceContext = {
     SECTION_ID,
     PAYLOAD_URL,
+    STATUS_URL,
     mountEvidenceContext,
   };
 })();
