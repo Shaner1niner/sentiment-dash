@@ -32,11 +32,11 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-06-13T23:28:52Z",
+      "generated_at_utc": "2026-06-14T00:21:59Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-13T23:29:11",
+      "generated_at_utc": "2026-06-14T00:22:18",
       "pending_count": 3261,
       "pending_resolution_basis_count": 3069,
       "resolution_basis_guard_applied": true,
@@ -57,7 +57,7 @@
         "SOL",
         "SPY"
       ],
-      "generated_at_utc": "2026-06-13T23:28:45Z"
+      "generated_at_utc": "2026-06-14T00:21:55Z"
     },
     "reviewed_briefings": {
       "briefing_count": 74
@@ -66,10 +66,10 @@
       "date": "2026-06-13",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-13T23:29:04+00:00"
+      "published_at_utc": "2026-06-14T00:22:12+00:00"
     }
   },
-  "generated_at_utc": "2026-06-13T23:29:18Z",
+  "generated_at_utc": "2026-06-14T00:22:25Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -78,7 +78,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "b914d50c4fc643a5d3030acec338028db3bc6ca9"
+    "head_sha": "756820ed61c5c4f95422bc187917b2ad0b1270de"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
