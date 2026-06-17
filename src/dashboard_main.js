@@ -1,6 +1,6 @@
 import { Store } from './Store.js';
 import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader_001';
-import { PlotlyRenderer } from './PlotlyRenderer.js?v=module_crypto_partial_daily_overlay_001';
+import { PlotlyRenderer } from './PlotlyRenderer.js?v=module_sentiment_price_alignment_hover_001';
 import './features/ChartSessionAxisPatch.js?v=module_chart_session_axis_001';
 import './features/SentimentLayerStructureControlPatch.js?v=module_sentiment_layer_structure_controls_001';
 import './features/ModularConfirmedDiamondsPatch.js?v=module_confirmed_diamonds_001';
@@ -8,7 +8,7 @@ import { MarketTape } from './features/MarketTape.js';
 import './features/MarketTapeAttentionStructureCards.js?v=module_market_tape_attention_structure_cards_001';
 import './features/PublicDashboardIntroCopy.js?v=module_public_dashboard_intro_copy_001';
 import './features/ViewModeDensityPatch.js?v=module_view_mode_density_001';
-import './features/ActiveSetupSnapshotVisualPolish.js?v=module_active_setup_snapshot_visual_polish_001';
+import './features/ActiveSetupSnapshotVisualPolish.js?v=module_active_setup_snapshot_visual_polish_002';
 import './features/PublicDashboardResponsivePolish.js?v=module_public_dashboard_responsive_polish_001';
 import './features/TouchChartStatusPolish.js?v=module_touch_chart_status_polish_001';
 import './features/MobilePublicDashboardAffordances.js?v=module_mobile_public_dashboard_affordances_001';
