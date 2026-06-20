@@ -3,7 +3,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-06-20T14:30:34Z",
+  "generated_at": "2026-06-20T15:31:26Z",
   "items": [
     {
       "asset_class": "equity",
@@ -18,7 +18,7 @@
       "participation_context": "AAPL looks more like repair than all-clear; confirmation still matters. Watch whether sponsorship rebuilds enough to confirm the repair.",
       "public_safe": true,
       "public_safe_copy": "AAPL looks more like repair than all-clear; confirmation still matters.",
-      "sentiment_structure": "unclear",
+      "sentiment_structure": "Permission without belief",
       "source_breadth": "unclear",
       "suppression_reason": null,
       "symbol": "AAPL"
@@ -36,26 +36,26 @@
       "participation_context": "BTC looks more like repair than all-clear; confirmation still matters. Watch whether sponsorship rebuilds enough to confirm the repair.",
       "public_safe": true,
       "public_safe_copy": "BTC looks more like repair than all-clear; confirmation still matters.",
-      "sentiment_structure": "rejection / decay",
+      "sentiment_structure": "Rejection / decay",
       "source_breadth": "unclear",
       "suppression_reason": null,
       "symbol": "BTC"
     },
     {
-      "asset_class": "unclear",
-      "attention_state": "unclear",
-      "calibration_note": "Educational market context only; not investment advice.",
+      "asset_class": "equity",
+      "attention_state": "repair",
+      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "eligibility": "eligible_public_preview",
       "freshness": {
         "status": "fresh",
         "updated_at": "2026-06-20"
       },
       "name": "Coinbase",
-      "participation_context": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
+      "participation_context": "COIN looks more like repair than all-clear; confirmation still matters. Watch whether sponsorship rebuilds enough to confirm the repair.",
       "public_safe": true,
-      "public_safe_copy": "COIN shows weakening sentiment momentum with price resilience. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
-      "sentiment_structure": "COIN SETA briefing: Weakening sentiment momentum with price resilience",
-      "source_breadth": "used",
+      "public_safe_copy": "COIN looks more like repair than all-clear; confirmation still matters.",
+      "sentiment_structure": "rejection / decay",
+      "source_breadth": "unclear",
       "suppression_reason": null,
       "symbol": "COIN"
     },
@@ -114,38 +114,38 @@
       "symbol": "MSFT"
     },
     {
-      "asset_class": "unclear",
-      "attention_state": "unclear",
-      "calibration_note": "Educational market context only; not investment advice.",
+      "asset_class": "equity",
+      "attention_state": "diffusion",
+      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "eligibility": "eligible_public_preview",
       "freshness": {
         "status": "fresh",
         "updated_at": "2026-06-20"
       },
       "name": "NVIDIA",
-      "participation_context": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
+      "participation_context": "NVDA is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into sector leadership and structural confirmation. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: positive. This is interpretation context, not a trade signal. Watch whether broadening participation translates into sector leadership and structural confirmation.",
       "public_safe": true,
-      "public_safe_copy": "NVDA shows layered SETA context. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
-      "sentiment_structure": "NVDA SETA briefing: Layered SETA context",
-      "source_breadth": "used",
+      "public_safe_copy": "NVDA is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into sector leadership and structural confirmation. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: positive. This is interpretation context, not a trade signal.",
+      "sentiment_structure": "Permission without belief",
+      "source_breadth": "unclear",
       "suppression_reason": null,
       "symbol": "NVDA"
     },
     {
-      "asset_class": "unclear",
-      "attention_state": "unclear",
-      "calibration_note": "Educational market context only; not investment advice.",
+      "asset_class": "crypto",
+      "attention_state": "diffusion",
+      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "eligibility": "eligible_public_preview",
       "freshness": {
         "status": "fresh",
         "updated_at": "2026-06-20"
       },
       "name": "Solana",
-      "participation_context": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
+      "participation_context": "SOL is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 3. Skew: positive. This is interpretation context, not a trade signal. Watch whether broadening participation translates into participation and narrative coherence.",
       "public_safe": true,
-      "public_safe_copy": "SOL shows confirmed bullish pressure. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
-      "sentiment_structure": "SOL SETA briefing: Confirmed bullish pressure",
-      "source_breadth": "used",
+      "public_safe_copy": "SOL is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 3. Skew: positive. This is interpretation context, not a trade signal.",
+      "sentiment_structure": "Belief exceeds permission",
+      "source_breadth": "unclear",
       "suppression_reason": null,
       "symbol": "SOL"
     },
