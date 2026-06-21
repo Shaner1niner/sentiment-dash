@@ -32,17 +32,17 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-06-21T06:31:24Z",
+      "generated_at_utc": "2026-06-21T07:31:09Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-21T06:31:48",
-      "pending_count": 3672,
-      "pending_resolution_basis_count": 3608,
+      "generated_at_utc": "2026-06-21T07:31:31",
+      "pending_count": 3698,
+      "pending_resolution_basis_count": 3698,
       "resolution_basis_guard_applied": true,
-      "resolved_count": 4020,
+      "resolved_count": 3996,
       "schema_version": "prediction_outcome_overlay_v1",
-      "selective_accuracy": 0.631592039800995
+      "selective_accuracy": 0.6296296296296297
     },
     "public_chart_store": {
       "asset_count": 9,
@@ -57,27 +57,19 @@
         "SOL",
         "SPY"
       ],
-      "generated_at_utc": "2026-06-21T06:31:17Z"
+      "generated_at_utc": "2026-06-21T07:31:03Z"
     },
     "reviewed_briefings": {
       "briefing_count": 74
-    },
-    "seta_public_preview": {
-      "generated_at_utc": "2026-06-21T05:30:51Z",
-      "item_count": 9,
-      "mode": "public",
-      "public_safe": true,
-      "schema_version": "seta_public_preview_v1",
-      "source_repo": "sentiment-dash-internal"
     },
     "website_snippets": {
       "date": "2026-06-21",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-21T06:31:41+00:00"
+      "published_at_utc": "2026-06-21T07:31:24+00:00"
     }
   },
-  "generated_at_utc": "2026-06-21T06:31:55Z",
+  "generated_at_utc": "2026-06-21T07:31:38Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -85,8 +77,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "docs/recover-session-wrap-public-bridge-accountability-v1",
-    "head_sha": "db708eb0c3f183697531065e392128d3f736ffd8"
+    "branch": "review/private-handoff-operator-summary-549",
+    "head_sha": "a575f6b169b3028c227841383a1a205bb929a3b3"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
