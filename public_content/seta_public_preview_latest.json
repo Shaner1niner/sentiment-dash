@@ -3,7 +3,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-06-24T02:30:20Z",
+  "generated_at": "2026-06-24T03:31:34Z",
   "items": [
     {
       "asset_class": "equity",
@@ -12,13 +12,13 @@
       "eligibility": "eligible_public_preview",
       "freshness": {
         "status": "fresh",
-        "updated_at": "2026-06-23"
+        "updated_at": "2026-06-24"
       },
       "name": "Apple",
-      "participation_context": "AAPL sits in a elevated decision-pressure zone in the equity tape. Watch whether sector leadership and structural confirmation improves.",
+      "participation_context": "AAPL sits in a high decision-pressure zone in the equity tape. Watch whether decision pressure resolves into confirmation or rejection.",
       "public_safe": true,
-      "public_safe_copy": "AAPL sits in a elevated decision-pressure zone in the equity tape.",
-      "sentiment_structure": "Permission without belief",
+      "public_safe_copy": "AAPL sits in a high decision-pressure zone in the equity tape.",
+      "sentiment_structure": "unclear",
       "source_breadth": "unclear",
       "suppression_reason": null,
       "symbol": "AAPL"
@@ -30,32 +30,32 @@
       "eligibility": "eligible_public_preview",
       "freshness": {
         "status": "fresh",
-        "updated_at": "2026-06-23"
+        "updated_at": "2026-06-24"
       },
       "name": "Bitcoin",
       "participation_context": "BTC looks more like repair than all-clear; confirmation still matters. Watch whether sponsorship rebuilds enough to confirm the repair.",
       "public_safe": true,
       "public_safe_copy": "BTC looks more like repair than all-clear; confirmation still matters.",
-      "sentiment_structure": "Rejection / decay",
+      "sentiment_structure": "Rejection / Decay",
       "source_breadth": "unclear",
       "suppression_reason": null,
       "symbol": "BTC"
     },
     {
-      "asset_class": "equity",
-      "attention_state": "diffusion",
-      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
+      "asset_class": "unclear",
+      "attention_state": "unclear",
+      "calibration_note": "Educational market context only; not investment advice.",
       "eligibility": "eligible_public_preview",
       "freshness": {
         "status": "fresh",
-        "updated_at": "2026-06-23"
+        "updated_at": "2026-06-24"
       },
       "name": "Coinbase",
-      "participation_context": "COIN is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into sector leadership and structural confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 4. Skew: positive. This is interpretation context, not a trade signal. Watch whether broadening participation translates into sector leadership and structural confirmation.",
+      "participation_context": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
       "public_safe": true,
-      "public_safe_copy": "COIN is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into sector leadership and structural confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 4. Skew: positive. This is interpretation context, not a trade signal.",
-      "sentiment_structure": "Rejection / decay",
-      "source_breadth": "unclear",
+      "public_safe_copy": "COIN shows weakening sentiment momentum with price resilience. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
+      "sentiment_structure": "COIN SETA briefing: Weakening sentiment momentum with price resilience",
+      "source_breadth": "used",
       "suppression_reason": null,
       "symbol": "COIN"
     },
@@ -66,13 +66,13 @@
       "eligibility": "eligible_public_preview",
       "freshness": {
         "status": "fresh",
-        "updated_at": "2026-06-23"
+        "updated_at": "2026-06-24"
       },
       "name": "Ethereum",
-      "participation_context": "ETH is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / decay. Decision-pressure rank: 4. Skew: positive. This is interpretation context, not a trade signal. Watch whether broadening participation translates into participation and narrative coherence.",
+      "participation_context": "ETH is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / Decay. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal. Watch whether broadening participation translates into participation and narrative coherence.",
       "public_safe": true,
-      "public_safe_copy": "ETH is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / decay. Decision-pressure rank: 4. Skew: positive. This is interpretation context, not a trade signal.",
-      "sentiment_structure": "Rejection / decay",
+      "public_safe_copy": "ETH is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / Decay. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal.",
+      "sentiment_structure": "Rejection / Decay",
       "source_breadth": "unclear",
       "suppression_reason": null,
       "symbol": "ETH"
@@ -83,7 +83,7 @@
       "calibration_note": "Educational market context only; not investment advice.",
       "eligibility": "eligible_public_preview",
       "freshness": {
-        "status": "unknown",
+        "status": "fresh",
         "updated_at": "2026-06-24"
       },
       "name": "SPDR Gold Shares",
@@ -101,7 +101,7 @@
       "calibration_note": "Educational market context only; not investment advice.",
       "eligibility": "eligible_public_preview",
       "freshness": {
-        "status": "unknown",
+        "status": "fresh",
         "updated_at": "2026-06-24"
       },
       "name": "Microsoft",
@@ -114,38 +114,38 @@
       "symbol": "MSFT"
     },
     {
-      "asset_class": "equity",
-      "attention_state": "diffusion",
-      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
+      "asset_class": "unclear",
+      "attention_state": "unclear",
+      "calibration_note": "Educational market context only; not investment advice.",
       "eligibility": "eligible_public_preview",
       "freshness": {
         "status": "fresh",
-        "updated_at": "2026-06-23"
+        "updated_at": "2026-06-24"
       },
       "name": "NVIDIA",
-      "participation_context": "NVDA is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into sector leadership and structural confirmation. Structure reads as Permission without belief. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal. Watch whether broadening participation translates into sector leadership and structural confirmation.",
+      "participation_context": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
       "public_safe": true,
-      "public_safe_copy": "NVDA is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into sector leadership and structural confirmation. Structure reads as Permission without belief. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal.",
-      "sentiment_structure": "Permission without belief",
-      "source_breadth": "unclear",
+      "public_safe_copy": "NVDA shows range return with qualified confirmation. Sentiment is bullish expansion, attention is quiet, and source breadth is narrow.",
+      "sentiment_structure": "NVDA SETA briefing: Range return with qualified confirmation",
+      "source_breadth": "used",
       "suppression_reason": null,
       "symbol": "NVDA"
     },
     {
-      "asset_class": "crypto",
-      "attention_state": "diffusion",
-      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
+      "asset_class": "unclear",
+      "attention_state": "unclear",
+      "calibration_note": "Educational market context only; not investment advice.",
       "eligibility": "eligible_public_preview",
       "freshness": {
         "status": "fresh",
-        "updated_at": "2026-06-23"
+        "updated_at": "2026-06-24"
       },
       "name": "Solana",
-      "participation_context": "SOL is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal. Watch whether broadening participation translates into participation and narrative coherence.",
+      "participation_context": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "public_safe": true,
-      "public_safe_copy": "SOL is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal.",
-      "sentiment_structure": "Belief exceeds permission",
-      "source_breadth": "unclear",
+      "public_safe_copy": "SOL shows confirmed bullish pressure. Sentiment is bearish expansion, attention is quiet, and source breadth is narrow.",
+      "sentiment_structure": "SOL SETA briefing: Confirmed bullish pressure",
+      "source_breadth": "used",
       "suppression_reason": null,
       "symbol": "SOL"
     },
@@ -155,7 +155,7 @@
       "calibration_note": "Educational market context only; not investment advice.",
       "eligibility": "eligible_public_preview",
       "freshness": {
-        "status": "unknown",
+        "status": "fresh",
         "updated_at": "2026-06-24"
       },
       "name": "SPDR S&P 500 ETF Trust",
