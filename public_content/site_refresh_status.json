@@ -32,17 +32,17 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-06-26T04:30:12Z",
+      "generated_at_utc": "2026-06-06T03:39:46Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-26T04:30:34",
-      "pending_count": 4058,
-      "pending_resolution_basis_count": 4058,
+      "generated_at_utc": "2026-06-14T19:29:24",
+      "pending_count": 3287,
+      "pending_resolution_basis_count": 3159,
       "resolution_basis_guard_applied": true,
-      "resolved_count": 3644,
+      "resolved_count": 4484,
       "schema_version": "prediction_outcome_overlay_v1",
-      "selective_accuracy": 0.6517563117453348
+      "selective_accuracy": 0.6300178412132025
     },
     "public_chart_store": {
       "asset_count": 9,
@@ -57,13 +57,13 @@
         "SOL",
         "SPY"
       ],
-      "generated_at_utc": "2026-06-26T04:30:06Z"
+      "generated_at_utc": "2026-06-06T03:39:40Z"
     },
     "reviewed_briefings": {
       "briefing_count": 74
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-06-26T03:31:26Z",
+      "generated_at_utc": "2026-06-26T04:53:58Z",
       "item_count": 9,
       "mode": "public",
       "public_safe": true,
@@ -71,13 +71,13 @@
       "source_repo": "sentiment-dash-internal"
     },
     "website_snippets": {
-      "date": "2026-06-26",
+      "date": "2026-06-06",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-26T04:30:27+00:00"
+      "published_at_utc": "2026-06-06T03:40:11+00:00"
     }
   },
-  "generated_at_utc": "2026-06-26T04:30:41Z",
+  "generated_at_utc": "2026-06-26T04:53:58Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -85,8 +85,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "main",
-    "head_sha": "85130f4ce72693dcb2c959eb312f6f93a1fc0be4"
+    "branch": "codex/regenerate-public-preview-status",
+    "head_sha": "4b82de9daab05c101dbd4da835d5b075086dec0c"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
