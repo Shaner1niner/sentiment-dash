@@ -32,17 +32,17 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-06-06T03:39:46Z",
+      "generated_at_utc": "2026-06-27T05:25:30Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-14T19:29:24",
-      "pending_count": 3287,
-      "pending_resolution_basis_count": 3159,
+      "generated_at_utc": "2026-06-27T05:26:18",
+      "pending_count": 4148,
+      "pending_resolution_basis_count": 4148,
       "resolution_basis_guard_applied": true,
-      "resolved_count": 4484,
+      "resolved_count": 3556,
       "schema_version": "prediction_outcome_overlay_v1",
-      "selective_accuracy": 0.6300178412132025
+      "selective_accuracy": 0.6467941507311586
     },
     "public_chart_store": {
       "asset_count": 9,
@@ -57,13 +57,13 @@
         "SOL",
         "SPY"
       ],
-      "generated_at_utc": "2026-06-06T03:39:40Z"
+      "generated_at_utc": "2026-06-27T05:25:25Z"
     },
     "reviewed_briefings": {
       "briefing_count": 74
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-06-26T04:53:58Z",
+      "generated_at_utc": "2026-06-27T05:26:35Z",
       "item_count": 9,
       "mode": "public",
       "public_safe": true,
@@ -77,7 +77,7 @@
       "published_at_utc": "2026-06-06T03:40:11+00:00"
     }
   },
-  "generated_at_utc": "2026-06-26T04:53:58Z",
+  "generated_at_utc": "2026-06-27T05:26:35Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -85,8 +85,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "codex/regenerate-public-preview-status",
-    "head_sha": "4b82de9daab05c101dbd4da835d5b075086dec0c"
+    "branch": null,
+    "head_sha": "70603c0d78401f3d47f382638fa7c7ee37bdde24"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
