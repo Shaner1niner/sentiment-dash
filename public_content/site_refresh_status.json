@@ -32,17 +32,17 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-06-27T05:25:30Z",
+      "generated_at_utc": "2026-06-28T02:58:26Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-27T05:26:18",
-      "pending_count": 4148,
-      "pending_resolution_basis_count": 4148,
+      "generated_at_utc": "2026-06-28T02:58:46",
+      "pending_count": 4174,
+      "pending_resolution_basis_count": 4174,
       "resolution_basis_guard_applied": true,
-      "resolved_count": 3556,
+      "resolved_count": 3532,
       "schema_version": "prediction_outcome_overlay_v1",
-      "selective_accuracy": 0.6467941507311586
+      "selective_accuracy": 0.6443941109852774
     },
     "public_chart_store": {
       "asset_count": 9,
@@ -57,13 +57,13 @@
         "SOL",
         "SPY"
       ],
-      "generated_at_utc": "2026-06-27T05:25:25Z"
+      "generated_at_utc": "2026-06-28T02:58:20Z"
     },
     "reviewed_briefings": {
       "briefing_count": 74
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-06-27T05:26:35Z",
+      "generated_at_utc": "2026-06-28T02:59:04Z",
       "item_count": 9,
       "mode": "public",
       "public_safe": true,
@@ -71,13 +71,13 @@
       "source_repo": "sentiment-dash-internal"
     },
     "website_snippets": {
-      "date": "2026-06-06",
+      "date": "2026-06-28",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-06T03:40:11+00:00"
+      "published_at_utc": "2026-06-28T02:58:53+00:00"
     }
   },
-  "generated_at_utc": "2026-06-27T05:26:35Z",
+  "generated_at_utc": "2026-06-28T02:59:04Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -85,7 +85,7 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": null,
+    "branch": "main",
     "head_sha": "70603c0d78401f3d47f382638fa7c7ee37bdde24"
   },
   "runner": "run_seta_daily_all.bat",
