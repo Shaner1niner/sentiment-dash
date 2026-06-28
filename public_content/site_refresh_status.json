@@ -32,11 +32,11 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-06-28T04:30:21Z",
+      "generated_at_utc": "2026-06-28T05:00:25Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-06-28T04:30:40",
+      "generated_at_utc": "2026-06-28T05:00:44",
       "pending_count": 4174,
       "pending_resolution_basis_count": 4174,
       "resolution_basis_guard_applied": true,
@@ -45,26 +45,28 @@
       "selective_accuracy": 0.6443941109852774
     },
     "public_chart_store": {
-      "asset_count": 9,
+      "asset_count": 11,
       "assets": [
         "AAPL",
         "BTC",
         "COIN",
+        "DOGE",
         "ETH",
         "GLD",
         "MSFT",
         "NVDA",
         "SOL",
-        "SPY"
+        "SPY",
+        "TSLA"
       ],
-      "generated_at_utc": "2026-06-28T04:30:15Z"
+      "generated_at_utc": "2026-06-28T05:00:19Z"
     },
     "reviewed_briefings": {
-      "briefing_count": 74
+      "briefing_count": 78
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-06-28T04:30:58Z",
-      "item_count": 9,
+      "generated_at_utc": "2026-06-28T05:01:03Z",
+      "item_count": 11,
       "mode": "public",
       "public_safe": true,
       "schema_version": "seta_public_preview_v1",
@@ -74,10 +76,10 @@
       "date": "2026-06-28",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-06-28T04:30:47+00:00"
+      "published_at_utc": "2026-06-28T05:00:51+00:00"
     }
   },
-  "generated_at_utc": "2026-06-28T04:30:58Z",
+  "generated_at_utc": "2026-06-28T05:01:03Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -86,7 +88,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "70603c0d78401f3d47f382638fa7c7ee37bdde24"
+    "head_sha": "3df98fa42c513320fc8d07d930cc7cef224cbb5f"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
