@@ -9,8 +9,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 284 (2026-06-26).",
-            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
-            "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range.",
+            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
+            "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
           ],
           "role": "Receipts"
@@ -20,11 +20,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
+          "copy": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -32,12 +32,12 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 284 (2026-06-26).",
-        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
-        "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range.",
+        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
+        "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
       ],
       "frequency": "D",
-      "headline": "AAPL SETA briefing: AAPL shows sentiment MACD repair before price momentum has fully confi",
+      "headline": "AAPL SETA briefing: Bearish technical pressure with mixed internal strength",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
       "mode": "member",
       "model_metadata": {
@@ -50,7 +50,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -59,11 +59,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "AAPL shows sentiment MACD repair before price momentum has fully confirmed. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
+      "summary": "AAPL shows bearish technical pressure with mixed internal strength. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
-      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
-      "what_seta_sees": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
-      "why_it_matters": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited."
+      "watch_item": "Watch whether bearish technical pressure broadens into shared-zone confirmation, or fades while internal strength remains mixed.",
+      "what_seta_sees": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
+      "why_it_matters": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::aapl::w::1y::2026_06_29": {
       "as_of": "2026-06-29",
@@ -73,8 +73,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 284 (2026-06-26).",
-            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
-            "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range.",
+            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
+            "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
           ],
           "role": "Receipts"
@@ -84,11 +84,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
+          "copy": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -96,12 +96,12 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 284 (2026-06-26).",
-        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
-        "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range.",
+        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
+        "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
       ],
       "frequency": "W",
-      "headline": "AAPL SETA briefing: AAPL shows sentiment MACD repair before price momentum has fully confi",
+      "headline": "AAPL SETA briefing: Bearish technical pressure with mixed internal strength",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
       "mode": "member",
       "model_metadata": {
@@ -114,7 +114,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -123,11 +123,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "AAPL shows sentiment MACD repair before price momentum has fully confirmed. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
+      "summary": "AAPL shows bearish technical pressure with mixed internal strength. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
-      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
-      "what_seta_sees": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
-      "why_it_matters": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited."
+      "watch_item": "Watch whether bearish technical pressure broadens into shared-zone confirmation, or fades while internal strength remains mixed.",
+      "what_seta_sees": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
+      "why_it_matters": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::amd::d::6m::2026_06_29": {
       "as_of": "2026-06-29",
@@ -178,7 +178,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -242,7 +242,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -306,7 +306,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -370,7 +370,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -392,9 +392,9 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 6.60 (2026-06-29).",
-            "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-27.",
-            "Technical receipt: trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated.",
+            "Latest available close: 6.53 (2026-06-29).",
+            "Shared-zone receipt: Compression / Transition; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-27.",
+            "Technical receipt: trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -404,20 +404,20 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
       "display_range": "6M",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 6.60 (2026-06-29).",
-        "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-27.",
-        "Technical receipt: trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated.",
+        "Latest available close: 6.53 (2026-06-29).",
+        "Shared-zone receipt: Compression / Transition; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-27.",
+        "Technical receipt: trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "D",
@@ -434,7 +434,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -443,11 +443,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "AVAX shows unconfirmed bullish pressure. Sentiment is bullish expansion, attention is quiet, and source breadth is narrow.",
+      "summary": "AVAX shows unconfirmed bullish pressure. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::avax::w::1y::2026_06_29": {
       "as_of": "2026-06-29",
@@ -456,9 +456,9 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 6.60 (2026-06-29).",
-            "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-27.",
-            "Technical receipt: trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated.",
+            "Latest available close: 6.53 (2026-06-29).",
+            "Shared-zone receipt: Compression / Transition; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-27.",
+            "Technical receipt: trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -468,20 +468,20 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
       "display_range": "1Y",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 6.60 (2026-06-29).",
-        "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-27.",
-        "Technical receipt: trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated.",
+        "Latest available close: 6.53 (2026-06-29).",
+        "Shared-zone receipt: Compression / Transition; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-27.",
+        "Technical receipt: trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "W",
@@ -498,7 +498,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -507,11 +507,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "AVAX shows unconfirmed bullish pressure. Sentiment is bullish expansion, attention is quiet, and source breadth is narrow.",
+      "summary": "AVAX shows unconfirmed bullish pressure. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength is mixed; MACD impulse is positive; short-term extension is elevated. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is weakening; internal strength is weak; MACD impulse is positive; short-term extension is elevated. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::bnb::d::6m::2026_06_29": {
       "as_of": "2026-06-29",
@@ -562,7 +562,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -626,7 +626,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -648,7 +648,7 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 60,050 (2026-06-29).",
+            "Latest available close: 60,056 (2026-06-29).",
             "Shared-zone receipt: Bearish Expansion; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-03.",
             "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -671,7 +671,7 @@
       "display_range": "6M",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 60,050 (2026-06-29).",
+        "Latest available close: 60,056 (2026-06-29).",
         "Shared-zone receipt: Bearish Expansion; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-03.",
         "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -690,7 +690,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -712,7 +712,7 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 60,050 (2026-06-29).",
+            "Latest available close: 60,056 (2026-06-29).",
             "Shared-zone receipt: Bearish Expansion; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-03.",
             "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -735,7 +735,7 @@
       "display_range": "1Y",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 60,050 (2026-06-29).",
+        "Latest available close: 60,056 (2026-06-29).",
         "Shared-zone receipt: Bearish Expansion; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-03.",
         "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -754,7 +754,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -818,7 +818,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -882,7 +882,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -905,8 +905,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 0.07 (2026-06-29).",
-            "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-31.",
-            "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+            "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-31.",
+            "Technical receipt: trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -916,11 +916,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with compression / transition ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -928,8 +928,8 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 0.07 (2026-06-29).",
-        "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-31.",
-        "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+        "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-31.",
+        "Technical receipt: trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "D",
@@ -946,7 +946,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -955,11 +955,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "DOGE shows unconfirmed bullish pressure. Sentiment is bullish expansion, attention is quiet, and source breadth is narrow.",
+      "summary": "DOGE shows unconfirmed bullish pressure. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with compression / transition ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::doge::w::1y::2026_06_29": {
       "as_of": "2026-06-29",
@@ -969,8 +969,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 0.07 (2026-06-29).",
-            "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-31.",
-            "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+            "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-31.",
+            "Technical receipt: trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -980,11 +980,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with compression / transition ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -992,8 +992,8 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 0.07 (2026-06-29).",
-        "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-31.",
-        "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+        "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-31.",
+        "Technical receipt: trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "W",
@@ -1010,7 +1010,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1019,11 +1019,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "DOGE shows unconfirmed bullish pressure. Sentiment is bullish expansion, attention is quiet, and source breadth is narrow.",
+      "summary": "DOGE shows unconfirmed bullish pressure. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with compression / transition ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::dxy::d::6m::2026_06_29": {
       "as_of": "2026-06-29",
@@ -1074,7 +1074,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1138,7 +1138,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1160,9 +1160,9 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 1,583 (2026-06-29).",
+            "Latest available close: 1,580 (2026-06-29).",
             "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-16.",
-            "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out.",
+            "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -1172,20 +1172,20 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
       "display_range": "6M",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 1,583 (2026-06-29).",
+        "Latest available close: 1,580 (2026-06-29).",
         "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-16.",
-        "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out.",
+        "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "D",
@@ -1202,7 +1202,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1214,8 +1214,8 @@
       "summary": "ETH shows unconfirmed bullish pressure. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::eth::w::1y::2026_06_29": {
       "as_of": "2026-06-29",
@@ -1224,9 +1224,9 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 1,583 (2026-06-29).",
+            "Latest available close: 1,580 (2026-06-29).",
             "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-16.",
-            "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out.",
+            "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -1236,20 +1236,20 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
       "display_range": "1Y",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 1,583 (2026-06-29).",
+        "Latest available close: 1,580 (2026-06-29).",
         "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-16.",
-        "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out.",
+        "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "W",
@@ -1266,7 +1266,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1278,8 +1278,8 @@
       "summary": "ETH shows unconfirmed bullish pressure. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::gld::d::6m::2026_06_29": {
       "as_of": "2026-06-29",
@@ -1330,7 +1330,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1394,7 +1394,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1458,7 +1458,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1522,7 +1522,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1586,7 +1586,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1650,7 +1650,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1714,7 +1714,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1778,7 +1778,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1842,7 +1842,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1906,7 +1906,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1929,8 +1929,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 82.3 (2026-06-26).",
-            "Shared-zone receipt: Bearish Expansion; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
-            "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+            "Shared-zone receipt: Bearish Expansion; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
+            "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
           ],
           "role": "Receipts"
@@ -1940,11 +1940,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and background participation context.",
+          "copy": "Primary read: Range return with qualified confirmation. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and background participation context.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. Background participation context. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is range return with qualified confirmation, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; background participation context. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -1952,12 +1952,12 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 82.3 (2026-06-26).",
-        "Shared-zone receipt: Bearish Expansion; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
-        "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+        "Shared-zone receipt: Bearish Expansion; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
+        "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
       ],
       "frequency": "D",
-      "headline": "MSTR SETA briefing: Bearish technical pressure with mixed internal strength",
+      "headline": "MSTR SETA briefing: Range return with qualified confirmation",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
       "mode": "member",
       "model_metadata": {
@@ -1970,7 +1970,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -1979,11 +1979,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "MSTR shows bearish technical pressure with mixed internal strength. Sentiment is bearish expansion, attention is quiet, and source breadth is narrow.",
+      "summary": "MSTR shows range return with qualified confirmation. Sentiment is bearish expansion, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
-      "watch_item": "Watch whether bearish technical pressure broadens into shared-zone confirmation, or fades while internal strength remains mixed.",
-      "what_seta_sees": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and background participation context.",
-      "why_it_matters": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. Background participation context. The participation signal is low-intensity and concentrated or source-limited."
+      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
+      "what_seta_sees": "Primary read: Range return with qualified confirmation. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and background participation context.",
+      "why_it_matters": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is range return with qualified confirmation, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; background participation context. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::mstr::w::1y::2026_06_29": {
       "as_of": "2026-06-29",
@@ -1993,8 +1993,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 82.3 (2026-06-26).",
-            "Shared-zone receipt: Bearish Expansion; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
-            "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+            "Shared-zone receipt: Bearish Expansion; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
+            "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
           ],
           "role": "Receipts"
@@ -2004,11 +2004,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and background participation context.",
+          "copy": "Primary read: Range return with qualified confirmation. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and background participation context.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. Background participation context. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is range return with qualified confirmation, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; background participation context. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -2016,12 +2016,12 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 82.3 (2026-06-26).",
-        "Shared-zone receipt: Bearish Expansion; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
-        "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+        "Shared-zone receipt: Bearish Expansion; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
+        "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
       ],
       "frequency": "W",
-      "headline": "MSTR SETA briefing: Bearish technical pressure with mixed internal strength",
+      "headline": "MSTR SETA briefing: Range return with qualified confirmation",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
       "mode": "member",
       "model_metadata": {
@@ -2034,7 +2034,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2043,11 +2043,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "MSTR shows bearish technical pressure with mixed internal strength. Sentiment is bearish expansion, attention is quiet, and source breadth is narrow.",
+      "summary": "MSTR shows range return with qualified confirmation. Sentiment is bearish expansion, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
-      "watch_item": "Watch whether bearish technical pressure broadens into shared-zone confirmation, or fades while internal strength remains mixed.",
-      "what_seta_sees": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and background participation context.",
-      "why_it_matters": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. Background participation context. The participation signal is low-intensity and concentrated or source-limited."
+      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
+      "what_seta_sees": "Primary read: Range return with qualified confirmation. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and background participation context.",
+      "why_it_matters": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is range return with qualified confirmation, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; background participation context. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::nflx::d::6m::2026_06_29": {
       "as_of": "2026-06-29",
@@ -2098,7 +2098,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2162,7 +2162,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2226,7 +2226,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2290,7 +2290,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2313,8 +2313,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 113 (2026-06-26).",
-            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
-            "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
+            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
+            "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
           ],
           "role": "Receipts"
@@ -2324,11 +2324,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
+          "copy": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -2336,12 +2336,12 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 113 (2026-06-26).",
-        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
-        "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
+        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
+        "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
       ],
       "frequency": "D",
-      "headline": "PLTR SETA briefing: Bearish technical pressure with mixed internal strength",
+      "headline": "PLTR SETA briefing: PLTR shows sentiment MACD repair before price momentum has fully confi",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
       "mode": "member",
       "model_metadata": {
@@ -2354,7 +2354,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2363,11 +2363,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "PLTR shows bearish technical pressure with mixed internal strength. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
+      "summary": "PLTR shows sentiment MACD repair before price momentum has fully confirmed. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
-      "watch_item": "Watch whether bearish technical pressure broadens into shared-zone confirmation, or fades while internal strength remains mixed.",
-      "what_seta_sees": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
-      "why_it_matters": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited."
+      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
+      "what_seta_sees": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
+      "why_it_matters": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::pltr::w::1y::2026_06_29": {
       "as_of": "2026-06-29",
@@ -2377,8 +2377,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 113 (2026-06-26).",
-            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
-            "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
+            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
+            "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
           ],
           "role": "Receipts"
@@ -2388,11 +2388,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
+          "copy": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -2400,12 +2400,12 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 113 (2026-06-26).",
-        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
-        "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
+        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
+        "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
       ],
       "frequency": "W",
-      "headline": "PLTR SETA briefing: Bearish technical pressure with mixed internal strength",
+      "headline": "PLTR SETA briefing: PLTR shows sentiment MACD repair before price momentum has fully confi",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
       "mode": "member",
       "model_metadata": {
@@ -2418,7 +2418,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2427,11 +2427,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "PLTR shows bearish technical pressure with mixed internal strength. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
+      "summary": "PLTR shows sentiment MACD repair before price momentum has fully confirmed. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
-      "watch_item": "Watch whether bearish technical pressure broadens into shared-zone confirmation, or fades while internal strength remains mixed.",
-      "what_seta_sees": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
-      "why_it_matters": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited."
+      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
+      "what_seta_sees": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
+      "why_it_matters": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited."
     },
     "member::qqq::d::6m::2026_06_29": {
       "as_of": "2026-06-29",
@@ -2482,7 +2482,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2546,7 +2546,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2610,7 +2610,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2674,7 +2674,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2738,7 +2738,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2802,7 +2802,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2824,7 +2824,7 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 72.2 (2026-06-29).",
+            "Latest available close: 72.3 (2026-06-29).",
             "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; confirmed bullish pressure on 2026-06-01.",
             "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term extension is elevated.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -2847,7 +2847,7 @@
       "display_range": "6M",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 72.2 (2026-06-29).",
+        "Latest available close: 72.3 (2026-06-29).",
         "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; confirmed bullish pressure on 2026-06-01.",
         "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term extension is elevated.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -2866,7 +2866,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2888,7 +2888,7 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 72.2 (2026-06-29).",
+            "Latest available close: 72.3 (2026-06-29).",
             "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; confirmed bullish pressure on 2026-06-01.",
             "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term extension is elevated.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -2911,7 +2911,7 @@
       "display_range": "1Y",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 72.2 (2026-06-29).",
+        "Latest available close: 72.3 (2026-06-29).",
         "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; confirmed bullish pressure on 2026-06-01.",
         "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term extension is elevated.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -2930,7 +2930,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -2994,7 +2994,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3058,7 +3058,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3122,7 +3122,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3186,7 +3186,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3250,7 +3250,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3314,7 +3314,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3378,7 +3378,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3442,7 +3442,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3506,7 +3506,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3570,7 +3570,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3593,8 +3593,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 284 (2026-06-26).",
-            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
-            "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range.",
+            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
+            "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
           ],
           "role": "Receipts"
@@ -3604,11 +3604,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
+          "copy": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -3616,12 +3616,12 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 284 (2026-06-26).",
-        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
-        "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range.",
+        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
+        "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
       ],
       "frequency": "D",
-      "headline": "AAPL SETA briefing: AAPL shows sentiment MACD repair before price momentum has fully confi",
+      "headline": "AAPL SETA briefing: Bearish technical pressure with mixed internal strength",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
       "mode": "public",
       "model_metadata": {
@@ -3634,7 +3634,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3643,11 +3643,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "AAPL shows sentiment MACD repair before price momentum has fully confirmed. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
+      "summary": "AAPL shows bearish technical pressure with mixed internal strength. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
-      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
-      "what_seta_sees": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
-      "why_it_matters": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited."
+      "watch_item": "Watch whether bearish technical pressure broadens into shared-zone confirmation, or fades while internal strength remains mixed.",
+      "what_seta_sees": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
+      "why_it_matters": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited."
     },
     "public::aapl::w::1y::2026_06_29": {
       "as_of": "2026-06-29",
@@ -3657,8 +3657,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 284 (2026-06-26).",
-            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
-            "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range.",
+            "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
+            "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
           ],
           "role": "Receipts"
@@ -3668,11 +3668,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
+          "copy": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -3680,12 +3680,12 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 284 (2026-06-26).",
-        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is Sentiment Repair Ahead of Price.",
-        "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range.",
+        "Shared-zone receipt: Compression / Transition; Normal / Sparse; no active inside-zone confirmation; overlap event is monitor context.",
+        "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is high."
       ],
       "frequency": "W",
-      "headline": "AAPL SETA briefing: AAPL shows sentiment MACD repair before price momentum has fully confi",
+      "headline": "AAPL SETA briefing: Bearish technical pressure with mixed internal strength",
       "limitations": "This draft uses only structured SETA payload fields. Source coverage and stale upstream data can limit confidence.",
       "mode": "public",
       "model_metadata": {
@@ -3698,7 +3698,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3707,11 +3707,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "AAPL shows sentiment MACD repair before price momentum has fully confirmed. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
+      "summary": "AAPL shows bearish technical pressure with mixed internal strength. Sentiment is compression / transition, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. background participation context. This keeps confidence tied to participation breadth and source coverage.",
-      "watch_item": "Early repair signals are useful but less reliable until price MACD confirms.",
-      "what_seta_sees": "Primary read: sentiment MACD repair before price momentum has fully confirmed. Price briefly moved outside the shared price/sentiment range, then rotated back toward that range. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range, with bearish / low structure ribbon context, and background participation context.",
-      "why_it_matters": "This matters because the asset is not giving a clean one-direction read across price, sentiment, technical confirmation, and participation. The primary read is sentiment MACD repair before price momentum has fully confirmed, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term extension is mid-range. The read stays qualified rather than decisive; background participation context. Recent range return keeps confirmation qualified. The participation signal is low-intensity and concentrated or source-limited."
+      "watch_item": "Watch whether bearish technical pressure broadens into shared-zone confirmation, or fades while internal strength remains mixed.",
+      "what_seta_sees": "Primary read: Bearish technical pressure with mixed internal strength. The bearish read is technical-stack led rather than overlap-confirmed. Shared-zone confirmation is inactive; technical evidence carries more weight than overlap confirmation. The technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range, with bearish expansion ribbon context, and background participation context.",
+      "why_it_matters": "This matters because the read is coming from the technical stack while shared-zone confirmation remains inactive. The primary read is bearish technical pressure with mixed internal strength, while the technical stack shows trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term extension is mid-range. Background participation context. The participation signal is low-intensity and concentrated or source-limited."
     },
     "public::btc::d::3m::2026_06_29": {
       "as_of": "2026-06-29",
@@ -3720,7 +3720,7 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 60,050 (2026-06-29).",
+            "Latest available close: 60,056 (2026-06-29).",
             "Shared-zone receipt: Bearish Expansion; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-03.",
             "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -3743,7 +3743,7 @@
       "display_range": "3M",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 60,050 (2026-06-29).",
+        "Latest available close: 60,056 (2026-06-29).",
         "Shared-zone receipt: Bearish Expansion; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-03.",
         "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -3762,7 +3762,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3784,7 +3784,7 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 60,050 (2026-06-29).",
+            "Latest available close: 60,056 (2026-06-29).",
             "Shared-zone receipt: Bearish Expansion; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-03.",
             "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -3807,7 +3807,7 @@
       "display_range": "1Y",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 60,050 (2026-06-29).",
+        "Latest available close: 60,056 (2026-06-29).",
         "Shared-zone receipt: Bearish Expansion; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-03.",
         "Technical receipt: trend-momentum is bearish; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -3826,7 +3826,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3890,7 +3890,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3954,7 +3954,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -3977,8 +3977,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 0.07 (2026-06-29).",
-            "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-31.",
-            "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+            "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-31.",
+            "Technical receipt: trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -3988,11 +3988,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with compression / transition ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -4000,8 +4000,8 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 0.07 (2026-06-29).",
-        "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-31.",
-        "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+        "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-31.",
+        "Technical receipt: trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "D",
@@ -4018,7 +4018,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4027,11 +4027,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "DOGE shows unconfirmed bullish pressure. Sentiment is bullish expansion, attention is quiet, and source breadth is narrow.",
+      "summary": "DOGE shows unconfirmed bullish pressure. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with compression / transition ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "public::doge::w::1y::2026_06_29": {
       "as_of": "2026-06-29",
@@ -4041,8 +4041,8 @@
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
             "Latest available close: 0.07 (2026-06-29).",
-            "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-31.",
-            "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+            "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-31.",
+            "Technical receipt: trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -4052,11 +4052,11 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with compression / transition ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
@@ -4064,8 +4064,8 @@
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
         "Latest available close: 0.07 (2026-06-29).",
-        "Shared-zone receipt: Bullish Expansion; Normal / Sparse; Unconfirmed Bullish Pressure on 2026-05-31.",
-        "Technical receipt: trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out.",
+        "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-31.",
+        "Technical receipt: trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "W",
@@ -4082,7 +4082,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4091,11 +4091,11 @@
       "review_status": "reviewed",
       "schema_version": "ai_briefing_output_v1",
       "source_breadth_used": true,
-      "summary": "DOGE shows unconfirmed bullish pressure. Sentiment is bullish expansion, attention is quiet, and source breadth is narrow.",
+      "summary": "DOGE shows unconfirmed bullish pressure. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out, with compression / transition ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength is mixed; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out, with bearish / low structure ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is bearish; internal strength is weak; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "public::eth::d::3m::2026_06_29": {
       "as_of": "2026-06-29",
@@ -4104,9 +4104,9 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 1,583 (2026-06-29).",
+            "Latest available close: 1,580 (2026-06-29).",
             "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-16.",
-            "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out.",
+            "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -4116,20 +4116,20 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
       "display_range": "3M",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 1,583 (2026-06-29).",
+        "Latest available close: 1,580 (2026-06-29).",
         "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-16.",
-        "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out.",
+        "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "D",
@@ -4146,7 +4146,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4158,8 +4158,8 @@
       "summary": "ETH shows unconfirmed bullish pressure. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "public::eth::w::1y::2026_06_29": {
       "as_of": "2026-06-29",
@@ -4168,9 +4168,9 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 1,583 (2026-06-29).",
+            "Latest available close: 1,580 (2026-06-29).",
             "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-16.",
-            "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out.",
+            "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
           ],
           "role": "Receipts"
@@ -4180,20 +4180,20 @@
           "role": "Trust check"
         },
         "what_seta_sees": {
-          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
+          "copy": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
           "role": "Interpretation"
         },
         "why_it_matters": {
-          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
+          "copy": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited.",
           "role": "Implication"
         }
       },
       "display_range": "1Y",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 1,583 (2026-06-29).",
+        "Latest available close: 1,580 (2026-06-29).",
         "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; Watch Bullish; Unconfirmed Bullish Pressure on 2026-05-16.",
-        "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out.",
+        "Technical receipt: trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
       ],
       "frequency": "W",
@@ -4210,7 +4210,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4222,8 +4222,8 @@
       "summary": "ETH shows unconfirmed bullish pressure. Sentiment is transitional rather than clearly directional, attention is quiet, and source breadth is narrow.",
       "trust_check": "Low-intensity / concentrated. Participation is quiet and broadly stable. Authorship breadth is narrow and broadly stable. Participation is not forceful enough to confirm the pressure state. This keeps confidence tied to participation breadth and source coverage.",
       "watch_item": "Watch whether the pressure state gains confirmation from timing and participation, or fades back into a watch condition.",
-      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Watch.",
-      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
+      "what_seta_sees": "Primary read: Unconfirmed bullish pressure. The pressure is visible, but the confirmation stack is still conflicted. Price is below the shared price/sentiment zone, but bullish pressure is not fully confirmed. The technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out, with bearish expansion ribbon context, and quiet participation keeps confidence measured. Latest event context is Bullish repair.",
+      "why_it_matters": "This matters because pressure is visible, but the setup has not earned clean confirmation. The primary read is unconfirmed bullish pressure, while the technical stack shows trend-momentum is repairing; internal strength remains constructive; MACD impulse is negative; short-term momentum is washed out. The read stays qualified rather than decisive; quiet participation keeps confidence measured. The participation signal is low-intensity and concentrated or source-limited."
     },
     "public::gld::d::3m::2026_06_29": {
       "as_of": "2026-06-29",
@@ -4274,7 +4274,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4338,7 +4338,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4402,7 +4402,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4466,7 +4466,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4530,7 +4530,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4594,7 +4594,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4616,7 +4616,7 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 72.2 (2026-06-29).",
+            "Latest available close: 72.3 (2026-06-29).",
             "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; confirmed bullish pressure on 2026-06-01.",
             "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term extension is elevated.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -4639,7 +4639,7 @@
       "display_range": "3M",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 72.2 (2026-06-29).",
+        "Latest available close: 72.3 (2026-06-29).",
         "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; confirmed bullish pressure on 2026-06-01.",
         "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term extension is elevated.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -4658,7 +4658,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4680,7 +4680,7 @@
         "evidence": {
           "items": [
             "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-            "Latest available close: 72.2 (2026-06-29).",
+            "Latest available close: 72.3 (2026-06-29).",
             "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; confirmed bullish pressure on 2026-06-01.",
             "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term extension is elevated.",
             "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -4703,7 +4703,7 @@
       "display_range": "1Y",
       "evidence": [
         "Synthesis receipt: price, shared-zone structure, technical context, and participation are reviewed together as evidence inputs.",
-        "Latest available close: 72.2 (2026-06-29).",
+        "Latest available close: 72.3 (2026-06-29).",
         "Shared-zone receipt: transitional rather than clearly directional; Normal / Sparse; confirmed bullish pressure on 2026-06-01.",
         "Technical receipt: trend-momentum is constructive; internal strength remains constructive; MACD impulse is positive; short-term extension is elevated.",
         "Participation receipt: attention is quiet; source breadth is Narrow; volume context is normal."
@@ -4722,7 +4722,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4786,7 +4786,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4850,7 +4850,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4914,7 +4914,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4978,7 +4978,7 @@
       "reference_guidance_used": true,
       "review_metadata": {
         "review_note": "Regenerated with Card Jobs V2 deterministic template; inspected through local schema, semantic regression, and dashboard smoke validation workflow.",
-        "reviewed_at_utc": "2026-06-29T06:30:20+00:00",
+        "reviewed_at_utc": "2026-06-29T07:30:46+00:00",
         "reviewer": "local-deterministic-card-jobs-v2",
         "source_draft_path": "generated by scripts/regenerate_reviewed_briefings_v2.py",
         "source_input_schema_version": "ai_briefing_input_v1",
@@ -4999,7 +4999,7 @@
   "generated_at_utc": "2026-05-12T10:06:19+00:00",
   "payload_note": "Expanded reviewed SETA briefing payload for public dashboard coverage. Dashboard falls back to deterministic Briefing Mode when no matching reviewed item is available. Four reviewed sample drafts promoted for BTC, NVDA, LINK, and MSFT on 2026-05-12. Refreshed BTC, NVDA, LINK, and MSFT reviewed samples after shared-zone matrix and range-return dedupe on 2026-05-12.",
   "reviewed_payload_contract": "briefing_card_jobs_v2",
-  "reviewed_payload_generated_at_utc": "2026-06-29T06:30:20+00:00",
+  "reviewed_payload_generated_at_utc": "2026-06-29T07:30:46+00:00",
   "reviewed_payload_generator": "scripts/regenerate_reviewed_briefings_v2.py",
   "schema_version": "generated_briefings_reviewed_v1"
 }
