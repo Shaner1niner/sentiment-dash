@@ -147,3 +147,75 @@ BTC looks more like repair than confirmation. The useful read is whether sponsor
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
+
+## ETH: participation is broadening
+
+ETH is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+
+**SETA read:** participation diffusion | rank 7 | positive skew | rejection / decay
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## SOL: participation is broadening
+
+SOL is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+
+**SETA read:** participation diffusion | rank 8 | positive skew | rejection / decay
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## DOGE: validation risk
+
+DOGE still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
+
+**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
+
+**SETA read:** validation risk | rank 9 | negative skew | rejection / decay
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## MSFT: repair watch
+
+MSFT looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+
+**SETA read:** repair watch | rank 8 | mixed skew | belief exceeds permission
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## TSLA: contested structure
+
+TSLA is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. permission without belief is the key tension.
+
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+
+**SETA read:** contested structure | rank 9 | negative skew | permission without belief
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## COIN: validation risk
+
+COIN still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
+
+**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
+
+**SETA read:** validation risk | rank 10 | negative skew | rejection / decay
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
