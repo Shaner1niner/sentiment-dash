@@ -14336,71 +14336,6 @@ function applyControlVisibility(){
 
 
 
-const MEMBER_PRIMARY_CONTROLS = ['asset', 'freq', 'range', 'briefingMode'];
-const MEMBER_CHART_CONTROLS = ['priceDisplay', 'engagement', 'bollinger', 'osc'];
-const MEMBER_ADVANCED_CONTROLS = ['scaleMode', 'ribbon', 'sentRibbon', 'regimeLayer'];
-
-function appendVisibleControls(target, controlsRoot, ids){
-  ids.forEach(id=>{
-    const node = controlsRoot.querySelector(`.control[data-control="${id}"]`);
-    if(node && node.style.display !== 'none') target.appendChild(node);
-  });
-}
-
-function resetMemberControlGrouping(controlsRoot){
-  const grouped = controlsRoot.querySelectorAll('.memberControlGroup .control[data-control]');
-  grouped.forEach(node=>controlsRoot.appendChild(node));
-  controlsRoot.querySelectorAll('.memberControlGroup, .memberAdvancedControlShell, .memberControlNote').forEach(node=>node.remove());
-  controlsRoot.classList.remove('memberControlDeck');
-  controlsRoot.removeAttribute('data-member-control-grouped');
-}
-
-function applyMemberControlGrouping(){
-  const controlsRoot = document.querySelector('.controls');
-  if(!controlsRoot) return;
-
-  if(currentMode() !== 'member'){
-    if(controlsRoot.getAttribute('data-member-control-grouped') === '1') resetMemberControlGrouping(controlsRoot);
-    return;
-  }
-
-  if(controlsRoot.getAttribute('data-member-control-grouped') === '1') return;
-
-  const primary = document.createElement('div');
-  primary.className = 'memberControlGroup memberPrimaryControls';
-  primary.setAttribute('aria-label', 'Member dashboard primary controls');
-
-  const chart = document.createElement('div');
-  chart.className = 'memberControlGroup memberChartControls';
-  chart.setAttribute('aria-label', 'Member dashboard chart controls');
-
-  const advancedControls = document.createElement('div');
-  advancedControls.className = 'memberControlGroup memberAdvancedControls';
-
-  appendVisibleControls(primary, controlsRoot, MEMBER_PRIMARY_CONTROLS);
-  appendVisibleControls(chart, controlsRoot, MEMBER_CHART_CONTROLS);
-  appendVisibleControls(advancedControls, controlsRoot, MEMBER_ADVANCED_CONTROLS);
-
-  if(!primary.children.length) return;
-
-  const details = document.createElement('details');
-  details.className = 'memberAdvancedControlShell';
-  details.innerHTML = '<summary>Advanced research controls <em>scale, ribbons, regime visuals</em></summary>';
-  if(advancedControls.children.length) details.appendChild(advancedControls);
-
-  const note = document.createElement('p');
-  note.className = 'memberControlNote';
-  note.textContent = 'Member mode keeps the broader research surface, while advanced controls change the chart view rather than the underlying SETA read.';
-
-  controlsRoot.classList.add('memberControlDeck');
-  controlsRoot.setAttribute('data-member-control-grouped', '1');
-  controlsRoot.innerHTML = '';
-  controlsRoot.appendChild(primary);
-  controlsRoot.appendChild(chart);
-  if(advancedControls.children.length) controlsRoot.appendChild(details);
-  controlsRoot.appendChild(note);
-}
-
 function applyModeUi(){
 
 
@@ -14723,7 +14658,6 @@ function applyModeUi(){
 
 
   applyControlVisibility();
-  applyMemberControlGrouping();
 
 
 
