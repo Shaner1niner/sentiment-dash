@@ -32,11 +32,11 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-07-01T17:29:31Z",
+      "generated_at_utc": "2026-07-01T18:30:15Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-07-01T17:29:49",
+      "generated_at_utc": "2026-07-01T18:30:34",
       "pending_count": 4470,
       "pending_resolution_basis_count": 4470,
       "resolution_basis_guard_applied": true,
@@ -59,13 +59,13 @@
         "SPY",
         "TSLA"
       ],
-      "generated_at_utc": "2026-07-01T17:29:24Z"
+      "generated_at_utc": "2026-07-01T18:30:07Z"
     },
     "reviewed_briefings": {
       "briefing_count": 106
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-07-01T17:30:06Z",
+      "generated_at_utc": "2026-07-01T18:30:51Z",
       "item_count": 11,
       "mode": "public",
       "public_safe": true,
@@ -76,10 +76,10 @@
       "date": "2026-07-01",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-07-01T17:29:56+00:00"
+      "published_at_utc": "2026-07-01T18:30:41+00:00"
     }
   },
-  "generated_at_utc": "2026-07-01T17:30:06Z",
+  "generated_at_utc": "2026-07-01T18:30:51Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -88,7 +88,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "53c278ac1165e436ee342612a2d4c0751e889087"
+    "head_sha": "898bb2b8df4c04dfadf7193f539a8f4600320bdf"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
