@@ -32,17 +32,17 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-07-02T05:30:11Z",
+      "generated_at_utc": "2026-07-02T07:30:15Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-07-02T05:30:31",
-      "pending_count": 4470,
-      "pending_resolution_basis_count": 4470,
+      "generated_at_utc": "2026-07-02T07:30:34",
+      "pending_count": 4560,
+      "pending_resolution_basis_count": 4560,
       "resolution_basis_guard_applied": true,
-      "resolved_count": 3244,
+      "resolved_count": 3156,
       "schema_version": "prediction_outcome_overlay_v1",
-      "selective_accuracy": 0.6458076448828607
+      "selective_accuracy": 0.6517743979721166
     },
     "public_chart_store": {
       "asset_count": 11,
@@ -59,13 +59,13 @@
         "SPY",
         "TSLA"
       ],
-      "generated_at_utc": "2026-07-02T05:30:04Z"
+      "generated_at_utc": "2026-07-02T07:30:09Z"
     },
     "reviewed_briefings": {
       "briefing_count": 106
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-07-02T05:30:52Z",
+      "generated_at_utc": "2026-07-02T07:30:51Z",
       "item_count": 11,
       "mode": "public",
       "public_safe": true,
@@ -76,10 +76,10 @@
       "date": "2026-07-02",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-07-02T05:30:38+00:00"
+      "published_at_utc": "2026-07-02T07:30:41+00:00"
     }
   },
-  "generated_at_utc": "2026-07-02T05:30:52Z",
+  "generated_at_utc": "2026-07-02T07:30:51Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -88,7 +88,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "5839810bfe15791aeb7940edf229b3bc5211ce40"
+    "head_sha": "1ec1f3f0c5bb73e4ab68c6adf3c3c22e5ea020d0"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
