@@ -32,17 +32,17 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-07-03T06:29:34Z",
+      "generated_at_utc": "2026-07-03T07:29:47Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-07-03T06:29:52",
-      "pending_count": 4560,
-      "pending_resolution_basis_count": 4560,
+      "generated_at_utc": "2026-07-03T07:30:06",
+      "pending_count": 4586,
+      "pending_resolution_basis_count": 4586,
       "resolution_basis_guard_applied": true,
-      "resolved_count": 3156,
+      "resolved_count": 3132,
       "schema_version": "prediction_outcome_overlay_v1",
-      "selective_accuracy": 0.6517743979721166
+      "selective_accuracy": 0.6548531289910601
     },
     "public_chart_store": {
       "asset_count": 11,
@@ -59,13 +59,13 @@
         "SPY",
         "TSLA"
       ],
-      "generated_at_utc": "2026-07-03T06:29:28Z"
+      "generated_at_utc": "2026-07-03T07:29:40Z"
     },
     "reviewed_briefings": {
       "briefing_count": 106
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-07-03T06:30:09Z",
+      "generated_at_utc": "2026-07-03T07:30:24Z",
       "item_count": 11,
       "mode": "public",
       "public_safe": true,
@@ -76,10 +76,10 @@
       "date": "2026-07-03",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-07-03T06:29:59+00:00"
+      "published_at_utc": "2026-07-03T07:30:13+00:00"
     }
   },
-  "generated_at_utc": "2026-07-03T06:30:09Z",
+  "generated_at_utc": "2026-07-03T07:30:24Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -87,8 +87,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "docs/489-asset-briefing-synthesis-contract-v1",
-    "head_sha": "2e1010aaa0d858c1a1816b476a18cc6ac8bfa930"
+    "branch": "main",
+    "head_sha": "84a721bddfbefd8b1a8ed6e6ea2fd0b3db347ebe"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
