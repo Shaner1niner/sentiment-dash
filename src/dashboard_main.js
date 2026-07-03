@@ -15,7 +15,7 @@ import './features/MobilePublicDashboardAffordances.js?v=module_mobile_public_da
 import './features/PublicControlDensityPolish.js?v=module_public_control_density_polish_001';
 import './features/PublicPredictionAccountabilityPolish.js?v=prediction_accountability_polish_004';
 import './features/ResearchSourceMixPanel.js?v=module_research_source_mix_panel_001';
-import { DataFreshnessIndicator } from './features/DataFreshnessIndicator.js?v=module_data_freshness_indicator_001';
+import { DataFreshnessIndicator } from './features/DataFreshnessIndicator.js?v=module_data_freshness_indicator_002_public_current_marker_001';
 import { Controls } from './features/Controls.js?v=public_equity_default_001';
 import { BriefingPanel } from './features/BriefingPanel.js?v=asset_briefing_combined_read_003';
 
