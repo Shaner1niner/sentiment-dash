@@ -96,8 +96,8 @@ function renderAssetLoadError(targetId, ticker, error) {
     chartContainer.innerHTML = `
       <div style="display:grid;place-items:center;min-height:360px;padding:32px;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:#0d1117;color:#c9d1d9;text-align:center;">
         <div>
-          <strong style="display:block;margin-bottom:8px;color:#ffdf7e;">${ticker} chart payload unavailable on this route.</strong>
-          <span style="color:#8b949e;">Use a chart-covered public asset or open the legacy/research route for broader coverage.</span>
+          <strong style="display:block;margin-bottom:8px;color:#ffdf7e;">${ticker} is not available in this public sample.</strong>
+          <span style="color:#8b949e;">Choose one of the public sample assets to continue exploring SETA market context.</span>
         </div>
       </div>
     `;
