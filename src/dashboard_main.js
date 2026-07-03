@@ -1,5 +1,5 @@
 import { Store } from './Store.js';
-import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader_002_public_equity_default_001';
+import { AssetPayloadLoader } from './AssetPayloadLoader.js?v=fix26_asset_loader_001';
 import { PlotlyRenderer } from './PlotlyRenderer.js?v=module_sentiment_price_alignment_hover_001';
 import './features/ChartSessionAxisPatch.js?v=module_chart_session_axis_001';
 import './features/SentimentLayerStructureControlPatch.js?v=module_sentiment_layer_structure_controls_001';
@@ -16,11 +16,8 @@ import './features/PublicControlDensityPolish.js?v=module_public_control_density
 import './features/PublicPredictionAccountabilityPolish.js?v=prediction_accountability_polish_004';
 import './features/ResearchSourceMixPanel.js?v=module_research_source_mix_panel_001';
 import { DataFreshnessIndicator } from './features/DataFreshnessIndicator.js?v=module_data_freshness_indicator_001';
-import { Controls } from './features/Controls.js?v=public_equity_default_001';
+import { Controls } from './features/Controls.js';
 import { BriefingPanel } from './features/BriefingPanel.js?v=asset_briefing_combined_read_003';
-
-const PUBLIC_DEFAULT_ASSET = 'SPY';
-const MEMBER_DEFAULT_ASSET = 'BTC';
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log("SETA Dashboard V2 Modules Initialized");
@@ -82,14 +79,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 let activeAssetLoadRequestId = 0;
 
-function defaultAssetTicker() {
-    return String(window.DASH_MODE_DEFAULT || '').trim().toLowerCase() === 'public'
-        ? PUBLIC_DEFAULT_ASSET
-        : MEMBER_DEFAULT_ASSET;
-}
-
 function normalizeAssetTicker(value) {
-    return String(value || Store.state.currentAsset || defaultAssetTicker()).trim().toUpperCase();
+    return String(value || Store.state.currentAsset || 'BTC').trim().toUpperCase();
 }
 
 function renderAssetLoadError(targetId, ticker, error) {
@@ -105,8 +96,8 @@ function renderAssetLoadError(targetId, ticker, error) {
     chartContainer.innerHTML = `
       <div style="display:grid;place-items:center;min-height:360px;padding:32px;border:1px solid rgba(255,255,255,.14);border-radius:12px;background:#0d1117;color:#c9d1d9;text-align:center;">
         <div>
-          <strong style="display:block;margin-bottom:8px;color:#ffdf7e;">${ticker} is not available in this public sample.</strong>
-          <span style="color:#8b949e;">Choose one of the public sample assets to continue exploring SETA market context.</span>
+          <strong style="display:block;margin-bottom:8px;color:#ffdf7e;">${ticker} chart payload unavailable on this route.</strong>
+          <span style="color:#8b949e;">Use a chart-covered public asset or open the legacy/research route for broader coverage.</span>
         </div>
       </div>
     `;

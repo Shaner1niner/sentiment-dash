@@ -112,17 +112,17 @@
     "public": {
       "assetIndexUrl": "fix26_chart_store_public_index.json",
       "assets": [
-        "SPY",
-        "NVDA",
-        "MSFT",
-        "AAPL",
-        "TSLA",
-        "COIN",
-        "GLD",
         "BTC",
         "ETH",
         "SOL",
-        "DOGE"
+        "DOGE",
+        "NVDA",
+        "MSFT",
+        "TSLA",
+        "COIN",
+        "AAPL",
+        "SPY",
+        "GLD"
       ],
       "badgeOrder": [
         "overlapState",
@@ -144,7 +144,7 @@
         "osc"
       ],
       "dataUrl": "fix26_chart_store_public.json",
-      "defaultAsset": "SPY",
+      "defaultAsset": "BTC",
       "defaults": {
         "bollinger": "contextual",
         "briefingMode": "briefing",

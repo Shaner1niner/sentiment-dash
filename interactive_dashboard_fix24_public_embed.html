@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>SETA Public Market Context Dashboard</title>
+  <title>SETA Public Dashboard</title>
   <script defer src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
   <link rel="stylesheet" href="dashboard_fix26_base.css?v=module_crypto_partial_daily_overlay_001"/>
   <style>
@@ -46,13 +46,6 @@
       display: inline-block;
       margin-left: 8px;
       font-weight: 700;
-    }
-    .sampleSafetyFooter {
-      color: #8b949e;
-      font-size: 12px;
-      line-height: 1.45;
-      margin: 14px 0 0;
-      text-align: center;
     }
     .moduleBriefingPanel {
       margin: 16px 0 14px;
@@ -754,10 +747,18 @@
   </style>
 </head>
 <body>
+    <!--
+      Module runtime production public route.
+      Intentional safety posture:
+      - public/default route now uses the module runtime
+      - legacy public dashboard is preserved as interactive_dashboard_fix24_public_legacy_embed.html
+      - no generated payload regeneration
+      - rollback is reverting this PR
+    -->
   <div class="harnessShell">
     <div class="harnessBanner">
-      <h1>SETA Public Market Context Dashboard <span id="ui-feedback">SPY</span></h1>
-      <p>A public-safe sample of SETA's market attention, participation, structure, and sentiment context.</p>
+      <h1>SETA Public Dashboard <span id="ui-feedback">BTC</span></h1>
+      <p>Production public module runtime surface. Legacy public dashboard remains available as a fallback route.</p>
     </div>
 
     <div class="controls">
@@ -810,10 +811,6 @@
 
     <div id="chart"></div>
 
-    <footer class="sampleSafetyFooter">
-      Context only. Not investment advice. Not a trading signal.
-    </footer>
-
     <script>
       window.DASH_MODE_DEFAULT = "public";
       window.DASH_MANIFEST_URL = "dashboard_fix26_mode_manifest.json?v=module_crypto_partial_daily_overlay_001";
@@ -824,7 +821,7 @@
     <script src="src/features/ModuleEvidenceContext.js"></script>
 
 
-    <script type="module" src="./src/dashboard_main.js?v=module_sentiment_price_alignment_hover_001_public_accountability_polish_001_public_intro_copy_002_equity_default_001"></script>
+    <script type="module" src="./src/dashboard_main.js?v=module_sentiment_price_alignment_hover_001_public_accountability_polish_001"></script>
     <script type="module" src="./src/features/PredictionAccountabilityPanel.js?v=module_prediction_accountability_panel_001"></script>
   </div>
 </body>
