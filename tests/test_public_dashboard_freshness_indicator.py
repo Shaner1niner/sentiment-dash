@@ -10,6 +10,8 @@ MAIN = ROOT / "src" / "dashboard_main.js"
 FRESHNESS_FEATURE = ROOT / "src" / "features" / "DataFreshnessIndicator.js"
 PUBLIC_INDEX = ROOT / "fix26_chart_store_public_index.json"
 SPY_ASSET = ROOT / "fix26_chart_store_assets" / "public" / "SPY.json"
+BETA_ACCESS_URL = "https://www.data-and-finance.com/beta-access"
+OVERVIEW_URL = "https://www.data-and-finance.com"
 
 
 def test_public_dashboard_mounts_current_data_indicator():
@@ -19,6 +21,18 @@ def test_public_dashboard_mounts_current_data_indicator():
     assert "public_freshness_001" in html
     assert "DataFreshnessIndicator" in main
     assert "module_data_freshness_indicator_002_public_current_marker_001" in main
+
+
+def test_public_dashboard_has_public_safe_beta_access_cta():
+    html = DASHBOARD.read_text(encoding="utf-8")
+
+    assert 'data-seta-beta-access-cta' in html
+    assert "Join SETA Beta Access" in html
+    assert "Back to SETA Overview" in html
+    assert BETA_ACCESS_URL in html
+    assert OVERVIEW_URL in html
+    assert "stripe.com" not in html.lower()
+    assert html.index('class="harnessBanner"') < html.index("data-seta-beta-access-cta") < html.index('class="controls"')
 
 
 def test_freshness_indicator_uses_public_metadata_without_hardcoded_dates():
