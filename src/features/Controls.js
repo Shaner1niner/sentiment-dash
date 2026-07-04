@@ -1,33 +1,4 @@
-import { Store, CONTROL_STATE_KEYS, DEFAULT_CONTROL_STATE } from '../Store.js';
-
-const PUBLIC_ASSET_ORDER = Object.freeze([
-    'SPY',
-    'NVDA',
-    'MSFT',
-    'AAPL',
-    'TSLA',
-    'COIN',
-    'GLD',
-    'BTC',
-    'ETH',
-    'SOL',
-    'DOGE'
-]);
-
-const PUBLIC_DEFAULT_ASSET_FALLBACKS = Object.freeze([
-    'SPY',
-    'NVDA',
-    'MSFT',
-    'AAPL',
-    'BTC'
-]);
-
-const PUBLIC_ROUTE_ASSET_PARAMS = Object.freeze([
-    'asset',
-    'ticker',
-    'symbol',
-    'term'
-]);
+import { Store, CONTROL_STATE_KEYS } from '../Store.js';
 
 export const Controls = {
     _bound: false,
@@ -63,38 +34,6 @@ export const Controls = {
         if (!covered || !covered.size) return true;
 
         return covered.has(String(ticker || '').trim().toUpperCase());
-    },
-
-    orderPublicAssets(assets) {
-        const available = new Set((assets || [])
-            .map(ticker => String(ticker || '').trim().toUpperCase())
-            .filter(Boolean));
-
-        const ordered = PUBLIC_ASSET_ORDER.filter(ticker => available.has(ticker));
-        const remaining = Array.from(available)
-            .filter(ticker => !PUBLIC_ASSET_ORDER.includes(ticker))
-            .sort();
-
-        return [...ordered, ...remaining];
-    },
-
-    preferredPublicAsset(assets) {
-        const available = new Set((assets || [])
-            .map(ticker => String(ticker || '').trim().toUpperCase())
-            .filter(Boolean));
-
-        return PUBLIC_DEFAULT_ASSET_FALLBACKS.find(ticker => available.has(ticker))
-            || Array.from(available).sort()[0]
-            || '';
-    },
-
-    hasExplicitPublicAssetRequest() {
-        if (typeof window === 'undefined' || !window.location || !window.URLSearchParams) {
-            return false;
-        }
-
-        const params = new window.URLSearchParams(window.location.search || '');
-        return PUBLIC_ROUTE_ASSET_PARAMS.some(paramName => params.has(paramName));
     },
 
     bindEvents() {
@@ -247,34 +186,20 @@ export const Controls = {
             } else {
                 console.warn("Index fetch failed, using fallback list.");
                 assets = mode === 'public'
-                    ? [...PUBLIC_ASSET_ORDER]
+                    ? ["AAPL","BTC","COIN","ETH","GLD","MSFT","NVDA","SOL"]
                     : ["AAPL","AMD","AMZN","BTC","ETH","NVDA","SOL"];
             }
 
             assets = assets
                 .map(ticker => String(ticker || '').trim().toUpperCase())
-                .filter(Boolean);
-            assets = mode === 'public'
-                ? this.orderPublicAssets(assets)
-                : assets.sort();
+                .filter(Boolean)
+                .sort();
 
             const optionsHtml = assets.map(ticker => `<option value="${ticker}">${ticker}</option>`).join('');
             assetSelect.innerHTML = optionsHtml;
 
-            const currentAsset = String(Store.state.currentAsset || '').trim().toUpperCase();
-            const preferredAsset = mode === 'public'
-                ? this.preferredPublicAsset(assets)
-                : assets[0];
-            const shouldApplyPublicDefault = mode === 'public'
-                && currentAsset === DEFAULT_CONTROL_STATE.currentAsset
-                && preferredAsset
-                && preferredAsset !== currentAsset
-                && !this.hasExplicitPublicAssetRequest();
-
-            if (assets.length && shouldApplyPublicDefault) {
-                Store.setAsset(preferredAsset);
-            } else if (assets.length && !assets.includes(currentAsset)) {
-                Store.setAsset(preferredAsset || assets[0]);
+            if (assets.length && !assets.includes(String(Store.state.currentAsset || '').trim().toUpperCase())) {
+                Store.setAsset(assets[0]);
             } else if (Store.state.currentAsset) {
                 this.syncControlElement('asset', Store.state.currentAsset);
             }
