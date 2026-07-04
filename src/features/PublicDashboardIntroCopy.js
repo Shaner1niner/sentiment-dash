@@ -1,7 +1,7 @@
-const INTRO_COPY_TOKEN = 'module_public_dashboard_intro_copy_001';
+const INTRO_COPY_TOKEN = 'module_public_dashboard_intro_copy_002';
 
-const PUBLIC_DASHBOARD_SUBTITLE = 'Read attention, sentiment, structure, and confirmation context in one view. SETA explains market emotion and setup quality - not price targets or trade instructions.';
-const PUBLIC_FRESHNESS_NOTE = 'Freshness shows the latest visible dashboard data date. SETA uses this as a data-quality cue, not a price forecast or trade instruction.';
+const PUBLIC_DASHBOARD_SUBTITLE = 'A public-safe sample of SETA\'s market attention, participation, structure, and sentiment context.';
+const PUBLIC_FRESHNESS_NOTE = 'Explore how SETA organizes market context across attention, participation, structure, and setup quality. This public sample is informational only and is not a forecast, recommendation, or trading signal.';
 const PUBLIC_LANGUAGE_GUIDE_URL = './how_seta_reads_the_market.html';
 
 const CONTROL_LABELS = {
@@ -75,7 +75,7 @@ function applyFreshnessReaderNote(banner) {
 
     const note = document.createElement('p');
     note.className = 'setaFreshnessReaderNote';
-    note.innerHTML = `<strong>Freshness:</strong> ${PUBLIC_FRESHNESS_NOTE}`;
+    note.innerHTML = `<strong>Sample guide:</strong> ${PUBLIC_FRESHNESS_NOTE}`;
     note.setAttribute('data-seta-freshness-reader-note', INTRO_COPY_TOKEN);
 
     const link = banner.querySelector('[data-seta-language-guide-link]');
@@ -117,8 +117,8 @@ function applyPublicDashboardIntroCopy() {
 
     applyControlLabels();
 
-    if (document.title === 'SETA Public Dashboard') {
-        document.title = 'SETA Public Dashboard | Attention, Sentiment, Structure';
+    if (document.title === 'SETA Public Dashboard' || document.title === 'SETA Public Market Context Dashboard') {
+        document.title = 'SETA Public Market Context Dashboard';
     }
 }
 

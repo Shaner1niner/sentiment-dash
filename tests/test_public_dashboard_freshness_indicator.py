@@ -21,6 +21,24 @@ def test_public_dashboard_mounts_current_data_indicator():
     assert "public_freshness_001" in html
     assert "DataFreshnessIndicator" in main
     assert "module_data_freshness_indicator_002_public_current_marker_001" in main
+    assert "module_public_dashboard_intro_copy_002" in main
+
+
+def test_public_dashboard_static_shell_uses_productized_copy():
+    html = DASHBOARD.read_text(encoding="utf-8")
+
+    assert "<title>SETA Public Market Context Dashboard</title>" in html
+    assert '<h1>SETA Public Market Context Dashboard <span id="ui-feedback">SPY</span></h1>' in html
+    assert "A public-safe sample of SETA's market attention, participation, structure, and sentiment context." in html
+
+    forbidden_shell_terms = [
+        "Production public module " + "runtime surface",
+        "Legacy public " + "dashboard",
+        "fallback " + "route",
+        "SETA Public Dashboard " + "BTC",
+    ]
+    for term in forbidden_shell_terms:
+        assert term not in html
 
 
 def test_public_dashboard_has_public_safe_beta_access_cta():
