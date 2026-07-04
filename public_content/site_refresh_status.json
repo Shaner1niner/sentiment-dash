@@ -32,11 +32,11 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-07-04T02:29:36Z",
+      "generated_at_utc": "2026-07-04T06:29:42Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-07-04T02:29:54",
+      "generated_at_utc": "2026-07-04T06:30:01",
       "pending_count": 4586,
       "pending_resolution_basis_count": 4586,
       "resolution_basis_guard_applied": true,
@@ -59,13 +59,13 @@
         "SPY",
         "TSLA"
       ],
-      "generated_at_utc": "2026-07-04T02:29:29Z"
+      "generated_at_utc": "2026-07-04T06:29:35Z"
     },
     "reviewed_briefings": {
       "briefing_count": 106
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-07-04T02:30:11Z",
+      "generated_at_utc": "2026-07-04T06:30:18Z",
       "item_count": 11,
       "mode": "public",
       "public_safe": true,
@@ -73,13 +73,13 @@
       "source_repo": "sentiment-dash-internal"
     },
     "website_snippets": {
-      "date": "2026-07-03",
+      "date": "2026-07-04",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-07-04T02:30:02+00:00"
+      "published_at_utc": "2026-07-04T06:30:08+00:00"
     }
   },
-  "generated_at_utc": "2026-07-04T02:30:11Z",
+  "generated_at_utc": "2026-07-04T06:30:18Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -88,7 +88,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "261fcec36b0ce9a954475a91278f65f3c41a1505"
+    "head_sha": "1ad81695e4f66b8865f86fa5992241dc45092f4a"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
