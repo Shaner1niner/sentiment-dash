@@ -2,7 +2,6 @@ import { Store } from '../Store.js';
 
 const STYLE_ID = 'seta-data-freshness-indicator-style';
 const TARGET_ID = 'module-data-freshness-indicator';
-const PUBLIC_REFRESH_STATUS_URL = './public_content/site_refresh_status.json?v=public_dashboard_freshness_001';
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 function escapeHtml(value) {
@@ -18,18 +17,6 @@ function asDate(value) {
     if (!value) return null;
     const d = value instanceof Date ? value : new Date(value);
     return Number.isFinite(d.getTime()) ? d : null;
-}
-
-function firstValue(source, keys = []) {
-    if (!source || typeof source !== 'object') return null;
-
-    for (const key of keys) {
-        if (source[key] !== undefined && source[key] !== null && String(source[key]).trim() !== '') {
-            return source[key];
-        }
-    }
-
-    return null;
 }
 
 function rowsForPayload(payload, state = Store.snapshot()) {
@@ -85,68 +72,10 @@ function isReviewedBriefing(state = Store.snapshot()) {
     });
 }
 
-function isPublicMode() {
-    if (typeof window === 'undefined') return false;
-    return String(window.DASH_MODE_DEFAULT || '').trim().toLowerCase() === 'public';
-}
-
 function dateLabel(date) {
     const d = asDate(date);
     if (!d) return '';
     return d.toISOString().slice(0, 10);
-}
-
-function dateTimeLabel(date) {
-    const d = asDate(date);
-    if (!d) return '';
-    return `${d.toISOString().slice(0, 16).replace('T', ' ')} UTC`;
-}
-
-function siteStatusPublicRefresh(status) {
-    return firstValue(status?.artifacts?.public_chart_store, ['generated_at_utc', 'generated_at'])
-        || firstValue(status?.artifacts?.seta_public_preview, ['generated_at_utc', 'generated_at'])
-        || firstValue(status, ['generated_at_utc', 'generated_at'])
-        || firstValue(status?.artifacts?.website_snippets, ['published_at_utc']);
-}
-
-function siteStatusContextThrough(status) {
-    return firstValue(status?.artifacts?.website_snippets, ['date'])
-        || firstValue(status?.artifacts?.seta_public_preview, ['context_through', 'latest_available_context_through'])
-        || null;
-}
-
-function publicRefreshDate(state = Store.snapshot(), publicRefreshStatus = null) {
-    const payload = state.currentAssetPayload;
-    const index = state.assetStoreIndex;
-
-    return firstValue(payload?._meta, ['generated_at_utc', 'generated_at', 'published_at_utc'])
-        || firstValue(index, ['generated_at_utc', 'generated_at', 'published_at_utc'])
-        || siteStatusPublicRefresh(publicRefreshStatus);
-}
-
-function publicFreshnessDetail(contextDate, refreshDate) {
-    const contextText = dateLabel(contextDate);
-    const refreshText = dateTimeLabel(refreshDate);
-
-    if (contextText && refreshText) {
-        return `Context through: ${contextText}. Public sample refreshed: ${refreshText}.`;
-    }
-
-    if (contextText) {
-        return `Context through: ${contextText}. Latest public context available.`;
-    }
-
-    if (refreshText) {
-        return `Public sample refreshed: ${refreshText}. Latest public context available.`;
-    }
-
-    return 'Latest public context available.';
-}
-
-function publicFreshnessTooltip(status) {
-    const contextText = status.latestDataDate ? ` Context through: ${status.latestDataDate}.` : '';
-    const refreshText = status.publicRefreshedAt ? ` Public sample refreshed: ${status.publicRefreshedAt}.` : '';
-    return `This marker uses public dashboard metadata for the selected sample asset.${contextText}${refreshText} Context only; not investment advice or a trading signal.`;
 }
 
 function freshnessTooltip(status) {
@@ -172,31 +101,13 @@ function freshnessTooltip(status) {
     return `Freshness could not be confirmed from dated dashboard rows. ${base}`;
 }
 
-export function classifyDataFreshness(state = Store.snapshot(), now = new Date(), options = {}) {
+export function classifyDataFreshness(state = Store.snapshot(), now = new Date()) {
     const payload = state.currentAssetPayload;
     const rows = rowsForPayload(payload, state);
-    const latestDate = latestRowDate(rows) || asDate(siteStatusContextThrough(options.publicRefreshStatus));
-    const refreshDate = asDate(publicRefreshDate(state, options.publicRefreshStatus));
+    const latestDate = latestRowDate(rows);
     const loadedAt = asDate(state.assetPayloadMeta?.loadedAt);
     const ageDays = latestDate ? daysBetween(now, latestDate) : null;
     const reviewed = isReviewedBriefing(state);
-    const publicMode = isPublicMode();
-
-    if (publicMode) {
-        const baseStatus = ageDays !== null && ageDays > 7
-            ? 'stale'
-            : (ageDays !== null && ageDays > 2 ? 'source_warning' : 'fresh');
-        const status = {
-            status: latestDate || refreshDate ? baseStatus : 'unknown',
-            label: 'public-safe sample',
-            detail: publicFreshnessDetail(latestDate, refreshDate),
-            generatedAt: refreshDate ? refreshDate.toISOString() : (loadedAt ? loadedAt.toISOString() : null),
-            latestDataDate: dateLabel(latestDate) || null,
-            publicRefreshedAt: dateTimeLabel(refreshDate) || null,
-            reviewed
-        };
-        return { ...status, tooltip: publicFreshnessTooltip(status) };
-    }
 
     if (!payload || !rows.length || !latestDate) {
         const status = {
@@ -343,44 +254,20 @@ function ensureTarget() {
 
 export const DataFreshnessIndicator = {
     targetId: TARGET_ID,
-    publicRefreshStatus: null,
-    _publicRefreshStatusLoaded: false,
-    _publicRefreshStatusLoading: false,
 
     init() {
         ensureStyle();
         ensureTarget();
         this.render();
-        this.loadPublicRefreshStatus();
 
         Store.on('assetPayloadUpdated', () => this.render());
         Store.on('reviewedBriefingsUpdated', () => this.render());
         Store.on('controlChanged', () => this.render());
     },
 
-    async loadPublicRefreshStatus() {
-        if (!isPublicMode() || this._publicRefreshStatusLoaded || this._publicRefreshStatusLoading) return;
-
-        this._publicRefreshStatusLoading = true;
-        try {
-            const response = await fetch(PUBLIC_REFRESH_STATUS_URL, { cache: 'no-store' });
-            if (response.ok) {
-                this.publicRefreshStatus = await response.json();
-            }
-        } catch (error) {
-            console.warn('DataFreshnessIndicator: public refresh status unavailable', error);
-        } finally {
-            this._publicRefreshStatusLoaded = true;
-            this._publicRefreshStatusLoading = false;
-            this.render();
-        }
-    },
-
     render() {
         const target = ensureTarget();
-        const status = classifyDataFreshness(Store.snapshot(), new Date(), {
-            publicRefreshStatus: this.publicRefreshStatus
-        });
+        const status = classifyDataFreshness(Store.snapshot());
         target.innerHTML = `
           <span class="moduleDataFreshnessPill is-${escapeHtml(status.status)}" title="${escapeHtml(status.tooltip || status.detail)}">${escapeHtml(status.label)}</span>
           <span class="moduleDataFreshnessDetail" title="${escapeHtml(status.tooltip || status.detail)}">${escapeHtml(status.detail)}</span>

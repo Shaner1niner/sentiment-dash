@@ -1,4 +1,4 @@
-// Public Control Density Polish v3
+// Public Control Density Polish v1
 //
 // Public-route-only DOM polish that keeps the existing Controls.js contract intact.
 // It reorganizes existing control nodes into a small primary row and a collapsed
@@ -41,7 +41,7 @@
       }
       .publicReadingRail {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 10px;
         margin: 0 0 14px;
       }
@@ -177,13 +177,12 @@
   function buildReadingRail(documentRef) {
     const rail = documentRef.createElement('section');
     rail.className = 'publicReadingRail';
-    rail.setAttribute('aria-label', 'How to read this sample');
-    rail.setAttribute('data-seta-onboarding-rail', 'public-dashboard-controls-onboarding');
+    rail.setAttribute('aria-label', 'How to read SETA');
     rail.innerHTML = `
-      <article class="publicReadingStep"><span>1 - Radar</span><strong>Pick an asset</strong><em>Start with the selected asset and context date.</em></article>
-      <article class="publicReadingStep"><span>2 - Briefing</span><strong>Read market context</strong><em>Compare sentiment, attention, and structure against recent price behavior.</em></article>
-      <article class="publicReadingStep"><span>3 - Chart</span><strong>Use the chart as context</strong><em>Treat this as market context only, not a trading signal.</em></article>
-      <article class="publicReadingStep"><span>4 - Accountability</span><strong>Check measured outcomes</strong><em>Review historical follow-through after the chart.</em></article>
+      <article class="publicReadingStep"><span>1 · Radar</span><strong>What is active?</strong><em>Start with the market tape and selected setup.</em></article>
+      <article class="publicReadingStep"><span>2 · Briefing</span><strong>What does SETA see?</strong><em>Read behavioral context before tuning the chart.</em></article>
+      <article class="publicReadingStep"><span>3 · Chart</span><strong>Where is structure?</strong><em>Use price, sentiment, and attention together.</em></article>
+      <article class="publicReadingStep"><span>4 · Accountability</span><strong>How did outcomes resolve?</strong><em>Review measured outcomes after the chart.</em></article>
     `;
     return rail;
   }
@@ -193,7 +192,7 @@
     if (!banner || banner.dataset.publicCopyPolished === '1') return;
     const paragraph = banner.querySelector('p');
     if (paragraph) {
-      paragraph.textContent = 'A public-safe sample of SETA market attention, participation, structure, and sentiment context. Start with the selected asset, then use more chart controls only when needed.';
+      paragraph.textContent = 'Read market behavior beneath price. Start with the active setup, scan the briefing, then use advanced chart controls only when you need them.';
     }
     banner.dataset.publicCopyPolished = '1';
   }
@@ -215,11 +214,9 @@
 
     const primaryWrap = documentRef.createElement('div');
     primaryWrap.className = 'publicPrimaryControls';
-    primaryWrap.setAttribute('data-seta-primary-controls', 'asset-frequency-range-view');
 
     const advancedWrap = documentRef.createElement('div');
     advancedWrap.className = 'publicAdvancedControls';
-    advancedWrap.setAttribute('data-seta-advanced-controls', 'chart-display-layers');
 
     PRIMARY_CONTROLS.forEach((controlId) => {
       const node = controlFor(controlsEl, controlId);
@@ -235,12 +232,12 @@
 
     const details = documentRef.createElement('details');
     details.className = 'publicAdvancedControlShell';
-    details.innerHTML = '<summary>More chart controls <em>chart type, structure, attention, timing</em></summary>';
+    details.innerHTML = '<summary>Advanced chart controls <em>bands, timing panes, attention overlays</em></summary>';
     details.appendChild(advancedWrap);
 
     const note = documentRef.createElement('p');
     note.className = 'publicControlNote';
-    note.textContent = 'Start with asset, range, and view. More controls change the display, not the public context.';
+    note.textContent = 'SETA is educational context. These controls change the view, not the underlying behavioral read.';
 
     controlsEl.classList.add('publicControlDeck');
     controlsEl.setAttribute(APPLIED_ATTR, '1');
