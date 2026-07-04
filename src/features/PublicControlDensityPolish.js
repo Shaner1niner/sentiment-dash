@@ -182,7 +182,7 @@
       <article class="publicReadingStep"><span>1 · Radar</span><strong>What is active?</strong><em>Start with the market tape and selected setup.</em></article>
       <article class="publicReadingStep"><span>2 · Briefing</span><strong>What does SETA see?</strong><em>Read behavioral context before tuning the chart.</em></article>
       <article class="publicReadingStep"><span>3 · Chart</span><strong>Where is structure?</strong><em>Use price, sentiment, and attention together.</em></article>
-      <article class="publicReadingStep"><span>4 · Accountability</span><strong>How did calls resolve?</strong><em>Review measured outcomes, not trade instructions.</em></article>
+      <article class="publicReadingStep"><span>4 · Accountability</span><strong>How did outcomes resolve?</strong><em>Review measured outcomes after the chart.</em></article>
     `;
     return rail;
   }
