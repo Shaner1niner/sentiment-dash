@@ -12,7 +12,7 @@ PUBLIC_DASHBOARD = ROOT / "interactive_dashboard_fix24_public_embed.html"
 def test_public_dashboard_controls_onboarding_is_wired():
     main = DASHBOARD_MAIN.read_text(encoding="utf-8")
 
-    assert "module_public_control_density_polish_002_controls_onboarding_001" in main
+    assert "module_public_control_density_polish_003_controls_onboarding_accountability_001" in main
     assert "PUBLIC_CONTROL_DENSITY_POLISH.init" in main
 
 
@@ -27,6 +27,9 @@ def test_public_controls_are_grouped_without_changing_control_ids():
     assert "Compare sentiment, attention, and structure against recent price behavior." in source
     assert "Use the chart as context" in source
     assert "Treat this as market context only, not a trading signal." in source
+    assert "4 - Accountability" in source
+    assert "Check measured outcomes" in source
+    assert "Review historical follow-through after the chart." in source
 
     assert "PRIMARY_CONTROLS = ['asset', 'freq', 'range', 'briefingMode']" in source
     assert "ADVANCED_CONTROLS = ['priceDisplay', 'scaleMode', 'ribbon', 'regimeLayer', 'engagement', 'bollinger', 'osc']" in source

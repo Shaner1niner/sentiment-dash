@@ -1,4 +1,4 @@
-// Prediction Accountability Placement Polish v4
+// Prediction Accountability Placement Polish v5
 //
 // Modular-route copy and placement polish. Keeps the core
 // PredictionAccountabilityPanel data contract intact while making accountability
@@ -10,6 +10,8 @@
 // accountability panel when PredictionAccountabilityPanel renders later.
 // v4: applies below-chart placement to modular public and modular research/member
 // routes for a consistent read-structure-first, review-accountability-later flow.
+// v5: removes public-facing action-oriented phrasing in favor of outcome
+// tracking, historical follow-through, and accountability language.
 
 (function attachPredictionAccountabilityPlacementPolish(globalScope) {
   'use strict';
@@ -18,7 +20,6 @@
   const STYLE_ID = 'prediction-accountability-placement-polish-style';
   const PATCH_ATTR = 'data-accountability-placement-polished';
   const MOVED_ATTR = 'data-accountability-moved-below-chart';
-  const SHOW_TEXT = globalScope.NodeFilter ? globalScope.NodeFilter.SHOW_TEXT : 4;
 
   let observer = null;
   let applying = false;
@@ -90,40 +91,21 @@
     documentRef.head.appendChild(style);
   }
 
-  function replaceText(root, from, to) {
-    if (!root || !root.textContent || !root.textContent.includes(from)) return;
-    const walker = root.ownerDocument.createTreeWalker(root, SHOW_TEXT);
-    const nodes = [];
-    while (walker.nextNode()) nodes.push(walker.currentNode);
-    nodes.forEach((node) => {
-      if (node.nodeValue && node.nodeValue.includes(from)) {
-        const nextValue = node.nodeValue.replaceAll(from, to);
-        if (node.nodeValue !== nextValue) node.nodeValue = nextValue;
-      }
-    });
-  }
-
   function polishCopy(panel) {
     const heading = panel.querySelector('.modulePredictionAccountabilityHeader h2');
-    setTextIfChanged(heading, 'Model Call Accountability');
+    setTextIfChanged(heading, 'Outcome Tracking');
 
     const subhead = panel.querySelector('.modulePredictionAccountabilityHeader p');
-    if (subhead && /model calls|prediction windows|trading signal/i.test(subhead.textContent || '')) {
-      setTextIfChanged(subhead, 'Tracks stored model calls and measured outcomes after prediction windows close. Accountability context only.');
+    if (subhead && /stored reads|prediction windows|accountability context/i.test(subhead.textContent || '')) {
+      setTextIfChanged(subhead, 'Tracks stored SETA reads and measured outcomes after their windows close. Accountability context only.');
     }
 
-    panel.querySelectorAll('.modulePredictionActiveRow h3').forEach((node) => {
-      const nextValue = node.textContent.replace('latest model call', 'latest tracked call');
-      setTextIfChanged(node, nextValue);
-    });
-
     panel.querySelectorAll('.modulePredictionFact span').forEach((node) => {
-      if (node.textContent.trim() === 'Prediction') setTextIfChanged(node, 'Model call');
+      if (node.textContent.trim() === 'Prediction') {
+        setTextIfChanged(node, 'Stored read');
+      }
     });
 
-    replaceText(panel, 'Not a live trading signal.', 'Not a standalone forecast or recommendation.');
-    replaceText(panel, 'This is not a trade signal or price target.', 'This is not a standalone forecast or recommendation.');
-    replaceText(panel, 'it does not issue trade instructions.', 'it does not issue recommendations.');
   }
 
   function moveBelowChart(documentRef, panel) {

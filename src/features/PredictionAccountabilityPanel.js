@@ -321,8 +321,8 @@ function renderLoading() {
       <div class="modulePredictionAccountabilityHeader">
         <div>
           <div class="modulePredictionAccountabilityKicker">Prediction Accountability</div>
-          <h2>Loading outcome overlay</h2>
-          <p>Checking the latest resolved prediction outcomes.</p>
+          <h2>Loading outcome tracking</h2>
+          <p>Checking the latest measured prediction outcomes.</p>
         </div>
         <span class="modulePredictionAccountabilityPill">Loading</span>
       </div>
@@ -336,12 +336,12 @@ function renderError(error) {
       <div class="modulePredictionAccountabilityHeader">
         <div>
           <div class="modulePredictionAccountabilityKicker">Prediction Accountability</div>
-          <h2>Outcome overlay unavailable</h2>
+          <h2>Outcome tracking unavailable</h2>
           <p>${escapeHtml(error?.message || error || 'Could not load prediction outcome overlay.')}</p>
         </div>
         <span class="modulePredictionAccountabilityPill">Offline</span>
       </div>
-      <p class="modulePredictionNote">This panel is informational. SETA explains market emotion and setup quality; it does not issue trade instructions.</p>
+      <p class="modulePredictionNote">This panel is informational outcome tracking. SETA explains market emotion and setup quality; accountability rows are measured after their windows close.</p>
     `;
 }
 
@@ -451,7 +451,7 @@ function metadataCountWarnings(meta, derived) {
         row_count: 'row count',
         resolved_count: 'resolved count',
         pending_count: 'pending count',
-        no_call_count: 'no-call count',
+        no_call_count: 'unscored count',
     };
 
     return Object.keys(labels).flatMap((key) => {
@@ -511,7 +511,7 @@ function displayWindowLabel(row) {
 
 function displayPredictionLabel(row) {
     if (!row) return 'N/A';
-    if (isNoCall(row)) return 'No call';
+    if (isNoCall(row)) return 'No score';
     return labelDirection(row.prediction_label);
 }
 
@@ -542,7 +542,7 @@ function publicOutcomeStatusClass(row) {
 function outcomeBasisNote(row) {
     if (!row) return '';
     if (isNoCall(row)) {
-        return 'No accountability result is assigned to no-call or low-confidence rows.';
+        return 'No accountability result is assigned to low-confidence or unscored rows.';
     }
     if (isPendingResolutionBasis(row)) {
         return 'Correct/Miss display is withheld until the public payload includes the resolution basis.';
@@ -561,7 +561,7 @@ function recentOutcomeText(row) {
     const prediction = displayPredictionLabel(row);
     const result = displayResultLabel(row);
 
-    if (isNoCall(row)) return `${date}: No call`;
+    if (isNoCall(row)) return `${date}: No score`;
     if (isPendingResolutionBasis(row)) return `${date}: ${prediction} - Pending basis`;
     if (!isResolved(row)) return `${date}: ${prediction} - In progress`;
     if (hasFinalOutcome(row)) return `${date}: ${prediction} - ${result} (${correctnessLabel(row)})`;
@@ -616,15 +616,15 @@ function renderPanel() {
     const recents = recentRows(6);
     const pillText = accuracy === '—'
         ? freshness.label
-        : `${accuracy} selective accuracy`;
+        : `${accuracy} historical follow-through`;
 
     target.className = 'modulePredictionAccountabilityPanel';
     target.innerHTML = `
       <div class="modulePredictionAccountabilityHeader">
         <div>
           <div class="modulePredictionAccountabilityKicker">Prediction Accountability</div>
-          <h2>Model Call Tracking</h2>
-          <p>Tracks stored model calls and measured outcomes after prediction windows close. Not a live trading signal.</p>
+          <h2>Outcome Tracking</h2>
+          <p>Tracks stored SETA reads and measured outcomes after their windows close. Accountability context only.</p>
         </div>
         <span class="modulePredictionAccountabilityPill">${escapeHtml(pillText)}</span>
       </div>
@@ -633,7 +633,7 @@ function renderPanel() {
         <div class="modulePredictionMetric"><span>Rows</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'row_count', derived.row_count)))}</strong></div>
         <div class="modulePredictionMetric"><span>Resolved</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'resolved_count', derived.resolved_count)))}</strong></div>
         <div class="modulePredictionMetric"><span>Pending</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'pending_count', derived.pending_count)))}</strong></div>
-        <div class="modulePredictionMetric"><span>No-call</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'no_call_count', derived.no_call_count)))}</strong></div>
+        <div class="modulePredictionMetric"><span>No score</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'no_call_count', derived.no_call_count)))}</strong></div>
         <div class="modulePredictionMetric"><span>Final scored</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'called_evaluated_count', derived.final_outcome_count)))}</strong></div>
         <div class="modulePredictionMetric"><span>Basis pending</span><strong>${escapeHtml(asNumber(metadataNumber(meta, 'pending_resolution_basis_count', derived.pending_basis_count)))}</strong></div>
       </div>
@@ -641,11 +641,11 @@ function renderPanel() {
       ${renderWarningBlock(warnings)}
 
       <div class="modulePredictionActiveRow">
-        <h3>${escapeHtml(asset)} latest model call</h3>
+        <h3>${escapeHtml(asset)} latest tracked outcome</h3>
         ${activeRow ? `
           <div class="modulePredictionFactGrid">
             <div class="modulePredictionFact"><span>Date</span><strong>${escapeHtml(formatDate(activeRow.prediction_date))}</strong></div>
-            <div class="modulePredictionFact"><span>Prediction</span><strong>${escapeHtml(displayPredictionLabel(activeRow))}</strong></div>
+            <div class="modulePredictionFact"><span>Stored read</span><strong>${escapeHtml(displayPredictionLabel(activeRow))}</strong></div>
             <div class="modulePredictionFact"><span>Window</span><strong>${escapeHtml(displayWindowLabel(activeRow))}</strong></div>
             <div class="modulePredictionFact"><span>Measured result</span><strong>${escapeHtml(displayResultLabel(activeRow))}</strong></div>
             <div class="modulePredictionFact"><span>Confidence</span><strong>${escapeHtml(asPercent(activeRow.confidence))}</strong></div>
@@ -658,12 +658,12 @@ function renderPanel() {
       </div>
 
       <div class="modulePredictionRecent">
-        <p class="modulePredictionNote">Recent accountability sample across tracked assets.</p>
+        <p class="modulePredictionNote">Recent measured outcomes across tracked assets.</p>
         ${renderRecentRows(recents)}
       </div>
 
       <p class="modulePredictionNote">
-        Accountability view only. Measured results reflect stored prediction windows, not live candle movement. Final scored rows are the only rows eligible for Correct/Miss display; pending basis rows remain withheld until public resolution context is available. Accuracy is measured on resolved prediction outcomes and excludes low-confidence/no-call rows where applicable. This is not a trade signal or price target.
+        Accountability view only. Measured results reflect stored prediction windows, not live candle movement. Final scored rows are the only rows eligible for Correct/Miss display; pending basis rows remain withheld until public resolution context is available. Historical follow-through is measured on resolved prediction outcomes and excludes low-confidence or unscored rows where applicable. Read this as after-the-fact accountability context.
         Generated: ${escapeHtml(meta.generated_at || 'unknown')}.
       </p>
     `;

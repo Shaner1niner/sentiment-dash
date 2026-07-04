@@ -1,4 +1,4 @@
-// Public Control Density Polish v2
+// Public Control Density Polish v3
 //
 // Public-route-only DOM polish that keeps the existing Controls.js contract intact.
 // It reorganizes existing control nodes into a small primary row and a collapsed
@@ -180,9 +180,10 @@
     rail.setAttribute('aria-label', 'How to read this sample');
     rail.setAttribute('data-seta-onboarding-rail', 'public-dashboard-controls-onboarding');
     rail.innerHTML = `
-      <article class="publicReadingStep"><span>Step 1</span><strong>Pick an asset</strong><em>Start with the selected asset and context date.</em></article>
-      <article class="publicReadingStep"><span>Step 2</span><strong>Read market context</strong><em>Compare sentiment, attention, and structure against recent price behavior.</em></article>
-      <article class="publicReadingStep"><span>Step 3</span><strong>Use the chart as context</strong><em>Treat this as market context only, not a trading signal.</em></article>
+      <article class="publicReadingStep"><span>1 - Radar</span><strong>Pick an asset</strong><em>Start with the selected asset and context date.</em></article>
+      <article class="publicReadingStep"><span>2 - Briefing</span><strong>Read market context</strong><em>Compare sentiment, attention, and structure against recent price behavior.</em></article>
+      <article class="publicReadingStep"><span>3 - Chart</span><strong>Use the chart as context</strong><em>Treat this as market context only, not a trading signal.</em></article>
+      <article class="publicReadingStep"><span>4 - Accountability</span><strong>Check measured outcomes</strong><em>Review historical follow-through after the chart.</em></article>
     `;
     return rail;
   }
