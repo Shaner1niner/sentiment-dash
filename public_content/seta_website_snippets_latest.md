@@ -184,6 +184,66 @@ DOGE sits in a elevated decision-pressure zone in the crypto tape.
 
 ---
 
+## LINK: broadening, not yet all-clear
+
+LINK is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+
+**SETA read:** broadening participation | rank 14
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## XRP: repair watch
+
+XRP looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+
+**SETA read:** repair watch
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## AMZN: SETA context
+
+AMZN sits in a lower decision-pressure zone in the equity tape.
+
+**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+
+**SETA read:** seta context | rank 10 | negative skew | confirmed / accepted
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## GOOGL: SETA context
+
+GOOGL sits in a elevated decision-pressure zone in the equity tape.
+
+**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+
+**SETA read:** seta context | rank 8 | negative skew | confirmed / accepted
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## META: SETA context
+
+META sits in a lower decision-pressure zone in the equity tape.
+
+**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+
+**SETA read:** seta context | rank 21
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
 ## TSLA: contested structure
 
 TSLA is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. permission without belief is the key tension.
@@ -203,6 +263,30 @@ COIN still carries validation risk. Surface activity may be visible, while the u
 **Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
 **SETA read:** validation risk | rank 9 | negative skew | rejection / decay
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## AMD: contested structure
+
+AMD is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
+
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+
+**SETA read:** contested structure | rank 15
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## QQQ: contested structure
+
+QQQ is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
+
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+
+**SETA read:** contested structure | rank 25
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 

@@ -32,11 +32,11 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-07-08T04:29:54Z",
+      "generated_at_utc": "2026-07-08T05:29:59Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-07-08T04:30:12",
+      "generated_at_utc": "2026-07-08T05:30:20",
       "pending_count": 4818,
       "pending_resolution_basis_count": 4818,
       "resolution_basis_guard_applied": true,
@@ -45,28 +45,40 @@
       "selective_accuracy": 0.6440852819807428
     },
     "public_chart_store": {
-      "asset_count": 11,
+      "asset_count": 23,
       "assets": [
         "AAPL",
+        "AMD",
+        "AMZN",
+        "AVAX",
+        "BNB",
         "BTC",
         "COIN",
         "DOGE",
+        "DXY",
         "ETH",
         "GLD",
+        "GOOGL",
+        "LINK",
+        "META",
         "MSFT",
         "NVDA",
+        "QQQ",
         "SOL",
         "SPY",
-        "TSLA"
+        "TLT",
+        "TSLA",
+        "XLE",
+        "XRP"
       ],
-      "generated_at_utc": "2026-07-08T04:29:47Z"
+      "generated_at_utc": "2026-07-08T05:29:51Z"
     },
     "reviewed_briefings": {
-      "briefing_count": 106
+      "briefing_count": 130
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-07-08T04:30:29Z",
-      "item_count": 11,
+      "generated_at_utc": "2026-07-08T05:30:39Z",
+      "item_count": 23,
       "mode": "public",
       "public_safe": true,
       "schema_version": "seta_public_preview_v1",
@@ -76,10 +88,10 @@
       "date": "2026-07-08",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-07-08T04:30:19+00:00"
+      "published_at_utc": "2026-07-08T05:30:27+00:00"
     }
   },
-  "generated_at_utc": "2026-07-08T04:30:29Z",
+  "generated_at_utc": "2026-07-08T05:30:39Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -87,8 +99,8 @@
   "posting_performed": false,
   "public_safe": true,
   "repository": {
-    "branch": "main",
-    "head_sha": "c6e93b614d2e7d8c712bdbfa11cbb396e785c696"
+    "branch": "public-preview/expand-public-universe",
+    "head_sha": "e92dca10fdaa85b887d9fbad37c7693b69a6cf56"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
