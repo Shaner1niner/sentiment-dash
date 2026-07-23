@@ -1,6 +1,6 @@
 {
   "asset_count": 28,
-  "generated_at_utc": "2026-07-23T05:03:51.970060Z",
+  "generated_at_utc": "2026-07-23T05:28:01.025740Z",
   "latest_by_term": {
     "AAPL": {
       "as_of_utc": "2026-07-23T05:00:00Z",
@@ -14,10 +14,10 @@
     "AMD": {
       "as_of_utc": "2026-07-23T05:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 54.2708,
+      "direction_score": 56.1955,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 11.421,
+      "structure_score": 12.3487,
       "term": "AMD"
     },
     "AMZN": {
@@ -50,10 +50,10 @@
     "BTC": {
       "as_of_utc": "2026-07-23T05:00:00Z",
       "direction_label": "Bullish",
-      "direction_score": 62.7679,
+      "direction_score": 64.9569,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 36.6398,
+      "structure_score": 37.7053,
       "term": "BTC"
     },
     "COIN": {
@@ -68,10 +68,10 @@
     "DOGE": {
       "as_of_utc": "2026-07-23T05:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 37.7732,
+      "direction_score": 28.7615,
       "rank": "",
       "structure_label": "Mixed",
-      "structure_score": 36.5816,
+      "structure_score": 41.1703,
       "term": "DOGE"
     },
     "DXY": {
@@ -85,11 +85,11 @@
     },
     "ETH": {
       "as_of_utc": "2026-07-23T05:00:00Z",
-      "direction_label": "Mixed / Neutral",
-      "direction_score": 56.9499,
+      "direction_label": "Bearish",
+      "direction_score": 30.2039,
       "rank": "",
-      "structure_label": "Weak",
-      "structure_score": 30.9483,
+      "structure_label": "Mixed",
+      "structure_score": 38.1084,
       "term": "ETH"
     },
     "GLD": {
@@ -149,10 +149,10 @@
     "NFLX": {
       "as_of_utc": "2026-07-23T05:00:00Z",
       "direction_label": "Bearish",
-      "direction_score": 38.7312,
+      "direction_score": 38.4974,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 15.0963,
+      "structure_score": 15.2201,
       "term": "NFLX"
     },
     "NVDA": {
@@ -185,10 +185,10 @@
     "SHOP": {
       "as_of_utc": "2026-07-23T05:00:00Z",
       "direction_label": "Mixed / Neutral",
-      "direction_score": 48.6491,
+      "direction_score": 47.8879,
       "rank": "",
       "structure_label": "Weak",
-      "structure_score": 9.7216,
+      "structure_score": 10.2139,
       "term": "SHOP"
     },
     "SMCI": {
@@ -271,10 +271,10 @@
       {
         "as_of_utc": "2026-07-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
-        "direction_score": 54.2708,
+        "direction_score": 56.1955,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 11.421,
+        "structure_score": 12.3487,
         "term": "AMD"
       }
     ],
@@ -315,10 +315,10 @@
       {
         "as_of_utc": "2026-07-23T05:00:00Z",
         "direction_label": "Bullish",
-        "direction_score": 62.7679,
+        "direction_score": 64.9569,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 36.6398,
+        "structure_score": 37.7053,
         "term": "BTC"
       }
     ],
@@ -337,10 +337,10 @@
       {
         "as_of_utc": "2026-07-23T05:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 37.7732,
+        "direction_score": 28.7615,
         "rank": "",
         "structure_label": "Mixed",
-        "structure_score": 36.5816,
+        "structure_score": 41.1703,
         "term": "DOGE"
       }
     ],
@@ -358,11 +358,11 @@
     "ETH": [
       {
         "as_of_utc": "2026-07-23T05:00:00Z",
-        "direction_label": "Mixed / Neutral",
-        "direction_score": 56.9499,
+        "direction_label": "Bearish",
+        "direction_score": 30.2039,
         "rank": "",
-        "structure_label": "Weak",
-        "structure_score": 30.9483,
+        "structure_label": "Mixed",
+        "structure_score": 38.1084,
         "term": "ETH"
       }
     ],
@@ -436,10 +436,10 @@
       {
         "as_of_utc": "2026-07-23T05:00:00Z",
         "direction_label": "Bearish",
-        "direction_score": 38.7312,
+        "direction_score": 38.4974,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 15.0963,
+        "structure_score": 15.2201,
         "term": "NFLX"
       }
     ],
@@ -480,10 +480,10 @@
       {
         "as_of_utc": "2026-07-23T05:00:00Z",
         "direction_label": "Mixed / Neutral",
-        "direction_score": 48.6491,
+        "direction_score": 47.8879,
         "rank": "",
         "structure_label": "Weak",
-        "structure_score": 9.7216,
+        "structure_score": 10.2139,
         "term": "SHOP"
       }
     ],
