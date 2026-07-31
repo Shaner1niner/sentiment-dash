@@ -577,10 +577,10 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "MSFT: Layered context",
+      "public_context_headline": "MSFT: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "MSFT shows layered SETA context. Sentiment is transitional rather than clearly directional. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
-      "public_state_label": "Layered context",
+      "public_safe_copy": "MSFT shows layered SETA context. Sentiment is weakening expansion. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
+      "public_state_label": "Weakening structure",
       "rotation_bucket": 2438379709,
       "rotation_period": "2026-07-31",
       "rotation_reason": "fresh_public_context",
@@ -1897,10 +1897,10 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "MSFT: Layered context",
+      "public_context_headline": "MSFT: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "MSFT shows layered SETA context. Sentiment is transitional rather than clearly directional. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
-      "public_state_label": "Layered context",
+      "public_safe_copy": "MSFT shows layered SETA context. Sentiment is weakening expansion. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
+      "public_state_label": "Weakening structure",
       "rotation_bucket": 2438379709,
       "rotation_period": "2026-07-31",
       "rotation_reason": "fresh_public_context",
@@ -10446,7 +10446,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-07-31T04:33:19Z",
+  "generated_at": "2026-07-31T05:34:10Z",
   "items": [
     {
       "asset_class": "etf",
@@ -10593,8 +10593,8 @@
       },
       "attention_state": "Quiet attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "MSFT:reviewed_briefing:3M:D:2026-07-31",
-      "candidate_rank": 5,
+      "candidate_id": "AAPL:reviewed_briefing:3M:D:2026-07-31",
+      "candidate_rank": 8,
       "candidate_status": "selected",
       "display_order": 2,
       "display_penalty": 0,
@@ -10608,7 +10608,7 @@
       },
       "homepage_eligible": true,
       "homepage_rank": 2,
-      "name": "Microsoft",
+      "name": "Apple",
       "participation_context": "Low-intensity / concentrated. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
       "participation_evidence": {
         "activity_detected": false,
@@ -10669,14 +10669,14 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "MSFT: Layered context",
+      "public_context_headline": "AAPL: Layered context",
       "public_safe": true,
-      "public_safe_copy": "MSFT shows layered SETA context. Sentiment is transitional rather than clearly directional. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
+      "public_safe_copy": "AAPL shows layered SETA context. Sentiment is transitional rather than clearly directional. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
       "public_state_label": "Layered context",
-      "rotation_bucket": 2438379709,
+      "rotation_bucket": 2859757343,
       "rotation_period": "2026-07-31",
       "rotation_reason": "fresh_public_context",
-      "rotation_score": 375,
+      "rotation_score": 372,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
       "sentiment_structure": "Layered SETA context",
@@ -10690,7 +10690,7 @@
       "surfaces": [
         "website_market_context_cards"
       ],
-      "symbol": "MSFT"
+      "symbol": "AAPL"
     },
     {
       "asset_class": "equity",
@@ -11691,8 +11691,8 @@
       },
       "attention_state": "Quiet attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "AAPL:reviewed_briefing:3M:D:2026-07-31",
-      "candidate_rank": 8,
+      "candidate_id": "MSFT:reviewed_briefing:3M:D:2026-07-31",
+      "candidate_rank": 5,
       "candidate_status": "selected",
       "display_order": 11,
       "display_penalty": 0,
@@ -11706,7 +11706,7 @@
       },
       "homepage_eligible": true,
       "homepage_rank": 11,
-      "name": "Apple",
+      "name": "Microsoft",
       "participation_context": "Low-intensity / concentrated. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
       "participation_evidence": {
         "activity_detected": false,
@@ -11767,14 +11767,14 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "AAPL: Layered context",
+      "public_context_headline": "MSFT: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "AAPL shows layered SETA context. Sentiment is transitional rather than clearly directional. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
-      "public_state_label": "Layered context",
-      "rotation_bucket": 2859757343,
+      "public_safe_copy": "MSFT shows layered SETA context. Sentiment is weakening expansion. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
+      "public_state_label": "Weakening structure",
+      "rotation_bucket": 2438379709,
       "rotation_period": "2026-07-31",
       "rotation_reason": "fresh_public_context",
-      "rotation_score": 372,
+      "rotation_score": 375,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
       "sentiment_structure": "Layered SETA context",
@@ -11788,7 +11788,7 @@
       "surfaces": [
         "website_market_context_cards"
       ],
-      "symbol": "AAPL"
+      "symbol": "MSFT"
     },
     {
       "asset_class": "equity",
