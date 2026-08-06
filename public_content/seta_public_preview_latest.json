@@ -217,10 +217,10 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "NVDA: Layered context",
+      "public_context_headline": "NVDA: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "NVDA shows layered SETA context. Sentiment is transitional rather than clearly directional. Participation is elevated with Participation is elevated with source coverage unresolved.",
-      "public_state_label": "Layered context",
+      "public_safe_copy": "NVDA shows layered SETA context. Sentiment is constructive expansion. Participation is elevated with Participation is elevated with source coverage unresolved.",
+      "public_state_label": "Constructive context",
       "rotation_bucket": 1024506683,
       "rotation_period": "2026-08-06",
       "rotation_reason": "fresh_public_context",
@@ -1059,7 +1059,7 @@
       "presentation_group": "crypto",
       "public_context_headline": "DOGE: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "DOGE shows constructive pressure that still needs confirmation. Sentiment is compression / transition. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
+      "public_safe_copy": "DOGE shows constructive pressure that still needs confirmation. Sentiment is transitional rather than clearly directional. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
       "public_state_label": "Constructive context",
       "rotation_bucket": 1365755376,
       "rotation_period": "2026-08-06",
@@ -1417,10 +1417,10 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "NVDA: Layered context",
+      "public_context_headline": "NVDA: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "NVDA shows layered SETA context. Sentiment is transitional rather than clearly directional. Participation is elevated with Participation is elevated with source coverage unresolved.",
-      "public_state_label": "Layered context",
+      "public_safe_copy": "NVDA shows layered SETA context. Sentiment is constructive expansion. Participation is elevated with Participation is elevated with source coverage unresolved.",
+      "public_state_label": "Constructive context",
       "rotation_bucket": 1024506683,
       "rotation_period": "2026-08-06",
       "rotation_reason": "fresh_public_context",
@@ -2499,7 +2499,7 @@
       "presentation_group": "crypto",
       "public_context_headline": "DOGE: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "DOGE shows constructive pressure that still needs confirmation. Sentiment is compression / transition. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
+      "public_safe_copy": "DOGE shows constructive pressure that still needs confirmation. Sentiment is transitional rather than clearly directional. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
       "public_state_label": "Constructive context",
       "rotation_bucket": 1365755376,
       "rotation_period": "2026-08-06",
@@ -10443,7 +10443,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-08-06T08:32:23Z",
+  "generated_at": "2026-08-06T09:33:00Z",
   "items": [
     {
       "asset_class": "etf",
@@ -10590,8 +10590,8 @@
       },
       "attention_state": "Concentrated attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "MSFT:reviewed_briefing:3M:D:2026-08-06",
-      "candidate_rank": 5,
+      "candidate_id": "NVDA:reviewed_briefing:3M:D:2026-08-06",
+      "candidate_rank": 2,
       "candidate_status": "selected",
       "display_order": 2,
       "display_penalty": 0,
@@ -10605,7 +10605,7 @@
       },
       "homepage_eligible": true,
       "homepage_rank": 2,
-      "name": "Microsoft",
+      "name": "NVIDIA",
       "participation_context": "Low-intensity / concentrated. Participation is elevated with Participation is elevated with source coverage unresolved.",
       "participation_evidence": {
         "activity_detected": false,
@@ -10666,14 +10666,14 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "MSFT: Constructive context",
+      "public_context_headline": "NVDA: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "MSFT shows layered SETA context. Sentiment is constructive expansion. Participation is elevated with Participation is elevated with source coverage unresolved.",
+      "public_safe_copy": "NVDA shows layered SETA context. Sentiment is constructive expansion. Participation is elevated with Participation is elevated with source coverage unresolved.",
       "public_state_label": "Constructive context",
-      "rotation_bucket": 3100161002,
+      "rotation_bucket": 1024506683,
       "rotation_period": "2026-08-06",
       "rotation_reason": "fresh_public_context",
-      "rotation_score": 375,
+      "rotation_score": 378,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
       "sentiment_structure": "Layered SETA context",
@@ -10687,7 +10687,7 @@
       "surfaces": [
         "website_market_context_cards"
       ],
-      "symbol": "MSFT"
+      "symbol": "NVDA"
     },
     {
       "asset_class": "equity",
@@ -11688,8 +11688,8 @@
       },
       "attention_state": "Concentrated attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "NVDA:reviewed_briefing:3M:D:2026-08-06",
-      "candidate_rank": 2,
+      "candidate_id": "MSFT:reviewed_briefing:3M:D:2026-08-06",
+      "candidate_rank": 5,
       "candidate_status": "selected",
       "display_order": 11,
       "display_penalty": 0,
@@ -11703,7 +11703,7 @@
       },
       "homepage_eligible": true,
       "homepage_rank": 11,
-      "name": "NVIDIA",
+      "name": "Microsoft",
       "participation_context": "Low-intensity / concentrated. Participation is elevated with Participation is elevated with source coverage unresolved.",
       "participation_evidence": {
         "activity_detected": false,
@@ -11764,14 +11764,14 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "NVDA: Layered context",
+      "public_context_headline": "MSFT: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "NVDA shows layered SETA context. Sentiment is transitional rather than clearly directional. Participation is elevated with Participation is elevated with source coverage unresolved.",
-      "public_state_label": "Layered context",
-      "rotation_bucket": 1024506683,
+      "public_safe_copy": "MSFT shows layered SETA context. Sentiment is constructive expansion. Participation is elevated with Participation is elevated with source coverage unresolved.",
+      "public_state_label": "Constructive context",
+      "rotation_bucket": 3100161002,
       "rotation_period": "2026-08-06",
       "rotation_reason": "fresh_public_context",
-      "rotation_score": 378,
+      "rotation_score": 375,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
       "sentiment_structure": "Layered SETA context",
@@ -11785,7 +11785,7 @@
       "surfaces": [
         "website_market_context_cards"
       ],
-      "symbol": "NVDA"
+      "symbol": "MSFT"
     },
     {
       "asset_class": "equity",
@@ -12620,7 +12620,7 @@
       "presentation_group": "crypto",
       "public_context_headline": "DOGE: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "DOGE shows constructive pressure that still needs confirmation. Sentiment is compression / transition. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
+      "public_safe_copy": "DOGE shows constructive pressure that still needs confirmation. Sentiment is transitional rather than clearly directional. Participation is low-intensity with Participation is low-intensity with source coverage unresolved.",
       "public_state_label": "Constructive context",
       "rotation_bucket": 1365755376,
       "rotation_period": "2026-08-06",
