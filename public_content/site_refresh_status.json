@@ -32,17 +32,17 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-08-12T06:32:12Z",
+      "generated_at_utc": "2026-08-12T07:32:22Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-08-12T06:33:04",
-      "pending_count": 7081,
-      "pending_resolution_basis_count": 7081,
+      "generated_at_utc": "2026-08-12T07:33:13",
+      "pending_count": 7140,
+      "pending_resolution_basis_count": 7140,
       "resolution_basis_guard_applied": true,
-      "resolved_count": 804,
+      "resolved_count": 747,
       "schema_version": "prediction_outcome_overlay_v1",
-      "selective_accuracy": 0.6256218905472637
+      "selective_accuracy": 0.6265060240963856
     },
     "public_chart_store": {
       "asset_count": 23,
@@ -71,13 +71,13 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-08-12T06:31:41Z"
+      "generated_at_utc": "2026-08-12T07:31:50Z"
     },
     "reviewed_briefings": {
       "briefing_count": 130
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-08-12T06:33:28Z",
+      "generated_at_utc": "2026-08-12T07:33:37Z",
       "item_count": 23,
       "mode": "public",
       "public_safe": true,
@@ -88,10 +88,10 @@
       "date": "2026-08-12",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-08-12T06:33:11+00:00"
+      "published_at_utc": "2026-08-12T07:33:20+00:00"
     }
   },
-  "generated_at_utc": "2026-08-12T06:33:29Z",
+  "generated_at_utc": "2026-08-12T07:33:38Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
