@@ -1,28 +1,40 @@
-# SETA Website Snippets — 2026-08-11
+# SETA Website Snippets — 2026-08-12
 
 Public-safe explanation copy for website/dashboard display.
 
 > SETA explains behavior beneath price. Interpretation context only; not predictions or trade signals.
 
-## AAPL: decision-pressure watch
+## AMZN: repair watch
 
-AAPL is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
+AMZN looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
-**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** decision pressure | rank 1 | negative skew | Permission without belief
+**SETA read:** repair watch | rank 1 | mixed skew | Permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## SOL: participation is broadening
+## BTC: repair watch
 
-SOL is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+BTC looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** participation diffusion | rank 1 | positive skew | Belief exceeds permission
+**SETA read:** repair watch | rank 1 | mixed skew | Belief exceeds permission
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## AAVE: repair watch
+
+AAVE looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+
+**SETA read:** repair watch | rank 2
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -40,13 +52,13 @@ JPM is active, and SETA reads the structure as contested rather than cleanly con
 
 ---
 
-## DOGE: decision-pressure watch
+## ADA: participation is broadening
 
-DOGE is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
+ADA is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** decision pressure | rank 2 | negative skew | Belief exceeds permission
+**SETA read:** participation diffusion | rank 3
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -64,109 +76,25 @@ NVDA looks more like repair than confirmation. The useful read is whether sponso
 
 ---
 
-## ADA: participation is broadening
+## ATOM: SETA context
 
-ADA is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+ATOM sits in a elevated decision-pressure zone in the crypto tape.
 
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+**Watch condition:** Watch whether participation and narrative coherence improves.
 
-**SETA read:** participation diffusion | rank 3 | positive skew | Belief exceeds permission
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## MSTR: repair watch
-
-MSTR looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
-
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
-
-**SETA read:** repair watch | rank 4 | mixed skew | Belief exceeds permission
+**SETA read:** seta context | rank 4
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## BNB: contested structure
+## TSLA: SETA context
 
-BNB is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Belief exceeds permission is the key tension.
+TSLA sits in a elevated decision-pressure zone in the equity tape.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** contested structure | rank 4 | mixed skew | Belief exceeds permission
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## ETH: participation is broadening
-
-ETH is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
-
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
-
-**SETA read:** participation diffusion | rank 5 | positive skew | Belief exceeds permission
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## GME: repair watch
-
-GME looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
-
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
-
-**SETA read:** repair watch | rank 5 | negative skew | Rejection / decay
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## DIS: validation risk
-
-DIS still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
-
-**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
-
-**SETA read:** validation risk | rank 6 | negative skew | rejection / decay
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## LINK: participation is broadening
-
-LINK is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
-
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
-
-**SETA read:** participation diffusion | rank 6 | positive skew | Rejection / decay
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## BTC: repair watch
-
-BTC looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
-
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
-
-**SETA read:** repair watch | rank 9 | negative skew | Rejection / decay
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## XRP: repair watch
-
-XRP looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
-
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
-
-**SETA read:** repair watch | rank 7 | negative skew | Rejection / decay
+**SETA read:** seta context | rank 4 | negative skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -178,7 +106,103 @@ AVAX is active, and SETA reads the structure as contested rather than cleanly co
 
 **Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** contested structure | rank 13
+**SETA read:** contested structure | rank 5
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## AAPL: SETA context
+
+AAPL sits in a elevated decision-pressure zone in the equity tape.
+
+**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+
+**SETA read:** seta context | rank 5 | negative skew | Permission without belief
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## BNB: contested structure
+
+BNB is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
+
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+
+**SETA read:** contested structure | rank 6
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## MSTR: repair watch
+
+MSTR looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+
+**SETA read:** repair watch | rank 6 | mixed skew | belief exceeds permission
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## ETH: broadening, not yet all-clear
+
+ETH is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+
+**SETA read:** broadening participation | rank 9
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## SOL: broadening, not yet all-clear
+
+SOL is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+
+**SETA read:** broadening participation | rank 20
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## DOGE: SETA context
+
+DOGE sits in a elevated decision-pressure zone in the crypto tape.
+
+**Watch condition:** Watch whether participation and narrative coherence improves.
+
+**SETA read:** seta context | rank 7
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## LINK: broadening, not yet all-clear
+
+LINK is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+
+**SETA read:** broadening participation | rank 14
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## XRP: repair watch
+
+XRP looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+
+**SETA read:** repair watch
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -190,19 +214,7 @@ MSFT sits in a lower decision-pressure zone in the equity tape.
 
 **Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** seta context | rank 10 | negative skew | confirmed / accepted
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## AMZN: repair watch
-
-AMZN looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
-
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
-
-**SETA read:** repair watch | rank 14
+**SETA read:** seta context | rank 13 | negative skew | confirmed / accepted
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -214,7 +226,7 @@ GOOGL looks more like repair than confirmation. The useful read is whether spons
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 17
+**SETA read:** repair watch | rank 8 | negative skew | permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -232,25 +244,13 @@ META looks more like repair than confirmation. The useful read is whether sponso
 
 ---
 
-## TSLA: validation risk
-
-TSLA still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
-
-**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
-
-**SETA read:** validation risk | rank 8 | negative skew | rejection / decay
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
 ## COIN: validation risk
 
 COIN still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
 
 **Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
-**SETA read:** validation risk | rank 9 | negative skew | rejection / decay
+**SETA read:** validation risk | rank 11 | negative skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -262,7 +262,7 @@ AMD is showing broader participation. That is constructive for the equity tape, 
 
 **Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
-**SETA read:** broadening participation | rank 13
+**SETA read:** broadening participation | rank 15
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
