@@ -10440,7 +10440,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-09-08T15:22:16Z",
+  "generated_at": "2026-09-08T15:35:42Z",
   "items": [
     {
       "asset_class": "etf",
@@ -12676,7 +12676,7 @@
       "presentation_group": "equity",
       "public_context_headline": "AMZN: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is elevated.",
+      "public_safe_copy": "Sentiment is in bullish expansion. Participation is elevated.",
       "public_state_label": "Weakening structure",
       "rotation_bucket": 1822467277,
       "rotation_period": "2026-09-08",
@@ -12684,8 +12684,8 @@
       "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_label": "Bullish Expansion",
+      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
       "sentiment_structure": "weakening technical pressure with mixed internal strength",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -12699,12 +12699,12 @@
       ],
       "symbol": "AMZN",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is elevated.",
+        "combined_read": "Sentiment is in bullish expansion. Participation is elevated.",
         "participation_label": "Elevated participation",
         "participation_public_sentence": "Participation is elevated.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Bullish Expansion",
+        "sentiment_public_sentence": "Sentiment is in bullish expansion."
       }
     },
     {
