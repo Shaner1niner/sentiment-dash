@@ -10443,7 +10443,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-09-09T03:22:08Z",
+  "generated_at": "2026-09-09T03:37:25Z",
   "items": [
     {
       "asset_class": "etf",
@@ -11632,7 +11632,7 @@
       "presentation_group": "etf",
       "public_context_headline": "QQQ: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
       "public_state_label": "Weakening structure",
       "rotation_bucket": 149256801,
       "rotation_period": "2026-09-09",
@@ -11640,8 +11640,8 @@
       "rotation_score": 380,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_label": "Bullish Expansion",
+      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
       "sentiment_structure": "Weakening sentiment momentum with price resilience",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -11655,12 +11655,12 @@
       ],
       "symbol": "QQQ",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Bullish Expansion",
+        "sentiment_public_sentence": "Sentiment is in bullish expansion."
       }
     },
     {
@@ -12328,7 +12328,7 @@
       "presentation_group": "equity",
       "public_context_headline": "TSLA: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bearish expansion. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Weakening structure",
       "rotation_bucket": 1076198491,
       "rotation_period": "2026-09-09",
@@ -12336,8 +12336,8 @@
       "rotation_score": 374,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bearish Expansion",
-      "sentiment_public_sentence": "Sentiment is in bearish expansion.",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
       "sentiment_structure": "Weakening sentiment momentum with price resilience",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -12351,12 +12351,12 @@
       ],
       "symbol": "TSLA",
       "website_handoff": {
-        "combined_read": "Sentiment is in bearish expansion. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bearish Expansion",
-        "sentiment_public_sentence": "Sentiment is in bearish expansion."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
