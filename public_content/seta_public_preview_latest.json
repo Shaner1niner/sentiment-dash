@@ -9,7 +9,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -21,7 +21,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "BTC:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 1,
@@ -59,9 +59,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -92,9 +90,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "BTC: Constructive context",
@@ -129,7 +128,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -141,7 +140,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "NVDA:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 2,
@@ -179,9 +178,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -212,9 +209,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "NVDA: Weakening structure",
@@ -249,7 +247,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -261,7 +259,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "SPY:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 3,
@@ -299,9 +297,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -332,9 +328,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "SPY: Constructive context",
@@ -369,7 +366,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -381,7 +378,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "ETH:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 4,
@@ -419,9 +416,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -452,9 +447,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "ETH: Constructive context",
@@ -489,7 +485,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -501,7 +497,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "MSFT:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 5,
@@ -539,9 +535,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -572,9 +566,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "MSFT: Weakening structure",
@@ -609,7 +604,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -621,7 +616,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "QQQ:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 6,
@@ -659,9 +654,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -692,9 +685,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "QQQ: Constructive context",
@@ -729,7 +723,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -741,7 +735,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "SOL:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 7,
@@ -779,9 +773,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -812,9 +804,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "SOL: Constructive context",
@@ -849,7 +842,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -861,7 +854,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "AAPL:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 8,
@@ -899,9 +892,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -932,9 +923,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "AAPL: Weakening structure",
@@ -1089,7 +1081,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -1101,7 +1093,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "TSLA:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 10,
@@ -1139,9 +1131,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -1172,9 +1162,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "TSLA: Weakening structure",
@@ -1209,7 +1200,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -1221,7 +1212,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "BTC:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 11,
@@ -1259,9 +1250,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -1292,9 +1281,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "BTC: Constructive context",
@@ -1329,7 +1319,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -1341,7 +1331,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "NVDA:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 12,
@@ -1379,9 +1369,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -1412,9 +1400,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "NVDA: Weakening structure",
@@ -1449,7 +1438,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -1461,7 +1450,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "SPY:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 13,
@@ -1499,9 +1488,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -1532,9 +1519,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "SPY: Repair watch",
@@ -1569,7 +1557,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -1581,7 +1569,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "COIN:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 14,
@@ -1619,9 +1607,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -1652,9 +1638,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "COIN: Weakening structure",
@@ -1689,7 +1676,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -1701,7 +1688,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "ETH:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 15,
@@ -1739,9 +1726,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -1772,9 +1757,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "ETH: Constructive context",
@@ -1809,7 +1795,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -1821,7 +1807,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "MSFT:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 16,
@@ -1859,9 +1845,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -1892,9 +1876,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "MSFT: Weakening structure",
@@ -1929,7 +1914,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -1941,7 +1926,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "QQQ:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 17,
@@ -1979,9 +1964,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -2012,9 +1995,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "QQQ: Constructive context",
@@ -2049,7 +2033,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -2061,7 +2045,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "SOL:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 18,
@@ -2099,9 +2083,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -2132,9 +2114,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "SOL: Constructive context",
@@ -2169,7 +2152,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -2181,7 +2164,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "AAPL:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 19,
@@ -2219,9 +2202,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -2252,9 +2233,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "AAPL: Weakening structure",
@@ -2289,7 +2271,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -2301,7 +2283,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "GLD:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 20,
@@ -2339,9 +2321,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -2372,9 +2352,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "GLD: Repair watch",
@@ -2529,7 +2510,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -2541,7 +2522,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "TSLA:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 22,
@@ -2579,9 +2560,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -2612,9 +2591,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "TSLA: Weakening structure",
@@ -2649,7 +2629,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -2661,7 +2641,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "LINK:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 23,
@@ -2699,9 +2679,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -2732,9 +2710,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "LINK: Constructive context",
@@ -2769,7 +2748,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -2781,7 +2760,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "XRP:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 24,
@@ -2819,9 +2798,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -2852,9 +2829,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "XRP: Repair watch",
@@ -3129,7 +3107,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -3141,7 +3119,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "AMZN:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 27,
@@ -3179,9 +3157,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -3212,9 +3188,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "AMZN: Weakening structure",
@@ -3249,7 +3226,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -3261,7 +3238,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "GOOGL:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 28,
@@ -3299,9 +3276,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -3332,9 +3307,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "GOOGL: Constructive context",
@@ -3369,7 +3345,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Elevated attention",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -3381,7 +3357,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Elevated attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "META:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 29,
@@ -3489,7 +3465,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Elevated attention",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -3501,7 +3477,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Elevated attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "AMD:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 30,
@@ -3609,7 +3585,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -3621,7 +3597,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "XLE:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 31,
@@ -3659,9 +3635,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -3692,9 +3666,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "XLE: Layered context",
@@ -3729,7 +3704,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -3741,7 +3716,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "TLT:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 32,
@@ -3779,9 +3754,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -3812,9 +3785,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "TLT: Repair watch",
@@ -3849,7 +3823,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -3861,7 +3835,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "DXY:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 33,
@@ -3899,9 +3873,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -3932,9 +3904,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "macro",
       "public_context_headline": "DXY: Constructive context",
@@ -3969,7 +3942,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -3981,7 +3954,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "COIN:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 34,
@@ -4019,9 +3992,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -4052,9 +4023,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "COIN: Weakening structure",
@@ -4089,7 +4061,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -4101,7 +4073,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "GLD:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 35,
@@ -4139,9 +4111,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -4172,9 +4142,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "GLD: Repair watch",
@@ -4209,7 +4180,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -4221,7 +4192,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "LINK:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 36,
@@ -4259,9 +4230,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -4292,9 +4261,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "LINK: Constructive context",
@@ -4329,7 +4299,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -4341,7 +4311,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "XRP:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 37,
@@ -4379,9 +4349,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -4412,9 +4380,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "XRP: Repair watch",
@@ -4689,7 +4658,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -4701,7 +4670,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "AMZN:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 40,
@@ -4739,9 +4708,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -4772,9 +4739,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "AMZN: Weakening structure",
@@ -4809,7 +4777,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -4821,7 +4789,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "GOOGL:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 41,
@@ -4859,9 +4827,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -4892,9 +4858,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "GOOGL: Constructive context",
@@ -4929,7 +4896,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Elevated attention",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -4941,7 +4908,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Elevated attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "META:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 42,
@@ -5049,7 +5016,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Elevated attention",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -5061,7 +5028,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Elevated attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "AMD:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 43,
@@ -5169,7 +5136,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -5181,7 +5148,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "XLE:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 44,
@@ -5219,9 +5186,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -5252,9 +5217,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "XLE: Layered context",
@@ -5289,7 +5255,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -5301,7 +5267,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "TLT:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 45,
@@ -5339,9 +5305,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -5372,9 +5336,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "TLT: Repair watch",
@@ -5409,7 +5374,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -5421,7 +5386,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "DXY:reviewed_briefing:1Y:W:2026-09-09",
       "candidate_rank": 46,
@@ -5459,9 +5424,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -5492,9 +5455,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "macro",
       "public_context_headline": "DXY: Constructive context",
@@ -10441,7 +10405,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-09-09T20:34:18Z",
+  "generated_at": "2026-09-09T21:22:26Z",
   "items": [
     {
       "asset_class": "etf",
@@ -10452,7 +10416,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -10464,7 +10428,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "SPY:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 3,
@@ -10506,7 +10470,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -10546,9 +10510,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -10579,9 +10541,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "SPY: Constructive context",
@@ -10626,7 +10589,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -10638,7 +10601,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "NVDA:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 2,
@@ -10680,7 +10643,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -10720,9 +10683,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -10753,9 +10714,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "NVDA: Weakening structure",
@@ -10800,7 +10762,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -10812,7 +10774,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "MSFT:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 5,
@@ -10854,7 +10816,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -10894,9 +10856,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -10927,9 +10887,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "MSFT: Weakening structure",
@@ -10974,7 +10935,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -10986,7 +10947,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "AAPL:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 8,
@@ -11028,7 +10989,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -11068,9 +11029,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -11101,9 +11060,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "AAPL: Weakening structure",
@@ -11148,7 +11108,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -11160,7 +11120,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "BTC:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 1,
@@ -11202,7 +11162,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -11242,9 +11202,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -11275,9 +11233,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "BTC: Constructive context",
@@ -11322,7 +11281,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -11334,7 +11293,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "ETH:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 4,
@@ -11376,7 +11335,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -11416,9 +11375,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -11449,9 +11406,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "ETH: Constructive context",
@@ -11496,7 +11454,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -11508,7 +11466,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "QQQ:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 6,
@@ -11550,7 +11508,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -11590,9 +11548,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -11623,9 +11579,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "QQQ: Constructive context",
@@ -11670,7 +11627,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -11682,7 +11639,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "GLD:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 20,
@@ -11724,7 +11681,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -11764,9 +11721,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -11797,9 +11752,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "GLD: Repair watch",
@@ -11844,7 +11800,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -11856,7 +11812,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "TLT:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 32,
@@ -11898,7 +11854,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -11938,9 +11894,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -11971,9 +11925,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "TLT: Repair watch",
@@ -12018,7 +11973,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -12030,7 +11985,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "XLE:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 31,
@@ -12072,7 +12027,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -12112,9 +12067,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -12145,9 +12098,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "etf",
       "public_context_headline": "XLE: Layered context",
@@ -12192,7 +12146,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -12204,7 +12158,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "TSLA:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 10,
@@ -12246,7 +12200,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -12286,9 +12240,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -12319,9 +12271,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "TSLA: Weakening structure",
@@ -12366,7 +12319,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -12378,7 +12331,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "COIN:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 14,
@@ -12420,7 +12373,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -12460,9 +12413,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -12493,9 +12444,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "COIN: Weakening structure",
@@ -12540,7 +12492,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Elevated attention",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -12552,7 +12504,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Elevated attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "AMD:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 30,
@@ -12717,7 +12669,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -12729,7 +12681,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "GOOGL:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 28,
@@ -12771,7 +12723,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -12811,9 +12763,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -12844,9 +12794,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "GOOGL: Constructive context",
@@ -12891,7 +12842,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Elevated attention",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -12903,7 +12854,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Elevated attention",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "META:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 29,
@@ -13068,7 +13019,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -13080,7 +13031,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "AMZN:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 27,
@@ -13122,7 +13073,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -13162,9 +13113,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -13195,9 +13144,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "equity",
       "public_context_headline": "AMZN: Weakening structure",
@@ -13242,7 +13192,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -13254,7 +13204,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "SOL:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 7,
@@ -13296,7 +13246,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -13336,9 +13286,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -13369,9 +13317,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "SOL: Constructive context",
@@ -13592,7 +13541,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -13604,7 +13553,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "LINK:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 23,
@@ -13646,7 +13595,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -13686,9 +13635,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -13719,9 +13666,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "LINK: Constructive context",
@@ -13766,7 +13714,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -13778,7 +13726,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "XRP:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 24,
@@ -13820,7 +13768,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -13860,9 +13808,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -13893,9 +13839,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "XRP: Repair watch",
@@ -14294,7 +14241,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-09-09",
-        "label": "Concentrated attention",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -14306,7 +14253,7 @@
         "source_coverage_mode": "unresolved",
         "trend_direction": "Unknown"
       },
-      "attention_state": "Concentrated attention",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "DXY:reviewed_briefing:3M:D:2026-09-09",
       "candidate_rank": 33,
@@ -14348,7 +14295,7 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "context_only",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
         "available_dimensions": [],
         "breadth_state": "unavailable",
@@ -14388,9 +14335,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -14421,9 +14366,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "context_only"
+        "validation_role": "unresolved"
       },
       "presentation_group": "macro",
       "public_context_headline": "DXY: Constructive context",
