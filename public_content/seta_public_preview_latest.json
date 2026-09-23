@@ -10185,7 +10185,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-09-23T18:15:40Z",
+  "generated_at": "2026-09-23T20:21:14Z",
   "items": [
     {
       "asset_class": "etf",
@@ -10228,7 +10228,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -10236,7 +10236,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "early_repair",
+            "code": "mixed",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -10267,8 +10267,8 @@
             ]
           },
           "primary_tension": {
-            "code": "participation_not_established",
-            "display_text": "Sentiment and market structure can be assessed, but qualified Participation confirmation is not established.",
+            "code": "mixed_signals",
+            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -10280,8 +10280,8 @@
           },
           "watch_next": [
             {
-              "code": "qualified_participation_available",
-              "display_text": "Whether qualified Participation evidence becomes available.",
+              "code": "confirmation_broadens",
+              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -10293,7 +10293,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -10326,7 +10326,7 @@
           }
         ],
         "source": {
-          "object_digest": "3428cfb53ce320a7ea0d0af0ac873ad16a052a246984b6567aea122fa62ba07d",
+          "object_digest": "c161cc691266badea5036f4cad589f5992af6d8d4c5b63e932c366590ea49e66",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -10520,7 +10520,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -10528,7 +10528,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "mixed",
+            "code": "early_repair",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -10559,8 +10559,8 @@
             ]
           },
           "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "code": "participation_not_established",
+            "display_text": "Sentiment and market structure can be assessed, but qualified Participation confirmation is not established.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -10572,8 +10572,8 @@
           },
           "watch_next": [
             {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "code": "qualified_participation_available",
+              "display_text": "Whether qualified Participation evidence becomes available.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -10585,7 +10585,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -10618,7 +10618,7 @@
           }
         ],
         "source": {
-          "object_digest": "3e826751fce2228341f1464ce958de9728d3c88a79adcd46789b09791cb87e1d",
+          "object_digest": "11e1709d72fb56aafb33accc8ce177842d9e488642159064e2609874cb1fee81",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -10816,7 +10816,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -10881,7 +10881,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -10914,7 +10914,7 @@
           }
         ],
         "source": {
-          "object_digest": "a172c2e0a05346a1606e62bfdcbfab1379349bc01dc86a55ee409adbbb354188",
+          "object_digest": "43d4cb9f7ebb0dee4215a2db7412210c95da32b18caf88c257eeea4b7ab8f2e1",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -11108,7 +11108,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -11116,7 +11116,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "mixed",
+            "code": "early_repair",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -11147,8 +11147,8 @@
             ]
           },
           "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "code": "participation_not_established",
+            "display_text": "Sentiment and market structure can be assessed, but qualified Participation confirmation is not established.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -11160,8 +11160,8 @@
           },
           "watch_next": [
             {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "code": "qualified_participation_available",
+              "display_text": "Whether qualified Participation evidence becomes available.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -11173,7 +11173,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -11206,7 +11206,7 @@
           }
         ],
         "source": {
-          "object_digest": "767b25e78da1f21eb4701ced70cc3ee1566430bce210aabe4a10188f9fe01dc8",
+          "object_digest": "832d4755d02a951099a338d8718ecdc8f6aaec2bc859a53f6c7c2fb1d9240048",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -11404,7 +11404,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -11469,7 +11469,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -11502,7 +11502,7 @@
           }
         ],
         "source": {
-          "object_digest": "cc386073a9c70a48eb56bab1b7883faec673ff44099d210ade55ba344c4dc6f6",
+          "object_digest": "41a07acace5c46bc230858f437b50c9606b5839e491e4b07c7afe067e7020cb1",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -11701,7 +11701,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -11766,7 +11766,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -11799,7 +11799,7 @@
           }
         ],
         "source": {
-          "object_digest": "7fde9dd3db5ab5cecf3944c33bcc48fd8036e6e84a4eca68a3defe9c6166560a",
+          "object_digest": "d9d64d0e485d2a2e6b2fc5670a9372b4cd05fe48a35dd6f6cbfcc7b50a10b142",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -11997,7 +11997,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -12005,7 +12005,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "mixed",
+            "code": "early_repair",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -12036,8 +12036,8 @@
             ]
           },
           "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "code": "participation_not_established",
+            "display_text": "Sentiment and market structure can be assessed, but qualified Participation confirmation is not established.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -12049,8 +12049,8 @@
           },
           "watch_next": [
             {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "code": "qualified_participation_available",
+              "display_text": "Whether qualified Participation evidence becomes available.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -12062,7 +12062,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -12095,7 +12095,7 @@
           }
         ],
         "source": {
-          "object_digest": "0824ed549cce0f7addc1bd2f96c97231a6909061be118f785e54d978fb84b154",
+          "object_digest": "30d38b3eedce88719e7bdce2a4cd13695a8c4cdf3cad81671cc7c0e7052bea90",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -12293,7 +12293,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -12301,7 +12301,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "mixed",
+            "code": "early_repair",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -12332,8 +12332,8 @@
             ]
           },
           "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "code": "participation_not_established",
+            "display_text": "Sentiment and market structure can be assessed, but qualified Participation confirmation is not established.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -12345,8 +12345,8 @@
           },
           "watch_next": [
             {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "code": "qualified_participation_available",
+              "display_text": "Whether qualified Participation evidence becomes available.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -12358,7 +12358,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -12391,7 +12391,7 @@
           }
         ],
         "source": {
-          "object_digest": "2e91b142f20154477bb92cc4351a92cc0f5abc5755391afab49b532a8ce36ecb",
+          "object_digest": "2893382fdf7af25b6d18b810294dcddf54f4950f80baa32096ef399810196f2b",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -12589,7 +12589,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -12597,7 +12597,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "mixed",
+            "code": "momentum_fade",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -12613,7 +12613,7 @@
             ]
           },
           "confirmation_quality": {
-            "code": "incomplete_confirmation",
+            "code": "fragile_confirmation",
             "evidence_refs": [
               "relationships.sentiment_price",
               "relationships.participation_validation"
@@ -12628,8 +12628,8 @@
             ]
           },
           "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "code": "trend_present_impulse_fading",
+            "display_text": "Trend structure remains present while impulse quality fades.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -12641,8 +12641,8 @@
           },
           "watch_next": [
             {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "code": "impulse_stabilizes",
+              "display_text": "Whether impulse quality stabilizes or keeps fading.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -12654,7 +12654,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -12687,7 +12687,7 @@
           }
         ],
         "source": {
-          "object_digest": "08cc748695e68ed00d61f96c238adef5f19d12caa744d95b78fb43359463621a",
+          "object_digest": "fce87104554aab13029f2ccd2f7449a2431007720c3f294ac37a2d4a31c925ba",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -12881,7 +12881,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -12946,7 +12946,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -12979,7 +12979,7 @@
           }
         ],
         "source": {
-          "object_digest": "3df5aa613cbc7ef9b2db82f136f1892eebf9f313d0766f96d0e3b156b7cd0074",
+          "object_digest": "f9094a9c111bd48f33598900cf1ff829b6035f5b42e26ca4530258a36ef5392c",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -13173,7 +13173,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -13181,7 +13181,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "mixed",
+            "code": "early_repair",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -13212,8 +13212,8 @@
             ]
           },
           "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "code": "participation_not_established",
+            "display_text": "Sentiment and market structure can be assessed, but qualified Participation confirmation is not established.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -13225,8 +13225,8 @@
           },
           "watch_next": [
             {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "code": "qualified_participation_available",
+              "display_text": "Whether qualified Participation evidence becomes available.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -13238,7 +13238,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -13271,7 +13271,7 @@
           }
         ],
         "source": {
-          "object_digest": "660ce72c3a180f4d9a3b2d13d5d6e19c74e46ce22ccc85cfa6ceaa661afceaf6",
+          "object_digest": "8e650b3263de285e61f7fce8cdbd315d697a53918e99de5a60008f1bb8d5a6d1",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -13469,7 +13469,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -13477,7 +13477,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "mixed",
+            "code": "early_repair",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -13508,8 +13508,8 @@
             ]
           },
           "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "code": "participation_not_established",
+            "display_text": "Sentiment and market structure can be assessed, but qualified Participation confirmation is not established.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -13521,8 +13521,8 @@
           },
           "watch_next": [
             {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "code": "qualified_participation_available",
+              "display_text": "Whether qualified Participation evidence becomes available.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -13534,7 +13534,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -13567,7 +13567,7 @@
           }
         ],
         "source": {
-          "object_digest": "813661352c3f307b74bf4cf7265b944ce4b1aeae05e0e69f11c2353d1a77f825",
+          "object_digest": "cd339b74e14d9240701793059a9bf3f34c6e4706eeebb282eafddcfd75cdc0c2",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -13765,7 +13765,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -13830,7 +13830,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -13863,7 +13863,7 @@
           }
         ],
         "source": {
-          "object_digest": "ea2f95e84bdec0be86f0c3af5baeca5bbc111efb5f6c45134d38f449aac6950f",
+          "object_digest": "544e9d72c7b233bb6c336bde51bff11063252314c763b9dff2847b631a1760eb",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -14057,7 +14057,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -14122,7 +14122,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -14155,7 +14155,7 @@
           }
         ],
         "source": {
-          "object_digest": "c089a4296b4edc19b65c3f33dc526aeaa5dbc410af314f08a69d697ed945a901",
+          "object_digest": "d06ac0ea2a433ac630deaedb132ecdcb14a8c2bfb3225babd2f00339a3b007e9",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -14349,7 +14349,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -14357,7 +14357,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "early_repair",
+            "code": "mixed",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -14388,8 +14388,8 @@
             ]
           },
           "primary_tension": {
-            "code": "participation_not_established",
-            "display_text": "Sentiment and market structure can be assessed, but qualified Participation confirmation is not established.",
+            "code": "mixed_signals",
+            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -14401,8 +14401,8 @@
           },
           "watch_next": [
             {
-              "code": "qualified_participation_available",
-              "display_text": "Whether qualified Participation evidence becomes available.",
+              "code": "confirmation_broadens",
+              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -14414,7 +14414,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -14447,7 +14447,7 @@
           }
         ],
         "source": {
-          "object_digest": "075463720c7f5873a02ea11842df4608e24539e0573aff5ba7a0ee59e874afb9",
+          "object_digest": "1ce2b26447cdff7e5fd62ba6e32a3bd881215a540402e0e53cc1a78045c1dafa",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -14641,7 +14641,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -14649,7 +14649,7 @@
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "mixed",
+            "code": "early_repair",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -14680,8 +14680,8 @@
             ]
           },
           "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "code": "participation_not_established",
+            "display_text": "Sentiment and market structure can be assessed, but qualified Participation confirmation is not established.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -14693,8 +14693,8 @@
           },
           "watch_next": [
             {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "code": "qualified_participation_available",
+              "display_text": "Whether qualified Participation evidence becomes available.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -14706,7 +14706,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -14739,7 +14739,7 @@
           }
         ],
         "source": {
-          "object_digest": "42972fd0e1748f3d60044d2193d3183684520bde32c04757be901964f6a4e446",
+          "object_digest": "26e7652938e32798e2722baf2ac70179f542d0a57d07181926ff5ec3fbf64ba0",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -14937,7 +14937,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -15002,7 +15002,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -15035,7 +15035,7 @@
           }
         ],
         "source": {
-          "object_digest": "c7053c6e8d149985e58e86cc499b5a88827b3fd4a978235ffc78162bc3a898f3",
+          "object_digest": "dfa400249838240acea6e425ca9e6f01c9e5c77b62cf7e030a9db244b90ba8a7",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -15234,7 +15234,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -15299,7 +15299,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -15332,7 +15332,7 @@
           }
         ],
         "source": {
-          "object_digest": "568d3a4fa9768a2bce91e986a88825d98dc635bc38ff1446ba6b75c35371b860",
+          "object_digest": "ff28eb6243cab3acee8f5eee679a3e13966d7ffeaf7856c35db7e7105e65cf7b",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -15531,7 +15531,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -15596,7 +15596,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -15629,7 +15629,7 @@
           }
         ],
         "source": {
-          "object_digest": "69254df888fdb9a5842a4700b546f0fd11ab14b7e5f2263931260b2ead9b4a6e",
+          "object_digest": "4b85bb54fbe316b387b11bedd2f8530f540bfae94aa4b6b6d2985e807775a8fa",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -15828,7 +15828,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -15893,7 +15893,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -15926,7 +15926,7 @@
           }
         ],
         "source": {
-          "object_digest": "c4c14f2497d7a34a1889204a8653ea5c3ab853e2e5a953930b92b383ca3371db",
+          "object_digest": "4a78080dfbc122380c9ac11d93b7bdfe8d376a407f7289a76c5ad2dc129f6268",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -16125,7 +16125,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -16190,7 +16190,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -16223,7 +16223,7 @@
           }
         ],
         "source": {
-          "object_digest": "dcc0d6a1f23c2052cc43cca71723dc5aaca0b6144f5d7ce511a9713d95a9afee",
+          "object_digest": "f7628d220e90ea97051431e0afa8d177db7281f74fb08f168abd1ddd5cc677e2",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -16422,7 +16422,7 @@
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
-        "as_of": "2026-09-21T00:00:00Z",
+        "as_of": "2026-09-22T00:00:00Z",
         "asset": {
           "asset_class": "generic",
           "name": null,
@@ -16487,7 +16487,7 @@
             }
           ]
         },
-        "known_as_of": "2026-09-23T18:00:32Z",
+        "known_as_of": "2026-09-23T20:00:31Z",
         "profile": {
           "adapter_profile_id": "dashboard_projection_v1",
           "source_insight_profile_id": "seta_insight_runtime_profile_v1",
@@ -16520,7 +16520,7 @@
           }
         ],
         "source": {
-          "object_digest": "dfe7ff39ed13f8232430eec233c4771dc4b26a8d73a4eb923393cb2d014db433",
+          "object_digest": "24df6fd4874f73e5383cd5dc33f3b7a7897d6d5bd2b9e7fb728d111c67fd6a62",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
