@@ -1,4 +1,4 @@
-# SETA Website Snippets — 2026-09-24
+# SETA Website Snippets — 2026-09-25
 
 Public-safe explanation copy for website/dashboard display.
 
@@ -34,7 +34,7 @@ NFLX still carries validation risk. Surface activity may be visible, while the u
 
 **Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
-**SETA read:** validation risk | rank 2 | negative skew | Rejection / decay
+**SETA read:** validation risk | rank 2 | mixed skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -52,13 +52,13 @@ BNB is active, and SETA reads the structure as contested rather than cleanly con
 
 ---
 
-## NVDA: contested structure
+## NVDA: decision-pressure watch
 
-NVDA is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.
+NVDA is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** contested structure | rank 3 | negative skew | Permission without belief
+**SETA read:** decision pressure | rank 3 | negative skew | Permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -124,13 +124,13 @@ XRP looks more like repair than confirmation. The useful read is whether sponsor
 
 ---
 
-## COIN: repair watch
+## COIN: validation risk
 
-COIN looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+COIN still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
 
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
-**SETA read:** repair watch | rank 6 | mixed skew | Rejection / decay
+**SETA read:** validation risk | rank 6 | negative skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -208,13 +208,13 @@ MSFT looks more like repair than confirmation. The useful read is whether sponso
 
 ---
 
-## AAPL: repair watch
+## AAPL: SETA context
 
-AAPL looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+AAPL sits in a lower decision-pressure zone in the equity tape.
 
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+**Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** repair watch | rank 10 | positive skew | Confirmed / accepted
+**SETA read:** seta context | rank 9 | positive skew | confirmed / accepted
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -244,13 +244,13 @@ GOOGL looks more like repair than confirmation. The useful read is whether spons
 
 ---
 
-## META: SETA context
+## META: repair watch
 
-META sits in a lower decision-pressure zone in the equity tape.
+META looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
-**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** seta context | rank 21
+**SETA read:** repair watch | rank 21
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -262,19 +262,19 @@ TSLA looks more like repair than confirmation. The useful read is whether sponso
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 8 | mixed skew | Rejection / decay
+**SETA read:** repair watch | rank 8 | mixed skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## AMD: SETA context
+## AMD: contested structure
 
-AMD sits in a lower decision-pressure zone in the equity tape.
+AMD is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
 
-**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** seta context | rank 14
+**SETA read:** contested structure | rank 14
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
