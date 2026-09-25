@@ -1,7 +1,7 @@
 {
   "schema_version": "seta_public_website_snippets_v1",
-  "date": "2026-09-24",
-  "published_at_utc": "2026-09-24T23:20:49+00:00",
+  "date": "2026-09-25",
+  "published_at_utc": "2026-09-25T06:20:53+00:00",
   "draft_only": false,
   "public_safe": true,
   "posting_performed": false,
@@ -31,7 +31,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "ADA",
@@ -57,7 +57,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "NFLX",
@@ -67,23 +67,23 @@
       "headline": "NFLX: validation risk",
       "one_liner": "NFLX has visible activity, while the structural layer still argues for validation risk.",
       "public_note": "NFLX still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.",
-      "short_explanation": "NFLX still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 2. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "NFLX still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 2. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "short_explanation": "NFLX still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 2. Skew: mixed. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "NFLX still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 2. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
       "watch_condition": "Watch whether validation improves before surface activity loses sponsorship.",
-      "seta_read_line": "validation risk | rank 2 | negative skew | Rejection / decay",
-      "regime_note": "In the equity tape, this reads as decay. Structure reads as Rejection / decay. Decision-pressure rank: 2. Resolution skew: negative.",
+      "seta_read_line": "validation risk | rank 2 | mixed skew | Rejection / decay",
+      "regime_note": "In the equity tape, this reads as neutral. Structure reads as Rejection / decay. Decision-pressure rank: 2. Resolution skew: mixed.",
       "narrative_note": "",
       "social_blurb": "NFLX has visible activity, while the structural layer still argues for validation risk. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "Validation risk",
-      "asset_state": "decay",
+      "asset_state": "neutral",
       "decision_pressure_rank": 2,
       "structural_state": "Rejection / decay",
-      "resolution_skew": "negative",
+      "resolution_skew": "mixed",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "BNB",
@@ -109,33 +109,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "NVDA",
       "universe": "equities",
-      "copy_archetype": "contested_structure",
+      "copy_archetype": "decision_pressure",
       "narrative_theme": "",
-      "headline": "NVDA: contested structure",
-      "one_liner": "NVDA is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
-      "public_note": "NVDA is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.",
-      "short_explanation": "NVDA is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "NVDA is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
-      "seta_read_line": "contested structure | rank 3 | negative skew | Permission without belief",
-      "regime_note": "In the equity tape, this reads as disagreement. Structure reads as Permission without belief. Decision-pressure rank: 3. Resolution skew: negative.",
+      "headline": "NVDA: decision-pressure watch",
+      "one_liner": "NVDA sits in a high decision-pressure zone in the equity tape.",
+      "public_note": "NVDA is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
+      "short_explanation": "NVDA sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "NVDA sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether decision pressure resolves into confirmation or rejection.",
+      "seta_read_line": "decision pressure | rank 3 | negative skew | Permission without belief",
+      "regime_note": "In the equity tape, this reads as decay. Structure reads as Permission without belief. Decision-pressure rank: 3. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "NVDA is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "social_blurb": "NVDA sits in a high decision-pressure zone in the equity tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Decision pressure / contested structure",
-      "asset_state": "disagreement",
+      "content_angle": "Validation risk",
+      "asset_state": "decay",
       "decision_pressure_rank": 3,
       "structural_state": "Permission without belief",
       "resolution_skew": "negative",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "SHIB",
@@ -161,7 +161,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "JPM",
@@ -187,7 +187,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "DOGE",
@@ -213,7 +213,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "OPEN",
@@ -239,7 +239,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "XRP",
@@ -265,33 +265,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "COIN",
       "universe": "equities",
-      "copy_archetype": "repair_watch",
+      "copy_archetype": "validation_risk",
       "narrative_theme": "",
-      "headline": "COIN: repair watch",
-      "one_liner": "COIN looks more like repair than all-clear; confirmation still matters.",
-      "public_note": "COIN looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
-      "short_explanation": "COIN is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Rejection / decay. Decision-pressure rank: 6. Skew: mixed. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "COIN is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Rejection / decay. Decision-pressure rank: 6. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
-      "seta_read_line": "repair watch | rank 6 | mixed skew | Rejection / decay",
-      "regime_note": "In the equity tape, this reads as repair. Structure reads as Rejection / decay. Decision-pressure rank: 6. Resolution skew: mixed.",
+      "headline": "COIN: validation risk",
+      "one_liner": "COIN has visible activity, while the structural layer still argues for validation risk.",
+      "public_note": "COIN still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.",
+      "short_explanation": "COIN still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "COIN still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether validation improves before surface activity loses sponsorship.",
+      "seta_read_line": "validation risk | rank 6 | negative skew | rejection / decay",
+      "regime_note": "In the equity tape, this reads as decay. Structure reads as rejection / decay. Decision-pressure rank: 6. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "COIN looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
+      "social_blurb": "COIN has visible activity, while the structural layer still argues for validation risk. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Repair watch",
-      "asset_state": "repair",
+      "content_angle": "Validation risk",
+      "asset_state": "decay",
       "decision_pressure_rank": 6,
-      "structural_state": "Rejection / decay",
-      "resolution_skew": "mixed",
+      "structural_state": "rejection / decay",
+      "resolution_skew": "negative",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "LINK",
@@ -317,7 +317,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "BTC",
@@ -343,7 +343,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "ETH",
@@ -369,7 +369,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "SOL",
@@ -395,7 +395,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "AVAX",
@@ -421,7 +421,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "MSFT",
@@ -447,33 +447,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "AAPL",
       "universe": "equities",
-      "copy_archetype": "repair_watch",
+      "copy_archetype": "seta_context",
       "narrative_theme": "",
-      "headline": "AAPL: repair watch",
-      "one_liner": "AAPL looks more like repair than all-clear; confirmation still matters.",
-      "public_note": "AAPL looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
-      "short_explanation": "AAPL is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Confirmed / accepted. Decision-pressure rank: 10. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "AAPL is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Confirmed / accepted. Decision-pressure rank: 10. Skew: positive. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
-      "seta_read_line": "repair watch | rank 10 | positive skew | Confirmed / accepted",
-      "regime_note": "In the equity tape, this reads as repair. Structure reads as Confirmed / accepted. Decision-pressure rank: 10. Resolution skew: positive.",
+      "headline": "AAPL: SETA context",
+      "one_liner": "AAPL sits in a lower decision-pressure zone in the equity tape.",
+      "public_note": "AAPL sits in a lower decision-pressure zone in the equity tape.",
+      "short_explanation": "AAPL sits in a lower decision-pressure zone in the equity tape. Structure reads as confirmed / accepted. Decision-pressure rank: 9. Skew: positive. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "AAPL sits in a lower decision-pressure zone in the equity tape. Structure reads as confirmed / accepted. Decision-pressure rank: 9. Skew: positive. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether sector leadership and structural confirmation improves.",
+      "seta_read_line": "seta context | rank 9 | positive skew | confirmed / accepted",
+      "regime_note": "In the equity tape, this reads as neutral. Structure reads as confirmed / accepted. Decision-pressure rank: 9. Resolution skew: positive.",
       "narrative_note": "",
-      "social_blurb": "AAPL looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
+      "social_blurb": "AAPL sits in a lower decision-pressure zone in the equity tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Repair watch",
-      "asset_state": "repair",
-      "decision_pressure_rank": 10,
-      "structural_state": "Confirmed / accepted",
+      "content_angle": "SETA context watch",
+      "asset_state": "neutral",
+      "decision_pressure_rank": 9,
+      "structural_state": "confirmed / accepted",
       "resolution_skew": "positive",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "AMZN",
@@ -499,7 +499,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "GOOGL",
@@ -525,33 +525,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "META",
       "universe": "equities",
-      "copy_archetype": "seta_context",
+      "copy_archetype": "repair_watch",
       "narrative_theme": "",
-      "headline": "META: SETA context",
-      "one_liner": "META sits in a lower decision-pressure zone in the equity tape.",
-      "public_note": "META sits in a lower decision-pressure zone in the equity tape.",
-      "short_explanation": "META sits in a lower decision-pressure zone in the equity tape. Decision-pressure rank: 21. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "META sits in a lower decision-pressure zone in the equity tape. Decision-pressure rank: 21. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sector leadership and structural confirmation improves.",
-      "seta_read_line": "seta context | rank 21",
-      "regime_note": "In the equity tape, this reads as neutral. Decision-pressure rank: 21.",
+      "headline": "META: repair watch",
+      "one_liner": "META looks more like repair than all-clear; confirmation still matters.",
+      "public_note": "META looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
+      "short_explanation": "META is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Decision-pressure rank: 21. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "META is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Decision-pressure rank: 21. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
+      "seta_read_line": "repair watch | rank 21",
+      "regime_note": "In the equity tape, this reads as repair. Decision-pressure rank: 21.",
       "narrative_note": "",
-      "social_blurb": "META sits in a lower decision-pressure zone in the equity tape. Context, not a signal.",
+      "social_blurb": "META looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "SETA context watch",
-      "asset_state": "neutral",
+      "content_angle": "Repair watch",
+      "asset_state": "repair",
       "decision_pressure_rank": 21,
       "structural_state": "",
       "resolution_skew": "unknown",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "TSLA",
@@ -561,49 +561,49 @@
       "headline": "TSLA: repair watch",
       "one_liner": "TSLA looks more like repair than all-clear; confirmation still matters.",
       "public_note": "TSLA looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
-      "short_explanation": "TSLA is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Rejection / decay. Decision-pressure rank: 8. Skew: mixed. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "TSLA is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Rejection / decay. Decision-pressure rank: 8. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "short_explanation": "TSLA is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as rejection / decay. Decision-pressure rank: 8. Skew: mixed. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "TSLA is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as rejection / decay. Decision-pressure rank: 8. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
       "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
-      "seta_read_line": "repair watch | rank 8 | mixed skew | Rejection / decay",
-      "regime_note": "In the equity tape, this reads as repair. Structure reads as Rejection / decay. Decision-pressure rank: 8. Resolution skew: mixed.",
+      "seta_read_line": "repair watch | rank 8 | mixed skew | rejection / decay",
+      "regime_note": "In the equity tape, this reads as repair. Structure reads as rejection / decay. Decision-pressure rank: 8. Resolution skew: mixed.",
       "narrative_note": "",
       "social_blurb": "TSLA looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "Repair watch",
       "asset_state": "repair",
       "decision_pressure_rank": 8,
-      "structural_state": "Rejection / decay",
+      "structural_state": "rejection / decay",
       "resolution_skew": "mixed",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "AMD",
       "universe": "equities",
-      "copy_archetype": "seta_context",
+      "copy_archetype": "contested_structure",
       "narrative_theme": "",
-      "headline": "AMD: SETA context",
-      "one_liner": "AMD sits in a lower decision-pressure zone in the equity tape.",
-      "public_note": "AMD sits in a lower decision-pressure zone in the equity tape.",
-      "short_explanation": "AMD sits in a lower decision-pressure zone in the equity tape. Decision-pressure rank: 14. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "AMD sits in a lower decision-pressure zone in the equity tape. Decision-pressure rank: 14. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sector leadership and structural confirmation improves.",
-      "seta_read_line": "seta context | rank 14",
-      "regime_note": "In the equity tape, this reads as neutral. Decision-pressure rank: 14.",
+      "headline": "AMD: contested structure",
+      "one_liner": "AMD is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
+      "public_note": "AMD is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.",
+      "short_explanation": "AMD is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Decision-pressure rank: 14. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "AMD is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Decision-pressure rank: 14. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
+      "seta_read_line": "contested structure | rank 14",
+      "regime_note": "In the equity tape, this reads as disagreement. Decision-pressure rank: 14.",
       "narrative_note": "",
-      "social_blurb": "AMD sits in a lower decision-pressure zone in the equity tape. Context, not a signal.",
+      "social_blurb": "AMD is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "SETA context watch",
-      "asset_state": "neutral",
+      "content_angle": "Decision pressure / contested structure",
+      "asset_state": "disagreement",
       "decision_pressure_rank": 14,
       "structural_state": "",
       "resolution_skew": "unknown",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "QQQ",
@@ -629,7 +629,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     {
       "term": "TLT",
@@ -655,7 +655,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     }
   ],
   "by_term": {
@@ -683,7 +683,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "ADA": {
       "term": "ADA",
@@ -709,7 +709,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "NFLX": {
       "term": "NFLX",
@@ -719,23 +719,23 @@
       "headline": "NFLX: validation risk",
       "one_liner": "NFLX has visible activity, while the structural layer still argues for validation risk.",
       "public_note": "NFLX still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.",
-      "short_explanation": "NFLX still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 2. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "NFLX still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 2. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "short_explanation": "NFLX still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 2. Skew: mixed. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "NFLX still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 2. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
       "watch_condition": "Watch whether validation improves before surface activity loses sponsorship.",
-      "seta_read_line": "validation risk | rank 2 | negative skew | Rejection / decay",
-      "regime_note": "In the equity tape, this reads as decay. Structure reads as Rejection / decay. Decision-pressure rank: 2. Resolution skew: negative.",
+      "seta_read_line": "validation risk | rank 2 | mixed skew | Rejection / decay",
+      "regime_note": "In the equity tape, this reads as neutral. Structure reads as Rejection / decay. Decision-pressure rank: 2. Resolution skew: mixed.",
       "narrative_note": "",
       "social_blurb": "NFLX has visible activity, while the structural layer still argues for validation risk. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "Validation risk",
-      "asset_state": "decay",
+      "asset_state": "neutral",
       "decision_pressure_rank": 2,
       "structural_state": "Rejection / decay",
-      "resolution_skew": "negative",
+      "resolution_skew": "mixed",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "BNB": {
       "term": "BNB",
@@ -761,33 +761,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "NVDA": {
       "term": "NVDA",
       "universe": "equities",
-      "copy_archetype": "contested_structure",
+      "copy_archetype": "decision_pressure",
       "narrative_theme": "",
-      "headline": "NVDA: contested structure",
-      "one_liner": "NVDA is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
-      "public_note": "NVDA is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.",
-      "short_explanation": "NVDA is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "NVDA is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
-      "seta_read_line": "contested structure | rank 3 | negative skew | Permission without belief",
-      "regime_note": "In the equity tape, this reads as disagreement. Structure reads as Permission without belief. Decision-pressure rank: 3. Resolution skew: negative.",
+      "headline": "NVDA: decision-pressure watch",
+      "one_liner": "NVDA sits in a high decision-pressure zone in the equity tape.",
+      "public_note": "NVDA is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
+      "short_explanation": "NVDA sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "NVDA sits in a high decision-pressure zone in the equity tape. Structure reads as Permission without belief. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether decision pressure resolves into confirmation or rejection.",
+      "seta_read_line": "decision pressure | rank 3 | negative skew | Permission without belief",
+      "regime_note": "In the equity tape, this reads as decay. Structure reads as Permission without belief. Decision-pressure rank: 3. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "NVDA is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "social_blurb": "NVDA sits in a high decision-pressure zone in the equity tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Decision pressure / contested structure",
-      "asset_state": "disagreement",
+      "content_angle": "Validation risk",
+      "asset_state": "decay",
       "decision_pressure_rank": 3,
       "structural_state": "Permission without belief",
       "resolution_skew": "negative",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "SHIB": {
       "term": "SHIB",
@@ -813,7 +813,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "JPM": {
       "term": "JPM",
@@ -839,7 +839,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "DOGE": {
       "term": "DOGE",
@@ -865,7 +865,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "OPEN": {
       "term": "OPEN",
@@ -891,7 +891,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "XRP": {
       "term": "XRP",
@@ -917,33 +917,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "COIN": {
       "term": "COIN",
       "universe": "equities",
-      "copy_archetype": "repair_watch",
+      "copy_archetype": "validation_risk",
       "narrative_theme": "",
-      "headline": "COIN: repair watch",
-      "one_liner": "COIN looks more like repair than all-clear; confirmation still matters.",
-      "public_note": "COIN looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
-      "short_explanation": "COIN is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Rejection / decay. Decision-pressure rank: 6. Skew: mixed. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "COIN is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Rejection / decay. Decision-pressure rank: 6. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
-      "seta_read_line": "repair watch | rank 6 | mixed skew | Rejection / decay",
-      "regime_note": "In the equity tape, this reads as repair. Structure reads as Rejection / decay. Decision-pressure rank: 6. Resolution skew: mixed.",
+      "headline": "COIN: validation risk",
+      "one_liner": "COIN has visible activity, while the structural layer still argues for validation risk.",
+      "public_note": "COIN still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.",
+      "short_explanation": "COIN still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "COIN still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as rejection / decay. Decision-pressure rank: 6. Skew: negative. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether validation improves before surface activity loses sponsorship.",
+      "seta_read_line": "validation risk | rank 6 | negative skew | rejection / decay",
+      "regime_note": "In the equity tape, this reads as decay. Structure reads as rejection / decay. Decision-pressure rank: 6. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "COIN looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
+      "social_blurb": "COIN has visible activity, while the structural layer still argues for validation risk. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Repair watch",
-      "asset_state": "repair",
+      "content_angle": "Validation risk",
+      "asset_state": "decay",
       "decision_pressure_rank": 6,
-      "structural_state": "Rejection / decay",
-      "resolution_skew": "mixed",
+      "structural_state": "rejection / decay",
+      "resolution_skew": "negative",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "LINK": {
       "term": "LINK",
@@ -969,7 +969,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "BTC": {
       "term": "BTC",
@@ -995,7 +995,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "ETH": {
       "term": "ETH",
@@ -1021,7 +1021,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "SOL": {
       "term": "SOL",
@@ -1047,7 +1047,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "AVAX": {
       "term": "AVAX",
@@ -1073,7 +1073,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "MSFT": {
       "term": "MSFT",
@@ -1099,33 +1099,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "AAPL": {
       "term": "AAPL",
       "universe": "equities",
-      "copy_archetype": "repair_watch",
+      "copy_archetype": "seta_context",
       "narrative_theme": "",
-      "headline": "AAPL: repair watch",
-      "one_liner": "AAPL looks more like repair than all-clear; confirmation still matters.",
-      "public_note": "AAPL looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
-      "short_explanation": "AAPL is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Confirmed / accepted. Decision-pressure rank: 10. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "AAPL is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Confirmed / accepted. Decision-pressure rank: 10. Skew: positive. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
-      "seta_read_line": "repair watch | rank 10 | positive skew | Confirmed / accepted",
-      "regime_note": "In the equity tape, this reads as repair. Structure reads as Confirmed / accepted. Decision-pressure rank: 10. Resolution skew: positive.",
+      "headline": "AAPL: SETA context",
+      "one_liner": "AAPL sits in a lower decision-pressure zone in the equity tape.",
+      "public_note": "AAPL sits in a lower decision-pressure zone in the equity tape.",
+      "short_explanation": "AAPL sits in a lower decision-pressure zone in the equity tape. Structure reads as confirmed / accepted. Decision-pressure rank: 9. Skew: positive. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "AAPL sits in a lower decision-pressure zone in the equity tape. Structure reads as confirmed / accepted. Decision-pressure rank: 9. Skew: positive. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether sector leadership and structural confirmation improves.",
+      "seta_read_line": "seta context | rank 9 | positive skew | confirmed / accepted",
+      "regime_note": "In the equity tape, this reads as neutral. Structure reads as confirmed / accepted. Decision-pressure rank: 9. Resolution skew: positive.",
       "narrative_note": "",
-      "social_blurb": "AAPL looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
+      "social_blurb": "AAPL sits in a lower decision-pressure zone in the equity tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Repair watch",
-      "asset_state": "repair",
-      "decision_pressure_rank": 10,
-      "structural_state": "Confirmed / accepted",
+      "content_angle": "SETA context watch",
+      "asset_state": "neutral",
+      "decision_pressure_rank": 9,
+      "structural_state": "confirmed / accepted",
       "resolution_skew": "positive",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "AMZN": {
       "term": "AMZN",
@@ -1151,7 +1151,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "GOOGL": {
       "term": "GOOGL",
@@ -1177,33 +1177,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "META": {
       "term": "META",
       "universe": "equities",
-      "copy_archetype": "seta_context",
+      "copy_archetype": "repair_watch",
       "narrative_theme": "",
-      "headline": "META: SETA context",
-      "one_liner": "META sits in a lower decision-pressure zone in the equity tape.",
-      "public_note": "META sits in a lower decision-pressure zone in the equity tape.",
-      "short_explanation": "META sits in a lower decision-pressure zone in the equity tape. Decision-pressure rank: 21. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "META sits in a lower decision-pressure zone in the equity tape. Decision-pressure rank: 21. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sector leadership and structural confirmation improves.",
-      "seta_read_line": "seta context | rank 21",
-      "regime_note": "In the equity tape, this reads as neutral. Decision-pressure rank: 21.",
+      "headline": "META: repair watch",
+      "one_liner": "META looks more like repair than all-clear; confirmation still matters.",
+      "public_note": "META looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
+      "short_explanation": "META is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Decision-pressure rank: 21. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "META is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Decision-pressure rank: 21. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
+      "seta_read_line": "repair watch | rank 21",
+      "regime_note": "In the equity tape, this reads as repair. Decision-pressure rank: 21.",
       "narrative_note": "",
-      "social_blurb": "META sits in a lower decision-pressure zone in the equity tape. Context, not a signal.",
+      "social_blurb": "META looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "SETA context watch",
-      "asset_state": "neutral",
+      "content_angle": "Repair watch",
+      "asset_state": "repair",
       "decision_pressure_rank": 21,
       "structural_state": "",
       "resolution_skew": "unknown",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "TSLA": {
       "term": "TSLA",
@@ -1213,49 +1213,49 @@
       "headline": "TSLA: repair watch",
       "one_liner": "TSLA looks more like repair than all-clear; confirmation still matters.",
       "public_note": "TSLA looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.",
-      "short_explanation": "TSLA is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Rejection / decay. Decision-pressure rank: 8. Skew: mixed. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "TSLA is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as Rejection / decay. Decision-pressure rank: 8. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "short_explanation": "TSLA is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as rejection / decay. Decision-pressure rank: 8. Skew: mixed. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "TSLA is in a repair watch. The read is less about calling direction and more about whether sponsorship rebuilds enough to confirm the move. Structure reads as rejection / decay. Decision-pressure rank: 8. Skew: mixed. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
       "watch_condition": "Watch whether sponsorship rebuilds enough to confirm the repair.",
-      "seta_read_line": "repair watch | rank 8 | mixed skew | Rejection / decay",
-      "regime_note": "In the equity tape, this reads as repair. Structure reads as Rejection / decay. Decision-pressure rank: 8. Resolution skew: mixed.",
+      "seta_read_line": "repair watch | rank 8 | mixed skew | rejection / decay",
+      "regime_note": "In the equity tape, this reads as repair. Structure reads as rejection / decay. Decision-pressure rank: 8. Resolution skew: mixed.",
       "narrative_note": "",
       "social_blurb": "TSLA looks more like repair than all-clear; confirmation still matters. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
       "content_angle": "Repair watch",
       "asset_state": "repair",
       "decision_pressure_rank": 8,
-      "structural_state": "Rejection / decay",
+      "structural_state": "rejection / decay",
       "resolution_skew": "mixed",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "AMD": {
       "term": "AMD",
       "universe": "equities",
-      "copy_archetype": "seta_context",
+      "copy_archetype": "contested_structure",
       "narrative_theme": "",
-      "headline": "AMD: SETA context",
-      "one_liner": "AMD sits in a lower decision-pressure zone in the equity tape.",
-      "public_note": "AMD sits in a lower decision-pressure zone in the equity tape.",
-      "short_explanation": "AMD sits in a lower decision-pressure zone in the equity tape. Decision-pressure rank: 14. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "AMD sits in a lower decision-pressure zone in the equity tape. Decision-pressure rank: 14. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
-      "watch_condition": "Watch whether sector leadership and structural confirmation improves.",
-      "seta_read_line": "seta context | rank 14",
-      "regime_note": "In the equity tape, this reads as neutral. Decision-pressure rank: 14.",
+      "headline": "AMD: contested structure",
+      "one_liner": "AMD is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
+      "public_note": "AMD is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.",
+      "short_explanation": "AMD is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Decision-pressure rank: 14. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "AMD is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Decision-pressure rank: 14. This is interpretation context, not a trade signal. For the equity tape, the key test is whether leadership becomes coherent and broad enough to earn confirmation.",
+      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
+      "seta_read_line": "contested structure | rank 14",
+      "regime_note": "In the equity tape, this reads as disagreement. Decision-pressure rank: 14.",
       "narrative_note": "",
-      "social_blurb": "AMD sits in a lower decision-pressure zone in the equity tape. Context, not a signal.",
+      "social_blurb": "AMD is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "SETA context watch",
-      "asset_state": "neutral",
+      "content_angle": "Decision pressure / contested structure",
+      "asset_state": "disagreement",
       "decision_pressure_rank": 14,
       "structural_state": "",
       "resolution_skew": "unknown",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "QQQ": {
       "term": "QQQ",
@@ -1281,7 +1281,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     },
     "TLT": {
       "term": "TLT",
@@ -1307,7 +1307,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-09-24"
+      "updated_at": "2026-09-25"
     }
   },
   "counts": {
