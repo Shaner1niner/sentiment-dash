@@ -7427,7 +7427,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-09-25T12:21:38Z",
+  "generated_at": "2026-09-25T13:22:51Z",
   "items": [
     {
       "asset_class": "etf",
@@ -9157,7 +9157,7 @@
       "presentation_group": "crypto",
       "public_context_headline": "ETH: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Constructive context",
       "rotation_bucket": 261713534,
       "rotation_period": "2026-09-25",
@@ -9165,8 +9165,8 @@
       "rotation_score": 380,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bullish Expansion",
-      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
       "sentiment_structure": "constructive pressure that still needs confirmation",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -9180,12 +9180,12 @@
       ],
       "symbol": "ETH",
       "website_handoff": {
-        "combined_read": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bullish Expansion",
-        "sentiment_public_sentence": "Sentiment is in bullish expansion."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
