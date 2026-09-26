@@ -10,7 +10,7 @@ OPEN is sitting in a decision-pressure zone. The signal is less about prediction
 
 **Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** decision pressure | rank 1 | mixed skew | Belief exceeds permission
+**SETA read:** decision pressure | rank 1 | mixed skew | belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -34,7 +34,7 @@ JPM is sitting in a decision-pressure zone. The signal is less about prediction 
 
 **Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** decision pressure | rank 2 | negative skew | Permission without belief
+**SETA read:** decision pressure | rank 2 | negative skew | permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -58,7 +58,7 @@ AAPL is sitting in a decision-pressure zone. The signal is less about prediction
 
 **Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** decision pressure | rank 3 | negative skew | Permission without belief
+**SETA read:** decision pressure | rank 3 | negative skew | permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -94,7 +94,7 @@ NVDA sits in a elevated decision-pressure zone in the equity tape.
 
 **Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** seta context | rank 4 | negative skew | Permission without belief
+**SETA read:** seta context | rank 4 | negative skew | permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -118,7 +118,7 @@ COIN looks more like repair than confirmation. The useful read is whether sponso
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 5 | mixed skew | Rejection / decay
+**SETA read:** repair watch | rank 5 | mixed skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -130,7 +130,7 @@ TSLA is showing broader participation. That is constructive for the equity tape,
 
 **Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
-**SETA read:** participation diffusion | rank 6 | positive skew | Rejection / decay
+**SETA read:** participation diffusion | rank 6 | positive skew | rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -142,7 +142,7 @@ SHIB looks more like repair than confirmation. The useful read is whether sponso
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 6 | mixed skew | rejection / decay
+**SETA read:** repair watch | rank 6 | mixed skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -154,7 +154,7 @@ BTC looks more like repair than confirmation. The useful read is whether sponsor
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 8 | negative skew | permission without belief
+**SETA read:** repair watch | rank 8 | negative skew | Permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -166,7 +166,7 @@ ETH is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** broadening participation | rank 9 | positive skew | permission without belief
+**SETA read:** broadening participation | rank 9 | positive skew | Permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -178,7 +178,7 @@ SOL is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** broadening participation | rank 10 | positive skew | confirmed / accepted
+**SETA read:** broadening participation | rank 10 | positive skew | Confirmed / accepted
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -190,7 +190,7 @@ LINK is showing broader participation. That is constructive for the crypto tape,
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 7 | positive skew | permission without belief
+**SETA read:** participation diffusion | rank 7 | positive skew | Permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -214,7 +214,7 @@ MSFT looks more like repair than confirmation. The useful read is whether sponso
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 9 | positive skew | Confirmed / accepted
+**SETA read:** repair watch | rank 9 | positive skew | confirmed / accepted
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -238,7 +238,7 @@ GOOGL looks more like repair than confirmation. The useful read is whether spons
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 7 | negative skew | Permission without belief
+**SETA read:** repair watch | rank 7 | negative skew | permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
