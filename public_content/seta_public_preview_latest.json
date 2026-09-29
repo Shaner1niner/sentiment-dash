@@ -813,10 +813,10 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "equity",
-      "public_context_headline": "TSLA: Weakening structure",
+      "public_context_headline": "TSLA: Layered context",
       "public_safe": true,
       "public_safe_copy": "TSLA shows layered SETA context. Participation context is available with source coverage unresolved.",
-      "public_state_label": "Weakening structure",
+      "public_state_label": "Layered context",
       "rotation_bucket": 4108118039,
       "rotation_period": "2026-09-29",
       "rotation_reason": "fresh_public_context",
@@ -1887,10 +1887,10 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "equity",
-      "public_context_headline": "TSLA: Weakening structure",
+      "public_context_headline": "TSLA: Layered context",
       "public_safe": true,
       "public_safe_copy": "TSLA shows layered SETA context. Participation context is available with source coverage unresolved.",
-      "public_state_label": "Weakening structure",
+      "public_state_label": "Layered context",
       "rotation_bucket": 4108118039,
       "rotation_period": "2026-09-29",
       "rotation_reason": "fresh_public_context",
@@ -6955,7 +6955,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-09-29T22:20:58Z",
+  "generated_at": "2026-09-29T23:24:17Z",
   "items": [
     {
       "asset_class": "etf",
@@ -7804,18 +7804,18 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "equity",
-      "public_context_headline": "TSLA: Weakening structure",
+      "public_context_headline": "TSLA: Layered context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bearish expansion. Participation is unavailable for this period.",
-      "public_state_label": "Weakening structure",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_state_label": "Layered context",
       "rotation_bucket": 4108118039,
       "rotation_period": "2026-09-29",
       "rotation_reason": "fresh_public_context",
       "rotation_score": 374,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bearish Expansion",
-      "sentiment_public_sentence": "Sentiment is in bearish expansion.",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
       "sentiment_structure": "Layered SETA context",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -7829,12 +7829,12 @@
       ],
       "symbol": "TSLA",
       "website_handoff": {
-        "combined_read": "Sentiment is in bearish expansion. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bearish Expansion",
-        "sentiment_public_sentence": "Sentiment is in bearish expansion."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
@@ -8393,7 +8393,7 @@
       "presentation_group": "crypto",
       "public_context_headline": "BTC: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in mixed. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Constructive context",
       "rotation_bucket": 623115454,
       "rotation_period": "2026-09-29",
@@ -8401,8 +8401,8 @@
       "rotation_score": 383,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Mixed",
-      "sentiment_public_sentence": "Sentiment is in mixed.",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
       "sentiment_structure": "constructive pressure that still needs confirmation",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -8416,12 +8416,12 @@
       ],
       "symbol": "BTC",
       "website_handoff": {
-        "combined_read": "Sentiment is in mixed. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Mixed",
-        "sentiment_public_sentence": "Sentiment is in mixed."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
