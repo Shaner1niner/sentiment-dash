@@ -9,7 +9,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-10-01",
-        "label": "Participation confirmation support",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -17,11 +17,11 @@
         "public_limitation_copy_suppressed": true,
         "raw_attention_label": "Unknown",
         "semantics_version": "seta_participation_semantics_v2",
-        "sentence": "Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+        "sentence": "Participation context is available with source coverage unresolved.",
         "source_coverage_mode": "unresolved",
-        "trend_direction": "Cooling"
+        "trend_direction": "Unknown"
       },
-      "attention_state": "Participation confirmation support",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "BTC:reviewed_briefing:3M:D:2026-10-01",
       "candidate_rank": 1,
@@ -37,7 +37,7 @@
       },
       "homepage_eligible": true,
       "name": "Bitcoin",
-      "participation_context": "Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+      "participation_context": "Participation context is available with source coverage unresolved.",
       "participation_evidence": {
         "activity_detected": false,
         "breadth_claim_type": "none",
@@ -59,9 +59,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -78,7 +76,7 @@
         "persistence_observation_count": 0,
         "persistence_state": "insufficient_history",
         "public_label": "Participation context",
-        "public_sentence": "Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+        "public_sentence": "Participation context is available with source coverage unresolved.",
         "schema_version": "seta_attention_suite_participation_v2",
         "source_coverage_mode": "unresolved",
         "source_mix_shift": "unresolved",
@@ -92,14 +90,15 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "supporting"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "BTC: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "BTC shows constructive pressure that still needs confirmation. Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+      "public_safe_copy": "BTC shows constructive pressure that still needs confirmation. Participation context is available with source coverage unresolved.",
       "public_state_label": "Constructive context",
       "rotation_bucket": 1217076426,
       "rotation_period": "2026-10-01",
@@ -845,7 +844,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-10-01",
-        "label": "Participation confirmation support",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -853,11 +852,11 @@
         "public_limitation_copy_suppressed": true,
         "raw_attention_label": "Unknown",
         "semantics_version": "seta_participation_semantics_v2",
-        "sentence": "Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+        "sentence": "Participation context is available with source coverage unresolved.",
         "source_coverage_mode": "unresolved",
-        "trend_direction": "Cooling"
+        "trend_direction": "Unknown"
       },
-      "attention_state": "Participation confirmation support",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "BTC:reviewed_briefing:1Y:W:2026-10-01",
       "candidate_rank": 8,
@@ -873,7 +872,7 @@
       },
       "homepage_eligible": true,
       "name": "Bitcoin",
-      "participation_context": "Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+      "participation_context": "Participation context is available with source coverage unresolved.",
       "participation_evidence": {
         "activity_detected": false,
         "breadth_claim_type": "none",
@@ -895,9 +894,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -914,7 +911,7 @@
         "persistence_observation_count": 0,
         "persistence_state": "insufficient_history",
         "public_label": "Participation context",
-        "public_sentence": "Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+        "public_sentence": "Participation context is available with source coverage unresolved.",
         "schema_version": "seta_attention_suite_participation_v2",
         "source_coverage_mode": "unresolved",
         "source_mix_shift": "unresolved",
@@ -928,14 +925,15 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "supporting"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "BTC: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "BTC shows constructive pressure that still needs confirmation. Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+      "public_safe_copy": "BTC shows constructive pressure that still needs confirmation. Participation context is available with source coverage unresolved.",
       "public_state_label": "Constructive context",
       "rotation_bucket": 1217076426,
       "rotation_period": "2026-10-01",
@@ -7545,7 +7543,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-10-01T05:22:32Z",
+  "generated_at": "2026-10-01T06:22:44Z",
   "items": [
     {
       "asset_class": "etf",
@@ -8732,7 +8730,7 @@
         "collection_limited": true,
         "confidence_language": "qualified",
         "evidence_as_of": "2026-10-01",
-        "label": "Participation confirmation support",
+        "label": "Context watch",
         "no_detected_activity_confirmed": false,
         "participation_evidence_status": "legacy_unresolved",
         "participation_input_contract_version": "seta_attention_suite_inputs_v2",
@@ -8740,11 +8738,11 @@
         "public_limitation_copy_suppressed": true,
         "raw_attention_label": "Unknown",
         "semantics_version": "seta_participation_semantics_v2",
-        "sentence": "Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+        "sentence": "Participation context is available with source coverage unresolved.",
         "source_coverage_mode": "unresolved",
-        "trend_direction": "Cooling"
+        "trend_direction": "Unknown"
       },
-      "attention_state": "Participation confirmation support",
+      "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
       "candidate_id": "BTC:reviewed_briefing:3M:D:2026-10-01",
       "candidate_rank": 1,
@@ -8905,11 +8903,9 @@
           "bsky",
           "news"
         ],
-        "alignment_state": "supportive",
+        "alignment_state": "unavailable",
         "attention_level_state": "unavailable",
-        "available_dimensions": [
-          "alignment"
-        ],
+        "available_dimensions": [],
         "breadth_state": "unavailable",
         "breadth_trend": "unavailable",
         "calculation_profile": "bridge_shadow_v1",
@@ -8947,9 +8943,7 @@
         "attention_level": "unavailable",
         "attention_regime": "unavailable",
         "attention_trend": "insufficient_history",
-        "available_dimensions": [
-          "validation"
-        ],
+        "available_dimensions": [],
         "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
         "breadth_claim_type": "none",
         "breadth_state": "unresolved",
@@ -8966,7 +8960,7 @@
         "persistence_observation_count": 0,
         "persistence_state": "insufficient_history",
         "public_label": "Participation context",
-        "public_sentence": "Participation context is available with source coverage unresolved. Related validation inputs support the interpretation.",
+        "public_sentence": "Participation context is available with source coverage unresolved.",
         "schema_version": "seta_attention_suite_participation_v2",
         "source_coverage_mode": "unresolved",
         "source_mix_shift": "unresolved",
@@ -8980,9 +8974,10 @@
           "breadth",
           "breadth_trend",
           "persistence",
-          "conviction"
+          "conviction",
+          "validation"
         ],
-        "validation_role": "supporting"
+        "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
       "public_context_headline": "BTC: Constructive context",

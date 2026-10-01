@@ -118,6 +118,10 @@ function classifySentiment(input = {}) {
 
 function classifyParticipation(input = {}) {
   const explicit = lowerText(firstDefined(input, ['participation_state', 'participationState', 'breadth_state']));
+  const quality = lowerText(input.participation_quality);
+  // Missing Participation takes precedence over legacy labels and breadth prose.
+  if (['unknown', 'unavailable', 'unresolved', 'unbound'].includes(explicit)
+      || /participation (?:is |remains )?(?:unknown|unavailable|unresolved)/.test(quality)) return 'unavailable';
   if (explicit) return explicit.replace(/\s+/g, '_');
 
   const text = [
@@ -139,7 +143,7 @@ function classifyParticipation(input = {}) {
     if (ratio >= 0.65) return 'broad';
     if (ratio <= 0.35) return 'narrow';
   }
-  return 'mixed';
+  return 'unavailable';
 }
 
 function classifyAttention(input = {}) {
@@ -215,6 +219,7 @@ function deriveConfirmationQuality(parts, combinedState) {
 
 function derivePrimaryTension(parts, combinedState) {
   const { momentum, sentiment, participation, attention } = parts;
+  if (participation === 'unavailable') return 'participation evidence is unavailable, so it cannot confirm the read';
   if (combinedState === 'sentiment_price_divergence') return 'sentiment repair is outpacing price confirmation';
   if (combinedState === 'mechanical_repair_with_emotional_drag') return 'price mechanics are stabilizing before sentiment has confirmed the repair';
   if (combinedState === 'attention_without_validation') return 'attention is elevated without broad structural validation';

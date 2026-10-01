@@ -20,6 +20,7 @@ function escapeHtml(value) {
 }
 
 function asPercent(value) {
+    if (value == null || (typeof value === 'string' && !value.trim())) return '—';
     const number = Number(value);
     if (!Number.isFinite(number)) return '—';
     return `${Math.round(number * 100)}%`;
@@ -463,6 +464,9 @@ function metadataCountWarnings(meta, derived) {
 }
 
 function parseDateMs(value) {
+    // The exporter has historically emitted local wall time without an offset.
+    // Do not interpret it in the viewer's timezone or silently assume UTC.
+    if (typeof value !== 'string' || !/T.*(?:Z|[+-]\d{2}:?\d{2})$/i.test(value.trim())) return null;
     const parsed = Date.parse(value);
     return Number.isFinite(parsed) ? parsed : null;
 }
@@ -472,7 +476,7 @@ function overlayFreshnessState(generatedAt) {
     if (generatedMs == null) {
         return {
             label: 'Freshness unknown',
-            warning: 'Overlay metadata is missing a parseable generated_at timestamp.',
+            warning: 'Overlay metadata needs a parseable generated_at timestamp with an explicit timezone.',
         };
     }
 
@@ -496,7 +500,7 @@ function overlayFreshnessState(generatedAt) {
 }
 
 function panelWarnings(meta, derived, allRows) {
-    const freshness = overlayFreshnessState(meta.generated_at);
+    const freshness = overlayFreshnessState(meta.generated_at_utc || meta.generated_at);
     const warnings = metadataCountWarnings(meta, derived);
     if (freshness.warning) warnings.push(freshness.warning);
     if (!allRows.length) warnings.push('No prediction outcome rows are available in the current overlay.');
@@ -612,10 +616,12 @@ function renderPanel() {
     const { freshness, warnings } = panelWarnings(meta, derived, allRows);
     const asset = activeAsset();
     const activeRow = latestRowForAsset(asset);
-    const accuracy = asPercent(meta.selective_accuracy ?? meta.accuracy_on_all_resolved);
+    const accuracy = derived.final_outcome_count > 0
+        ? asPercent(meta.selective_accuracy ?? meta.accuracy_on_all_resolved)
+        : '—';
     const recents = recentRows(6);
     const pillText = accuracy === '—'
-        ? freshness.label
+        ? 'Historical follow-through unavailable'
         : `${accuracy} historical follow-through`;
 
     target.className = 'modulePredictionAccountabilityPanel';

@@ -1,6 +1,6 @@
 import { Store } from '../Store.js';
 import { ReviewedBriefingLoader } from '../ReviewedBriefingLoader.js';
-import { synthesizeAssetBriefing } from './AssetBriefingSynthesis.js?v=asset_briefing_synthesis_001';
+import { synthesizeAssetBriefing } from './AssetBriefingSynthesis.js?v=asset_briefing_missingness_002';
 
 const BRIEFING_VISIBLE_EVIDENCE_ITEMS = 3;
 const RESEARCH_VISIBLE_EVIDENCE_ITEMS = 6;

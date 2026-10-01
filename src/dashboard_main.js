@@ -17,7 +17,7 @@ import './features/PublicPredictionAccountabilityPolish.js?v=prediction_accounta
 import './features/ResearchSourceMixPanel.js?v=module_research_source_mix_panel_001';
 import { DataFreshnessIndicator } from './features/DataFreshnessIndicator.js?v=module_data_freshness_indicator_001';
 import { Controls } from './features/Controls.js';
-import { BriefingPanel } from './features/BriefingPanel.js?v=asset_briefing_combined_read_003';
+import { BriefingPanel } from './features/BriefingPanel.js?v=asset_briefing_missingness_004';
 
 document.addEventListener('DOMContentLoaded', async () => {
     console.log("SETA Dashboard V2 Modules Initialized");
