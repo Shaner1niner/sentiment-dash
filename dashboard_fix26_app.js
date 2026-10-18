@@ -84667,6 +84667,14 @@ function cryptoPartialDailyDateMs(value){
 
 function latestConfirmedDailyDateMs(confirmedRows = []){
   return (Array.isArray(confirmedRows) ? confirmedRows : [])
+    .filter(row => {
+      if(!row) return false;
+      const values = ['open', 'high', 'low', 'close'].map(key => row[key]);
+      if(values.some(value => value === null || value === undefined || value === ''
+        || !Number.isFinite(Number(value)) || Number(value) <= 0)) return false;
+      const [open, high, low, close] = values.map(Number);
+      return low <= Math.min(open, close) && high >= Math.max(open, close);
+    })
     .map(row => cryptoPartialDailyDateMs(row && (row.date || row.dt || row.timestamp || row.dateObj)))
     .filter(value => value !== null)
     .reduce((latest, value) => Math.max(latest, value), -Infinity);
