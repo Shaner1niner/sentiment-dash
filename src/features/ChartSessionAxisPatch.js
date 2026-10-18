@@ -165,8 +165,8 @@ function patchChartSessionAxis() {
     };
 
     const originalBuildPriceTraces = PlotlyRenderer.buildPriceTraces;
-    PlotlyRenderer.buildPriceTraces = function patchedBuildPriceTraces(rows = [], state = {}) {
-        const traces = originalBuildPriceTraces.call(this, rows, state);
+    PlotlyRenderer.buildPriceTraces = function patchedBuildPriceTraces(rows = [], state = {}, partialDailyCandle = null) {
+        const traces = originalBuildPriceTraces.call(this, rows, state, partialDailyCandle);
         return applyLineModeContinuity(traces, state);
     };
 

@@ -63,8 +63,8 @@ function patchRendererControls() {
     };
 
     const originalBuildPriceTraces = PlotlyRenderer.buildPriceTraces;
-    PlotlyRenderer.buildPriceTraces = function patchedBuildPriceTraces(rows = [], state = {}) {
-        let traces = originalBuildPriceTraces.call(this, rows, state) || [];
+    PlotlyRenderer.buildPriceTraces = function patchedBuildPriceTraces(rows = [], state = {}, partialDailyCandle = null) {
+        let traces = originalBuildPriceTraces.call(this, rows, state, partialDailyCandle) || [];
 
         if (!sentimentLayerEnabled(state)) {
             traces = traces.filter(trace => !isSentimentTrace(trace));
