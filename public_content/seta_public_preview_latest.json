@@ -96,9 +96,9 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "equity",
-      "public_context_headline": "META: Weakening structure",
+      "public_context_headline": "META: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "META shows range revisit with qualified confirmation. Participation context is available with source coverage unresolved.",
+      "public_safe_copy": "META shows sentiment repair is visible while broader confirmation is still incomplete.. Participation context is available with source coverage unresolved.",
       "public_state_label": "Repair watch",
       "rotation_bucket": 914297570,
       "rotation_period": "2026-10-19",
@@ -106,7 +106,7 @@
       "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "range revisit with qualified confirmation",
+      "sentiment_structure": "META shows sentiment repair is visible while broader confirmation is still incomplete.",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -215,9 +215,9 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "equity",
-      "public_context_headline": "META: Weakening structure",
+      "public_context_headline": "META: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "META shows range revisit with qualified confirmation. Participation context is available with source coverage unresolved.",
+      "public_safe_copy": "META shows sentiment repair is visible while broader confirmation is still incomplete.. Participation context is available with source coverage unresolved.",
       "public_state_label": "Repair watch",
       "rotation_bucket": 914297570,
       "rotation_period": "2026-10-19",
@@ -225,7 +225,7 @@
       "rotation_score": 353,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "range revisit with qualified confirmation",
+      "sentiment_structure": "META shows sentiment repair is visible while broader confirmation is still incomplete.",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "1Y",
@@ -508,7 +508,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-10-19T02:21:00Z",
+  "generated_at": "2026-10-19T03:25:26Z",
   "items": [
     {
       "asset_class": "equity",
@@ -769,9 +769,9 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "equity",
-      "public_context_headline": "META: Weakening structure",
+      "public_context_headline": "META: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bearish expansion. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Repair watch",
       "rotation_bucket": 914297570,
       "rotation_period": "2026-10-19",
@@ -779,9 +779,9 @@
       "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bearish Expansion",
-      "sentiment_public_sentence": "Sentiment is in bearish expansion.",
-      "sentiment_structure": "range revisit with qualified confirmation",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_structure": "META shows sentiment repair is visible while broader confirmation is still incomplete.",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -794,12 +794,12 @@
       ],
       "symbol": "META",
       "website_handoff": {
-        "combined_read": "Sentiment is in bearish expansion. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bearish Expansion",
-        "sentiment_public_sentence": "Sentiment is in bearish expansion."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     }
   ],
