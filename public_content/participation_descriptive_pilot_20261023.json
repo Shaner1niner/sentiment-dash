@@ -1,0 +1,95 @@
+{
+  "schema": "seta_participation_descriptive_display_v1",
+  "version": "1.0",
+  "mode": "public",
+  "public_safe": true,
+  "public_render_eligible": true,
+  "canonical_confirmation": false,
+  "release": {
+    "status": "approved_for_dated_pilot",
+    "surface": "website_market_context_cards",
+    "automatic_roll_forward": false,
+    "approval_ref": "SETA-Participation-Pilot-20261023-01",
+    "starts_at_utc": "2026-10-23T02:30:00Z",
+    "expires_at_utc": "2026-10-25T02:30:00Z",
+    "reviewed_scope": [
+      {
+        "symbol": "SPY",
+        "context_date": "2026-10-21"
+      },
+      {
+        "symbol": "AMZN",
+        "context_date": "2026-10-21"
+      }
+    ]
+  },
+  "qualification": {
+    "policy_id": "seta_participation_dated_descriptive_pilot_v1",
+    "construct": "smoothed_recent_activity",
+    "calibration": "experimental_dated_pilot",
+    "collection_completeness_certified": false,
+    "evidence_known_as_of_utc": "2026-10-22T19:55:56.399138Z",
+    "retrospective_to_preview_build": true
+  },
+  "bindings": {
+    "preview_sha256": "60fb37e34968c8983d6d79cab04b04ce4f297217dc471802674f55b6cfe41b0b",
+    "run_sha256": "cf4fd60c07a90257dd7f69e3add5e8dd5c5954f2ce058e63c2659f9e54d1dca7",
+    "review_sha256": "f0312dee2dd1e7a7e31a5d2e0ea410aeb6caa708215fa1c92a44a5d223421805",
+    "measurement_projection_sha256": "ed2e1bdb903456558086118923ff415623c24e5ecdda36f1856015b4c2023077"
+  },
+  "cards": [
+    {
+      "symbol": "SPY",
+      "context_date": "2026-10-21",
+      "approved_item_sha256": "efb75f766c74a9864bcf73d7e8041ef8aec4213bc709e7b6ed52bc5c0d384853",
+      "canonical_insight_sha256": "c0af84d87ef29a80bfbed95c018dcf1216221c3aba035ac009b6fe2ee64e9c74",
+      "status": "reviewed_measured_activity",
+      "participation_sentence": "Participation is close to its recent norm, but continues to cool.",
+      "caveat_display_projection": [
+        {
+          "source_code": "participation_not_canonical",
+          "source_text": "Participation is unavailable, unresolved, non-canonical, collection-limited, or lacks a qualified market-structure dependency for this observation.",
+          "display_text": "Measured Participation describes recent activity. Qualified Participation confirmation of market structure is not established for these observations."
+        }
+      ],
+      "watch_next_display_projection": {
+        "source_code": "qualified_participation_available",
+        "source_text": "Whether qualified Participation evidence becomes available.",
+        "display_text": "Whether Participation provides qualified confirmation of market structure."
+      },
+      "used_dimensions": [
+        "level",
+        "trend",
+        "trend_persistence"
+      ],
+      "public_render_eligible": true,
+      "canonical_confirmation": false
+    },
+    {
+      "symbol": "AMZN",
+      "context_date": "2026-10-21",
+      "approved_item_sha256": "fc90877b40fb2c2187239a9a39a801093d58d1c2726d00622a827ae88b78de7a",
+      "canonical_insight_sha256": "38e68c9c96879213ace2fb29d4e82bb2cc23502c6740e3c72d9b62999cba2034",
+      "status": "reviewed_measured_activity",
+      "participation_sentence": "Participation has been strengthening across recent days.",
+      "caveat_display_projection": [
+        {
+          "source_code": "participation_not_canonical",
+          "source_text": "Participation is unavailable, unresolved, non-canonical, collection-limited, or lacks a qualified market-structure dependency for this observation.",
+          "display_text": "Measured Participation describes recent activity. Qualified Participation confirmation of market structure is not established for these observations."
+        }
+      ],
+      "watch_next_display_projection": {
+        "source_code": "qualified_participation_available",
+        "source_text": "Whether qualified Participation evidence becomes available.",
+        "display_text": "Whether Participation provides qualified confirmation of market structure."
+      },
+      "used_dimensions": [
+        "trend",
+        "trend_persistence"
+      ],
+      "public_render_eligible": true,
+      "canonical_confirmation": false
+    }
+  ]
+}
