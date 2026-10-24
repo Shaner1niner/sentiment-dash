@@ -692,17 +692,17 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "AAPL: Constructive context",
+      "public_context_headline": "AAPL: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "AAPL shows layered SETA context. Participation is elevated with source coverage unresolved.",
-      "public_state_label": "Constructive context",
+      "public_safe_copy": "AAPL shows weakening sentiment momentum with price resilience. Participation is elevated with source coverage unresolved.",
+      "public_state_label": "Weakening structure",
       "rotation_bucket": 2265449072,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
       "rotation_score": 377,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_structure": "Weakening sentiment momentum with price resilience",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -1645,17 +1645,17 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "AAPL: Constructive context",
+      "public_context_headline": "AAPL: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "AAPL shows layered SETA context. Participation is elevated with source coverage unresolved.",
-      "public_state_label": "Constructive context",
+      "public_safe_copy": "AAPL shows weakening sentiment momentum with price resilience. Participation is elevated with source coverage unresolved.",
+      "public_state_label": "Weakening structure",
       "rotation_bucket": 2265449072,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
       "rotation_score": 367,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_structure": "Weakening sentiment momentum with price resilience",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "1Y",
@@ -2718,15 +2718,15 @@
       "presentation_group": "equity",
       "public_context_headline": "META: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "META shows range revisit with qualified confirmation. Participation context is available with source coverage unresolved.",
-      "public_state_label": "Repair watch",
+      "public_safe_copy": "META shows layered SETA context. Participation context is available with source coverage unresolved.",
+      "public_state_label": "Weakening structure",
       "rotation_bucket": 2548162989,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
       "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "range revisit with qualified confirmation",
+      "sentiment_structure": "Layered SETA context",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -3789,15 +3789,15 @@
       "presentation_group": "equity",
       "public_context_headline": "META: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "META shows range revisit with qualified confirmation. Participation context is available with source coverage unresolved.",
-      "public_state_label": "Repair watch",
+      "public_safe_copy": "META shows layered SETA context. Participation context is available with source coverage unresolved.",
+      "public_state_label": "Weakening structure",
       "rotation_bucket": 2548162989,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
       "rotation_score": 353,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "range revisit with qualified confirmation",
+      "sentiment_structure": "Layered SETA context",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "1Y",
@@ -7897,7 +7897,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-10-24T20:23:01Z",
+  "generated_at": "2026-10-24T21:22:35Z",
   "items": [
     {
       "asset_class": "etf",
@@ -8160,7 +8160,7 @@
       "presentation_group": "etf",
       "public_context_headline": "QQQ: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
       "public_state_label": "Repair watch",
       "rotation_bucket": 3281496678,
       "rotation_period": "2026-10-24",
@@ -8168,8 +8168,8 @@
       "rotation_score": 380,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_label": "Bullish Expansion",
+      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
       "sentiment_structure": "QQQ shows sentiment repair is visible while broader confirmation is still incomplete.",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -8183,12 +8183,12 @@
       ],
       "symbol": "QQQ",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Bullish Expansion",
+        "sentiment_public_sentence": "Sentiment is in bullish expansion."
       }
     },
     {
@@ -8454,19 +8454,19 @@
         "validation_role": "context_only"
       },
       "presentation_group": "equity",
-      "public_context_headline": "AAPL: Constructive context",
+      "public_context_headline": "AAPL: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bullish expansion. Participation is elevated.",
-      "public_state_label": "Constructive context",
+      "public_safe_copy": "Sentiment is in a compression / transition regime. Participation is elevated.",
+      "public_state_label": "Weakening structure",
       "rotation_bucket": 2265449072,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
       "rotation_score": 377,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bullish Expansion",
-      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_label": "Compression / Transition",
+      "sentiment_public_sentence": "Sentiment is in a compression / transition regime.",
+      "sentiment_structure": "Weakening sentiment momentum with price resilience",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -8479,12 +8479,12 @@
       ],
       "symbol": "AAPL",
       "website_handoff": {
-        "combined_read": "Sentiment is in bullish expansion. Participation is elevated.",
+        "combined_read": "Sentiment is in a compression / transition regime. Participation is elevated.",
         "participation_label": "Elevated participation",
         "participation_public_sentence": "Participation is elevated.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bullish Expansion",
-        "sentiment_public_sentence": "Sentiment is in bullish expansion."
+        "sentiment_label": "Compression / Transition",
+        "sentiment_public_sentence": "Sentiment is in a compression / transition regime."
       }
     },
     {
@@ -8510,8 +8510,8 @@
       },
       "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "AMD:reviewed_briefing:3M:D:2026-10-24",
-      "candidate_rank": 24,
+      "candidate_id": "TSLA:reviewed_briefing:3M:D:2026-10-24",
+      "candidate_rank": 8,
       "candidate_status": "selected",
       "display_order": 3,
       "display_penalty": 0,
@@ -8532,11 +8532,11 @@
         "asset": {
           "asset_class": "generic",
           "name": null,
-          "symbol": "AMD"
+          "symbol": "TSLA"
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "mixed",
+            "code": "momentum_fade",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -8552,7 +8552,7 @@
             ]
           },
           "confirmation_quality": {
-            "code": "incomplete_confirmation",
+            "code": "fragile_confirmation",
             "evidence_refs": [
               "relationships.sentiment_price",
               "relationships.participation_validation"
@@ -8567,8 +8567,8 @@
             ]
           },
           "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "code": "trend_present_impulse_fading",
+            "display_text": "Trend structure remains present while impulse quality fades.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -8580,8 +8580,8 @@
           },
           "watch_next": [
             {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "code": "impulse_stabilizes",
+              "display_text": "Whether impulse quality stabilizes or keeps fading.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -8626,7 +8626,7 @@
           }
         ],
         "source": {
-          "object_digest": "30cf6fd14d61d5748f0408da1e728ba2d1264461710fa7a94ee985d0b609aaa2",
+          "object_digest": "9c36de6a0e458e28272eed1a19c633c546e6ab8e7a9b78b10505b2efecf84234",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -8644,7 +8644,7 @@
           "upstream_surface": "homepage"
         }
       },
-      "name": "Advanced Micro Devices",
+      "name": "Tesla",
       "participation_context": "Participation is unavailable for this period.",
       "participation_evidence": {
         "activity_detected": false,
@@ -8746,19 +8746,19 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "equity",
-      "public_context_headline": "AMD: Weakening structure",
+      "public_context_headline": "TSLA: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
-      "public_state_label": "Weakening structure",
-      "rotation_bucket": 1659998289,
+      "public_safe_copy": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
+      "public_state_label": "Constructive context",
+      "rotation_bucket": 1806234129,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
-      "rotation_score": 363,
+      "rotation_score": 374,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
-      "sentiment_structure": "weakening technical pressure with mixed internal strength",
+      "sentiment_label": "Bullish Expansion",
+      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
+      "sentiment_structure": "Layered SETA context",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -8769,14 +8769,14 @@
       "surfaces": [
         "website_market_context_cards"
       ],
-      "symbol": "AMD",
+      "symbol": "TSLA",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Bullish Expansion",
+        "sentiment_public_sentence": "Sentiment is in bullish expansion."
       }
     },
     {
@@ -10262,8 +10262,8 @@
       },
       "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "TSLA:reviewed_briefing:3M:D:2026-10-24",
-      "candidate_rank": 8,
+      "candidate_id": "AMD:reviewed_briefing:3M:D:2026-10-24",
+      "candidate_rank": 24,
       "candidate_status": "selected",
       "display_order": 9,
       "display_penalty": 0,
@@ -10284,11 +10284,11 @@
         "asset": {
           "asset_class": "generic",
           "name": null,
-          "symbol": "TSLA"
+          "symbol": "AMD"
         },
         "canonical_projection": {
           "combined_state": {
-            "code": "momentum_fade",
+            "code": "mixed",
             "evidence_refs": [
               "states.sentiment.trend",
               "states.market.price_momentum_quality",
@@ -10304,7 +10304,7 @@
             ]
           },
           "confirmation_quality": {
-            "code": "fragile_confirmation",
+            "code": "incomplete_confirmation",
             "evidence_refs": [
               "relationships.sentiment_price",
               "relationships.participation_validation"
@@ -10319,8 +10319,8 @@
             ]
           },
           "primary_tension": {
-            "code": "trend_present_impulse_fading",
-            "display_text": "Trend structure remains present while impulse quality fades.",
+            "code": "mixed_signals",
+            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
             "limitations": [
               "Non-exact collection coverage does not establish this Participation state.",
               "Qualified Participation validation is not established."
@@ -10332,8 +10332,8 @@
           },
           "watch_next": [
             {
-              "code": "impulse_stabilizes",
-              "display_text": "Whether impulse quality stabilizes or keeps fading.",
+              "code": "confirmation_broadens",
+              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
               "limitations": [
                 "Non-exact collection coverage does not establish this Participation state.",
                 "Qualified Participation validation is not established."
@@ -10378,7 +10378,7 @@
           }
         ],
         "source": {
-          "object_digest": "9c36de6a0e458e28272eed1a19c633c546e6ab8e7a9b78b10505b2efecf84234",
+          "object_digest": "30cf6fd14d61d5748f0408da1e728ba2d1264461710fa7a94ee985d0b609aaa2",
           "schema": "seta_insight_object_v1",
           "version": "1.0"
         },
@@ -10396,7 +10396,7 @@
           "upstream_surface": "homepage"
         }
       },
-      "name": "Tesla",
+      "name": "Advanced Micro Devices",
       "participation_context": "Participation is unavailable for this period.",
       "participation_evidence": {
         "activity_detected": false,
@@ -10498,19 +10498,19 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "equity",
-      "public_context_headline": "TSLA: Constructive context",
+      "public_context_headline": "AMD: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
-      "public_state_label": "Constructive context",
-      "rotation_bucket": 1806234129,
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_state_label": "Weakening structure",
+      "rotation_bucket": 1659998289,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
-      "rotation_score": 374,
+      "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bullish Expansion",
-      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_structure": "weakening technical pressure with mixed internal strength",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -10521,14 +10521,14 @@
       "surfaces": [
         "website_market_context_cards"
       ],
-      "symbol": "TSLA",
+      "symbol": "AMD",
       "website_handoff": {
-        "combined_read": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bullish Expansion",
-        "sentiment_public_sentence": "Sentiment is in bullish expansion."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
@@ -11085,7 +11085,7 @@
       "public_context_headline": "META: Weakening structure",
       "public_safe": true,
       "public_safe_copy": "Sentiment is in bearish expansion. Participation is unavailable for this period.",
-      "public_state_label": "Repair watch",
+      "public_state_label": "Weakening structure",
       "rotation_bucket": 2548162989,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
@@ -11094,7 +11094,7 @@
       "selection_reason": "freshest_public_safe_reviewed_briefing",
       "sentiment_label": "Bearish Expansion",
       "sentiment_public_sentence": "Sentiment is in bearish expansion.",
-      "sentiment_structure": "range revisit with qualified confirmation",
+      "sentiment_structure": "Layered SETA context",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -11376,7 +11376,7 @@
       "presentation_group": "equity",
       "public_context_headline": "GOOGL: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a compression / transition regime. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Repair watch",
       "rotation_bucket": 4121483077,
       "rotation_period": "2026-10-24",
@@ -11384,8 +11384,8 @@
       "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Compression / Transition",
-      "sentiment_public_sentence": "Sentiment is in a compression / transition regime.",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
       "sentiment_structure": "GOOGL shows sentiment momentum repair before price momentum has fully con",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -11399,12 +11399,12 @@
       ],
       "symbol": "GOOGL",
       "website_handoff": {
-        "combined_read": "Sentiment is in a compression / transition regime. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Compression / Transition",
-        "sentiment_public_sentence": "Sentiment is in a compression / transition regime."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
