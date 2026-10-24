@@ -453,17 +453,17 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "etf",
-      "public_context_headline": "QQQ: Layered context",
+      "public_context_headline": "QQQ: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "QQQ shows layered SETA context. Participation context is available with source coverage unresolved.",
-      "public_state_label": "Layered context",
+      "public_safe_copy": "QQQ shows sentiment repair is visible while broader confirmation is still incomplete.. Participation context is available with source coverage unresolved.",
+      "public_state_label": "Repair watch",
       "rotation_bucket": 3281496678,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
       "rotation_score": 380,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_structure": "QQQ shows sentiment repair is visible while broader confirmation is still incomplete.",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -1406,17 +1406,17 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "etf",
-      "public_context_headline": "QQQ: Layered context",
+      "public_context_headline": "QQQ: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "QQQ shows layered SETA context. Participation context is available with source coverage unresolved.",
-      "public_state_label": "Layered context",
+      "public_safe_copy": "QQQ shows sentiment repair is visible while broader confirmation is still incomplete.. Participation context is available with source coverage unresolved.",
+      "public_state_label": "Repair watch",
       "rotation_bucket": 3281496678,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
       "rotation_score": 370,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_structure": "QQQ shows sentiment repair is visible while broader confirmation is still incomplete.",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "1Y",
@@ -7897,7 +7897,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-10-24T12:21:45Z",
+  "generated_at": "2026-10-24T13:22:09Z",
   "items": [
     {
       "asset_class": "etf",
@@ -8158,19 +8158,19 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "etf",
-      "public_context_headline": "QQQ: Layered context",
+      "public_context_headline": "QQQ: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bearish rollover. Participation is unavailable for this period.",
-      "public_state_label": "Layered context",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_state_label": "Repair watch",
       "rotation_bucket": 3281496678,
       "rotation_period": "2026-10-24",
       "rotation_reason": "fresh_public_context",
       "rotation_score": 380,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bearish Rollover",
-      "sentiment_public_sentence": "Sentiment is in bearish rollover.",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_structure": "QQQ shows sentiment repair is visible while broader confirmation is still incomplete.",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -8182,298 +8182,6 @@
         "website_market_context_cards"
       ],
       "symbol": "QQQ",
-      "website_handoff": {
-        "combined_read": "Sentiment is in bearish rollover. Participation is unavailable for this period.",
-        "participation_label": "Participation unavailable",
-        "participation_public_sentence": "Participation is unavailable for this period.",
-        "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bearish Rollover",
-        "sentiment_public_sentence": "Sentiment is in bearish rollover."
-      }
-    },
-    {
-      "asset_class": "equity",
-      "asset_class_label": "Equity",
-      "attention_context": {
-        "activity_detected": false,
-        "breadth_claim_type": "none",
-        "collection_limited": true,
-        "confidence_language": "qualified",
-        "evidence_as_of": "2026-10-24",
-        "label": "Context watch",
-        "no_detected_activity_confirmed": false,
-        "participation_evidence_status": "legacy_unresolved",
-        "participation_input_contract_version": "seta_attention_suite_inputs_v2",
-        "participation_profile_schema_version": "seta_attention_suite_participation_v2",
-        "public_limitation_copy_suppressed": true,
-        "raw_attention_label": "Unknown",
-        "semantics_version": "seta_participation_semantics_v2",
-        "sentence": "Participation context is available with source coverage unresolved.",
-        "source_coverage_mode": "unresolved",
-        "trend_direction": "Unknown"
-      },
-      "attention_state": "Context watch",
-      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "NVDA:reviewed_briefing:3M:D:2026-10-24",
-      "candidate_rank": 2,
-      "candidate_status": "selected",
-      "display_order": 2,
-      "display_penalty": 0,
-      "eligibility": "eligible_public_preview",
-      "freshness": {
-        "context_through": "2026-10-24",
-        "label": "Context through 2026-10-24",
-        "latest_available_context_through": "2026-10-24",
-        "status": "fresh",
-        "updated_at": "2026-10-24"
-      },
-      "homepage_eligible": true,
-      "homepage_rank": 2,
-      "insight": {
-        "adapter_schema": "seta_dashboard_insight_adapter_v1",
-        "adapter_version": "1.0",
-        "as_of": "2026-10-24T00:00:00Z",
-        "asset": {
-          "asset_class": "generic",
-          "name": null,
-          "symbol": "NVDA"
-        },
-        "canonical_projection": {
-          "combined_state": {
-            "code": "momentum_fade",
-            "evidence_refs": [
-              "states.sentiment.trend",
-              "states.market.price_momentum_quality",
-              "states.market.structure"
-            ],
-            "limitations": [
-              "Non-exact collection coverage does not establish this Participation state.",
-              "Qualified Participation validation is not established."
-            ],
-            "qualification": "qualified_with_limits",
-            "source_paths": [
-              "synthesis.combined_state"
-            ]
-          },
-          "confirmation_quality": {
-            "code": "fragile_confirmation",
-            "evidence_refs": [
-              "relationships.sentiment_price",
-              "relationships.participation_validation"
-            ],
-            "limitations": [
-              "Non-exact collection coverage does not establish this Participation state.",
-              "Qualified Participation validation is not established."
-            ],
-            "qualification": "qualified_with_limits",
-            "source_paths": [
-              "synthesis.confirmation_quality"
-            ]
-          },
-          "primary_tension": {
-            "code": "trend_present_impulse_fading",
-            "display_text": "Trend structure remains present while impulse quality fades.",
-            "limitations": [
-              "Non-exact collection coverage does not establish this Participation state.",
-              "Qualified Participation validation is not established."
-            ],
-            "qualification": "qualified_with_limits",
-            "source_paths": [
-              "synthesis.primary_tension"
-            ]
-          },
-          "watch_next": [
-            {
-              "code": "impulse_stabilizes",
-              "display_text": "Whether impulse quality stabilizes or keeps fading.",
-              "limitations": [
-                "Non-exact collection coverage does not establish this Participation state.",
-                "Qualified Participation validation is not established."
-              ],
-              "qualification": "qualified_with_limits",
-              "source_paths": [
-                "synthesis.watch_next"
-              ]
-            }
-          ]
-        },
-        "known_as_of": "2026-10-24T08:00:37Z",
-        "profile": {
-          "adapter_profile_id": "dashboard_projection_v1",
-          "source_insight_profile_id": "seta_insight_runtime_profile_v1",
-          "source_measurement_profile_ids": [
-            "seta_insight_enriched_row_shadow_profile_v1",
-            "seta_macd_rsi_interpretation_v1",
-            "sentiment_source_receipt_v1",
-            "sentiment_measurement_confidence_v1",
-            "grouped_factor_geometric_evidence_quality"
-          ],
-          "source_parameter_set_ids": [
-            "asset_briefing_legacy_parity_w1_w6_hardened_v2",
-            "seta_insight_enriched_row_mapping_params_v1",
-            "default_source_weights_sha256:b5a202560bfac72ffaaaa3bdd535542c6cdb867544a396b5c1e09c9066b8d7bb"
-          ],
-          "source_source_set_ids": [
-            "enriched_row_source_set_unresolved"
-          ]
-        },
-        "required_caveats": [
-          {
-            "code": "participation_not_canonical",
-            "display_text": "Participation is unavailable, unresolved, non-canonical, collection-limited, or lacks a qualified market-structure dependency for this observation.",
-            "required_surfaces": [
-              "homepage",
-              "dashboard",
-              "api"
-            ],
-            "severity": "material"
-          }
-        ],
-        "source": {
-          "object_digest": "f7daf72e66a783055067d1ff6b99cc4d82178af726e14863b974266b14767dc2",
-          "schema": "seta_insight_object_v1",
-          "version": "1.0"
-        },
-        "surface_permission": {
-          "allowed_source_paths": [
-            "synthesis.combined_state",
-            "synthesis.confirmation_quality",
-            "synthesis.primary_tension",
-            "synthesis.watch_next"
-          ],
-          "eligible": true,
-          "required_caveat_codes": [
-            "participation_not_canonical"
-          ],
-          "upstream_surface": "homepage"
-        }
-      },
-      "name": "NVIDIA",
-      "participation_context": "Participation is unavailable for this period.",
-      "participation_evidence": {
-        "activity_detected": false,
-        "breadth_claim_type": "none",
-        "collection_limited": true,
-        "confirmed_zero_collection_qualified": false,
-        "confirmed_zero_qualified": false,
-        "confirmed_zero_requested": false,
-        "confirmed_zero_suppression_reason": "none",
-        "evidence_as_of": "2026-10-24",
-        "input_contract_version": "seta_attention_suite_inputs_v2",
-        "no_detected_activity_confirmed": false,
-        "schema_version": "seta_participation_semantics_v2",
-        "source_coverage_mode": "unresolved",
-        "status": "legacy_unresolved"
-      },
-      "participation_evidence_status": "legacy_unresolved",
-      "participation_narrative": {
-        "active_sources": [
-          "x",
-          "reddit",
-          "bsky",
-          "news"
-        ],
-        "alignment_state": "unavailable",
-        "attention_level_state": "unavailable",
-        "available_dimensions": [],
-        "breadth_state": "unavailable",
-        "breadth_trend": "unavailable",
-        "calculation_profile": "bridge_shadow_v1",
-        "claim_source_coverage_mode": "unavailable",
-        "configured_source_count": 4,
-        "evidence_issues": [],
-        "evidence_qualifier": "Coverage unavailable",
-        "momentum_basis": "attention_suite_v2",
-        "momentum_state": "insufficient_history",
-        "parameter_identity_approved": true,
-        "parameter_set_id": "participation_v2_bridge_params_fadfb951929a4095",
-        "persistence_basis": "attention_suite_v2",
-        "persistence_state": "insufficient_history",
-        "profile_source": "operational_bridge_v1",
-        "public_chips": [
-          "Coverage unavailable"
-        ],
-        "public_label": "Participation unavailable",
-        "public_sentence": "Participation is unavailable for this period.",
-        "relative_intensity": "unavailable",
-        "relative_intensity_basis": "unavailable",
-        "rich_v2_dimensions": [],
-        "schema_version": "seta_public_card_participation_narrative_v1",
-        "source_coverage_mode": "unavailable",
-        "source_ecology_basis": "participation_v2",
-        "source_ecology_claims_approved": true,
-        "source_ecology_state": "unavailable",
-        "source_set_approved": true,
-        "source_set_candidate_recognized": false,
-        "source_set_id": "legacy_x_reddit_bsky_news_v1",
-        "source_set_interpretation_allowed": true
-      },
-      "participation_profile": {
-        "attention_evidence_status": "unavailable",
-        "attention_level": "unavailable",
-        "attention_regime": "unavailable",
-        "attention_trend": "insufficient_history",
-        "available_dimensions": [],
-        "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
-        "breadth_claim_type": "none",
-        "breadth_state": "unresolved",
-        "breadth_trend": "unresolved",
-        "confirmed_zero_qualified": false,
-        "confirmed_zero_requested": false,
-        "confirmed_zero_suppression_reason": "none",
-        "conviction_alignment": "unavailable",
-        "evidence_as_of": "2026-10-24",
-        "evidence_status": "unresolved",
-        "input_contract_version": "seta_attention_suite_inputs_v2",
-        "participation_role": "context_only",
-        "persistence_history_status": "unavailable",
-        "persistence_observation_count": 0,
-        "persistence_state": "insufficient_history",
-        "public_label": "Participation context",
-        "public_sentence": "Participation context is available with source coverage unresolved.",
-        "schema_version": "seta_attention_suite_participation_v2",
-        "source_coverage_mode": "unresolved",
-        "source_mix_shift": "unresolved",
-        "trend_history_status": "insufficient",
-        "trend_horizon": "explicit",
-        "trend_observation_count": 0,
-        "unavailable_dimensions": [
-          "level",
-          "trend",
-          "regime",
-          "breadth",
-          "breadth_trend",
-          "persistence",
-          "conviction",
-          "validation"
-        ],
-        "validation_role": "unresolved"
-      },
-      "presentation_group": "equity",
-      "public_context_headline": "NVDA: Repair watch",
-      "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
-      "public_state_label": "Repair watch",
-      "rotation_bucket": 1854718732,
-      "rotation_period": "2026-10-24",
-      "rotation_reason": "fresh_public_context",
-      "rotation_score": 383,
-      "rotation_strategy": "public_context_rotation_v1",
-      "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
-      "sentiment_structure": "NVDA shows sentiment repair is visible while broader confirmation is still incomplete.",
-      "source_breadth": "coverage unresolved",
-      "source_breadth_label": "Coverage unresolved",
-      "source_display_range": "3M",
-      "source_frequency": "D",
-      "source_label": "Reviewed public briefing",
-      "source_type": "reviewed_briefing",
-      "suppression_reason": null,
-      "surfaces": [
-        "website_market_context_cards"
-      ],
-      "symbol": "NVDA",
       "website_handoff": {
         "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
@@ -8509,7 +8217,7 @@
       "candidate_id": "AAPL:reviewed_briefing:3M:D:2026-10-24",
       "candidate_rank": 6,
       "candidate_status": "selected",
-      "display_order": 3,
+      "display_order": 2,
       "display_penalty": 0,
       "eligibility": "eligible_public_preview",
       "freshness": {
@@ -8520,7 +8228,7 @@
         "updated_at": "2026-10-24"
       },
       "homepage_eligible": true,
-      "homepage_rank": 3,
+      "homepage_rank": 2,
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
@@ -8777,6 +8485,298 @@
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
         "sentiment_label": "Bullish Expansion",
         "sentiment_public_sentence": "Sentiment is in bullish expansion."
+      }
+    },
+    {
+      "asset_class": "equity",
+      "asset_class_label": "Equity",
+      "attention_context": {
+        "activity_detected": false,
+        "breadth_claim_type": "none",
+        "collection_limited": true,
+        "confidence_language": "qualified",
+        "evidence_as_of": "2026-10-24",
+        "label": "Context watch",
+        "no_detected_activity_confirmed": false,
+        "participation_evidence_status": "legacy_unresolved",
+        "participation_input_contract_version": "seta_attention_suite_inputs_v2",
+        "participation_profile_schema_version": "seta_attention_suite_participation_v2",
+        "public_limitation_copy_suppressed": true,
+        "raw_attention_label": "Unknown",
+        "semantics_version": "seta_participation_semantics_v2",
+        "sentence": "Participation context is available with source coverage unresolved.",
+        "source_coverage_mode": "unresolved",
+        "trend_direction": "Unknown"
+      },
+      "attention_state": "Context watch",
+      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
+      "candidate_id": "AMD:reviewed_briefing:3M:D:2026-10-24",
+      "candidate_rank": 24,
+      "candidate_status": "selected",
+      "display_order": 3,
+      "display_penalty": 0,
+      "eligibility": "eligible_public_preview",
+      "freshness": {
+        "context_through": "2026-10-24",
+        "label": "Context through 2026-10-24",
+        "latest_available_context_through": "2026-10-24",
+        "status": "fresh",
+        "updated_at": "2026-10-24"
+      },
+      "homepage_eligible": true,
+      "homepage_rank": 3,
+      "insight": {
+        "adapter_schema": "seta_dashboard_insight_adapter_v1",
+        "adapter_version": "1.0",
+        "as_of": "2026-10-24T00:00:00Z",
+        "asset": {
+          "asset_class": "generic",
+          "name": null,
+          "symbol": "AMD"
+        },
+        "canonical_projection": {
+          "combined_state": {
+            "code": "mixed",
+            "evidence_refs": [
+              "states.sentiment.trend",
+              "states.market.price_momentum_quality",
+              "states.market.structure"
+            ],
+            "limitations": [
+              "Non-exact collection coverage does not establish this Participation state.",
+              "Qualified Participation validation is not established."
+            ],
+            "qualification": "qualified_with_limits",
+            "source_paths": [
+              "synthesis.combined_state"
+            ]
+          },
+          "confirmation_quality": {
+            "code": "incomplete_confirmation",
+            "evidence_refs": [
+              "relationships.sentiment_price",
+              "relationships.participation_validation"
+            ],
+            "limitations": [
+              "Non-exact collection coverage does not establish this Participation state.",
+              "Qualified Participation validation is not established."
+            ],
+            "qualification": "qualified_with_limits",
+            "source_paths": [
+              "synthesis.confirmation_quality"
+            ]
+          },
+          "primary_tension": {
+            "code": "mixed_signals",
+            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
+            "limitations": [
+              "Non-exact collection coverage does not establish this Participation state.",
+              "Qualified Participation validation is not established."
+            ],
+            "qualification": "qualified_with_limits",
+            "source_paths": [
+              "synthesis.primary_tension"
+            ]
+          },
+          "watch_next": [
+            {
+              "code": "confirmation_broadens",
+              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
+              "limitations": [
+                "Non-exact collection coverage does not establish this Participation state.",
+                "Qualified Participation validation is not established."
+              ],
+              "qualification": "qualified_with_limits",
+              "source_paths": [
+                "synthesis.watch_next"
+              ]
+            }
+          ]
+        },
+        "known_as_of": "2026-10-24T08:00:37Z",
+        "profile": {
+          "adapter_profile_id": "dashboard_projection_v1",
+          "source_insight_profile_id": "seta_insight_runtime_profile_v1",
+          "source_measurement_profile_ids": [
+            "seta_insight_enriched_row_shadow_profile_v1",
+            "seta_macd_rsi_interpretation_v1",
+            "sentiment_source_receipt_v1",
+            "sentiment_measurement_confidence_v1",
+            "grouped_factor_geometric_evidence_quality"
+          ],
+          "source_parameter_set_ids": [
+            "asset_briefing_legacy_parity_w1_w6_hardened_v2",
+            "seta_insight_enriched_row_mapping_params_v1",
+            "default_source_weights_sha256:b5a202560bfac72ffaaaa3bdd535542c6cdb867544a396b5c1e09c9066b8d7bb"
+          ],
+          "source_source_set_ids": [
+            "enriched_row_source_set_unresolved"
+          ]
+        },
+        "required_caveats": [
+          {
+            "code": "participation_not_canonical",
+            "display_text": "Participation is unavailable, unresolved, non-canonical, collection-limited, or lacks a qualified market-structure dependency for this observation.",
+            "required_surfaces": [
+              "homepage",
+              "dashboard",
+              "api"
+            ],
+            "severity": "material"
+          }
+        ],
+        "source": {
+          "object_digest": "30cf6fd14d61d5748f0408da1e728ba2d1264461710fa7a94ee985d0b609aaa2",
+          "schema": "seta_insight_object_v1",
+          "version": "1.0"
+        },
+        "surface_permission": {
+          "allowed_source_paths": [
+            "synthesis.combined_state",
+            "synthesis.confirmation_quality",
+            "synthesis.primary_tension",
+            "synthesis.watch_next"
+          ],
+          "eligible": true,
+          "required_caveat_codes": [
+            "participation_not_canonical"
+          ],
+          "upstream_surface": "homepage"
+        }
+      },
+      "name": "Advanced Micro Devices",
+      "participation_context": "Participation is unavailable for this period.",
+      "participation_evidence": {
+        "activity_detected": false,
+        "breadth_claim_type": "none",
+        "collection_limited": true,
+        "confirmed_zero_collection_qualified": false,
+        "confirmed_zero_qualified": false,
+        "confirmed_zero_requested": false,
+        "confirmed_zero_suppression_reason": "none",
+        "evidence_as_of": "2026-10-24",
+        "input_contract_version": "seta_attention_suite_inputs_v2",
+        "no_detected_activity_confirmed": false,
+        "schema_version": "seta_participation_semantics_v2",
+        "source_coverage_mode": "unresolved",
+        "status": "legacy_unresolved"
+      },
+      "participation_evidence_status": "legacy_unresolved",
+      "participation_narrative": {
+        "active_sources": [
+          "x",
+          "reddit",
+          "bsky",
+          "news"
+        ],
+        "alignment_state": "unavailable",
+        "attention_level_state": "unavailable",
+        "available_dimensions": [],
+        "breadth_state": "unavailable",
+        "breadth_trend": "unavailable",
+        "calculation_profile": "bridge_shadow_v1",
+        "claim_source_coverage_mode": "unavailable",
+        "configured_source_count": 4,
+        "evidence_issues": [],
+        "evidence_qualifier": "Coverage unavailable",
+        "momentum_basis": "attention_suite_v2",
+        "momentum_state": "insufficient_history",
+        "parameter_identity_approved": true,
+        "parameter_set_id": "participation_v2_bridge_params_fadfb951929a4095",
+        "persistence_basis": "attention_suite_v2",
+        "persistence_state": "insufficient_history",
+        "profile_source": "operational_bridge_v1",
+        "public_chips": [
+          "Coverage unavailable"
+        ],
+        "public_label": "Participation unavailable",
+        "public_sentence": "Participation is unavailable for this period.",
+        "relative_intensity": "unavailable",
+        "relative_intensity_basis": "unavailable",
+        "rich_v2_dimensions": [],
+        "schema_version": "seta_public_card_participation_narrative_v1",
+        "source_coverage_mode": "unavailable",
+        "source_ecology_basis": "participation_v2",
+        "source_ecology_claims_approved": true,
+        "source_ecology_state": "unavailable",
+        "source_set_approved": true,
+        "source_set_candidate_recognized": false,
+        "source_set_id": "legacy_x_reddit_bsky_news_v1",
+        "source_set_interpretation_allowed": true
+      },
+      "participation_profile": {
+        "attention_evidence_status": "unavailable",
+        "attention_level": "unavailable",
+        "attention_regime": "unavailable",
+        "attention_trend": "insufficient_history",
+        "available_dimensions": [],
+        "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
+        "breadth_claim_type": "none",
+        "breadth_state": "unresolved",
+        "breadth_trend": "unresolved",
+        "confirmed_zero_qualified": false,
+        "confirmed_zero_requested": false,
+        "confirmed_zero_suppression_reason": "none",
+        "conviction_alignment": "unavailable",
+        "evidence_as_of": "2026-10-24",
+        "evidence_status": "unresolved",
+        "input_contract_version": "seta_attention_suite_inputs_v2",
+        "participation_role": "context_only",
+        "persistence_history_status": "unavailable",
+        "persistence_observation_count": 0,
+        "persistence_state": "insufficient_history",
+        "public_label": "Participation context",
+        "public_sentence": "Participation context is available with source coverage unresolved.",
+        "schema_version": "seta_attention_suite_participation_v2",
+        "source_coverage_mode": "unresolved",
+        "source_mix_shift": "unresolved",
+        "trend_history_status": "insufficient",
+        "trend_horizon": "explicit",
+        "trend_observation_count": 0,
+        "unavailable_dimensions": [
+          "level",
+          "trend",
+          "regime",
+          "breadth",
+          "breadth_trend",
+          "persistence",
+          "conviction",
+          "validation"
+        ],
+        "validation_role": "unresolved"
+      },
+      "presentation_group": "equity",
+      "public_context_headline": "AMD: Layered context",
+      "public_safe": true,
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_state_label": "Layered context",
+      "rotation_bucket": 1659998289,
+      "rotation_period": "2026-10-24",
+      "rotation_reason": "fresh_public_context",
+      "rotation_score": 363,
+      "rotation_strategy": "public_context_rotation_v1",
+      "selection_reason": "freshest_public_safe_reviewed_briefing",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_structure": "Layered SETA context",
+      "source_breadth": "coverage unresolved",
+      "source_breadth_label": "Coverage unresolved",
+      "source_display_range": "3M",
+      "source_frequency": "D",
+      "source_label": "Reviewed public briefing",
+      "source_type": "reviewed_briefing",
+      "suppression_reason": null,
+      "surfaces": [
+        "website_market_context_cards"
+      ],
+      "symbol": "AMD",
+      "website_handoff": {
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "participation_label": "Participation unavailable",
+        "participation_public_sentence": "Participation is unavailable for this period.",
+        "schema_version": "seta_public_sentiment_participation_handoff_v1",
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
@@ -10262,8 +10262,8 @@
       },
       "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "TSLA:reviewed_briefing:3M:D:2026-10-24",
-      "candidate_rank": 8,
+      "candidate_id": "NVDA:reviewed_briefing:3M:D:2026-10-24",
+      "candidate_rank": 2,
       "candidate_status": "selected",
       "display_order": 9,
       "display_penalty": 0,
@@ -10277,6 +10277,298 @@
       },
       "homepage_eligible": true,
       "homepage_rank": 9,
+      "insight": {
+        "adapter_schema": "seta_dashboard_insight_adapter_v1",
+        "adapter_version": "1.0",
+        "as_of": "2026-10-24T00:00:00Z",
+        "asset": {
+          "asset_class": "generic",
+          "name": null,
+          "symbol": "NVDA"
+        },
+        "canonical_projection": {
+          "combined_state": {
+            "code": "momentum_fade",
+            "evidence_refs": [
+              "states.sentiment.trend",
+              "states.market.price_momentum_quality",
+              "states.market.structure"
+            ],
+            "limitations": [
+              "Non-exact collection coverage does not establish this Participation state.",
+              "Qualified Participation validation is not established."
+            ],
+            "qualification": "qualified_with_limits",
+            "source_paths": [
+              "synthesis.combined_state"
+            ]
+          },
+          "confirmation_quality": {
+            "code": "fragile_confirmation",
+            "evidence_refs": [
+              "relationships.sentiment_price",
+              "relationships.participation_validation"
+            ],
+            "limitations": [
+              "Non-exact collection coverage does not establish this Participation state.",
+              "Qualified Participation validation is not established."
+            ],
+            "qualification": "qualified_with_limits",
+            "source_paths": [
+              "synthesis.confirmation_quality"
+            ]
+          },
+          "primary_tension": {
+            "code": "trend_present_impulse_fading",
+            "display_text": "Trend structure remains present while impulse quality fades.",
+            "limitations": [
+              "Non-exact collection coverage does not establish this Participation state.",
+              "Qualified Participation validation is not established."
+            ],
+            "qualification": "qualified_with_limits",
+            "source_paths": [
+              "synthesis.primary_tension"
+            ]
+          },
+          "watch_next": [
+            {
+              "code": "impulse_stabilizes",
+              "display_text": "Whether impulse quality stabilizes or keeps fading.",
+              "limitations": [
+                "Non-exact collection coverage does not establish this Participation state.",
+                "Qualified Participation validation is not established."
+              ],
+              "qualification": "qualified_with_limits",
+              "source_paths": [
+                "synthesis.watch_next"
+              ]
+            }
+          ]
+        },
+        "known_as_of": "2026-10-24T08:00:37Z",
+        "profile": {
+          "adapter_profile_id": "dashboard_projection_v1",
+          "source_insight_profile_id": "seta_insight_runtime_profile_v1",
+          "source_measurement_profile_ids": [
+            "seta_insight_enriched_row_shadow_profile_v1",
+            "seta_macd_rsi_interpretation_v1",
+            "sentiment_source_receipt_v1",
+            "sentiment_measurement_confidence_v1",
+            "grouped_factor_geometric_evidence_quality"
+          ],
+          "source_parameter_set_ids": [
+            "asset_briefing_legacy_parity_w1_w6_hardened_v2",
+            "seta_insight_enriched_row_mapping_params_v1",
+            "default_source_weights_sha256:b5a202560bfac72ffaaaa3bdd535542c6cdb867544a396b5c1e09c9066b8d7bb"
+          ],
+          "source_source_set_ids": [
+            "enriched_row_source_set_unresolved"
+          ]
+        },
+        "required_caveats": [
+          {
+            "code": "participation_not_canonical",
+            "display_text": "Participation is unavailable, unresolved, non-canonical, collection-limited, or lacks a qualified market-structure dependency for this observation.",
+            "required_surfaces": [
+              "homepage",
+              "dashboard",
+              "api"
+            ],
+            "severity": "material"
+          }
+        ],
+        "source": {
+          "object_digest": "f7daf72e66a783055067d1ff6b99cc4d82178af726e14863b974266b14767dc2",
+          "schema": "seta_insight_object_v1",
+          "version": "1.0"
+        },
+        "surface_permission": {
+          "allowed_source_paths": [
+            "synthesis.combined_state",
+            "synthesis.confirmation_quality",
+            "synthesis.primary_tension",
+            "synthesis.watch_next"
+          ],
+          "eligible": true,
+          "required_caveat_codes": [
+            "participation_not_canonical"
+          ],
+          "upstream_surface": "homepage"
+        }
+      },
+      "name": "NVIDIA",
+      "participation_context": "Participation is unavailable for this period.",
+      "participation_evidence": {
+        "activity_detected": false,
+        "breadth_claim_type": "none",
+        "collection_limited": true,
+        "confirmed_zero_collection_qualified": false,
+        "confirmed_zero_qualified": false,
+        "confirmed_zero_requested": false,
+        "confirmed_zero_suppression_reason": "none",
+        "evidence_as_of": "2026-10-24",
+        "input_contract_version": "seta_attention_suite_inputs_v2",
+        "no_detected_activity_confirmed": false,
+        "schema_version": "seta_participation_semantics_v2",
+        "source_coverage_mode": "unresolved",
+        "status": "legacy_unresolved"
+      },
+      "participation_evidence_status": "legacy_unresolved",
+      "participation_narrative": {
+        "active_sources": [
+          "x",
+          "reddit",
+          "bsky",
+          "news"
+        ],
+        "alignment_state": "unavailable",
+        "attention_level_state": "unavailable",
+        "available_dimensions": [],
+        "breadth_state": "unavailable",
+        "breadth_trend": "unavailable",
+        "calculation_profile": "bridge_shadow_v1",
+        "claim_source_coverage_mode": "unavailable",
+        "configured_source_count": 4,
+        "evidence_issues": [],
+        "evidence_qualifier": "Coverage unavailable",
+        "momentum_basis": "attention_suite_v2",
+        "momentum_state": "insufficient_history",
+        "parameter_identity_approved": true,
+        "parameter_set_id": "participation_v2_bridge_params_fadfb951929a4095",
+        "persistence_basis": "attention_suite_v2",
+        "persistence_state": "insufficient_history",
+        "profile_source": "operational_bridge_v1",
+        "public_chips": [
+          "Coverage unavailable"
+        ],
+        "public_label": "Participation unavailable",
+        "public_sentence": "Participation is unavailable for this period.",
+        "relative_intensity": "unavailable",
+        "relative_intensity_basis": "unavailable",
+        "rich_v2_dimensions": [],
+        "schema_version": "seta_public_card_participation_narrative_v1",
+        "source_coverage_mode": "unavailable",
+        "source_ecology_basis": "participation_v2",
+        "source_ecology_claims_approved": true,
+        "source_ecology_state": "unavailable",
+        "source_set_approved": true,
+        "source_set_candidate_recognized": false,
+        "source_set_id": "legacy_x_reddit_bsky_news_v1",
+        "source_set_interpretation_allowed": true
+      },
+      "participation_profile": {
+        "attention_evidence_status": "unavailable",
+        "attention_level": "unavailable",
+        "attention_regime": "unavailable",
+        "attention_trend": "insufficient_history",
+        "available_dimensions": [],
+        "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
+        "breadth_claim_type": "none",
+        "breadth_state": "unresolved",
+        "breadth_trend": "unresolved",
+        "confirmed_zero_qualified": false,
+        "confirmed_zero_requested": false,
+        "confirmed_zero_suppression_reason": "none",
+        "conviction_alignment": "unavailable",
+        "evidence_as_of": "2026-10-24",
+        "evidence_status": "unresolved",
+        "input_contract_version": "seta_attention_suite_inputs_v2",
+        "participation_role": "context_only",
+        "persistence_history_status": "unavailable",
+        "persistence_observation_count": 0,
+        "persistence_state": "insufficient_history",
+        "public_label": "Participation context",
+        "public_sentence": "Participation context is available with source coverage unresolved.",
+        "schema_version": "seta_attention_suite_participation_v2",
+        "source_coverage_mode": "unresolved",
+        "source_mix_shift": "unresolved",
+        "trend_history_status": "insufficient",
+        "trend_horizon": "explicit",
+        "trend_observation_count": 0,
+        "unavailable_dimensions": [
+          "level",
+          "trend",
+          "regime",
+          "breadth",
+          "breadth_trend",
+          "persistence",
+          "conviction",
+          "validation"
+        ],
+        "validation_role": "unresolved"
+      },
+      "presentation_group": "equity",
+      "public_context_headline": "NVDA: Repair watch",
+      "public_safe": true,
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_state_label": "Repair watch",
+      "rotation_bucket": 1854718732,
+      "rotation_period": "2026-10-24",
+      "rotation_reason": "fresh_public_context",
+      "rotation_score": 383,
+      "rotation_strategy": "public_context_rotation_v1",
+      "selection_reason": "freshest_public_safe_reviewed_briefing",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_structure": "NVDA shows sentiment repair is visible while broader confirmation is still incomplete.",
+      "source_breadth": "coverage unresolved",
+      "source_breadth_label": "Coverage unresolved",
+      "source_display_range": "3M",
+      "source_frequency": "D",
+      "source_label": "Reviewed public briefing",
+      "source_type": "reviewed_briefing",
+      "suppression_reason": null,
+      "surfaces": [
+        "website_market_context_cards"
+      ],
+      "symbol": "NVDA",
+      "website_handoff": {
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "participation_label": "Participation unavailable",
+        "participation_public_sentence": "Participation is unavailable for this period.",
+        "schema_version": "seta_public_sentiment_participation_handoff_v1",
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+      }
+    },
+    {
+      "asset_class": "equity",
+      "asset_class_label": "Equity",
+      "attention_context": {
+        "activity_detected": false,
+        "breadth_claim_type": "none",
+        "collection_limited": true,
+        "confidence_language": "qualified",
+        "evidence_as_of": "2026-10-24",
+        "label": "Context watch",
+        "no_detected_activity_confirmed": false,
+        "participation_evidence_status": "legacy_unresolved",
+        "participation_input_contract_version": "seta_attention_suite_inputs_v2",
+        "participation_profile_schema_version": "seta_attention_suite_participation_v2",
+        "public_limitation_copy_suppressed": true,
+        "raw_attention_label": "Unknown",
+        "semantics_version": "seta_participation_semantics_v2",
+        "sentence": "Participation context is available with source coverage unresolved.",
+        "source_coverage_mode": "unresolved",
+        "trend_direction": "Unknown"
+      },
+      "attention_state": "Context watch",
+      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
+      "candidate_id": "TSLA:reviewed_briefing:3M:D:2026-10-24",
+      "candidate_rank": 8,
+      "candidate_status": "selected",
+      "display_order": 10,
+      "display_penalty": 0,
+      "eligibility": "eligible_public_preview",
+      "freshness": {
+        "context_through": "2026-10-24",
+        "label": "Context through 2026-10-24",
+        "latest_available_context_through": "2026-10-24",
+        "status": "fresh",
+        "updated_at": "2026-10-24"
+      },
+      "homepage_eligible": true,
+      "homepage_rank": 10,
       "insight": {
         "adapter_schema": "seta_dashboard_insight_adapter_v1",
         "adapter_version": "1.0",
@@ -10529,298 +10821,6 @@
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
         "sentiment_label": "Bullish Expansion",
         "sentiment_public_sentence": "Sentiment is in bullish expansion."
-      }
-    },
-    {
-      "asset_class": "equity",
-      "asset_class_label": "Equity",
-      "attention_context": {
-        "activity_detected": false,
-        "breadth_claim_type": "none",
-        "collection_limited": true,
-        "confidence_language": "qualified",
-        "evidence_as_of": "2026-10-24",
-        "label": "Context watch",
-        "no_detected_activity_confirmed": false,
-        "participation_evidence_status": "legacy_unresolved",
-        "participation_input_contract_version": "seta_attention_suite_inputs_v2",
-        "participation_profile_schema_version": "seta_attention_suite_participation_v2",
-        "public_limitation_copy_suppressed": true,
-        "raw_attention_label": "Unknown",
-        "semantics_version": "seta_participation_semantics_v2",
-        "sentence": "Participation context is available with source coverage unresolved.",
-        "source_coverage_mode": "unresolved",
-        "trend_direction": "Unknown"
-      },
-      "attention_state": "Context watch",
-      "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "AMD:reviewed_briefing:3M:D:2026-10-24",
-      "candidate_rank": 24,
-      "candidate_status": "selected",
-      "display_order": 10,
-      "display_penalty": 0,
-      "eligibility": "eligible_public_preview",
-      "freshness": {
-        "context_through": "2026-10-24",
-        "label": "Context through 2026-10-24",
-        "latest_available_context_through": "2026-10-24",
-        "status": "fresh",
-        "updated_at": "2026-10-24"
-      },
-      "homepage_eligible": true,
-      "homepage_rank": 10,
-      "insight": {
-        "adapter_schema": "seta_dashboard_insight_adapter_v1",
-        "adapter_version": "1.0",
-        "as_of": "2026-10-24T00:00:00Z",
-        "asset": {
-          "asset_class": "generic",
-          "name": null,
-          "symbol": "AMD"
-        },
-        "canonical_projection": {
-          "combined_state": {
-            "code": "mixed",
-            "evidence_refs": [
-              "states.sentiment.trend",
-              "states.market.price_momentum_quality",
-              "states.market.structure"
-            ],
-            "limitations": [
-              "Non-exact collection coverage does not establish this Participation state.",
-              "Qualified Participation validation is not established."
-            ],
-            "qualification": "qualified_with_limits",
-            "source_paths": [
-              "synthesis.combined_state"
-            ]
-          },
-          "confirmation_quality": {
-            "code": "incomplete_confirmation",
-            "evidence_refs": [
-              "relationships.sentiment_price",
-              "relationships.participation_validation"
-            ],
-            "limitations": [
-              "Non-exact collection coverage does not establish this Participation state.",
-              "Qualified Participation validation is not established."
-            ],
-            "qualification": "qualified_with_limits",
-            "source_paths": [
-              "synthesis.confirmation_quality"
-            ]
-          },
-          "primary_tension": {
-            "code": "mixed_signals",
-            "display_text": "Signals are mixed, so confirmation quality remains the focus.",
-            "limitations": [
-              "Non-exact collection coverage does not establish this Participation state.",
-              "Qualified Participation validation is not established."
-            ],
-            "qualification": "qualified_with_limits",
-            "source_paths": [
-              "synthesis.primary_tension"
-            ]
-          },
-          "watch_next": [
-            {
-              "code": "confirmation_broadens",
-              "display_text": "Whether confirmation quality broadens across the governed evidence set.",
-              "limitations": [
-                "Non-exact collection coverage does not establish this Participation state.",
-                "Qualified Participation validation is not established."
-              ],
-              "qualification": "qualified_with_limits",
-              "source_paths": [
-                "synthesis.watch_next"
-              ]
-            }
-          ]
-        },
-        "known_as_of": "2026-10-24T08:00:37Z",
-        "profile": {
-          "adapter_profile_id": "dashboard_projection_v1",
-          "source_insight_profile_id": "seta_insight_runtime_profile_v1",
-          "source_measurement_profile_ids": [
-            "seta_insight_enriched_row_shadow_profile_v1",
-            "seta_macd_rsi_interpretation_v1",
-            "sentiment_source_receipt_v1",
-            "sentiment_measurement_confidence_v1",
-            "grouped_factor_geometric_evidence_quality"
-          ],
-          "source_parameter_set_ids": [
-            "asset_briefing_legacy_parity_w1_w6_hardened_v2",
-            "seta_insight_enriched_row_mapping_params_v1",
-            "default_source_weights_sha256:b5a202560bfac72ffaaaa3bdd535542c6cdb867544a396b5c1e09c9066b8d7bb"
-          ],
-          "source_source_set_ids": [
-            "enriched_row_source_set_unresolved"
-          ]
-        },
-        "required_caveats": [
-          {
-            "code": "participation_not_canonical",
-            "display_text": "Participation is unavailable, unresolved, non-canonical, collection-limited, or lacks a qualified market-structure dependency for this observation.",
-            "required_surfaces": [
-              "homepage",
-              "dashboard",
-              "api"
-            ],
-            "severity": "material"
-          }
-        ],
-        "source": {
-          "object_digest": "30cf6fd14d61d5748f0408da1e728ba2d1264461710fa7a94ee985d0b609aaa2",
-          "schema": "seta_insight_object_v1",
-          "version": "1.0"
-        },
-        "surface_permission": {
-          "allowed_source_paths": [
-            "synthesis.combined_state",
-            "synthesis.confirmation_quality",
-            "synthesis.primary_tension",
-            "synthesis.watch_next"
-          ],
-          "eligible": true,
-          "required_caveat_codes": [
-            "participation_not_canonical"
-          ],
-          "upstream_surface": "homepage"
-        }
-      },
-      "name": "Advanced Micro Devices",
-      "participation_context": "Participation is unavailable for this period.",
-      "participation_evidence": {
-        "activity_detected": false,
-        "breadth_claim_type": "none",
-        "collection_limited": true,
-        "confirmed_zero_collection_qualified": false,
-        "confirmed_zero_qualified": false,
-        "confirmed_zero_requested": false,
-        "confirmed_zero_suppression_reason": "none",
-        "evidence_as_of": "2026-10-24",
-        "input_contract_version": "seta_attention_suite_inputs_v2",
-        "no_detected_activity_confirmed": false,
-        "schema_version": "seta_participation_semantics_v2",
-        "source_coverage_mode": "unresolved",
-        "status": "legacy_unresolved"
-      },
-      "participation_evidence_status": "legacy_unresolved",
-      "participation_narrative": {
-        "active_sources": [
-          "x",
-          "reddit",
-          "bsky",
-          "news"
-        ],
-        "alignment_state": "unavailable",
-        "attention_level_state": "unavailable",
-        "available_dimensions": [],
-        "breadth_state": "unavailable",
-        "breadth_trend": "unavailable",
-        "calculation_profile": "bridge_shadow_v1",
-        "claim_source_coverage_mode": "unavailable",
-        "configured_source_count": 4,
-        "evidence_issues": [],
-        "evidence_qualifier": "Coverage unavailable",
-        "momentum_basis": "attention_suite_v2",
-        "momentum_state": "insufficient_history",
-        "parameter_identity_approved": true,
-        "parameter_set_id": "participation_v2_bridge_params_fadfb951929a4095",
-        "persistence_basis": "attention_suite_v2",
-        "persistence_state": "insufficient_history",
-        "profile_source": "operational_bridge_v1",
-        "public_chips": [
-          "Coverage unavailable"
-        ],
-        "public_label": "Participation unavailable",
-        "public_sentence": "Participation is unavailable for this period.",
-        "relative_intensity": "unavailable",
-        "relative_intensity_basis": "unavailable",
-        "rich_v2_dimensions": [],
-        "schema_version": "seta_public_card_participation_narrative_v1",
-        "source_coverage_mode": "unavailable",
-        "source_ecology_basis": "participation_v2",
-        "source_ecology_claims_approved": true,
-        "source_ecology_state": "unavailable",
-        "source_set_approved": true,
-        "source_set_candidate_recognized": false,
-        "source_set_id": "legacy_x_reddit_bsky_news_v1",
-        "source_set_interpretation_allowed": true
-      },
-      "participation_profile": {
-        "attention_evidence_status": "unavailable",
-        "attention_level": "unavailable",
-        "attention_regime": "unavailable",
-        "attention_trend": "insufficient_history",
-        "available_dimensions": [],
-        "breadth_claim_suppression_reason": "qualified_breadth_unavailable",
-        "breadth_claim_type": "none",
-        "breadth_state": "unresolved",
-        "breadth_trend": "unresolved",
-        "confirmed_zero_qualified": false,
-        "confirmed_zero_requested": false,
-        "confirmed_zero_suppression_reason": "none",
-        "conviction_alignment": "unavailable",
-        "evidence_as_of": "2026-10-24",
-        "evidence_status": "unresolved",
-        "input_contract_version": "seta_attention_suite_inputs_v2",
-        "participation_role": "context_only",
-        "persistence_history_status": "unavailable",
-        "persistence_observation_count": 0,
-        "persistence_state": "insufficient_history",
-        "public_label": "Participation context",
-        "public_sentence": "Participation context is available with source coverage unresolved.",
-        "schema_version": "seta_attention_suite_participation_v2",
-        "source_coverage_mode": "unresolved",
-        "source_mix_shift": "unresolved",
-        "trend_history_status": "insufficient",
-        "trend_horizon": "explicit",
-        "trend_observation_count": 0,
-        "unavailable_dimensions": [
-          "level",
-          "trend",
-          "regime",
-          "breadth",
-          "breadth_trend",
-          "persistence",
-          "conviction",
-          "validation"
-        ],
-        "validation_role": "unresolved"
-      },
-      "presentation_group": "equity",
-      "public_context_headline": "AMD: Layered context",
-      "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
-      "public_state_label": "Layered context",
-      "rotation_bucket": 1659998289,
-      "rotation_period": "2026-10-24",
-      "rotation_reason": "fresh_public_context",
-      "rotation_score": 363,
-      "rotation_strategy": "public_context_rotation_v1",
-      "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
-      "sentiment_structure": "Layered SETA context",
-      "source_breadth": "coverage unresolved",
-      "source_breadth_label": "Coverage unresolved",
-      "source_display_range": "3M",
-      "source_frequency": "D",
-      "source_label": "Reviewed public briefing",
-      "source_type": "reviewed_briefing",
-      "suppression_reason": null,
-      "surfaces": [
-        "website_market_context_cards"
-      ],
-      "symbol": "AMD",
-      "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
-        "participation_label": "Participation unavailable",
-        "participation_public_sentence": "Participation is unavailable for this period.",
-        "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
