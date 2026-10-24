@@ -1,0 +1,83 @@
+{
+  "schema": "seta_participation_descriptive_display_v1",
+  "version": "1.0",
+  "mode": "public",
+  "public_safe": true,
+  "public_render_eligible": true,
+  "canonical_confirmation": false,
+  "release": {
+    "status": "approved_for_dated_pilot",
+    "surface": "website_market_context_cards",
+    "automatic_roll_forward": false,
+    "approval_ref": "SETA-Participation-Pilot-20261024-Issue-674-user-approved",
+    "starts_at_utc": "2026-10-24T08:00:00Z",
+    "expires_at_utc": "2026-10-26T08:00:00Z",
+    "reviewed_scope": [
+      {
+        "symbol": "NVDA",
+        "context_date": "2026-10-23"
+      },
+      {
+        "symbol": "GOOGL",
+        "context_date": "2026-10-23"
+      }
+    ]
+  },
+  "qualification": {
+    "policy_id": "seta_participation_dated_descriptive_pilot_v1",
+    "construct": "smoothed_recent_activity",
+    "calibration": "experimental_dated_pilot",
+    "collection_completeness_certified": false,
+    "evidence_known_as_of_utc": "2026-10-24T04:38:29.722463Z",
+    "retrospective_to_preview_build": true
+  },
+  "bindings": {
+    "preview_sha256": "bf894f88428b80533d70a5e8628a6562354004ea870b1461ecadeea0d7fb11d6",
+    "run_sha256": "a95759c5845e88dc0e5acff5933fa6edf94c9a7eec39396e4c2af19fa971c6a6",
+    "review_sha256": "75ab5448c393292119993de822c1e0bf1ba6aabbe88cbccbb7da7c60c9051cec",
+    "measurement_projection_sha256": "231e275f960e5000493133b8bd926f334c265843133548a8b24dbb487196bebc"
+  },
+  "cards": [
+    {
+      "symbol": "NVDA",
+      "context_date": "2026-10-23",
+      "approved_item_sha256": "b0af7c4362645c9b4f7a63f1cc6b5e42a437954bf8172232f456df9f75c67c31",
+      "canonical_insight_sha256": "e137830fb353c7da14d88b11c4509cdfeccf0d58aeca01dcab6ab14cb7d7efd4",
+      "status": "approved_fallback",
+      "participation_sentence": "Participation is unavailable for this period.",
+      "caveat_display_projection": [
+        {
+          "source_code": "participation_not_canonical",
+          "source_text": "Participation is unavailable, unresolved, non-canonical, collection-limited, or lacks a qualified market-structure dependency for this observation.",
+          "display_text": "Participation is unavailable, unresolved, non-canonical, collection-limited, or lacks a qualified market-structure dependency for this observation."
+        }
+      ],
+      "watch_next_display_projection": null,
+      "used_dimensions": [],
+      "public_render_eligible": true,
+      "canonical_confirmation": false
+    },
+    {
+      "symbol": "GOOGL",
+      "context_date": "2026-10-23",
+      "approved_item_sha256": "5e0feecb98250af69ecb902fbcdcf4b3571aba386c8860481c3eb74840bde3d1",
+      "canonical_insight_sha256": "034945d5574081d1b7d6a31a203a061a890cc399d7a8202c67e47ae42b7acd4d",
+      "status": "reviewed_measured_activity",
+      "participation_sentence": "Participation has started to cool.",
+      "caveat_display_projection": [
+        {
+          "source_code": "participation_not_canonical",
+          "source_text": "Participation is unavailable, unresolved, non-canonical, collection-limited, or lacks a qualified market-structure dependency for this observation.",
+          "display_text": "Measured Participation describes recent activity. Qualified Participation confirmation of market structure is not established for these observations."
+        }
+      ],
+      "watch_next_display_projection": null,
+      "used_dimensions": [
+        "trend",
+        "trend_persistence"
+      ],
+      "public_render_eligible": true,
+      "canonical_confirmation": false
+    }
+  ]
+}
