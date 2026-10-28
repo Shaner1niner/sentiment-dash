@@ -10519,7 +10519,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-10-28T20:21:01Z",
+  "generated_at": "2026-10-28T21:23:23Z",
   "items": [
     {
       "asset_class": "etf",
@@ -11705,7 +11705,7 @@
       "presentation_group": "etf",
       "public_context_headline": "QQQ: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a compression / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Repair watch",
       "rotation_bucket": 2032535710,
       "rotation_period": "2026-10-28",
@@ -11713,8 +11713,8 @@
       "rotation_score": 380,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_label": "Compression / Transition",
+      "sentiment_public_sentence": "Sentiment is in a compression / transition regime.",
       "sentiment_structure": "QQQ shows sentiment repair is visible while broader confirmation is still incomplete.",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -11728,12 +11728,12 @@
       ],
       "symbol": "QQQ",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a compression / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Compression / Transition",
+        "sentiment_public_sentence": "Sentiment is in a compression / transition regime."
       }
     },
     {
@@ -14131,7 +14131,7 @@
       "presentation_group": "crypto",
       "public_context_headline": "BNB: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is elevated.",
+      "public_safe_copy": "Sentiment is in bullish expansion. Participation is elevated.",
       "public_state_label": "Constructive context",
       "rotation_bucket": 2083059261,
       "rotation_period": "2026-10-28",
@@ -14139,8 +14139,8 @@
       "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_label": "Bullish Expansion",
+      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
       "sentiment_structure": "constructive pressure that still needs confirmation with bearish rejection risk",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -14154,12 +14154,12 @@
       ],
       "symbol": "BNB",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is elevated.",
+        "combined_read": "Sentiment is in bullish expansion. Participation is elevated.",
         "participation_label": "Elevated participation",
         "participation_public_sentence": "Participation is elevated.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Bullish Expansion",
+        "sentiment_public_sentence": "Sentiment is in bullish expansion."
       }
     },
     {
