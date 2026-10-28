@@ -10519,7 +10519,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-10-28T18:21:43Z",
+  "generated_at": "2026-10-28T19:21:29Z",
   "items": [
     {
       "asset_class": "etf",
@@ -11009,7 +11009,7 @@
       "presentation_group": "equity",
       "public_context_headline": "MSFT: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in mixed. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Repair watch",
       "rotation_bucket": 2635532591,
       "rotation_period": "2026-10-28",
@@ -11017,8 +11017,8 @@
       "rotation_score": 380,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Mixed",
-      "sentiment_public_sentence": "Sentiment is in mixed.",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
       "sentiment_structure": "MSFT shows sentiment repair is visible while broader confirmation is still incomplete.",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -11032,12 +11032,12 @@
       ],
       "symbol": "MSFT",
       "website_handoff": {
-        "combined_read": "Sentiment is in mixed. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Mixed",
-        "sentiment_public_sentence": "Sentiment is in mixed."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
@@ -12743,7 +12743,7 @@
       "presentation_group": "equity",
       "public_context_headline": "GOOGL: Repair watch",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Repair watch",
       "rotation_bucket": 347839973,
       "rotation_period": "2026-10-28",
@@ -12751,8 +12751,8 @@
       "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bullish Expansion",
-      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
       "sentiment_structure": "GOOGL shows sentiment momentum repair before price momentum has fully con",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -12766,12 +12766,12 @@
       ],
       "symbol": "GOOGL",
       "website_handoff": {
-        "combined_read": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bullish Expansion",
-        "sentiment_public_sentence": "Sentiment is in bullish expansion."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
