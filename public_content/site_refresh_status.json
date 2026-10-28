@@ -32,13 +32,13 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-10-26T02:19:42Z",
+      "generated_at_utc": "2026-10-28T09:41:31Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-10-26T02:20:48",
-      "pending_count": 5358,
-      "pending_resolution_basis_count": 5358,
+      "generated_at_utc": "2026-10-28T09:42:42",
+      "pending_count": 5355,
+      "pending_resolution_basis_count": 5355,
       "resolution_basis_guard_applied": true,
       "resolved_count": 0,
       "schema_version": "prediction_outcome_overlay_v1",
@@ -71,14 +71,14 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-10-26T02:19:08Z"
+      "generated_at_utc": "2026-10-28T09:40:50Z"
     },
     "reviewed_briefings": {
       "briefing_count": 130
     },
     "seta_public_preview": {
-      "generated_at_utc": "2026-10-26T02:21:52Z",
-      "item_count": 1,
+      "generated_at_utc": "2026-10-24T04:37:23Z",
+      "item_count": 2,
       "mode": "public",
       "public_safe": true,
       "schema_version": "seta_public_preview_v1",
@@ -88,10 +88,10 @@
       "date": "2026-09-28",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-10-26T02:20:55+00:00"
+      "published_at_utc": "2026-10-28T09:42:37+00:00"
     }
   },
-  "generated_at_utc": "2026-10-26T02:21:58Z",
+  "generated_at_utc": "2026-10-28T09:42:48Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -100,7 +100,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "94acfa70dd6ab886dfcc116b52f5761f316e5b5e"
+    "head_sha": "6fa6ee7a10690087bf01ed1cb66fa5438dd3da9d"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
