@@ -10515,7 +10515,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-11-03T10:21:15Z",
+  "generated_at": "2026-11-03T11:21:43Z",
   "items": [
     {
       "asset_class": "etf",
@@ -10659,7 +10659,7 @@
       "presentation_group": "etf",
       "public_context_headline": "SPY: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
       "public_state_label": "Weakening structure",
       "rotation_bucket": 258084788,
       "rotation_period": "2026-11-03",
@@ -10667,8 +10667,8 @@
       "rotation_score": 383,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_label": "Bullish Expansion",
+      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
       "sentiment_structure": "weakening technical pressure with mixed internal strength",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -10682,12 +10682,12 @@
       ],
       "symbol": "SPY",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Bullish Expansion",
+        "sentiment_public_sentence": "Sentiment is in bullish expansion."
       }
     },
     {
