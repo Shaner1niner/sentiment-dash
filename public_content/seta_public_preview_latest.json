@@ -96,10 +96,10 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
-      "public_context_headline": "BTC: Weakening structure",
+      "public_context_headline": "BTC: Constructive context",
       "public_safe": true,
       "public_safe_copy": "BTC shows constructive pressure that still needs confirmation. Participation context is available with source coverage unresolved.",
-      "public_state_label": "Weakening structure",
+      "public_state_label": "Constructive context",
       "rotation_bucket": 14353939,
       "rotation_period": "2026-11-04",
       "rotation_reason": "fresh_public_context",
@@ -1286,10 +1286,10 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
-      "public_context_headline": "BTC: Weakening structure",
+      "public_context_headline": "BTC: Constructive context",
       "public_safe": true,
       "public_safe_copy": "BTC shows constructive pressure that still needs confirmation. Participation context is available with source coverage unresolved.",
-      "public_state_label": "Weakening structure",
+      "public_state_label": "Constructive context",
       "rotation_bucket": 14353939,
       "rotation_period": "2026-11-04",
       "rotation_reason": "fresh_public_context",
@@ -10394,7 +10394,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-11-04T09:24:07Z",
+  "generated_at": "2026-11-04T11:22:08Z",
   "items": [
     {
       "asset_class": "etf",
@@ -11111,8 +11111,8 @@
       },
       "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "ETH:reviewed_briefing:3M:D:2026-11-04",
-      "candidate_rank": 4,
+      "candidate_id": "BTC:reviewed_briefing:3M:D:2026-11-04",
+      "candidate_rank": 1,
       "candidate_status": "selected",
       "display_order": 5,
       "display_penalty": 0,
@@ -11126,7 +11126,7 @@
       },
       "homepage_eligible": true,
       "homepage_rank": 5,
-      "name": "Ethereum",
+      "name": "Bitcoin",
       "participation_context": "Participation is unavailable for this period.",
       "participation_evidence": {
         "activity_detected": false,
@@ -11228,18 +11228,18 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
-      "public_context_headline": "ETH: Constructive context",
+      "public_context_headline": "BTC: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Constructive context",
-      "rotation_bucket": 3538436019,
+      "rotation_bucket": 14353939,
       "rotation_period": "2026-11-04",
       "rotation_reason": "fresh_public_context",
-      "rotation_score": 380,
+      "rotation_score": 383,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bullish Expansion",
-      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
+      "sentiment_label": "Flat / Transition",
+      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
       "sentiment_structure": "constructive pressure that still needs confirmation",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -11251,14 +11251,14 @@
       "surfaces": [
         "website_market_context_cards"
       ],
-      "symbol": "ETH",
+      "symbol": "BTC",
       "website_handoff": {
-        "combined_read": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bullish Expansion",
-        "sentiment_public_sentence": "Sentiment is in bullish expansion."
+        "sentiment_label": "Flat / Transition",
+        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
       }
     },
     {
@@ -13187,8 +13187,8 @@
       },
       "attention_state": "Context watch",
       "calibration_note": "Informational context only; not a forecast, recommendation, or trade signal.",
-      "candidate_id": "BTC:reviewed_briefing:3M:D:2026-11-04",
-      "candidate_rank": 1,
+      "candidate_id": "ETH:reviewed_briefing:3M:D:2026-11-04",
+      "candidate_rank": 4,
       "candidate_status": "selected",
       "display_order": 17,
       "display_penalty": 0,
@@ -13202,7 +13202,7 @@
       },
       "homepage_eligible": true,
       "homepage_rank": 17,
-      "name": "Bitcoin",
+      "name": "Ethereum",
       "participation_context": "Participation is unavailable for this period.",
       "participation_evidence": {
         "activity_detected": false,
@@ -13304,18 +13304,18 @@
         "validation_role": "unresolved"
       },
       "presentation_group": "crypto",
-      "public_context_headline": "BTC: Weakening structure",
+      "public_context_headline": "ETH: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in bearish expansion. Participation is unavailable for this period.",
-      "public_state_label": "Weakening structure",
-      "rotation_bucket": 14353939,
+      "public_safe_copy": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
+      "public_state_label": "Constructive context",
+      "rotation_bucket": 3538436019,
       "rotation_period": "2026-11-04",
       "rotation_reason": "fresh_public_context",
-      "rotation_score": 383,
+      "rotation_score": 380,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Bearish Expansion",
-      "sentiment_public_sentence": "Sentiment is in bearish expansion.",
+      "sentiment_label": "Bullish Expansion",
+      "sentiment_public_sentence": "Sentiment is in bullish expansion.",
       "sentiment_structure": "constructive pressure that still needs confirmation",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -13327,14 +13327,14 @@
       "surfaces": [
         "website_market_context_cards"
       ],
-      "symbol": "BTC",
+      "symbol": "ETH",
       "website_handoff": {
-        "combined_read": "Sentiment is in bearish expansion. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in bullish expansion. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Bearish Expansion",
-        "sentiment_public_sentence": "Sentiment is in bearish expansion."
+        "sentiment_label": "Bullish Expansion",
+        "sentiment_public_sentence": "Sentiment is in bullish expansion."
       }
     },
     {
