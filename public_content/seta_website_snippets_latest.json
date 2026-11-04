@@ -1,38 +1,12 @@
 {
   "schema_version": "seta_public_website_snippets_v1",
-  "date": "2026-11-03",
-  "published_at_utc": "2026-11-04T02:22:20+00:00",
+  "date": "2026-11-04",
+  "published_at_utc": "2026-11-04T03:21:16+00:00",
   "draft_only": false,
   "public_safe": true,
   "posting_performed": false,
   "description": "Public-safe SETA website explanation snippets. Interpretation context only; not predictions or trade signals.",
   "snippets": [
-    {
-      "term": "KAS",
-      "universe": "crypto",
-      "copy_archetype": "participation_diffusion",
-      "narrative_theme": "",
-      "headline": "KAS: participation is broadening",
-      "one_liner": "KAS is showing broader participation, and the open question is whether that breadth can hold.",
-      "public_note": "KAS is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
-      "short_explanation": "KAS is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "KAS is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
-      "seta_read_line": "participation diffusion | rank 1 | positive skew | Belief exceeds permission",
-      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Belief exceeds permission. Decision-pressure rank: 1. Resolution skew: positive.",
-      "narrative_note": "",
-      "social_blurb": "KAS is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
-      "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Participation diffusion",
-      "asset_state": "diffusion",
-      "decision_pressure_rank": 1,
-      "structural_state": "Belief exceeds permission",
-      "resolution_skew": "positive",
-      "narrative_regime": "",
-      "narrative_coherence_bucket": "",
-      "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
-    },
     {
       "term": "OPEN",
       "universe": "equities",
@@ -57,33 +31,59 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
-      "term": "DOGE",
+      "term": "BTC",
       "universe": "crypto",
-      "copy_archetype": "participation_diffusion",
+      "copy_archetype": "decision_pressure",
       "narrative_theme": "",
-      "headline": "DOGE: participation is broadening",
-      "one_liner": "DOGE is showing broader participation, and the open question is whether that breadth can hold.",
-      "public_note": "DOGE is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
-      "short_explanation": "DOGE is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "DOGE is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
-      "seta_read_line": "participation diffusion | rank 2 | positive skew | Belief exceeds permission",
-      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Resolution skew: positive.",
+      "headline": "BTC: decision-pressure watch",
+      "one_liner": "BTC sits in a high decision-pressure zone in the crypto tape.",
+      "public_note": "BTC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
+      "short_explanation": "BTC sits in a high decision-pressure zone in the crypto tape. Structure reads as Permission without belief. Decision-pressure rank: 1. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "BTC sits in a high decision-pressure zone in the crypto tape. Structure reads as Permission without belief. Decision-pressure rank: 1. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether decision pressure resolves into confirmation or rejection.",
+      "seta_read_line": "decision pressure | rank 1 | negative skew | Permission without belief",
+      "regime_note": "In the crypto tape, this reads as decay. Structure reads as Permission without belief. Decision-pressure rank: 1. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "DOGE is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
+      "social_blurb": "BTC sits in a high decision-pressure zone in the crypto tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Participation diffusion",
-      "asset_state": "diffusion",
-      "decision_pressure_rank": 2,
-      "structural_state": "Belief exceeds permission",
-      "resolution_skew": "positive",
+      "content_angle": "Validation risk",
+      "asset_state": "decay",
+      "decision_pressure_rank": 1,
+      "structural_state": "Permission without belief",
+      "resolution_skew": "negative",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
+    },
+    {
+      "term": "LINK",
+      "universe": "crypto",
+      "copy_archetype": "contested_structure",
+      "narrative_theme": "",
+      "headline": "LINK: contested structure",
+      "one_liner": "LINK is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
+      "public_note": "LINK is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.",
+      "short_explanation": "LINK is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 2. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "LINK is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 2. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
+      "seta_read_line": "contested structure | rank 2 | negative skew | Permission without belief",
+      "regime_note": "In the crypto tape, this reads as disagreement. Structure reads as Permission without belief. Decision-pressure rank: 2. Resolution skew: negative.",
+      "narrative_note": "",
+      "social_blurb": "LINK is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "risk_note": "Interpretation context only; not a prediction or trade signal.",
+      "content_angle": "Decision pressure / contested structure",
+      "asset_state": "disagreement",
+      "decision_pressure_rank": 2,
+      "structural_state": "Permission without belief",
+      "resolution_skew": "negative",
+      "narrative_regime": "",
+      "narrative_coherence_bucket": "",
+      "narrative_top_keywords": [],
+      "updated_at": "2026-11-04"
     },
     {
       "term": "AAPL",
@@ -109,33 +109,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
-      "term": "BTC",
+      "term": "KAS",
       "universe": "crypto",
-      "copy_archetype": "validation_risk",
+      "copy_archetype": "participation_diffusion",
       "narrative_theme": "",
-      "headline": "BTC: validation risk",
-      "one_liner": "BTC has visible activity, while the structural layer still argues for validation risk.",
-      "public_note": "BTC still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.",
-      "short_explanation": "BTC still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "BTC still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether validation improves before surface activity loses sponsorship.",
-      "seta_read_line": "validation risk | rank 3 | negative skew | Rejection / decay",
-      "regime_note": "In the crypto tape, this reads as decay. Structure reads as Rejection / decay. Decision-pressure rank: 3. Resolution skew: negative.",
+      "headline": "KAS: participation is broadening",
+      "one_liner": "KAS is showing broader participation, and the open question is whether that breadth can hold.",
+      "public_note": "KAS is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
+      "short_explanation": "KAS is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 3. Skew: positive. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "KAS is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 3. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
+      "seta_read_line": "participation diffusion | rank 3 | positive skew | Belief exceeds permission",
+      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Belief exceeds permission. Decision-pressure rank: 3. Resolution skew: positive.",
       "narrative_note": "",
-      "social_blurb": "BTC has visible activity, while the structural layer still argues for validation risk. Context, not a signal.",
+      "social_blurb": "KAS is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Validation risk",
-      "asset_state": "decay",
+      "content_angle": "Participation diffusion",
+      "asset_state": "diffusion",
       "decision_pressure_rank": 3,
-      "structural_state": "Rejection / decay",
-      "resolution_skew": "negative",
+      "structural_state": "Belief exceeds permission",
+      "resolution_skew": "positive",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "AMC",
@@ -161,33 +161,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
-      "term": "ETH",
+      "term": "DOGE",
       "universe": "crypto",
-      "copy_archetype": "seta_context",
+      "copy_archetype": "participation_diffusion",
       "narrative_theme": "",
-      "headline": "ETH: SETA context",
-      "one_liner": "ETH sits in a elevated decision-pressure zone in the crypto tape.",
-      "public_note": "ETH sits in a elevated decision-pressure zone in the crypto tape.",
-      "short_explanation": "ETH sits in a elevated decision-pressure zone in the crypto tape. Structure reads as Belief exceeds permission. Decision-pressure rank: 4. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "ETH sits in a elevated decision-pressure zone in the crypto tape. Structure reads as Belief exceeds permission. Decision-pressure rank: 4. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether participation and narrative coherence improves.",
-      "seta_read_line": "seta context | rank 4 | negative skew | Belief exceeds permission",
-      "regime_note": "In the crypto tape, this reads as decay. Structure reads as Belief exceeds permission. Decision-pressure rank: 4. Resolution skew: negative.",
+      "headline": "DOGE: participation is broadening",
+      "one_liner": "DOGE is showing broader participation, and the open question is whether that breadth can hold.",
+      "public_note": "DOGE is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
+      "short_explanation": "DOGE is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / decay. Decision-pressure rank: 4. Skew: positive. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "DOGE is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / decay. Decision-pressure rank: 4. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
+      "seta_read_line": "participation diffusion | rank 4 | positive skew | Rejection / decay",
+      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Rejection / decay. Decision-pressure rank: 4. Resolution skew: positive.",
       "narrative_note": "",
-      "social_blurb": "ETH sits in a elevated decision-pressure zone in the crypto tape. Context, not a signal.",
+      "social_blurb": "DOGE is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Validation risk",
-      "asset_state": "decay",
+      "content_angle": "Participation diffusion",
+      "asset_state": "diffusion",
       "decision_pressure_rank": 4,
-      "structural_state": "Belief exceeds permission",
-      "resolution_skew": "negative",
+      "structural_state": "Rejection / decay",
+      "resolution_skew": "positive",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "AMD",
@@ -213,33 +213,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
-      "term": "LINK",
+      "term": "ETH",
       "universe": "crypto",
-      "copy_archetype": "contested_structure",
+      "copy_archetype": "validation_risk",
       "narrative_theme": "",
-      "headline": "LINK: contested structure",
-      "one_liner": "LINK is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
-      "public_note": "LINK is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.",
-      "short_explanation": "LINK is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 5. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "LINK is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 5. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
-      "seta_read_line": "contested structure | rank 5 | negative skew | Permission without belief",
-      "regime_note": "In the crypto tape, this reads as disagreement. Structure reads as Permission without belief. Decision-pressure rank: 5. Resolution skew: negative.",
+      "headline": "ETH: validation risk",
+      "one_liner": "ETH has visible activity, while the structural layer still argues for validation risk.",
+      "public_note": "ETH still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.",
+      "short_explanation": "ETH still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 5. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "ETH still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 5. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether validation improves before surface activity loses sponsorship.",
+      "seta_read_line": "validation risk | rank 5 | negative skew | Rejection / decay",
+      "regime_note": "In the crypto tape, this reads as decay. Structure reads as Rejection / decay. Decision-pressure rank: 5. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "LINK is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "social_blurb": "ETH has visible activity, while the structural layer still argues for validation risk. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Decision pressure / contested structure",
-      "asset_state": "disagreement",
+      "content_angle": "Validation risk",
+      "asset_state": "decay",
       "decision_pressure_rank": 5,
-      "structural_state": "Permission without belief",
+      "structural_state": "Rejection / decay",
       "resolution_skew": "negative",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "AMZN",
@@ -265,7 +265,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "AAVE",
@@ -291,7 +291,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "BAC",
@@ -317,7 +317,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "SOL",
@@ -343,7 +343,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "XRP",
@@ -369,7 +369,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "AVAX",
@@ -395,7 +395,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "BNB",
@@ -421,7 +421,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "NVDA",
@@ -447,7 +447,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "MSFT",
@@ -473,7 +473,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "GOOGL",
@@ -499,7 +499,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "META",
@@ -525,7 +525,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "TSLA",
@@ -551,7 +551,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "COIN",
@@ -577,7 +577,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     {
       "term": "QQQ",
@@ -603,36 +603,10 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     }
   ],
   "by_term": {
-    "KAS": {
-      "term": "KAS",
-      "universe": "crypto",
-      "copy_archetype": "participation_diffusion",
-      "narrative_theme": "",
-      "headline": "KAS: participation is broadening",
-      "one_liner": "KAS is showing broader participation, and the open question is whether that breadth can hold.",
-      "public_note": "KAS is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
-      "short_explanation": "KAS is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "KAS is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 1. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
-      "seta_read_line": "participation diffusion | rank 1 | positive skew | Belief exceeds permission",
-      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Belief exceeds permission. Decision-pressure rank: 1. Resolution skew: positive.",
-      "narrative_note": "",
-      "social_blurb": "KAS is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
-      "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Participation diffusion",
-      "asset_state": "diffusion",
-      "decision_pressure_rank": 1,
-      "structural_state": "Belief exceeds permission",
-      "resolution_skew": "positive",
-      "narrative_regime": "",
-      "narrative_coherence_bucket": "",
-      "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
-    },
     "OPEN": {
       "term": "OPEN",
       "universe": "equities",
@@ -657,33 +631,59 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
-    "DOGE": {
-      "term": "DOGE",
+    "BTC": {
+      "term": "BTC",
       "universe": "crypto",
-      "copy_archetype": "participation_diffusion",
+      "copy_archetype": "decision_pressure",
       "narrative_theme": "",
-      "headline": "DOGE: participation is broadening",
-      "one_liner": "DOGE is showing broader participation, and the open question is whether that breadth can hold.",
-      "public_note": "DOGE is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
-      "short_explanation": "DOGE is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "DOGE is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
-      "seta_read_line": "participation diffusion | rank 2 | positive skew | Belief exceeds permission",
-      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Belief exceeds permission. Decision-pressure rank: 2. Resolution skew: positive.",
+      "headline": "BTC: decision-pressure watch",
+      "one_liner": "BTC sits in a high decision-pressure zone in the crypto tape.",
+      "public_note": "BTC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.",
+      "short_explanation": "BTC sits in a high decision-pressure zone in the crypto tape. Structure reads as Permission without belief. Decision-pressure rank: 1. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "BTC sits in a high decision-pressure zone in the crypto tape. Structure reads as Permission without belief. Decision-pressure rank: 1. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether decision pressure resolves into confirmation or rejection.",
+      "seta_read_line": "decision pressure | rank 1 | negative skew | Permission without belief",
+      "regime_note": "In the crypto tape, this reads as decay. Structure reads as Permission without belief. Decision-pressure rank: 1. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "DOGE is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
+      "social_blurb": "BTC sits in a high decision-pressure zone in the crypto tape. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Participation diffusion",
-      "asset_state": "diffusion",
-      "decision_pressure_rank": 2,
-      "structural_state": "Belief exceeds permission",
-      "resolution_skew": "positive",
+      "content_angle": "Validation risk",
+      "asset_state": "decay",
+      "decision_pressure_rank": 1,
+      "structural_state": "Permission without belief",
+      "resolution_skew": "negative",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
+    },
+    "LINK": {
+      "term": "LINK",
+      "universe": "crypto",
+      "copy_archetype": "contested_structure",
+      "narrative_theme": "",
+      "headline": "LINK: contested structure",
+      "one_liner": "LINK is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
+      "public_note": "LINK is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.",
+      "short_explanation": "LINK is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 2. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "LINK is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 2. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
+      "seta_read_line": "contested structure | rank 2 | negative skew | Permission without belief",
+      "regime_note": "In the crypto tape, this reads as disagreement. Structure reads as Permission without belief. Decision-pressure rank: 2. Resolution skew: negative.",
+      "narrative_note": "",
+      "social_blurb": "LINK is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "risk_note": "Interpretation context only; not a prediction or trade signal.",
+      "content_angle": "Decision pressure / contested structure",
+      "asset_state": "disagreement",
+      "decision_pressure_rank": 2,
+      "structural_state": "Permission without belief",
+      "resolution_skew": "negative",
+      "narrative_regime": "",
+      "narrative_coherence_bucket": "",
+      "narrative_top_keywords": [],
+      "updated_at": "2026-11-04"
     },
     "AAPL": {
       "term": "AAPL",
@@ -709,33 +709,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
-    "BTC": {
-      "term": "BTC",
+    "KAS": {
+      "term": "KAS",
       "universe": "crypto",
-      "copy_archetype": "validation_risk",
+      "copy_archetype": "participation_diffusion",
       "narrative_theme": "",
-      "headline": "BTC: validation risk",
-      "one_liner": "BTC has visible activity, while the structural layer still argues for validation risk.",
-      "public_note": "BTC still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.",
-      "short_explanation": "BTC still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "BTC still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 3. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether validation improves before surface activity loses sponsorship.",
-      "seta_read_line": "validation risk | rank 3 | negative skew | Rejection / decay",
-      "regime_note": "In the crypto tape, this reads as decay. Structure reads as Rejection / decay. Decision-pressure rank: 3. Resolution skew: negative.",
+      "headline": "KAS: participation is broadening",
+      "one_liner": "KAS is showing broader participation, and the open question is whether that breadth can hold.",
+      "public_note": "KAS is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
+      "short_explanation": "KAS is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 3. Skew: positive. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "KAS is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Belief exceeds permission. Decision-pressure rank: 3. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
+      "seta_read_line": "participation diffusion | rank 3 | positive skew | Belief exceeds permission",
+      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Belief exceeds permission. Decision-pressure rank: 3. Resolution skew: positive.",
       "narrative_note": "",
-      "social_blurb": "BTC has visible activity, while the structural layer still argues for validation risk. Context, not a signal.",
+      "social_blurb": "KAS is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Validation risk",
-      "asset_state": "decay",
+      "content_angle": "Participation diffusion",
+      "asset_state": "diffusion",
       "decision_pressure_rank": 3,
-      "structural_state": "Rejection / decay",
-      "resolution_skew": "negative",
+      "structural_state": "Belief exceeds permission",
+      "resolution_skew": "positive",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "AMC": {
       "term": "AMC",
@@ -761,33 +761,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
-    "ETH": {
-      "term": "ETH",
+    "DOGE": {
+      "term": "DOGE",
       "universe": "crypto",
-      "copy_archetype": "seta_context",
+      "copy_archetype": "participation_diffusion",
       "narrative_theme": "",
-      "headline": "ETH: SETA context",
-      "one_liner": "ETH sits in a elevated decision-pressure zone in the crypto tape.",
-      "public_note": "ETH sits in a elevated decision-pressure zone in the crypto tape.",
-      "short_explanation": "ETH sits in a elevated decision-pressure zone in the crypto tape. Structure reads as Belief exceeds permission. Decision-pressure rank: 4. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "ETH sits in a elevated decision-pressure zone in the crypto tape. Structure reads as Belief exceeds permission. Decision-pressure rank: 4. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether participation and narrative coherence improves.",
-      "seta_read_line": "seta context | rank 4 | negative skew | Belief exceeds permission",
-      "regime_note": "In the crypto tape, this reads as decay. Structure reads as Belief exceeds permission. Decision-pressure rank: 4. Resolution skew: negative.",
+      "headline": "DOGE: participation is broadening",
+      "one_liner": "DOGE is showing broader participation, and the open question is whether that breadth can hold.",
+      "public_note": "DOGE is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.",
+      "short_explanation": "DOGE is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / decay. Decision-pressure rank: 4. Skew: positive. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "DOGE is showing participation diffusion, which means the conversation is broadening rather than staying trapped in one narrow pocket. The next test is whether that breadth can translate into participation and narrative coherence. Structure reads as Rejection / decay. Decision-pressure rank: 4. Skew: positive. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether broadening participation translates into participation and narrative coherence.",
+      "seta_read_line": "participation diffusion | rank 4 | positive skew | Rejection / decay",
+      "regime_note": "In the crypto tape, this reads as diffusion. Structure reads as Rejection / decay. Decision-pressure rank: 4. Resolution skew: positive.",
       "narrative_note": "",
-      "social_blurb": "ETH sits in a elevated decision-pressure zone in the crypto tape. Context, not a signal.",
+      "social_blurb": "DOGE is showing broader participation, and the open question is whether that breadth can hold. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Validation risk",
-      "asset_state": "decay",
+      "content_angle": "Participation diffusion",
+      "asset_state": "diffusion",
       "decision_pressure_rank": 4,
-      "structural_state": "Belief exceeds permission",
-      "resolution_skew": "negative",
+      "structural_state": "Rejection / decay",
+      "resolution_skew": "positive",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "AMD": {
       "term": "AMD",
@@ -813,33 +813,33 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
-    "LINK": {
-      "term": "LINK",
+    "ETH": {
+      "term": "ETH",
       "universe": "crypto",
-      "copy_archetype": "contested_structure",
+      "copy_archetype": "validation_risk",
       "narrative_theme": "",
-      "headline": "LINK: contested structure",
-      "one_liner": "LINK is active, and the SETA layer reads the structure as contested rather than cleanly confirmed.",
-      "public_note": "LINK is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.",
-      "short_explanation": "LINK is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 5. Skew: negative. This is interpretation context, not a trade signal.",
-      "expanded_explanation": "LINK is active, and the SETA layer reads the structure as contested. That does not make it a clean rejection or a clean confirmation; it puts the setup in a decision zone. Structure reads as Permission without belief. Decision-pressure rank: 5. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
-      "watch_condition": "Watch whether structure catches up to participation, or participation fades first.",
-      "seta_read_line": "contested structure | rank 5 | negative skew | Permission without belief",
-      "regime_note": "In the crypto tape, this reads as disagreement. Structure reads as Permission without belief. Decision-pressure rank: 5. Resolution skew: negative.",
+      "headline": "ETH: validation risk",
+      "one_liner": "ETH has visible activity, while the structural layer still argues for validation risk.",
+      "public_note": "ETH still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.",
+      "short_explanation": "ETH still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 5. Skew: negative. This is interpretation context, not a trade signal.",
+      "expanded_explanation": "ETH still has validation risk. Surface activity may remain visible, while the underlying structure has not fully earned confirmation. Structure reads as Rejection / decay. Decision-pressure rank: 5. Skew: negative. This is interpretation context, not a trade signal. For the crypto tape, the key test is whether attention broadens sustainably.",
+      "watch_condition": "Watch whether validation improves before surface activity loses sponsorship.",
+      "seta_read_line": "validation risk | rank 5 | negative skew | Rejection / decay",
+      "regime_note": "In the crypto tape, this reads as decay. Structure reads as Rejection / decay. Decision-pressure rank: 5. Resolution skew: negative.",
       "narrative_note": "",
-      "social_blurb": "LINK is active, and the SETA layer reads the structure as contested rather than cleanly confirmed. Context, not a signal.",
+      "social_blurb": "ETH has visible activity, while the structural layer still argues for validation risk. Context, not a signal.",
       "risk_note": "Interpretation context only; not a prediction or trade signal.",
-      "content_angle": "Decision pressure / contested structure",
-      "asset_state": "disagreement",
+      "content_angle": "Validation risk",
+      "asset_state": "decay",
       "decision_pressure_rank": 5,
-      "structural_state": "Permission without belief",
+      "structural_state": "Rejection / decay",
       "resolution_skew": "negative",
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "AMZN": {
       "term": "AMZN",
@@ -865,7 +865,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "AAVE": {
       "term": "AAVE",
@@ -891,7 +891,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "BAC": {
       "term": "BAC",
@@ -917,7 +917,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "SOL": {
       "term": "SOL",
@@ -943,7 +943,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "XRP": {
       "term": "XRP",
@@ -969,7 +969,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "AVAX": {
       "term": "AVAX",
@@ -995,7 +995,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "BNB": {
       "term": "BNB",
@@ -1021,7 +1021,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "NVDA": {
       "term": "NVDA",
@@ -1047,7 +1047,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "MSFT": {
       "term": "MSFT",
@@ -1073,7 +1073,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "GOOGL": {
       "term": "GOOGL",
@@ -1099,7 +1099,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "META": {
       "term": "META",
@@ -1125,7 +1125,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "TSLA": {
       "term": "TSLA",
@@ -1151,7 +1151,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "COIN": {
       "term": "COIN",
@@ -1177,7 +1177,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     },
     "QQQ": {
       "term": "QQQ",
@@ -1203,7 +1203,7 @@
       "narrative_regime": "",
       "narrative_coherence_bucket": "",
       "narrative_top_keywords": [],
-      "updated_at": "2026-11-03"
+      "updated_at": "2026-11-04"
     }
   },
   "counts": {
