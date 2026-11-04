@@ -4,18 +4,6 @@ Public-safe explanation copy for website/dashboard display.
 
 > SETA explains behavior beneath price. Interpretation context only; not predictions or trade signals.
 
-## OPEN: participation is broadening
-
-OPEN is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
-
-**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
-
-**SETA read:** participation diffusion | rank 1 | positive skew | Belief exceeds permission
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
 ## BTC: decision-pressure watch
 
 BTC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
@@ -23,6 +11,18 @@ BTC is sitting in a decision-pressure zone. The signal is less about prediction 
 **Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
 **SETA read:** decision pressure | rank 1 | negative skew | Permission without belief
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## OPEN: participation is broadening
+
+OPEN is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+
+**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
+
+**SETA read:** participation diffusion | rank 1 | positive skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -52,25 +52,25 @@ AAPL is active, and SETA reads the structure as contested rather than cleanly co
 
 ---
 
-## KAS: participation is broadening
+## ETH: decision-pressure watch
 
-KAS is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+ETH is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
 
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** participation diffusion | rank 3 | positive skew | Belief exceeds permission
+**SETA read:** decision pressure | rank 3 | negative skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
 ---
 
-## AMC: repair watch
+## AMC: decision-pressure watch
 
-AMC looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+AMC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
 
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** repair watch | rank 3
+**SETA read:** decision pressure | rank 3
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -82,7 +82,7 @@ DOGE is showing broader participation. That is constructive for the crypto tape,
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** participation diffusion | rank 4 | positive skew | Rejection / decay
+**SETA read:** participation diffusion | rank 4 | positive skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -100,13 +100,13 @@ AMD looks more like repair than confirmation. The useful read is whether sponsor
 
 ---
 
-## ETH: validation risk
+## KAS: participation is broadening
 
-ETH still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
+KAS is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** validation risk | rank 5 | negative skew | Rejection / decay
+**SETA read:** participation diffusion | rank 5 | positive skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -196,13 +196,13 @@ BNB sits in a lower decision-pressure zone in the crypto tape.
 
 ---
 
-## NVDA: SETA context
+## NVDA: contested structure
 
-NVDA sits in a lower decision-pressure zone in the equity tape.
+NVDA is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
 
-**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** seta context | rank 21
+**SETA read:** contested structure | rank 21
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
