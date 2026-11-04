@@ -1,20 +1,8 @@
-# SETA Website Snippets — 2026-11-03
+# SETA Website Snippets — 2026-11-04
 
 Public-safe explanation copy for website/dashboard display.
 
 > SETA explains behavior beneath price. Interpretation context only; not predictions or trade signals.
-
-## KAS: participation is broadening
-
-KAS is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
-
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
-
-**SETA read:** participation diffusion | rank 1 | positive skew | Belief exceeds permission
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
 
 ## OPEN: participation is broadening
 
@@ -28,13 +16,25 @@ OPEN is showing broader participation. That is constructive for the equity tape,
 
 ---
 
-## DOGE: participation is broadening
+## BTC: decision-pressure watch
 
-DOGE is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
+BTC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
 
-**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
+**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** participation diffusion | rank 2 | positive skew | Belief exceeds permission
+**SETA read:** decision pressure | rank 1 | negative skew | Permission without belief
+
+**Risk note:** Interpretation context only; not a prediction or trade signal.
+
+---
+
+## LINK: contested structure
+
+LINK is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.
+
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+
+**SETA read:** contested structure | rank 2 | negative skew | Permission without belief
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -52,13 +52,13 @@ AAPL is active, and SETA reads the structure as contested rather than cleanly co
 
 ---
 
-## BTC: validation risk
+## KAS: participation is broadening
 
-BTC still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
+KAS is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** validation risk | rank 3 | negative skew | Rejection / decay
+**SETA read:** participation diffusion | rank 3 | positive skew | Belief exceeds permission
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -76,13 +76,13 @@ AMC looks more like repair than confirmation. The useful read is whether sponsor
 
 ---
 
-## ETH: SETA context
+## DOGE: participation is broadening
 
-ETH sits in a elevated decision-pressure zone in the crypto tape.
+DOGE is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether participation and narrative coherence improves.
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** seta context | rank 4 | negative skew | Belief exceeds permission
+**SETA read:** participation diffusion | rank 4 | positive skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -100,13 +100,13 @@ AMD looks more like repair than confirmation. The useful read is whether sponsor
 
 ---
 
-## LINK: contested structure
+## ETH: validation risk
 
-LINK is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup. Permission without belief is the key tension.
+ETH still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
-**SETA read:** contested structure | rank 5 | negative skew | Permission without belief
+**SETA read:** validation risk | rank 5 | negative skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
