@@ -217,7 +217,7 @@
       "presentation_group": "equity",
       "public_context_headline": "NVDA: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "NVDA shows layered SETA context. Participation context is available with source coverage unresolved.",
+      "public_safe_copy": "NVDA shows weakening technical pressure with mixed internal strength. Participation context is available with source coverage unresolved.",
       "public_state_label": "Weakening structure",
       "rotation_bucket": 2975253422,
       "rotation_period": "2026-11-16",
@@ -225,7 +225,7 @@
       "rotation_score": 383,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_structure": "weakening technical pressure with mixed internal strength",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -1288,7 +1288,7 @@
       "presentation_group": "equity",
       "public_context_headline": "NVDA: Weakening structure",
       "public_safe": true,
-      "public_safe_copy": "NVDA shows layered SETA context. Participation context is available with source coverage unresolved.",
+      "public_safe_copy": "NVDA shows weakening technical pressure with mixed internal strength. Participation context is available with source coverage unresolved.",
       "public_state_label": "Weakening structure",
       "rotation_bucket": 2975253422,
       "rotation_period": "2026-11-16",
@@ -1296,7 +1296,7 @@
       "rotation_score": 373,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_structure": "weakening technical pressure with mixed internal strength",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "1Y",
@@ -8969,7 +8969,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-11-16T12:25:23Z",
+  "generated_at": "2026-11-16T13:23:45Z",
   "items": [
     {
       "asset_class": "etf",
@@ -11286,7 +11286,7 @@
       "selection_reason": "freshest_public_safe_reviewed_briefing",
       "sentiment_label": "Bearish Expansion",
       "sentiment_public_sentence": "Sentiment is in bearish expansion.",
-      "sentiment_structure": "Layered SETA context",
+      "sentiment_structure": "weakening technical pressure with mixed internal strength",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
       "source_display_range": "3M",
@@ -13036,7 +13036,7 @@
       "presentation_group": "crypto",
       "public_context_headline": "SOL: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a compression / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Repair watch",
       "rotation_bucket": 1647624549,
       "rotation_period": "2026-11-16",
@@ -13044,8 +13044,8 @@
       "rotation_score": 377,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_label": "Compression / Transition",
+      "sentiment_public_sentence": "Sentiment is in a compression / transition regime.",
       "sentiment_structure": "constructive pressure with confirmation still worth monitoring",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -13059,12 +13059,12 @@
       ],
       "symbol": "SOL",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a compression / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Compression / Transition",
+        "sentiment_public_sentence": "Sentiment is in a compression / transition regime."
       }
     },
     {
@@ -13912,7 +13912,7 @@
       "presentation_group": "crypto",
       "public_context_headline": "BNB: Constructive context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in bearish rollover. Participation is unavailable for this period.",
       "public_state_label": "Constructive context",
       "rotation_bucket": 1719228104,
       "rotation_period": "2026-11-16",
@@ -13920,8 +13920,8 @@
       "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_label": "Bearish Rollover",
+      "sentiment_public_sentence": "Sentiment is in bearish rollover.",
       "sentiment_structure": "constructive pressure that still needs confirmation with bearish rejection risk",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -13935,12 +13935,12 @@
       ],
       "symbol": "BNB",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in bearish rollover. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Bearish Rollover",
+        "sentiment_public_sentence": "Sentiment is in bearish rollover."
       }
     },
     {
