@@ -32,13 +32,13 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-11-12T13:20:04Z",
+      "generated_at_utc": "2026-11-16T04:19:51Z",
       "publication_status": "public_research_visible"
     },
     "prediction_outcomes": {
-      "generated_at_utc": "2026-11-12T13:21:06",
-      "pending_count": 5340,
-      "pending_resolution_basis_count": 5340,
+      "generated_at_utc": "2026-11-16T04:20:54",
+      "pending_count": 5337,
+      "pending_resolution_basis_count": 5337,
       "resolution_basis_guard_applied": true,
       "resolved_count": 0,
       "schema_version": "prediction_outcome_overlay_v1",
@@ -71,7 +71,7 @@
         "XLE",
         "XRP"
       ],
-      "generated_at_utc": "2026-11-12T13:19:30Z"
+      "generated_at_utc": "2026-11-16T04:19:17Z"
     },
     "reviewed_briefings": {
       "briefing_count": 130
@@ -85,13 +85,13 @@
       "source_repo": "sentiment-dash-internal"
     },
     "website_snippets": {
-      "date": "2026-11-12",
+      "date": "2026-11-16",
       "posting_performed": false,
       "public_safe": true,
-      "published_at_utc": "2026-11-12T13:21:13+00:00"
+      "published_at_utc": "2026-11-16T04:20:48+00:00"
     }
   },
-  "generated_at_utc": "2026-11-12T13:21:57Z",
+  "generated_at_utc": "2026-11-16T04:22:27Z",
   "notes": [
     "Public refresh status only; no local paths, credentials, raw exports, or private pipeline details are included.",
     "Research chart artifacts are public demo-safe/research-visible on GitHub Pages, not protected private/member data."
@@ -100,7 +100,7 @@
   "public_safe": true,
   "repository": {
     "branch": "main",
-    "head_sha": "6fa6ee7a10690087bf01ed1cb66fa5438dd3da9d"
+    "head_sha": "a1d550da0a916c1e20ccf43c7b337780b36f093d"
   },
   "runner": "run_seta_daily_all.bat",
   "schema_version": "site_refresh_status_v1"
