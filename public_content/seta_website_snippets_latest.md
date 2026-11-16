@@ -112,13 +112,13 @@ KAS looks more like repair than confirmation. The useful read is whether sponsor
 
 ---
 
-## AMZN: SETA context
+## AMZN: repair watch
 
-AMZN sits in a elevated decision-pressure zone in the equity tape.
+AMZN looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
-**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** seta context | rank 5
+**SETA read:** repair watch | rank 5
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -214,7 +214,7 @@ MSFT sits in a lower decision-pressure zone in the equity tape.
 
 **Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** seta context | rank 17
+**SETA read:** seta context | rank 16
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -226,7 +226,7 @@ GOOGL sits in a lower decision-pressure zone in the equity tape.
 
 **Watch condition:** Watch whether sector leadership and structural confirmation improves.
 
-**SETA read:** seta context | rank 11
+**SETA read:** seta context | rank 10
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -238,7 +238,7 @@ META looks more like repair than confirmation. The useful read is whether sponso
 
 **Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** repair watch | rank 16
+**SETA read:** repair watch | rank 15
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -256,25 +256,13 @@ TSLA is active, and SETA reads the structure as contested rather than cleanly co
 
 ---
 
-## COIN: SETA context
+## QQQ: broadening, not yet all-clear
 
-COIN sits in a elevated decision-pressure zone in the equity tape.
+QQQ is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether sector leadership and structural confirmation improves.
+**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
-**SETA read:** seta context | rank 7
-
-**Risk note:** Interpretation context only; not a prediction or trade signal.
-
----
-
-## QQQ: SETA context
-
-QQQ sits in a lower decision-pressure zone in the equity tape.
-
-**Watch condition:** Watch whether sector leadership and structural confirmation improves.
-
-**SETA read:** seta context | rank 23
+**SETA read:** broadening participation | rank 23
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
