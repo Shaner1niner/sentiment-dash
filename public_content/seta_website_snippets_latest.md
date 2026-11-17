@@ -166,7 +166,7 @@ XRP is showing broader participation. That is constructive for the crypto tape, 
 
 **Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** broadening participation | rank 25
+**SETA read:** broadening participation
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
