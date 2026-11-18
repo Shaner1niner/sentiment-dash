@@ -202,7 +202,7 @@ NVDA is active, and SETA reads the structure as contested rather than cleanly co
 
 **Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** contested structure | rank 19
+**SETA read:** contested structure | rank 20
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -256,13 +256,13 @@ TSLA is active, and SETA reads the structure as contested rather than cleanly co
 
 ---
 
-## QQQ: contested structure
+## QQQ: broadening, not yet all-clear
 
-QQQ is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
+QQQ is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
-**SETA read:** contested structure | rank 22
+**SETA read:** broadening participation | rank 23
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
