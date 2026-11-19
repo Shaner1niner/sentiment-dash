@@ -1,4 +1,4 @@
-# SETA Website Snippets — 2026-11-18
+# SETA Website Snippets — 2026-11-19
 
 Public-safe explanation copy for website/dashboard display.
 
@@ -40,13 +40,13 @@ LINK looks more like repair than confirmation. The useful read is whether sponso
 
 ---
 
-## AAPL: repair watch
+## AAPL: decision-pressure watch
 
-AAPL looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+AAPL is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
 
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** repair watch | rank 2
+**SETA read:** decision pressure | rank 2
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
