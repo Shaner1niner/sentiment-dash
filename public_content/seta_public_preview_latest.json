@@ -2893,7 +2893,7 @@
     "message": "No eligible public preview examples are available right now.",
     "status": "available"
   },
-  "generated_at": "2026-11-19T16:21:46Z",
+  "generated_at": "2026-11-19T17:21:57Z",
   "items": [
     {
       "asset_class": "etf",
@@ -3740,7 +3740,7 @@
       "presentation_group": "equity",
       "public_context_headline": "AMD: Layered context",
       "public_safe": true,
-      "public_safe_copy": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+      "public_safe_copy": "Sentiment is in a compression / transition regime. Participation is unavailable for this period.",
       "public_state_label": "Layered context",
       "rotation_bucket": 3254716123,
       "rotation_period": "2026-11-19",
@@ -3748,8 +3748,8 @@
       "rotation_score": 363,
       "rotation_strategy": "public_context_rotation_v1",
       "selection_reason": "freshest_public_safe_reviewed_briefing",
-      "sentiment_label": "Flat / Transition",
-      "sentiment_public_sentence": "Sentiment is in a flat / transition regime.",
+      "sentiment_label": "Compression / Transition",
+      "sentiment_public_sentence": "Sentiment is in a compression / transition regime.",
       "sentiment_structure": "Layered SETA context",
       "source_breadth": "coverage unresolved",
       "source_breadth_label": "Coverage unresolved",
@@ -3763,12 +3763,12 @@
       ],
       "symbol": "AMD",
       "website_handoff": {
-        "combined_read": "Sentiment is in a flat / transition regime. Participation is unavailable for this period.",
+        "combined_read": "Sentiment is in a compression / transition regime. Participation is unavailable for this period.",
         "participation_label": "Participation unavailable",
         "participation_public_sentence": "Participation is unavailable for this period.",
         "schema_version": "seta_public_sentiment_participation_handoff_v1",
-        "sentiment_label": "Flat / Transition",
-        "sentiment_public_sentence": "Sentiment is in a flat / transition regime."
+        "sentiment_label": "Compression / Transition",
+        "sentiment_public_sentence": "Sentiment is in a compression / transition regime."
       }
     },
     {
