@@ -64,13 +64,13 @@ ETH is active, and SETA reads the structure as contested rather than cleanly con
 
 ---
 
-## AMC: decision-pressure watch
+## AMC: contested structure
 
-AMC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
+AMC is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
 
-**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** decision pressure | rank 3
+**SETA read:** contested structure | rank 3
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -256,13 +256,13 @@ TSLA is active, and SETA reads the structure as contested rather than cleanly co
 
 ---
 
-## QQQ: contested structure
+## QQQ: broadening, not yet all-clear
 
-QQQ is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
+QQQ is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
-**SETA read:** contested structure | rank 23
+**SETA read:** broadening participation | rank 23
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
