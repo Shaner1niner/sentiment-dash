@@ -100,13 +100,13 @@ AMD is active, and SETA reads the structure as contested rather than cleanly con
 
 ---
 
-## KAS: repair watch
+## KAS: validation risk
 
-KAS looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
+KAS still carries validation risk. Surface activity may be visible, while the underlying structure has not fully earned confirmation.
 
-**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
+**Watch condition:** Watch whether validation improves before surface activity loses sponsorship.
 
-**SETA read:** repair watch | rank 5 | mixed skew | Rejection / decay
+**SETA read:** validation risk | rank 5 | negative skew | Rejection / decay
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -256,13 +256,13 @@ TSLA is active, and SETA reads the structure as contested rather than cleanly co
 
 ---
 
-## QQQ: contested structure
+## QQQ: broadening, not yet all-clear
 
-QQQ is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
+QQQ is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
 
-**SETA read:** contested structure | rank 23
+**SETA read:** broadening participation | rank 23
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
