@@ -1,4 +1,4 @@
-# SETA Website Snippets — 2026-11-20
+# SETA Website Snippets — 2026-11-21
 
 Public-safe explanation copy for website/dashboard display.
 
@@ -256,13 +256,13 @@ TSLA is active, and SETA reads the structure as contested rather than cleanly co
 
 ---
 
-## QQQ: broadening, not yet all-clear
+## QQQ: contested structure
 
-QQQ is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+QQQ is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
 
-**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
+**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
 
-**SETA read:** broadening participation | rank 23
+**SETA read:** contested structure | rank 23
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
