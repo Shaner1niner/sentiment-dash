@@ -136,13 +136,13 @@ AAVE is active, and SETA reads the structure as contested rather than cleanly co
 
 ---
 
-## BAC: participation is broadening
+## ARM: repair watch
 
-BAC is showing broader participation. That is constructive for the equity tape, while the next test is whether the breadth can hold and earn confirmation.
+ARM looks more like repair than confirmation. The useful read is whether sponsorship is rebuilding underneath the surface.
 
-**Watch condition:** Watch whether broadening participation translates into sector leadership and structural confirmation.
+**Watch condition:** Watch whether sponsorship rebuilds enough to confirm the repair.
 
-**SETA read:** participation diffusion | rank 6
+**SETA read:** repair watch | rank 6
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
@@ -184,13 +184,13 @@ AVAX looks more like repair than confirmation. The useful read is whether sponso
 
 ---
 
-## BNB: contested structure
+## BNB: broadening, not yet all-clear
 
-BNB is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
+BNB is showing broader participation. That is constructive for the crypto tape, while the next test is whether the breadth can hold and earn confirmation.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether broadening participation translates into participation and narrative coherence.
 
-**SETA read:** contested structure | rank 10
+**SETA read:** broadening participation | rank 10
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
