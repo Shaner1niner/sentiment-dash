@@ -1,4 +1,4 @@
-# SETA Website Snippets — 2026-11-22
+# SETA Website Snippets — 2026-11-23
 
 Public-safe explanation copy for website/dashboard display.
 
@@ -64,13 +64,13 @@ ETH is active, and SETA reads the structure as contested rather than cleanly con
 
 ---
 
-## AMC: contested structure
+## AMC: decision-pressure watch
 
-AMC is active, and SETA reads the structure as contested rather than cleanly confirmed. This is a decision zone, not an all-clear setup.
+AMC is sitting in a decision-pressure zone. The signal is less about prediction and more about whether confirmation or rejection arrives next.
 
-**Watch condition:** Watch whether structure catches up to participation, or participation fades first.
+**Watch condition:** Watch whether decision pressure resolves into confirmation or rejection.
 
-**SETA read:** contested structure | rank 3
+**SETA read:** decision pressure | rank 3
 
 **Risk note:** Interpretation context only; not a prediction or trade signal.
 
